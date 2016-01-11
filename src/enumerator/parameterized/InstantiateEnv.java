@@ -31,7 +31,4 @@ public class InstantiateEnv {
         }
         return vh;
     }
-
-    // TODO: add table instantiation and filter instantiation
-
 }

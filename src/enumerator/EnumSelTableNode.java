@@ -28,13 +28,17 @@ public class EnumSelTableNode {
      *********************************************************************************/
 
     public static List<TableNode> enumSelectNode(EnumContext ec, int depth) {
+        return enumSelectNode(ec, depth, false);
+    }
+
+    public static List<TableNode> enumSelectNode(EnumContext ec, int depth, boolean selectStar) {
 
         List<TableNode> result = new ArrayList<>();
 
         List<TableNode> coreTableNode = TableEnumerator.enumTable(ec, depth - 1);
 
         for (TableNode tn : coreTableNode) {
-            List<List<ValNode>> lvn = enumSelectArgs(ec,tn);
+            List<List<ValNode>> lvn = enumSelectArgs(ec,tn, selectStar);
             Map<String, ValType> typeMap = new HashMap<>();
             for (int i = 0; i < tn.getSchema().size(); i ++) {
                 typeMap.put(tn.getSchema().get(i), tn.getSchemaType().get(i));
@@ -57,7 +61,7 @@ public class EnumSelTableNode {
     }
 
     // Enumerate the selection fields of a select query
-    private static List<List<ValNode>> enumSelectArgs(EnumContext ec, TableNode tableNode) {
+    private static List<List<ValNode>> enumSelectArgs(EnumContext ec, TableNode tableNode, boolean enumStar) {
         List<ValNode> vals = new ArrayList<ValNode>();
         // TODO: check whether ruling out hole param is a good idea
         vals.addAll(ec.getValNodes().stream()
@@ -67,7 +71,12 @@ public class EnumSelTableNode {
         vals.addAll(tableNode.getSchema().stream()
                 .map(s -> new NamedVal(s)).collect(Collectors.toList()));
 
-        List<List<ValNode>> valNodes = CombinationGenerator.genCombination(vals);
+        List<List<ValNode>> valNodes = new ArrayList<>();
+        if (! enumStar)
+            valNodes = CombinationGenerator.genCombination(vals);
+        else
+            valNodes.add(vals);
+
         return valNodes;
     }
 

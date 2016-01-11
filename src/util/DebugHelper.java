@@ -3,6 +3,7 @@ package util;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.table.TableNode;
+import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
 
 import java.util.List;
@@ -31,6 +32,20 @@ public class DebugHelper {
                 System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-");
                 System.out.println(tn.prettyPrint(0));;
             }
+        }
+    }
+
+    public static void printList(List l) {
+        for (Object t : l) {
+            System.out.println("--------------------------");
+            System.out.println(t.toString());
+        }
+    }
+
+    public static void printValNodes(List<ValNode> vns) {
+        for (ValNode vn : vns) {
+            System.out.println("---------------------------");
+            System.out.println(vn.prettyPrint(0));
         }
     }
 }

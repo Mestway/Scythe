@@ -6,8 +6,8 @@ import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.table.NamedTable;
 import sql.lang.ast.table.TableNode;
+import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
-import util.DebugHelper;
 import util.RenameTNWrapper;
 
 import java.util.ArrayList;
@@ -22,19 +22,21 @@ import java.util.stream.Collectors;
 public class TableEnumerator {
 
     public static List<TableNode> enumProgramWithIO(List<Table> input, Table output, Constraint c) {
-        /*List<TableNode> parameterizedTables = EnumParamTN
+
+        List<ValNode> vns = new ArrayList<>();
+        vns.addAll(c.constValNodes);
+
+        List<TableNode> parameterizedTables = EnumParamTN
                 .enumParameterizedTableNodes(
                         input.stream()
                                 .map(t -> new NamedTable(t)).collect(Collectors.toList()),
-                        new ArrayList<>().addAll(c.constValNodes),
-                        2);
-        */
+                        vns,
+                        EnumParamTN.numberofParams);
+
         EnumContext ec = new EnumContext(input, c);
-        //ec.setParameterizedTables(parameterizedTables);
+        ec.setParameterizedTables(parameterizedTables);
 
         List<TableNode> tns = enumTableWithHueristics(ec, c.maxDepth);
-
-        DebugHelper.printTableNodes(tns);
 
         // only keep the table nodes that are consistent with the I/O pairs
         return tns.stream().filter(tn -> {
@@ -46,9 +48,9 @@ public class TableEnumerator {
         }).collect(Collectors.toList());
     }
 
-    static Map<Integer, List<TableNode>> map = new HashMap<>();
-
     public static List<TableNode> enumTable(EnumContext ec, int depth) {
+
+        Map<Integer, List<TableNode>> map = ec.getMap();
 
         if (map.containsKey(depth))
             return map.get(depth);
@@ -74,6 +76,8 @@ public class TableEnumerator {
 
     public static List<TableNode> enumTableWithHueristics(EnumContext ec, int depth) {
 
+        Map<Integer, List<TableNode>> map = ec.getMap();
+
         if (map.containsKey(depth))
             return map.get(depth);
 
@@ -84,7 +88,6 @@ public class TableEnumerator {
 
             List<TableNode> aggrNodes = EnumAggrTableNode.enumAggregationNode(ec, 0);
             tbs.addAll(aggrNodes.stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
-            DebugHelper.printTableNodes(tbs);
             map.put(0, tbs);
             return map.get(0);
         }

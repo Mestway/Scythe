@@ -1,12 +1,18 @@
 package enumerator;
 
+import enumerator.parameterized.EnumParamTN;
+import enumerator.parameterized.InstantiateEnv;
+import sql.lang.DataType.NumberVal;
 import sql.lang.DataType.ValType;
 import sql.lang.DataType.Value;
 import sql.lang.ast.Hole;
 import sql.lang.ast.filter.*;
 import sql.lang.ast.table.TableNode;
+import sql.lang.ast.val.ConstantVal;
 import sql.lang.ast.val.ValHole;
 import sql.lang.ast.val.ValNode;
+import util.CombinationGenerator;
+import util.DebugHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,6 +48,9 @@ public class FilterEnumerator {
 
         for (int i = 0; i < filters.size(); i ++) {
             for (int j = i + 1; j < filters.size(); j ++) {
+
+                if (filters.get(i) instanceof ExistComparator && filters.get(j) instanceof ExistComparator)
+                    continue;
 
                 // Prune: if two filters have same arguments but different comparator,
                 // then they are exclusive and will not be added as LogicAndFilter
@@ -87,10 +96,14 @@ public class FilterEnumerator {
         // Enumerate Filter with Subquery,
         // only do this when the enum level is less than maximum level
         // TODO: add constraints, we should only select tables that use env variables
-        /*List<TableNode> tns = EnumSelTableNode.enumSelectNode(ec, 1);
-        for (TableNode tn : tns) {
-            atomicFilters.add(new ExistComparator(tn));
-        }*/
+        List<List<ValNode>> llvns = CombinationGenerator.genCombination(
+                ec.getValNodes(), EnumParamTN.numberofParams);
+        for (List<ValNode> vns : llvns) {
+            InstantiateEnv ie = new InstantiateEnv(vns, ec);
+            atomicFilters.addAll(
+                    ec.getParameterizedTables().stream().map(tn -> tn.instantiate(ie))
+            .filter(t -> t.getAllHoles().size() == 0).map(tn -> new ExistComparator(tn)).collect(Collectors.toList()));
+        }
 
         List<Filter> resultFilter = new ArrayList<>();
         resultFilter.addAll(atomicFilters);
@@ -101,6 +114,8 @@ public class FilterEnumerator {
         }
 
         return resultFilter;
+
+
     }
 
 }

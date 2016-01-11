@@ -8,6 +8,7 @@ import sql.lang.ast.table.NamedTable;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
+import util.DebugHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +24,9 @@ import java.util.stream.Collectors;
  * Created by clwang on 12/23/15.
  */
 public class EnumContext {
+
+    private Map<Integer, List<TableNode>> map = new HashMap<>();
+    public Map<Integer, List<TableNode>> getMap() { return map; }
 
     private int maxFilterLength = 2;
 
@@ -50,6 +54,8 @@ public class EnumContext {
     public int getMaxFilterLength() { return this.maxFilterLength; }
 
     public void setParameterizedTables(List<TableNode> tbs) { this.parameterizedTables = tbs; }
+
+    public List<TableNode> getParameterizedTables() { return this.parameterizedTables; }
 
     public EnumContext(List<Table> tbs, Constraint c) {
         tablesNodes = tbs.stream().map(t -> new NamedTable(t)).collect(Collectors.toList());
@@ -105,6 +111,16 @@ public class EnumContext {
         newEC.typeMap.putAll(ec.typeMap);
         newEC.maxFilterLength = ec.maxFilterLength;
         newEC.parameterizedTables = ec.parameterizedTables;
+        newEC.map = ec.map;
         return newEC;
+    }
+
+    public void debugPrint() {
+        System.out.println(" EC PRINT START ");
+        System.out.println("~~==~~ tables");
+        DebugHelper.printTableNodes(this.tablesNodes);
+        System.out.println("~~==~~ valnodes");
+        DebugHelper.printValNodes(this.valNodes);
+        System.out.println(" EC PRINT END ");
     }
 }

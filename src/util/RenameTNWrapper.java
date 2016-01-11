@@ -40,4 +40,23 @@ public class RenameTNWrapper {
         } else
             return tn;
     }
+
+    public static TableNode forceRename(TableNode tn) {
+        String newName = "defaultTable_" + renamingIndex;
+        renamingIndex ++;
+        List<String> newSchema = new ArrayList<String>();
+        for (String s : tn.getSchema()) {
+            String shortName = s.substring(s.lastIndexOf(".") + 1);
+            if (newSchema.contains(shortName)) {
+                int i = 1;
+                while(newSchema.contains(shortName + i)) {
+                    i ++;
+                }
+                newSchema.add(shortName + i);
+            } else {
+                newSchema.add(shortName);
+            }
+        }
+        return new RenameTableNode(newName, newSchema, tn);
+    }
 }
