@@ -43,4 +43,9 @@ public class TimeVal implements Value {
         return new TimeVal((Time) this.val.clone());
     }
 
+    @Override
+    public ValType getValType() {
+        return ValType.TimeVal;
+    }
+
 }

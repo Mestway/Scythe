@@ -1,8 +1,12 @@
 package sql.lang;
 
+import sql.lang.DataType.ValType;
+import sql.lang.DataType.Value;
 import sql.lang.ast.filter.VVComparator;
+import sql.lang.exception.SQLEvalException;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by clwang on 12/12/15.
@@ -31,7 +35,7 @@ public class Table {
     public Table(String tableName, List<String> metadata, List<List<String>> rawContent) {
         List<TableRow> rows = new ArrayList<TableRow>();
         for (List<String> sList : rawContent) {
-            rows.add(new TableRow(tableName, metadata, sList));
+            rows.add(TableRow.TableRowFromString(tableName, metadata, sList));
         }
         this.initialize(tableName, metadata, rows);
     }
@@ -45,7 +49,25 @@ public class Table {
     public List<String> getMetadata() { return this.metadata; }
     public String getName() { return this.name; }
     public List<TableRow> getContent() { return this.rows; }
-    public void setName(String tableName) { this.name = tableName; }
+
+    // Update the name of a table
+    // Not sure if it is supposed to be used
+    public void updateName(String tableName) {
+        this.name = tableName;
+        for (TableRow r : rows) {
+            r.updateTableName(tableName);
+        }
+    }
+
+    public void updateMetadata(List<String> md) {
+        if (this.metadata.size() != md.size()) {
+            System.err.println("[Error@Table61] the new metadata size does not equal to the original one.");
+        }
+        this.metadata = md;
+        for (TableRow tr : this.rows) {
+            tr.updateMetadata(md);
+        }
+    }
 
     @Override
     public String toString() {
@@ -74,27 +96,6 @@ public class Table {
         return table;
     }
 
-    public Table projectionBy(List<String> columns) {
-        List<Integer> columnIndices = new ArrayList<Integer>();
-        for (String s : columns) {
-            for (int i = 0; i < this.metadata.size(); i ++) {
-                if (this.metadata.get(i).equals(s)) {
-                    columnIndices.add(i);
-                }
-            }
-        }
-
-        Table newTable = new Table();
-        newTable.name = this.name;
-        for (Integer i : columnIndices) {
-            newTable.metadata.add(this.metadata.get(i));
-        }
-        for (TableRow row : this.rows) {
-            newTable.rows.add(row.projection(columnIndices));
-        }
-        return newTable;
-    }
-
     public boolean tableEquals(Table table) {
         for (int i = 0; i < this.metadata.size(); i ++) {
             if (!this.metadata.get(i).equals(table.metadata.get(i)))
@@ -107,4 +108,83 @@ public class Table {
         }
         return true;
     }
+
+    public boolean contentEquals(Table table) {
+        return this.containsContent(table) && table.containsContent(this);
+    }
+
+    /**
+     * Test whether t2 is contained by this table
+     * @param t2
+     * @return true - t2 is contained by this table
+     *          false - t2 is not contained by this table
+     */
+    public boolean containsContent(Table t2) {
+        for (int i = 0; i < t2.rows.size(); i ++) {
+            boolean contains = false;
+            for (int j = 0; j < this.rows.size(); j ++) {
+                if (this.rows.get(j).getValues().size() != t2.rows.get(i).getValues().size())
+                    return false;
+                if (this.rows.get(j).contentEquals(t2.rows.get(i)))
+                    contains = true;
+            }
+            if (contains == false)
+                return false;
+        }
+        return true;
+    }
+
+
+    public Value tableToValue() throws SQLEvalException {
+        if (this.getContent().size() != 1)
+            throw new SQLEvalException("table not a val");
+
+        try {
+            return this.getContent().get(0).rowToValue();
+        } catch (Exception e) {
+            new SQLEvalException("table not a val");
+        }
+
+        return null;
+    }
+
+    public int retrieveIndex(String name) {
+        String fieldName = name;
+        if (this.name.equals("anonymous"))
+            fieldName = name;
+        else
+            fieldName = name.substring(name.indexOf(".") + 1);
+
+        for (int i = 0; i < this.metadata.size(); i ++) {
+            if (this.metadata.get(i).equals(fieldName))
+                return i;
+        }
+        System.err.println("[Error@Table152]Metadata retrieval fail.");
+        return -1;
+    }
+
+    public List<String> getQualifiedMetadata() {
+        if (this.name.equals("anonymous"))
+            return this.metadata;
+        else {
+            // add the qualifier
+            return this.metadata.stream().map(s -> this.name + "." + s).collect(Collectors.toList());
+        }
+    }
+
+    // return the schema type of a table.
+    public List<ValType> getSchemaType() {
+        List<ValType> lv = new ArrayList<ValType>();
+        for (Value v : this.getContent().get(0).getValues()) {
+            lv.add(v.getValType());
+        }
+        return lv;
+    }
+
+    public boolean isEmpty() {
+        if (this.getContent().size() == 0)
+            return true;
+        return false;
+    }
+
 }

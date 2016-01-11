@@ -27,4 +27,9 @@ public class StringVal implements Value {
     public StringVal duplicate() {
         return new StringVal(this.val);
     }
+
+    @Override
+    public ValType getValType() {
+        return ValType.StringVal;
+    }
 }

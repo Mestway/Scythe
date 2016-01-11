@@ -1,13 +1,32 @@
 package sql.lang.ast.val;
 
-import com.sun.tools.doclint.Env;
+import enumerator.EnumContext;
+import enumerator.parameterized.InstantiateEnv;
+import sql.lang.DataType.ValType;
 import sql.lang.DataType.Value;
 import sql.lang.ast.Environment;
+import sql.lang.ast.Hole;
 import sql.lang.ast.Node;
+import sql.lang.exception.SQLEvalException;
+
+import java.util.List;
 
 /**
  * Created by clwang on 12/16/15.
  */
 public interface ValNode extends Node {
-    public Value eval(Environment env);
+    Value eval(Environment env) throws SQLEvalException;
+    String getName();
+    ValType getType(EnumContext ctxt);
+    String prettyPrint(int lv);
+
+    /**
+     * Determines the level of nested subqueries appear in this valnode
+     * @return the level
+     */
+    int getNestedQueryLevel();
+    boolean equalsToValNode(ValNode vn);
+
+    List<Hole> getAllHoles();
+    ValNode instantiate(InstantiateEnv env);
 }

@@ -3,12 +3,17 @@ package sql.lang.DataType;
 /**
  * Created by clwang on 12/14/15.
  */
-public class FloatVal implements Value {
+public class NumberVal implements Value {
     String raw;
-    Float val;
+    Double val;
 
-    public FloatVal(Float val) {
+    public NumberVal(Double val) {
         this.val = val;
+        this.raw = val.toString();
+    }
+
+    public NumberVal(Integer val) {
+        this.val = val.doubleValue();
         this.raw = val.toString();
     }
 
@@ -16,7 +21,7 @@ public class FloatVal implements Value {
         this.raw = raw;
     }
 
-    public Float getVal() { return this.val; }
+    public Double getVal() { return this.val; }
 
     @Override
     public boolean equals(Value v) {
@@ -27,7 +32,12 @@ public class FloatVal implements Value {
 
     public String toString() { return this.val.toString(); }
 
-    public FloatVal duplicate() {
-        return new FloatVal(this.val);
+    public NumberVal duplicate() {
+        return new NumberVal(this.val);
+    }
+
+    @Override
+    public ValType getValType() {
+        return ValType.NumberVal;
     }
 }

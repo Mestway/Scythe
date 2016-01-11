@@ -14,18 +14,13 @@ public interface Value {
     public Object getVal();
     public boolean equals(Value v);
     public Value duplicate();
+    public ValType getValType();
 
     public static Value parse(String raw) {
         try {
-            // parse as an Integer
-            Integer intVal = Integer.parseInt(raw);
-            return new IntVal(intVal);
-        } catch (Exception e) {}
-
-        try {
             // parse as a float
-            Float floatVal = Float.parseFloat(raw);
-            FloatVal val = new FloatVal(floatVal);
+            Double doubleVal = Double.parseDouble(raw);
+            NumberVal val = new NumberVal(doubleVal);
             val.setRaw(raw);
             return val;
         } catch (Exception e) {}

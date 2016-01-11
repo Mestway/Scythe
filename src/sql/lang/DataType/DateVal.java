@@ -25,7 +25,7 @@ public class DateVal implements Value {
 
     @Override
     public boolean equals(Value v) {
-        return this.val.equals(v.getVal());
+        return this.getVal().equals(v.getVal());
     }
 
     @Override
@@ -34,6 +34,11 @@ public class DateVal implements Value {
         newVal.raw = this.raw;
         newVal.val = (Date) this.val.clone();
         return newVal;
+    }
+
+    @Override
+    public ValType getValType() {
+        return ValType.DateVal;
     }
 
     public String toString() { return this.getVal().toString(); }

@@ -1,0 +1,106 @@
+package enumerator;
+
+import sql.lang.DataType.ValType;
+import sql.lang.DataType.Value;
+import sql.lang.ast.Hole;
+import sql.lang.ast.filter.*;
+import sql.lang.ast.table.TableNode;
+import sql.lang.ast.val.ValHole;
+import sql.lang.ast.val.ValNode;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.BiFunction;
+import java.util.stream.Collectors;
+
+/**
+ * Created by clwang on 1/7/16.
+ */
+public class FilterEnumerator {
+
+    public static List<Filter> enumFilter(EnumContext ec, int depth) {
+        List<Filter> basicFilters = enumAtomicFilter(ec, depth);
+        List<Filter> result = enumCompoundFilters(basicFilters, 1, ec.getMaxFilterLength());
+        return result;
+    }
+
+    private static List<Filter> enumCompoundFilters(List<Filter> filters, int filterLength, int maxFilterLength) {
+
+        // do not allow holes with same id but different type exists
+        filters = filters.stream().filter(f -> {
+            List<ValHole> holes = f.getAllHoles().stream()
+                    .filter(h -> (h instanceof ValHole)).map(h -> (ValHole) h).collect(Collectors.toList());
+            return !ValHole.containsSameHoleDiffType(holes);
+        }).collect(Collectors.toList());
+
+        if (filterLength == maxFilterLength)
+            return filters;
+
+        List<Filter> result = new ArrayList<Filter>();
+        result.addAll(filters);
+
+        for (int i = 0; i < filters.size(); i ++) {
+            for (int j = i + 1; j < filters.size(); j ++) {
+
+                // Prune: if two filters have same arguments but different comparator,
+                // then they are exclusive and will not be added as LogicAndFilter
+                if (filters.get(i).containsExclusiveFilter(filters.get(j)))
+                    continue;
+
+                Filter f = new LogicAndFilter(filters.get(i), filters.get(j));
+                if (f.getFilterLength() == filterLength + 1)
+                    result.add(f);
+               /* if = new LogicOrFilter(filters.get(i), filters.get(j));
+                if (f.getFilterLength() == filterLength + 1)
+                    result.add(f); */
+            }
+        }
+
+        return enumCompoundFilters(result, filterLength + 1, maxFilterLength);
+    }
+
+    private static List<Filter> enumAtomicFilter(EnumContext ec, int depth) {
+        List<Filter> atomicFilters = new ArrayList<Filter>();
+
+        List<ValNode> valNodes = ValueEnumerator.enumValNodes(ec, depth);
+
+        // Enumerate VVComparators
+        for (int i = 0; i < valNodes.size(); i ++) {
+            for (int j = i + 1; j < valNodes.size(); j ++) {
+
+                ValNode l = valNodes.get(i);
+                ValNode r = valNodes.get(j);
+
+                if (l.getType(ec).equals(r.getType(ec))) {
+                    if (l.getType(ec).equals(ValType.DateVal) || l.getType(ec).equals(ValType.NumberVal)) {
+                        for (BiFunction<Value, Value, Boolean> func : VVComparator.getAllFunctions()) {
+                            atomicFilters.add(new VVComparator(Arrays.asList(l, r), func));
+                        }
+                    } else {
+                        atomicFilters.add(new VVComparator(Arrays.asList(l, r), VVComparator.eq));
+                    }
+                }
+            }
+        }
+
+        // Enumerate Filter with Subquery,
+        // only do this when the enum level is less than maximum level
+        // TODO: add constraints, we should only select tables that use env variables
+        /*List<TableNode> tns = EnumSelTableNode.enumSelectNode(ec, 1);
+        for (TableNode tn : tns) {
+            atomicFilters.add(new ExistComparator(tn));
+        }*/
+
+        List<Filter> resultFilter = new ArrayList<>();
+        resultFilter.addAll(atomicFilters);
+
+        // TODO: currently neg filters are not added
+        for (int i = 0; i < atomicFilters.size(); i ++) {
+           // resultFilter.add(new LogicNegFilter(atomicFilters.get(i)));
+        }
+
+        return resultFilter;
+    }
+
+}

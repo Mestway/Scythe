@@ -122,7 +122,6 @@
 
 #### input
 
-
     | Id |  Name |  Other_Columns |
     |-----------------------------|
     | 1  |  A    |   A_data_1     |
@@ -131,7 +130,6 @@
     | 4  |  B    |   B_data_1     |
     | 5  |  B    |   B_data_2     |
     | 6  |  C    |   C_data_1     |
-
 
 #### output
 
@@ -213,7 +211,7 @@
 
 #### input
 
-    | c1 | c2   | c3  | c4    |   c5    |
+    | message_id | conversation_id | from_user | timestamp  |  message    |
     |-----------------------------------|
     | 2  | 145  | xxx | 10000 | message |
     | 6  | 1743 | yyy | 999   | message |

@@ -1,16 +1,28 @@
 package sql.lang.ast.filter;
 
-import sql.lang.DataType.Value;
+import enumerator.parameterized.InstantiateEnv;
 import sql.lang.ast.Environment;
+import sql.lang.ast.Hole;
+import sql.lang.exception.SQLEvalException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by clwang on 12/14/15.
  */
 public interface Filter {
-    public boolean filter(Environment env);
+    // for evaluation
+    boolean filter(Environment env) throws SQLEvalException;
+
+    // for calculating the length of the filter
+    int getFilterLength();
+    int getNestedQueryLevel();
+
+    String prettyPrint(int indentLv);
+    //boolean equalsToFilter(Filter f);
+
+    // we also consider same as "exclusive"
+    boolean containsExclusiveFilter(Filter f);
+    List<Hole> getAllHoles();
+    Filter instantiate(InstantiateEnv env);
 }
