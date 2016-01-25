@@ -6,11 +6,9 @@ import enumerator.EnumContext;
 import sql.lang.ast.filter.Filter;
 import sql.lang.ast.filter.LogicAndFilter;
 import sql.lang.ast.filter.VVComparator;
-import sql.lang.ast.table.JoinNode;
-import sql.lang.ast.table.NamedTable;
-import sql.lang.ast.table.SelectNode;
-import sql.lang.ast.table.TableNode;
+import sql.lang.ast.table.*;
 import sql.lang.ast.val.NamedVal;
+import util.DebugHelper;
 import util.RenameTNWrapper;
 
 import java.util.ArrayList;
@@ -35,14 +33,18 @@ public class TableNaturalJoinWithAggr {
         for (TableNode tb : namedTables) {
             List<TableNode> aggrTableNodes = EnumAggrTableNode.enumAggregationNode(ec, 1);
             for (TableNode agrt : aggrTableNodes) {
+                // the length of fields
+                int aggrFieldLength = ((AggregationNode)agrt).getAggrFieldSize();
+
                 int tbLength = tb.getSchema().size();
                 List<Pair<Integer, Integer>> naturalJoinPairs = new ArrayList<>();
-                int i = 0;
-                for (String s : agrt.getSchema().subList(0, agrt.getSchema().size()-1)) {
+                for (int i = 0; i < aggrFieldLength; i ++) {
+                    String s = agrt.getSchema().get(i);
                     naturalJoinPairs.add(new Pair<>(tb.getSchema().indexOf(s), tbLength + i));
                 }
 
                 TableNode jntb = RenameTNWrapper.tryRename(new JoinNode(Arrays.asList(tb, agrt)));
+
                 List<Filter> filters = new ArrayList<>();
                 for (Pair<Integer, Integer> p : naturalJoinPairs) {
                     filters.add(
@@ -55,15 +57,18 @@ public class TableNaturalJoinWithAggr {
 
                 List nodesToSelect = jntb.getSchema()
                         .stream().map(s -> new NamedVal(s)).collect(Collectors.toList()).subList(0, tbLength);
-                nodesToSelect.add(new NamedVal(jntb.getSchema().get(jntb.getSchema().size()-1)));
 
-                result.add(
-                    new SelectNode(
+                for (int i = 0; i < agrt.getSchema().size() -  aggrFieldLength; i ++) {
+                    nodesToSelect.add(
+                            new NamedVal(jntb.getSchema().get(tbLength + aggrFieldLength + i)));
+                }
+
+                TableNode tn = new SelectNode(
                         nodesToSelect,
                         jntb,
                         LogicAndFilter.ConnectByAnd(filters)
-                    )
                 );
+                result.add(tn);
             }
         }
 

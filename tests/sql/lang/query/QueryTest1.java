@@ -1,5 +1,6 @@
 package sql.lang.query;
 
+import javafx.util.Pair;
 import org.junit.Test;
 import sql.lang.SQLQuery;
 import sql.lang.Table;
@@ -73,10 +74,9 @@ public class QueryTest1 {
                                     "t22",
                                     Arrays.asList("id", "maxrev"),
                                     new AggregationNode(
-                                        AggregationNode.AggrMax,
                                         new RenameTableNode("t2",new NamedTable(inputTable)),
                                         Arrays.asList("t2.id"),
-                                        "t2.rev"
+                                        Arrays.asList(new Pair<>("t2.rev", AggregationNode.AggrMax))
                                     )
                                 ),
                                 new VVComparator(

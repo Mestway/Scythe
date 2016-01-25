@@ -1,5 +1,6 @@
 package sql.lang.query;
 
+import javafx.util.Pair;
 import org.junit.Test;
 import sql.lang.DataType.NumberVal;
 import sql.lang.SQLQuery;
@@ -305,10 +306,9 @@ public class SQLQueryTest {
                 "agrResult",
                 Arrays.asList("home", "maxresource"),
                 new AggregationNode(
-                    AggregationNode.AggrMax,
                     new NamedTable(t1),
                     Arrays.asList("table1.home"),
-                    "table1.resource"
+                    Arrays.asList(new Pair<>("table1.resource", AggregationNode.AggrMax))
                 )
             )
         ).execute();

@@ -1,5 +1,6 @@
 package enumerator;
 
+import javafx.util.Pair;
 import sql.lang.DataType.ValType;
 import sql.lang.DataType.Value;
 import sql.lang.Table;
@@ -11,6 +12,7 @@ import sql.lang.exception.SQLEvalException;
 import util.CombinationGenerator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -19,6 +21,9 @@ import java.util.stream.Collectors;
  * Created by clwang on 1/7/16.
  */
 public class EnumAggrTableNode {
+
+    // When this flag is true, we will not allow comparison between multiple aggregation fields
+    private static final boolean simplify = true;
 
     /***********************************************************
      * Enum by Aggregation
@@ -42,7 +47,7 @@ public class EnumAggrTableNode {
 
         List<TableNode> aggregationNodes = new ArrayList<TableNode>();
         for (TableNode at : coreTableNodes) {
-            aggregationNodes.addAll(enumAggregationPerTable(ec, at));
+            aggregationNodes.addAll(enumAggrPerTable(ec, at));
         }
 
         return aggregationNodes;
@@ -53,7 +58,7 @@ public class EnumAggrTableNode {
      * @param tn the table to perform aggregation on
      * @return the list of enumerated table based on the given tablenode
      */
-    private static List<TableNode> enumAggregationPerTable(EnumContext ec, TableNode tn) {
+    private static List<TableNode> enumAggrPerTable(EnumContext ec, TableNode tn) {
 
         List<TableNode> aggrNodes = new ArrayList<>();
 
@@ -76,6 +81,9 @@ public class EnumAggrTableNode {
                 e.printStackTrace();
             }
 
+
+            List<Pair<String, Function<List<Value>, Value>>> targetFuncList = new ArrayList<>();
+
             // Then enum the target fields
             for (int i = 0; i < tn.getSchema().size(); i ++) {
                 String targetField = tn.getSchema().get(i);
@@ -89,13 +97,24 @@ public class EnumAggrTableNode {
 
                 // Last step, enumerate all group-by functions
                 for (Function<List<Value>, Value> f : aggrFuncs) {
-                    TableNode an = new AggregationNode(
-                            f, tn, aggrFields, targetField
-                    );
-                    aggrNodes.add(an);
+                    targetFuncList.add(new Pair<>(targetField, f));
                 }
             }
+
+            if (! simplify) {
+                // allow comparison between different rows
+                TableNode an = new AggregationNode(
+                        tn, aggrFields, targetFuncList
+                );
+                aggrNodes.add(an);
+            } else {
+                for (Pair<String, Function<List<Value>, Value>> p : targetFuncList) {
+                    aggrNodes.add(new AggregationNode(tn, aggrFields, Arrays.asList(p)));
+                }
+            }
+
         }
         return aggrNodes;
     }
+
 }

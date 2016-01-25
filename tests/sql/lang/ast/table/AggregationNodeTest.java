@@ -1,5 +1,6 @@
 package sql.lang.ast.table;
 
+import javafx.util.Pair;
 import org.junit.Test;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
@@ -29,10 +30,10 @@ public class AggregationNodeTest {
     @Test
     public void Test1() {
         AggregationNode agrNode = new AggregationNode(
-                AggregationNode.AggrMax,
                 new NamedTable(t1),
                 Arrays.asList("table1.home"),
-                "table1.resource");
+                Arrays.asList(new Pair<>("table1.resource", AggregationNode.AggrMax))
+        );
 
         try {
             System.out.println(agrNode.eval(new Environment()));
@@ -44,10 +45,9 @@ public class AggregationNodeTest {
     @Test
     public void Test2() {
         AggregationNode agrNode = new AggregationNode(
-                AggregationNode.AggrMax,
                 new NamedTable(t1),
                 Arrays.asList("table1.home", "table1.player"),
-                "table1.resource");
+                Arrays.asList(new Pair<>("table1.resource", AggregationNode.AggrMax)));
 
         try {
             System.out.println(agrNode.eval(new Environment()));

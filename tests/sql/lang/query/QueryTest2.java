@@ -1,5 +1,6 @@
 package sql.lang.query;
 
+import javafx.util.Pair;
 import org.junit.Test;
 import sql.lang.DataType.Value;
 import sql.lang.SQLQuery;
@@ -70,10 +71,10 @@ public class QueryTest2 {
                                     "t2",
                                     Arrays.asList("id", "maxdtg"),
                                     new AggregationNode(
-                                        AggregationNode.AggrMax,
+
                                         new RenameTableNode("agrTable", new NamedTable(input)),
                                         Arrays.asList("agrTable.locId"),
-                                        "agrTable.dtg"
+                                        Arrays.asList(new Pair<>("agrTable.dtg",AggregationNode.AggrMax))
                                     )
                                 ),
                                 new LogicAndFilter(

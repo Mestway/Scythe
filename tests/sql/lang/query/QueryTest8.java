@@ -1,7 +1,9 @@
 package sql.lang.query;
 
+import javafx.util.Pair;
 import org.junit.Test;
 import sql.lang.DataType.StringVal;
+import sql.lang.DataType.Value;
 import sql.lang.SQLQuery;
 import sql.lang.Table;
 import sql.lang.ast.filter.LogicAndFilter;
@@ -13,6 +15,8 @@ import sql.lang.ast.val.NamedVal;
 import util.TableInstanceParser;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.function.Function;
 
 import static org.testng.AssertJUnit.assertTrue;
 
@@ -73,10 +77,9 @@ public class QueryTest8 {
                 "t2",
                 Arrays.asList("conversation_id", "max_timestamp"),
                 new AggregationNode(
-                    AggregationNode.AggrMax,
                     t1,
                     Arrays.asList("t1.conversation_id"),
-                    "t1.timestamp"
+                    Arrays.asList(new Pair<>("t1.timestamp",AggregationNode.AggrMax))
                 )
             );
 
@@ -122,10 +125,9 @@ public class QueryTest8 {
                 "t4",
                 Arrays.asList("conversation_id", "max_message_id"),
                 new AggregationNode(
-                    AggregationNode.AggrMax,
                     t1,
                     Arrays.asList("t3.conversation_id"),
-                    "t3.message_id"
+                    Arrays.asList(new Pair<>("t3.message_id", AggregationNode.AggrMax))
                 )
             );
 

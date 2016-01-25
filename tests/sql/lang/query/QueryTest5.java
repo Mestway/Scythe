@@ -1,5 +1,6 @@
 package sql.lang.query;
 
+import javafx.util.Pair;
 import org.junit.Test;
 import sql.lang.SQLQuery;
 import sql.lang.Table;
@@ -44,7 +45,8 @@ public class QueryTest5 {
     @Test
     public void test() {
 
-        SQLQuery query = new SQLQuery(
+        SQLQuery query;
+        query = new SQLQuery(
                 new SelectNode(
                         Arrays.asList(
                                 new NamedVal("table1.Id"),
@@ -62,13 +64,12 @@ public class QueryTest5 {
                                                                 "tt",
                                                                 Arrays.asList("Name", "MinID"),
                                                                 new AggregationNode(
-                                                                        AggregationNode.AggrMax,
                                                                         new RenameTableNode(
                                                                                 "t1",
                                                                                 new NamedTable(input)
                                                                         ),
                                                                         Arrays.asList("t1.Name"),
-                                                                        "t1.Id"
+                                                                        Arrays.asList(new Pair<>("t1.Id", AggregationNode.AggrMax))
                                                                 )
                                                         ),
                                                         new VVComparator(

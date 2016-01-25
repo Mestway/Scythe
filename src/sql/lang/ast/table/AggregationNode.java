@@ -1,6 +1,7 @@
 package sql.lang.ast.table;
 
 import enumerator.parameterized.InstantiateEnv;
+import javafx.util.Pair;
 import sql.lang.DataType.*;
 import sql.lang.Table;
 import sql.lang.TableRow;
@@ -12,6 +13,7 @@ import util.IndentionManagement;
 import java.sql.Time;
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Created by clwang on 12/20/15.
@@ -20,20 +22,16 @@ public class AggregationNode implements TableNode {
 
     public static String magicSeparatorSymbol = "-_-";
 
-    String target;
-    List<String> fields = new ArrayList<String>();
-
+    List<String> aggrFields = new ArrayList<String>();
+    List<Pair<String, Function<List<Value>, Value>>> targets = new ArrayList<>();
     TableNode tn;
-    Function<List<Value>, Value> aggrFunction;
 
-    public AggregationNode(Function<List<Value>, Value> aggrFunction,
-                           TableNode tn,
+    public AggregationNode(TableNode tn,
                            List<String> fields,
-                           String target) {
+                           List<Pair<String, Function<List<Value>,Value>>> targets) {
         this.tn = tn;
-        this.aggrFunction = aggrFunction;
-        this.fields = fields;
-        this.target = target;
+        this.aggrFields = fields;
+        this.targets = targets;
     }
 
     @Override
@@ -43,9 +41,11 @@ public class AggregationNode implements TableNode {
         Table resultTable = new Table();
         resultTable.updateName("anonymous");
         List<String> resultMeta = new ArrayList<String>();
-        for (String s : this.fields)
+        for (String s : this.aggrFields)
             resultMeta.add(s);
-        resultMeta.add("aggr-" + this.target);
+        for (Pair<String, Function<List<Value>, Value>> t : targets) {
+            resultMeta.add("aggr-" + t.getKey());
+        }
         List<TableRow> resultTableContent = new ArrayList<TableRow>();
 
         // eval the table to be aggregated
@@ -53,42 +53,57 @@ public class AggregationNode implements TableNode {
 
         // indices for aggregation fields
         List<Integer> indices = new ArrayList<Integer>();
-        for (String s : fields) {
+        for (String s : aggrFields) {
             indices.add(tbl.retrieveIndex(s));
         }
-        // indices for aggregation target
-        Integer targetIndex = tbl.retrieveIndex(this.target);
+        // indices for aggregation targets
+        List<Integer> targetIndices = this.targets.stream()
+                .map(t -> tbl.retrieveIndex(t.getKey())).collect(Collectors.toList());
 
         Set<Integer> alreadyCollected = new HashSet<Integer>();
 
         for (int i = 0; i < tbl.getContent().size(); i ++) {
             TableRow currentRow = tbl.getContent().get(i);
-            List<Value> aggregationTargets = new ArrayList<Value>();
+            // initialiaze a container to contain these nodes
+            List<List<Value>> aggregationTargetLists = new ArrayList<>();
+            for (int k = 0; k < targetIndices.size(); k ++)
+                aggregationTargetLists.add(new ArrayList<>());
+
             List<Value> valuesForTheRow = currentRow.retrieveValuesByIndices(indices);
 
             // the row is already collected
             if (alreadyCollected.contains(i))
                 continue;
 
+            // collect the current row
+            for (int k = 0; k < targetIndices.size(); k ++) {
+                aggregationTargetLists.get(k).add(currentRow.getValue(targetIndices.get(k)));
+            }
             alreadyCollected.add(i);
-            aggregationTargets.add(currentRow.getValue(targetIndex));
+
 
             for (int j = i + 1; j < tbl.getContent().size(); j ++) {
                 if (ListValEqual(tbl.getContent().get(j).retrieveValuesByIndices(indices), valuesForTheRow)) {
-                    aggregationTargets.add(tbl.getContent().get(j).getValue(targetIndex));
+                    for (int k = 0; k < targetIndices.size(); k ++) {
+                        aggregationTargetLists.get(k).add(tbl.getContent().get(j).getValue(targetIndices.get(k)));
+                    }
                     alreadyCollected.add(j);
                 }
             }
 
-            Value agrResult = this.aggrFunction.apply(aggregationTargets);
-            if (agrResult == null)
-                throw new SQLEvalException("Aggregation function application error");
+            List<Value> agrResultList = new ArrayList<>();
 
+            for (int k = 0; k < this.targets.size(); k ++) {
+                Value tempV = targets.get(k).getValue().apply(aggregationTargetLists.get(k));
+                if (tempV == null)
+                    throw new SQLEvalException("Aggregation function application error");
+                agrResultList.add(tempV);
+            }
             List<Value> rowContent = new ArrayList<Value>();
             for (Value v : valuesForTheRow) {
                 rowContent.add(v);
             }
-            rowContent.add(agrResult);
+            rowContent.addAll(agrResultList);
 
             TableRow newTableRow = TableRow.TableRowFromContent(resultTable.getName(), resultMeta, rowContent);
             resultTableContent.add(newTableRow);
@@ -101,13 +116,15 @@ public class AggregationNode implements TableNode {
     @Override
     public List<String> getSchema() {
         List<String> schema = new ArrayList<String>();
-        schema.addAll(this.fields);
-        schema.add(FuncName(this.aggrFunction) + magicSeparatorSymbol + this.target);
+        schema.addAll(this.aggrFields);
+        for (Pair<String, Function<List<Value>,Value>> t : targets) {
+            schema.add(FuncName(t.getValue()) + magicSeparatorSymbol + t.getKey());
+        }
         return schema;
     }
 
     public List<String> getFields() {
-        return this.fields;
+        return this.aggrFields;
     }
 
     @Override
@@ -120,14 +137,17 @@ public class AggregationNode implements TableNode {
         List<String> tableSchema = this.tn.getSchema();
         List<ValType> tableSchemaType = this.tn.getSchemaType();
 
-        List<String> nameToRetrieve = new ArrayList<String>();
-        nameToRetrieve.addAll(this.fields);
-        nameToRetrieve.add(this.target);
+        List<String> nameToRetrieve = new ArrayList<>();
+        nameToRetrieve.addAll(this.aggrFields);
+        for (Pair<String, Function<List<Value>, Value>> t : targets) {
+            nameToRetrieve.add(t.getKey());
+        }
 
-        List<ValType> schemaTypes = new ArrayList<ValType>();
+        List<ValType> schemaTypes = new ArrayList<>();
 
+        // TODO: think about naming stuff
         if (tn.getTableName().equals("anonymous")) {
-            for (String n : nameToRetrieve) {
+            for (String n : this.aggrFields) {
                 for (int i = 0; i < tableSchema.size(); i ++) {
                     if (tableSchema.get(i).equals(n.substring(n.indexOf(".") + 1))) {
                         schemaTypes.add(tableSchemaType.get(i));
@@ -135,8 +155,22 @@ public class AggregationNode implements TableNode {
                     }
                 }
             }
+            for (Pair<String, Function<List<Value>, Value>> t : targets) {
+                for (int i = 0; i < tableSchema.size(); i ++) {
+                    if (tableSchema.get(i).equals(t.getKey().substring(t.getKey().indexOf(".") + 1))) {
+                        if (!t.getValue().equals(AggrCount)) {
+                            schemaTypes.add(tableSchemaType.get(i));
+                        } else {
+                            // if the aggregation function is COUNT,
+                            // the type of the aggregation field will be changed to NumberVal
+                            schemaTypes.add(ValType.NumberVal);
+                        }
+                        break;
+                    }
+                }
+            }
         } else {
-            for (String n : nameToRetrieve) {
+            for (String n : this.aggrFields) {
                 for (int i = 0; i < tableSchema.size(); i ++) {
                     if (tableSchema.get(i).equals(n)) {
                         schemaTypes.add(tableSchemaType.get(i));
@@ -144,15 +178,27 @@ public class AggregationNode implements TableNode {
                     }
                 }
             }
+            for (Pair<String, Function<List<Value>, Value>> t : targets) {
+                for (int i = 0; i < tableSchema.size(); i ++) {
+                    if (tableSchema.get(i).equals(t.getKey())) {
+                        if (!t.getValue().equals(AggrCount)) {
+                            schemaTypes.add(tableSchemaType.get(i));
+                        } else {
+                            // if the aggregation function is COUNT,
+                            // the type of the aggregation field will be changed to NumberVal
+                            schemaTypes.add(ValType.NumberVal);
+                        }
+                        break;
+                    }
+                }
+            }
         }
 
-        // if the aggregation function is COUNT,
-        // the type of the aggregation field will be changed to NumberVal
-        if (this.aggrFunction == AggrCount) {
-            schemaTypes = schemaTypes.subList(0, schemaTypes.size() - 1);
-            schemaTypes.add(ValType.NumberVal);
-        }
         return schemaTypes;
+    }
+
+    public int getAggrFieldSize() {
+        return this.aggrFields.size();
     }
 
     @Override
@@ -163,15 +209,23 @@ public class AggregationNode implements TableNode {
     @Override
     public String prettyPrint(int indentLv) {
         String result = "SELECT\r\n" + IndentionManagement.basicIndent();
-        for (String f : fields) {
+        for (String f : aggrFields) {
             result += f + ", ";
         }
-        result += FuncName(this.aggrFunction) + "(" + this.target + ")\r\n";
+        for (int i = 0; i < targets.size(); i ++) {
+            Pair<String, Function<List<Value>, Value>> t = targets.get(i);
+            if (i != targets.size() - 1)
+                result += FuncName(t.getValue()) + "(" + t.getKey() + "), ";
+            else {
+                // the last element
+                result += FuncName(t.getValue()) + "(" + t.getKey() + ")\n";
+            }
+        }
         result += "FROM\r\n";
         result += this.tn.prettyPrint(1);
         result += "\r\nGROUP BY\r\n";
         boolean flag = true;
-        for (String f : fields) {
+        for (String f : aggrFields) {
             if (flag == true)
                 result += IndentionManagement.basicIndent() + f;
             else result += ", " + f;
@@ -391,10 +445,9 @@ public class AggregationNode implements TableNode {
     @Override
     public TableNode instantiate(InstantiateEnv env) {
         return new AggregationNode(
-                this.aggrFunction,
                 tn.instantiate(env),
-                this.fields,
-                target);
+                this.aggrFields,
+                this.targets);
     }
 
 }
