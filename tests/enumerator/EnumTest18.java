@@ -18,19 +18,25 @@ import java.util.List;
  * Created by clwang on 1/11/16.
  */
 public class EnumTest18 {
-    String inputSrc = "| id | country| status | \r\n" +
+    String inputSrc =
+            "| id | country| status       |  \r\n" +
             "|----------------------------|  \r\n" +
             "| 1  | SE     | TREATED      |  \r\n" +
             "| 2  | DK     | UNTREATED    |  \r\n" +
-            "| 3  | SE     | UNTREATED    |  \r\n";
+            "| 3  | SE     | UNTREATED    |";
 
-    String outputSrc = "| id | country| status | + \r\n" +
+    String outputSrc =
+            "| id | country| status | + \r\n" +
             "|----------------------------|+ \r\n" +
             "| 1  | SE     | TREATED      |";
 
     Table input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
     Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
-    Constraint c = new Constraint(1, Arrays.asList(new StringVal("UNTREATED"), new StringVal("TREATED")), new ArrayList<>());//Arrays.asList(AggregationNode.AggrCount));
+    Constraint c = new Constraint(
+            1,
+            Arrays.asList(new StringVal("UNTREATED"), new StringVal("TREATED")),
+            new ArrayList<>(),
+            2);//Arrays.asList(AggregationNode.AggrCount));
 
     @Test
     public void test() {

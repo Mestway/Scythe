@@ -18,22 +18,24 @@ import java.util.stream.Collectors;
 public class EnumParamTN {
 
     public static final int maxParamFilterLength = 2;
-    public static final int numberofParams = 2;
+    public static int numberOfParams = 2;
 
     public static List<TableNode> enumParameterizedTableNodes(
             List<TableNode> basicTables,
             List<ValNode> constants,
-            int numberOfParams) {
+            int paramNum) {
+
+        numberOfParams = paramNum;
 
         constants.addAll(ValHole.genHoles(numberOfParams));
 
         EnumContext ec = new EnumContext();
-        ec.setTableNodes(basicTables.stream().map(bt -> RenameTNWrapper.forceRename(bt)).collect(Collectors.toList()));
+        ec.updateTableNodes(basicTables.stream().map(bt -> RenameTNWrapper.forceRename(bt)).collect(Collectors.toList()));
         ec.setValNodes(constants);
         ec.setMaxFilterLength(maxParamFilterLength);
 
         List<TableNode> tns = new ArrayList<>();
-        tns.addAll(EnumSelTableNode.enumSelectNode(ec, 1, true));
+        tns.addAll(EnumSelTableNode.enumSelectNode(ec, true));
 
         List<TableNode> paramterizedTables = tns.stream()
                 .filter(tn -> !tn.getAllHoles().isEmpty())

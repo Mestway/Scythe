@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 /**
  * Created by clwang on 1/8/16.
  */
-public class NaturalTableExtension {
+public class TableNaturalJoinWithAggr {
 
     // enumerate aggregation nodes of a table
     public static List<TableNode> naturalJoinWithAggregation(EnumContext ec) {

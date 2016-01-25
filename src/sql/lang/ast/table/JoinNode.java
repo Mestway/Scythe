@@ -75,9 +75,9 @@ public class JoinNode implements TableNode {
 
     @Override
     public String prettyPrint(int indentLv) {
-        String result = "(\r\n" + this.tableNodes.get(0).prettyPrint(1) + " )";
+        String result = "( " + this.tableNodes.get(0).prettyPrint(1).trim() + " )";
         for (int i = 1; i < this.tableNodes.size(); i ++) {
-            result += "JOIN (\r\n" + this.tableNodes.get(i).prettyPrint(1) + " )";
+            result += " JOIN (\r\n" + this.tableNodes.get(i).prettyPrint(1) + " )";
         }
         return IndentionManagement.addIndention(result, indentLv);
     }

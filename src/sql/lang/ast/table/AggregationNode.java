@@ -9,6 +9,7 @@ import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
 import util.IndentionManagement;
 
+import java.sql.Time;
 import java.util.*;
 import java.util.function.Function;
 
@@ -17,8 +18,11 @@ import java.util.function.Function;
  */
 public class AggregationNode implements TableNode {
 
+    public static String magicSeparatorSymbol = "-_-";
+
     String target;
     List<String> fields = new ArrayList<String>();
+
     TableNode tn;
     Function<List<Value>, Value> aggrFunction;
 
@@ -47,12 +51,13 @@ public class AggregationNode implements TableNode {
         // eval the table to be aggregated
         Table tbl = tn.eval(env);
 
+        // indices for aggregation fields
         List<Integer> indices = new ArrayList<Integer>();
-        Integer targetIndex = tbl.retrieveIndex(this.target);
-
         for (String s : fields) {
             indices.add(tbl.retrieveIndex(s));
         }
+        // indices for aggregation target
+        Integer targetIndex = tbl.retrieveIndex(this.target);
 
         Set<Integer> alreadyCollected = new HashSet<Integer>();
 
@@ -97,7 +102,7 @@ public class AggregationNode implements TableNode {
     public List<String> getSchema() {
         List<String> schema = new ArrayList<String>();
         schema.addAll(this.fields);
-        schema.add("aggr-" + this.target);
+        schema.add(FuncName(this.aggrFunction) + magicSeparatorSymbol + this.target);
         return schema;
     }
 
@@ -141,6 +146,12 @@ public class AggregationNode implements TableNode {
             }
         }
 
+        // if the aggregation function is COUNT,
+        // the type of the aggregation field will be changed to NumberVal
+        if (this.aggrFunction == AggrCount) {
+            schemaTypes = schemaTypes.subList(0, schemaTypes.size() - 1);
+            schemaTypes.add(ValType.NumberVal);
+        }
         return schemaTypes;
     }
 
@@ -254,6 +265,15 @@ public class AggregationNode implements TableNode {
             }
             return new DateVal(maxDate);
         }
+        if (l.get(0) instanceof TimeVal) {
+            Time maxTime = (Time)((Date)l.get(0).getVal()).clone();
+            for (Value v : l) {
+                if (((TimeVal)v).getVal().compareTo(maxTime) > 0) {
+                    maxTime = (Time)((Time) v.getVal()).clone();
+                }
+            }
+            return new DateVal(maxTime);
+        }
         System.err.println("[Error@AggregationNode55] aggregation performed on unexpected type");
         return null;
     };
@@ -279,6 +299,15 @@ public class AggregationNode implements TableNode {
                 }
             }
             return new DateVal(maxDate);
+        }
+        if (l.get(0) instanceof TimeVal) {
+            Time minTime = (Time)((Date)l.get(0).getVal()).clone();
+            for (Value v : l) {
+                if (((TimeVal)v).getVal().compareTo(minTime) < 0) {
+                    minTime = (Time)((Time) v.getVal()).clone();
+                }
+            }
+            return new DateVal(minTime);
         }
         System.err.println("[Error@AggregationNode81] aggregation performed on unexpected type");
         return null;

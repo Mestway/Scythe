@@ -62,6 +62,7 @@ public class EnumAggrTableNode {
         for (List<String> aggrFields : aggrFieldsComb) {
 
             // we don't want to make the fields have the exact size as the whole schema
+            // Jan 14 Chenglong: Probably not
             if (aggrFields.size() == tn.getSchema().size())
                 continue;
 

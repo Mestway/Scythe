@@ -1,6 +1,6 @@
 package enumerator;
 
-import enumerator.hueristics.NaturalTableExtension;
+import enumerator.hueristics.TableNaturalJoinWithAggr;
 import enumerator.parameterized.EnumParamTN;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
@@ -11,9 +11,7 @@ import sql.lang.exception.SQLEvalException;
 import util.RenameTNWrapper;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -31,35 +29,33 @@ public class TableEnumerator {
                         input.stream()
                                 .map(t -> new NamedTable(t)).collect(Collectors.toList()),
                         vns,
-                        EnumParamTN.numberofParams);
+                        c.getNumberOfParam());
 
         EnumContext ec = new EnumContext(input, c);
         ec.setParameterizedTables(parameterizedTables);
 
-        List<TableNode> tns = enumTableWithHueristics(ec, c.maxDepth);
+        List<TableNode> tns = enumTableWithPrecomputedAggregation(ec, c.maxDepth);
 
         // only keep the table nodes that are consistent with the I/O pairs
-        return tns.stream().filter(tn -> {
+        List<TableNode> valid = tns.stream().filter(tn -> {
             try {
                 return tn.eval(new Environment()).contentEquals(output);
             } catch (SQLEvalException e) {
                 return false;
             }
         }).collect(Collectors.toList());
+
+        if (EnumContext.noMemoization)
+            return valid;
+
+        if (valid.isEmpty())
+            return valid;
+        else {
+            return ec.lookup(output);
+        }
     }
 
     public static List<TableNode> enumTable(EnumContext ec, int depth) {
-
-        Map<Integer, List<TableNode>> map = ec.getMap();
-
-        if (map.containsKey(depth))
-            return map.get(depth);
-
-        if (depth == 0) {
-            List<TableNode> tbs = ec.getTableNodes();
-            map.put(0, tbs);
-            return map.get(0);
-        }
 
         List<TableNode> tns = new ArrayList<>();
         tns.addAll(enumTable(ec, depth - 1));
@@ -67,38 +63,34 @@ public class TableEnumerator {
         if (depth == 1)
             tns.addAll(EnumAggrTableNode.enumAggregationNode(ec, depth));
 
-        tns.addAll(EnumSelTableNode.enumSelectNode(ec, depth));
-        tns.addAll(EnumJoinTableNodes.enumJoinNode(ec, depth));
-        map.put(depth, tns.stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
-
-        return map.get(depth);
-    }
-
-    public static List<TableNode> enumTableWithHueristics(EnumContext ec, int depth) {
-
-        Map<Integer, List<TableNode>> map = ec.getMap();
-
-        if (map.containsKey(depth))
-            return map.get(depth);
-
-        if (depth == 0) {
-            List<TableNode> tbs = ec.getTableNodes();
-            tbs.addAll(NaturalTableExtension.naturalJoinWithAggregation(ec)
-                    .stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
-
-            List<TableNode> aggrNodes = EnumAggrTableNode.enumAggregationNode(ec, 0);
-            tbs.addAll(aggrNodes.stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
-            map.put(0, tbs);
-            return map.get(0);
+        for (int i = 1; i <= depth; i ++) {
+            tns.addAll(EnumSelTableNode.enumSelectNode(ec));
+            tns.addAll(EnumJoinTableNodes.enumJoinNode(ec));
+            ec = EnumContext.extendTable(ec, tns.stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
         }
 
-        List<TableNode> tns = new ArrayList<>();
-        tns.addAll(enumTableWithHueristics(ec, depth - 1));
+        return ec.getTableNodes();
+    }
 
-        tns.addAll(EnumSelTableNode.enumSelectNode(ec, depth));
-        tns.addAll(EnumJoinTableNodes.enumJoinNode(ec, depth));
-        map.put(depth, tns.stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
+    public static List<TableNode> enumTableWithPrecomputedAggregation(EnumContext ec, int depth) {
 
-        return map.get(depth);
+        // enumerate depth 0 tables
+        List<TableNode> tbs = ec.getTableNodes();
+        tbs.addAll(TableNaturalJoinWithAggr.naturalJoinWithAggregation(ec)
+                .stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
+        List<TableNode> aggrNodes = EnumAggrTableNode.enumAggregationNode(ec, 0);
+        tbs.addAll(aggrNodes.stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
+
+        ec = EnumContext.extendTable(ec, tbs);
+
+        for (int i  = 1; i <= depth; i ++) {
+            List<TableNode> tns = new ArrayList<>();
+            tns.addAll(EnumSelTableNode.enumSelectNode(ec));
+            tns.addAll(EnumJoinTableNodes.enumJoinNode(ec));
+            List<TableNode> renamed = tns.stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList());
+            ec = EnumContext.extendTable(ec, renamed);
+        }
+
+        return ec.getTableNodes();
     }
 }

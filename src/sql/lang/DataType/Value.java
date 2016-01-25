@@ -10,13 +10,13 @@ import java.util.Date;
  */
 public interface Value {
 
-    public String getRaw();
-    public Object getVal();
-    public boolean equals(Value v);
-    public Value duplicate();
-    public ValType getValType();
+    String getRaw();
+    Object getVal();
+    boolean equals(Value v);
+    Value duplicate();
+    ValType getValType();
 
-    public static Value parse(String raw) {
+    static Value parse(String raw) {
         try {
             // parse as a float
             Double doubleVal = Double.parseDouble(raw);
@@ -56,6 +56,15 @@ public interface Value {
         try {
             // parse time
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            Date date = sdf.parse(raw);
+            TimeVal val = new TimeVal(new Time(date.getTime()));
+            val.setRaw(raw);
+            return val;
+        } catch (Exception e) {}
+
+        try {
+            // parse time
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
             Date date = sdf.parse(raw);
             TimeVal val = new TimeVal(new Time(date.getTime()));
             val.setRaw(raw);

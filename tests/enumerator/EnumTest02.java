@@ -43,7 +43,8 @@ public class EnumTest02 {
 
     Constraint c = new Constraint(1,
             Arrays.asList(Value.parse("2009-02-25 09:50:00")),
-            Arrays.asList(AggregationNode.AggrMax));
+            Arrays.asList(AggregationNode.AggrMax),
+            1);
 
     @Test
     public void test() {

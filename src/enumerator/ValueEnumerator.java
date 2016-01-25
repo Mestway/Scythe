@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class ValueEnumerator {
 
-    public static List<ValNode> enumValNodes(EnumContext ec, int maxDepth) {
+    public static List<ValNode> enumValNodes(EnumContext ec) {
         List<ValNode> result = new ArrayList<>();
         result.addAll(ec.getValNodes());
 

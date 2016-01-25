@@ -109,8 +109,13 @@ public class Table {
         return true;
     }
 
+    // may have different size
     public boolean contentEquals(Table table) {
         return this.containsContent(table) && table.containsContent(this);
+    }
+
+    public boolean contentStrictEquals(Table table) {
+        return this.contentEquals(table) && this.getContent().size() == table.getContent().size();
     }
 
     /**
@@ -133,7 +138,6 @@ public class Table {
         }
         return true;
     }
-
 
     public Value tableToValue() throws SQLEvalException {
         if (this.getContent().size() != 1)

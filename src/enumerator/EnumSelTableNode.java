@@ -27,15 +27,15 @@ public class EnumSelTableNode {
      3. Enumerate filters to perform filtering
      *********************************************************************************/
 
-    public static List<TableNode> enumSelectNode(EnumContext ec, int depth) {
-        return enumSelectNode(ec, depth, false);
+    public static List<TableNode> enumSelectNode(EnumContext ec) {
+        return enumSelectNode(ec, false);
     }
 
-    public static List<TableNode> enumSelectNode(EnumContext ec, int depth, boolean selectStar) {
+    public static List<TableNode> enumSelectNode(EnumContext ec, boolean selectStar) {
 
         List<TableNode> result = new ArrayList<>();
 
-        List<TableNode> coreTableNode = TableEnumerator.enumTable(ec, depth - 1);
+        List<TableNode> coreTableNode = ec.getTableNodes(); //TableEnumerator.enumTable(ec, depth - 1);
 
         for (TableNode tn : coreTableNode) {
             List<List<ValNode>> lvn = enumSelectArgs(ec,tn, selectStar);
@@ -47,8 +47,7 @@ public class EnumSelTableNode {
             // enum filters
             EnumContext ec2 = EnumContext.extendTypeMap(ec, typeMap);
 
-            List<Filter> filters = FilterEnumerator.enumFilter(ec2, depth - 1);
-
+            List<Filter> filters = FilterEnumerator.enumFilter(ec2);
 
             for (List<ValNode> vn : lvn) {
                 for (Filter f : filters) {

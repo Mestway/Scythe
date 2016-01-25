@@ -18,9 +18,9 @@ public class EnumJoinTableNodes {
      1. Enumerate atomic tables and then do join
      *****************************************************/
 
-    public static List<TableNode> enumJoinNode(EnumContext ec, int depth) {
+    public static List<TableNode> enumJoinNode(EnumContext ec) {
 
-        List<TableNode> basicTables = TableEnumerator.enumTable(ec, depth - 1);
+        List<TableNode> basicTables =  ec.getTableNodes();
 
         List<TableNode> joinTables = new ArrayList<>();
         int sz = basicTables.size();

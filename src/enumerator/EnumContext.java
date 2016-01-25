@@ -3,17 +3,16 @@ package enumerator;
 import sql.lang.DataType.ValType;
 import sql.lang.DataType.Value;
 import sql.lang.Table;
+import sql.lang.ast.Environment;
 import sql.lang.ast.table.AggregationNode;
 import sql.lang.ast.table.NamedTable;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
+import sql.lang.exception.SQLEvalException;
 import util.DebugHelper;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -25,8 +24,10 @@ import java.util.stream.Collectors;
  */
 public class EnumContext {
 
-    private Map<Integer, List<TableNode>> map = new HashMap<>();
-    public Map<Integer, List<TableNode>> getMap() { return map; }
+    // those tables
+    private Map<Table, List<TableNode>> memoizedTables = new HashMap<>();
+
+    public static final boolean noMemoization = false;
 
     private int maxFilterLength = 2;
 
@@ -44,8 +45,39 @@ public class EnumContext {
 
     }
 
-    public void setTableNodes(List<TableNode> tns) {
-        this.tablesNodes = tns;
+    public void updateTableNodes(List<TableNode> tns) {
+
+        if (noMemoization) {
+            this.tablesNodes.addAll(tns);
+            return;
+        }
+
+        for (TableNode tn : tns) {
+            try {
+                boolean added = false;
+                Table t = tn.eval(new Environment());
+
+                if (t.getContent().size() == 0)
+                    continue;
+
+                for (Map.Entry<Table, List<TableNode>> entry : memoizedTables.entrySet()) {
+                    if (entry.getKey().contentStrictEquals(t)) {
+                        memoizedTables.get(entry.getKey()).add(tn);
+                        added = true;
+                        break;
+                    }
+                }
+                if (!added) {
+                    ArrayList<TableNode> ar = new ArrayList<>();
+                    ar.add(tn);
+                    memoizedTables.put(t, ar);
+                }
+            } catch (SQLEvalException e) {
+                System.out.println("[EnumContext58] TableNode not executable.");
+            }
+        }
+        this.tablesNodes = memoizedTables.keySet()
+                .stream().map(t -> new NamedTable(t)).collect(Collectors.toList());
     }
 
     public void setValNodes(List<ValNode> vns) { this.valNodes = vns; }
@@ -58,7 +90,7 @@ public class EnumContext {
     public List<TableNode> getParameterizedTables() { return this.parameterizedTables; }
 
     public EnumContext(List<Table> tbs, Constraint c) {
-        tablesNodes = tbs.stream().map(t -> new NamedTable(t)).collect(Collectors.toList());
+        this.updateTableNodes(tbs.stream().map(t -> new NamedTable(t)).collect(Collectors.toList()));
         valNodes = c.constValNodes();
         this.aggrfuns = c.getAggrFuns();
     }
@@ -66,8 +98,9 @@ public class EnumContext {
     // Extend atomic tables in the context
     public static EnumContext extendTable(
             EnumContext ec, List<TableNode> tables) {
+
         EnumContext newEC = EnumContext.deepCopy(ec);
-        newEC.tablesNodes.addAll(tables);
+        newEC.updateTableNodes(tables);
         return newEC;
     }
 
@@ -111,7 +144,8 @@ public class EnumContext {
         newEC.typeMap.putAll(ec.typeMap);
         newEC.maxFilterLength = ec.maxFilterLength;
         newEC.parameterizedTables = ec.parameterizedTables;
-        newEC.map = ec.map;
+        // this field is shared
+        newEC.memoizedTables = ec.memoizedTables;
         return newEC;
     }
 
@@ -122,5 +156,14 @@ public class EnumContext {
         System.out.println("~~==~~ valnodes");
         DebugHelper.printValNodes(this.valNodes);
         System.out.println(" EC PRINT END ");
+    }
+
+    public List<TableNode> lookup(Table t) {
+        for (Map.Entry<Table, List<TableNode>> entry : memoizedTables.entrySet()) {
+            if (entry.getKey().contentStrictEquals(t)) {
+                return memoizedTables.get(entry.getKey());
+            }
+        }
+        return new ArrayList<>();
     }
 }

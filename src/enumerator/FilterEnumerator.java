@@ -25,8 +25,8 @@ import java.util.stream.Collectors;
  */
 public class FilterEnumerator {
 
-    public static List<Filter> enumFilter(EnumContext ec, int depth) {
-        List<Filter> basicFilters = enumAtomicFilter(ec, depth);
+    public static List<Filter> enumFilter(EnumContext ec) {
+        List<Filter> basicFilters = enumAtomicFilter(ec);
         List<Filter> result = enumCompoundFilters(basicFilters, 1, ec.getMaxFilterLength());
         return result;
     }
@@ -69,10 +69,10 @@ public class FilterEnumerator {
         return enumCompoundFilters(result, filterLength + 1, maxFilterLength);
     }
 
-    private static List<Filter> enumAtomicFilter(EnumContext ec, int depth) {
+    private static List<Filter> enumAtomicFilter(EnumContext ec) {
         List<Filter> atomicFilters = new ArrayList<Filter>();
 
-        List<ValNode> valNodes = ValueEnumerator.enumValNodes(ec, depth);
+        List<ValNode> valNodes = ValueEnumerator.enumValNodes(ec);
 
         // Enumerate VVComparators
         for (int i = 0; i < valNodes.size(); i ++) {
@@ -95,9 +95,8 @@ public class FilterEnumerator {
 
         // Enumerate Filter with Subquery,
         // only do this when the enum level is less than maximum level
-        // TODO: add constraints, we should only select tables that use env variables
         List<List<ValNode>> llvns = CombinationGenerator.genCombination(
-                ec.getValNodes(), EnumParamTN.numberofParams);
+                ec.getValNodes(), EnumParamTN.numberOfParams);
         for (List<ValNode> vns : llvns) {
             InstantiateEnv ie = new InstantiateEnv(vns, ec);
             atomicFilters.addAll(

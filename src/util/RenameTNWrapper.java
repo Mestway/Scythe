@@ -1,5 +1,6 @@
 package util;
 
+import sql.lang.ast.table.AggregationNode;
 import sql.lang.ast.table.RenameTableNode;
 import sql.lang.ast.table.TableNode;
 
@@ -21,11 +22,14 @@ public class RenameTNWrapper {
 
     public static TableNode tryRename(TableNode tn) {
         if (tn.getTableName().equals("anonymous")) {
-            String newName = "defaultTable_" + renamingIndex;
+            String newName = "[T" + renamingIndex + "]";
             renamingIndex ++;
             List<String> newSchema = new ArrayList<String>();
             for (String s : tn.getSchema()) {
                 String shortName = s.substring(s.lastIndexOf(".") + 1);
+                if (s.contains(AggregationNode.magicSeparatorSymbol)) {
+                    shortName = s.substring(0, s.indexOf(AggregationNode.magicSeparatorSymbol)) + "-" + shortName;
+                }
                 if (newSchema.contains(shortName)) {
                     int i = 1;
                     while(newSchema.contains(shortName + i)) {

@@ -32,7 +32,13 @@ public class EnumTest01 {
 
     Table input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
     Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
-    Constraint c = new Constraint(1, new ArrayList<>(), Arrays.asList(AggregationNode.AggrMax, AggregationNode.AggrMin));
+    Constraint c = new Constraint(
+            1,
+            new ArrayList<>(),
+            Arrays.asList(
+                    AggregationNode.AggrMax,
+                    AggregationNode.AggrMin),
+            2);
 
     @Test
     public void test() {
