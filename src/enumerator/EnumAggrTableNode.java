@@ -5,15 +5,20 @@ import sql.lang.DataType.ValType;
 import sql.lang.DataType.Value;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
+import sql.lang.ast.filter.Filter;
 import sql.lang.ast.table.AggregationNode;
 import sql.lang.ast.table.NamedTable;
+import sql.lang.ast.table.SelectNode;
 import sql.lang.ast.table.TableNode;
+import sql.lang.ast.val.NamedVal;
+import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
+import sun.nio.cs.ext.EUC_CN;
 import util.CombinationGenerator;
+import util.DebugHelper;
+import util.RenameTNWrapper;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -34,20 +39,20 @@ public class EnumAggrTableNode {
      *      2) based on the type of the target field
      ***********************************************************/
 
-    public static List<TableNode> enumAggregationNode(EnumContext ec, int depth) {
+    public static List<TableNode> enumAggregationNode(EnumContext ec) {
 
         // currently ignore all table nodes
         List<TableNode> coreTableNodes = ec.getTableNodes().stream().filter(
             t -> {
                 if (t instanceof NamedTable)
                     return true;
-                return false;
+                return true;
             }
         ).collect(Collectors.toList());
 
         List<TableNode> aggregationNodes = new ArrayList<TableNode>();
-        for (TableNode at : coreTableNodes) {
-            aggregationNodes.addAll(enumAggrPerTable(ec, at));
+        for (TableNode coreTable : coreTableNodes) {
+            aggregationNodes.addAll(enumAggrPerTable(ec, coreTable));
         }
 
         return aggregationNodes;
@@ -106,7 +111,37 @@ public class EnumAggrTableNode {
                 TableNode an = new AggregationNode(
                         tn, aggrFields, targetFuncList
                 );
-                aggrNodes.add(an);
+
+                List<TableNode> wrappedWithFilter = new ArrayList<>();
+                wrappedWithFilter.add(an);
+
+                TableNode renamedAggrNode = RenameTNWrapper.tryRename(an);
+                Map<String, ValType> typeMap = new HashMap<>();
+                for (int i = 0; i < renamedAggrNode.getSchema().size(); i ++) {
+                    typeMap.put(renamedAggrNode.getSchema().get(i),
+                            renamedAggrNode.getSchemaType().get(i));
+                }
+                EnumContext ec2 = EnumContext.extendTypeMap(ec, typeMap);
+
+                List<ValNode> L = new ArrayList<>();
+                for (int i = 0; i < targetFuncList.size(); i ++) {
+                    L.add(new NamedVal(renamedAggrNode.getSchema().get(i + aggrFields.size())));
+                }
+                List<ValNode> R = ec2.getValNodes();
+
+                List<Filter> filters = FilterEnumerator.enumFiltersLR(L, R, ec2);
+                for (Filter f : filters) {
+                    wrappedWithFilter.add(
+                            new SelectNode(
+                                renamedAggrNode.getSchema()
+                                    .stream().map(v -> new NamedVal(v)).collect(Collectors.toList()),
+                                renamedAggrNode, f
+                            ));
+                }
+
+                return wrappedWithFilter;
+                // previous unfiltered version
+                // aggrNodes.add(an);
             } else {
                 for (Pair<String, Function<List<Value>, Value>> p : targetFuncList) {
                     aggrNodes.add(new AggregationNode(tn, aggrFields, Arrays.asList(p)));

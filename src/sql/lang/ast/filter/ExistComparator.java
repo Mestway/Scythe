@@ -6,6 +6,7 @@ import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
 import sql.lang.ast.table.TableNode;
+import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;
 
 import java.util.List;
@@ -60,5 +61,10 @@ public class ExistComparator implements Filter {
     @Override
     public Filter instantiate(InstantiateEnv env) {
         return new ExistComparator(this.tableNode.instantiate(env));
+    }
+
+    @Override
+    public Filter substNamedVal(ValNodeSubstBinding vnsb) {
+        return new ExistComparator(this.tableNode.substNamedVal(vnsb));
     }
 }

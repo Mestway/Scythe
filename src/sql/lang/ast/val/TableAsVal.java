@@ -10,6 +10,7 @@ import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
 import sql.lang.ast.table.TableNode;
+import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;
 
 import java.util.List;
@@ -82,5 +83,10 @@ public class TableAsVal implements ValNode {
     @Override
     public ValNode instantiate(InstantiateEnv env) {
         return new TableAsVal(this.tableNode.instantiate(env), name);
+    }
+
+    @Override
+    public ValNode subst(ValNodeSubstBinding vnsb) {
+        return new TableAsVal(this.tableNode.substNamedVal(vnsb), name);
     }
 }

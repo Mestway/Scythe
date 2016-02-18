@@ -46,7 +46,7 @@ public class RenameTNWrapper {
     }
 
     public static TableNode forceRename(TableNode tn) {
-        String newName = "defaultTable_" + renamingIndex;
+        String newName = "[T" + renamingIndex + "]";
         renamingIndex ++;
         List<String> newSchema = new ArrayList<String>();
         for (String s : tn.getSchema()) {

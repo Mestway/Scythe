@@ -1,6 +1,7 @@
 package sql.lang.ast.table;
 
 import enumerator.parameterized.InstantiateEnv;
+import javafx.util.Pair;
 import sql.lang.DataType.ValType;
 import sql.lang.DataType.Value;
 import sql.lang.Table;
@@ -8,6 +9,7 @@ import sql.lang.TableRow;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
+import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;
 
 import java.util.ArrayList;
@@ -96,6 +98,29 @@ public class JoinNode implements TableNode {
                 .map(t -> t.instantiate(env)).collect(Collectors.toList()));
     }
 
+    @Override
+    public TableNode substNamedVal(ValNodeSubstBinding vnsb) {
+        return new JoinNode(
+                this.tableNodes.stream()
+                        .map(t -> t.substNamedVal(vnsb)).collect(Collectors.toList()));    }
+
+    @Override
+    public List<NamedTable> namedTableInvolved() {
+        List<NamedTable> result = new ArrayList<>();
+        for (TableNode t : this.tableNodes) {
+            result.addAll(t.namedTableInvolved());
+        }
+        return result;
+    }
+
+    @Override
+    public TableNode tableSubst(List<Pair<TableNode,TableNode>> pairs) {
+        return new JoinNode(
+                tableNodes.stream()
+                        .map(tn -> tn.tableSubst(pairs))
+                        .collect(Collectors.toList()));
+    }
+
     private Table joinTwo(Table t1, Table t2) {
         Table resultTable = new Table();
         List<String> resultTableMetadata = new ArrayList<String>();
@@ -144,5 +169,7 @@ public class JoinNode implements TableNode {
 
         return resultTable;
     }
+
+    public List<TableNode> getTableNodes() { return this.tableNodes; }
 
 }

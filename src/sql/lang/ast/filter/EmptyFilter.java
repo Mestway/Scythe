@@ -4,6 +4,7 @@ import enumerator.parameterized.InstantiateEnv;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
+import sql.lang.trans.ValNodeSubstBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,11 @@ public class EmptyFilter implements Filter {
 
     @Override
     public Filter instantiate(InstantiateEnv env) {
+        return this;
+    }
+
+    @Override
+    public Filter substNamedVal(ValNodeSubstBinding vnsb) {
         return this;
     }
 

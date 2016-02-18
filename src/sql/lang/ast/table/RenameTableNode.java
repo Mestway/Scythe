@@ -1,11 +1,13 @@
 package sql.lang.ast.table;
 
 import enumerator.parameterized.InstantiateEnv;
+import javafx.util.Pair;
 import sql.lang.DataType.ValType;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
+import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;
 
 import java.util.List;
@@ -119,6 +121,26 @@ public class RenameTableNode implements TableNode {
     }
 
     @Override
+    public TableNode substNamedVal(ValNodeSubstBinding vnsb) {
+        return new RenameTableNode(newTableName, newFieldNames, this.tableNode.substNamedVal(vnsb), this.renameTable, this.renameFields);
+    }
+
+    @Override
+    public List<NamedTable> namedTableInvolved() {
+        return tableNode.namedTableInvolved();
+    }
+
+    @Override
+    public TableNode tableSubst(List<Pair<TableNode,TableNode>> pairs) {
+        return new RenameTableNode(
+                newTableName,
+                newFieldNames,
+                tableNode.tableSubst(pairs),
+                renameTable,
+                renameFields);
+    }
+
+    @Override
     public List<String> getSchema() {
         if (this.newTableName.equals("anonymous"))
             return this.newFieldNames;
@@ -128,4 +150,6 @@ public class RenameTableNode implements TableNode {
                     .map(s -> this.newTableName + "." + s).collect(Collectors.toList());
         }
     }
+
+    public TableNode getTableNode() { return this.tableNode; }
 }

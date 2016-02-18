@@ -191,4 +191,23 @@ public class Table {
         return false;
     }
 
+   public boolean roughlyEquals(Table t2) {
+       if (this.roughlyContainsContent(t2) && t2.roughlyContainsContent(this))
+            return true;
+       return false;
+   }
+
+    public boolean roughlyContainsContent(Table t2) {
+        for (TableRow tr : this.rows) {
+            boolean exists = false;
+            for (TableRow tr2 : t2.rows) {
+                if (tr.contentRoughlyEquals(tr2))
+                    exists = true;
+            }
+            if (exists == false)
+                return false;
+        }
+        return true;
+    }
+
 }

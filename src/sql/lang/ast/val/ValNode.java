@@ -8,6 +8,7 @@ import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.ast.Node;
 import sql.lang.exception.SQLEvalException;
+import sql.lang.trans.ValNodeSubstBinding;
 
 import java.util.List;
 
@@ -29,4 +30,5 @@ public interface ValNode extends Node {
 
     List<Hole> getAllHoles();
     ValNode instantiate(InstantiateEnv env);
+    ValNode subst(ValNodeSubstBinding vnsb);
 }

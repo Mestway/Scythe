@@ -17,18 +17,18 @@ import java.util.List;
  */
 public class EnumTest01 {
     String inputSrc =
-            "| id   |  rev   |  content  |" + "\r\n" +
-                    "|---------------------------|" + "\r\n" +
-                    "| 1    |  1     |  A        |" + "\r\n" +
-                    "| 2    |  1     |  B        |" + "\r\n" +
-                    "| 1    |  2     |  C        |" + "\r\n" +
-                    "| 1    |  3     |  D        |";
+        "| id   |  rev   |  content  |" + "\r\n" +
+        "|---------------------------|" + "\r\n" +
+        "| 1    |  1     |  A        |" + "\r\n" +
+        "| 2    |  1     |  B        |" + "\r\n" +
+        "| 1    |  2     |  C        |" + "\r\n" +
+        "| 1    |  3     |  D        |";
 
     String outputSrc =
-            "| col1 | col2 | col3 |" + "\r\n" +
-                    "|--------------------|" + "\r\n" +
-                    "|  1   |  3   |  D   |" + "\r\n" +
-                    "|  2   |  1   |  B   |";
+        "| col1 | col2 | col3 |" + "\r\n" +
+        "|--------------------|" + "\r\n" +
+        "|  1   |  3   |  D   |" + "\r\n" +
+        "|  2   |  1   |  B   |";
 
     Table input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
     Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
@@ -36,9 +36,8 @@ public class EnumTest01 {
             1,
             new ArrayList<>(),
             Arrays.asList(
-                    AggregationNode.AggrMax,
-                    AggregationNode.AggrMin),
-            2);
+                    AggregationNode.AggrMax),
+            0);
 
     @Test
     public void test() {

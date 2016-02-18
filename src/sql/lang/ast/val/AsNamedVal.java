@@ -7,6 +7,7 @@ import sql.lang.DataType.Value;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
+import sql.lang.trans.ValNodeSubstBinding;
 
 import java.util.List;
 
@@ -65,6 +66,11 @@ public class AsNamedVal implements ValNode {
     @Override
     public ValNode instantiate(InstantiateEnv env) {
         return new AsNamedVal(valNode.instantiate(env), this.name);
+    }
+
+    @Override
+    public ValNode subst(ValNodeSubstBinding vnsb) {
+        return new AsNamedVal(valNode.subst(vnsb), this.name);
     }
 
 }

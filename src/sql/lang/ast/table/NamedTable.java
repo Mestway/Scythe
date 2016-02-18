@@ -1,15 +1,18 @@
 package sql.lang.ast.table;
 
 import enumerator.parameterized.InstantiateEnv;
+import javafx.util.Pair;
 import sql.lang.DataType.ValType;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.ast.filter.Filter;
 import sql.lang.exception.SQLEvalException;
+import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -58,8 +61,32 @@ public class NamedTable implements TableNode {
         return new ArrayList<>();
     }
 
+    public Table getTable() { return this.table; }
+
     @Override
     public TableNode instantiate(InstantiateEnv env) {
+        return this;
+    }
+
+    @Override
+    public TableNode substNamedVal(ValNodeSubstBinding vnsb) {
+        return this;
+    }
+
+    @Override
+    public List<NamedTable> namedTableInvolved() {
+        return Arrays.asList(this);
+    }
+
+    @Override
+    public TableNode tableSubst(List<Pair<TableNode,TableNode>> pairs) {
+        try {
+            for (Pair<TableNode, TableNode> p : pairs)
+            if (this.table.contentEquals(p.getKey().eval(new Environment())))
+                return p.getValue();
+        } catch (SQLEvalException e) {
+            e.printStackTrace();
+        }
         return this;
     }
 

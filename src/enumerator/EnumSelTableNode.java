@@ -47,7 +47,7 @@ public class EnumSelTableNode {
             // enum filters
             EnumContext ec2 = EnumContext.extendTypeMap(ec, typeMap);
 
-            List<Filter> filters = FilterEnumerator.enumFilter(ec2);
+            List<Filter> filters = FilterEnumerator.enumFiltersAll(ec2);
 
             for (List<ValNode> vn : lvn) {
                 for (Filter f : filters) {

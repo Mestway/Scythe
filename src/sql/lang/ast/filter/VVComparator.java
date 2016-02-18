@@ -8,9 +8,12 @@ import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
 import sql.lang.ast.val.ValNode;
+import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
@@ -123,6 +126,12 @@ public class VVComparator implements Filter {
         return new VVComparator(
                 args.stream().map(vn -> vn.instantiate(env)).collect(Collectors.toList()),
                 this.compareFunc);
+    }
+
+    @Override
+    public Filter substNamedVal(ValNodeSubstBinding vnsb) {
+        Filter f = new VVComparator(args.stream().map(vn -> vn.subst(vnsb)).collect(Collectors.toList()), this.compareFunc);
+        return f;
     }
 
 }

@@ -31,7 +31,7 @@ public class TableNaturalJoinWithAggr {
 
         // for each named table in the list
         for (TableNode tb : namedTables) {
-            List<TableNode> aggrTableNodes = EnumAggrTableNode.enumAggregationNode(ec, 1);
+            List<TableNode> aggrTableNodes = EnumAggrTableNode.enumAggregationNode(ec);
             for (TableNode agrt : aggrTableNodes) {
                 // the length of fields
                 int aggrFieldLength = ((AggregationNode)agrt).getAggrFieldSize();

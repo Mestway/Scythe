@@ -7,6 +7,7 @@ import sql.lang.DataType.Value;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
+import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;
 
 import java.util.ArrayList;
@@ -67,6 +68,11 @@ public class ConstantVal implements ValNode {
 
     @Override
     public ValNode instantiate(InstantiateEnv env) {
+        return this;
+    }
+
+    @Override
+    public ValNode subst(ValNodeSubstBinding vnsb) {
         return this;
     }
 }

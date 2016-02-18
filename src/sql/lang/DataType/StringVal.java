@@ -7,7 +7,7 @@ public class StringVal implements Value {
     String val;
 
     public StringVal(String str) {
-        this.val = str;
+        this.val = str.trim();
     }
 
     @Override

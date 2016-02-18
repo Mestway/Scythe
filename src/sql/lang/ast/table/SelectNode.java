@@ -2,6 +2,7 @@ package sql.lang.ast.table;
 
 import enumerator.EnumContext;
 import enumerator.parameterized.InstantiateEnv;
+import javafx.util.Pair;
 import sql.lang.DataType.ValType;
 import sql.lang.DataType.Value;
 import sql.lang.Table;
@@ -12,6 +13,7 @@ import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
 import sql.lang.ast.filter.Filter;
 import sql.lang.exception.SQLEvalException;
+import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;
 
 import java.util.ArrayList;
@@ -186,5 +188,49 @@ public class SelectNode implements TableNode {
                 tableNode.instantiate(env),
                 filter.instantiate(env));
     }
+
+    @Override
+    public TableNode substNamedVal(ValNodeSubstBinding vnsb) {
+        return new SelectNode(
+                this.columns.stream().map(c -> c.subst(vnsb)).collect(Collectors.toList()),
+                tableNode.substNamedVal(vnsb),
+                filter.substNamedVal(vnsb));
+    }
+
+    @Override
+    public List<NamedTable> namedTableInvolved() {
+        List<TableNode> result = new ArrayList<>();
+        // TODO: add filter stuff in future
+        return tableNode.namedTableInvolved();
+    }
+
+    @Override
+    public TableNode tableSubst(List<Pair<TableNode,TableNode>> pairs) {
+
+        TableNode core = this.tableNode.tableSubst(pairs);
+
+        List<String> currentSchema = tableNode.getSchema();
+        List<String> newSchema = core.getSchema();
+
+        ValNodeSubstBinding vnsb = new ValNodeSubstBinding();
+        for (int i = 0; i < currentSchema.size(); i++) {
+            vnsb.addBinding(
+                    new Pair<>(
+                            new NamedVal(currentSchema.get(i)),
+                            new NamedVal(newSchema.get(i))));
+        }
+
+        TableNode sn = new SelectNode(
+            columns.stream().map(c -> c.subst(vnsb)).collect(Collectors.toList()),
+            core,
+            filter.substNamedVal(vnsb)
+        );
+
+        return sn;
+    }
+
+    public TableNode getTableNode() { return this.tableNode; }
+    public Filter getFilter() { return this.filter; }
+    public List<ValNode> getColumns() { return this.columns; }
 
 }

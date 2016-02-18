@@ -8,6 +8,7 @@ import sql.lang.TableRow;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
+import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;
 
 import java.sql.Time;
@@ -218,7 +219,7 @@ public class AggregationNode implements TableNode {
                 result += FuncName(t.getValue()) + "(" + t.getKey() + "), ";
             else {
                 // the last element
-                result += FuncName(t.getValue()) + "(" + t.getKey() + ")\n";
+                result += FuncName(t.getValue()) + "(" + t.getKey() + ")\r\n";
             }
         }
         result += "FROM\r\n";
@@ -448,6 +449,21 @@ public class AggregationNode implements TableNode {
                 tn.instantiate(env),
                 this.aggrFields,
                 this.targets);
+    }
+
+    @Override
+    public TableNode substNamedVal(ValNodeSubstBinding vnsb) {
+        return new AggregationNode(tn.substNamedVal(vnsb), this.aggrFields, this.targets);
+    }
+
+    @Override
+    public List<NamedTable> namedTableInvolved() {
+        return tn.namedTableInvolved();
+    }
+
+    @Override
+    public TableNode tableSubst(List<Pair<TableNode,TableNode>> pairs) {
+        return this;
     }
 
 }

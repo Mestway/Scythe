@@ -4,6 +4,7 @@ import enumerator.parameterized.InstantiateEnv;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
+import sql.lang.trans.ValNodeSubstBinding;
 
 import java.util.List;
 
@@ -25,4 +26,5 @@ public interface Filter {
     boolean containsExclusiveFilter(Filter f);
     List<Hole> getAllHoles();
     Filter instantiate(InstantiateEnv env);
+    Filter substNamedVal(ValNodeSubstBinding vnsb);
 }

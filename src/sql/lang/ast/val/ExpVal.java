@@ -8,6 +8,7 @@ import sql.lang.DataType.Value;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
+import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;
 
 import java.util.ArrayList;
@@ -107,6 +108,15 @@ public class ExpVal implements ValNode {
                 this.operator,
                 this.operands.stream().map(o -> o.instantiate(env)).collect(Collectors.toList()),
                 this.name);
+    }
+
+    @Override
+    public ValNode subst(ValNodeSubstBinding vnsb) {
+        return new ExpVal(
+                this.operator,
+                this.operands.stream().map(o -> o.subst(vnsb)).collect(Collectors.toList()),
+                this.name
+        );
     }
 
     // preset functions

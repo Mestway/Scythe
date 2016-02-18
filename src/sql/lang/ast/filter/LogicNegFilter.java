@@ -4,6 +4,7 @@ import enumerator.parameterized.InstantiateEnv;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
+import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;
 
 import java.util.List;
@@ -52,5 +53,10 @@ public class LogicNegFilter implements Filter {
     @Override
     public Filter instantiate(InstantiateEnv env) {
         return new LogicNegFilter(this.filter.instantiate(env));
+    }
+
+    @Override
+    public Filter substNamedVal(ValNodeSubstBinding vnsb) {
+        return filter.substNamedVal(vnsb);
     }
 }

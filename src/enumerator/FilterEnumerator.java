@@ -25,9 +25,23 @@ import java.util.stream.Collectors;
  */
 public class FilterEnumerator {
 
-    public static List<Filter> enumFilter(EnumContext ec) {
+    // filters enumerated without considering L-set and R-set
+    public static List<Filter> enumFiltersAll(EnumContext ec) {
         List<Filter> basicFilters = enumAtomicFilter(ec);
         List<Filter> result = enumCompoundFilters(basicFilters, 1, ec.getMaxFilterLength());
+        return result;
+    }
+
+    /**
+     * Enumerate filter by specifying which values can appear on the LHS and which values can appear on RHS
+     * @param L The set of LHS values
+     * @param R The set of RHS values
+     * @param ec The enumeration context
+     * @return filters enumerated within this context
+     */
+    public static List<Filter> enumFiltersLR(List<ValNode> L, List<ValNode> R, EnumContext ec) {
+        List<Filter> atomics = enumAtomicFiltersLR(L, R, ec);
+        List<Filter> result = enumCompoundFilters(atomics, 1, ec.getMaxFilterLength());
         return result;
     }
 
@@ -82,7 +96,7 @@ public class FilterEnumerator {
                 ValNode r = valNodes.get(j);
 
                 if (l.getType(ec).equals(r.getType(ec))) {
-                    if (l.getType(ec).equals(ValType.DateVal) || l.getType(ec).equals(ValType.NumberVal)) {
+                    if (l.getType(ec).equals(ValType.NumberVal) || l.getType(ec).equals(ValType.DateVal)) {
                         for (BiFunction<Value, Value, Boolean> func : VVComparator.getAllFunctions()) {
                             atomicFilters.add(new VVComparator(Arrays.asList(l, r), func));
                         }
@@ -113,8 +127,29 @@ public class FilterEnumerator {
         }
 
         return resultFilter;
+    }
 
 
+    // TODO: optimize by ruling out same filters
+    private static List<Filter> enumAtomicFiltersLR(List<ValNode> L, List<ValNode> R, EnumContext ec) {
+        // L contains all left values, and R contains all right values in a comparator
+        List<Filter> atomics = new ArrayList<>();
+        for (ValNode l : L) {
+            for (ValNode r : R) {
+                if (l.equalsToValNode(r)) continue;
+                if (l.getType(ec).equals(r.getType(ec))) {
+                    if (l.getType(ec).equals(ValType.DateVal) || l.getType(ec).equals(ValType.NumberVal)) {
+                        for (BiFunction<Value, Value, Boolean> func : VVComparator.getAllFunctions()) {
+                            atomics.add(new VVComparator(Arrays.asList(l, r), func));
+                        }
+                    } else {
+                        atomics.add(new VVComparator(Arrays.asList(l, r), VVComparator.eq));
+                    }
+                }
+            }
+        }
+
+        return atomics;
     }
 
 }

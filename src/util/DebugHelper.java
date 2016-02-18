@@ -7,11 +7,16 @@ import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by clwang on 1/7/16.
  */
 public class DebugHelper {
+
+
+    public static boolean debugFlag = false;
+
     static int count = 0;
     public static void debugPrintTableNode(TableNode tn, String debugInfo) {
         System.out.println(count ++);
@@ -24,9 +29,9 @@ public class DebugHelper {
     public static void printTableNodes(List<TableNode> tns) {
         for (TableNode tn  : tns) {
             try {
-                Table tb = tn.eval(new Environment());
                 System.out.println("========================");
                 System.out.println(tn.prettyPrint(0));
+                Table tb = tn.eval(new Environment());
                 System.out.println(tb);
             } catch (SQLEvalException e) {
                 System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-");
@@ -40,6 +45,14 @@ public class DebugHelper {
             System.out.println("--------------------------");
             System.out.println(t.toString());
         }
+    }
+
+    public static void printListHorizontal(List l) {
+        String result = "";
+        for (Object o : l) {
+            result += o.toString();
+        }
+        System.out.println(result);
     }
 
     public static void printValNodes(List<ValNode> vns) {

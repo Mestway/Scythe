@@ -447,29 +447,28 @@
 #### input
 
 
-    | Date         |    Clicks |
-    |--------------------------|
-    | 2012-05-01   |    2,230  |
-    | 2012-05-02   |    3,150  |
-    | 2012-05-03   |    5,520  |
-    | 2012-05-04   |    1,330  |
-    | 2012-05-05   |    2,260  |
-    | 2012-05-06   |    3,540  |
-    | 2012-05-07   |    2,330  |
-
+    | Date         |   Clicks |
+    |-------------------------|
+    | 2012-05-01   |    2230  |
+    | 2012-05-02   |    3150  |
+    | 2012-05-03   |    5520  |
+    | 2012-05-04   |    1330  |
+    | 2012-05-05   |    2260  |
+    | 2012-05-06   |    3540  |
+    | 2012-05-07   |    2330  |
 
 #### output
 
 
-    |  Date        |     Clicks  |  3 day Moving Average |
-    |----------------------------------------------------|
-    |  2012-05-01  |     2,230   |                       |
-    |  2012-05-02  |     3,150   |                       |
-    |  2012-05-03  |     5,520   |       4,360           |
-    |  2012-05-04  |     1,330   |       3,330           |
-    |  2012-05-05  |     2,260   |       3,120           |
-    |  2012-05-06  |     3,540   |       3,320           |
-    |  2012-05-07  |     2,330   |       3,010           |
+    |  Date        |    Clicks  | 3 day Moving Average |
+    |--------------------------------------------------|
+    |  2012-05-01  |     2230   |                      |
+    |  2012-05-02  |     3150   |                      |
+    |  2012-05-03  |     5520   |       4360           |
+    |  2012-05-04  |     1330   |       3330           |
+    |  2012-05-05  |     2260   |       3120           |
+    |  2012-05-06  |     3540   |       3320           |
+    |  2012-05-07  |     2330   |       3010           |
 
 
 # 16
@@ -508,7 +507,7 @@
 #### input
 
 
-    | ProductID | Date        | Hour | UsageCount |
+    | productid | date        | hour | usagecount |
     |---------------------------------------------|
     |  1        | 2014-09-01  | 0    | 10         |
     |  1        | 2014-09-01  | 1    | 15         |
@@ -525,13 +524,17 @@
 
 #### output
 
-
-    | ProductId | Date        | DailyUsage                |             RollingAverage                         |
-    |----------------------------------------------------------------------------------------------------------|
-    | 1         | 2014-09-01  | sum of usages of that day | (Sum of usages from 20140901 through 20140826) / 7 |
-    | 1         | 2014-09-01  | sum of usages of that day | (Sum of usages from 20140901 through 20140826) / 7 |
-    | 1         | 2014-09-02  | sum of usages of that day | (Sum of usages from 20140902 through 20140827) / 7 |
-    | 2         | 2014-09-02  | sum of usages of that day | (Sum of usages from 20140902 through 20140827) / 7 |
+    | productid	| date	        | dailyusage	| rolling_avg |
+    |-----------------------------------------------------|
+    | 1	        | 2014-09-01	| 25	        | 25          |
+    | 1	        | 2014-09-02	| 25	        | 25          |
+    | 1	        | 2014-09-03	| 25	        | 25          |
+    | 1	        | 2014-09-04	| 25	        | 25          |
+    | 1	        | 2014-09-05	| 25	        | 25          |
+    | 1	        | 2014-09-06	| 25	        | 25          |
+    | 1	        | 2014-09-07	| 25	        | 25          |
+    | 1	        | 2014-09-08	| 25	        | 25          |
+    | 2	        | 2014-09-03	| 125	        | 125         |
 
 
 # 18
@@ -591,11 +594,9 @@
 
     | username |   date      | value|
     |-------------------------------|
-    | brad     | 2010-01-02  |  1.1 |
     | fred     | 2010-01-03  |  1.0 |
     | bob      | 2009-08-04  |  1.5 |
     | brad     | 2010-02-02  |  1.2 |
-    | fred     | 2009-12-02  |  1.3 |
 
 
 # 20
@@ -857,44 +858,13 @@
     | school_id | numberofstaff | salary|
     |-----------------------------------|
     | 400       |     1         | 5000  |
-
-
-# 28
-### [How to compute proportion of a particular field in SQL?](http://stackoverflow.com/questions/33046398/how-to-compute-proportion-of-a-particular-field-in-sql)
-#### description
-
-  
-    In a single query, given a particular ID, I want to compute the proportion of entries that has action Foo.
-
-
-#### input
-
-
-    | ID|    Date      | Action    | Params|
-    |--------------------------------------|
-    | A |  2015-10-01  |    Foo    |     1 |
-    | A |  2015-10-02  |    Foo    |     2 |
-    | A |  2015-10-01  |    Bar    |    10 |
-    | B |  2015-10-01  |    Foo    |     0 |
-    | B |  2015-10-02  |    Foo    |     0 |
-    | B |  2015-10-03  |    Bar    |     1 |
-
-
-#### output
-
-
-    | c1| c2  |
-    |---------|
-    | A | 66% |
-    | B | 66% |
-
+    
 
 # 29
 ### [Foreign key in same table, unable to get right query](http://stackoverflow.com/questions/33043326/foreign-key-in-same-table-unable-to-get-right-query)
 #### description
 
     ID is the primary key and Parent is a foreign key referencing ID What I'm trying to do is to list every parents ID and name.
-
 
 #### input
 

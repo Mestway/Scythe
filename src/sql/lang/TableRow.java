@@ -2,10 +2,9 @@ package sql.lang;
 
 import javafx.util.Pair;
 import sql.lang.DataType.Value;
+import util.DebugHelper;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Created by clwang on 12/14/15.
@@ -101,11 +100,65 @@ public class TableRow {
         return true;
     }
 
+    // if the content of the row equals to another row
     public boolean contentEquals(TableRow row) {
+
+        if (DebugHelper.debugFlag == true) {
+            System.out.println("~~~~~ ");
+            System.out.println(this.toString());
+            System.out.println(row.toString());
+        }
         for (int i = 0; i < this.values.size(); i ++) {
             if (!this.values.get(i).equals(row.values.get(i))) {
                 return false;
             }
+        }
+        return true;
+    }
+
+    // it returns true if the current row equals r2,
+    // or, if the current row is a permutation of another row
+    public boolean contentRoughlyEquals(TableRow row) {
+        return isPermutation(row.values, this.values);
+    }
+
+    public static boolean isPermutation(List<Value> l1, List<Value> l2) {
+        List<Pair<Value, Integer>> counter = new ArrayList<>();
+        for (Value v : l1) {
+            boolean exists = false;
+            for (Pair<Value, Integer> p : counter) {
+                if (p.getKey().equals(v)) {
+                    exists = true;
+                    break;
+                }
+            }
+            if (exists == true)
+                continue;
+
+            int count = 0;
+            for (Value v2 : l1) {
+                if (v.equals(v2)) count ++;
+            }
+            counter.add(new Pair(v, count));
+        }
+
+        for (Value v : l2) {
+            int count = 0;
+            for (Value v2 : l2) {
+                if (v.equals(v2)) count ++;
+            }
+
+            boolean exists = false;
+            for (Pair<Value, Integer> p : counter) {
+                if (p.getKey().equals(v)) {
+                    exists = true;
+                    if (! (p.getValue() == count)) {
+                        return false;
+                    }
+                }
+            }
+            if (exists == false)
+                return false;
         }
         return true;
     }
