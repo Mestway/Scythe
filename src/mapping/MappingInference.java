@@ -1,14 +1,26 @@
 package mapping;
 
+import enumerator.Constraint;
+import enumerator.EnumContext;
+import enumerator.FilterEnumerator;
+import enumerator.parameterized.EnumParamTN;
+import sql.lang.DataType.ValType;
 import sql.lang.DataType.Value;
 import sql.lang.Table;
+import sql.lang.TableRow;
+import sql.lang.ast.Environment;
+import sql.lang.ast.filter.Filter;
+import sql.lang.ast.table.NamedTable;
+import sql.lang.ast.table.TableNode;
+import sql.lang.ast.val.ConstantVal;
+import sql.lang.ast.val.ValNode;
+import sql.lang.exception.SQLEvalException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
+ * A class used to inference possible mappings from input to output table.
  * Created by clwang on 2/17/16.
  */
 public class MappingInference {
@@ -20,30 +32,36 @@ public class MappingInference {
     // the mapping between variables
     QuickCoordMap map = new QuickCoordMap();
 
-    public void buildMapping(Table in, Table out) {
+    private MappingInference() {};
+
+    public static MappingInference buildMapping(Table in, Table out) {
+
+        MappingInference mi = new MappingInference();
 
         if (in.getContent().size() == 0 || out.getContent().size() == 0) {
             System.err.println("[Error@MappingInference22]In/Out table is empty.");
         }
 
-        this.maxR = out.getContent().size();
-        this.maxC = out.getContent().get(0).getValues().size();
-        map.initialize(maxR, maxC);
+        mi.maxR = out.getContent().size();
+        mi.maxC = out.getContent().get(0).getValues().size();
+        mi.map.initialize(mi.maxR, mi.maxC);
 
-        this.input = in; this.output = out;
-        for (int i = 0; i < output.getContent().size(); i ++) {
-            for (int j = 0; j < output.getContent().get(i).getValues().size(); j ++) {
-                Value v = output.getContent().get(i).getValue(j);
-                for (int k = 0; k < input.getContent().size(); k ++) {
-                    for (int l = 0; l < input.getContent().get(k).getValues().size(); l ++) {
-                        Value v2 = input.getContent().get(k).getValue(l);
+        mi.input = in; mi.output = out;
+        for (int i = 0; i < mi.output.getContent().size(); i ++) {
+            for (int j = 0; j < mi.output.getContent().get(i).getValues().size(); j ++) {
+                Value v = mi.output.getContent().get(i).getValue(j);
+                for (int k = 0; k < mi.input.getContent().size(); k ++) {
+                    for (int l = 0; l < mi.input.getContent().get(k).getValues().size(); l ++) {
+                        Value v2 = mi.input.getContent().get(k).getValue(l);
                         if (v.equals(v2)) {
-                            map.addPair(new Coordinate(i,j), new Coordinate(k,l));
+                            mi.map.addPair(new Coordinate(i,j), new Coordinate(k,l));
                         }
                     }
                 }
             }
         }
+
+        return mi;
     }
 
     // get the image of a key from a map
@@ -154,12 +172,177 @@ public class MappingInference {
         }
     }
 
-    public static Map<Integer, Integer> lineMappingInference(CoordInstMap cim) {
-        Map<Integer, Integer> lineMap = new HashMap<>();
+    // key: a row number in the output table
+    // value: a row number in the input table
+    public static Map<Integer, Integer> rowMappingInference(CoordInstMap cim) {
+        Map<Integer, Integer> rowMap = new HashMap<>();
         for (int i = 0; i < cim.maxR(); i ++) {
-            lineMap.put(cim.getMap().get(i).get(0).r(), i);
+            rowMap.put(i, cim.getMap().get(i).get(0).r());
         }
-        return lineMap;
+        return rowMap;
+    }
+
+    public static Map<Integer, Integer> columnMappingInference(CoordInstMap cim) {
+        Map<Integer, Integer> columnMap = new HashMap<>();
+        for (int j = 0; j < cim.maxC(); j ++) {
+            columnMap.put(j, cim.getMap().get(0).get(j).c());
+        }
+        return columnMap;
+    }
+
+    public List<Filter> atomicFilterEnum(List<Value> constants, int paramNum) {
+        List<Filter> filters = new ArrayList<>();
+
+        List<ValNode> vns = constants.stream().map(c -> new ConstantVal(c)).collect(Collectors.toList());
+
+        // the named table comes from input
+        List<TableNode> baseTables = new ArrayList<>();
+        baseTables.add(new NamedTable(input));
+
+        List<TableNode> parameterizedTables = new ArrayList<>();
+        for (int k = 1; k <= paramNum; k ++) {
+             parameterizedTables.addAll(EnumParamTN
+                    .enumParameterizedTableNodes(
+                            baseTables,
+                            vns,
+                            k));
+        }
+
+        System.out.println("Parameterized table enum Done.");
+
+        EnumContext ec = new EnumContext(Arrays.asList(input), new Constraint(1, constants,new ArrayList<>(), paramNum));
+        ec.setParameterizedTables(parameterizedTables);
+
+        // the size of the table should be 1
+        assert (ec.getTableNodes().size() == 1);
+
+        TableNode tn = ec.getTableNodes().get(0);
+        Map<String, ValType> typeMap = new HashMap<>();
+        for (int i = 0; i < tn.getSchema().size(); i ++) {
+            typeMap.put(tn.getSchema().get(i), tn.getSchemaType().get(i));
+        }
+        // enum filters
+        EnumContext ec2 = EnumContext.extendTypeMap(ec, typeMap);
+        filters.addAll(FilterEnumerator.enumAtomicFilter(ec2));
+
+        System.out.println("Arrive checkpoint 3");
+
+        return filters;
+    }
+
+    public static List<BitSet> bulkBitEncodingFilter(Table table, List<Filter> filters) {
+
+        List<BitSet> encodingList = new ArrayList<>();
+
+        Map<Filter, Integer> filterIndex = new HashMap<>();
+        for (int i = 0; i < filters.size(); i ++) {
+            encodingList.add(new BitSet(table.getContent().size()));
+            filterIndex.put(filters.get(i), i);
+        }
+
+
+        for (int i = 0; i < table.getContent().size(); i ++)
+            table.getContent().get(i).index = i;
+
+        table.getContent().parallelStream().forEach(tr -> {
+            Map<String, Value> rowBinding = new HashMap<String, Value>();
+            // extend the evaluation environment for this column
+            if (! table.getName().equals("anonymous")) {
+                for (int k = 0; k < table.getMetadata().size(); k ++) {
+                    rowBinding.put(
+                            table.getName() + "." + table.getMetadata().get(k),
+                            tr.getValue(k));
+                }
+            } else {
+                for (int k = 0; k < table.getMetadata().size(); k ++) {
+                    rowBinding.put(table.getMetadata().get(k), tr.getValue(k));
+                }
+            }
+
+            Environment env = new Environment().extend(rowBinding);
+            filters.parallelStream().forEach(f -> {
+                try {
+                    if (f.filter(env))
+                        encodingList.get(filterIndex.get(f)).set(tr.index);
+                } catch (SQLEvalException e) {
+                    e.printStackTrace();
+                }
+            });
+        });
+        return encodingList;
+    }
+
+    public static BitSet bitEncodingFilter(Table table, Filter f) {
+        BitSet encoding = new BitSet(table.getContent().size());
+
+        for (int i = 0; i < table.getContent().size(); i ++) {
+            TableRow tr = table.getContent().get(i);
+
+            Map<String, Value> rowBinding = new HashMap<String, Value>();
+            // extend the evaluation environment for this column
+            if (table.getName().equals("anonymous") == false) {
+                for (int k = 0; k < table.getMetadata().size(); k ++) {
+                    rowBinding.put(table.getName() + "." + table.getMetadata().get(k), tr.getValue(k));
+                }
+            } else {
+                for (int k = 0; k < table.getMetadata().size(); k ++) {
+                    rowBinding.put(table.getMetadata().get(k), tr.getValue(k));
+                }
+            }
+
+            Environment env = new Environment().extend(rowBinding);
+            try {
+                if (f.filter(env)) {
+                    encoding.set(i);
+                }
+            } catch (SQLEvalException e) {
+                e.printStackTrace();
+            }
+        }
+        return encoding;
+    }
+
+    public static Map<BitSet, List<Filter>> filterMemoization(Table table, List<Filter> filters) {
+        Map<BitSet, List<Filter>> bitFilterMap= new HashMap<>();
+        System.out.println("I'm Here");
+        System.out.println("Filter Size: " + filters.size());
+
+        // Encoding method 1: foreach filter, do encoding and add them to the map
+        filters.parallelStream().forEach(f -> {
+            BitSet encoding = bitEncodingFilter(table, f);
+            if (!bitFilterMap.containsKey(encoding)) {
+                List<Filter> list = new ArrayList<>();
+                list.add(f);
+                bitFilterMap.put(encoding, list);
+            } else {
+                bitFilterMap.get(encoding).add(f);
+            }
+        });
+
+        // Encoding method 2: for each row, encoding all filters
+        /*
+        List<BitSet> encodings = bulkBitEncodingFilter(table, filters);
+        //List<BitSet> encodings = filters.stream().parallel().map(f -> bitEncodingFilter(table, f)).collect(Collectors.toList());
+        for (int i = 0; i < filters.size(); i ++) {
+            Filter f = filters.get(i);
+            BitSet encoding = encodings.get(i); //
+             //BitSet encoding= bitEncodingFilter(table, f);
+            if (!bitFilterMap.containsKey(encoding)) {
+                List<Filter> list = new ArrayList<>();
+                list.add(f);
+                bitFilterMap.put(encoding, list);
+            } else {
+                bitFilterMap.get(encoding).add(f);
+            }
+        }
+        */
+
+        System.out.println("Value Size: " + bitFilterMap.entrySet().size());
+        for (Map.Entry<BitSet, List<Filter>> k : bitFilterMap.entrySet()) {
+            System.out.println("#" + k.getValue().size() + " : " + k.getKey().toString());
+        }
+
+        return bitFilterMap;
     }
 
     @Override
@@ -167,9 +350,9 @@ public class MappingInference {
         String s = "";
         for (Map.Entry<Coordinate, List<Coordinate>> t : map.toMap().entrySet()) {
             String listString = t.getValue().stream()
-                    .map(u -> u.toString() + ":" + input.getContent().get(u.r()).getValue(u.c()))
+                    .map(u -> u.toString())
                     .reduce("", (x, y)-> x.toString() + ","+ y.toString()).trim();
-            s += t.getKey().toString() + " : " + output.getContent().get(t.getKey().r()).getValue(t.getKey().c())
+            s += t.getKey().toString()
                     + " -> " + " ["
                     + listString.substring(listString.indexOf("(")) + "]\n";
         }

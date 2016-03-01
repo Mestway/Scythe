@@ -83,7 +83,9 @@ public class FilterEnumerator {
         return enumCompoundFilters(result, filterLength + 1, maxFilterLength);
     }
 
-    private static List<Filter> enumAtomicFilter(EnumContext ec) {
+    // enumerate only atomic filters:
+    //      filters such that length == 1
+    public static List<Filter> enumAtomicFilter(EnumContext ec) {
         List<Filter> atomicFilters = new ArrayList<Filter>();
 
         List<ValNode> valNodes = ValueEnumerator.enumValNodes(ec);
@@ -91,6 +93,10 @@ public class FilterEnumerator {
         // Enumerate VVComparators
         for (int i = 0; i < valNodes.size(); i ++) {
             for (int j = i + 1; j < valNodes.size(); j ++) {
+
+                if (valNodes.get(i) instanceof ConstantVal
+                        && valNodes.get(j) instanceof ConstantVal)
+                    continue;
 
                 ValNode l = valNodes.get(i);
                 ValNode r = valNodes.get(j);
@@ -114,8 +120,10 @@ public class FilterEnumerator {
         for (List<ValNode> vns : llvns) {
             InstantiateEnv ie = new InstantiateEnv(vns, ec);
             atomicFilters.addAll(
-                    ec.getParameterizedTables().stream().map(tn -> tn.instantiate(ie))
-            .filter(t -> t.getAllHoles().size() == 0).map(tn -> new ExistComparator(tn)).collect(Collectors.toList()));
+                ec.getParameterizedTables().stream().map(tn -> tn.instantiate(ie))
+                    .filter(t -> t.getAllHoles().size() == 0)
+                    .map(tn -> new ExistComparator(tn))
+                    .collect(Collectors.toList()));
         }
 
         List<Filter> resultFilter = new ArrayList<>();
@@ -128,7 +136,6 @@ public class FilterEnumerator {
 
         return resultFilter;
     }
-
 
     // TODO: optimize by ruling out same filters
     private static List<Filter> enumAtomicFiltersLR(List<ValNode> L, List<ValNode> R, EnumContext ec) {

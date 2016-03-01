@@ -4,6 +4,7 @@ import sql.lang.Table;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Created by clwang on 12/11/15.
@@ -29,12 +30,18 @@ public class TableInstanceParser {
     private static List<String> splitLineToList(String line) {
         String[] content = line.trim().split("\\|");
         List<String> list = new ArrayList<String>();
-        boolean isBoundaryColumn = true;
         // range from 1 to size-1 because the first slot is an empty one
         for (int i = 1; i < content.length; i ++) {
             list.add(content[i].trim());
         }
         return list;
+    }
+
+    private static List<String> splitByComma(String line) {
+        String[] content = line.trim().split(",");
+        List<String> lst = new ArrayList<>();
+        for (String s : content) lst.add(s);
+        return lst;
     }
 
     public static Table parseMarkDownTable(String tableName, String tableSrc) {
@@ -44,5 +51,15 @@ public class TableInstanceParser {
             lines.add(s);
         }
         return parseMarkdownTable(tableName, lines);
+    }
+
+    public static Table parseCVS(String tableName, List<String> lines) {
+        // the firstline is
+        List<String> schema = splitByComma(lines.get(0));
+        List<List<String>> content = new ArrayList<>();
+        for (int i = 1; i < lines.size(); i ++) {
+            content.add(splitByComma(lines.get(i)));
+        }
+        return new Table(tableName, schema, content);
     }
 }

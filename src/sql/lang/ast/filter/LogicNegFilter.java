@@ -59,4 +59,5 @@ public class LogicNegFilter implements Filter {
     public Filter substNamedVal(ValNodeSubstBinding vnsb) {
         return filter.substNamedVal(vnsb);
     }
+
 }

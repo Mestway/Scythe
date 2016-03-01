@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 public class EnumAggrTableNode {
 
     // When this flag is true, we will not allow comparison between multiple aggregation fields
-    private static final boolean simplify = true;
+    private static final boolean SIMPLIFY = true;
 
     /***********************************************************
      * Enum by Aggregation
@@ -52,7 +52,26 @@ public class EnumAggrTableNode {
 
         List<TableNode> aggregationNodes = new ArrayList<TableNode>();
         for (TableNode coreTable : coreTableNodes) {
-            aggregationNodes.addAll(enumAggrPerTable(ec, coreTable));
+            aggregationNodes.addAll(enumAggrPerTable(ec, coreTable, SIMPLIFY));
+        }
+
+        return aggregationNodes;
+    }
+
+    public static List<TableNode> enumAggregationNodeFlag(EnumContext ec, boolean simplify) {
+
+        // currently ignore all table nodes
+        List<TableNode> coreTableNodes = ec.getTableNodes().stream().filter(
+                t -> {
+                    if (t instanceof NamedTable)
+                        return true;
+                    return true;
+                }
+        ).collect(Collectors.toList());
+
+        List<TableNode> aggregationNodes = new ArrayList<TableNode>();
+        for (TableNode coreTable : coreTableNodes) {
+            aggregationNodes.addAll(enumAggrPerTable(ec, coreTable, simplify));
         }
 
         return aggregationNodes;
@@ -63,7 +82,7 @@ public class EnumAggrTableNode {
      * @param tn the table to perform aggregation on
      * @return the list of enumerated table based on the given tablenode
      */
-    private static List<TableNode> enumAggrPerTable(EnumContext ec, TableNode tn) {
+    private static List<TableNode> enumAggrPerTable(EnumContext ec, TableNode tn, boolean simplify) {
 
         List<TableNode> aggrNodes = new ArrayList<>();
 

@@ -12,6 +12,7 @@ import java.util.List;
  * Created by clwang on 12/14/15.
  */
 public interface Filter {
+
     // for evaluation
     boolean filter(Environment env) throws SQLEvalException;
 
@@ -27,4 +28,5 @@ public interface Filter {
     List<Hole> getAllHoles();
     Filter instantiate(InstantiateEnv env);
     Filter substNamedVal(ValNodeSubstBinding vnsb);
+
 }

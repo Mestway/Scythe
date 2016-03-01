@@ -202,4 +202,7 @@ public class TableRow {
         }
         return this.values.get(0);
     }
+
+    public int index = -1;
+
 }

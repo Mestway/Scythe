@@ -54,5 +54,4 @@ public class EmptyFilter implements Filter {
         return this;
     }
 
-
 }

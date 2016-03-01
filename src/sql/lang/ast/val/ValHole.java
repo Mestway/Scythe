@@ -11,9 +11,7 @@ import sql.lang.exception.SQLEvalException;
 import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by clwang on 1/8/16.
@@ -26,9 +24,13 @@ public class ValHole implements ValNode, Hole {
     private static int idCounter = 0;
 
     public static List<ValNode> genHoles(int number) {
+        return genHolesWithType(number, Arrays.asList(ValType.values()));
+    }
+
+    public static List<ValNode> genHolesWithType(int number, List<ValType> types) {
         List<ValNode> holes = new ArrayList<>();
         for (int i = 0; i < number; i ++) {
-            for (ValType vt : ValType.values()) {
+            for (ValType vt : types) {
                 holes.add(ValHole.assignHole(i, vt));
             }
         }

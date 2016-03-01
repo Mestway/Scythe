@@ -1,5 +1,6 @@
 package enumerator.hueristics;
 
+import com.sun.tools.javac.file.SymbolArchive;
 import com.sun.tools.javac.util.Pair;
 import enumerator.EnumAggrTableNode;
 import enumerator.EnumContext;
@@ -21,6 +22,61 @@ import java.util.stream.Collectors;
  */
 public class TableNaturalJoinWithAggr {
 
+    public final static boolean connectAll = true;
+
+
+    public static TableNode naturalTableExtensionWithAggr(EnumContext ec) {
+        assert (ec.getTableNodes().size() == 1);
+
+        TableNode tb = ec.getTableNodes().get(0);
+        List<TableNode> aggrTableNodes = EnumAggrTableNode.enumAggregationNodeFlag(ec, true);
+
+        TableNode currentTb = tb;
+
+        for (TableNode agrt : aggrTableNodes) {
+            int aggrFieldLength = ((AggregationNode)agrt).getAggrFieldSize();
+
+            int tbLength = currentTb.getSchema().size();
+            List<Pair<Integer, Integer>> naturalJoinPairs = new ArrayList<>();
+            for (int i = 0; i < aggrFieldLength; i ++) {
+                String s = agrt.getSchema().get(i);
+                naturalJoinPairs.add(new Pair<>(tb.getSchema().indexOf(s), tbLength + i));
+            }
+
+            TableNode jntb = RenameTNWrapper.tryRename(new JoinNode(Arrays.asList(currentTb, agrt)));
+
+            List<Filter> filters = new ArrayList<>();
+            for (Pair<Integer, Integer> p : naturalJoinPairs) {
+                filters.add(
+                        new VVComparator(
+                                Arrays.asList(
+                                        new NamedVal(jntb.getSchema().get(p.fst)),
+                                        new NamedVal(jntb.getSchema().get(p.snd))),
+                                VVComparator.eq));
+            }
+
+            List nodesToSelect = jntb.getSchema()
+                    .stream().map(s -> new NamedVal(s)).collect(Collectors.toList()).subList(0, tbLength);
+
+            for (int i = 0; i < agrt.getSchema().size() -  aggrFieldLength; i ++) {
+                nodesToSelect.add(
+                        new NamedVal(jntb.getSchema().get(tbLength + aggrFieldLength + i)));
+            }
+
+            TableNode tn = new SelectNode(
+                    nodesToSelect,
+                    jntb,
+                    LogicAndFilter.ConnectByAnd(filters)
+            );
+
+            currentTb = tn;
+        }
+
+        //System.out.println(currentTb.prettyPrint(0));
+        return currentTb;
+
+    }
+
     // enumerate aggregation nodes of a table
     public static List<TableNode> naturalJoinWithAggregation(EnumContext ec) {
 
@@ -31,7 +87,8 @@ public class TableNaturalJoinWithAggr {
 
         // for each named table in the list
         for (TableNode tb : namedTables) {
-            List<TableNode> aggrTableNodes = EnumAggrTableNode.enumAggregationNode(ec);
+            List<TableNode> aggrTableNodes = EnumAggrTableNode.enumAggregationNodeFlag(ec, false);
+
             for (TableNode agrt : aggrTableNodes) {
                 // the length of fields
                 int aggrFieldLength = ((AggregationNode)agrt).getAggrFieldSize();
@@ -72,6 +129,9 @@ public class TableNaturalJoinWithAggr {
             }
         }
 
+        result.forEach(r -> {
+            System.out.println(r.prettyPrint(0));
+        });
         return result;
     }
 }

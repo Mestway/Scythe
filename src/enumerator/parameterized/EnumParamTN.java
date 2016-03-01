@@ -27,7 +27,14 @@ public class EnumParamTN {
 
         numberOfParams = paramNum;
 
-        constants.addAll(ValHole.genHoles(numberOfParams));
+        List<ValType> valueTypes = new ArrayList<>();
+        for (TableNode tn : basicTables) {
+            for (ValType vt : tn.getSchemaType()) {
+                if (!valueTypes.contains(vt))
+                    valueTypes.add(vt);
+            }
+        }
+        constants.addAll(ValHole.genHolesWithType(numberOfParams, valueTypes));
 
         EnumContext ec = new EnumContext();
         ec.updateTableNodes(basicTables.stream().map(bt -> RenameTNWrapper.forceRename(bt)).collect(Collectors.toList()));
