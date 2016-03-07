@@ -95,6 +95,8 @@ public class VVComparator implements Filter {
         return v1.getVal().equals(v2.getVal());
     };
 
+    public static BiFunction<Value, Value, Boolean> neq = (v1, v2) -> ! eq.apply(v1, v2);
+
     public static BiFunction<Value, Value, Boolean> gt = (v1, v2) -> lt.apply(v2, v1);
 
     public static BiFunction<Value, Value, Boolean> le = (v1, v2) -> ! gt.apply(v1, v2);

@@ -31,6 +31,21 @@ public class TableRow {
         return newRow;
     }
 
+    public int retrieveIndex(String columnName) {
+        String fieldName = columnName;
+        if (this.tableName.equals("anonymous"))
+            fieldName = columnName;
+        else
+            fieldName = columnName.substring(columnName.indexOf(".") + 1);
+
+        for (int i = 0; i < this.fieldNames.size(); i ++) {
+            if (this.fieldNames.get(i).equals(fieldName))
+                return i;
+        }
+        System.err.println("[Error@Table152]Metadata retrieval fail.");
+        return -1;
+    }
+
     public static TableRow TableRowFromContent(String tableName, List<String> names, List<Value> rowContent) {
         TableRow newRow = new TableRow();
         newRow.tableName = tableName;
