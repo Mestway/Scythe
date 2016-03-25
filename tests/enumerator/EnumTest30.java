@@ -47,7 +47,7 @@ public class EnumTest30 {
     Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
 
     Constraint c = new Constraint(
-            1,
+            2,
             Arrays.asList(Value.parse("True")),
             Arrays.asList(),
             2);

@@ -1,6 +1,5 @@
 package enumerator;
 
-import com.apple.laf.AquaButtonBorder;
 import javafx.util.Pair;
 import sql.lang.DataType.ValType;
 import sql.lang.DataType.Value;
@@ -10,13 +9,10 @@ import sql.lang.ast.table.*;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
-import sql.lang.trans.ValNodeSubstBinding;
 import util.DebugHelper;
 
 import java.util.*;
 import java.util.function.Function;
-import java.util.jar.Attributes;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -27,81 +23,86 @@ import java.util.stream.Collectors;
  */
 public class EnumContext {
 
-    // those tables
+    // enumeration information about output table
+    private Table outputTable = null;
+
+    // tabled that is memoized
     private Map<Table, List<TableNode>> memoizedTables = new HashMap<>();
-
-    private Map<Table, List<TableNode>> exportedResult = new HashMap<>();
-
-    public static final boolean noMemoization = false;
 
     private int maxFilterLength = 2;
 
-    private List<TableNode> tablesNodes = new ArrayList<>();
+    // tableNodes are used to store tables that are used as input of current enumeration iteration.
+    private List<TableNode> tableNodes = new ArrayList<>();
     private List<ValNode> valNodes = new ArrayList<>();
 
     // ** the only part of the context that should not mutate once intialized
     private List<TableNode> parameterizedTables = new ArrayList<>();
-
     List<Function<List<Value>, Value>> aggrfuns = new ArrayList<>();
 
+    //mapping a column name to its corresponding type
     private Map<String, ValType> typeMap = new HashMap<>();
 
+    // used to store the input tables
+    private List<Table> inputs = new ArrayList<>();
+    public List<Table> getInputs() { return this.inputs; }
+
     public EnumContext() {}
-
-    public void updateTableNodes(List<TableNode> tns) {
-
-        if (noMemoization) {
-            this.tablesNodes.addAll(tns);
-            return;
-        }
-
-        for (TableNode tn : tns) {
-            try {
-                boolean added = false;
-                Table t = tn.eval(new Environment());
-
-                if (t.getContent().size() == 0)
-                    continue;
-
-                for (Map.Entry<Table, List<TableNode>> entry : memoizedTables.entrySet()) {
-                    if (entry.getKey().contentStrictEquals(t)) {
-                        memoizedTables.get(entry.getKey()).add(tn);
-                        added = true;
-                        break;
-                    }
-                }
-                if (!added) {
-                    ArrayList<TableNode> ar = new ArrayList<>();
-                    ar.add(tn);
-                    memoizedTables.put(t, ar);
-                }
-            } catch (SQLEvalException e) {
-                System.out.println("[EnumContext58] TableNode not executable.");
-            }
-        }
-        this.tablesNodes = memoizedTables.keySet()
-                .stream().map(t -> new NamedTable(t)).collect(Collectors.toList());
-    }
-
-    public void setValNodes(List<ValNode> vns) { this.valNodes = vns; }
-
-    public void setMaxFilterLength(int maxLength) { this.maxFilterLength = maxLength; }
-    public int getMaxFilterLength() { return this.maxFilterLength; }
-
-    public void setParameterizedTables(List<TableNode> tbs) { this.parameterizedTables = tbs; }
-
-    public List<TableNode> getParameterizedTables() { return this.parameterizedTables; }
-
+    // initializing an EnumContext using tables and constraint
     public EnumContext(List<Table> tbs, Constraint c) {
+        inputs = tbs;
         this.updateTableNodes(tbs.stream().map(t -> new NamedTable(t)).collect(Collectors.toList()));
         valNodes = c.constValNodes();
         this.aggrfuns = c.getAggrFuns();
     }
 
+    // update the enumContext adding new tables
+    // (these new tables will be used in next rounds enumeration)
+    public void updateTableNodes(List<TableNode> tns) {
+        for (TableNode tn : tns) {
+            try {
+                Table t = tn.eval(new Environment());
+
+                if (t.getContent().size() == 0)
+                    continue;
+
+                if (memoizedTables.containsKey(t)) {
+                    memoizedTables.get(t).add(tn);
+                } else {
+                    ArrayList<TableNode> ar = new ArrayList<>();
+                    ar.add(tn);
+                    memoizedTables.put(t, ar);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("[EnumContext71] TableNode not executable.");
+                System.out.println(tn.prettyPrint(0));
+                System.exit(-1);
+            }
+        }
+        this.tableNodes = memoizedTables.keySet()
+                .parallelStream().map(t -> new NamedTable(t)).collect(Collectors.toList());
+    }
+
+    public void setValNodes(List<ValNode> vns) { this.valNodes = vns; }
+
+    // set and get the number of maxinum filter length
+    public void setMaxFilterLength(int maxLength) { this.maxFilterLength = maxLength; }
+    public int getMaxFilterLength() { return this.maxFilterLength; }
+
+    // set and get parameterized tables used in enumeration
+    public void setParameterizedTables(List<TableNode> tbs) { this.parameterizedTables = tbs; }
+    public List<TableNode> getParameterizedTables() { return this.parameterizedTables; }
+
+    // set and get output table for this enumeration context, this method is not used in most situations
+    public void setOutputTable(Table outputTable) { this.outputTable = outputTable; }
+    public Table getOutputTable() { return this.outputTable; }
+
+    public Map<Table, List<TableNode>> getMemoizedTables() { return this.memoizedTables; }
+
     // Extend atomic tables in the context
     public static EnumContext extendTable(
             EnumContext ec, List<TableNode> tables) {
-
         EnumContext newEC = EnumContext.deepCopy(ec);
         newEC.updateTableNodes(tables);
         return newEC;
@@ -120,15 +121,12 @@ public class EnumContext {
     }
 
     public List<TableNode> getBasicTableNodes() {
-        return this.tablesNodes;
+        return this.tableNodes;
     }
 
     public List<TableNode> getTableNodes() {
-        List<TableNode> result = new ArrayList<>();
-        for (Table t : this.memoizedTables.keySet()) {
-            result.add(this.memoizedTables.get(t).get(0));
-        }
-        return result;
+        // get the first element of all entries in the memoizedTables map
+        return this.memoizedTables.entrySet().parallelStream().map(e -> e.getValue().get(0)).collect(Collectors.toList());
     }
 
     public List<ValNode> getValNodes() {
@@ -137,7 +135,7 @@ public class EnumContext {
         return allValNodes;
     }
 
-    // get aggregation functions that
+    // get aggregation functions that are used in this enumeration context
     public List<Function<List<Value>, Value>> getAggrFuns(ValType type) {
         List<Function<List<Value>, Value>> fs = AggregationNode.getAllAggrFunctions(type);
         return fs.stream().filter(f -> this.aggrfuns.contains(f)).collect(Collectors.toList());
@@ -149,7 +147,7 @@ public class EnumContext {
 
     public static EnumContext deepCopy(EnumContext ec) {
         EnumContext newEC = new EnumContext();
-        newEC.tablesNodes.addAll(ec.tablesNodes);
+        newEC.tableNodes.addAll(ec.tableNodes);
         newEC.aggrfuns.addAll(ec.aggrfuns);
         newEC.valNodes.addAll(ec.valNodes);
         newEC.typeMap.putAll(ec.typeMap);
@@ -157,14 +155,16 @@ public class EnumContext {
         newEC.parameterizedTables = ec.parameterizedTables;
         // this field is shared
         newEC.memoizedTables = ec.memoizedTables;
+        newEC.outputTable = ec.outputTable;
+        newEC.inputs = ec.inputs;
         return newEC;
     }
 
     public void debugPrint() {
         System.out.println(" EC PRINT START ");
         System.out.println("~~==~~ tables");
-        //DebugHelper.printTableNodes(this.tablesNodes);
-        System.out.println("diffTables: " + this.tablesNodes.size() + ", AllTables: " + this.memoizedTables.entrySet().stream().map(i -> i.getValue().size()).reduce(
+        //DebugHelper.printTableNodes(this.tableNodes);
+        System.out.println("diffTables: " + this.tableNodes.size() + ", AllTables: " + this.memoizedTables.entrySet().stream().map(i -> i.getValue().size()).reduce(
                 0,
                 (a, b) -> a + b));
         System.out.println("~~==~~ valnodes");
@@ -173,14 +173,12 @@ public class EnumContext {
     }
 
     public List<TableNode> lookup(Table t) {
-        for (Map.Entry<Table, List<TableNode>> entry : memoizedTables.entrySet()) {
-            if (entry.getKey().contentStrictEquals(t)) {
-                return memoizedTables.get(entry.getKey());
-            }
-        }
-        return new ArrayList<>();
+        if (memoizedTables.containsKey(t))
+            return memoizedTables.get(t);
+        else return new ArrayList<>();
     }
 
+    // Export a table into a list of tables by unfolding intermediate results with memoized structures
     public List<TableNode> export(TableNode tn, List<NamedTable> alreadyLookedUp, List<NamedTable> inputNamedTables) {
 
         List<TableNode> result = new ArrayList<>();
@@ -245,6 +243,7 @@ public class EnumContext {
         return result;
     }
 
+    // given a list of tables, calculate the cartesian product of these tables
     public static List<List<TableNode>> product(List<List<TableNode>> tns) {
         List<List<TableNode>> result = new ArrayList<>();
 
@@ -266,4 +265,5 @@ public class EnumContext {
         }
         return result;
     }
+
 }

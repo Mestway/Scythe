@@ -1,0 +1,48 @@
+SELECT
+  [T31729].yrq
+FROM
+  (SELECT
+      input1.yrq,input1.start_date,input1.end_date
+    FROM
+      input1
+    WHERE
+      input1.end_date > Fri Feb 01 00:00:00 PST 2013) AS [T31729][yrq, start_date, end_date]
+WHERE
+
+ ########################################### 
+SELECT
+  [T32316].yrq
+FROM
+  (SELECT
+      [T32118].yrq,[T32118].start_date,[T32118].end_date,[T32118].yrq1,[T32118].start_date1,[T32118].end_date1
+    FROM
+      (( input1 ) JOIN (
+          (SELECT
+              input1.yrq,input1.start_date,input1.end_date
+            FROM
+              input1
+            WHERE
+              input1.end_date > Fri Feb 01 00:00:00 PST 2013) AS [T31729][yrq, start_date, end_date] )) AS [T32118][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+    WHERE
+      [T32118].yrq == [T32118].yrq1) AS [T32316][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T32316].yrq1
+FROM
+  (SELECT
+      [T32118].yrq,[T32118].start_date,[T32118].end_date,[T32118].yrq1,[T32118].start_date1,[T32118].end_date1
+    FROM
+      (( input1 ) JOIN (
+          (SELECT
+              input1.yrq,input1.start_date,input1.end_date
+            FROM
+              input1
+            WHERE
+              input1.end_date > Fri Feb 01 00:00:00 PST 2013) AS [T31729][yrq, start_date, end_date] )) AS [T32118][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+    WHERE
+      [T32118].yrq == [T32118].yrq1) AS [T32316][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+WHERE
+
+ ########################################### 

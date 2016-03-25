@@ -15,6 +15,8 @@ public class CFilter {
         this.comparators = filters;
     }
 
+    public List<CBiComparator> getComparators() { return comparators; }
+
     public CFilter(CBiComparator ... filters) {
         for (CBiComparator f : filters)
             this.comparators.add(f);
@@ -22,6 +24,12 @@ public class CFilter {
 
     public boolean eval(TableRow ourTr, TableRow inTr) {
         return comparators.stream()
-                .map(c -> c.compare(ourTr, inTr)).reduce(true, (x, y) -> (x && y));
+                .map(c -> c.compare(ourTr, inTr))
+                .reduce(true, (x, y) -> (x && y));
     }
+
+    public String toString() {
+        return comparators.stream().map(c -> c.toString()).reduce(">", (x, y) -> (x + ", " + y));
+    }
+
 }

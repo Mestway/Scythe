@@ -1,0 +1,2223 @@
+input1
+ ########################################### 
+SELECT
+  [T1398446].username,[T1398446].date,[T1398446].value
+FROM
+  (SELECT
+      [T1398442].username,[T1398442].date,[T1398442].value,[T1398442].MIN-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398442][username, date, value, username1, MIN-date]
+    WHERE
+      [T1398442].username == [T1398442].username1) AS [T1398446][username, date, value, MIN-date]
+WHERE
+  [T1398446].MIN-date <= [T1398446].date
+ ########################################### 
+SELECT
+  [T1398446].username,[T1398446].date,[T1398446].value
+FROM
+  (SELECT
+      [T1398442].username,[T1398442].date,[T1398442].value,[T1398442].MIN-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398442][username, date, value, username1, MIN-date]
+    WHERE
+      [T1398442].username == [T1398442].username1) AS [T1398446][username, date, value, MIN-date]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398446].username == [T1398429].username) AS [T1398430][username, date, value])
+ ########################################### 
+SELECT
+  [T1398446].username,[T1398446].date,[T1398446].value
+FROM
+  (SELECT
+      [T1398442].username,[T1398442].date,[T1398442].value,[T1398442].MIN-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398442][username, date, value, username1, MIN-date]
+    WHERE
+      [T1398442].username == [T1398442].username1) AS [T1398446][username, date, value, MIN-date]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398446].MIN-date < [T1398429].date) AS [T1398431][username, date, value])
+ ########################################### 
+SELECT
+  [T1398446].username,[T1398446].date,[T1398446].value
+FROM
+  (SELECT
+      [T1398442].username,[T1398442].date,[T1398442].value,[T1398442].MIN-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398442][username, date, value, username1, MIN-date]
+    WHERE
+      [T1398442].username == [T1398442].username1) AS [T1398446][username, date, value, MIN-date]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398446].MIN-date == [T1398429].date) AS [T1398432][username, date, value])
+ ########################################### 
+SELECT
+  [T1398446].username,[T1398446].date,[T1398446].value
+FROM
+  (SELECT
+      [T1398442].username,[T1398442].date,[T1398442].value,[T1398442].MIN-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398442][username, date, value, username1, MIN-date]
+    WHERE
+      [T1398442].username == [T1398442].username1) AS [T1398446][username, date, value, MIN-date]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398446].MIN-date <= [T1398429].date) AS [T1398434][username, date, value])
+ ########################################### 
+SELECT
+  [T1398446].username,[T1398446].date,[T1398446].value
+FROM
+  (SELECT
+      [T1398442].username,[T1398442].date,[T1398442].value,[T1398442].MIN-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398442][username, date, value, username1, MIN-date]
+    WHERE
+      [T1398442].username == [T1398442].username1) AS [T1398446][username, date, value, MIN-date]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398446].MIN-date >= [T1398429].date) AS [T1398435][username, date, value])
+ ########################################### 
+SELECT
+  [T1398446].username,[T1398446].date,[T1398446].value
+FROM
+  (SELECT
+      [T1398442].username,[T1398442].date,[T1398442].value,[T1398442].MIN-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398442][username, date, value, username1, MIN-date]
+    WHERE
+      [T1398442].username == [T1398442].username1) AS [T1398446][username, date, value, MIN-date]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398446].date == [T1398429].date) AS [T1398432][username, date, value])
+ ########################################### 
+SELECT
+  [T1398446].username,[T1398446].date,[T1398446].value
+FROM
+  (SELECT
+      [T1398442].username,[T1398442].date,[T1398442].value,[T1398442].MIN-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398442][username, date, value, username1, MIN-date]
+    WHERE
+      [T1398442].username == [T1398442].username1) AS [T1398446][username, date, value, MIN-date]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398446].date <= [T1398429].date) AS [T1398434][username, date, value])
+ ########################################### 
+SELECT
+  [T1398446].username,[T1398446].date,[T1398446].value
+FROM
+  (SELECT
+      [T1398442].username,[T1398442].date,[T1398442].value,[T1398442].MIN-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398442][username, date, value, username1, MIN-date]
+    WHERE
+      [T1398442].username == [T1398442].username1) AS [T1398446][username, date, value, MIN-date]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398446].date >= [T1398429].date) AS [T1398435][username, date, value])
+ ########################################### 
+SELECT
+  [T1398446].username,[T1398446].date,[T1398446].value
+FROM
+  (SELECT
+      [T1398442].username,[T1398442].date,[T1398442].value,[T1398442].MIN-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398442][username, date, value, username1, MIN-date]
+    WHERE
+      [T1398442].username == [T1398442].username1) AS [T1398446][username, date, value, MIN-date]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398446].value == [T1398429].value) AS [T1398437][username, date, value])
+ ########################################### 
+SELECT
+  [T1398446].username,[T1398446].date,[T1398446].value
+FROM
+  (SELECT
+      [T1398442].username,[T1398442].date,[T1398442].value,[T1398442].MIN-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398442][username, date, value, username1, MIN-date]
+    WHERE
+      [T1398442].username == [T1398442].username1) AS [T1398446][username, date, value, MIN-date]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398446].value <= [T1398429].value) AS [T1398439][username, date, value])
+ ########################################### 
+SELECT
+  [T1398446].username,[T1398446].date,[T1398446].value
+FROM
+  (SELECT
+      [T1398442].username,[T1398442].date,[T1398442].value,[T1398442].MIN-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398442][username, date, value, username1, MIN-date]
+    WHERE
+      [T1398442].username == [T1398442].username1) AS [T1398446][username, date, value, MIN-date]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398446].value >= [T1398429].value) AS [T1398440][username, date, value])
+ ########################################### 
+SELECT
+  [T1398446].username,[T1398446].date,[T1398446].value
+FROM
+  (SELECT
+      [T1398442].username,[T1398442].date,[T1398442].value,[T1398442].MIN-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398442][username, date, value, username1, MIN-date]
+    WHERE
+      [T1398442].username == [T1398442].username1) AS [T1398446][username, date, value, MIN-date]
+WHERE
+  [T1398446].MIN-date <= [T1398446].date
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398446].username == [T1398429].username) AS [T1398430][username, date, value])
+ ########################################### 
+SELECT
+  [T1398446].username,[T1398446].date,[T1398446].value
+FROM
+  (SELECT
+      [T1398442].username,[T1398442].date,[T1398442].value,[T1398442].MIN-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398442][username, date, value, username1, MIN-date]
+    WHERE
+      [T1398442].username == [T1398442].username1) AS [T1398446][username, date, value, MIN-date]
+WHERE
+  [T1398446].MIN-date <= [T1398446].date
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398446].MIN-date < [T1398429].date) AS [T1398431][username, date, value])
+ ########################################### 
+SELECT
+  [T1398446].username,[T1398446].date,[T1398446].value
+FROM
+  (SELECT
+      [T1398442].username,[T1398442].date,[T1398442].value,[T1398442].MIN-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398442][username, date, value, username1, MIN-date]
+    WHERE
+      [T1398442].username == [T1398442].username1) AS [T1398446][username, date, value, MIN-date]
+WHERE
+  [T1398446].MIN-date <= [T1398446].date
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398446].MIN-date == [T1398429].date) AS [T1398432][username, date, value])
+ ########################################### 
+SELECT
+  [T1398446].username,[T1398446].date,[T1398446].value
+FROM
+  (SELECT
+      [T1398442].username,[T1398442].date,[T1398442].value,[T1398442].MIN-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398442][username, date, value, username1, MIN-date]
+    WHERE
+      [T1398442].username == [T1398442].username1) AS [T1398446][username, date, value, MIN-date]
+WHERE
+  [T1398446].MIN-date <= [T1398446].date
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398446].MIN-date <= [T1398429].date) AS [T1398434][username, date, value])
+ ########################################### 
+SELECT
+  [T1398446].username,[T1398446].date,[T1398446].value
+FROM
+  (SELECT
+      [T1398442].username,[T1398442].date,[T1398442].value,[T1398442].MIN-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398442][username, date, value, username1, MIN-date]
+    WHERE
+      [T1398442].username == [T1398442].username1) AS [T1398446][username, date, value, MIN-date]
+WHERE
+  [T1398446].MIN-date <= [T1398446].date
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398446].MIN-date >= [T1398429].date) AS [T1398435][username, date, value])
+ ########################################### 
+SELECT
+  [T1398446].username,[T1398446].date,[T1398446].value
+FROM
+  (SELECT
+      [T1398442].username,[T1398442].date,[T1398442].value,[T1398442].MIN-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398442][username, date, value, username1, MIN-date]
+    WHERE
+      [T1398442].username == [T1398442].username1) AS [T1398446][username, date, value, MIN-date]
+WHERE
+  [T1398446].MIN-date <= [T1398446].date
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398446].date == [T1398429].date) AS [T1398432][username, date, value])
+ ########################################### 
+SELECT
+  [T1398446].username,[T1398446].date,[T1398446].value
+FROM
+  (SELECT
+      [T1398442].username,[T1398442].date,[T1398442].value,[T1398442].MIN-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398442][username, date, value, username1, MIN-date]
+    WHERE
+      [T1398442].username == [T1398442].username1) AS [T1398446][username, date, value, MIN-date]
+WHERE
+  [T1398446].MIN-date <= [T1398446].date
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398446].date <= [T1398429].date) AS [T1398434][username, date, value])
+ ########################################### 
+SELECT
+  [T1398446].username,[T1398446].date,[T1398446].value
+FROM
+  (SELECT
+      [T1398442].username,[T1398442].date,[T1398442].value,[T1398442].MIN-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398442][username, date, value, username1, MIN-date]
+    WHERE
+      [T1398442].username == [T1398442].username1) AS [T1398446][username, date, value, MIN-date]
+WHERE
+  [T1398446].MIN-date <= [T1398446].date
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398446].date >= [T1398429].date) AS [T1398435][username, date, value])
+ ########################################### 
+SELECT
+  [T1398446].username,[T1398446].date,[T1398446].value
+FROM
+  (SELECT
+      [T1398442].username,[T1398442].date,[T1398442].value,[T1398442].MIN-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398442][username, date, value, username1, MIN-date]
+    WHERE
+      [T1398442].username == [T1398442].username1) AS [T1398446][username, date, value, MIN-date]
+WHERE
+  [T1398446].MIN-date <= [T1398446].date
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398446].value == [T1398429].value) AS [T1398437][username, date, value])
+ ########################################### 
+SELECT
+  [T1398446].username,[T1398446].date,[T1398446].value
+FROM
+  (SELECT
+      [T1398442].username,[T1398442].date,[T1398442].value,[T1398442].MIN-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398442][username, date, value, username1, MIN-date]
+    WHERE
+      [T1398442].username == [T1398442].username1) AS [T1398446][username, date, value, MIN-date]
+WHERE
+  [T1398446].MIN-date <= [T1398446].date
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398446].value <= [T1398429].value) AS [T1398439][username, date, value])
+ ########################################### 
+SELECT
+  [T1398446].username,[T1398446].date,[T1398446].value
+FROM
+  (SELECT
+      [T1398442].username,[T1398442].date,[T1398442].value,[T1398442].MIN-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398442][username, date, value, username1, MIN-date]
+    WHERE
+      [T1398442].username == [T1398442].username1) AS [T1398446][username, date, value, MIN-date]
+WHERE
+  [T1398446].MIN-date <= [T1398446].date
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398446].value >= [T1398429].value) AS [T1398440][username, date, value])
+ ########################################### 
+SELECT
+  input1.username,input1.date,input1.value
+FROM
+  input1
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        input1.value == [T1398429].value) AS [T1398437][username, date, value])
+ ########################################### 
+SELECT
+  input1.username,input1.date,input1.value
+FROM
+  input1
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        input1.value <= [T1398429].value) AS [T1398439][username, date, value])
+ ########################################### 
+SELECT
+  input1.username,input1.date,input1.value
+FROM
+  input1
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        input1.value >= [T1398429].value) AS [T1398440][username, date, value])
+ ########################################### 
+SELECT
+  input1.username,input1.date,input1.value
+FROM
+  input1
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        input1.date == [T1398429].date) AS [T1398432][username, date, value])
+ ########################################### 
+SELECT
+  input1.username,input1.date,input1.value
+FROM
+  input1
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        input1.date <= [T1398429].date) AS [T1398434][username, date, value])
+ ########################################### 
+SELECT
+  input1.username,input1.date,input1.value
+FROM
+  input1
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        input1.date >= [T1398429].date) AS [T1398435][username, date, value])
+ ########################################### 
+SELECT
+  input1.username,input1.date,input1.value
+FROM
+  input1
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        input1.username == [T1398429].username) AS [T1398430][username, date, value])
+ ########################################### 
+SELECT
+  [T1398445].username,[T1398445].date,[T1398445].value
+FROM
+  (SELECT
+      [T1398441].username,[T1398441].date,[T1398441].value,[T1398441].MAX-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398441][username, date, value, username1, MAX-date]
+    WHERE
+      [T1398441].username == [T1398441].username1) AS [T1398445][username, date, value, MAX-date]
+WHERE
+  [T1398445].MAX-date >= [T1398445].date
+ ########################################### 
+SELECT
+  [T1398445].username,[T1398445].date,[T1398445].value
+FROM
+  (SELECT
+      [T1398441].username,[T1398441].date,[T1398441].value,[T1398441].MAX-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398441][username, date, value, username1, MAX-date]
+    WHERE
+      [T1398441].username == [T1398441].username1) AS [T1398445][username, date, value, MAX-date]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398445].MAX-date == [T1398429].date) AS [T1398432][username, date, value])
+ ########################################### 
+SELECT
+  [T1398445].username,[T1398445].date,[T1398445].value
+FROM
+  (SELECT
+      [T1398441].username,[T1398441].date,[T1398441].value,[T1398441].MAX-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398441][username, date, value, username1, MAX-date]
+    WHERE
+      [T1398441].username == [T1398441].username1) AS [T1398445][username, date, value, MAX-date]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398445].MAX-date <= [T1398429].date) AS [T1398434][username, date, value])
+ ########################################### 
+SELECT
+  [T1398445].username,[T1398445].date,[T1398445].value
+FROM
+  (SELECT
+      [T1398441].username,[T1398441].date,[T1398441].value,[T1398441].MAX-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398441][username, date, value, username1, MAX-date]
+    WHERE
+      [T1398441].username == [T1398441].username1) AS [T1398445][username, date, value, MAX-date]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398445].MAX-date >= [T1398429].date) AS [T1398435][username, date, value])
+ ########################################### 
+SELECT
+  [T1398445].username,[T1398445].date,[T1398445].value
+FROM
+  (SELECT
+      [T1398441].username,[T1398441].date,[T1398441].value,[T1398441].MAX-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398441][username, date, value, username1, MAX-date]
+    WHERE
+      [T1398441].username == [T1398441].username1) AS [T1398445][username, date, value, MAX-date]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398445].date == [T1398429].date) AS [T1398432][username, date, value])
+ ########################################### 
+SELECT
+  [T1398445].username,[T1398445].date,[T1398445].value
+FROM
+  (SELECT
+      [T1398441].username,[T1398441].date,[T1398441].value,[T1398441].MAX-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398441][username, date, value, username1, MAX-date]
+    WHERE
+      [T1398441].username == [T1398441].username1) AS [T1398445][username, date, value, MAX-date]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398445].date <= [T1398429].date) AS [T1398434][username, date, value])
+ ########################################### 
+SELECT
+  [T1398445].username,[T1398445].date,[T1398445].value
+FROM
+  (SELECT
+      [T1398441].username,[T1398441].date,[T1398441].value,[T1398441].MAX-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398441][username, date, value, username1, MAX-date]
+    WHERE
+      [T1398441].username == [T1398441].username1) AS [T1398445][username, date, value, MAX-date]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398445].date >= [T1398429].date) AS [T1398435][username, date, value])
+ ########################################### 
+SELECT
+  [T1398445].username,[T1398445].date,[T1398445].value
+FROM
+  (SELECT
+      [T1398441].username,[T1398441].date,[T1398441].value,[T1398441].MAX-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398441][username, date, value, username1, MAX-date]
+    WHERE
+      [T1398441].username == [T1398441].username1) AS [T1398445][username, date, value, MAX-date]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398445].username == [T1398429].username) AS [T1398430][username, date, value])
+ ########################################### 
+SELECT
+  [T1398445].username,[T1398445].date,[T1398445].value
+FROM
+  (SELECT
+      [T1398441].username,[T1398441].date,[T1398441].value,[T1398441].MAX-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398441][username, date, value, username1, MAX-date]
+    WHERE
+      [T1398441].username == [T1398441].username1) AS [T1398445][username, date, value, MAX-date]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398445].value == [T1398429].value) AS [T1398437][username, date, value])
+ ########################################### 
+SELECT
+  [T1398445].username,[T1398445].date,[T1398445].value
+FROM
+  (SELECT
+      [T1398441].username,[T1398441].date,[T1398441].value,[T1398441].MAX-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398441][username, date, value, username1, MAX-date]
+    WHERE
+      [T1398441].username == [T1398441].username1) AS [T1398445][username, date, value, MAX-date]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398445].value <= [T1398429].value) AS [T1398439][username, date, value])
+ ########################################### 
+SELECT
+  [T1398445].username,[T1398445].date,[T1398445].value
+FROM
+  (SELECT
+      [T1398441].username,[T1398441].date,[T1398441].value,[T1398441].MAX-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398441][username, date, value, username1, MAX-date]
+    WHERE
+      [T1398441].username == [T1398441].username1) AS [T1398445][username, date, value, MAX-date]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398445].value >= [T1398429].value) AS [T1398440][username, date, value])
+ ########################################### 
+SELECT
+  [T1398445].username,[T1398445].date,[T1398445].value
+FROM
+  (SELECT
+      [T1398441].username,[T1398441].date,[T1398441].value,[T1398441].MAX-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398441][username, date, value, username1, MAX-date]
+    WHERE
+      [T1398441].username == [T1398441].username1) AS [T1398445][username, date, value, MAX-date]
+WHERE
+  [T1398445].MAX-date >= [T1398445].date
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398445].MAX-date == [T1398429].date) AS [T1398432][username, date, value])
+ ########################################### 
+SELECT
+  [T1398445].username,[T1398445].date,[T1398445].value
+FROM
+  (SELECT
+      [T1398441].username,[T1398441].date,[T1398441].value,[T1398441].MAX-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398441][username, date, value, username1, MAX-date]
+    WHERE
+      [T1398441].username == [T1398441].username1) AS [T1398445][username, date, value, MAX-date]
+WHERE
+  [T1398445].MAX-date >= [T1398445].date
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398445].MAX-date <= [T1398429].date) AS [T1398434][username, date, value])
+ ########################################### 
+SELECT
+  [T1398445].username,[T1398445].date,[T1398445].value
+FROM
+  (SELECT
+      [T1398441].username,[T1398441].date,[T1398441].value,[T1398441].MAX-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398441][username, date, value, username1, MAX-date]
+    WHERE
+      [T1398441].username == [T1398441].username1) AS [T1398445][username, date, value, MAX-date]
+WHERE
+  [T1398445].MAX-date >= [T1398445].date
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398445].MAX-date >= [T1398429].date) AS [T1398435][username, date, value])
+ ########################################### 
+SELECT
+  [T1398445].username,[T1398445].date,[T1398445].value
+FROM
+  (SELECT
+      [T1398441].username,[T1398441].date,[T1398441].value,[T1398441].MAX-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398441][username, date, value, username1, MAX-date]
+    WHERE
+      [T1398441].username == [T1398441].username1) AS [T1398445][username, date, value, MAX-date]
+WHERE
+  [T1398445].MAX-date >= [T1398445].date
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398445].date == [T1398429].date) AS [T1398432][username, date, value])
+ ########################################### 
+SELECT
+  [T1398445].username,[T1398445].date,[T1398445].value
+FROM
+  (SELECT
+      [T1398441].username,[T1398441].date,[T1398441].value,[T1398441].MAX-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398441][username, date, value, username1, MAX-date]
+    WHERE
+      [T1398441].username == [T1398441].username1) AS [T1398445][username, date, value, MAX-date]
+WHERE
+  [T1398445].MAX-date >= [T1398445].date
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398445].date <= [T1398429].date) AS [T1398434][username, date, value])
+ ########################################### 
+SELECT
+  [T1398445].username,[T1398445].date,[T1398445].value
+FROM
+  (SELECT
+      [T1398441].username,[T1398441].date,[T1398441].value,[T1398441].MAX-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398441][username, date, value, username1, MAX-date]
+    WHERE
+      [T1398441].username == [T1398441].username1) AS [T1398445][username, date, value, MAX-date]
+WHERE
+  [T1398445].MAX-date >= [T1398445].date
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398445].date >= [T1398429].date) AS [T1398435][username, date, value])
+ ########################################### 
+SELECT
+  [T1398445].username,[T1398445].date,[T1398445].value
+FROM
+  (SELECT
+      [T1398441].username,[T1398441].date,[T1398441].value,[T1398441].MAX-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398441][username, date, value, username1, MAX-date]
+    WHERE
+      [T1398441].username == [T1398441].username1) AS [T1398445][username, date, value, MAX-date]
+WHERE
+  [T1398445].MAX-date >= [T1398445].date
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398445].username == [T1398429].username) AS [T1398430][username, date, value])
+ ########################################### 
+SELECT
+  [T1398445].username,[T1398445].date,[T1398445].value
+FROM
+  (SELECT
+      [T1398441].username,[T1398441].date,[T1398441].value,[T1398441].MAX-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398441][username, date, value, username1, MAX-date]
+    WHERE
+      [T1398441].username == [T1398441].username1) AS [T1398445][username, date, value, MAX-date]
+WHERE
+  [T1398445].MAX-date >= [T1398445].date
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398445].value == [T1398429].value) AS [T1398437][username, date, value])
+ ########################################### 
+SELECT
+  [T1398445].username,[T1398445].date,[T1398445].value
+FROM
+  (SELECT
+      [T1398441].username,[T1398441].date,[T1398441].value,[T1398441].MAX-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398441][username, date, value, username1, MAX-date]
+    WHERE
+      [T1398441].username == [T1398441].username1) AS [T1398445][username, date, value, MAX-date]
+WHERE
+  [T1398445].MAX-date >= [T1398445].date
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398445].value <= [T1398429].value) AS [T1398439][username, date, value])
+ ########################################### 
+SELECT
+  [T1398445].username,[T1398445].date,[T1398445].value
+FROM
+  (SELECT
+      [T1398441].username,[T1398441].date,[T1398441].value,[T1398441].MAX-date
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.date)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398441][username, date, value, username1, MAX-date]
+    WHERE
+      [T1398441].username == [T1398441].username1) AS [T1398445][username, date, value, MAX-date]
+WHERE
+  [T1398445].MAX-date >= [T1398445].date
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398445].value >= [T1398429].value) AS [T1398440][username, date, value])
+ ########################################### 
+SELECT
+  [T1398447].username,[T1398447].date,[T1398447].value
+FROM
+  (SELECT
+      [T1398443].username,[T1398443].date,[T1398443].value,[T1398443].MAX-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398443][username, date, value, username1, MAX-value]
+    WHERE
+      [T1398443].username == [T1398443].username1) AS [T1398447][username, date, value, MAX-value]
+WHERE
+  [T1398447].value <= [T1398447].MAX-value
+ ########################################### 
+SELECT
+  [T1398447].username,[T1398447].date,[T1398447].value
+FROM
+  (SELECT
+      [T1398443].username,[T1398443].date,[T1398443].value,[T1398443].MAX-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398443][username, date, value, username1, MAX-value]
+    WHERE
+      [T1398443].username == [T1398443].username1) AS [T1398447][username, date, value, MAX-value]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398447].date == [T1398429].date) AS [T1398432][username, date, value])
+ ########################################### 
+SELECT
+  [T1398447].username,[T1398447].date,[T1398447].value
+FROM
+  (SELECT
+      [T1398443].username,[T1398443].date,[T1398443].value,[T1398443].MAX-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398443][username, date, value, username1, MAX-value]
+    WHERE
+      [T1398443].username == [T1398443].username1) AS [T1398447][username, date, value, MAX-value]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398447].date <= [T1398429].date) AS [T1398434][username, date, value])
+ ########################################### 
+SELECT
+  [T1398447].username,[T1398447].date,[T1398447].value
+FROM
+  (SELECT
+      [T1398443].username,[T1398443].date,[T1398443].value,[T1398443].MAX-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398443][username, date, value, username1, MAX-value]
+    WHERE
+      [T1398443].username == [T1398443].username1) AS [T1398447][username, date, value, MAX-value]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398447].date >= [T1398429].date) AS [T1398435][username, date, value])
+ ########################################### 
+SELECT
+  [T1398447].username,[T1398447].date,[T1398447].value
+FROM
+  (SELECT
+      [T1398443].username,[T1398443].date,[T1398443].value,[T1398443].MAX-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398443][username, date, value, username1, MAX-value]
+    WHERE
+      [T1398443].username == [T1398443].username1) AS [T1398447][username, date, value, MAX-value]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398447].username == [T1398429].username) AS [T1398430][username, date, value])
+ ########################################### 
+SELECT
+  [T1398447].username,[T1398447].date,[T1398447].value
+FROM
+  (SELECT
+      [T1398443].username,[T1398443].date,[T1398443].value,[T1398443].MAX-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398443][username, date, value, username1, MAX-value]
+    WHERE
+      [T1398443].username == [T1398443].username1) AS [T1398447][username, date, value, MAX-value]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398447].value == [T1398429].value) AS [T1398437][username, date, value])
+ ########################################### 
+SELECT
+  [T1398447].username,[T1398447].date,[T1398447].value
+FROM
+  (SELECT
+      [T1398443].username,[T1398443].date,[T1398443].value,[T1398443].MAX-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398443][username, date, value, username1, MAX-value]
+    WHERE
+      [T1398443].username == [T1398443].username1) AS [T1398447][username, date, value, MAX-value]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398447].value <= [T1398429].value) AS [T1398439][username, date, value])
+ ########################################### 
+SELECT
+  [T1398447].username,[T1398447].date,[T1398447].value
+FROM
+  (SELECT
+      [T1398443].username,[T1398443].date,[T1398443].value,[T1398443].MAX-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398443][username, date, value, username1, MAX-value]
+    WHERE
+      [T1398443].username == [T1398443].username1) AS [T1398447][username, date, value, MAX-value]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398447].value >= [T1398429].value) AS [T1398440][username, date, value])
+ ########################################### 
+SELECT
+  [T1398447].username,[T1398447].date,[T1398447].value
+FROM
+  (SELECT
+      [T1398443].username,[T1398443].date,[T1398443].value,[T1398443].MAX-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398443][username, date, value, username1, MAX-value]
+    WHERE
+      [T1398443].username == [T1398443].username1) AS [T1398447][username, date, value, MAX-value]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398447].MAX-value == [T1398429].value) AS [T1398437][username, date, value])
+ ########################################### 
+SELECT
+  [T1398447].username,[T1398447].date,[T1398447].value
+FROM
+  (SELECT
+      [T1398443].username,[T1398443].date,[T1398443].value,[T1398443].MAX-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398443][username, date, value, username1, MAX-value]
+    WHERE
+      [T1398443].username == [T1398443].username1) AS [T1398447][username, date, value, MAX-value]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398447].MAX-value > [T1398429].value) AS [T1398438][username, date, value])
+ ########################################### 
+SELECT
+  [T1398447].username,[T1398447].date,[T1398447].value
+FROM
+  (SELECT
+      [T1398443].username,[T1398443].date,[T1398443].value,[T1398443].MAX-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398443][username, date, value, username1, MAX-value]
+    WHERE
+      [T1398443].username == [T1398443].username1) AS [T1398447][username, date, value, MAX-value]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398447].MAX-value <= [T1398429].value) AS [T1398439][username, date, value])
+ ########################################### 
+SELECT
+  [T1398447].username,[T1398447].date,[T1398447].value
+FROM
+  (SELECT
+      [T1398443].username,[T1398443].date,[T1398443].value,[T1398443].MAX-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398443][username, date, value, username1, MAX-value]
+    WHERE
+      [T1398443].username == [T1398443].username1) AS [T1398447][username, date, value, MAX-value]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398447].MAX-value >= [T1398429].value) AS [T1398440][username, date, value])
+ ########################################### 
+SELECT
+  [T1398447].username,[T1398447].date,[T1398447].value
+FROM
+  (SELECT
+      [T1398443].username,[T1398443].date,[T1398443].value,[T1398443].MAX-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398443][username, date, value, username1, MAX-value]
+    WHERE
+      [T1398443].username == [T1398443].username1) AS [T1398447][username, date, value, MAX-value]
+WHERE
+  [T1398447].value <= [T1398447].MAX-value
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398447].date == [T1398429].date) AS [T1398432][username, date, value])
+ ########################################### 
+SELECT
+  [T1398447].username,[T1398447].date,[T1398447].value
+FROM
+  (SELECT
+      [T1398443].username,[T1398443].date,[T1398443].value,[T1398443].MAX-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398443][username, date, value, username1, MAX-value]
+    WHERE
+      [T1398443].username == [T1398443].username1) AS [T1398447][username, date, value, MAX-value]
+WHERE
+  [T1398447].value <= [T1398447].MAX-value
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398447].date <= [T1398429].date) AS [T1398434][username, date, value])
+ ########################################### 
+SELECT
+  [T1398447].username,[T1398447].date,[T1398447].value
+FROM
+  (SELECT
+      [T1398443].username,[T1398443].date,[T1398443].value,[T1398443].MAX-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398443][username, date, value, username1, MAX-value]
+    WHERE
+      [T1398443].username == [T1398443].username1) AS [T1398447][username, date, value, MAX-value]
+WHERE
+  [T1398447].value <= [T1398447].MAX-value
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398447].date >= [T1398429].date) AS [T1398435][username, date, value])
+ ########################################### 
+SELECT
+  [T1398447].username,[T1398447].date,[T1398447].value
+FROM
+  (SELECT
+      [T1398443].username,[T1398443].date,[T1398443].value,[T1398443].MAX-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398443][username, date, value, username1, MAX-value]
+    WHERE
+      [T1398443].username == [T1398443].username1) AS [T1398447][username, date, value, MAX-value]
+WHERE
+  [T1398447].value <= [T1398447].MAX-value
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398447].username == [T1398429].username) AS [T1398430][username, date, value])
+ ########################################### 
+SELECT
+  [T1398447].username,[T1398447].date,[T1398447].value
+FROM
+  (SELECT
+      [T1398443].username,[T1398443].date,[T1398443].value,[T1398443].MAX-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398443][username, date, value, username1, MAX-value]
+    WHERE
+      [T1398443].username == [T1398443].username1) AS [T1398447][username, date, value, MAX-value]
+WHERE
+  [T1398447].value <= [T1398447].MAX-value
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398447].value == [T1398429].value) AS [T1398437][username, date, value])
+ ########################################### 
+SELECT
+  [T1398447].username,[T1398447].date,[T1398447].value
+FROM
+  (SELECT
+      [T1398443].username,[T1398443].date,[T1398443].value,[T1398443].MAX-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398443][username, date, value, username1, MAX-value]
+    WHERE
+      [T1398443].username == [T1398443].username1) AS [T1398447][username, date, value, MAX-value]
+WHERE
+  [T1398447].value <= [T1398447].MAX-value
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398447].value <= [T1398429].value) AS [T1398439][username, date, value])
+ ########################################### 
+SELECT
+  [T1398447].username,[T1398447].date,[T1398447].value
+FROM
+  (SELECT
+      [T1398443].username,[T1398443].date,[T1398443].value,[T1398443].MAX-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398443][username, date, value, username1, MAX-value]
+    WHERE
+      [T1398443].username == [T1398443].username1) AS [T1398447][username, date, value, MAX-value]
+WHERE
+  [T1398447].value <= [T1398447].MAX-value
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398447].value >= [T1398429].value) AS [T1398440][username, date, value])
+ ########################################### 
+SELECT
+  [T1398447].username,[T1398447].date,[T1398447].value
+FROM
+  (SELECT
+      [T1398443].username,[T1398443].date,[T1398443].value,[T1398443].MAX-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398443][username, date, value, username1, MAX-value]
+    WHERE
+      [T1398443].username == [T1398443].username1) AS [T1398447][username, date, value, MAX-value]
+WHERE
+  [T1398447].value <= [T1398447].MAX-value
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398447].MAX-value == [T1398429].value) AS [T1398437][username, date, value])
+ ########################################### 
+SELECT
+  [T1398447].username,[T1398447].date,[T1398447].value
+FROM
+  (SELECT
+      [T1398443].username,[T1398443].date,[T1398443].value,[T1398443].MAX-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398443][username, date, value, username1, MAX-value]
+    WHERE
+      [T1398443].username == [T1398443].username1) AS [T1398447][username, date, value, MAX-value]
+WHERE
+  [T1398447].value <= [T1398447].MAX-value
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398447].MAX-value > [T1398429].value) AS [T1398438][username, date, value])
+ ########################################### 
+SELECT
+  [T1398447].username,[T1398447].date,[T1398447].value
+FROM
+  (SELECT
+      [T1398443].username,[T1398443].date,[T1398443].value,[T1398443].MAX-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398443][username, date, value, username1, MAX-value]
+    WHERE
+      [T1398443].username == [T1398443].username1) AS [T1398447][username, date, value, MAX-value]
+WHERE
+  [T1398447].value <= [T1398447].MAX-value
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398447].MAX-value <= [T1398429].value) AS [T1398439][username, date, value])
+ ########################################### 
+SELECT
+  [T1398447].username,[T1398447].date,[T1398447].value
+FROM
+  (SELECT
+      [T1398443].username,[T1398443].date,[T1398443].value,[T1398443].MAX-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MAX(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398443][username, date, value, username1, MAX-value]
+    WHERE
+      [T1398443].username == [T1398443].username1) AS [T1398447][username, date, value, MAX-value]
+WHERE
+  [T1398447].value <= [T1398447].MAX-value
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398447].MAX-value >= [T1398429].value) AS [T1398440][username, date, value])
+ ########################################### 
+SELECT
+  [T1398448].username,[T1398448].date,[T1398448].value
+FROM
+  (SELECT
+      [T1398444].username,[T1398444].date,[T1398444].value,[T1398444].MIN-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398444][username, date, value, username1, MIN-value]
+    WHERE
+      [T1398444].username == [T1398444].username1) AS [T1398448][username, date, value, MIN-value]
+WHERE
+  [T1398448].MIN-value <= [T1398448].value
+ ########################################### 
+SELECT
+  [T1398448].username,[T1398448].date,[T1398448].value
+FROM
+  (SELECT
+      [T1398444].username,[T1398444].date,[T1398444].value,[T1398444].MIN-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398444][username, date, value, username1, MIN-value]
+    WHERE
+      [T1398444].username == [T1398444].username1) AS [T1398448][username, date, value, MIN-value]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398448].MIN-value == [T1398429].value) AS [T1398437][username, date, value])
+ ########################################### 
+SELECT
+  [T1398448].username,[T1398448].date,[T1398448].value
+FROM
+  (SELECT
+      [T1398444].username,[T1398444].date,[T1398444].value,[T1398444].MIN-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398444][username, date, value, username1, MIN-value]
+    WHERE
+      [T1398444].username == [T1398444].username1) AS [T1398448][username, date, value, MIN-value]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398448].MIN-value <= [T1398429].value) AS [T1398439][username, date, value])
+ ########################################### 
+SELECT
+  [T1398448].username,[T1398448].date,[T1398448].value
+FROM
+  (SELECT
+      [T1398444].username,[T1398444].date,[T1398444].value,[T1398444].MIN-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398444][username, date, value, username1, MIN-value]
+    WHERE
+      [T1398444].username == [T1398444].username1) AS [T1398448][username, date, value, MIN-value]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398448].MIN-value >= [T1398429].value) AS [T1398440][username, date, value])
+ ########################################### 
+SELECT
+  [T1398448].username,[T1398448].date,[T1398448].value
+FROM
+  (SELECT
+      [T1398444].username,[T1398444].date,[T1398444].value,[T1398444].MIN-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398444][username, date, value, username1, MIN-value]
+    WHERE
+      [T1398444].username == [T1398444].username1) AS [T1398448][username, date, value, MIN-value]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398448].username == [T1398429].username) AS [T1398430][username, date, value])
+ ########################################### 
+SELECT
+  [T1398448].username,[T1398448].date,[T1398448].value
+FROM
+  (SELECT
+      [T1398444].username,[T1398444].date,[T1398444].value,[T1398444].MIN-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398444][username, date, value, username1, MIN-value]
+    WHERE
+      [T1398444].username == [T1398444].username1) AS [T1398448][username, date, value, MIN-value]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398448].date == [T1398429].date) AS [T1398432][username, date, value])
+ ########################################### 
+SELECT
+  [T1398448].username,[T1398448].date,[T1398448].value
+FROM
+  (SELECT
+      [T1398444].username,[T1398444].date,[T1398444].value,[T1398444].MIN-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398444][username, date, value, username1, MIN-value]
+    WHERE
+      [T1398444].username == [T1398444].username1) AS [T1398448][username, date, value, MIN-value]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398448].date <= [T1398429].date) AS [T1398434][username, date, value])
+ ########################################### 
+SELECT
+  [T1398448].username,[T1398448].date,[T1398448].value
+FROM
+  (SELECT
+      [T1398444].username,[T1398444].date,[T1398444].value,[T1398444].MIN-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398444][username, date, value, username1, MIN-value]
+    WHERE
+      [T1398444].username == [T1398444].username1) AS [T1398448][username, date, value, MIN-value]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398448].date >= [T1398429].date) AS [T1398435][username, date, value])
+ ########################################### 
+SELECT
+  [T1398448].username,[T1398448].date,[T1398448].value
+FROM
+  (SELECT
+      [T1398444].username,[T1398444].date,[T1398444].value,[T1398444].MIN-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398444][username, date, value, username1, MIN-value]
+    WHERE
+      [T1398444].username == [T1398444].username1) AS [T1398448][username, date, value, MIN-value]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398448].value == [T1398429].value) AS [T1398437][username, date, value])
+ ########################################### 
+SELECT
+  [T1398448].username,[T1398448].date,[T1398448].value
+FROM
+  (SELECT
+      [T1398444].username,[T1398444].date,[T1398444].value,[T1398444].MIN-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398444][username, date, value, username1, MIN-value]
+    WHERE
+      [T1398444].username == [T1398444].username1) AS [T1398448][username, date, value, MIN-value]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398448].value <= [T1398429].value) AS [T1398439][username, date, value])
+ ########################################### 
+SELECT
+  [T1398448].username,[T1398448].date,[T1398448].value
+FROM
+  (SELECT
+      [T1398444].username,[T1398444].date,[T1398444].value,[T1398444].MIN-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398444][username, date, value, username1, MIN-value]
+    WHERE
+      [T1398444].username == [T1398444].username1) AS [T1398448][username, date, value, MIN-value]
+WHERE
+  EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398448].value >= [T1398429].value) AS [T1398440][username, date, value])
+ ########################################### 
+SELECT
+  [T1398448].username,[T1398448].date,[T1398448].value
+FROM
+  (SELECT
+      [T1398444].username,[T1398444].date,[T1398444].value,[T1398444].MIN-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398444][username, date, value, username1, MIN-value]
+    WHERE
+      [T1398444].username == [T1398444].username1) AS [T1398448][username, date, value, MIN-value]
+WHERE
+  [T1398448].MIN-value <= [T1398448].value
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398448].MIN-value == [T1398429].value) AS [T1398437][username, date, value])
+ ########################################### 
+SELECT
+  [T1398448].username,[T1398448].date,[T1398448].value
+FROM
+  (SELECT
+      [T1398444].username,[T1398444].date,[T1398444].value,[T1398444].MIN-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398444][username, date, value, username1, MIN-value]
+    WHERE
+      [T1398444].username == [T1398444].username1) AS [T1398448][username, date, value, MIN-value]
+WHERE
+  [T1398448].MIN-value <= [T1398448].value
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398448].MIN-value <= [T1398429].value) AS [T1398439][username, date, value])
+ ########################################### 
+SELECT
+  [T1398448].username,[T1398448].date,[T1398448].value
+FROM
+  (SELECT
+      [T1398444].username,[T1398444].date,[T1398444].value,[T1398444].MIN-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398444][username, date, value, username1, MIN-value]
+    WHERE
+      [T1398444].username == [T1398444].username1) AS [T1398448][username, date, value, MIN-value]
+WHERE
+  [T1398448].MIN-value <= [T1398448].value
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398448].MIN-value >= [T1398429].value) AS [T1398440][username, date, value])
+ ########################################### 
+SELECT
+  [T1398448].username,[T1398448].date,[T1398448].value
+FROM
+  (SELECT
+      [T1398444].username,[T1398444].date,[T1398444].value,[T1398444].MIN-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398444][username, date, value, username1, MIN-value]
+    WHERE
+      [T1398444].username == [T1398444].username1) AS [T1398448][username, date, value, MIN-value]
+WHERE
+  [T1398448].MIN-value <= [T1398448].value
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398448].username == [T1398429].username) AS [T1398430][username, date, value])
+ ########################################### 
+SELECT
+  [T1398448].username,[T1398448].date,[T1398448].value
+FROM
+  (SELECT
+      [T1398444].username,[T1398444].date,[T1398444].value,[T1398444].MIN-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398444][username, date, value, username1, MIN-value]
+    WHERE
+      [T1398444].username == [T1398444].username1) AS [T1398448][username, date, value, MIN-value]
+WHERE
+  [T1398448].MIN-value <= [T1398448].value
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398448].date == [T1398429].date) AS [T1398432][username, date, value])
+ ########################################### 
+SELECT
+  [T1398448].username,[T1398448].date,[T1398448].value
+FROM
+  (SELECT
+      [T1398444].username,[T1398444].date,[T1398444].value,[T1398444].MIN-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398444][username, date, value, username1, MIN-value]
+    WHERE
+      [T1398444].username == [T1398444].username1) AS [T1398448][username, date, value, MIN-value]
+WHERE
+  [T1398448].MIN-value <= [T1398448].value
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398448].date <= [T1398429].date) AS [T1398434][username, date, value])
+ ########################################### 
+SELECT
+  [T1398448].username,[T1398448].date,[T1398448].value
+FROM
+  (SELECT
+      [T1398444].username,[T1398444].date,[T1398444].value,[T1398444].MIN-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398444][username, date, value, username1, MIN-value]
+    WHERE
+      [T1398444].username == [T1398444].username1) AS [T1398448][username, date, value, MIN-value]
+WHERE
+  [T1398448].MIN-value <= [T1398448].value
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398448].date >= [T1398429].date) AS [T1398435][username, date, value])
+ ########################################### 
+SELECT
+  [T1398448].username,[T1398448].date,[T1398448].value
+FROM
+  (SELECT
+      [T1398444].username,[T1398444].date,[T1398444].value,[T1398444].MIN-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398444][username, date, value, username1, MIN-value]
+    WHERE
+      [T1398444].username == [T1398444].username1) AS [T1398448][username, date, value, MIN-value]
+WHERE
+  [T1398448].MIN-value <= [T1398448].value
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398448].value == [T1398429].value) AS [T1398437][username, date, value])
+ ########################################### 
+SELECT
+  [T1398448].username,[T1398448].date,[T1398448].value
+FROM
+  (SELECT
+      [T1398444].username,[T1398444].date,[T1398444].value,[T1398444].MIN-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398444][username, date, value, username1, MIN-value]
+    WHERE
+      [T1398444].username == [T1398444].username1) AS [T1398448][username, date, value, MIN-value]
+WHERE
+  [T1398448].MIN-value <= [T1398448].value
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398448].value <= [T1398429].value) AS [T1398439][username, date, value])
+ ########################################### 
+SELECT
+  [T1398448].username,[T1398448].date,[T1398448].value
+FROM
+  (SELECT
+      [T1398444].username,[T1398444].date,[T1398444].value,[T1398444].MIN-value
+    FROM
+      (( input1 ) JOIN (
+          SELECT
+            input1.username, MIN(input1.value)
+          FROM
+            input1
+          GROUP BY
+            input1.username )) AS [T1398444][username, date, value, username1, MIN-value]
+    WHERE
+      [T1398444].username == [T1398444].username1) AS [T1398448][username, date, value, MIN-value]
+WHERE
+  [T1398448].MIN-value <= [T1398448].value
+   AND EXIST (
+    (SELECT
+        [T1398429].username,[T1398429].date,[T1398429].value
+      FROM
+        (input1) AS [T1398429][username, date, value]
+      WHERE
+        [T1398448].value >= [T1398429].value) AS [T1398440][username, date, value])
+ ########################################### 

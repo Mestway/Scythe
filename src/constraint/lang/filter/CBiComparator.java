@@ -2,6 +2,7 @@ package constraint.lang.filter;
 
 import sql.lang.DataType.Value;
 import sql.lang.TableRow;
+import sql.lang.ast.filter.VVComparator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,28 @@ public class CBiComparator {
 
     public boolean compare(TableRow outTr, TableRow inTr) {
         return compareFunc.apply(left.instantiate(outTr, inTr), right.instantiate(outTr, inTr));
+    }
+
+    public String toString() {
+        return left.toString() + comparatorToString(compareFunc) + right.toString();
+    }
+
+    public static String comparatorToString(BiFunction<Value, Value, Boolean> c) {
+        if (c.equals(VVComparator.eq)) return "==";
+        else if (c.equals(VVComparator.ge)) return ">=";
+        else if (c.equals(VVComparator.gt)) return ">";
+        else if (c.equals(VVComparator.le)) return "<=";
+        else if (c.equals(VVComparator.lt)) return "<";
+        else if (c.equals(VVComparator.neq)) return "<>";
+        else return "*";
+    }
+
+    public static boolean conflict(CBiComparator c1, CBiComparator c2) {
+        if (c1.left.equals(c2.left) && c1.right.equals(c2.right))
+            return true;
+        if (c1.left.equals(c2.right) && c1.right.equals(c2.left))
+            return true;
+        return false;
     }
 
 }

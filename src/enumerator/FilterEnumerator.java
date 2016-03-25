@@ -156,6 +156,22 @@ public class FilterEnumerator {
             }
         }
 
+        // Enumerate Filter with Subquery,
+        // only do this when the enum level is less than maximum level
+        List<ValNode> allValues = new ArrayList<>();
+        allValues.addAll(L);
+        allValues.addAll(R);
+
+        List<List<ValNode>> llvns = CombinationGenerator.genCombination(
+                allValues, EnumParamTN.numberOfParams);
+        for (List<ValNode> vns : llvns) {
+            InstantiateEnv ie = new InstantiateEnv(vns, ec);
+            atomics.addAll(
+                    ec.getParameterizedTables().stream().map(tn -> tn.instantiate(ie))
+                            .filter(t -> t.getAllHoles().size() == 0)
+                            .map(tn -> new ExistComparator(tn))
+                            .collect(Collectors.toList()));
+        }
         return atomics;
     }
 

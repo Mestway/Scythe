@@ -24,7 +24,6 @@ public class TableNaturalJoinWithAggr {
 
     public final static boolean connectAll = true;
 
-
     public static TableNode naturalTableExtensionWithAggr(EnumContext ec) {
         assert (ec.getTableNodes().size() == 1);
 
@@ -87,7 +86,7 @@ public class TableNaturalJoinWithAggr {
 
         // for each named table in the list
         for (TableNode tb : namedTables) {
-            List<TableNode> aggrTableNodes = EnumAggrTableNode.enumAggregationNodeFlag(ec, false);
+            List<TableNode> aggrTableNodes = EnumAggrTableNode.enumAggregationNodeFlag(ec, true);
 
             for (TableNode agrt : aggrTableNodes) {
                 // the length of fields
@@ -129,9 +128,6 @@ public class TableNaturalJoinWithAggr {
             }
         }
 
-        result.forEach(r -> {
-            System.out.println(r.prettyPrint(0));
-        });
         return result;
     }
 }

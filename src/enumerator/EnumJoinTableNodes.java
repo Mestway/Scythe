@@ -1,6 +1,8 @@
 package enumerator;
 
 import sql.lang.DataType.ValType;
+import sql.lang.Table;
+import sql.lang.ast.Environment;
 import sql.lang.ast.filter.Filter;
 import sql.lang.ast.table.JoinNode;
 import sql.lang.ast.table.NamedTable;
@@ -8,6 +10,7 @@ import sql.lang.ast.table.SelectNode;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
+import sql.lang.exception.SQLEvalException;
 import util.DebugHelper;
 import util.RenameTNWrapper;
 
@@ -25,6 +28,33 @@ public class EnumJoinTableNodes {
      1. Enumerate atomic tables and then do join
      *****************************************************/
 
+    // This is a simpler version of joining considering no filters at this stage,
+    // Joining is only a matter of performing cartesian production here.
+    public static List<TableNode> plainEnumJoinNode(EnumContext ec) {
+        List<TableNode> basicTables =  ec.getTableNodes();
+        List<TableNode> joinTables = new ArrayList<>();
+        int sz = basicTables.size();
+        for (int i = 0; i < sz; i ++) {
+            for (int j = 0; j < sz; j++) {
+                if (i == j)
+                    continue;
+                if (! (basicTables.get(j) instanceof NamedTable))
+                  continue;
+                TableNode jn = new JoinNode(
+                        Arrays.asList(
+                                basicTables.get(i),
+                                basicTables.get(j)
+                        )
+                );
+
+                joinTables.add(jn);
+            }
+        }
+        return joinTables;
+    }
+
+    // This is the join we used in canonicalSQL,
+    // filters are used in enumerating canonical join nodes.
     public static List<TableNode> enumJoinNode(EnumContext ec) {
 
         List<TableNode> basicTables =  ec.getTableNodes();
@@ -36,8 +66,21 @@ public class EnumJoinTableNodes {
                 // TODO: think carefully
                 if (i == j)
                     continue;
-                //if (! (basicTables.get(j) instanceof NamedTable))
-                  //  continue;
+
+                boolean isPrimitiveTable = false;
+                if (! (basicTables.get(j) instanceof NamedTable))
+                    continue;
+                else {
+                    Table bj = ((NamedTable) basicTables.get(j)).getTable();
+                    for (Table t : ec.getInputs())
+                        if (t.containsContent(bj)) {
+                            isPrimitiveTable = true;
+                        }
+                }
+
+                if (!isPrimitiveTable)
+                    continue;
+
                 TableNode jn = new JoinNode(
                         Arrays.asList(
                                 basicTables.get(i),

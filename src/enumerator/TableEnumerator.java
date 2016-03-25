@@ -26,7 +26,7 @@ public class TableEnumerator {
     public static List<TableNode> enumProgramWithIO(List<Table> input, Table output, Constraint c) {
 
         List<ValNode> vns = new ArrayList<>();
-        vns.addAll(c.constValNodes);
+        vns.addAll(c.constValNodes());
 
         List<TableNode> parameterizedTables = EnumParamTN
                 .enumParameterizedTableNodes(
@@ -34,6 +34,8 @@ public class TableEnumerator {
                                 .map(t -> new NamedTable(t)).collect(Collectors.toList()),
                         vns,
                         c.getNumberOfParam());
+
+        System.out.println("There are " + parameterizedTables.size() + " tables involved in this enumeration.");
 
         EnumContext ec = new EnumContext(input, c);
         ec.setParameterizedTables(parameterizedTables);
@@ -61,11 +63,7 @@ public class TableEnumerator {
             }
         }).collect(Collectors.toList());
 
-        if (EnumContext.noMemoization == false)
-            return valid;
-
-        if (EnumContext.noMemoization)
-            return valid;
+        System.out.println("There are " + valid.size() + " tables in the world.");
 
         if (valid.isEmpty())
             return valid;
@@ -96,7 +94,7 @@ public class TableEnumerator {
         for (int i = 1; i <= depth; i ++) {
             tns = new ArrayList<>();
             tns.addAll(EnumJoinTableNodes.enumJoinNode(ec));
-            System.out.println(tns.size());
+            System.out.println("There are " + tns.size() + " tables in the enumeration of this level(" + i + ")");
             ec = EnumContext.extendTable(ec, tns.stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
         }
 

@@ -13,9 +13,7 @@ import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
-import sun.nio.cs.ext.EUC_CN;
 import util.CombinationGenerator;
-import util.DebugHelper;
 import util.RenameTNWrapper;
 
 import java.util.*;
@@ -60,7 +58,7 @@ public class EnumAggrTableNode {
 
     public static List<TableNode> enumAggregationNodeFlag(EnumContext ec, boolean simplify) {
 
-        // currently ignore all table nodes
+        // currently ignore all complex table nodes (only considering named tables)
         List<TableNode> coreTableNodes = ec.getTableNodes().stream().filter(
                 t -> {
                     if (t instanceof NamedTable)

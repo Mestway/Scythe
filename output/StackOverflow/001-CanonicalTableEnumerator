@@ -1,0 +1,76 @@
+SELECT
+  [T9798].id,[T9798].rev,[T9798].content
+FROM
+  (SELECT
+      [T101].id,[T101].rev,[T101].content,[T101].id1,[T101].MAX-rev
+    FROM
+      (( input1 ) JOIN (
+          (SELECT
+              input1.id, MAX(input1.rev)
+            FROM
+              input1
+            GROUP BY
+              input1.id) AS [T42][id, MAX-rev] )) AS [T101][id, rev, content, id1, MAX-rev]
+    WHERE
+      [T101].id == [T101].id1
+       AND [T101].rev == [T101].MAX-rev) AS [T9798][id, rev, content, id1, MAX-rev]
+WHERE
+
+ ########################################### 
+SELECT
+  [T2577].id,[T2577].MAX-rev,[T2577].content
+FROM
+  (SELECT
+      [T60].id,[T60].MAX-rev,[T60].id1,[T60].rev,[T60].content
+    FROM
+      (( (SELECT
+              input1.id, MAX(input1.rev)
+            FROM
+              input1
+            GROUP BY
+              input1.id) AS [T42][id, MAX-rev] ) JOIN (
+          input1 )) AS [T60][id, MAX-rev, id1, rev, content]
+    WHERE
+      [T60].id == [T60].id1
+       AND [T60].MAX-rev == [T60].rev) AS [T2577][id, MAX-rev, id1, rev, content]
+WHERE
+
+ ########################################### 
+SELECT
+  [T2577].id,[T2577].rev,[T2577].content
+FROM
+  (SELECT
+      [T60].id,[T60].MAX-rev,[T60].id1,[T60].rev,[T60].content
+    FROM
+      (( (SELECT
+              input1.id, MAX(input1.rev)
+            FROM
+              input1
+            GROUP BY
+              input1.id) AS [T42][id, MAX-rev] ) JOIN (
+          input1 )) AS [T60][id, MAX-rev, id1, rev, content]
+    WHERE
+      [T60].id == [T60].id1
+       AND [T60].MAX-rev == [T60].rev) AS [T2577][id, MAX-rev, id1, rev, content]
+WHERE
+
+ ########################################### 
+SELECT
+  [T2577].id1,[T2577].rev,[T2577].content
+FROM
+  (SELECT
+      [T60].id,[T60].MAX-rev,[T60].id1,[T60].rev,[T60].content
+    FROM
+      (( (SELECT
+              input1.id, MAX(input1.rev)
+            FROM
+              input1
+            GROUP BY
+              input1.id) AS [T42][id, MAX-rev] ) JOIN (
+          input1 )) AS [T60][id, MAX-rev, id1, rev, content]
+    WHERE
+      [T60].id == [T60].id1
+       AND [T60].MAX-rev == [T60].rev) AS [T2577][id, MAX-rev, id1, rev, content]
+WHERE
+
+ ########################################### 

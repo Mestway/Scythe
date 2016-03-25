@@ -1,0 +1,4208 @@
+SELECT
+  [T234794].NAME
+FROM
+  (SELECT
+      [T53465].NAME,[T53465].EMAIL,[T53465].COUNT-ID,[T53465].EMAIL1,[T53465].COUNT-ID1
+    FROM
+      (( (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.EMAIL) AS [T53410][EMAIL, COUNT-ID] )) AS [T53465][NAME, EMAIL, COUNT-ID, EMAIL1, COUNT-ID1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53465].COUNT-ID > [T51972].ID) AS [T51988][ID, NAME, EMAIL])) AS [T234794][NAME, EMAIL, COUNT-ID, EMAIL1, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T101993].NAME1
+FROM
+  (SELECT
+      [T53428].ID,[T53428].NAME,[T53428].EMAIL,[T53428].NAME1,[T53428].EMAIL1,[T53428].COUNT-ID
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              [T52158].NAME, [T52158].EMAIL, COUNT([T52158].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID
+                         AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL]
+            GROUP BY
+              [T52158].NAME  [T52158].EMAIL) AS [T53405][NAME, EMAIL, COUNT-ID] )) AS [T53428][ID, NAME, EMAIL, NAME1, EMAIL1, COUNT-ID]
+    WHERE
+      [T53428].ID > [T53428].COUNT-ID
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53428].ID < [T51972].ID
+             AND [T53428].NAME1 == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T101993][ID, NAME, EMAIL, NAME1, EMAIL1, COUNT-ID]
+WHERE
+
+ ########################################### 
+SELECT
+  [T127311].NAME
+FROM
+  (SELECT
+      [T53435].ID,[T53435].NAME,[T53435].EMAIL,[T53435].EMAIL1,[T53435].COUNT-ID
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID
+                     AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.EMAIL) AS [T53410][EMAIL, COUNT-ID] )) AS [T53435][ID, NAME, EMAIL, EMAIL1, COUNT-ID]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53435].ID > [T51972].ID
+             AND [T53435].COUNT-ID < [T51972].ID) AS [T52064][ID, NAME, EMAIL])) AS [T127311][ID, NAME, EMAIL, EMAIL1, COUNT-ID]
+WHERE
+
+ ########################################### 
+SELECT
+  [T66146].NAME1
+FROM
+  (SELECT
+      [T53417].ID,[T53417].NAME,[T53417].EMAIL,[T53417].NAME1,[T53417].EMAIL1,[T53417].COUNT-ID
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] )) AS [T53417][ID, NAME, EMAIL, NAME1, EMAIL1, COUNT-ID]
+    WHERE
+      [T53417].EMAIL == [T53417].EMAIL1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53417].ID < [T51972].ID
+             AND [T53417].NAME1 == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T66146][ID, NAME, EMAIL, NAME1, EMAIL1, COUNT-ID]
+WHERE
+
+ ########################################### 
+SELECT
+  [T55818].NAME
+FROM
+  (SELECT
+      [T53415].ID,[T53415].NAME,[T53415].EMAIL,[T53415].ID1,[T53415].NAME1,[T53415].EMAIL1
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID
+                     AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL] )) AS [T53415][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T53415].ID >= [T53415].ID1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53415].ID < [T51972].ID
+             AND [T53415].NAME == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T55818][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T178487].NAME
+FROM
+  (SELECT
+      [T53449].ID,[T53449].NAME,[T53449].EMAIL,[T53449].NAME1,[T53449].COUNT-ID
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID < [T51972].ID
+                     AND input1.NAME == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T52128][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] )) AS [T53449][ID, NAME, EMAIL, NAME1, COUNT-ID]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53449].ID > [T51972].ID
+             AND [T53449].NAME1 == [T51972].NAME) AS [T52070][ID, NAME, EMAIL])) AS [T178487][ID, NAME, EMAIL, NAME1, COUNT-ID]
+WHERE
+
+ ########################################### 
+SELECT
+  [T269689].NAME1
+FROM
+  (SELECT
+      [T53475].ID,[T53475].NAME,[T53475].EMAIL,[T53475].ID1,[T53475].NAME1,[T53475].EMAIL1
+    FROM
+      (( input1 ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] )) AS [T53475][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T53475].ID < [T53475].ID1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53475].ID1 < [T51972].ID
+             AND [T53475].NAME1 == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T269689][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T94056].NAME
+FROM
+  (SELECT
+      [T53426].ID,[T53426].NAME,[T53426].EMAIL,[T53426].EMAIL1,[T53426].COUNT-ID
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              [T52158].EMAIL, COUNT([T52158].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID
+                         AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL]
+            GROUP BY
+              [T52158].EMAIL) AS [T53403][EMAIL, COUNT-ID] )) AS [T53426][ID, NAME, EMAIL, EMAIL1, COUNT-ID]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53426].NAME == [T51972].NAME
+             AND [T53426].COUNT-ID == [T51972].ID) AS [T52103][ID, NAME, EMAIL])) AS [T94056][ID, NAME, EMAIL, EMAIL1, COUNT-ID]
+WHERE
+
+ ########################################### 
+SELECT
+  [T327822].NAME1
+FROM
+  (SELECT
+      [T53492].NAME,[T53492].COUNT-ID,[T53492].ID,[T53492].NAME1,[T53492].EMAIL
+    FROM
+      (( (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID < [T51972].ID
+                     AND input1.NAME == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T52128][ID, NAME, EMAIL] )) AS [T53492][NAME, COUNT-ID, ID, NAME1, EMAIL]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53492].NAME == [T51972].NAME
+             AND [T53492].ID > [T51972].ID) AS [T52104][ID, NAME, EMAIL])) AS [T327822][NAME, COUNT-ID, ID, NAME1, EMAIL]
+WHERE
+
+ ########################################### 
+SELECT
+  [T535534].NAME1
+FROM
+  (SELECT
+      [T53567].NAME,[T53567].COUNT-ID,[T53567].ID,[T53567].NAME1,[T53567].EMAIL
+    FROM
+      (( (SELECT
+              [T52122].NAME, COUNT([T52122].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL]
+            GROUP BY
+              [T52122].NAME) AS [T53396][NAME, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID < [T51972].ID
+                     AND input1.NAME == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T52128][ID, NAME, EMAIL] )) AS [T53567][NAME, COUNT-ID, ID, NAME1, EMAIL]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53567].COUNT-ID < [T51972].ID
+             AND [T53567].ID > [T51972].ID) AS [T52050][ID, NAME, EMAIL])) AS [T535534][NAME, COUNT-ID, ID, NAME1, EMAIL]
+WHERE
+
+ ########################################### 
+SELECT
+  [T194769].NAME
+FROM
+  (SELECT
+      [T53454].ID,[T53454].NAME,[T53454].EMAIL,[T53454].NAME1,[T53454].COUNT-ID
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID < [T51972].ID
+                     AND input1.NAME == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T52128][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              [T52122].NAME, COUNT([T52122].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL]
+            GROUP BY
+              [T52122].NAME) AS [T53396][NAME, COUNT-ID] )) AS [T53454][ID, NAME, EMAIL, NAME1, COUNT-ID]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53454].ID > [T51972].ID
+             AND [T53454].COUNT-ID < [T51972].ID) AS [T52064][ID, NAME, EMAIL])) AS [T194769][ID, NAME, EMAIL, NAME1, COUNT-ID]
+WHERE
+
+ ########################################### 
+SELECT
+  [T497228].NAME1
+FROM
+  (SELECT
+      [T53550].NAME,[T53550].COUNT-ID,[T53550].ID,[T53550].NAME1,[T53550].EMAIL
+    FROM
+      (( (SELECT
+              [T52158].NAME, COUNT([T52158].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID
+                         AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL]
+            GROUP BY
+              [T52158].NAME) AS [T53401][NAME, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] )) AS [T53550][NAME, COUNT-ID, ID, NAME1, EMAIL]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53550].ID > [T51972].ID
+             AND [T53550].NAME1 == [T51972].NAME) AS [T52070][ID, NAME, EMAIL])) AS [T497228][NAME, COUNT-ID, ID, NAME1, EMAIL]
+WHERE
+
+ ########################################### 
+SELECT
+  [T337113].NAME
+FROM
+  (SELECT
+      [T53496].NAME,[T53496].COUNT-ID,[T53496].NAME1,[T53496].EMAIL,[T53496].COUNT-ID1
+    FROM
+      (( (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] ) JOIN (
+          (SELECT
+              [T52122].NAME, [T52122].EMAIL, COUNT([T52122].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL]
+            GROUP BY
+              [T52122].NAME  [T52122].EMAIL) AS [T53400][NAME, EMAIL, COUNT-ID] )) AS [T53496][NAME, COUNT-ID, NAME1, EMAIL, COUNT-ID1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53496].COUNT-ID > [T51972].ID
+             AND [T53496].EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T337113][NAME, COUNT-ID, NAME1, EMAIL, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T237308].NAME
+FROM
+  (SELECT
+      [T53466].NAME,[T53466].EMAIL,[T53466].COUNT-ID,[T53466].NAME1,[T53466].EMAIL1,[T53466].COUNT-ID1
+    FROM
+      (( (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              [T52122].NAME, [T52122].EMAIL, COUNT([T52122].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL]
+            GROUP BY
+              [T52122].NAME  [T52122].EMAIL) AS [T53400][NAME, EMAIL, COUNT-ID] )) AS [T53466][NAME, EMAIL, COUNT-ID, NAME1, EMAIL1, COUNT-ID1]
+    WHERE
+      [T53466].COUNT-ID > [T53466].COUNT-ID1) AS [T237308][NAME, EMAIL, COUNT-ID, NAME1, EMAIL1, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T183685].NAME
+FROM
+  (SELECT
+      [T53451].ID,[T53451].NAME,[T53451].EMAIL,[T53451].NAME1,[T53451].EMAIL1,[T53451].COUNT-ID
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID < [T51972].ID
+                     AND input1.NAME == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T52128][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              [T52122].NAME, [T52122].EMAIL, COUNT([T52122].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL]
+            GROUP BY
+              [T52122].NAME  [T52122].EMAIL) AS [T53400][NAME, EMAIL, COUNT-ID] )) AS [T53451][ID, NAME, EMAIL, NAME1, EMAIL1, COUNT-ID]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53451].ID > [T51972].ID
+             AND [T53451].COUNT-ID < [T51972].ID) AS [T52064][ID, NAME, EMAIL])) AS [T183685][ID, NAME, EMAIL, NAME1, EMAIL1, COUNT-ID]
+WHERE
+
+ ########################################### 
+SELECT
+  [T342066].NAME
+FROM
+  (SELECT
+      [T53498].NAME,[T53498].COUNT-ID,[T53498].NAME1,[T53498].COUNT-ID1
+    FROM
+      (( (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] ) JOIN (
+          (SELECT
+              [T52158].NAME, COUNT([T52158].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID
+                         AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL]
+            GROUP BY
+              [T52158].NAME) AS [T53401][NAME, COUNT-ID] )) AS [T53498][NAME, COUNT-ID, NAME1, COUNT-ID1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53498].COUNT-ID > [T51972].ID) AS [T51988][ID, NAME, EMAIL])) AS [T342066][NAME, COUNT-ID, NAME1, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T169911].NAME
+FROM
+  (SELECT
+      [T53447].ID,[T53447].NAME,[T53447].EMAIL,[T53447].NAME1,[T53447].EMAIL1,[T53447].COUNT-ID
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID < [T51972].ID
+                     AND input1.NAME == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T52128][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] )) AS [T53447][ID, NAME, EMAIL, NAME1, EMAIL1, COUNT-ID]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53447].ID < [T51972].ID
+             AND [T53447].NAME1 == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T169911][ID, NAME, EMAIL, NAME1, EMAIL1, COUNT-ID]
+WHERE
+
+ ########################################### 
+SELECT
+  [T331335].NAME1
+FROM
+  (SELECT
+      [T53493].NAME,[T53493].COUNT-ID,[T53493].NAME1,[T53493].EMAIL,[T53493].COUNT-ID1
+    FROM
+      (( (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] )) AS [T53493][NAME, COUNT-ID, NAME1, EMAIL, COUNT-ID1]
+    WHERE
+      [T53493].COUNT-ID < [T53493].COUNT-ID1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53493].NAME == [T51972].NAME
+             AND [T53493].EMAIL == [T51972].EMAIL) AS [T52107][ID, NAME, EMAIL])) AS [T331335][NAME, COUNT-ID, NAME1, EMAIL, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T84471].NAME
+FROM
+  (SELECT
+      [T53423].ID,[T53423].NAME,[T53423].EMAIL,[T53423].NAME1,[T53423].COUNT-ID
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              [T52158].NAME, COUNT([T52158].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID
+                         AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL]
+            GROUP BY
+              [T52158].NAME) AS [T53401][NAME, COUNT-ID] )) AS [T53423][ID, NAME, EMAIL, NAME1, COUNT-ID]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53423].ID > [T51972].ID
+             AND [T53423].NAME == [T51972].NAME) AS [T52070][ID, NAME, EMAIL])) AS [T84471][ID, NAME, EMAIL, NAME1, COUNT-ID]
+WHERE
+
+ ########################################### 
+SELECT
+  [T758621].NAME
+FROM
+  (SELECT
+      [T53640].EMAIL,[T53640].COUNT-ID,[T53640].ID,[T53640].NAME,[T53640].EMAIL1
+    FROM
+      (( (SELECT
+              [T52122].EMAIL, COUNT([T52122].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL]
+            GROUP BY
+              [T52122].EMAIL) AS [T53398][EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] )) AS [T53640][EMAIL, COUNT-ID, ID, NAME, EMAIL1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53640].ID < [T51972].ID
+             AND [T53640].NAME == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T758621][EMAIL, COUNT-ID, ID, NAME, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T410928].NAME1
+FROM
+  (SELECT
+      [T53525].NAME,[T53525].EMAIL,[T53525].COUNT-ID,[T53525].NAME1,[T53525].COUNT-ID1
+    FROM
+      (( (SELECT
+              [T52122].NAME, [T52122].EMAIL, COUNT([T52122].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL]
+            GROUP BY
+              [T52122].NAME  [T52122].EMAIL) AS [T53400][NAME, EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] )) AS [T53525][NAME, EMAIL, COUNT-ID, NAME1, COUNT-ID1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53525].EMAIL == [T51972].EMAIL
+             AND [T53525].COUNT-ID1 > [T51972].ID) AS [T52096][ID, NAME, EMAIL])) AS [T410928][NAME, EMAIL, COUNT-ID, NAME1, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T72033].NAME
+FROM
+  (SELECT
+      [T53419].ID,[T53419].NAME,[T53419].EMAIL,[T53419].NAME1,[T53419].COUNT-ID
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] )) AS [T53419][ID, NAME, EMAIL, NAME1, COUNT-ID]
+    WHERE
+      [T53419].ID > [T53419].COUNT-ID
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53419].EMAIL == [T51972].EMAIL
+             AND [T53419].COUNT-ID > [T51972].ID) AS [T52096][ID, NAME, EMAIL])) AS [T72033][ID, NAME, EMAIL, NAME1, COUNT-ID]
+WHERE
+
+ ########################################### 
+SELECT
+  [T72033].NAME1
+FROM
+  (SELECT
+      [T53419].ID,[T53419].NAME,[T53419].EMAIL,[T53419].NAME1,[T53419].COUNT-ID
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] )) AS [T53419][ID, NAME, EMAIL, NAME1, COUNT-ID]
+    WHERE
+      [T53419].ID > [T53419].COUNT-ID
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53419].EMAIL == [T51972].EMAIL
+             AND [T53419].COUNT-ID > [T51972].ID) AS [T52096][ID, NAME, EMAIL])) AS [T72033][ID, NAME, EMAIL, NAME1, COUNT-ID]
+WHERE
+
+ ########################################### 
+SELECT
+  [T56479].NAME
+FROM
+  (SELECT
+      [T53415].ID,[T53415].NAME,[T53415].EMAIL,[T53415].ID1,[T53415].NAME1,[T53415].EMAIL1
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID
+                     AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL] )) AS [T53415][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T53415].NAME == [T53415].NAME1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53415].NAME == [T51972].NAME
+             AND [T53415].ID1 > [T51972].ID) AS [T52104][ID, NAME, EMAIL])) AS [T56479][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T56479].NAME1
+FROM
+  (SELECT
+      [T53415].ID,[T53415].NAME,[T53415].EMAIL,[T53415].ID1,[T53415].NAME1,[T53415].EMAIL1
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID
+                     AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL] )) AS [T53415][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T53415].NAME == [T53415].NAME1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53415].NAME == [T51972].NAME
+             AND [T53415].ID1 > [T51972].ID) AS [T52104][ID, NAME, EMAIL])) AS [T56479][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T55124].NAME1
+FROM
+  (SELECT
+      [T53415].ID,[T53415].NAME,[T53415].EMAIL,[T53415].ID1,[T53415].NAME1,[T53415].EMAIL1
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID
+                     AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL] )) AS [T53415][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T53415].ID > [T53415].ID1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53415].ID <= [T51972].ID
+             AND [T53415].NAME1 == [T51972].NAME) AS [T52078][ID, NAME, EMAIL])) AS [T55124][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T342580].NAME1
+FROM
+  (SELECT
+      [T53498].NAME,[T53498].COUNT-ID,[T53498].NAME1,[T53498].COUNT-ID1
+    FROM
+      (( (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] ) JOIN (
+          (SELECT
+              [T52158].NAME, COUNT([T52158].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID
+                         AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL]
+            GROUP BY
+              [T52158].NAME) AS [T53401][NAME, COUNT-ID] )) AS [T53498][NAME, COUNT-ID, NAME1, COUNT-ID1]
+    WHERE
+      [T53498].COUNT-ID < [T53498].COUNT-ID1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53498].NAME == [T51972].NAME
+             AND [T53498].COUNT-ID1 >= [T51972].ID) AS [T52106][ID, NAME, EMAIL])) AS [T342580][NAME, COUNT-ID, NAME1, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T497222].NAME1
+FROM
+  (SELECT
+      [T53550].NAME,[T53550].COUNT-ID,[T53550].ID,[T53550].NAME1,[T53550].EMAIL
+    FROM
+      (( (SELECT
+              [T52158].NAME, COUNT([T52158].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID
+                         AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL]
+            GROUP BY
+              [T52158].NAME) AS [T53401][NAME, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] )) AS [T53550][NAME, COUNT-ID, ID, NAME1, EMAIL]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53550].ID < [T51972].ID
+             AND [T53550].NAME1 == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T497222][NAME, COUNT-ID, ID, NAME1, EMAIL]
+WHERE
+
+ ########################################### 
+SELECT
+  [T771111].NAME
+FROM
+  (SELECT
+      [T53645].EMAIL,[T53645].COUNT-ID,[T53645].NAME,[T53645].COUNT-ID1
+    FROM
+      (( (SELECT
+              [T52122].EMAIL, COUNT([T52122].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL]
+            GROUP BY
+              [T52122].EMAIL) AS [T53398][EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] )) AS [T53645][EMAIL, COUNT-ID, NAME, COUNT-ID1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53645].COUNT-ID1 > [T51972].ID) AS [T51988][ID, NAME, EMAIL])) AS [T771111][EMAIL, COUNT-ID, NAME, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T251178].NAME
+FROM
+  (SELECT
+      [T53470].NAME,[T53470].EMAIL,[T53470].COUNT-ID,[T53470].ID,[T53470].NAME1,[T53470].EMAIL1
+    FROM
+      (( (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID < [T51972].ID) AS [T51978][ID, NAME, EMAIL])) AS [T52120][ID, NAME, EMAIL] )) AS [T53470][NAME, EMAIL, COUNT-ID, ID, NAME1, EMAIL1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53470].COUNT-ID < [T53470].ID
+             AND [T53470].COUNT-ID > [T51972].ID) AS [T51995][ID, NAME, EMAIL])) AS [T251178][NAME, EMAIL, COUNT-ID, ID, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T104946].NAME
+FROM
+  (SELECT
+      [T53429].ID,[T53429].NAME,[T53429].EMAIL,[T53429].EMAIL1,[T53429].COUNT-ID
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              [T52122].EMAIL, COUNT([T52122].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL]
+            GROUP BY
+              [T52122].EMAIL) AS [T53398][EMAIL, COUNT-ID] )) AS [T53429][ID, NAME, EMAIL, EMAIL1, COUNT-ID]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53429].ID > [T51972].ID
+             AND [T53429].NAME == [T51972].NAME) AS [T52070][ID, NAME, EMAIL])) AS [T104946][ID, NAME, EMAIL, EMAIL1, COUNT-ID]
+WHERE
+
+ ########################################### 
+SELECT
+  [T169917].NAME
+FROM
+  (SELECT
+      [T53447].ID,[T53447].NAME,[T53447].EMAIL,[T53447].NAME1,[T53447].EMAIL1,[T53447].COUNT-ID
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID < [T51972].ID
+                     AND input1.NAME == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T52128][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] )) AS [T53447][ID, NAME, EMAIL, NAME1, EMAIL1, COUNT-ID]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53447].ID > [T51972].ID
+             AND [T53447].NAME1 == [T51972].NAME) AS [T52070][ID, NAME, EMAIL])) AS [T169917][ID, NAME, EMAIL, NAME1, EMAIL1, COUNT-ID]
+WHERE
+
+ ########################################### 
+SELECT
+  [T363714].NAME
+FROM
+  (SELECT
+      [T53508].EMAIL,[T53508].COUNT-ID,[T53508].NAME,[T53508].EMAIL1,[T53508].COUNT-ID1
+    FROM
+      (( (SELECT
+              input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.EMAIL) AS [T53410][EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] )) AS [T53508][EMAIL, COUNT-ID, NAME, EMAIL1, COUNT-ID1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53508].COUNT-ID1 > [T51972].ID) AS [T51988][ID, NAME, EMAIL])) AS [T363714][EMAIL, COUNT-ID, NAME, EMAIL1, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T286169].NAME1
+FROM
+  (SELECT
+      [T53479].ID,[T53479].NAME,[T53479].EMAIL,[T53479].NAME1,[T53479].COUNT-ID
+    FROM
+      (( input1 ) JOIN (
+          (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] )) AS [T53479][ID, NAME, EMAIL, NAME1, COUNT-ID]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53479].ID <= [T53479].COUNT-ID
+             AND [T53479].COUNT-ID > [T51972].ID) AS [T52033][ID, NAME, EMAIL])) AS [T286169][ID, NAME, EMAIL, NAME1, COUNT-ID]
+WHERE
+
+ ########################################### 
+SELECT
+  [T281910].NAME1
+FROM
+  (SELECT
+      [T53478].ID,[T53478].NAME,[T53478].EMAIL,[T53478].NAME1,[T53478].EMAIL1,[T53478].COUNT-ID
+    FROM
+      (( input1 ) JOIN (
+          (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] )) AS [T53478][ID, NAME, EMAIL, NAME1, EMAIL1, COUNT-ID]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53478].ID <= [T53478].COUNT-ID
+             AND [T53478].COUNT-ID > [T51972].ID) AS [T52033][ID, NAME, EMAIL])) AS [T281910][ID, NAME, EMAIL, NAME1, EMAIL1, COUNT-ID]
+WHERE
+
+ ########################################### 
+SELECT
+  [T402398].NAME1
+FROM
+  (SELECT
+      [T53523].NAME,[T53523].EMAIL,[T53523].COUNT-ID,[T53523].NAME1,[T53523].EMAIL1,[T53523].COUNT-ID1
+    FROM
+      (( (SELECT
+              [T52122].NAME, [T52122].EMAIL, COUNT([T52122].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL]
+            GROUP BY
+              [T52122].NAME  [T52122].EMAIL) AS [T53400][NAME, EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] )) AS [T53523][NAME, EMAIL, COUNT-ID, NAME1, EMAIL1, COUNT-ID1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53523].EMAIL == [T51972].EMAIL
+             AND [T53523].COUNT-ID1 > [T51972].ID) AS [T52096][ID, NAME, EMAIL])) AS [T402398][NAME, EMAIL, COUNT-ID, NAME1, EMAIL1, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T68053].NAME
+FROM
+  (SELECT
+      [T53418].ID,[T53418].NAME,[T53418].EMAIL,[T53418].ID1,[T53418].NAME1,[T53418].EMAIL1
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          input1 )) AS [T53418][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T53418].ID > [T53418].ID1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53418].NAME == [T51972].NAME
+             AND [T53418].ID1 >= [T51972].ID) AS [T52106][ID, NAME, EMAIL])) AS [T68053][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T215546].NAME
+FROM
+  (SELECT
+      [T53460].NAME,[T53460].EMAIL,[T53460].COUNT-ID,[T53460].ID,[T53460].NAME1,[T53460].EMAIL1
+    FROM
+      (( (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] )) AS [T53460][NAME, EMAIL, COUNT-ID, ID, NAME1, EMAIL1]
+    WHERE
+      [T53460].NAME == [T53460].NAME1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53460].COUNT-ID > [T51972].ID) AS [T51988][ID, NAME, EMAIL])) AS [T215546][NAME, EMAIL, COUNT-ID, ID, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T215546].NAME1
+FROM
+  (SELECT
+      [T53460].NAME,[T53460].EMAIL,[T53460].COUNT-ID,[T53460].ID,[T53460].NAME1,[T53460].EMAIL1
+    FROM
+      (( (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] )) AS [T53460][NAME, EMAIL, COUNT-ID, ID, NAME1, EMAIL1]
+    WHERE
+      [T53460].NAME == [T53460].NAME1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53460].COUNT-ID > [T51972].ID) AS [T51988][ID, NAME, EMAIL])) AS [T215546][NAME, EMAIL, COUNT-ID, ID, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T84465].NAME
+FROM
+  (SELECT
+      [T53423].ID,[T53423].NAME,[T53423].EMAIL,[T53423].NAME1,[T53423].COUNT-ID
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              [T52158].NAME, COUNT([T52158].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID
+                         AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL]
+            GROUP BY
+              [T52158].NAME) AS [T53401][NAME, COUNT-ID] )) AS [T53423][ID, NAME, EMAIL, NAME1, COUNT-ID]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53423].ID < [T51972].ID
+             AND [T53423].NAME == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T84465][ID, NAME, EMAIL, NAME1, COUNT-ID]
+WHERE
+
+ ########################################### 
+SELECT
+  [T354444].NAME
+FROM
+  (SELECT
+      [T53504].NAME,[T53504].COUNT-ID,[T53504].EMAIL,[T53504].COUNT-ID1
+    FROM
+      (( (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] ) JOIN (
+          (SELECT
+              [T52122].EMAIL, COUNT([T52122].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL]
+            GROUP BY
+              [T52122].EMAIL) AS [T53398][EMAIL, COUNT-ID] )) AS [T53504][NAME, COUNT-ID, EMAIL, COUNT-ID1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53504].COUNT-ID > [T51972].ID) AS [T51988][ID, NAME, EMAIL])) AS [T354444][NAME, COUNT-ID, EMAIL, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T66960].NAME
+FROM
+  (SELECT
+      [T53418].ID,[T53418].NAME,[T53418].EMAIL,[T53418].ID1,[T53418].NAME1,[T53418].EMAIL1
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          input1 )) AS [T53418][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T53418].ID < [T53418].ID1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53418].ID < [T51972].ID
+             AND [T53418].NAME == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T66960][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T73360].NAME
+FROM
+  (SELECT
+      [T53420].ID,[T53420].NAME,[T53420].EMAIL,[T53420].EMAIL1,[T53420].COUNT-ID
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.EMAIL) AS [T53410][EMAIL, COUNT-ID] )) AS [T53420][ID, NAME, EMAIL, EMAIL1, COUNT-ID]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53420].ID > [T51972].ID
+             AND [T53420].NAME == [T51972].NAME) AS [T52070][ID, NAME, EMAIL])) AS [T73360][ID, NAME, EMAIL, EMAIL1, COUNT-ID]
+WHERE
+
+ ########################################### 
+SELECT
+  [T138323].NAME1
+FROM
+  (SELECT
+      [T53438].ID,[T53438].NAME,[T53438].EMAIL,[T53438].NAME1,[T53438].COUNT-ID
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID
+                     AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              [T52158].NAME, COUNT([T52158].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID
+                         AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL]
+            GROUP BY
+              [T52158].NAME) AS [T53401][NAME, COUNT-ID] )) AS [T53438][ID, NAME, EMAIL, NAME1, COUNT-ID]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53438].ID < [T51972].ID
+             AND [T53438].NAME1 == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T138323][ID, NAME, EMAIL, NAME1, COUNT-ID]
+WHERE
+
+ ########################################### 
+SELECT
+  [T55744].NAME1
+FROM
+  (SELECT
+      [T53415].ID,[T53415].NAME,[T53415].EMAIL,[T53415].ID1,[T53415].NAME1,[T53415].EMAIL1
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID
+                     AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL] )) AS [T53415][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T53415].ID <= [T53415].ID1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53415].ID1 < [T51972].ID
+             AND [T53415].NAME1 == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T55744][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T225421].NAME1
+FROM
+  (SELECT
+      [T53462].NAME,[T53462].EMAIL,[T53462].COUNT-ID,[T53462].ID,[T53462].NAME1,[T53462].EMAIL1
+    FROM
+      (( (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID < [T51972].ID
+                     AND input1.NAME == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T52128][ID, NAME, EMAIL] )) AS [T53462][NAME, EMAIL, COUNT-ID, ID, NAME1, EMAIL1]
+    WHERE
+      [T53462].EMAIL == [T53462].EMAIL1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53462].NAME == [T51972].NAME
+             AND [T53462].COUNT-ID < [T51972].ID) AS [T52102][ID, NAME, EMAIL])) AS [T225421][NAME, EMAIL, COUNT-ID, ID, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T223722].NAME1
+FROM
+  (SELECT
+      [T53462].NAME,[T53462].EMAIL,[T53462].COUNT-ID,[T53462].ID,[T53462].NAME1,[T53462].EMAIL1
+    FROM
+      (( (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID < [T51972].ID
+                     AND input1.NAME == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T52128][ID, NAME, EMAIL] )) AS [T53462][NAME, EMAIL, COUNT-ID, ID, NAME1, EMAIL1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53462].NAME == [T51972].NAME
+             AND [T53462].ID > [T51972].ID) AS [T52104][ID, NAME, EMAIL])) AS [T223722][NAME, EMAIL, COUNT-ID, ID, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T79752].NAME
+FROM
+  (SELECT
+      [T53421].ID,[T53421].NAME,[T53421].EMAIL,[T53421].NAME1,[T53421].EMAIL1,[T53421].COUNT-ID
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              [T52122].NAME, [T52122].EMAIL, COUNT([T52122].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL]
+            GROUP BY
+              [T52122].NAME  [T52122].EMAIL) AS [T53400][NAME, EMAIL, COUNT-ID] )) AS [T53421][ID, NAME, EMAIL, NAME1, EMAIL1, COUNT-ID]
+    WHERE
+      [T53421].EMAIL == [T53421].EMAIL1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53421].ID > [T51972].ID
+             AND [T53421].NAME == [T51972].NAME) AS [T52070][ID, NAME, EMAIL])) AS [T79752][ID, NAME, EMAIL, NAME1, EMAIL1, COUNT-ID]
+WHERE
+
+ ########################################### 
+SELECT
+  [T398199].NAME1
+FROM
+  (SELECT
+      [T53522].NAME,[T53522].EMAIL,[T53522].COUNT-ID,[T53522].ID,[T53522].NAME1,[T53522].EMAIL1
+    FROM
+      (( (SELECT
+              [T52122].NAME, [T52122].EMAIL, COUNT([T52122].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL]
+            GROUP BY
+              [T52122].NAME  [T52122].EMAIL) AS [T53400][NAME, EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID < [T51972].ID
+                     AND input1.NAME == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T52128][ID, NAME, EMAIL] )) AS [T53522][NAME, EMAIL, COUNT-ID, ID, NAME1, EMAIL1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53522].COUNT-ID < [T51972].ID
+             AND [T53522].ID > [T51972].ID) AS [T52050][ID, NAME, EMAIL])) AS [T398199][NAME, EMAIL, COUNT-ID, ID, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T766054].NAME
+FROM
+  (SELECT
+      [T53643].EMAIL,[T53643].COUNT-ID,[T53643].NAME,[T53643].EMAIL1,[T53643].COUNT-ID1
+    FROM
+      (( (SELECT
+              [T52122].EMAIL, COUNT([T52122].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL]
+            GROUP BY
+              [T52122].EMAIL) AS [T53398][EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] )) AS [T53643][EMAIL, COUNT-ID, NAME, EMAIL1, COUNT-ID1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53643].COUNT-ID1 > [T51972].ID) AS [T51988][ID, NAME, EMAIL])) AS [T766054][EMAIL, COUNT-ID, NAME, EMAIL1, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T73354].NAME
+FROM
+  (SELECT
+      [T53420].ID,[T53420].NAME,[T53420].EMAIL,[T53420].EMAIL1,[T53420].COUNT-ID
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.EMAIL) AS [T53410][EMAIL, COUNT-ID] )) AS [T53420][ID, NAME, EMAIL, EMAIL1, COUNT-ID]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53420].ID < [T51972].ID
+             AND [T53420].NAME == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T73354][ID, NAME, EMAIL, EMAIL1, COUNT-ID]
+WHERE
+
+ ########################################### 
+SELECT
+  [T323028].NAME
+FROM
+  (SELECT
+      [T53490].NAME,[T53490].COUNT-ID,[T53490].ID,[T53490].NAME1,[T53490].EMAIL
+    FROM
+      (( (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] )) AS [T53490][NAME, COUNT-ID, ID, NAME1, EMAIL]
+    WHERE
+      [T53490].NAME == [T53490].NAME1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53490].COUNT-ID > [T51972].ID) AS [T51988][ID, NAME, EMAIL])) AS [T323028][NAME, COUNT-ID, ID, NAME1, EMAIL]
+WHERE
+
+ ########################################### 
+SELECT
+  [T323028].NAME1
+FROM
+  (SELECT
+      [T53490].NAME,[T53490].COUNT-ID,[T53490].ID,[T53490].NAME1,[T53490].EMAIL
+    FROM
+      (( (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] )) AS [T53490][NAME, COUNT-ID, ID, NAME1, EMAIL]
+    WHERE
+      [T53490].NAME == [T53490].NAME1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53490].COUNT-ID > [T51972].ID) AS [T51988][ID, NAME, EMAIL])) AS [T323028][NAME, COUNT-ID, ID, NAME1, EMAIL]
+WHERE
+
+ ########################################### 
+SELECT
+  [T345344].NAME
+FROM
+  (SELECT
+      [T53500].NAME,[T53500].COUNT-ID,[T53500].ID,[T53500].NAME1,[T53500].EMAIL
+    FROM
+      (( (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID < [T51972].ID) AS [T51978][ID, NAME, EMAIL])) AS [T52120][ID, NAME, EMAIL] )) AS [T53500][NAME, COUNT-ID, ID, NAME1, EMAIL]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53500].COUNT-ID < [T53500].ID
+             AND [T53500].COUNT-ID > [T51972].ID) AS [T51995][ID, NAME, EMAIL])) AS [T345344][NAME, COUNT-ID, ID, NAME1, EMAIL]
+WHERE
+
+ ########################################### 
+SELECT
+  [T55389].NAME
+FROM
+  (SELECT
+      [T53415].ID,[T53415].NAME,[T53415].EMAIL,[T53415].ID1,[T53415].NAME1,[T53415].EMAIL1
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID
+                     AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL] )) AS [T53415][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T53415].ID <= [T53415].ID1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53415].ID < [T51972].ID
+             AND [T53415].NAME == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T55389][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T55389].NAME1
+FROM
+  (SELECT
+      [T53415].ID,[T53415].NAME,[T53415].EMAIL,[T53415].ID1,[T53415].NAME1,[T53415].EMAIL1
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID
+                     AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL] )) AS [T53415][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T53415].ID <= [T53415].ID1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53415].ID < [T51972].ID
+             AND [T53415].NAME == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T55389][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T104940].NAME
+FROM
+  (SELECT
+      [T53429].ID,[T53429].NAME,[T53429].EMAIL,[T53429].EMAIL1,[T53429].COUNT-ID
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              [T52122].EMAIL, COUNT([T52122].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL]
+            GROUP BY
+              [T52122].EMAIL) AS [T53398][EMAIL, COUNT-ID] )) AS [T53429][ID, NAME, EMAIL, EMAIL1, COUNT-ID]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53429].ID < [T51972].ID
+             AND [T53429].NAME == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T104940][ID, NAME, EMAIL, EMAIL1, COUNT-ID]
+WHERE
+
+ ########################################### 
+SELECT
+  [T237549].NAME
+FROM
+  (SELECT
+      [T53466].NAME,[T53466].EMAIL,[T53466].COUNT-ID,[T53466].NAME1,[T53466].EMAIL1,[T53466].COUNT-ID1
+    FROM
+      (( (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              [T52122].NAME, [T52122].EMAIL, COUNT([T52122].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL]
+            GROUP BY
+              [T52122].NAME  [T52122].EMAIL) AS [T53400][NAME, EMAIL, COUNT-ID] )) AS [T53466][NAME, EMAIL, COUNT-ID, NAME1, EMAIL1, COUNT-ID1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53466].COUNT-ID > [T51972].ID
+             AND [T53466].EMAIL1 == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T237549][NAME, EMAIL, COUNT-ID, NAME1, EMAIL1, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T129604].NAME
+FROM
+  (SELECT
+      [T53435].ID,[T53435].NAME,[T53435].EMAIL,[T53435].EMAIL1,[T53435].COUNT-ID
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID
+                     AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.EMAIL) AS [T53410][EMAIL, COUNT-ID] )) AS [T53435][ID, NAME, EMAIL, EMAIL1, COUNT-ID]
+    WHERE
+      [T53435].EMAIL == [T53435].EMAIL1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53435].NAME == [T51972].NAME
+             AND [T53435].COUNT-ID < [T51972].ID) AS [T52102][ID, NAME, EMAIL])) AS [T129604][ID, NAME, EMAIL, EMAIL1, COUNT-ID]
+WHERE
+
+ ########################################### 
+SELECT
+  [T347371].NAME
+FROM
+  (SELECT
+      [T53500].NAME,[T53500].COUNT-ID,[T53500].ID,[T53500].NAME1,[T53500].EMAIL
+    FROM
+      (( (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID < [T51972].ID) AS [T51978][ID, NAME, EMAIL])) AS [T52120][ID, NAME, EMAIL] )) AS [T53500][NAME, COUNT-ID, ID, NAME1, EMAIL]
+    WHERE
+      [T53500].COUNT-ID <= [T53500].ID
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53500].COUNT-ID > [T51972].ID
+             AND [T53500].EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T347371][NAME, COUNT-ID, ID, NAME1, EMAIL]
+WHERE
+
+ ########################################### 
+SELECT
+  [T233994].NAME
+FROM
+  (SELECT
+      [T53464].NAME,[T53464].EMAIL,[T53464].COUNT-ID,[T53464].NAME1,[T53464].COUNT-ID1
+    FROM
+      (( (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] )) AS [T53464][NAME, EMAIL, COUNT-ID, NAME1, COUNT-ID1]
+    WHERE
+      [T53464].COUNT-ID > [T53464].COUNT-ID1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53464].COUNT-ID <= [T51972].ID
+             AND [T53464].NAME1 == [T51972].NAME) AS [T52078][ID, NAME, EMAIL])) AS [T233994][NAME, EMAIL, COUNT-ID, NAME1, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T356281].NAME
+FROM
+  (SELECT
+      [T53505].EMAIL,[T53505].COUNT-ID,[T53505].ID,[T53505].NAME,[T53505].EMAIL1
+    FROM
+      (( (SELECT
+              input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.EMAIL) AS [T53410][EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] )) AS [T53505][EMAIL, COUNT-ID, ID, NAME, EMAIL1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53505].ID < [T51972].ID
+             AND [T53505].NAME == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T356281][EMAIL, COUNT-ID, ID, NAME, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T68909].NAME
+FROM
+  (SELECT
+      [T53418].ID,[T53418].NAME,[T53418].EMAIL,[T53418].ID1,[T53418].NAME1,[T53418].EMAIL1
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          input1 )) AS [T53418][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T53418].ID >= [T53418].ID1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53418].NAME == [T51972].NAME
+             AND [T53418].ID1 > [T51972].ID) AS [T52104][ID, NAME, EMAIL])) AS [T68909][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T342531].NAME1
+FROM
+  (SELECT
+      [T53498].NAME,[T53498].COUNT-ID,[T53498].NAME1,[T53498].COUNT-ID1
+    FROM
+      (( (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] ) JOIN (
+          (SELECT
+              [T52158].NAME, COUNT([T52158].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID
+                         AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL]
+            GROUP BY
+              [T52158].NAME) AS [T53401][NAME, COUNT-ID] )) AS [T53498][NAME, COUNT-ID, NAME1, COUNT-ID1]
+    WHERE
+      [T53498].COUNT-ID < [T53498].COUNT-ID1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53498].NAME == [T51972].NAME
+             AND [T53498].COUNT-ID < [T51972].ID) AS [T52102][ID, NAME, EMAIL])) AS [T342531][NAME, COUNT-ID, NAME1, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T359411].NAME
+FROM
+  (SELECT
+      [T53506].EMAIL,[T53506].COUNT-ID,[T53506].ID,[T53506].NAME,[T53506].EMAIL1
+    FROM
+      (( (SELECT
+              input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.EMAIL) AS [T53410][EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID
+                     AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL] )) AS [T53506][EMAIL, COUNT-ID, ID, NAME, EMAIL1]
+    WHERE
+      [T53506].EMAIL == [T53506].EMAIL1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53506].COUNT-ID < [T51972].ID
+             AND [T53506].NAME == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T359411][EMAIL, COUNT-ID, ID, NAME, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T509712].NAME1
+FROM
+  (SELECT
+      [T53555].NAME,[T53555].COUNT-ID,[T53555].NAME1,[T53555].COUNT-ID1
+    FROM
+      (( (SELECT
+              [T52158].NAME, COUNT([T52158].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID
+                         AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL]
+            GROUP BY
+              [T52158].NAME) AS [T53401][NAME, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] )) AS [T53555][NAME, COUNT-ID, NAME1, COUNT-ID1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53555].COUNT-ID1 > [T51972].ID) AS [T51988][ID, NAME, EMAIL])) AS [T509712][NAME, COUNT-ID, NAME1, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T266380].NAME
+FROM
+  (SELECT
+      [T53474].NAME,[T53474].EMAIL,[T53474].COUNT-ID,[T53474].EMAIL1,[T53474].COUNT-ID1
+    FROM
+      (( (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              [T52122].EMAIL, COUNT([T52122].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL]
+            GROUP BY
+              [T52122].EMAIL) AS [T53398][EMAIL, COUNT-ID] )) AS [T53474][NAME, EMAIL, COUNT-ID, EMAIL1, COUNT-ID1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53474].COUNT-ID > [T51972].ID) AS [T51988][ID, NAME, EMAIL])) AS [T266380][NAME, EMAIL, COUNT-ID, EMAIL1, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T239496].NAME1
+FROM
+  (SELECT
+      [T53466].NAME,[T53466].EMAIL,[T53466].COUNT-ID,[T53466].NAME1,[T53466].EMAIL1,[T53466].COUNT-ID1
+    FROM
+      (( (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              [T52122].NAME, [T52122].EMAIL, COUNT([T52122].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL]
+            GROUP BY
+              [T52122].NAME  [T52122].EMAIL) AS [T53400][NAME, EMAIL, COUNT-ID] )) AS [T53466][NAME, EMAIL, COUNT-ID, NAME1, EMAIL1, COUNT-ID1]
+    WHERE
+      [T53466].COUNT-ID < [T53466].COUNT-ID1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53466].NAME == [T51972].NAME
+             AND [T53466].COUNT-ID < [T51972].ID) AS [T52102][ID, NAME, EMAIL])) AS [T239496][NAME, EMAIL, COUNT-ID, NAME1, EMAIL1, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T333010].NAME
+FROM
+  (SELECT
+      [T53494].NAME,[T53494].COUNT-ID,[T53494].ID,[T53494].NAME1,[T53494].EMAIL
+    FROM
+      (( (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] ) JOIN (
+          input1 )) AS [T53494][NAME, COUNT-ID, ID, NAME1, EMAIL]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53494].COUNT-ID >= [T53494].ID
+             AND [T53494].COUNT-ID > [T51972].ID) AS [T52039][ID, NAME, EMAIL])) AS [T333010][NAME, COUNT-ID, ID, NAME1, EMAIL]
+WHERE
+
+ ########################################### 
+SELECT
+  [T63864].NAME
+FROM
+  (SELECT
+      [T53417].ID,[T53417].NAME,[T53417].EMAIL,[T53417].NAME1,[T53417].EMAIL1,[T53417].COUNT-ID
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] )) AS [T53417][ID, NAME, EMAIL, NAME1, EMAIL1, COUNT-ID]
+    WHERE
+      [T53417].ID > [T53417].COUNT-ID
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53417].EMAIL == [T51972].EMAIL
+             AND [T53417].COUNT-ID > [T51972].ID) AS [T52096][ID, NAME, EMAIL])) AS [T63864][ID, NAME, EMAIL, NAME1, EMAIL1, COUNT-ID]
+WHERE
+
+ ########################################### 
+SELECT
+  [T63864].NAME1
+FROM
+  (SELECT
+      [T53417].ID,[T53417].NAME,[T53417].EMAIL,[T53417].NAME1,[T53417].EMAIL1,[T53417].COUNT-ID
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] )) AS [T53417][ID, NAME, EMAIL, NAME1, EMAIL1, COUNT-ID]
+    WHERE
+      [T53417].ID > [T53417].COUNT-ID
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53417].EMAIL == [T51972].EMAIL
+             AND [T53417].COUNT-ID > [T51972].ID) AS [T52096][ID, NAME, EMAIL])) AS [T63864][ID, NAME, EMAIL, NAME1, EMAIL1, COUNT-ID]
+WHERE
+
+ ########################################### 
+SELECT
+  [T55973].NAME1
+FROM
+  (SELECT
+      [T53415].ID,[T53415].NAME,[T53415].EMAIL,[T53415].ID1,[T53415].NAME1,[T53415].EMAIL1
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID
+                     AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL] )) AS [T53415][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T53415].ID >= [T53415].ID1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53415].ID < [T51972].ID
+             AND [T53415].NAME1 == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T55973][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T332013].NAME
+FROM
+  (SELECT
+      [T53493].NAME,[T53493].COUNT-ID,[T53493].NAME1,[T53493].EMAIL,[T53493].COUNT-ID1
+    FROM
+      (( (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] )) AS [T53493][NAME, COUNT-ID, NAME1, EMAIL, COUNT-ID1]
+    WHERE
+      [T53493].COUNT-ID > [T53493].COUNT-ID1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53493].COUNT-ID <= [T51972].ID
+             AND [T53493].NAME1 == [T51972].NAME) AS [T52078][ID, NAME, EMAIL])) AS [T332013][NAME, COUNT-ID, NAME1, EMAIL, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T758627].NAME
+FROM
+  (SELECT
+      [T53640].EMAIL,[T53640].COUNT-ID,[T53640].ID,[T53640].NAME,[T53640].EMAIL1
+    FROM
+      (( (SELECT
+              [T52122].EMAIL, COUNT([T52122].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL]
+            GROUP BY
+              [T52122].EMAIL) AS [T53398][EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] )) AS [T53640][EMAIL, COUNT-ID, ID, NAME, EMAIL1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53640].ID > [T51972].ID
+             AND [T53640].NAME == [T51972].NAME) AS [T52070][ID, NAME, EMAIL])) AS [T758627][EMAIL, COUNT-ID, ID, NAME, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T239032].NAME1
+FROM
+  (SELECT
+      [T53466].NAME,[T53466].EMAIL,[T53466].COUNT-ID,[T53466].NAME1,[T53466].EMAIL1,[T53466].COUNT-ID1
+    FROM
+      (( (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              [T52122].NAME, [T52122].EMAIL, COUNT([T52122].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL]
+            GROUP BY
+              [T52122].NAME  [T52122].EMAIL) AS [T53400][NAME, EMAIL, COUNT-ID] )) AS [T53466][NAME, EMAIL, COUNT-ID, NAME1, EMAIL1, COUNT-ID1]
+    WHERE
+      [T53466].EMAIL == [T53466].EMAIL1
+       AND [T53466].COUNT-ID < [T53466].COUNT-ID1) AS [T239032][NAME, EMAIL, COUNT-ID, NAME1, EMAIL1, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T216874].NAME
+FROM
+  (SELECT
+      [T53460].NAME,[T53460].EMAIL,[T53460].COUNT-ID,[T53460].ID,[T53460].NAME1,[T53460].EMAIL1
+    FROM
+      (( (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] )) AS [T53460][NAME, EMAIL, COUNT-ID, ID, NAME1, EMAIL1]
+    WHERE
+      [T53460].EMAIL == [T53460].EMAIL1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53460].NAME == [T51972].NAME
+             AND [T53460].ID < [T51972].ID) AS [T52102][ID, NAME, EMAIL])) AS [T216874][NAME, EMAIL, COUNT-ID, ID, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T67818].NAME
+FROM
+  (SELECT
+      [T53418].ID,[T53418].NAME,[T53418].EMAIL,[T53418].ID1,[T53418].NAME1,[T53418].EMAIL1
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          input1 )) AS [T53418][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T53418].ID > [T53418].ID1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53418].ID < [T51972].ID
+             AND [T53418].NAME == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T67818][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T79746].NAME
+FROM
+  (SELECT
+      [T53421].ID,[T53421].NAME,[T53421].EMAIL,[T53421].NAME1,[T53421].EMAIL1,[T53421].COUNT-ID
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              [T52122].NAME, [T52122].EMAIL, COUNT([T52122].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL]
+            GROUP BY
+              [T52122].NAME  [T52122].EMAIL) AS [T53400][NAME, EMAIL, COUNT-ID] )) AS [T53421][ID, NAME, EMAIL, NAME1, EMAIL1, COUNT-ID]
+    WHERE
+      [T53421].EMAIL == [T53421].EMAIL1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53421].ID < [T51972].ID
+             AND [T53421].NAME == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T79746][ID, NAME, EMAIL, NAME1, EMAIL1, COUNT-ID]
+WHERE
+
+ ########################################### 
+SELECT
+  [T368771].NAME
+FROM
+  (SELECT
+      [T53510].EMAIL,[T53510].COUNT-ID,[T53510].NAME,[T53510].COUNT-ID1
+    FROM
+      (( (SELECT
+              input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.EMAIL) AS [T53410][EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] )) AS [T53510][EMAIL, COUNT-ID, NAME, COUNT-ID1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53510].COUNT-ID1 > [T51972].ID) AS [T51988][ID, NAME, EMAIL])) AS [T368771][EMAIL, COUNT-ID, NAME, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T223720].NAME1
+FROM
+  (SELECT
+      [T53462].NAME,[T53462].EMAIL,[T53462].COUNT-ID,[T53462].ID,[T53462].NAME1,[T53462].EMAIL1
+    FROM
+      (( (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID < [T51972].ID
+                     AND input1.NAME == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T52128][ID, NAME, EMAIL] )) AS [T53462][NAME, EMAIL, COUNT-ID, ID, NAME1, EMAIL1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53462].NAME == [T51972].NAME
+             AND [T53462].ID < [T51972].ID) AS [T52102][ID, NAME, EMAIL])) AS [T223720][NAME, EMAIL, COUNT-ID, ID, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T510658].NAME
+FROM
+  (SELECT
+      [T53555].NAME,[T53555].COUNT-ID,[T53555].NAME1,[T53555].COUNT-ID1
+    FROM
+      (( (SELECT
+              [T52158].NAME, COUNT([T52158].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID
+                         AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL]
+            GROUP BY
+              [T52158].NAME) AS [T53401][NAME, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] )) AS [T53555][NAME, COUNT-ID, NAME1, COUNT-ID1]
+    WHERE
+      [T53555].COUNT-ID > [T53555].COUNT-ID1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53555].COUNT-ID >= [T51972].ID
+             AND [T53555].NAME1 == [T51972].NAME) AS [T52086][ID, NAME, EMAIL])) AS [T510658][NAME, COUNT-ID, NAME1, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T343646].NAME
+FROM
+  (SELECT
+      [T53499].NAME,[T53499].COUNT-ID,[T53499].NAME1,[T53499].COUNT-ID1
+    FROM
+      (( (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] ) JOIN (
+          (SELECT
+              [T52122].NAME, COUNT([T52122].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL]
+            GROUP BY
+              [T52122].NAME) AS [T53396][NAME, COUNT-ID] )) AS [T53499][NAME, COUNT-ID, NAME1, COUNT-ID1]
+    WHERE
+      [T53499].COUNT-ID > [T53499].COUNT-ID1) AS [T343646][NAME, COUNT-ID, NAME1, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T358729].NAME
+FROM
+  (SELECT
+      [T53506].EMAIL,[T53506].COUNT-ID,[T53506].ID,[T53506].NAME,[T53506].EMAIL1
+    FROM
+      (( (SELECT
+              input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.EMAIL) AS [T53410][EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID
+                     AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL] )) AS [T53506][EMAIL, COUNT-ID, ID, NAME, EMAIL1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53506].COUNT-ID < [T51972].ID
+             AND [T53506].ID > [T51972].ID) AS [T52050][ID, NAME, EMAIL])) AS [T358729][EMAIL, COUNT-ID, ID, NAME, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T617633].NAME
+FROM
+  (SELECT
+      [T53595].EMAIL,[T53595].COUNT-ID,[T53595].ID,[T53595].NAME,[T53595].EMAIL1
+    FROM
+      (( (SELECT
+              [T52158].EMAIL, COUNT([T52158].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID
+                         AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL]
+            GROUP BY
+              [T52158].EMAIL) AS [T53403][EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] )) AS [T53595][EMAIL, COUNT-ID, ID, NAME, EMAIL1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53595].COUNT-ID == [T51972].ID
+             AND [T53595].NAME == [T51972].NAME) AS [T52062][ID, NAME, EMAIL])) AS [T617633][EMAIL, COUNT-ID, ID, NAME, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T68478].NAME
+FROM
+  (SELECT
+      [T53418].ID,[T53418].NAME,[T53418].EMAIL,[T53418].ID1,[T53418].NAME1,[T53418].EMAIL1
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          input1 )) AS [T53418][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T53418].ID <= [T53418].ID1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53418].NAME == [T51972].NAME
+             AND [T53418].ID1 < [T51972].ID) AS [T52102][ID, NAME, EMAIL])) AS [T68478][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T327820].NAME1
+FROM
+  (SELECT
+      [T53492].NAME,[T53492].COUNT-ID,[T53492].ID,[T53492].NAME1,[T53492].EMAIL
+    FROM
+      (( (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID < [T51972].ID
+                     AND input1.NAME == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T52128][ID, NAME, EMAIL] )) AS [T53492][NAME, COUNT-ID, ID, NAME1, EMAIL]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53492].NAME == [T51972].NAME
+             AND [T53492].ID < [T51972].ID) AS [T52102][ID, NAME, EMAIL])) AS [T327820][NAME, COUNT-ID, ID, NAME1, EMAIL]
+WHERE
+
+ ########################################### 
+SELECT
+  [T55550].NAME1
+FROM
+  (SELECT
+      [T53415].ID,[T53415].NAME,[T53415].EMAIL,[T53415].ID1,[T53415].NAME1,[T53415].EMAIL1
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID
+                     AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL] )) AS [T53415][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T53415].ID <= [T53415].ID1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53415].ID > [T51972].ID
+             AND [T53415].NAME1 == [T51972].NAME) AS [T52070][ID, NAME, EMAIL])) AS [T55550][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T54966].NAME
+FROM
+  (SELECT
+      [T53415].ID,[T53415].NAME,[T53415].EMAIL,[T53415].ID1,[T53415].NAME1,[T53415].EMAIL1
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID
+                     AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL] )) AS [T53415][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T53415].ID > [T53415].ID1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53415].ID > [T51972].ID
+             AND [T53415].NAME == [T51972].NAME) AS [T52070][ID, NAME, EMAIL])) AS [T54966][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T54269].NAME1
+FROM
+  (SELECT
+      [T53415].ID,[T53415].NAME,[T53415].EMAIL,[T53415].ID1,[T53415].NAME1,[T53415].EMAIL1
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID
+                     AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL] )) AS [T53415][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T53415].ID < [T53415].ID1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53415].ID >= [T51972].ID
+             AND [T53415].NAME1 == [T51972].NAME) AS [T52086][ID, NAME, EMAIL])) AS [T54269][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T403936].NAME
+FROM
+  (SELECT
+      [T53523].NAME,[T53523].EMAIL,[T53523].COUNT-ID,[T53523].NAME1,[T53523].EMAIL1,[T53523].COUNT-ID1
+    FROM
+      (( (SELECT
+              [T52122].NAME, [T52122].EMAIL, COUNT([T52122].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL]
+            GROUP BY
+              [T52122].NAME  [T52122].EMAIL) AS [T53400][NAME, EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] )) AS [T53523][NAME, EMAIL, COUNT-ID, NAME1, EMAIL1, COUNT-ID1]
+    WHERE
+      [T53523].EMAIL == [T53523].EMAIL1
+       AND [T53523].COUNT-ID > [T53523].COUNT-ID1) AS [T403936][NAME, EMAIL, COUNT-ID, NAME1, EMAIL1, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T233270].NAME1
+FROM
+  (SELECT
+      [T53464].NAME,[T53464].EMAIL,[T53464].COUNT-ID,[T53464].NAME1,[T53464].COUNT-ID1
+    FROM
+      (( (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] )) AS [T53464][NAME, EMAIL, COUNT-ID, NAME1, COUNT-ID1]
+    WHERE
+      [T53464].COUNT-ID < [T53464].COUNT-ID1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53464].NAME == [T51972].NAME
+             AND [T53464].COUNT-ID1 >= [T51972].ID) AS [T52106][ID, NAME, EMAIL])) AS [T233270][NAME, EMAIL, COUNT-ID, NAME1, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T178481].NAME
+FROM
+  (SELECT
+      [T53449].ID,[T53449].NAME,[T53449].EMAIL,[T53449].NAME1,[T53449].COUNT-ID
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID < [T51972].ID
+                     AND input1.NAME == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T52128][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] )) AS [T53449][ID, NAME, EMAIL, NAME1, COUNT-ID]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53449].ID < [T51972].ID
+             AND [T53449].NAME1 == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T178481][ID, NAME, EMAIL, NAME1, COUNT-ID]
+WHERE
+
+ ########################################### 
+SELECT
+  [T335401].NAME
+FROM
+  (SELECT
+      [T53495].NAME,[T53495].COUNT-ID,[T53495].EMAIL,[T53495].COUNT-ID1
+    FROM
+      (( (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.EMAIL) AS [T53410][EMAIL, COUNT-ID] )) AS [T53495][NAME, COUNT-ID, EMAIL, COUNT-ID1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53495].COUNT-ID > [T51972].ID) AS [T51988][ID, NAME, EMAIL])) AS [T335401][NAME, COUNT-ID, EMAIL, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T53787].NAME1
+FROM
+  (SELECT
+      [T53415].ID,[T53415].NAME,[T53415].EMAIL,[T53415].ID1,[T53415].NAME1,[T53415].EMAIL1
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID
+                     AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL] )) AS [T53415][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53415].ID < [T51972].ID
+             AND [T53415].ID1 > [T51972].ID) AS [T52050][ID, NAME, EMAIL])) AS [T53787][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T245905].NAME
+FROM
+  (SELECT
+      [T53468].NAME,[T53468].EMAIL,[T53468].COUNT-ID,[T53468].NAME1,[T53468].COUNT-ID1
+    FROM
+      (( (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              [T52158].NAME, COUNT([T52158].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID
+                         AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL]
+            GROUP BY
+              [T52158].NAME) AS [T53401][NAME, COUNT-ID] )) AS [T53468][NAME, EMAIL, COUNT-ID, NAME1, COUNT-ID1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53468].COUNT-ID > [T51972].ID) AS [T51988][ID, NAME, EMAIL])) AS [T245905][NAME, EMAIL, COUNT-ID, NAME1, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T85466].NAME1
+FROM
+  (SELECT
+      [T53423].ID,[T53423].NAME,[T53423].EMAIL,[T53423].NAME1,[T53423].COUNT-ID
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              [T52158].NAME, COUNT([T52158].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID
+                         AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL]
+            GROUP BY
+              [T52158].NAME) AS [T53401][NAME, COUNT-ID] )) AS [T53423][ID, NAME, EMAIL, NAME1, COUNT-ID]
+    WHERE
+      [T53423].ID > [T53423].COUNT-ID
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53423].ID < [T51972].ID
+             AND [T53423].NAME1 == [T51972].NAME) AS [T52054][ID, NAME, EMAIL])) AS [T85466][ID, NAME, EMAIL, NAME1, COUNT-ID]
+WHERE
+
+ ########################################### 
+SELECT
+  [T233944].NAME
+FROM
+  (SELECT
+      [T53464].NAME,[T53464].EMAIL,[T53464].COUNT-ID,[T53464].NAME1,[T53464].COUNT-ID1
+    FROM
+      (( (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] )) AS [T53464][NAME, EMAIL, COUNT-ID, NAME1, COUNT-ID1]
+    WHERE
+      [T53464].COUNT-ID > [T53464].COUNT-ID1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53464].EMAIL == [T51972].EMAIL
+             AND [T53464].NAME1 == [T51972].NAME) AS [T52100][ID, NAME, EMAIL])) AS [T233944][NAME, EMAIL, COUNT-ID, NAME1, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T233221].NAME1
+FROM
+  (SELECT
+      [T53464].NAME,[T53464].EMAIL,[T53464].COUNT-ID,[T53464].NAME1,[T53464].COUNT-ID1
+    FROM
+      (( (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] )) AS [T53464][NAME, EMAIL, COUNT-ID, NAME1, COUNT-ID1]
+    WHERE
+      [T53464].COUNT-ID < [T53464].COUNT-ID1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53464].NAME == [T51972].NAME
+             AND [T53464].COUNT-ID < [T51972].ID) AS [T52102][ID, NAME, EMAIL])) AS [T233221][NAME, EMAIL, COUNT-ID, NAME1, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T56477].NAME
+FROM
+  (SELECT
+      [T53415].ID,[T53415].NAME,[T53415].EMAIL,[T53415].ID1,[T53415].NAME1,[T53415].EMAIL1
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID
+                     AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL] )) AS [T53415][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T53415].NAME == [T53415].NAME1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53415].NAME == [T51972].NAME
+             AND [T53415].ID1 < [T51972].ID) AS [T52102][ID, NAME, EMAIL])) AS [T56477][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T56477].NAME1
+FROM
+  (SELECT
+      [T53415].ID,[T53415].NAME,[T53415].EMAIL,[T53415].ID1,[T53415].NAME1,[T53415].EMAIL1
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID
+                     AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL] )) AS [T53415][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T53415].NAME == [T53415].NAME1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53415].NAME == [T51972].NAME
+             AND [T53415].ID1 < [T51972].ID) AS [T52102][ID, NAME, EMAIL])) AS [T56477][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T331965].NAME
+FROM
+  (SELECT
+      [T53493].NAME,[T53493].COUNT-ID,[T53493].NAME1,[T53493].EMAIL,[T53493].COUNT-ID1
+    FROM
+      (( (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] )) AS [T53493][NAME, COUNT-ID, NAME1, EMAIL, COUNT-ID1]
+    WHERE
+      [T53493].COUNT-ID > [T53493].COUNT-ID1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53493].NAME == [T51972].NAME
+             AND [T53493].EMAIL == [T51972].EMAIL) AS [T52107][ID, NAME, EMAIL])) AS [T331965][NAME, COUNT-ID, NAME1, EMAIL, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T228208].NAME
+FROM
+  (SELECT
+      [T53463].NAME,[T53463].EMAIL,[T53463].COUNT-ID,[T53463].ID,[T53463].NAME1,[T53463].EMAIL1
+    FROM
+      (( (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] ) JOIN (
+          input1 )) AS [T53463][NAME, EMAIL, COUNT-ID, ID, NAME1, EMAIL1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53463].COUNT-ID >= [T53463].ID
+             AND [T53463].COUNT-ID > [T51972].ID) AS [T52039][ID, NAME, EMAIL])) AS [T228208][NAME, EMAIL, COUNT-ID, ID, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T356287].NAME
+FROM
+  (SELECT
+      [T53505].EMAIL,[T53505].COUNT-ID,[T53505].ID,[T53505].NAME,[T53505].EMAIL1
+    FROM
+      (( (SELECT
+              input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.EMAIL) AS [T53410][EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] )) AS [T53505][EMAIL, COUNT-ID, ID, NAME, EMAIL1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53505].ID > [T51972].ID
+             AND [T53505].NAME == [T51972].NAME) AS [T52070][ID, NAME, EMAIL])) AS [T356287][EMAIL, COUNT-ID, ID, NAME, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T56252].NAME
+FROM
+  (SELECT
+      [T53415].ID,[T53415].NAME,[T53415].EMAIL,[T53415].ID1,[T53415].NAME1,[T53415].EMAIL1
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID
+                     AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL] )) AS [T53415][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T53415].NAME == [T53415].NAME1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53415].ID > [T51972].ID
+             AND [T53415].NAME == [T51972].NAME) AS [T52070][ID, NAME, EMAIL])) AS [T56252][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T56252].NAME1
+FROM
+  (SELECT
+      [T53415].ID,[T53415].NAME,[T53415].EMAIL,[T53415].ID1,[T53415].NAME1,[T53415].EMAIL1
+    FROM
+      (( (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID) AS [T51980][ID, NAME, EMAIL])) AS [T52122][ID, NAME, EMAIL] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID
+                     AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL] )) AS [T53415][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T53415].NAME == [T53415].NAME1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53415].ID > [T51972].ID
+             AND [T53415].NAME == [T51972].NAME) AS [T52070][ID, NAME, EMAIL])) AS [T56252][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T504655].NAME1
+FROM
+  (SELECT
+      [T53553].NAME,[T53553].COUNT-ID,[T53553].NAME1,[T53553].EMAIL,[T53553].COUNT-ID1
+    FROM
+      (( (SELECT
+              [T52158].NAME, COUNT([T52158].ID)
+            FROM
+              (SELECT
+                  input1.ID,input1.NAME,input1.EMAIL
+                FROM
+                  input1
+                WHERE
+                  EXIST (
+                    (SELECT
+                        [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                      FROM
+                        (input1) AS [T51972][ID, NAME, EMAIL]
+                      WHERE
+                        input1.ID > [T51972].ID
+                         AND input1.EMAIL == [T51972].EMAIL) AS [T52069][ID, NAME, EMAIL])) AS [T52158][ID, NAME, EMAIL]
+            GROUP BY
+              [T52158].NAME) AS [T53401][NAME, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] )) AS [T53553][NAME, COUNT-ID, NAME1, EMAIL, COUNT-ID1]
+    WHERE
+      EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53553].COUNT-ID1 > [T51972].ID) AS [T51988][ID, NAME, EMAIL])) AS [T504655][NAME, COUNT-ID, NAME1, EMAIL, COUNT-ID1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T243357].NAME1
+FROM
+  (SELECT
+      [T53467].NAME,[T53467].EMAIL,[T53467].COUNT-ID,[T53467].ID,[T53467].NAME1,[T53467].EMAIL1
+    FROM
+      (( (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              EXIST (
+                (SELECT
+                    [T51972].ID,[T51972].NAME,[T51972].EMAIL
+                  FROM
+                    (input1) AS [T51972][ID, NAME, EMAIL]
+                  WHERE
+                    input1.ID > [T51972].ID
+                     AND input1.NAME == [T51972].NAME) AS [T52070][ID, NAME, EMAIL])) AS [T52134][ID, NAME, EMAIL] )) AS [T53467][NAME, EMAIL, COUNT-ID, ID, NAME1, EMAIL1]
+    WHERE
+      [T53467].EMAIL == [T53467].EMAIL1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53467].NAME == [T51972].NAME
+             AND [T53467].COUNT-ID < [T51972].ID) AS [T52102][ID, NAME, EMAIL])) AS [T243357][NAME, EMAIL, COUNT-ID, ID, NAME1, EMAIL1]
+WHERE
+
+ ########################################### 
+SELECT
+  [T331290].NAME1
+FROM
+  (SELECT
+      [T53493].NAME,[T53493].COUNT-ID,[T53493].NAME1,[T53493].EMAIL,[T53493].COUNT-ID1
+    FROM
+      (( (SELECT
+              input1.NAME, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME) AS [T53408][NAME, COUNT-ID] ) JOIN (
+          (SELECT
+              input1.NAME, input1.EMAIL, COUNT(input1.ID)
+            FROM
+              input1
+            GROUP BY
+              input1.NAME  input1.EMAIL) AS [T53412][NAME, EMAIL, COUNT-ID] )) AS [T53493][NAME, COUNT-ID, NAME1, EMAIL, COUNT-ID1]
+    WHERE
+      [T53493].COUNT-ID < [T53493].COUNT-ID1
+       AND EXIST (
+        (SELECT
+            [T51972].ID,[T51972].NAME,[T51972].EMAIL
+          FROM
+            (input1) AS [T51972][ID, NAME, EMAIL]
+          WHERE
+            [T53493].NAME == [T51972].NAME
+             AND [T53493].COUNT-ID < [T51972].ID) AS [T52102][ID, NAME, EMAIL])) AS [T331290][NAME, COUNT-ID, NAME1, EMAIL, COUNT-ID1]
+WHERE
+
+ ########################################### 

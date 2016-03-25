@@ -105,10 +105,10 @@ public class TableRow {
 
     public boolean equals(TableRow row) {
         for (int i = 0; i < this.values.size(); i ++) {
-            if (!this.values.get(i).equals(row.values.get(i))) {
+            if (!this.values.get(i).equals((row).values.get(i))) {
                 return false;
             }
-            if (!this.fieldNames.get(i).equals(row.fieldNames.get(i))) {
+            if (!this.fieldNames.get(i).equals((row).fieldNames.get(i))) {
                 return false;
             }
         }

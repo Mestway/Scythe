@@ -1,0 +1,13 @@
+SELECT
+  input1.a,input1.b
+FROM
+  input1
+WHERE
+  EXIST (
+    (SELECT
+        [T51711].a,[T51711].b
+      FROM
+        (input1) AS [T51711][a, b]
+      WHERE
+        input1.b > [T51711].b) AS [T51721][a, b])
+ ########################################### 

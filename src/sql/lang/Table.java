@@ -191,11 +191,32 @@ public class Table {
         return false;
     }
 
-   public boolean roughlyEquals(Table t2) {
-       if (this.roughlyContainsContent(t2) && t2.roughlyContainsContent(this))
+    public boolean roughlyEquals(Table t2) {
+        if (this.roughlyContainsContent(t2) && t2.roughlyContainsContent(this))
             return true;
-       return false;
-   }
+        return false;
+    }
+
+    // equals is used as strictContentEqual
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Table) {
+            return this.contentStrictEquals((Table) obj);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int prime = 15487469;
+        int hashCode = 0;
+        for (TableRow tr : this.getContent()) {
+            for (Value v : tr.getValues()) {
+                hashCode = (hashCode + v.getVal().toString().hashCode()) % prime;
+            }
+        }
+        return hashCode;
+    }
 
     public boolean roughlyContainsContent(Table t2) {
         for (TableRow tr : this.rows) {
