@@ -25,7 +25,8 @@ public class EnumFilterNamed {
      */
     public static List<TableNode> enumFilterNamed(EnumContext ec) {
         List<TableNode> targets = ec.getTableNodes().stream()
-                .filter(tn -> (tn instanceof NamedTable)).collect(Collectors.toList());
+                .filter(tn -> (tn instanceof NamedTable))
+                .collect(Collectors.toList());
 
         List<TableNode> result = new ArrayList<>();
 
@@ -33,7 +34,8 @@ public class EnumFilterNamed {
 
             // the selection args are complete
             List<ValNode> vals = tn.getSchema().stream()
-                    .map(s -> new NamedVal(s)).collect(Collectors.toList());
+                    .map(s -> new NamedVal(s))
+                    .collect(Collectors.toList());
 
             Map<String, ValType> typeMap = new HashMap<>();
             for (int i = 0; i < tn.getSchema().size(); i ++) {

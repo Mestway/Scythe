@@ -12,6 +12,7 @@ import sql.lang.exception.SQLEvalException;
 import util.DebugHelper;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -27,9 +28,9 @@ public class EnumContext {
     private Table outputTable = null;
 
     // tabled that is memoized
-    private Map<Table, List<TableNode>> memoizedTables = new HashMap<>();
+    private Map<Table, List<TableNode>> memoizedTables = new ConcurrentHashMap<>();
 
-    private int maxFilterLength = 2;
+    private int maxFilterLength = 1;
 
     // tableNodes are used to store tables that are used as input of current enumeration iteration.
     private List<TableNode> tableNodes = new ArrayList<>();
@@ -74,7 +75,6 @@ public class EnumContext {
                 }
 
             } catch (Exception e) {
-                e.printStackTrace();
                 System.out.println("[EnumContext71] TableNode not executable.");
                 System.out.println(tn.prettyPrint(0));
                 System.exit(-1);
@@ -106,6 +106,56 @@ public class EnumContext {
         EnumContext newEC = EnumContext.deepCopy(ec);
         newEC.updateTableNodes(tables);
         return newEC;
+    }
+
+
+    // Extend atomic tables in the context
+    public static EnumContext extendTable2(
+            EnumContext ec, List<TableNode> tables) {
+        EnumContext newEC = EnumContext.deepCopy(ec);
+        newEC.updateTableNodes2(tables);
+        return newEC;
+    }
+    public void updateTableNodes2(List<TableNode> tns) {
+        int k = 0;
+        for (TableNode tn : tns) {
+            if (k % 10000 == 0)
+                System.out.println(k);
+            k++;
+            try {
+                Table t = tn.eval(new Environment());
+                if (t.contentStrictEquals(this.outputTable)) {
+                    List<TableNode> memoizedImg = memoizedTables.get(t);
+                    if (! (memoizedImg == null)) {
+                        memoizedImg.add(tn);
+                    } else {
+                        ArrayList<TableNode> ar = new ArrayList<>();
+                        ar.add(tn);
+                        memoizedTables.put(t, ar);
+                    }
+                }
+
+                /*
+                if (t.getContent().size() == 0)
+                    continue;
+
+                List<TableNode> memoizedImg = memoizedTables.get(t);
+               if (! (memoizedImg == null)) {
+                   memoizedImg.add(tn);
+                } else {
+                    ArrayList<TableNode> ar = new ArrayList<>();
+                    ar.add(tn);
+                    memoizedTables.put(t, ar);
+                }*/
+
+            } catch (Exception e) {
+                System.out.println("[EnumContext71] TableNode not executable.");
+                System.out.println(tn.prettyPrint(0));
+                System.exit(-1);
+            }
+        }
+        this.tableNodes = memoizedTables.keySet()
+                .parallelStream().map(t -> new NamedTable(t)).collect(Collectors.toList());
     }
 
     // Extend the atomic values in the context

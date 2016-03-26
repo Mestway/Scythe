@@ -208,14 +208,19 @@ public class Table {
 
     @Override
     public int hashCode() {
-        int prime = 15487469;
-        int hashCode = 0;
+        int hash = 0;
+        int prime = 31;
         for (TableRow tr : this.getContent()) {
             for (Value v : tr.getValues()) {
-                hashCode = (hashCode + v.getVal().toString().hashCode()) % prime;
+                hash += v.getVal().hashCode() * prime + hash;
             }
         }
-        return hashCode;
+        return hash;
+        // another hash function
+        /*return this.getContent().parallelStream()
+                .map(tr -> tr.getValues().parallelStream().map(t -> t.getVal().hashCode())
+                        .reduce(0, (a, b) -> (a + b) % prime))
+                .reduce(0, (x, y) -> (x + y) % prime );*/
     }
 
     public boolean roughlyContainsContent(Table t2) {

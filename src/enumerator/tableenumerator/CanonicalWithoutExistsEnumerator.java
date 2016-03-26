@@ -94,11 +94,12 @@ public class CanonicalWithoutExistsEnumerator extends AbstractTableEnumerator {
             tns = new ArrayList<>();
             tns.addAll(EnumJoinTableNodes.enumJoinNode(ec));
             System.out.println("There are " + tns.size() + " queries in the enumeration of this level");
+
             if (i != depth)
                 ec = EnumContext.extendTable(ec,
                     tns.parallelStream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
             else
-                ec = EnumContext.extendTable(ec,
+                ec = EnumContext.extendTable2(ec,
                         tns.parallelStream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
 
             System.out.println("after enumJoinNode: " + ec.getMemoizedTables().keySet().size() + " tables");
