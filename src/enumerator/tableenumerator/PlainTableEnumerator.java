@@ -4,9 +4,7 @@ import enumerator.EnumAggrTableNode;
 import enumerator.EnumContext;
 import enumerator.EnumJoinTableNodes;
 import enumerator.EnumSelTableNode;
-import sql.lang.ast.Environment;
 import sql.lang.ast.table.TableNode;
-import sql.lang.exception.SQLEvalException;
 import util.RenameTNWrapper;
 
 import java.util.List;
@@ -24,7 +22,7 @@ public class PlainTableEnumerator extends AbstractTableEnumerator {
                         .map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
 
         for (int i = 0; i < depth; i ++) {
-            List<TableNode> tableNodes = EnumJoinTableNodes.plainEnumJoinNode(ec);
+            List<TableNode> tableNodes = EnumJoinTableNodes.enumJoinWithoutFilter(ec);
             ec = EnumContext.extendTable(ec,
                     tableNodes.stream()
                         .map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));

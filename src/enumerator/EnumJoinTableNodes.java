@@ -30,7 +30,7 @@ public class EnumJoinTableNodes {
 
     // This is a simpler version of joining considering no filters at this stage,
     // Joining is only a matter of performing cartesian production here.
-    public static List<TableNode> plainEnumJoinNode(EnumContext ec) {
+    public static List<TableNode> enumJoinWithoutFilter(EnumContext ec) {
         List<TableNode> basicTables =  ec.getTableNodes();
         List<TableNode> joinTables = new ArrayList<>();
         int sz = basicTables.size();

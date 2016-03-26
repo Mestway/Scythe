@@ -236,4 +236,10 @@ public class Table {
         return true;
     }
 
+    public Integer getSizeValue() {
+        int r = this.getContent().size();
+        int c = this.getContent().get(0).getValues().size();
+        return r * r - c * c;
+    }
+
 }

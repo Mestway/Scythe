@@ -10,6 +10,7 @@ import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
 import util.DebugHelper;
+import util.HierarchicalMap;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -28,9 +29,9 @@ public class EnumContext {
     private Table outputTable = null;
 
     // tabled that is memoized
-    private Map<Table, List<TableNode>> memoizedTables = new ConcurrentHashMap<>();
+    private Map<Table, List<TableNode>> memoizedTables = new HierarchicalMap();
 
-    private int maxFilterLength = 1;
+    private int maxFilterLength = 2;
 
     // tableNodes are used to store tables that are used as input of current enumeration iteration.
     private List<TableNode> tableNodes = new ArrayList<>();
@@ -59,7 +60,11 @@ public class EnumContext {
     // update the enumContext adding new tables
     // (these new tables will be used in next rounds enumeration)
     public void updateTableNodes(List<TableNode> tns) {
+        int k = 0;
         for (TableNode tn : tns) {
+            if (k != 0 && k % 10000 == 0)
+                System.out.println(k);
+            k++;
             try {
                 Table t = tn.eval(new Environment());
 
@@ -75,6 +80,7 @@ public class EnumContext {
                 }
 
             } catch (Exception e) {
+                e.printStackTrace();
                 System.out.println("[EnumContext71] TableNode not executable.");
                 System.out.println(tn.prettyPrint(0));
                 System.exit(-1);
