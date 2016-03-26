@@ -1,4 +1,4 @@
-package main;
+package entity;
 
 import enumerator.Constraint;
 import sql.lang.Table;
@@ -9,15 +9,14 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
- * The data structure used to store an example
+ * The data structure used to store an example, with concrete enumeration context
  */
 public class ExampleDS {
-    List<Table> inputs = new ArrayList<>();
-    Table output;
-    Constraint enumConstraint;
+    public List<Table> inputs = new ArrayList<>();
+    public Table output;
+    public Constraint enumConstraint;
 
     private ExampleDS() {}
     public static ExampleDS readFromFile(String path) {

@@ -52,7 +52,6 @@ public class EnumFilterNamed {
                 result.add(sn);
             }
         }
-
         return result;
     }
 

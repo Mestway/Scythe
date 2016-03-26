@@ -72,7 +72,7 @@ public class EnumContext {
                     continue;
 
                 if (memoizedTables.containsKey(t)) {
-                    memoizedTables.get(t).add(tn);
+                    //memoizedTables.get(t).add(tn);
                 } else {
                     ArrayList<TableNode> ar = new ArrayList<>();
                     ar.add(tn);

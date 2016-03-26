@@ -1,10 +1,9 @@
 package main;
 
+import entity.ExampleDS;
 import org.junit.Test;
 
 import java.io.File;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by clwang on 3/22/16.

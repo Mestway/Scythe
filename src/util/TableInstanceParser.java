@@ -18,7 +18,6 @@ public class TableInstanceParser {
      * @return a table instance parsed from the given input strings
      */
     public static Table parseMarkdownTable(String tableName, List<String> input) {
-
         List<List<String>> content = new ArrayList<List<String>>();
         List<String> metadata = splitLineToList(input.get(0));
         for (int i = 2; i < input.size(); i ++) {

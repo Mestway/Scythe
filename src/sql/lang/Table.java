@@ -242,4 +242,52 @@ public class Table {
         return r * r - c * c;
     }
 
+    public static Table joinTwo(Table t1, Table t2) {
+        Table resultTable = new Table();
+        List<String> resultTableMetadata = new ArrayList<String>();
+
+        String resultTableName = "anonymous";
+
+        // collect metadata
+        for (String md : t1.getMetadata()) {
+            if (t1.getName().equals("anonymous")) {
+                resultTableMetadata.add(md);
+            } else {
+                resultTableMetadata.add(t1.getName() + "." + md);
+            }
+        }
+        for (String md : t2.getMetadata()) {
+            if (t2.getName().equals("anonymous")) {
+                resultTableMetadata.add(md);
+            } else {
+                resultTableMetadata.add(t2.getName() + "." + md);
+            }
+        }
+
+        // collect content
+        List<TableRow> resultTableContent = new ArrayList<TableRow>();
+        for (TableRow tr1 : t1.getContent()) {
+            for (TableRow tr2 : t2.getContent()) {
+                List<Value> body = new ArrayList<Value>();
+                for (Value v1 : tr1.getValues()) {
+                    body.add(v1.duplicate());
+                }
+                for (Value v2 : tr2.getValues()) {
+                    body.add(v2.duplicate());
+                }
+                TableRow newTr = TableRow.TableRowFromContent(
+                        resultTableName,
+                        resultTableMetadata,
+                        body);
+                resultTableContent.add(newTr);
+            }
+        }
+
+        resultTable.initialize(
+                resultTableName,
+                resultTableMetadata,
+                resultTableContent);
+
+        return resultTable;
+    }
 }
