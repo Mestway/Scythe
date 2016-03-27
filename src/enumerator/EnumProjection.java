@@ -1,16 +1,15 @@
 package enumerator;
 
+import enumerator.context.EnumContext;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.filter.EmptyFilter;
 import sql.lang.ast.table.SelectNode;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.NamedVal;
-import sql.lang.ast.val.ValHole;
 import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
 import util.CombinationGenerator;
-import util.DebugHelper;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,15 +1,13 @@
 package enumerator.hueristics;
 
-import com.sun.tools.javac.file.SymbolArchive;
 import com.sun.tools.javac.util.Pair;
 import enumerator.EnumAggrTableNode;
-import enumerator.EnumContext;
+import enumerator.context.EnumContext;
 import sql.lang.ast.filter.Filter;
 import sql.lang.ast.filter.LogicAndFilter;
 import sql.lang.ast.filter.VVComparator;
 import sql.lang.ast.table.*;
 import sql.lang.ast.val.NamedVal;
-import util.DebugHelper;
 import util.RenameTNWrapper;
 
 import java.util.ArrayList;

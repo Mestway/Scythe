@@ -1,6 +1,6 @@
 package sql.lang.ast.table;
 
-import enumerator.EnumContext;
+import enumerator.context.EnumContext;
 import enumerator.parameterized.InstantiateEnv;
 import javafx.util.Pair;
 import sql.lang.DataType.ValType;

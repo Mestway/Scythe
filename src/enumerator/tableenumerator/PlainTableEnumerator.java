@@ -1,7 +1,7 @@
 package enumerator.tableenumerator;
 
 import enumerator.EnumAggrTableNode;
-import enumerator.EnumContext;
+import enumerator.context.EnumContext;
 import enumerator.EnumJoinTableNodes;
 import enumerator.EnumSelTableNode;
 import sql.lang.ast.table.TableNode;

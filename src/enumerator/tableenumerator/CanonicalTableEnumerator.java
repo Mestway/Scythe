@@ -1,13 +1,8 @@
 package enumerator.tableenumerator;
 
 import enumerator.*;
-import enumerator.parameterized.EnumParamTN;
-import sql.lang.Table;
-import sql.lang.ast.Environment;
-import sql.lang.ast.table.NamedTable;
+import enumerator.context.EnumContext;
 import sql.lang.ast.table.TableNode;
-import sql.lang.ast.val.ValNode;
-import sql.lang.exception.SQLEvalException;
 import util.RenameTNWrapper;
 
 import java.util.ArrayList;

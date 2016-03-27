@@ -1,8 +1,7 @@
 package enumerator.parameterized;
 
 import enumerator.Constraint;
-import enumerator.EnumContext;
-import enumerator.TableEnumerator;
+import enumerator.context.EnumContext;
 import org.junit.Test;
 import sql.lang.DataType.NumberVal;
 import sql.lang.Table;
@@ -17,8 +16,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by clwang on 1/10/16.

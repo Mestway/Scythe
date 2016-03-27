@@ -1,8 +1,8 @@
 package enumerator;
 
+import enumerator.context.EnumContext;
 import sql.lang.DataType.ValType;
 import sql.lang.Table;
-import sql.lang.ast.Environment;
 import sql.lang.ast.filter.Filter;
 import sql.lang.ast.table.JoinNode;
 import sql.lang.ast.table.NamedTable;
@@ -10,11 +10,8 @@ import sql.lang.ast.table.SelectNode;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
-import sql.lang.exception.SQLEvalException;
-import util.DebugHelper;
 import util.RenameTNWrapper;
 
-import java.awt.image.DataBuffer;
 import java.util.*;
 import java.util.stream.Collectors;
 

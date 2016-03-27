@@ -1,7 +1,6 @@
 package enumerator;
 
-import sql.lang.ast.table.TableNode;
-import sql.lang.ast.val.TableAsVal;
+import enumerator.context.EnumContext;
 import sql.lang.ast.val.ValNode;
 
 import java.util.ArrayList;

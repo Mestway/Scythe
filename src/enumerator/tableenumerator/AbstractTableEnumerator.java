@@ -1,7 +1,7 @@
 package enumerator.tableenumerator;
 
 import enumerator.Constraint;
-import enumerator.EnumContext;
+import enumerator.context.EnumContext;
 import enumerator.parameterized.EnumParamTN;
 import sql.lang.Table;
 import sql.lang.ast.Environment;

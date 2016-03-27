@@ -1,5 +1,6 @@
 package enumerator;
 
+import enumerator.context.EnumContext;
 import sql.lang.DataType.ValType;
 import sql.lang.ast.filter.Filter;
 import sql.lang.ast.table.NamedTable;

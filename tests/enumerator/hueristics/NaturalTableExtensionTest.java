@@ -1,7 +1,7 @@
 package enumerator.hueristics;
 
 import enumerator.Constraint;
-import enumerator.EnumContext;
+import enumerator.context.EnumContext;
 import org.junit.Test;
 import sql.lang.Table;
 import sql.lang.ast.table.AggregationNode;

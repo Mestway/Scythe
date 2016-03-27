@@ -1,8 +1,7 @@
 package mapping;
 
 import enumerator.Constraint;
-import enumerator.EnumAggrTableNode;
-import enumerator.EnumContext;
+import enumerator.context.EnumContext;
 import enumerator.hueristics.TableNaturalJoinWithAggr;
 import org.junit.Test;
 import sql.lang.Table;

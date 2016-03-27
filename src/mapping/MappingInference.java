@@ -1,7 +1,7 @@
 package mapping;
 
 import enumerator.Constraint;
-import enumerator.EnumContext;
+import enumerator.context.EnumContext;
 import enumerator.FilterEnumerator;
 import enumerator.parameterized.EnumParamTN;
 import sql.lang.DataType.ValType;

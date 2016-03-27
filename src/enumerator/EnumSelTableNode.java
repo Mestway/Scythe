@@ -1,8 +1,7 @@
 package enumerator;
 
+import enumerator.context.EnumContext;
 import sql.lang.DataType.ValType;
-import sql.lang.DataType.Value;
-import sql.lang.Table;
 import sql.lang.ast.filter.*;
 import sql.lang.ast.table.SelectNode;
 import sql.lang.ast.table.TableNode;
@@ -12,7 +11,6 @@ import sql.lang.ast.val.ValNode;
 import util.CombinationGenerator;
 
 import java.util.*;
-import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 /**

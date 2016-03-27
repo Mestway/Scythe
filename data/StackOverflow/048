@@ -1,0 +1,37 @@
+#input
+
+| survey_id | store_code | timestamp  |
+|-------------------------------------|
+| 1         | store_1    | 2015-04-20 |
+| 2         | store_1    | 2015-04-22 |
+| 3         | store_2    | 2015-04-21 |
+| 4         | store_2    | 2015-04-22 |
+
+#input
+
+| survey_id | product_code | production_month | value |
+|-----------------------------------------------------|
+| 1         | product_1    | 2                | 15    |
+| 2         | product_1    | 2                | 10    |
+| 1         | product_1    | 3                | 20    |
+| 1         | product_2    | 2                | 12    |
+| 3         | product_2    | 2                | 23    |
+| 4         | product_2    | 2                | 17    |
+
+#output
+
+| survey_id | store_code | time_stamp | product_code | production_month | value |
+|-------------------------------------------------------------------------------|
+| 2         | store_1    | 2015-04-22 | product_1    | 2                | 10    |
+| 1         | store_1    | 2015-04-20 | product_1    | 3                | 20    |
+| 1         | store_1    | 2015-04-20 | product_2    | 2                | 12    |
+| 4         | store_2    | 2015-04-22 | product_2    | 2                | 17    |
+
+#constraint
+{
+	"max_depth": 2,
+	"constants": [],
+	"aggregation_functions": ["max"],
+	"parameter_number": 0,
+	"max_filter_length": 2
+}

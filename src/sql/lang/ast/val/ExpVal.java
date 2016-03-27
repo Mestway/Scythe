@@ -1,6 +1,6 @@
 package sql.lang.ast.val;
 
-import enumerator.EnumContext;
+import enumerator.context.EnumContext;
 import enumerator.parameterized.InstantiateEnv;
 import sql.lang.DataType.NumberVal;
 import sql.lang.DataType.ValType;

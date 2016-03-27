@@ -1,19 +1,15 @@
 package enumerator.tableenumerator;
 
 import enumerator.Constraint;
-import enumerator.TableEnumerator;
 import org.junit.Test;
 import sql.lang.Table;
 import sql.lang.ast.table.AggregationNode;
 import sql.lang.ast.table.TableNode;
-import util.DebugHelper;
 import util.TableInstanceParser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by clwang on 3/21/16.

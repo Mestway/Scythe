@@ -1,5 +1,6 @@
 package enumerator;
 
+import enumerator.context.EnumContext;
 import org.junit.Test;
 import sql.lang.Table;
 import sql.lang.ast.table.AggregationNode;
@@ -10,8 +11,6 @@ import util.TableInstanceParser;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by clwang on 2/8/16.

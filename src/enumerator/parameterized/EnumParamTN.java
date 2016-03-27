@@ -1,11 +1,11 @@
 package enumerator.parameterized;
 
 import enumerator.*;
+import enumerator.context.EnumContext;
 import sql.lang.DataType.ValType;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.ValHole;
 import sql.lang.ast.val.ValNode;
-import util.DebugHelper;
 import util.RenameTNWrapper;
 
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class EnumParamTN {
         constants.addAll(ValHole.genHolesWithType(numberOfParams, valueTypes));
 
         EnumContext ec = new EnumContext();
-        ec.updateTableNodes(basicTables.stream().map(bt -> RenameTNWrapper.forceRename(bt)).collect(Collectors.toList()));
+        ec.setTableNodes(basicTables.stream().map(bt -> RenameTNWrapper.forceRename(bt)).collect(Collectors.toList()));
         ec.setValNodes(constants);
         ec.setMaxFilterLength(maxParamFilterLength);
 

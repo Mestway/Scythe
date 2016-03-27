@@ -1,6 +1,7 @@
 package enumerator.tableenumerator;
 
 import enumerator.*;
+import enumerator.context.EnumContext;
 import sql.lang.Table;
 import sql.lang.ast.table.TableNode;
 import util.RenameTNWrapper;

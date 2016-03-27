@@ -1,5 +1,6 @@
 package enumerator;
 
+import enumerator.context.EnumContext;
 import javafx.util.Pair;
 import sql.lang.DataType.ValType;
 import sql.lang.DataType.Value;
