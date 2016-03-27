@@ -1,0 +1,29 @@
+#constraint
+{
+	"max_depth": 2,
+	"constants": [],
+	"aggregation_functions": ["max"],
+	"parameter_number": 0,
+	"max_filter_length": 2
+}
+
+#input
+
+| id | name | phone_number |
+|--------------------------|
+| 1  | John | 111111111111 |
+| 2  | Jane | 222222222222 |
+
+#output
+| id | date | phone_number |
+|--------------------------|
+| 1  | 0945 | 111111111111 |
+| 2  | 0950 | 222222222222 |
+| 3  | 1045 | 333333333333 |
+
+#output
+
+@ Call
+| id | date | phone_number |
+|--------------------------|
+| 3  | 1045 | 333333333333 |
