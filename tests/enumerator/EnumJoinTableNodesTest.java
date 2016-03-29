@@ -44,7 +44,7 @@ public class EnumJoinTableNodesTest {
     @Test
     public void testEnumJoinNode() throws Exception {
         EnumContext ec = new EnumContext(Arrays.asList(input, output), c);
-        List<TableNode> tns = EnumJoinTableNodes.enumJoinNode(ec);
+        List<TableNode> tns = EnumJoinTableNodes.enumJoinWithJoin(ec);
         DebugHelper.printTableNodes(tns);
     }
 }

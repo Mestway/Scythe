@@ -59,12 +59,12 @@ public class CanonicalWithoutExistsEnumerator extends AbstractTableEnumerator {
 
             // enumerate join
             ec.setTableNodes(qc.getRepresentativeTableNodes());
-            tns.addAll(EnumJoinTableNodes.enumJoinNode(ec));
+            tns.addAll(EnumJoinTableNodes.enumJoinWithJoin(ec));
 
             System.out.println("[Level] " + i);
             System.out.println("There are " + tns.size() + " queries in the enumeration of this level");
             qc.updateQueries(tns.stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
-            System.out.println("after enumJoinNode: " + qc.getRepresentativeTableNodes().size() + " tables");
+            System.out.println("after enumJoinWithJoin: " + qc.getRepresentativeTableNodes().size() + " tables");
 
 
             Path file = Paths.get("log" + i);
@@ -106,7 +106,7 @@ public class CanonicalWithoutExistsEnumerator extends AbstractTableEnumerator {
             tns = new ArrayList<>();
             ec.setTableNodes(qc.getRepresentativeTableNodes());
 
-            tns.addAll(EnumJoinTableNodes.enumJoinNode(ec));
+            tns.addAll(EnumJoinTableNodes.enumJoinWithJoin(ec));
             System.out.println("There are " + tns.size() + " queries in the enumeration of this level");
 
             List<TableNode> renamed = tns.parallelStream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList());
@@ -115,7 +115,7 @@ public class CanonicalWithoutExistsEnumerator extends AbstractTableEnumerator {
 
             qc.updateQueries(renamed);
 
-            System.out.println("after enumJoinNode: " + qc.getRepresentativeTableNodes().size() + " tables");
+            System.out.println("after enumJoinWithJoin: " + qc.getRepresentativeTableNodes().size() + " tables");
         }
 
         return qc;

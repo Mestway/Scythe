@@ -52,7 +52,7 @@ public class EnumAggrTableNode {
 
         List<TableNode> aggregationNodes = new ArrayList<TableNode>();
         for (TableNode coreTable : coreTableNodes) {
-            aggregationNodes.addAll(enumAggrPerTable(ec, coreTable, SIMPLIFY));
+            aggregationNodes.addAll(enumAggrPerTableWithFilter(ec, coreTable, SIMPLIFY));
         }
 
         return aggregationNodes;
@@ -71,7 +71,7 @@ public class EnumAggrTableNode {
 
         List<TableNode> aggregationNodes = new ArrayList<TableNode>();
         for (TableNode coreTable : coreTableNodes) {
-            aggregationNodes.addAll(enumAggrPerTable(ec, coreTable, simplify));
+            aggregationNodes.addAll(enumAggrPerTableWithFilter(ec, coreTable, simplify));
         }
 
         return aggregationNodes;
@@ -82,9 +82,9 @@ public class EnumAggrTableNode {
      * @param tn the table to perform aggregation on
      * @return the list of enumerated table based on the given tablenode
      */
-    private static List<TableNode> enumAggrPerTable(EnumContext ec, TableNode tn, boolean simplify) {
+    private static List<AggregationNode> enumAggrPerTableWithFilter(EnumContext ec, TableNode tn, boolean simplify) {
 
-        List<TableNode> aggrNodes = new ArrayList<>();
+        List<AggregationNode> aggrNodes = new ArrayList<>();
 
         List<List<String>> aggrFieldsComb = CombinationGenerator.genCombination(tn.getSchema());
 
@@ -126,11 +126,12 @@ public class EnumAggrTableNode {
 
             if (! simplify) {
                 // allow comparison between different rows
-                TableNode an = new AggregationNode(
-                        tn, aggrFields, targetFuncList
-                );
+                AggregationNode an = new AggregationNode(tn, aggrFields, targetFuncList);
+                aggrNodes.add(an);
 
-                List<TableNode> wrappedWithFilter = new ArrayList<>();
+                // the previous version with filters inside
+                // I don't think we need to tangle the enumeration for filter here
+                /*List<TableNode> wrappedWithFilter = new ArrayList<>();
                 wrappedWithFilter.add(an);
 
                 TableNode renamedAggrNode = RenameTNWrapper.tryRename(an);
@@ -157,15 +158,12 @@ public class EnumAggrTableNode {
                             ));
                 }
 
-                return wrappedWithFilter;
-                // previous unfiltered version
-                // aggrNodes.add(an);
+                return wrappedWithFilter;*/
             } else {
                 for (Pair<String, Function<List<Value>, Value>> p : targetFuncList) {
                     aggrNodes.add(new AggregationNode(tn, aggrFields, Arrays.asList(p)));
                 }
             }
-
         }
         return aggrNodes;
     }

@@ -28,9 +28,9 @@ public class EnumJoinTableNodes {
 
     // This is a simpler version of joining considering no filters at this stage,
     // Joining is only a matter of performing cartesian production here.
-    public static List<TableNode> enumJoinWithoutFilter(EnumContext ec) {
+    public static List<JoinNode> enumJoinWithoutFilter(EnumContext ec) {
         List<TableNode> basicTables =  ec.getTableNodes();
-        List<TableNode> joinTables = new ArrayList<>();
+        List<JoinNode> joinTables = new ArrayList<>();
         int sz = basicTables.size();
         for (int i = 0; i < sz; i ++) {
             for (int j = 0; j < sz; j++) {
@@ -38,7 +38,7 @@ public class EnumJoinTableNodes {
                     continue;
                 if (! (basicTables.get(j) instanceof NamedTable))
                   continue;
-                TableNode jn = new JoinNode(
+                JoinNode jn = new JoinNode(
                         Arrays.asList(
                                 basicTables.get(i),
                                 basicTables.get(j)
@@ -53,7 +53,7 @@ public class EnumJoinTableNodes {
 
     // This is the join we used in canonicalSQL,
     // filters are used in enumerating canonical join nodes.
-    public static List<TableNode> enumJoinNode(EnumContext ec) {
+    public static List<TableNode> enumJoinWithJoin(EnumContext ec) {
 
         List<TableNode> basicTables =  ec.getTableNodes();
 
@@ -75,8 +75,8 @@ public class EnumJoinTableNodes {
                             isPrimitiveTable = true;
                         }
                 }
-
                 isPrimitiveTable = true;
+
                 if (!isPrimitiveTable)
                     continue;
 

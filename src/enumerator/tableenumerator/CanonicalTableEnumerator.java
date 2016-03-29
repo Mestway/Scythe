@@ -43,7 +43,7 @@ public class CanonicalTableEnumerator extends AbstractTableEnumerator {
 
         for (int i = 1; i <= depth; i ++) {
             ec.setTableNodes(qc.getRepresentativeTableNodes());
-            tns = EnumJoinTableNodes.enumJoinNode(ec);
+            tns = EnumJoinTableNodes.enumJoinWithJoin(ec);
             System.out.println("There are " + tns.size() + " tables in the enumeration of this level(" + i + ")");
             qc.updateQueries(tns.stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
         }

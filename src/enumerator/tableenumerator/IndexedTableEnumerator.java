@@ -45,7 +45,6 @@ public class IndexedTableEnumerator extends AbstractTableEnumerator {
         qc.updateQueries(concreteTables.stream().map(t -> new NamedTable(t)).collect(Collectors.toList()));
         System.out.println("FilterNamed: " + concreteTables.size() + " ~ " + qc.getMemoizedTables().keySet().size());
 
-
         // enumerating aggregation tables
         ec.setTableNodes(qc.getRepresentativeTableNodes());
         List<TableNode> tns = EnumAggrTableNode.enumAggregationNode(ec)

@@ -25,7 +25,8 @@ public class PlainTableEnumerator extends AbstractTableEnumerator {
 
         for (int i = 0; i < depth; i ++) {
             ec.setTableNodes(qc.getRepresentativeTableNodes());
-            List<TableNode> tableNodes = EnumJoinTableNodes.enumJoinWithoutFilter(ec);
+            List<TableNode> tableNodes = EnumJoinTableNodes.enumJoinWithoutFilter(ec).stream()
+                    .map(jn -> (TableNode) jn).collect(Collectors.toList());
             qc.updateQueries(tableNodes.stream()
                         .map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
             tableNodes = EnumSelTableNode.enumSelectNode(ec);
