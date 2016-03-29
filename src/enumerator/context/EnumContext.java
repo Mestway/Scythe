@@ -20,29 +20,28 @@ import java.util.stream.Collectors;
  * An environment used to store
  * The context is a data structure
  *  used to store constraint contexts
+ *
+ *  Whenever we want to enumerate something, we shall
+ *  1) Create an enum context with
  * Created by clwang on 12/23/15.
  */
 public class EnumContext {
 
-    // enumeration information about output table
+    // used to store the input tables, which will never change for an enumeration process,
+    // Given information for input tables and the output table for enumeration
+    // The following fields will not mutate as they are meta-enumeration information
+    private List<Table> inputs = new ArrayList<>();
     private Table outputTable = null;
-
+    private List<TableNode> parameterizedTables = new ArrayList<>();
+    List<Function<List<Value>, Value>> aggrfuns = new ArrayList<>();
     private int maxFilterLength = 2;
 
     // tableNodes are used to store tables that are used as input of current enumeration iteration.
     private List<TableNode> tableNodes = new ArrayList<>();
     private List<ValNode> valNodes = new ArrayList<>();
 
-    // ** the only part of the context that should not mutate once intialized
-    private List<TableNode> parameterizedTables = new ArrayList<>();
-    List<Function<List<Value>, Value>> aggrfuns = new ArrayList<>();
-
     //mapping a column name to its corresponding type
     private Map<String, ValType> typeMap = new HashMap<>();
-
-    // used to store the input tables
-    private List<Table> inputs = new ArrayList<>();
-    public List<Table> getInputs() { return this.inputs; }
 
     public EnumContext() {}
     // initializing an EnumContext using tables and constraint
@@ -62,21 +61,13 @@ public class EnumContext {
     public void setParameterizedTables(List<TableNode> tbs) { this.parameterizedTables = tbs; }
     public List<TableNode> getParameterizedTables() { return this.parameterizedTables; }
 
-    // set and get output table for this enumeration context, this method is not used in most situations
+    // set and get input, output table for this enumeration context, this method is not used in most situations
+    public List<Table> getInputs() { return this.inputs; }
     public void setOutputTable(Table outputTable) { this.outputTable = outputTable; }
     public Table getOutputTable() { return this.outputTable; }
 
     public List<TableNode> getTableNodes() { return this.tableNodes;}
     public void setTableNodes(List<TableNode> tableNodes) { this.tableNodes = tableNodes; }
-
-
-    // Extend atomic tables in the context
-    public static EnumContext updateTableNodes(
-            EnumContext ec, List<TableNode> tables) {
-        EnumContext newEC = EnumContext.deepCopy(ec);
-        newEC.tableNodes = tables;
-        return newEC;
-    }
 
     // Extend the atomic values in the context
     public static EnumContext extendTypeMap(
@@ -108,13 +99,16 @@ public class EnumContext {
 
     public static EnumContext deepCopy(EnumContext ec) {
         EnumContext newEC = new EnumContext();
-        newEC.tableNodes.addAll(ec.tableNodes);
-        newEC.aggrfuns.addAll(ec.aggrfuns);
+        // these value will not be shared due to
+        // the fact the the enumerator in different stage have different value bindings
         newEC.valNodes.addAll(ec.valNodes);
         newEC.typeMap.putAll(ec.typeMap);
+
+        // these fields are shared
+        newEC.tableNodes = ec.tableNodes;
+        newEC.aggrfuns = ec.aggrfuns;
         newEC.maxFilterLength = ec.maxFilterLength;
         newEC.parameterizedTables = ec.parameterizedTables;
-        // this field is shared
         newEC.outputTable = ec.outputTable;
         newEC.inputs = ec.inputs;
         return newEC;
@@ -123,7 +117,7 @@ public class EnumContext {
     public void debugPrint() {
         System.out.println(" EC PRINT START ");
         System.out.println("~~==~~ tables");
-        //DebugHelper.printTableNodes(this.tableNodes);
+        DebugHelper.printTableNodes(this.tableNodes);
         /*System.out.println("diffTables: " + this.tableNodes.size() + ", AllTables: " + this.memoizedTables.entrySet().stream().map(i -> i.getValue().size()).reduce(
                 0,
                 (a, b) -> a + b));*/

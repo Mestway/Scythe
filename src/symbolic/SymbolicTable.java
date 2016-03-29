@@ -1,6 +1,12 @@
 package symbolic;
 
+import enumerator.EnumFilterNamed;
+import enumerator.FilterEnumerator;
+import enumerator.context.EnumContext;
 import sql.lang.Table;
+import sql.lang.ast.filter.EmptyFilter;
+import sql.lang.ast.filter.Filter;
+import sql.lang.ast.table.NamedTable;
 import sun.jvm.hotspot.debugger.cdbg.Sym;
 import util.CombinationGenerator;
 
@@ -35,9 +41,20 @@ public class SymbolicTable extends AbstractSymbolicTable {
 
     // give the maximum filter length,
     // instantiate all possible tables that can be generated from filtering the current table.
+    // Currently the max-length is fixed as 2
     @Override
     public Set<SymbolicFilter> instantiateAllFilters() {
         return combiningFilters(this.symbolicPrimitiveFilters);
+    }
+
+    public static SymbolicTable buildSymbolicTable(Table t, EnumContext ec) {
+        List<Filter> filters = FilterEnumerator.enumAtomicFiltersForNamedTable(t, ec);
+        filters.add(new EmptyFilter());
+        Set<SymbolicFilter> symfilters = new HashSet<>();
+        for (Filter f : filters) {
+            symfilters.add(SymbolicFilter.genSymbolicFilter(t, f));
+        }
+        return new SymbolicTable(t, symfilters);
     }
 
 }

@@ -5,15 +5,19 @@ import enumerator.parameterized.EnumParamTN;
 import enumerator.parameterized.InstantiateEnv;
 import sql.lang.DataType.ValType;
 import sql.lang.DataType.Value;
+import sql.lang.Table;
 import sql.lang.ast.filter.*;
+import sql.lang.ast.table.AggregationNode;
+import sql.lang.ast.table.NamedTable;
+import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.ConstantVal;
+import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValHole;
 import sql.lang.ast.val.ValNode;
 import util.CombinationGenerator;
+import util.RenameTNWrapper;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
@@ -170,6 +174,54 @@ public class FilterEnumerator {
                             .collect(Collectors.toList()));
         }
         return atomics;
+    }
+
+    /*** The following three methods are used for enumeration
+     * of canonical filters for different type of tables. ***/
+
+    /**
+     * Given a named table, an enumeration context containing basic enumeration information,
+     * generate primitive filters consistent for that table.
+     **/
+    public static List<Filter> enumAtomicFiltersForNamedTable(Table t, EnumContext ec) {
+        List<ValNode> vals = t.getQualifiedMetadata().stream()
+                .map(s -> new NamedVal(s))
+                .collect(Collectors.toList());
+
+        Map<String, ValType> typeMap = new HashMap<>();
+        for (int i = 0; i < t.getQualifiedMetadata().size(); i ++) {
+            typeMap.put(t.getQualifiedMetadata().get(i), t.getSchemaType().get(i));
+        }
+
+        // enum filters
+        EnumContext ec2 = EnumContext.extendTypeMap(ec, typeMap);
+        List<Filter> filters = FilterEnumerator.enumAtomicFiltersLR(vals, ec2.getValNodes(), ec2);
+
+        return filters;
+    }
+
+    public static List<Filter> enumAtomicFiltersForJoinedTable(
+            TableNode jn, int lSchemaSize, int rSchemaSize, EnumContext ec) {
+
+        // enumPossibleFilters for the node
+
+        // Create the L and R set for filter enumeration
+        List<ValNode> L = new ArrayList<>();
+        List<ValNode> R = new ArrayList<>();
+        for (int k = 0; k < lSchemaSize; k ++) {
+            L.add(new NamedVal(jn.getSchema().get(k)));
+        }
+        for (int k = 0; k < rSchemaSize; k ++) {
+            R.add(new NamedVal(jn.getSchema().get(lSchemaSize + k)));
+        }
+
+        Map<String, ValType> schemaTypeMap = new HashMap<>();
+        for (int k = 0; k < jn.getSchema().size(); k ++) {
+            schemaTypeMap.put(jn.getSchema().get(k), jn.getSchemaType().get(k));
+        }
+        EnumContext ec2 = ec.extendTypeMap(ec, schemaTypeMap);
+
+        return FilterEnumerator.enumFiltersLR(L, R, ec2);
     }
 
 }

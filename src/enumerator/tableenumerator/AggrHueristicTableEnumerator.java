@@ -2,6 +2,7 @@ package enumerator.tableenumerator;
 
 import enumerator.context.EnumContext;
 import enumerator.EnumSelTableNode;
+import enumerator.context.QueryChest;
 import enumerator.hueristics.TableNaturalJoinWithAggr;
 import sql.lang.ast.table.TableNode;
 import util.RenameTNWrapper;
@@ -15,20 +16,23 @@ import java.util.stream.Collectors;
  */
 public class AggrHueristicTableEnumerator extends  AbstractTableEnumerator {
     @Override
-    public List<TableNode> enumTable(EnumContext ec, int depth) {
+    public QueryChest enumTable(EnumContext ec, int depth) {
+
+        QueryChest qc = QueryChest.initWithInputTables(ec.getInputs());
+        ec.setTableNodes(qc.getRepresentativeTableNodes());
         List<TableNode> agrTables = TableNaturalJoinWithAggr.naturalJoinWithAggregation(ec);
-        ec = EnumContext.extendTable(ec,
-                agrTables.stream()
+        qc.updateQueries(agrTables.stream()
                         .map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
 
         for (int i = 0; i < depth; i ++) {
+            ec.setTableNodes(qc.getRepresentativeTableNodes());
             List<TableNode> tableNodes = EnumSelTableNode.enumSelectNode(ec);
-            ec = EnumContext.extendTable(ec, tableNodes);
+            qc.updateQueries(tableNodes);
             /*tableNodes = EnumJoinTableNodes.enumJoinNode(ec);
             ec = EnumContext.extendTable(ec,
                     tableNodes.stream()
                             .map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList())); */
         }
-        return ec.getTableNodes();
+        return qc;
     }
 }

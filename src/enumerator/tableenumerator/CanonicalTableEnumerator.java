@@ -2,6 +2,7 @@ package enumerator.tableenumerator;
 
 import enumerator.*;
 import enumerator.context.EnumContext;
+import enumerator.context.QueryChest;
 import sql.lang.ast.table.TableNode;
 import util.RenameTNWrapper;
 
@@ -15,33 +16,36 @@ import java.util.stream.Collectors;
 public class CanonicalTableEnumerator extends AbstractTableEnumerator {
 
     @Override
-    public List<TableNode> enumTable(EnumContext ec, int depth) {
-        enumTableWithoutProj(ec, depth); // ec will memoize these intermediate results, since the result pool is shared
+    public QueryChest enumTable(EnumContext ec, int depth) {
+        QueryChest qc = QueryChest.initWithInputTables(ec.getInputs());
+        enumTableWithoutProj(ec, qc, depth); // ec will memoize these intermediate results, since the result pool is shared
+
+        ec.setTableNodes(qc.getRepresentativeTableNodes());
         List<TableNode> tns = EnumProjection.enumProjection(ec, ec.getOutputTable());
-        ec = EnumContext.extendTable(ec, tns);
-        return ec.getTableNodes();
+        qc.updateQueries(tns);
+
+        return qc;
     }
 
-    public static List<TableNode> enumTableWithoutProj(EnumContext ec, int depth) {
+    public static QueryChest enumTableWithoutProj(EnumContext ec, QueryChest qc, int depth) {
 
-        List<TableNode> tns = new ArrayList<>();
+        ec.setTableNodes(qc.getRepresentativeTableNodes());
+        List<TableNode> tns = EnumFilterNamed.enumFilterNamed(ec)
+                .stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList());
+        qc.updateQueries(tns);
 
-        tns.addAll(EnumFilterNamed.enumFilterNamed(ec)
-                .stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
-        ec = EnumContext.extendTable(ec, tns);
-
-        tns = new ArrayList<>();
-        tns.addAll(EnumAggrTableNode.enumAggregationNode(ec)
-                .stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
-        ec = EnumContext.extendTable(ec, tns);
+        ec.setTableNodes(qc.getRepresentativeTableNodes());
+        tns = EnumAggrTableNode.enumAggregationNode(ec)
+                .stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList());
+        qc.updateQueries(tns);
 
         for (int i = 1; i <= depth; i ++) {
-            tns = new ArrayList<>();
-            tns.addAll(EnumJoinTableNodes.enumJoinNode(ec));
+            ec.setTableNodes(qc.getRepresentativeTableNodes());
+            tns = EnumJoinTableNodes.enumJoinNode(ec);
             System.out.println("There are " + tns.size() + " tables in the enumeration of this level(" + i + ")");
-            ec = EnumContext.extendTable(ec, tns.stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
+            qc.updateQueries(tns.stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
         }
 
-        return ec.getTableNodes();
+        return qc;
     }
 }

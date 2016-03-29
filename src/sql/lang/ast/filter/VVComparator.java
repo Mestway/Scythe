@@ -87,7 +87,7 @@ public class VVComparator implements Filter {
         } else if (v1 instanceof DateVal && v2 instanceof DateVal) {
             return ((DateVal)v1).getVal().compareTo(((DateVal)v2).getVal()) < 0 ;
         }
-        System.err.println("[Error@VVComparator45] " + "Comparing between none-number value");
+        System.out.println("[Error@VVComparator45] " + "Comparing between none-number value: " + v1.toString() + " and " + v2.toString());
         return false;
      };
 

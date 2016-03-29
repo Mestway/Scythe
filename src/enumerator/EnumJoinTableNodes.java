@@ -70,11 +70,12 @@ public class EnumJoinTableNodes {
                 else {
                     Table bj = ((NamedTable) basicTables.get(j)).getTable();
                     for (Table t : ec.getInputs())
-                        if (t.containsContent(bj)) {
+                        if (bj.containsContent(t)) {
                             isPrimitiveTable = true;
                         }
                 }
 
+                isPrimitiveTable = true;
                 if (!isPrimitiveTable)
                     continue;
 
@@ -106,7 +107,7 @@ public class EnumJoinTableNodes {
                 for (int k = 0; k < renamedJN.getSchema().size(); k ++) {
                     schemaTypeMap.put(renamedJN.getSchema().get(k), renamedJN.getSchemaType().get(k));
                 }
-                EnumContext ec2 = ec.extendTypeMap(ec,schemaTypeMap);
+                EnumContext ec2 = ec.extendTypeMap(ec, schemaTypeMap);
 
                 List<Filter> filters = FilterEnumerator.enumFiltersLR(L, R, ec2);
 
@@ -119,6 +120,7 @@ public class EnumJoinTableNodes {
                 }
             }
         }
+
         return joinTables;
     }
 }

@@ -4,6 +4,7 @@ import enumerator.context.EnumContext;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.filter.EmptyFilter;
+import sql.lang.ast.table.NamedTable;
 import sql.lang.ast.table.SelectNode;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.NamedVal;
@@ -39,7 +40,8 @@ public class EnumProjection {
 
             List<List<ValNode>> lvns = enumSelectArgs(tn, false);
             for (List<ValNode> lvn : lvns) {
-                result.add(new SelectNode(lvn, tn, new EmptyFilter()));
+                SelectNode sn = new SelectNode(lvn, tn, new EmptyFilter());
+                result.add(sn);
             }
         }
 

@@ -4,6 +4,7 @@ import enumerator.EnumAggrTableNode;
 import enumerator.context.EnumContext;
 import enumerator.EnumJoinTableNodes;
 import enumerator.EnumSelTableNode;
+import enumerator.context.QueryChest;
 import sql.lang.ast.table.TableNode;
 import util.RenameTNWrapper;
 
@@ -15,21 +16,22 @@ import java.util.stream.Collectors;
  */
 public class PlainTableEnumerator extends AbstractTableEnumerator {
     @Override
-    public List<TableNode> enumTable(EnumContext ec, int depth) {
+    public QueryChest enumTable(EnumContext ec, int depth) {
+
+        QueryChest qc = QueryChest.initWithInputTables(ec.getInputs());
         List<TableNode> agrTables = EnumAggrTableNode.enumAggregationNode(ec);
-        ec = EnumContext.extendTable(ec,
-                agrTables.stream()
+        qc.updateQueries(agrTables.stream()
                         .map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
 
         for (int i = 0; i < depth; i ++) {
+            ec.setTableNodes(qc.getRepresentativeTableNodes());
             List<TableNode> tableNodes = EnumJoinTableNodes.enumJoinWithoutFilter(ec);
-            ec = EnumContext.extendTable(ec,
-                    tableNodes.stream()
+            qc.updateQueries(tableNodes.stream()
                         .map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
             tableNodes = EnumSelTableNode.enumSelectNode(ec);
-            ec = EnumContext.extendTable(ec, tableNodes);
+            qc.updateQueries(tableNodes);
         }
 
-        return ec.getTableNodes();
+        return qc;
     }
 }

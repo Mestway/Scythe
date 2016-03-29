@@ -46,11 +46,14 @@ public class SymbolicFilter {
 
             // extend the evaluation environment for this column
             for (int i = 0; i < table.getMetadata().size(); i ++) {
-                String valName = (table.getName().equals("anonymous") ? "" : table.getName())
-                        + table.getMetadata().get(i);
+                String valName = (table.getName().equals("anonymous") ? "" : table.getName() + ".")
+                         + table.getMetadata().get(i);
                 Value val = row.getValue(i);
+                //System.out.println(valName + " : " + val.toString());
                 rowBinding.put(valName, val);
             }
+
+            //System.out.println(filter.prettyPrint(0));
 
             Environment extEnv = new Environment().extend(rowBinding);
 

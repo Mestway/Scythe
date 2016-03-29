@@ -18,7 +18,7 @@ public class Environment {
         if (env.containsKey(name)) {
             return env.get(name);
         }
-        System.err.println("[Error@Environment22] " + "Empty key");
+        System.out.println("[Error@Environment22] " + "Empty key: " + name);
         return null;
     }
 

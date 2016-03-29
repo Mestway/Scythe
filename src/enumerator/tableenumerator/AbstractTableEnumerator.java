@@ -2,6 +2,7 @@ package enumerator.tableenumerator;
 
 import enumerator.Constraint;
 import enumerator.context.EnumContext;
+import enumerator.context.QueryChest;
 import enumerator.parameterized.EnumParamTN;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
@@ -10,6 +11,7 @@ import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
 
+import javax.management.Query;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,25 +44,18 @@ public abstract class AbstractTableEnumerator {
 
         System.out.println("[Enumeration Start]");
 
-        List<TableNode> tns = this.enumTable(ec, c.maxDepth());
+        QueryChest qc = this.enumTable(ec, c.maxDepth());
 
-        // only keep the table nodes that are consistent with the I/O pairs
-        List<TableNode> valid = tns.stream().filter(tn -> {
-            try {
-                return tn.eval(new Environment()).contentStrictEquals(output);
-            } catch (SQLEvalException e) {
-                return false;
-            }
-        }).collect(Collectors.toList());
+        List<TableNode> valid = qc.lookup(output);
 
         if (valid.isEmpty()) {
-            System.out.println("[Enumeration Finished] Table number: 0");
+            System.out.println("[Enumeration Finished] Table number null.");
             return valid;
         } else {
-            List<TableNode> tss = ec.lookup(output);
+            List<TableNode> tss = qc.lookup(output);
             List<TableNode> result = new ArrayList<>();
             for (TableNode ts : tss) {
-                result.addAll(ec.export(ts, new ArrayList<>(),
+                result.addAll(qc.export(ts, new ArrayList<>(),
                         input.stream().map(i -> new NamedTable(i)).collect(Collectors.toList())));
             }
             System.out.println("[Enumeration Finished] Table number: " + result.size());
@@ -69,6 +64,6 @@ public abstract class AbstractTableEnumerator {
     }
 
     // the enumeration result will be stored in EC
-    abstract public List<TableNode> enumTable(EnumContext ec, int depth);
+    abstract public QueryChest enumTable(EnumContext ec, int depth);
 
 }

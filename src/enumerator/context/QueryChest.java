@@ -19,9 +19,16 @@ import java.util.stream.Collectors;
  */
 public class QueryChest {
     // tabled that is memoized
-    private Map<Table, List<TableNode>> memory = new HierarchicalMap();
+    private Map<Table, List<TableNode>> memory = new HierarchicalMap<>();
 
     public Map<Table, List<TableNode>> getMemoizedTables() { return this.memory; }
+
+    private QueryChest() {}
+    public static QueryChest initWithInputTables(List<Table> input) {
+        QueryChest qc = new QueryChest();
+        qc.updateQueries(input.stream().map(t -> new NamedTable(t)).collect(Collectors.toList()));
+        return qc;
+    }
 
     // update the QueryChest adding new tables
     // (these new tables will be used later)
@@ -34,17 +41,16 @@ public class QueryChest {
                     continue;
 
                 if (memory.containsKey(t)) {
-                    //memoizedTables.get(t).add(tn);
+                    memory.get(t).add(tn);
+                    //System.out.println("~" + memory.get(t).size());
                 } else {
                     ArrayList<TableNode> ar = new ArrayList<>();
                     ar.add(tn);
+                    //System.out.println("[Query Chest 49] QC memory size: " + memory.size());
                     memory.put(t, ar);
                 }
-
             } catch (Exception e) {
                 e.printStackTrace();
-                System.out.println("[EnumContext71] TableNode not executable.");
-                System.exit(-1);
             }
         }
     }
@@ -55,7 +61,17 @@ public class QueryChest {
         else return new ArrayList<>();
     }
 
-    // Export a table into a list of tables by unfolding intermediate results with memoized structures
+    public List<TableNode> getRepresentativeTableNodes() {
+        return this.memory.keySet().stream().map(t -> new NamedTable(t)).collect(Collectors.toList());
+    }
+
+    /**
+     * Export a table into a list of tables by unfolding intermediate results with memoized structures
+     * @param tn the table node to be unfolded
+     * @param alreadyLookedUp the set of named tables that are already used in unfolding
+     * @param inputNamedTables the input table for the enumeration process, which determines the when to stop unfolding
+     * @return the set of queries that are equivalent to the input tn after unfolding
+     */
     public List<TableNode> export(TableNode tn, List<NamedTable> alreadyLookedUp, List<NamedTable> inputNamedTables) {
 
         List<TableNode> result = new ArrayList<>();

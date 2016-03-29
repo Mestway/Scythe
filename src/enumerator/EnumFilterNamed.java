@@ -8,6 +8,7 @@ import sql.lang.ast.table.SelectNode;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
+import util.DebugHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;

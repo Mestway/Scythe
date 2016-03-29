@@ -40,6 +40,8 @@ public abstract class AbstractSymbolicTable {
 
         Set<SymbolicFilter> mergedFilters = new HashSet<>();
 
+        mergedFilters.addAll(basicFilters);
+
         // all combinations are generate, from length 0 to length maxFilterLength
         List<List<SymbolicFilter>> filterLists =
                 CombinationGenerator.genCombination(new ArrayList<>(basicFilters), maxFilterLength);
