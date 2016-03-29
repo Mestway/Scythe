@@ -1,4 +1,4 @@
-package enumerator;
+package enumerator.primitive;
 
 import enumerator.context.EnumContext;
 import sql.lang.DataType.ValType;
@@ -16,6 +16,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
+ * Enumerate join table nodes with given EC
  * Created by clwang on 1/7/16.
  */
 public class EnumJoinTableNodes {

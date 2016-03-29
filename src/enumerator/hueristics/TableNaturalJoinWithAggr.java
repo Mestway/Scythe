@@ -1,7 +1,7 @@
 package enumerator.hueristics;
 
 import com.sun.tools.javac.util.Pair;
-import enumerator.EnumAggrTableNode;
+import enumerator.primitive.EnumAggrTableNode;
 import enumerator.context.EnumContext;
 import sql.lang.ast.filter.Filter;
 import sql.lang.ast.filter.LogicAndFilter;

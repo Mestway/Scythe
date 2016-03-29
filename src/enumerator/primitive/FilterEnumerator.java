@@ -1,4 +1,4 @@
-package enumerator;
+package enumerator.primitive;
 
 import enumerator.context.EnumContext;
 import enumerator.parameterized.EnumParamTN;
@@ -7,21 +7,19 @@ import sql.lang.DataType.ValType;
 import sql.lang.DataType.Value;
 import sql.lang.Table;
 import sql.lang.ast.filter.*;
-import sql.lang.ast.table.AggregationNode;
-import sql.lang.ast.table.NamedTable;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.ConstantVal;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValHole;
 import sql.lang.ast.val.ValNode;
 import util.CombinationGenerator;
-import util.RenameTNWrapper;
 
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 /**
+ * The primitive enumerator for enumerating Filters from ec
  * Created by clwang on 1/7/16.
  */
 public class FilterEnumerator {

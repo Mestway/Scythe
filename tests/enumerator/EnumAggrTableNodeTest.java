@@ -1,6 +1,7 @@
 package enumerator;
 
 import enumerator.context.EnumContext;
+import enumerator.primitive.EnumAggrTableNode;
 import org.junit.Test;
 import sql.lang.Table;
 import sql.lang.ast.table.AggregationNode;

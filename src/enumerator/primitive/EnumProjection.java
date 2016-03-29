@@ -1,4 +1,4 @@
-package enumerator;
+package enumerator.primitive;
 
 import enumerator.context.EnumContext;
 import sql.lang.Table;
@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * Enumerate projection table nodes given the enumeration context EC
  * Created by clwang on 1/26/16.
  */
 public class EnumProjection {

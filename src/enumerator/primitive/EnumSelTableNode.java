@@ -1,4 +1,4 @@
-package enumerator;
+package enumerator.primitive;
 
 import enumerator.context.EnumContext;
 import sql.lang.DataType.ValType;
@@ -14,6 +14,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
+ * Enum a classical Select...From...Where query with given ec
  * Created by clwang on 1/7/16.
  */
 public class EnumSelTableNode {

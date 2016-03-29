@@ -46,7 +46,7 @@ public class QueryChest {
                 } else {
                     ArrayList<TableNode> ar = new ArrayList<>();
                     ar.add(tn);
-                    //System.out.println("[Query Chest 49] QC memory size: " + memory.size());
+                    System.out.println("[Query Chest 49] QC memory size: " + memory.size());
                     memory.put(t, ar);
                 }
             } catch (Exception e) {

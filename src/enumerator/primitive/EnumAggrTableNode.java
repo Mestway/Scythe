@@ -1,4 +1,4 @@
-package enumerator;
+package enumerator.primitive;
 
 import enumerator.context.EnumContext;
 import javafx.util.Pair;
@@ -22,12 +22,13 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
+ * Enumerate aggregation nodes with provided enum context
  * Created by clwang on 1/7/16.
  */
 public class EnumAggrTableNode {
 
     // When this flag is true, we will not allow comparison between multiple aggregation fields
-    private static final boolean SIMPLIFY = true;
+    private static final boolean SIMPLIFY = false;
 
     /***********************************************************
      * Enum by Aggregation
@@ -103,7 +104,6 @@ public class EnumAggrTableNode {
             } catch (SQLEvalException e) {
                 e.printStackTrace();
             }
-
 
             List<Pair<String, Function<List<Value>, Value>>> targetFuncList = new ArrayList<>();
 

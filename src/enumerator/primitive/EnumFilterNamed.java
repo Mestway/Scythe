@@ -1,4 +1,4 @@
-package enumerator;
+package enumerator.primitive;
 
 import enumerator.context.EnumContext;
 import sql.lang.DataType.ValType;
@@ -8,7 +8,6 @@ import sql.lang.ast.table.SelectNode;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
-import util.DebugHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +16,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
+ * Enumerate filtered named tables from enum context
  * Created by clwang on 2/1/16.
  */
 public class EnumFilterNamed {

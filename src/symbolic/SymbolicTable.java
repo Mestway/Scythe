@@ -1,21 +1,14 @@
 package symbolic;
 
-import enumerator.EnumFilterNamed;
-import enumerator.FilterEnumerator;
+import enumerator.primitive.FilterEnumerator;
 import enumerator.context.EnumContext;
 import sql.lang.Table;
 import sql.lang.ast.filter.EmptyFilter;
 import sql.lang.ast.filter.Filter;
-import sql.lang.ast.table.NamedTable;
-import sun.jvm.hotspot.debugger.cdbg.Sym;
-import util.CombinationGenerator;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.function.BiFunction;
-import java.util.function.BinaryOperator;
 
 /**
  * SymbolicTable

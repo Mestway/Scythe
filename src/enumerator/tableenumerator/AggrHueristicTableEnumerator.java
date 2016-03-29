@@ -1,7 +1,7 @@
 package enumerator.tableenumerator;
 
 import enumerator.context.EnumContext;
-import enumerator.EnumSelTableNode;
+import enumerator.primitive.EnumSelTableNode;
 import enumerator.context.QueryChest;
 import enumerator.hueristics.TableNaturalJoinWithAggr;
 import sql.lang.ast.table.TableNode;

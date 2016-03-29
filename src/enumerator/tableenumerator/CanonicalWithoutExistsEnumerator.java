@@ -1,12 +1,13 @@
 package enumerator.tableenumerator;
 
-import enumerator.*;
 import enumerator.context.EnumContext;
 import enumerator.context.QueryChest;
+import enumerator.primitive.EnumAggrTableNode;
+import enumerator.primitive.EnumFilterNamed;
+import enumerator.primitive.EnumJoinTableNodes;
+import enumerator.primitive.EnumProjection;
 import sql.lang.Table;
 import sql.lang.ast.table.TableNode;
-import symbolic.SymbolicFilter;
-import util.DebugHelper;
 import util.RenameTNWrapper;
 
 import java.io.IOException;

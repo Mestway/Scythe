@@ -1,9 +1,8 @@
 package enumerator.tableenumerator;
 
-import enumerator.EnumAggrTableNode;
-import enumerator.EnumJoinTableNodes;
-import enumerator.EnumProjection;
-import enumerator.FilterEnumerator;
+import enumerator.primitive.EnumAggrTableNode;
+import enumerator.primitive.EnumProjection;
+import enumerator.primitive.FilterEnumerator;
 import enumerator.context.EnumContext;
 import enumerator.context.QueryChest;
 import sql.lang.Table;
@@ -25,7 +24,7 @@ import java.util.stream.Collectors;
 /**
  * Created by clwang on 3/28/16.
  */
-public class EnumeratingWithAbstractTables extends AbstractTableEnumerator {
+public class IndexedTableEnumerator extends AbstractTableEnumerator {
     @Override
     public QueryChest enumTable(EnumContext ec, int depth) {
         QueryChest qc = QueryChest.initWithInputTables(ec.getInputs());

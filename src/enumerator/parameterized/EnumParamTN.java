@@ -1,7 +1,7 @@
 package enumerator.parameterized;
 
-import enumerator.*;
 import enumerator.context.EnumContext;
+import enumerator.primitive.EnumSelTableNode;
 import sql.lang.DataType.ValType;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.ValHole;
