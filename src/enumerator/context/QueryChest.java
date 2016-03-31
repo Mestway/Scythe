@@ -18,6 +18,10 @@ import java.util.stream.Collectors;
  * This class is used to store enumerated queries
  */
 public class QueryChest {
+
+    // the boolean variable determing whether intermediate queries should be stored
+    boolean storingQuery = true;
+
     // tabled that is memoized
     private Map<Table, List<TableNode>> memory = new HierarchicalMap<>();
 
@@ -28,6 +32,17 @@ public class QueryChest {
         QueryChest qc = new QueryChest();
         qc.updateQueries(input.stream().map(t -> new NamedTable(t)).collect(Collectors.toList()));
         return qc;
+    }
+
+    public static QueryChest initWithInputTables(List<Table> input, boolean storingQuery) {
+        QueryChest qc = new QueryChest();
+        qc.storingQuery = storingQuery;
+        qc.updateQueries(input.stream().map(t -> new NamedTable(t)).collect(Collectors.toList()));
+        return qc;
+    }
+
+    public void updateQuery(TableNode tn) {
+        this.updateQueries(Arrays.asList(tn));
     }
 
     // update the QueryChest adding new tables
@@ -41,12 +56,14 @@ public class QueryChest {
                     continue;
 
                 if (memory.containsKey(t)) {
-                    memory.get(t).add(tn);
+                    if (storingQuery)
+                        memory.get(t).add(tn);
                     //System.out.println("~" + memory.get(t).size());
                 } else {
                     ArrayList<TableNode> ar = new ArrayList<>();
                     ar.add(tn);
-                    System.out.println("[Query Chest 49] QC memory size: " + memory.size());
+                    //System.out.println("[Query Chest 49] QC memory size: " + memory.size());
+                    //System.out.println("tablesize: " + t.getContent().size() * t.getMetadata().size());
                     memory.put(t, ar);
                 }
             } catch (Exception e) {

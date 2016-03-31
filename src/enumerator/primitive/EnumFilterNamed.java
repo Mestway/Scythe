@@ -1,6 +1,7 @@
 package enumerator.primitive;
 
 import enumerator.context.EnumContext;
+import enumerator.context.QueryChest;
 import sql.lang.DataType.ValType;
 import sql.lang.ast.filter.Filter;
 import sql.lang.ast.table.NamedTable;
@@ -57,4 +58,36 @@ public class EnumFilterNamed {
         return result;
     }
 
+    // Emit enumerated query on the fly, whether to store them or not is determined by qc
+    public static void emitEnumFilterNamed(EnumContext ec, QueryChest qc) {
+
+        List<TableNode> targets = ec.getTableNodes().stream()
+                .filter(tn -> (tn instanceof NamedTable))
+                .collect(Collectors.toList());
+
+        List<TableNode> result = new ArrayList<>();
+
+        for (TableNode tn : targets) {
+
+            // the selection args are complete
+            List<ValNode> vals = tn.getSchema().stream()
+                    .map(s -> new NamedVal(s))
+                    .collect(Collectors.toList());
+
+            Map<String, ValType> typeMap = new HashMap<>();
+            for (int i = 0; i < tn.getSchema().size(); i ++) {
+                typeMap.put(tn.getSchema().get(i), tn.getSchemaType().get(i));
+            }
+
+            // enum filters
+            EnumContext ec2 = EnumContext.extendTypeMap(ec, typeMap);
+
+            List<Filter> filters = FilterEnumerator.enumFiltersLR(vals, ec2.getValNodes(), ec2);
+
+            for (Filter f : filters) {
+                TableNode sn = new SelectNode(vals, tn, f);
+                qc.updateQuery(sn);
+            }
+        }
+    }
 }

@@ -6,8 +6,6 @@ import java.util.Date;
  * Created by clwang on 12/14/15.
  */
 public class DateVal implements Value {
-    String raw;
-
     Date val;
 
     public DateVal(Date date) {
@@ -16,11 +14,7 @@ public class DateVal implements Value {
 
     private DateVal() {};
 
-    public void setRaw(String raw) {
-        this.raw = raw;
-    }
-
-    public String getRaw() { return this.raw; }
+    @Override
     public Date getVal() { return this.val; }
 
     @Override
@@ -31,8 +25,8 @@ public class DateVal implements Value {
     @Override
     public Value duplicate() {
         DateVal newVal = new DateVal();
-        newVal.raw = this.raw;
-        newVal.val = (Date) this.val.clone();
+        newVal.val = this.val;
+        //newVal.val = (Date) this.val.clone();
         return newVal;
     }
 

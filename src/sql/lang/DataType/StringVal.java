@@ -11,23 +11,19 @@ public class StringVal implements Value {
     }
 
     @Override
-    public String getRaw() { return val; }
-    @Override
     public String getVal() { return this.val; }
-
     @Override
     public boolean equals(Value v) {
         return this.val.equals(v.getVal());
     }
-
+    @Override
     public String toString() {
         return val;
     }
-
+    @Override
     public StringVal duplicate() {
         return new StringVal(this.val);
     }
-
     @Override
     public ValType getValType() {
         return ValType.StringVal;

@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
+ * Given an renamed tablenode, enumerate canonical filters of these nodes
  * Created by clwang on 3/29/16.
  */
 public class EnumCanonicalFilters {
@@ -52,6 +53,12 @@ public class EnumCanonicalFilters {
             tableBoundaryIndex.add(tableBoundaryIndex.get(i) + jn.getTableNodes().get(i).getSchema().size());
         }
 
+        Map<String, ValType> typeMap = new HashMap<>();
+        for (int i = 0; i < rt.getSchema().size(); i ++) {
+            typeMap.put(rt.getSchema().get(i), rt.getSchemaType().get(i));
+        }
+        ec = EnumContext.extendTypeMap(ec, typeMap);
+
         List<Filter> filters = new ArrayList<>();
         for (int i = 0; i < tableBoundaryIndex.size(); i ++) {
             List<ValNode> L = new ArrayList<>();
@@ -74,10 +81,24 @@ public class EnumCanonicalFilters {
 
         if (! (rt.getTableNode() instanceof AggregationNode))
             System.out.println("[ERROR EnumCanonicalFilters 44] " + rt.getTableNode().getClass());
-        List<Filter> filters = new ArrayList<>();
 
-        //TODO: implement how enumCanonicalFilterAggrNode work.
+        AggregationNode an =(AggregationNode) rt.getTableNode();
 
-        return filters;
+        int indexBoundary = an.getAggrFieldSize();
+
+        // extend the type information to contain values inside enumcontext
+        Map<String, ValType> typeMap = new HashMap<>();
+        for (int i = 0; i < rt.getSchema().size(); i ++) {
+            typeMap.put(rt.getSchema().get(i), rt.getSchemaType().get(i));
+        }
+        ec = EnumContext.extendTypeMap(ec, typeMap);
+
+        // Left value can only be an aggregation target
+        List<ValNode> L = new ArrayList<>();
+        for (int i = indexBoundary; i < rt.getSchema().size(); i ++) {
+            L.add(new NamedVal(rt.getSchema().get(i)));
+        }
+
+        return FilterEnumerator.enumFiltersLR(L, ec.getValNodes(), ec);
     }
 }

@@ -1,6 +1,7 @@
 package enumerator.primitive;
 
 import enumerator.context.EnumContext;
+import enumerator.context.QueryChest;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.filter.EmptyFilter;
@@ -48,6 +49,7 @@ public class EnumProjection {
 
         return result;
     }
+
 
     // Enumerate the selection fields of a select query
     private static List<List<ValNode>> enumSelectArgs(TableNode tableNode, boolean enumStar) {

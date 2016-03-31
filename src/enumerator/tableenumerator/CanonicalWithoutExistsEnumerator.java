@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 public class CanonicalWithoutExistsEnumerator extends AbstractTableEnumerator {
     @Override
     public QueryChest enumTable(EnumContext ec, int depth) {
-        QueryChest qc = QueryChest.initWithInputTables(ec.getInputs());
+        QueryChest qc = QueryChest.initWithInputTables(ec.getInputs(), true);
         qc = enumTableWithoutProjStrategy2(ec, qc, depth); // all intermediate result in qc is stored
 
         ec.setTableNodes(qc.getRepresentativeTableNodes());

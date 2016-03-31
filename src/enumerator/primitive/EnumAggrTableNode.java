@@ -1,6 +1,7 @@
 package enumerator.primitive;
 
 import enumerator.context.EnumContext;
+import enumerator.context.QueryChest;
 import javafx.util.Pair;
 import sql.lang.DataType.ValType;
 import sql.lang.DataType.Value;
@@ -28,7 +29,7 @@ import java.util.stream.Collectors;
 public class EnumAggrTableNode {
 
     // When this flag is true, we will not allow comparison between multiple aggregation fields
-    private static final boolean SIMPLIFY = false;
+    private static final boolean SIMPLIFY = true;
 
     /***********************************************************
      * Enum by Aggregation
@@ -162,6 +163,86 @@ public class EnumAggrTableNode {
             } else {
                 for (Pair<String, Function<List<Value>, Value>> p : targetFuncList) {
                     aggrNodes.add(new AggregationNode(tn, aggrFields, Arrays.asList(p)));
+                }
+            }
+        }
+        return aggrNodes;
+    }
+
+    public static List<TableNode> emitEnumAggregationNode(EnumContext ec, QueryChest qc) {
+
+        // currently ignore all table nodes
+        List<TableNode> coreTableNodes = ec.getTableNodes().stream().filter(
+                t -> {
+                    if (t instanceof NamedTable)
+                        return true;
+                    return true;
+                }
+        ).collect(Collectors.toList());
+
+        List<TableNode> aggregationNodes = new ArrayList<TableNode>();
+        for (TableNode coreTable : coreTableNodes) {
+            emitEnumAggrPerTableWithFilter(ec, coreTable, SIMPLIFY, qc);
+        }
+
+        return aggregationNodes;
+    }
+
+    /**
+     *
+     * @param tn the table to perform aggregation on
+     * @return the list of enumerated table based on the given tablenode
+     */
+    private static List<AggregationNode> emitEnumAggrPerTableWithFilter(EnumContext ec, TableNode tn, boolean simplify, QueryChest qc) {
+
+        List<AggregationNode> aggrNodes = new ArrayList<>();
+
+        List<List<String>> aggrFieldsComb = CombinationGenerator.genCombination(tn.getSchema());
+
+        for (List<String> aggrFields : aggrFieldsComb) {
+
+            // we don't want to make the fields have the exact size as the whole schema
+            // Jan 14 Chenglong: Probably not
+            if (aggrFields.size() == tn.getSchema().size())
+                continue;
+
+            // Not sure if this is correct or not
+            //TODO: make sure this works in the future, we don't want to group on something that has no effect
+            try {
+                Table table = tn.eval(new Environment());
+                if (AggregationNode.numberOfGroups(table, aggrFields) == table.getContent().size())
+                    continue;
+            } catch (SQLEvalException e) {
+                e.printStackTrace();
+            }
+
+            List<Pair<String, Function<List<Value>, Value>>> targetFuncList = new ArrayList<>();
+
+            // Then enum the target fields
+            for (int i = 0; i < tn.getSchema().size(); i ++) {
+                String targetField = tn.getSchema().get(i);
+                ValType targetType = tn.getSchemaType().get(i);
+
+                if (aggrFields.contains(targetField))
+                    continue;
+
+                // Find the target and the aggregation fields now, start generation
+                List<Function<List<Value>, Value>> aggrFuncs = ec.getAggrFuns(targetType);
+
+                // Last step, enumerate all group-by functions
+                for (Function<List<Value>, Value> f : aggrFuncs) {
+                    targetFuncList.add(new Pair<>(targetField, f));
+                }
+            }
+
+            if (! simplify) {
+                // allow comparison between different rows
+                AggregationNode an = new AggregationNode(tn, aggrFields, targetFuncList);
+                qc.updateQuery(an);
+
+            } else {
+                for (Pair<String, Function<List<Value>, Value>> p : targetFuncList) {
+                    qc.updateQuery(new AggregationNode(tn, aggrFields, Arrays.asList(p)));
                 }
             }
         }

@@ -7,20 +7,9 @@ import java.sql.Time;
  */
 public class TimeVal implements Value {
     Time val;
-    String raw;
 
     public TimeVal(Time time) {
         this.val = time;
-        this.raw = time.toString();
-    }
-
-    public void setRaw(String raw) {
-        this.raw = raw;
-    }
-
-    @Override
-    public String getRaw() {
-        return this.raw;
     }
 
     @Override
