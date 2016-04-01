@@ -11,6 +11,6 @@ import static org.junit.Assert.*;
 public class CanonicalTableEnumeratorOnTheFlyTest {
     @Test
     public void test2() {
-        Synthesizer.Synthesize("data//StackOverflow//003", new CanonicalTableEnumeratorOnTheFly());
+        Synthesizer.Synthesize("data//StackOverflow//001", new CanonicalTableEnumeratorOnTheFly());
     }
 }

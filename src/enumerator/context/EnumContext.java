@@ -126,4 +126,17 @@ public class EnumContext {
         System.out.println(" EC PRINT END ");
     }
 
+    public boolean isInputTableNode(TableNode tn) {
+        if (! (tn instanceof NamedTable))
+            return false;
+        else {
+            Table bj = ((NamedTable) tn).getTable();
+            for (Table t : this.getInputs())
+                if (bj.containsContent(t)) {
+                    return true;
+                }
+        }
+        return false;
+    }
+
 }

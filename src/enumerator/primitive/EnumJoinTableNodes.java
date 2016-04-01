@@ -8,9 +8,12 @@ import sql.lang.ast.filter.Filter;
 import sql.lang.ast.table.*;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
+import util.CombinationGenerator;
 import util.RenameTNWrapper;
 
 import java.util.*;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -19,66 +22,42 @@ import java.util.stream.Collectors;
  */
 public class EnumJoinTableNodes {
 
-
-    //public static void emitEnumJoinWithoutFilterN(int tablenum, EnumContext ec, QueryChest qc)
-
-    /*****************************************************
-     Enumeration by join
-     1. Enumerate atomic tables and then do join
-     *****************************************************/
-
-    public static void emitEnumJoinWithoutFilter(EnumContext ec, QueryChest qc) {
-        List<TableNode> basicTables =  ec.getTableNodes();
-        List<JoinNode> joinTables = new ArrayList<>();
-        int sz = basicTables.size();
-        for (int i = 0; i < sz; i ++) {
-            for (int j = 0; j < sz; j++) {
-                if (i == j)
-                    continue;
-                if (! (basicTables.get(j) instanceof NamedTable))
-                    continue;
-                JoinNode jn = new JoinNode(
-                        Arrays.asList(
-                                basicTables.get(i),
-                                basicTables.get(j)
-                        )
-                );
-
-                qc.updateQuery(jn);
-            }
+    public static final BiFunction<EnumContext, List<TableNode>, Boolean> atMostOneNoneInput = (ec, lst) -> {
+        for (int i = 1; i < lst.size(); i ++) {
+            if (! ec.isInputTableNode(lst.get(i)))
+                return false;
         }
-    }
+        return true;
+    };
 
-    public static void emitEnumJoinWithFilter(EnumContext ec, QueryChest qc) {
-        List<TableNode> basicTables =  ec.getTableNodes();
-        int sz = basicTables.size();
-        for (int i = 0; i < sz; i ++) {
-            for (int j = 0; j < sz; j++) {
+    /**
+     * The general emit join node function, other emit function are supposed to be implemented around this one.
+     * @param tableNum the number of tables should appear in the join table body
+     * @param ec the enumeration context
+     * @param qc the query chest for emission
+     * @param checker the checker to check whether a table list is valid or not
+     * @param withFilter whether filter should be included
+     */
+    public static void generalEmitEnumJoin(
+            int tableNum,
+            EnumContext ec,
+            QueryChest qc,
+            BiFunction<EnumContext, List<TableNode>, Boolean> checker,
+            boolean withFilter) {
 
-                boolean isPrimitiveTable = false;
-                if (! (basicTables.get(j) instanceof NamedTable))
-                    continue;
-                else {
-                    Table bj = ((NamedTable) basicTables.get(j)).getTable();
-                    for (Table t : ec.getInputs())
-                        if (bj.containsContent(t)) {
-                            isPrimitiveTable = true;
-                        }
-                }
+        List<TableNode> basicTables = ec.getTableNodes();
+        // table combinations
+        List<List<TableNode>> tableComb = CombinationGenerator.genMultPermutation(basicTables, tableNum);
 
-                if (!isPrimitiveTable)
-                    continue;
+        for (List<TableNode> tns : tableComb) {
+            if (!checker.apply(ec, tns))
+                continue;
+            JoinNode jn = new JoinNode(tns);
 
-                if (! (basicTables.get(j) instanceof NamedTable))
-                    continue;
-                JoinNode jn = new JoinNode(
-                        Arrays.asList(
-                                basicTables.get(i),
-                                basicTables.get(j)
-                        )
-                );
+            if (withFilter == false) {
+                qc.updateQuery(jn);
+            }else {
                 RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(jn);
-
                 // add the query without join
                 qc.updateQuery(rt);
 
@@ -94,82 +73,69 @@ public class EnumJoinTableNodes {
         }
     }
 
+    //Similar to general emit enum join, except that tables are not emitted on the fly
+    public static List<TableNode> generalEnumJoin(
+            int tableNum,
+            EnumContext ec,
+            BiFunction<EnumContext, List<TableNode>, Boolean> checker,
+            boolean withFilter) {
+
+        List<TableNode> result = new ArrayList<>();
+
+        List<TableNode> basicTables = ec.getTableNodes();
+        // table combinations
+        List<List<TableNode>> tableComb = CombinationGenerator.genMultPermutation(basicTables, tableNum);
+
+        for (List<TableNode> tns : tableComb) {
+            if (!checker.apply(ec, tns))
+                continue;
+            JoinNode jn = new JoinNode(tns);
+
+            if (withFilter == false) {
+                result.add(jn);
+            }else {
+                RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(jn);
+                // add the query without join
+                result.add(rt);
+
+                List<Filter> filters = EnumCanonicalFilters.enumCanonicalFilterJoinNode(rt, ec);
+                for (Filter f : filters) {
+                    // the selection args are complete
+                    List<ValNode> vals = rt.getSchema().stream()
+                            .map(s -> new NamedVal(s))
+                            .collect(Collectors.toList());
+                    result.add(RenameTNWrapper.tryRename(new SelectNode(vals, rt, f)));
+                }
+            }
+        }
+
+        return result;
+    }
+
+    /*****************************************************
+     Enumeration by join
+     1. Enumerate atomic tables and then do join
+     *****************************************************/
+
+    public static void emitEnumJoinWithoutFilter(EnumContext ec, QueryChest qc) {
+        EnumJoinTableNodes.generalEmitEnumJoin(2, ec, qc, atMostOneNoneInput, false);
+    }
+
+    public static void emitEnumJoinWithFilter(EnumContext ec, QueryChest qc) {
+        EnumJoinTableNodes.generalEmitEnumJoin(2, ec, qc, atMostOneNoneInput, true);
+    }
+
     // This is a simpler version of joining considering no filters at this stage,
     // Joining is only a matter of performing cartesian production here.
     public static List<JoinNode> enumJoinWithoutFilter(EnumContext ec) {
-        List<TableNode> basicTables =  ec.getTableNodes();
-        List<JoinNode> joinTables = new ArrayList<>();
-        int sz = basicTables.size();
-        for (int i = 0; i < sz; i ++) {
-            for (int j = 0; j < sz; j++) {
-                if (i == j)
-                    continue;
-                if (! (basicTables.get(j) instanceof NamedTable))
-                  continue;
-                JoinNode jn = new JoinNode(
-                        Arrays.asList(
-                                basicTables.get(i),
-                                basicTables.get(j)
-                        )
-                );
-                joinTables.add(jn);
-            }
-        }
-        return joinTables;
+        List<TableNode> tns = generalEnumJoin(2, ec, atMostOneNoneInput, false);
+        return tns.stream().map(tn -> (JoinNode) tn).collect(Collectors.toList());
     }
 
     // This is the join we used in canonicalSQL,
     // filters are used in enumerating canonical join nodes.
     public static List<TableNode> enumJoinWithFilter(EnumContext ec) {
-
-        List<TableNode> basicTables =  ec.getTableNodes();
-
-        List<TableNode> joinTables = new ArrayList<>();
-        int sz = basicTables.size();
-        for (int i = 0; i < sz; i ++) {
-            for (int j = 0; j < sz; j ++) {
-                // TODO: think carefully
-                if (i == j)
-                    continue;
-
-                boolean isPrimitiveTable = false;
-                if (! (basicTables.get(j) instanceof NamedTable))
-                    continue;
-                else {
-                    Table bj = ((NamedTable) basicTables.get(j)).getTable();
-                    for (Table t : ec.getInputs())
-                        if (bj.containsContent(t)) {
-                            isPrimitiveTable = true;
-                        }
-                }
-
-                if (!isPrimitiveTable)
-                    continue;
-
-                TableNode jn = new JoinNode(
-                        Arrays.asList(
-                                basicTables.get(i),
-                                basicTables.get(j)
-                        )
-                );
-                // add the original join table node without filter
-                joinTables.add(jn);
-
-                // be wary
-                RenameTableNode renamedJN = (RenameTableNode)  RenameTNWrapper.tryRename(jn);
-                // ask the canonical filter enumerator to enumerate the filter for this
-                List<Filter> filters = EnumCanonicalFilters.enumCanonicalFilterJoinNode(renamedJN, ec);
-                for (Filter f : filters) {
-                    TableNode tn = new SelectNode(
-                            renamedJN.getSchema().stream().map(s -> new NamedVal(s)).collect(Collectors.toList()),
-                            renamedJN,
-                            f);
-                    // add join nodes with filters
-                    joinTables.add(tn);
-                }
-            }
-        }
-
-        return joinTables;
+        return generalEnumJoin(2, ec, atMostOneNoneInput, true);
     }
+
 }

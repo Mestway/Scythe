@@ -26,7 +26,5 @@ public class CanonicalWithoutExistsEnumeratorTest {
     }
 
     @Test
-    public void test4() {
-        Synthesizer.Synthesize("data//StackOverflow//022", new CanonicalWithoutExistsEnumerator());
-    }
+    public void test4() { Synthesizer.Synthesize("data//StackOverflow//022", new CanonicalWithoutExistsEnumerator()); }
 }

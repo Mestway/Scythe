@@ -4,6 +4,7 @@ import enumerator.parameterized.InstantiateEnv;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * Created by clwang on 1/7/16.
@@ -64,4 +65,26 @@ public class CombinationGenerator {
         }
         return lists;
     }
+
+    public static <T> List<List<T>> genMultPermutation(List<T> lst, int n) {
+        if (n == 0) {
+            List<List<T>> result = new ArrayList<>();
+            result.add(new ArrayList<T>());
+            return result;
+        };
+
+        List<List<T>> result = new ArrayList<>();
+        List<List<T>> lastIteration = genMultPermutation(lst, n-1);
+
+        for(List<T> tempList : lastIteration) {
+            for (T t : lst) {
+                List<T> newList = new ArrayList<>();
+                newList.addAll(tempList);
+                newList.add(t);
+                result.add(newList);
+            }
+        }
+        return result;
+    }
+
 }
