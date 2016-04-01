@@ -19,9 +19,6 @@ import java.util.stream.Collectors;
  */
 public class QueryChest {
 
-    // the boolean variable determing whether intermediate queries should be stored
-    boolean storingQuery = true;
-
     // tabled that is memoized
     private Map<Table, List<TableNode>> memory = new HierarchicalMap<>();
 
@@ -30,13 +27,6 @@ public class QueryChest {
     private QueryChest() {}
     public static QueryChest initWithInputTables(List<Table> input) {
         QueryChest qc = new QueryChest();
-        qc.updateQueries(input.stream().map(t -> new NamedTable(t)).collect(Collectors.toList()));
-        return qc;
-    }
-
-    public static QueryChest initWithInputTables(List<Table> input, boolean storingQuery) {
-        QueryChest qc = new QueryChest();
-        qc.storingQuery = storingQuery;
         qc.updateQueries(input.stream().map(t -> new NamedTable(t)).collect(Collectors.toList()));
         return qc;
     }
@@ -56,9 +46,8 @@ public class QueryChest {
                     continue;
 
                 if (memory.containsKey(t)) {
-                    if (storingQuery)
-                        memory.get(t).add(tn);
-                    //System.out.println("~" + memory.get(t).size());
+                    //memory.get(t).add(tn);
+                    //System.out.println("~ " + memory.get(t).size());
                 } else {
                     ArrayList<TableNode> ar = new ArrayList<>();
                     ar.add(tn);

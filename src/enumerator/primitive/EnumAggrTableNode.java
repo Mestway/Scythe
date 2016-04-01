@@ -8,10 +8,7 @@ import sql.lang.DataType.Value;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.filter.Filter;
-import sql.lang.ast.table.AggregationNode;
-import sql.lang.ast.table.NamedTable;
-import sql.lang.ast.table.SelectNode;
-import sql.lang.ast.table.TableNode;
+import sql.lang.ast.table.*;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
@@ -242,7 +239,16 @@ public class EnumAggrTableNode {
 
             } else {
                 for (Pair<String, Function<List<Value>, Value>> p : targetFuncList) {
-                    qc.updateQuery(new AggregationNode(tn, aggrFields, Arrays.asList(p)));
+                    RenameTableNode rt = (RenameTableNode) RenameTNWrapper
+                            .tryRename(new AggregationNode(tn, aggrFields, Arrays.asList(p)));
+                    /*List<Filter> filters = EnumCanonicalFilters.enumCanonicalFilterAggrNode(rt, ec);
+                    for (Filter f : filters) {
+                        List<ValNode> vals = rt.getSchema().stream()
+                                .map(s -> new NamedVal(s))
+                                .collect(Collectors.toList());
+                        qc.updateQuery(RenameTNWrapper.tryRename(new SelectNode(vals, rt, f)));
+                    }*/
+                    qc.updateQuery(rt);
                 }
             }
         }

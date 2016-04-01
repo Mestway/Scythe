@@ -28,7 +28,7 @@ public class AggrHueristicTableEnumerator extends  AbstractTableEnumerator {
             ec.setTableNodes(qc.getRepresentativeTableNodes());
             List<TableNode> tableNodes = EnumSelTableNode.enumSelectNode(ec);
             qc.updateQueries(tableNodes);
-            /*tableNodes = EnumJoinTableNodes.enumJoinWithJoin(ec);
+            /*tableNodes = EnumJoinTableNodes.enumJoinWithFilter(ec);
             ec = EnumContext.extendTable(ec,
                     tableNodes.stream()
                             .map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList())); */

@@ -29,7 +29,7 @@ public class TimeVal implements Value {
     }
 
     public TimeVal duplicate() {
-        return new TimeVal((Time) this.val.clone());
+        return new TimeVal(this.val);
     }
 
     @Override

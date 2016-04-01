@@ -19,6 +19,9 @@ import java.util.stream.Collectors;
  */
 public class EnumJoinTableNodes {
 
+
+    //public static void emitEnumJoinWithoutFilterN(int tablenum, EnumContext ec, QueryChest qc)
+
     /*****************************************************
      Enumeration by join
      1. Enumerate atomic tables and then do join
@@ -48,12 +51,24 @@ public class EnumJoinTableNodes {
 
     public static void emitEnumJoinWithFilter(EnumContext ec, QueryChest qc) {
         List<TableNode> basicTables =  ec.getTableNodes();
-        List<JoinNode> joinTables = new ArrayList<>();
         int sz = basicTables.size();
         for (int i = 0; i < sz; i ++) {
             for (int j = 0; j < sz; j++) {
-                if (i == j)
+
+                boolean isPrimitiveTable = false;
+                if (! (basicTables.get(j) instanceof NamedTable))
                     continue;
+                else {
+                    Table bj = ((NamedTable) basicTables.get(j)).getTable();
+                    for (Table t : ec.getInputs())
+                        if (bj.containsContent(t)) {
+                            isPrimitiveTable = true;
+                        }
+                }
+
+                if (!isPrimitiveTable)
+                    continue;
+
                 if (! (basicTables.get(j) instanceof NamedTable))
                     continue;
                 JoinNode jn = new JoinNode(
@@ -63,13 +78,17 @@ public class EnumJoinTableNodes {
                         )
                 );
                 RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(jn);
+
+                // add the query without join
+                qc.updateQuery(rt);
+
                 List<Filter> filters = EnumCanonicalFilters.enumCanonicalFilterJoinNode(rt, ec);
                 for (Filter f : filters) {
                     // the selection args are complete
                     List<ValNode> vals = rt.getSchema().stream()
                             .map(s -> new NamedVal(s))
                             .collect(Collectors.toList());
-                    qc.updateQuery(new SelectNode(vals, rt, f));
+                    qc.updateQuery(RenameTNWrapper.tryRename(new SelectNode(vals, rt, f)));
                 }
             }
         }
@@ -93,7 +112,6 @@ public class EnumJoinTableNodes {
                                 basicTables.get(j)
                         )
                 );
-
                 joinTables.add(jn);
             }
         }
@@ -102,7 +120,7 @@ public class EnumJoinTableNodes {
 
     // This is the join we used in canonicalSQL,
     // filters are used in enumerating canonical join nodes.
-    public static List<TableNode> enumJoinWithJoin(EnumContext ec) {
+    public static List<TableNode> enumJoinWithFilter(EnumContext ec) {
 
         List<TableNode> basicTables =  ec.getTableNodes();
 
@@ -124,7 +142,6 @@ public class EnumJoinTableNodes {
                             isPrimitiveTable = true;
                         }
                 }
-                //isPrimitiveTable = true;
 
                 if (!isPrimitiveTable)
                     continue;
@@ -135,37 +152,19 @@ public class EnumJoinTableNodes {
                                 basicTables.get(j)
                         )
                 );
-
+                // add the original join table node without filter
                 joinTables.add(jn);
 
-                // enumPossibleFilters for the node
-                int lSchemaSize = basicTables.get(i).getSchema().size();
-                int rSchemaSize = basicTables.get(j).getSchema().size();
-                TableNode renamedJN = RenameTNWrapper.tryRename(jn);
-
-                // Create the L and R set for filter enumeration
-                List<ValNode> L = new ArrayList<>();
-                List<ValNode> R = new ArrayList<>();
-                for (int k = 0; k < lSchemaSize; k ++) {
-                    L.add(new NamedVal(renamedJN.getSchema().get(k)));
-                }
-                for (int k = 0; k < rSchemaSize; k ++) {
-                    R.add(new NamedVal(renamedJN.getSchema().get(lSchemaSize + k)));
-                }
-
-                Map<String, ValType> schemaTypeMap = new HashMap<>();
-                for (int k = 0; k < renamedJN.getSchema().size(); k ++) {
-                    schemaTypeMap.put(renamedJN.getSchema().get(k), renamedJN.getSchemaType().get(k));
-                }
-                EnumContext ec2 = ec.extendTypeMap(ec, schemaTypeMap);
-
-                List<Filter> filters = FilterEnumerator.enumFiltersLR(L, R, ec2);
-
+                // be wary
+                RenameTableNode renamedJN = (RenameTableNode)  RenameTNWrapper.tryRename(jn);
+                // ask the canonical filter enumerator to enumerate the filter for this
+                List<Filter> filters = EnumCanonicalFilters.enumCanonicalFilterJoinNode(renamedJN, ec);
                 for (Filter f : filters) {
                     TableNode tn = new SelectNode(
                             renamedJN.getSchema().stream().map(s -> new NamedVal(s)).collect(Collectors.toList()),
                             renamedJN,
                             f);
+                    // add join nodes with filters
                     joinTables.add(tn);
                 }
             }

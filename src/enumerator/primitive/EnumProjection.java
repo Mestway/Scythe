@@ -43,13 +43,19 @@ public class EnumProjection {
             List<List<ValNode>> lvns = enumSelectArgs(tn, false);
             for (List<ValNode> lvn : lvns) {
                 SelectNode sn = new SelectNode(lvn, tn, new EmptyFilter());
-                result.add(sn);
+                try {
+                    Table t = sn.eval(new Environment());
+                    if (t.contentStrictEquals(outputTable)) {
+                        result.add(sn);
+                    }
+                } catch (SQLEvalException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
         return result;
     }
-
 
     // Enumerate the selection fields of a select query
     private static List<List<ValNode>> enumSelectArgs(TableNode tableNode, boolean enumStar) {

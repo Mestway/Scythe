@@ -9,6 +9,7 @@ import sql.lang.ast.table.SelectNode;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
+import util.RenameTNWrapper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -86,7 +87,7 @@ public class EnumFilterNamed {
 
             for (Filter f : filters) {
                 TableNode sn = new SelectNode(vals, tn, f);
-                qc.updateQuery(sn);
+                qc.updateQuery(RenameTNWrapper.tryRename(sn));
             }
         }
     }

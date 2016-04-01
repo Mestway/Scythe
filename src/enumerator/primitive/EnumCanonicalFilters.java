@@ -9,6 +9,7 @@ import sql.lang.ast.table.NamedTable;
 import sql.lang.ast.table.RenameTableNode;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
+import util.DebugHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,12 +61,13 @@ public class EnumCanonicalFilters {
         ec = EnumContext.extendTypeMap(ec, typeMap);
 
         List<Filter> filters = new ArrayList<>();
-        for (int i = 0; i < tableBoundaryIndex.size(); i ++) {
+
+        for (int i = 0; i < tableBoundaryIndex.size() - 1; i ++) {
             List<ValNode> L = new ArrayList<>();
             for (int k = tableBoundaryIndex.get(i); k < tableBoundaryIndex.get(i + 1); k ++) {
                 L.add(new NamedVal(rt.getSchema().get(k)));
             }
-            for (int j = i + 1; j < tableBoundaryIndex.size(); j ++) {
+            for (int j = i + 1; j < tableBoundaryIndex.size() - 1; j ++) {
                 List<ValNode> R = new ArrayList<>();
                 for (int k = tableBoundaryIndex.get(j); k < tableBoundaryIndex.get(j+1); k ++) {
                     R.add(new NamedVal(rt.getSchema().get(k)));

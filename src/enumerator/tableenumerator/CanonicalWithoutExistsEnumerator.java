@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 public class CanonicalWithoutExistsEnumerator extends AbstractTableEnumerator {
     @Override
     public QueryChest enumTable(EnumContext ec, int depth) {
-        QueryChest qc = QueryChest.initWithInputTables(ec.getInputs(), true);
+        QueryChest qc = QueryChest.initWithInputTables(ec.getInputs());
         qc = enumTableWithoutProjStrategy2(ec, qc, depth); // all intermediate result in qc is stored
 
         ec.setTableNodes(qc.getRepresentativeTableNodes());
@@ -59,12 +59,12 @@ public class CanonicalWithoutExistsEnumerator extends AbstractTableEnumerator {
 
             // enumerate join
             ec.setTableNodes(qc.getRepresentativeTableNodes());
-            tns.addAll(EnumJoinTableNodes.enumJoinWithJoin(ec));
+            tns.addAll(EnumJoinTableNodes.enumJoinWithFilter(ec));
 
             System.out.println("[Level] " + i);
             System.out.println("There are " + tns.size() + " queries in the enumeration of this level");
             qc.updateQueries(tns.stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
-            System.out.println("after enumJoinWithJoin: " + qc.getRepresentativeTableNodes().size() + " tables");
+            System.out.println("after enumJoinWithFilter: " + qc.getRepresentativeTableNodes().size() + " tables");
 
 
             Path file = Paths.get("log" + i);
@@ -106,7 +106,7 @@ public class CanonicalWithoutExistsEnumerator extends AbstractTableEnumerator {
             tns = new ArrayList<>();
             ec.setTableNodes(qc.getRepresentativeTableNodes());
 
-            tns.addAll(EnumJoinTableNodes.enumJoinWithJoin(ec));
+            tns.addAll(EnumJoinTableNodes.enumJoinWithFilter(ec));
             System.out.println("There are " + tns.size() + " queries in the enumeration of this level");
 
             List<TableNode> renamed = tns.parallelStream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList());
@@ -115,7 +115,7 @@ public class CanonicalWithoutExistsEnumerator extends AbstractTableEnumerator {
 
             qc.updateQueries(renamed);
 
-            System.out.println("after enumJoinWithJoin: " + qc.getRepresentativeTableNodes().size() + " tables");
+            System.out.println("after enumJoinWithFilter: " + qc.getRepresentativeTableNodes().size() + " tables");
         }
 
         return qc;
