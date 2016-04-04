@@ -19,6 +19,8 @@ import java.util.stream.Collectors;
  */
 public class QueryChest {
 
+    public int queryCount = 0;
+
     // tabled that is memoized
     private Map<Table, List<TableNode>> memory = new HierarchicalMap<>();
 
@@ -38,6 +40,7 @@ public class QueryChest {
     // update the QueryChest adding new tables
     // (these new tables will be used later)
     public void updateQueries(List<TableNode> queries) {
+        queryCount ++;
         for (TableNode tn : queries) {
             try {
                 Table t = tn.eval(new Environment());

@@ -22,14 +22,6 @@ import java.util.stream.Collectors;
  */
 public class EnumJoinTableNodes {
 
-    public static final BiFunction<EnumContext, List<TableNode>, Boolean> atMostOneNoneInput = (ec, lst) -> {
-        for (int i = 1; i < lst.size(); i ++) {
-            if (! ec.isInputTableNode(lst.get(i)))
-                return false;
-        }
-        return true;
-    };
-
     /**
      * The general emit join node function, other emit function are supposed to be implemented around this one.
      * @param tableNum the number of tables should appear in the join table body
@@ -137,5 +129,14 @@ public class EnumJoinTableNodes {
     public static List<TableNode> enumJoinWithFilter(EnumContext ec) {
         return generalEnumJoin(2, ec, atMostOneNoneInput, true);
     }
+
+    public static final BiFunction<EnumContext, List<TableNode>, Boolean> atMostOneNoneInput = (ec, lst) -> {
+        for (int i = 1; i < lst.size(); i ++) {
+            if (! ec.isInputTableNode(lst.get(i)))
+                return false;
+        }
+        //if (lst.get(0) == lst.get(1)) return false;
+        return true;
+    };
 
 }

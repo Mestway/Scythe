@@ -87,6 +87,7 @@ public class EnumFilterNamed {
 
             for (Filter f : filters) {
                 TableNode sn = new SelectNode(vals, tn, f);
+                // when a table is generated, emit it to the query chest
                 qc.updateQuery(RenameTNWrapper.tryRename(sn));
             }
         }

@@ -48,6 +48,8 @@ public abstract class AbstractTableEnumerator {
 
         List<TableNode> valid = qc.lookup(output);
 
+        System.out.println("Total query visited: " + qc.queryCount);
+
         if (valid.isEmpty()) {
             System.out.println("[Enumeration Finished] Table number null.");
             return valid;
