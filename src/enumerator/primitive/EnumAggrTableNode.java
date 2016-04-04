@@ -7,10 +7,7 @@ import sql.lang.DataType.ValType;
 import sql.lang.DataType.Value;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
-import sql.lang.ast.filter.Filter;
 import sql.lang.ast.table.*;
-import sql.lang.ast.val.NamedVal;
-import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
 import util.CombinationGenerator;
 import util.RenameTNWrapper;
@@ -50,7 +47,7 @@ public class EnumAggrTableNode {
 
         List<TableNode> aggregationNodes = new ArrayList<TableNode>();
         for (TableNode coreTable : coreTableNodes) {
-            aggregationNodes.addAll(enumAggrPerTableWithFilter(ec, coreTable, SIMPLIFY));
+            aggregationNodes.addAll(enumAggrPerTable(ec, coreTable, SIMPLIFY));
         }
 
         return aggregationNodes;
@@ -69,18 +66,18 @@ public class EnumAggrTableNode {
 
         List<TableNode> aggregationNodes = new ArrayList<TableNode>();
         for (TableNode coreTable : coreTableNodes) {
-            aggregationNodes.addAll(enumAggrPerTableWithFilter(ec, coreTable, simplify));
+            aggregationNodes.addAll(enumAggrPerTable(ec, coreTable, simplify));
         }
 
         return aggregationNodes;
     }
 
     /**
-     *
+     * Filters are not considered here, enumerating aggregation with filters require a stand alone pipeline.
      * @param tn the table to perform aggregation on
      * @return the list of enumerated table based on the given tablenode
      */
-    private static List<AggregationNode> enumAggrPerTableWithFilter(EnumContext ec, TableNode tn, boolean simplify) {
+    private static List<AggregationNode> enumAggrPerTable(EnumContext ec, TableNode tn, boolean simplify) {
 
         List<AggregationNode> aggrNodes = new ArrayList<>();
 
@@ -155,8 +152,8 @@ public class EnumAggrTableNode {
                                 renamedAggrNode, f
                             ));
                 }
-
                 return wrappedWithFilter;*/
+
             } else {
                 for (Pair<String, Function<List<Value>, Value>> p : targetFuncList) {
                     aggrNodes.add(new AggregationNode(tn, aggrFields, Arrays.asList(p)));
@@ -166,7 +163,7 @@ public class EnumAggrTableNode {
         return aggrNodes;
     }
 
-    public static List<TableNode> emitEnumAggregationNode(EnumContext ec, QueryChest qc) {
+    public static void emitEnumAggregationNode(EnumContext ec, QueryChest qc) {
 
         // currently ignore all table nodes
         List<TableNode> coreTableNodes = ec.getTableNodes().stream().filter(
@@ -177,12 +174,9 @@ public class EnumAggrTableNode {
                 }
         ).collect(Collectors.toList());
 
-        List<TableNode> aggregationNodes = new ArrayList<TableNode>();
         for (TableNode coreTable : coreTableNodes) {
             emitEnumAggrPerTableWithFilter(ec, coreTable, SIMPLIFY, qc);
         }
-
-        return aggregationNodes;
     }
 
     /**

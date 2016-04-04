@@ -6,6 +6,7 @@ import sql.lang.TableRow;
 import sql.lang.ast.Environment;
 import sql.lang.ast.filter.Filter;
 
+import sql.lang.ast.table.TableNode;
 import sql.lang.exception.SQLEvalException;
 
 import java.util.ArrayList;
@@ -32,6 +33,16 @@ public class SymbolicFilter {
 
     public List<Integer> getFilterRep() {
         return this.filterRep;
+    }
+
+
+    public static SymbolicFilter genSymbolicFilterFromTableNode(TableNode tn, Filter f) {
+        try {
+            return genSymbolicFilter(tn.eval(new Environment()), f);
+        } catch (SQLEvalException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static SymbolicFilter genSymbolicFilter(Table table, Filter filter) {

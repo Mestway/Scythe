@@ -1,10 +1,12 @@
 package symbolic;
 
+import enumerator.primitive.EnumCanonicalFilters;
 import enumerator.primitive.FilterEnumerator;
 import enumerator.context.EnumContext;
 import sql.lang.Table;
 import sql.lang.ast.filter.EmptyFilter;
 import sql.lang.ast.filter.Filter;
+import sql.lang.ast.table.NamedTable;
 
 import java.util.HashSet;
 import java.util.List;
@@ -41,7 +43,7 @@ public class SymbolicTable extends AbstractSymbolicTable {
     }
 
     public static SymbolicTable buildSymbolicTable(Table t, EnumContext ec) {
-        List<Filter> filters = FilterEnumerator.enumAtomicFiltersForNamedTable(t, ec);
+        List<Filter> filters = EnumCanonicalFilters.enumCanonicalFilterNamedTable(new NamedTable(t), ec);
         filters.add(new EmptyFilter());
         Set<SymbolicFilter> symfilters = new HashSet<>();
         for (Filter f : filters) {

@@ -1,6 +1,7 @@
 package enumerator.tableenumerator;
 
 import enumerator.primitive.EnumAggrTableNode;
+import enumerator.primitive.EnumCanonicalFilters;
 import enumerator.primitive.EnumProjection;
 import enumerator.primitive.FilterEnumerator;
 import enumerator.context.EnumContext;
@@ -10,6 +11,7 @@ import sql.lang.ast.Environment;
 import sql.lang.ast.filter.Filter;
 import sql.lang.ast.table.JoinNode;
 import sql.lang.ast.table.NamedTable;
+import sql.lang.ast.table.RenameTableNode;
 import sql.lang.ast.table.TableNode;
 import sql.lang.exception.SQLEvalException;
 import symbolic.AbstractSymbolicTable;
@@ -25,6 +27,7 @@ import java.util.stream.Collectors;
  * Created by clwang on 3/28/16.
  */
 public class IndexedTableEnumerator extends AbstractTableEnumerator {
+
     @Override
     public QueryChest enumTable(EnumContext ec, int depth) {
         QueryChest qc = QueryChest.initWithInputTables(ec.getInputs());
@@ -47,8 +50,7 @@ public class IndexedTableEnumerator extends AbstractTableEnumerator {
 
         // enumerating aggregation tables
         ec.setTableNodes(qc.getRepresentativeTableNodes());
-        List<TableNode> tns = EnumAggrTableNode.enumAggregationNode(ec)
-                .stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList());
+        List<TableNode> tns = EnumAggrTableNode.enumAggregationNode(ec);
         qc.updateQueries(tns);
 
         System.out.println("Aggregation: " + tns.size() + " ~ " + qc.getMemoizedTables().keySet().size());
@@ -60,7 +62,7 @@ public class IndexedTableEnumerator extends AbstractTableEnumerator {
 
         List<AbstractSymbolicTable> collector = new ArrayList<>();
 
-        for (int i = 1; i <= depth - 1; i ++) {
+        for (int i = 1; i <= depth; i ++) {
 
             System.out.println(i);
 
@@ -72,19 +74,16 @@ public class IndexedTableEnumerator extends AbstractTableEnumerator {
                     JoinNode jn = new JoinNode(
                             Arrays.asList(new NamedTable(st1.getBaseTable()),
                                     new NamedTable(st2.getBaseTable())));
-
+                    RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(jn);
                     Table jt = null;
 
                     try {
-                        jt = jn.eval(new Environment());
+                        jt = rt.eval(new Environment());
                     } catch (SQLEvalException e) {
                         e.printStackTrace();
                     }
 
-                    List<Filter> filters = FilterEnumerator.enumAtomicFiltersForJoinedTable(jn,
-                            st1.getBaseTable().getSchemaType().size(),
-                            st2.getBaseTable().getSchemaType().size(),
-                            ec);
+                    List<Filter> filters = EnumCanonicalFilters.enumCanonicalFilterJoinNode(rt, ec);
 
                     Set<SymbolicFilter> sfs = new HashSet<>();
                     for (Filter f : filters) {

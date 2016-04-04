@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
  */
 public class EnumCanonicalFilters {
 
+    // Generated filters are used for filtering the renamed table rt
     public static List<Filter> enumCanonicalFilterNamedTable(NamedTable tn, EnumContext ec) {
         // the selection args are complete
         List<ValNode> vals = tn.getSchema().stream()
@@ -40,6 +41,7 @@ public class EnumCanonicalFilters {
         return FilterEnumerator.enumFiltersLR(vals, ec2.getValNodes(), ec2);
     }
 
+    // Generated filters are used for filtering the renamed table rt
     public static List<Filter> enumCanonicalFilterJoinNode(RenameTableNode rt, EnumContext ec) {
 
         if (! (rt.getTableNode() instanceof JoinNode))
@@ -79,6 +81,7 @@ public class EnumCanonicalFilters {
         return filters;
     }
 
+    // Generated filters are used for filtering the renamed table rt
     public static List<Filter> enumCanonicalFilterAggrNode(RenameTableNode rt, EnumContext ec) {
 
         if (! (rt.getTableNode() instanceof AggregationNode))
