@@ -65,9 +65,10 @@ public class QueryChest {
     }
 
     public List<TableNode> lookup(Table t) {
-        if (memory.containsKey(t))
+        if (memory.containsKey(t)) {
             return memory.get(t);
-        else return new ArrayList<>();
+        }
+        else return null;
     }
 
     public List<TableNode> getRepresentativeTableNodes() {

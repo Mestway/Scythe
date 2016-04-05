@@ -34,7 +34,7 @@ public class EnumAggrTableNode {
      *      2) based on the type of the target field
      ***********************************************************/
 
-    public static List<TableNode> enumAggregationNode(EnumContext ec) {
+    public static List<AggregationNode> enumAggregationNode(EnumContext ec) {
 
         // currently ignore all table nodes
         List<TableNode> coreTableNodes = ec.getTableNodes().stream().filter(
@@ -45,7 +45,7 @@ public class EnumAggrTableNode {
             }
         ).collect(Collectors.toList());
 
-        List<TableNode> aggregationNodes = new ArrayList<TableNode>();
+        List<AggregationNode> aggregationNodes = new ArrayList<AggregationNode>();
         for (TableNode coreTable : coreTableNodes) {
             aggregationNodes.addAll(enumAggrPerTable(ec, coreTable, SIMPLIFY));
         }

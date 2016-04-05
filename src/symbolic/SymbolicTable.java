@@ -24,6 +24,7 @@ public class SymbolicTable extends AbstractSymbolicTable {
     public SymbolicTable(Table baseTable, Set<SymbolicFilter> filters) {
         this.baseTable = baseTable;
         this.symbolicPrimitiveFilters = filters;
+        filters.add(SymbolicFilter.genSymbolicFilter(this.baseTable, new EmptyFilter()));
     }
 
     @Override
@@ -32,19 +33,30 @@ public class SymbolicTable extends AbstractSymbolicTable {
     public void setBaseTable(Table baseTable) { this.baseTable = baseTable; }
 
     public Set<SymbolicFilter> getSymbolicFilters() { return this.symbolicPrimitiveFilters; }
-    public void setSymbolicFilters(Set<SymbolicFilter> filters) { this.symbolicPrimitiveFilters = filters; }
+    public void setSymbolicFilters(Set<SymbolicFilter> filters) {
+        this.symbolicPrimitiveFilters = filters;
+        filters.add(SymbolicFilter.genSymbolicFilter(this.baseTable, new EmptyFilter()));
+    }
 
     // give the maximum filter length,
     // instantiate all possible tables that can be generated from filtering the current table.
     // Currently the max-length is fixed as 2
     @Override
     public Set<SymbolicFilter> instantiateAllFilters() {
-        return combiningFilters(this.symbolicPrimitiveFilters);
+        Set<SymbolicFilter> symf = combiningFilters(this.symbolicPrimitiveFilters);
+        return symf;
+    }
+
+    @Override
+    public int getPrimitiveFilterNum() {
+        return this.symbolicPrimitiveFilters.size();
     }
 
     public static SymbolicTable buildSymbolicTable(Table t, EnumContext ec) {
         List<Filter> filters = EnumCanonicalFilters.enumCanonicalFilterNamedTable(new NamedTable(t), ec);
+        // the empty filter is added here to make it complete.
         filters.add(new EmptyFilter());
+
         Set<SymbolicFilter> symfilters = new HashSet<>();
         for (Filter f : filters) {
             symfilters.add(SymbolicFilter.genSymbolicFilter(t, f));

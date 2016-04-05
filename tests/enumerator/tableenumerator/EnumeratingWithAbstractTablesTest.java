@@ -8,10 +8,5 @@ import org.testng.annotations.Test;
  */
 public class EnumeratingWithAbstractTablesTest {
 
-    @Test
-    public void test1() {
-        Synthesizer.Synthesize("data//StackOverflow//002", new IndexedTableEnumerator());
-    }
-
 
 }

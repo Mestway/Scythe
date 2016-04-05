@@ -45,12 +45,17 @@ public abstract class AbstractTableEnumerator {
         System.out.println("[Enumeration Start]");
 
         QueryChest qc = this.enumTable(ec, c.maxDepth());
+        for (Table t : qc.getMemoizedTables().keySet()) {
+            if (t.equals(ec.getOutputTable())) {
+                System.out.println(t.hashCode() + "~" + ec.getOutputTable().hashCode());
+            //if (t.getContent().size() == 2 && t.getMetadata().size() == 3) {
+                System.out.println(t);
+            }
+        }
 
         List<TableNode> valid = qc.lookup(output);
 
-        System.out.println("Total query visited: " + qc.queryCount);
-
-        if (valid.isEmpty()) {
+        if (valid == null) {
             System.out.println("[Enumeration Finished] Table number null.");
             return valid;
         } else {

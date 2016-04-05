@@ -208,11 +208,12 @@ public class Table {
 
     @Override
     public int hashCode() {
+        // TODO: A severe problem
         int hash = 0;
         int prime = 31;
         for (TableRow tr : this.getContent()) {
             for (Value v : tr.getValues()) {
-                hash += v.getVal().hashCode() * prime + hash;
+                hash += v.getVal().hashCode() * prime;
             }
         }
         return hash;

@@ -32,6 +32,7 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
         ec.setTableNodes(qc.getRepresentativeTableNodes());
         List<TableNode> tns = EnumProjection.enumProjection(ec, ec.getOutputTable());
         qc.updateQueries(tns);
+
         return qc;
     }
 

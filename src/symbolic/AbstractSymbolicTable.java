@@ -8,17 +8,20 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 
 /**
  * Created by clwang on 3/26/16.
  */
 public abstract class AbstractSymbolicTable {
 
+    // this determines that the method "combining filters" will only generate filters of length 2
     static int maxFilterLength = 2;
     static BiFunction<Boolean, Boolean, Boolean> mergeFunction = (x, y) -> x && y;
 
     abstract public Table getBaseTable();
     abstract public Set<SymbolicFilter> instantiateAllFilters();
+    abstract public int getPrimitiveFilterNum();
 
     public List<Table> instantiateAllTables() {
         Set<SymbolicFilter> filters = this.instantiateAllFilters();
@@ -33,7 +36,7 @@ public abstract class AbstractSymbolicTable {
             }
             instantiatedTables.add(t);
         }
-        return instantiatedTables;
+        return instantiatedTables.stream().filter(t -> t.getContent().size() > 0).collect(Collectors.toList());
     }
 
     public static Set<SymbolicFilter> combiningFilters(Set<SymbolicFilter> basicFilters) {

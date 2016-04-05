@@ -12,6 +12,7 @@ import util.TableInstanceParser;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by clwang on 2/8/16.
@@ -44,7 +45,7 @@ public class EnumAggrTableNodeTest {
     @Test
     public void testEnumAggregationNode() throws Exception {
         EnumContext ec = new EnumContext(Arrays.asList(input), c);
-        List<TableNode> tns = EnumAggrTableNode.enumAggregationNode(ec);
-        DebugHelper.printTableNodes(tns);
+        List<AggregationNode> tns = EnumAggrTableNode.enumAggregationNode(ec);
+        DebugHelper.printTableNodes(tns.stream().map(tn -> (TableNode) tn).collect(Collectors.toList()));
     }
 }

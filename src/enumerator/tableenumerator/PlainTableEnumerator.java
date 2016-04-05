@@ -5,6 +5,7 @@ import enumerator.context.EnumContext;
 import enumerator.primitive.EnumJoinTableNodes;
 import enumerator.primitive.EnumSelTableNode;
 import enumerator.context.QueryChest;
+import sql.lang.ast.table.AggregationNode;
 import sql.lang.ast.table.TableNode;
 import util.RenameTNWrapper;
 
@@ -19,7 +20,7 @@ public class PlainTableEnumerator extends AbstractTableEnumerator {
     public QueryChest enumTable(EnumContext ec, int depth) {
 
         QueryChest qc = QueryChest.initWithInputTables(ec.getInputs());
-        List<TableNode> agrTables = EnumAggrTableNode.enumAggregationNode(ec);
+        List<AggregationNode> agrTables = EnumAggrTableNode.enumAggregationNode(ec);
         qc.updateQueries(agrTables.stream()
                         .map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
 
