@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="simplesynthesizer" default="all">
+  
+  
+  <property file="simplesynthesizer.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*.yarb/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.swc"/>
+    <include name="*.apk"/>
+    <include name="*.zip"/>
+    <include name="*.egg"/>
+    <include name="*.ane"/>
+    <include name="*.jar"/>
+    <include name="*.ear"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
+  <path id="jdk.classpath.1.8">
+    <fileset dir="${jdk.home.1.8}">
+      <include name="lib/ant-javafx.jar"/>
+      <include name="lib/dt.jar"/>
+      <include name="lib/javafx-mx.jar"/>
+      <include name="lib/jconsole.jar"/>
+      <include name="lib/packager.jar"/>
+      <include name="lib/sa-jdi.jar"/>
+      <include name="lib/tools.jar"/>
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jfr.jar"/>
+      <include name="jre/lib/jfxswt.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+      <include name="jre/lib/ext/cldrdata.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/jaccess.jar"/>
+      <include name="jre/lib/ext/jfxrt.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/nashorn.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.8}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.gson-2.6.2.classpath">
+    <pathelement location="${basedir}/lib/gson-2.6.2.jar"/>
+  </path>
+  
+  <path id="library.junit-4.0.classpath">
+    <pathelement location="${basedir}/lib/junit-4.0.jar"/>
+  </path>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module SimpleSynthesizer -->
+  
+  <dirname property="module.simplesynthesizer.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.simplesynthesizer" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.simplesynthesizer" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.simplesynthesizer" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.simplesynthesizer" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="simplesynthesizer.output.dir" value="${module.simplesynthesizer.basedir}/out/production/SimpleSynthesizer"/>
+  <property name="simplesynthesizer.testoutput.dir" value="${module.simplesynthesizer.basedir}/out/test/SimpleSynthesizer"/>
+  
+  <path id="simplesynthesizer.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="simplesynthesizer.module.production.classpath">
+    <path refid="${module.jdk.classpath.simplesynthesizer}"/>
+    <path refid="library.gson-2.6.2.classpath"/>
+  </path>
+  
+  <path id="simplesynthesizer.runtime.production.module.classpath">
+    <pathelement location="${simplesynthesizer.output.dir}"/>
+    <path refid="library.gson-2.6.2.classpath"/>
+  </path>
+  
+  <path id="simplesynthesizer.module.classpath">
+    <path refid="${module.jdk.classpath.simplesynthesizer}"/>
+    <pathelement location="${simplesynthesizer.output.dir}"/>
+    <pathelement location="${idea.home}/plugins/testng/lib/testng.jar"/>
+    <path refid="library.junit-4.0.classpath"/>
+    <pathelement location="${idea.home}/plugins/testng/lib/testng.jar"/>
+    <pathelement location="${idea.home}/lib/hamcrest-core-1.3.jar"/>
+    <pathelement location="${idea.home}/lib/hamcrest-library-1.3.jar"/>
+    <pathelement location="${idea.home}/lib/junit-4.11.jar"/>
+    <pathelement location="${idea.home}/lib/hamcrest-core-1.3.jar"/>
+    <pathelement location="${idea.home}/lib/junit-4.12.jar"/>
+    <path refid="library.gson-2.6.2.classpath"/>
+  </path>
+  
+  <path id="simplesynthesizer.runtime.module.classpath">
+    <pathelement location="${simplesynthesizer.testoutput.dir}"/>
+    <pathelement location="${simplesynthesizer.output.dir}"/>
+    <pathelement location="${idea.home}/plugins/testng/lib/testng.jar"/>
+    <path refid="library.junit-4.0.classpath"/>
+    <pathelement location="${idea.home}/plugins/testng/lib/testng.jar"/>
+    <pathelement location="${idea.home}/lib/hamcrest-core-1.3.jar"/>
+    <pathelement location="${idea.home}/lib/hamcrest-library-1.3.jar"/>
+    <pathelement location="${idea.home}/lib/junit-4.11.jar"/>
+    <pathelement location="${idea.home}/lib/hamcrest-core-1.3.jar"/>
+    <pathelement location="${idea.home}/lib/junit-4.12.jar"/>
+    <path refid="library.gson-2.6.2.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.simplesynthesizer">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.simplesynthesizer">
+    <patternset refid="excluded.from.module.simplesynthesizer"/>
+  </patternset>
+  
+  <path id="simplesynthesizer.module.sourcepath">
+    <dirset dir="${module.simplesynthesizer.basedir}">
+      <include name="src"/>
+      <include name="lib"/>
+    </dirset>
+  </path>
+  
+  <path id="simplesynthesizer.module.test.sourcepath">
+    <dirset dir="${module.simplesynthesizer.basedir}">
+      <include name="tests"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.simplesynthesizer" depends="compile.module.simplesynthesizer.production,compile.module.simplesynthesizer.tests" description="Compile module SimpleSynthesizer"/>
+  
+  <target name="compile.module.simplesynthesizer.production" description="Compile module SimpleSynthesizer; production classes">
+    <mkdir dir="${simplesynthesizer.output.dir}"/>
+    <javac destdir="${simplesynthesizer.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.simplesynthesizer}/javac">
+      <compilerarg line="${compiler.args.simplesynthesizer}"/>
+      <bootclasspath refid="simplesynthesizer.module.bootclasspath"/>
+      <classpath refid="simplesynthesizer.module.production.classpath"/>
+      <src refid="simplesynthesizer.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.simplesynthesizer"/>
+    </javac>
+    
+    <copy todir="${simplesynthesizer.output.dir}">
+      <fileset dir="${module.simplesynthesizer.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.simplesynthesizer.basedir}/lib">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.simplesynthesizer.tests" depends="compile.module.simplesynthesizer.production" description="compile module SimpleSynthesizer; test classes" unless="skip.tests">
+    <mkdir dir="${simplesynthesizer.testoutput.dir}"/>
+    <javac destdir="${simplesynthesizer.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.simplesynthesizer}/javac">
+      <compilerarg line="${compiler.args.simplesynthesizer}"/>
+      <bootclasspath refid="simplesynthesizer.module.bootclasspath"/>
+      <classpath refid="simplesynthesizer.module.classpath"/>
+      <src refid="simplesynthesizer.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.simplesynthesizer"/>
+    </javac>
+    
+    <copy todir="${simplesynthesizer.testoutput.dir}">
+      <fileset dir="${module.simplesynthesizer.basedir}/tests">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.simplesynthesizer" description="cleanup module">
+    <delete dir="${simplesynthesizer.output.dir}"/>
+    <delete dir="${simplesynthesizer.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.simplesynthesizer" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.simplesynthesizer" description="build all modules"/>
+  
+  <target name="all" depends="build.modules" description="build all"/>
+</project>

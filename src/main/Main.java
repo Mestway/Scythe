@@ -17,7 +17,7 @@ public class Main {
             System.exit(-1);
         }
         String filename = args[0];
-        String enumerator = args[2];
+        String enumerator = args[1];
         Synthesizer.Synthesize(filename, enumeratorSwitch(enumerator));
     }
 
