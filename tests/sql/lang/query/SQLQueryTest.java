@@ -1,6 +1,6 @@
 package sql.lang.query;
 
-import javafx.util.Pair;
+import util.Pair;
 import org.junit.Test;
 import sql.lang.DataType.NumberVal;
 import sql.lang.SQLQuery;

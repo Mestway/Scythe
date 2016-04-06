@@ -1,6 +1,6 @@
 package sql.lang.ast.table;
 
-import javafx.util.Pair;
+import util.Pair;
 import org.junit.Test;
 import sql.lang.Table;
 import sql.lang.ast.Environment;

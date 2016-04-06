@@ -1,6 +1,6 @@
 package enumerator.context;
 
-import javafx.util.Pair;
+import util.Pair;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.table.NamedTable;

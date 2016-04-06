@@ -2,7 +2,7 @@ package sql.lang.ast.table;
 
 import enumerator.context.EnumContext;
 import enumerator.parameterized.InstantiateEnv;
-import javafx.util.Pair;
+import util.Pair;
 import sql.lang.DataType.ValType;
 import sql.lang.DataType.Value;
 import sql.lang.Table;

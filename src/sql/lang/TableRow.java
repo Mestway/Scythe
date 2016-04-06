@@ -1,6 +1,6 @@
 package sql.lang;
 
-import javafx.util.Pair;
+import util.Pair;
 import sql.lang.DataType.Value;
 import util.DebugHelper;
 

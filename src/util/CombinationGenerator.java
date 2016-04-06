@@ -15,14 +15,7 @@ public class CombinationGenerator {
     public static <T> List<List<T>> genCombination(List<T> list) {
         List<List<T>> result = new ArrayList<List<T>>();
         for (int sz = 1; sz <= list.size(); sz ++) {
-            List<List<Integer>> indexPerm = genIndexCombination(0, list.size()-1, sz);
-            for (List<Integer> indices : indexPerm) {
-                List<T> oneList = new ArrayList<>();
-                for (Integer i : indices) {
-                    oneList.add(list.get(i));
-                }
-                result.add(oneList);
-            }
+            result.addAll(genCombination(list, sz));
         }
         return result;
     }

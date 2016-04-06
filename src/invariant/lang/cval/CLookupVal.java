@@ -1,6 +1,6 @@
 package invariant.lang.cval;
 
-import javafx.util.Pair;
+import util.Pair;
 import sql.lang.DataType.Value;
 import sql.lang.Table;
 import sql.lang.TableRow;

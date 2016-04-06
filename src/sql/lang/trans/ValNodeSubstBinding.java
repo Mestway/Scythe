@@ -1,7 +1,6 @@
 package sql.lang.trans;
 
-import javafx.util.Pair;
-import sql.lang.DataType.Value;
+import util.Pair;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
 
