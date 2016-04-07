@@ -8,7 +8,9 @@ import enumerator.primitive.tables.EnumFilterNamed;
 import enumerator.primitive.tables.EnumJoinTableNodes;
 import enumerator.primitive.tables.EnumProjection;
 import sql.lang.Table;
+import sql.lang.ast.Environment;
 import sql.lang.ast.table.TableNode;
+import sql.lang.exception.SQLEvalException;
 
 import java.util.HashSet;
 import java.util.List;
@@ -22,8 +24,10 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
     @Override
     public QueryChest enumTable(EnumContext ec, int depth) {
 
+        depth = 2;
+
         QueryChest qc = QueryChest.initWithInputTables(ec.getInputs());
-        qc = enumTableWithoutProjStrategy2(ec, qc, depth); // all intermediate result in qc is stored
+        enumTableWithoutProj(ec, qc, depth); // all intermediate result are stored in qc
 
         ec.setTableNodes(qc.getRepresentativeTableNodes());
         EnumProjection.emitEnumProjection(ec, ec.getOutputTable(), qc);
@@ -32,13 +36,27 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
 
 
         Set<Table> leafNodes = new HashSet<>(); leafNodes.addAll(ec.getInputs());
-        List<TableTreeNode> trees = qc.getEdges().findTableTrees(ec.getOutputTable(), leafNodes, 5);
+        List<TableTreeNode> trees = qc.getEdges().findTableTrees(ec.getOutputTable(), leafNodes, 4);
 
+        int totalQueryCount = 0;
         for (TableTreeNode t : trees) {
-            t.print(0);
+            //System.out.println("--------------------------");
+            t.inferQuery(ec);
+            List<TableNode> tns = t.treeToQuery();
+            System.out.println("Query corresponds to this one: " + tns.size());
+            totalQueryCount += tns.size();
+
+            //t.print(0);
+
+            //for (TableNode tn : tns) {
+             //   System.out.println(tn.prettyPrint(0));
+            //}
+
+            //System.out.println("--------------------------");
         }
 
-        System.out.println("TableTrees: " + trees.size());
+        System.out.println("Total Tree Count: " + trees.size());
+        System.out.println("Total Query Count: " + totalQueryCount);
 
         /*
         for (Set<Table> ts : qc.getEdges().edges().get(ec.getOutputTable())) {
@@ -46,17 +64,14 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
                 System.out.println(t);
         }*/
 
-
-
         return qc;
     }
 
-    public static QueryChest enumTableWithoutProjStrategy2(EnumContext ec, QueryChest qc, int depth) {
+    public static void enumTableWithoutProj(EnumContext ec, QueryChest qc, int depth) {
 
         int lastQueryCount = 0;
         ec.setTableNodes(qc.getRepresentativeTableNodes());
         EnumFilterNamed.emitEnumFilterNamed(ec, qc);
-
 
         System.out.println("[Stage 1] EnumFilterNamed: \n\t"
                 + "Queries generated: " + (qc.queryCount - lastQueryCount) + "\n\t"
@@ -94,7 +109,5 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
             lastQueryCount = qc.queryCount;
             qc.tracked.clear();
         }
-
-        return qc;
     }
 }

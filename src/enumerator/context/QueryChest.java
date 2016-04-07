@@ -55,12 +55,9 @@ public class QueryChest {
                 if (memory.containsKey(t)) {
                     tracked.add(t);
                     //memory.get(t).add(tn);
-                    //System.out.println("~ " + memory.get(t).size());
                 } else {
                     ArrayList<TableNode> ar = new ArrayList<>();
                     ar.add(tn);
-                    //System.out.println("[Query Chest 49] QC memory size: " + memory.size());
-                    //System.out.println("tablesize: " + t.getContent().size() * t.getMetadata().size());
                     tracked.add(t);
                     memory.put(t, ar);
                 }
@@ -79,100 +76,6 @@ public class QueryChest {
 
     public List<TableNode> getRepresentativeTableNodes() {
         return this.memory.keySet().stream().map(t -> new NamedTable(t)).collect(Collectors.toList());
-    }
-
-    /**
-     * Export a table into a list of tables by unfolding intermediate results with memoized structures
-     * @param tn the table node to be unfolded
-     * @param alreadyLookedUp the set of named tables that are already used in unfolding
-     * @param inputNamedTables the input table for the enumeration process, which determines the when to stop unfolding
-     * @return the set of queries that are equivalent to the input tn after unfolding
-     */
-    public List<TableNode> export(TableNode tn, List<NamedTable> alreadyLookedUp, List<NamedTable> inputNamedTables) {
-
-        List<TableNode> result = new ArrayList<>();
-
-        List<NamedTable> namedTables = tn.namedTableInvolved();
-
-        if (namedTables.isEmpty())
-            return Arrays.asList(tn);
-
-        List<NamedTable> tableToSubst = new ArrayList<>();
-
-        for (NamedTable nt : namedTables) {
-            boolean contained = false;
-            for (NamedTable it : inputNamedTables) {
-                if (it.getTable().contentEquals(nt.getTable())) {
-                    contained = true;
-                }
-            }
-            if (contained == false) {
-                tableToSubst.add(nt);
-            }
-        }
-
-        if (tableToSubst.isEmpty()) {
-            // does not contain any other intermediate tables
-            return Arrays.asList(tn);
-        }
-
-        for (NamedTable nt : namedTables) {
-            for (NamedTable alt : alreadyLookedUp) {
-                if (alt.getTable().contentEquals(nt.getTable()))
-                    return Arrays.asList();
-            }
-        }
-
-        List<NamedTable> newAlreadyLookedUp = new ArrayList<>();
-        newAlreadyLookedUp.addAll(alreadyLookedUp);
-        newAlreadyLookedUp.addAll(namedTables);
-
-        List<List<TableNode>> targetedMaps = new ArrayList<>();
-        for (NamedTable nt : tableToSubst) {
-            List<TableNode> lkupResult = this.lookup(nt.getTable());
-            List<TableNode> candidatesForNt = new ArrayList<>();
-            lkupResult.stream().forEach(
-                    lkupTn -> candidatesForNt.addAll(
-                            this.export(lkupTn,
-                                    newAlreadyLookedUp.stream().distinct().collect(Collectors.toList()),
-                                    inputNamedTables)));
-            targetedMaps.add(candidatesForNt);
-        }
-
-        List<List<TableNode>> ImageSet = product(targetedMaps);
-
-        for (List<TableNode> oneMap : ImageSet) {
-            List<Pair<TableNode, TableNode>> substPair = new ArrayList<>();
-            for (int i = 0; i < oneMap.size(); i ++) {
-                substPair.add(new Pair<>(tableToSubst.get(i), oneMap.get(i)));
-            }
-            result.add(tn.tableSubst(substPair));
-        }
-
-        return result;
-    }
-
-    // given a list of tables, calculate the cartesian product of these tables
-    public static List<List<TableNode>> product(List<List<TableNode>> tns) {
-        List<List<TableNode>> result = new ArrayList<>();
-
-        if (tns.size() == 1) {
-            for (TableNode tn : tns.get(0)) {
-                result.add(Arrays.asList(tn));
-            }
-            return result;
-        }
-
-        List<List<TableNode>> tailProd = product(tns.subList(1, tns.size()));
-        for (TableNode tn : tns.get(0)) {
-            for (List<TableNode> tailTN : tailProd) {
-                ArrayList<TableNode> temp = new ArrayList();
-                temp.add(tn);
-                temp.addAll(tailTN);
-                result.add(temp);
-            }
-        }
-        return result;
     }
 
 }

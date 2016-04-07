@@ -54,10 +54,10 @@ public abstract class AbstractTableEnumerator {
         } else {
             List<TableNode> tss = qc.lookup(output);
             List<TableNode> result = new ArrayList<>();
-            for (TableNode ts : tss) {
+            /*for (TableNode ts : tss) {
                 result.addAll(qc.export(ts, new ArrayList<>(),
                         input.stream().map(i -> new NamedTable(i)).collect(Collectors.toList())));
-            }
+            }*/
             System.out.println("[Enumeration Finished] Table number: " + result.size());
             return result;
         }

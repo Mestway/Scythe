@@ -36,8 +36,6 @@ public class MappingInferenceTest {
         Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
 
         MappingInference mi = MappingInference.buildMapping(input, output);
-        System.out.println(mi.toString());
-        mi.refineMapping();
         System.out.println("-----");
         System.out.println(mi.toString());
         List<CoordInstMap> instances = mi.genMappingInstances();
@@ -95,8 +93,6 @@ public class MappingInferenceTest {
         System.out.println(ot.toString());
 
         MappingInference mi = MappingInference.buildMapping(ot, output);
-        //System.out.println(mi.toString());
-        mi.refineMapping();
         System.out.println("[Refine Mapping Done]");
         System.out.println(mi.toString());
 

@@ -60,7 +60,7 @@ public class MappingInference {
                 }
             }
         }
-
+        mi.refineMapping();
         return mi;
     }
 
@@ -77,7 +77,8 @@ public class MappingInference {
     // think carefully, we can either refine them into an approximate
     // set or instantiate them fully into concrete mappings,
     // how does this affect the result?
-    public void refineMapping() {
+    // TODO: refind mapping is now integrated into building process
+    private void refineMapping() {
         boolean stable = false;
         while (!stable) {
             stable = true;

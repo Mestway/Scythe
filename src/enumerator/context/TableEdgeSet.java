@@ -1,9 +1,13 @@
 package enumerator.context;
 
 import sql.lang.Table;
+import sql.lang.ast.table.NamedTable;
+import sql.lang.ast.table.TableNode;
+import util.TableInstanceParser;
 
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 
 /**
  * The data structure recording the connection between tables in the value (table) net
@@ -31,6 +35,19 @@ public class TableEdgeSet {
 
     // insert an edge with two leading source nodes
     public void insertEdge(Table src1, Table src2, Table dst) {
+
+        if (dst.equals(TableInstanceParser.parseMarkDownTable("dump",
+                "|id | customer | total | id1 | customer1 | total1 | \r\n" +
+                "|1.0 | Joe | 5.0 | 1.0 | Joe | 5.0 | \r\n" +
+                "|1.0 | Joe | 5.0 | 2.0 | Sally | 3.0 | \r\n" +
+                "|1.0 | Joe | 5.0 | 3.0 | Joe | 2.0 | \r\n" +
+                "|1.0 | Joe | 5.0 | 4.0 | Sally | 1.0 | \r\n" +
+                "|2.0 | Sally | 3.0 | 1.0 | Joe | 5.0 | \r\n" +
+                "|2.0 | Sally | 3.0 | 2.0 | Sally | 3.0 | \r\n" +
+                "|2.0 | Sally | 3.0 | 3.0 | Joe | 2.0 | \r\n" +
+                "|2.0 | Sally | 3.0 | 4.0 | Sally | 1.0 ))) \r\n")))
+            System.out.println(dst);
+
         // the node contain two tables
         Set<Table> node = new HashSet<>();
         node.add(src1);
@@ -62,10 +79,9 @@ public class TableEdgeSet {
         if (depth == 0) { return new ArrayList<>(); }
 
         for (Set<Table> src : edges.get(root)) {
-            List<Table> srcList = new ArrayList<>();
-            srcList.addAll(src);
             // each list in the list contains all candidate for the nodes in src
-            List<List<TableTreeNode>> subTreeCandidates = horizontalDFS(srcList, leafNodes, depth -1);
+            List<List<TableTreeNode>> subTreeCandidates = horizontalDFS(
+                    src.stream().collect(Collectors.toList()), leafNodes, depth -1);
             for (List<TableTreeNode> ttL : subTreeCandidates) {
                 result.add(new TableTreeNode(root, ttL));
             }

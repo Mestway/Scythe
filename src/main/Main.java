@@ -2,16 +2,19 @@ package main;
 
 import enumerator.tableenumerator.AbstractTableEnumerator;
 import enumerator.tableenumerator.CanonicalTableEnumeratorOnTheFly;
+import enumerator.tableenumerator.CanonicalWithoutExistsEnumerator;
 import enumerator.tableenumerator.SymbolicTableEnumerator;
 
 public class Main {
 
     // the interface for running the tool in
     public static void main(String[] args) {
+
         if (args.length < 2) {
             System.out.println("Not enough arguments provided.");
             System.exit(-1);
         }
+
         String filename = args[0];
         String enumerator = args[1];
         Synthesizer.Synthesize(filename, enumeratorSwitch(enumerator));

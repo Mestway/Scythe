@@ -2,6 +2,9 @@ package enumerator.primitive.tables;
 
 import enumerator.context.EnumContext;
 import enumerator.context.QueryChest;
+import mapping.CoordInstMap;
+import mapping.MappingInference;
+import sql.lang.DataType.Value;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.filter.EmptyFilter;
@@ -32,20 +35,35 @@ public class EnumProjection {
 
         for (TableNode tn : tableNodes) {
 
+            Table t;
             try {
-                Table t = tn.eval(new Environment());
+                t = tn.eval(new Environment());
+                // when the table row size does't equal to the size of output table,
+                // it can not be obtained from projection.
                 if (t.getContent().size() != outputTable.getContent().size())
                     continue;
             } catch (SQLEvalException e) {
                 continue;
             }
 
-            List<List<ValNode>> lvns = enumSelectArgs(tn, false);
+            MappingInference mi = MappingInference.buildMapping(t, outputTable);
+            List<CoordInstMap> maps = mi.genMappingInstances();
+
+            List<List<ValNode>> lvns =  new ArrayList<>();
+            for (CoordInstMap m : maps) {
+                List<ValNode> selectNodes = new ArrayList<>();
+                for (int j = 0; j < m.getMap().get(0).size(); j ++) {
+                    selectNodes.add(new NamedVal(tn.getSchema().get(m.getMap().get(0).get(j).c())));
+                }
+                lvns.add(selectNodes);
+            }
+
+            // = enumSelectArgs(tn, false);
             for (List<ValNode> lvn : lvns) {
                 SelectNode sn = new SelectNode(lvn, tn, new EmptyFilter());
                 try {
-                    Table t = sn.eval(new Environment());
-                    if (t.contentStrictEquals(outputTable)) {
+                    Table tsn = sn.eval(new Environment());
+                    if (tsn.contentStrictEquals(outputTable)) {
                         result.add(sn);
                     }
                 } catch (SQLEvalException e) {

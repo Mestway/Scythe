@@ -48,10 +48,22 @@ public class EnumJoinTableNodes {
 
             if (withFilter == false) {
                 qc.updateQuery(jn);
-            }else {
+                try {
+                    qc.getEdges().insertEdge(tns.get(0).eval(new Environment()),
+                            tns.get(1).eval(new Environment()), jn.eval(new Environment()));
+                } catch (SQLEvalException e) {
+                    e.printStackTrace();
+                }
+            } else {
                 RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(jn);
                 // add the query without join
                 qc.updateQuery(rt);
+                try {
+                    qc.getEdges().insertEdge(tns.get(0).eval(new Environment()),
+                            tns.get(1).eval(new Environment()), rt.eval(new Environment()));
+                } catch (SQLEvalException e) {
+                    e.printStackTrace();
+                }
 
                 List<Filter> filters = EnumCanonicalFilters.enumCanonicalFilterJoinNode(rt, ec);
                 for (Filter f : filters) {

@@ -2,6 +2,8 @@ package sql.lang.ast.table;
 
 import enumerator.context.EnumContext;
 import enumerator.parameterized.InstantiateEnv;
+import sql.lang.ast.filter.EmptyFilter;
+import sun.invoke.empty.Empty;
 import util.Pair;
 import sql.lang.DataType.ValType;
 import sql.lang.DataType.Value;
@@ -164,10 +166,10 @@ public class SelectNode implements TableNode {
         result += tableNode.prettyPrint(1);
 
         result += "\r\n";
-        result += "WHERE\r\n";
-
-        result += filter.prettyPrint(1);
-
+        if (! (this.filter instanceof EmptyFilter)) {
+            result += "WHERE\r\n";
+            result += filter.prettyPrint(1);
+        }
         return IndentionManagement.addIndention(result, indentLv);
     }
 
