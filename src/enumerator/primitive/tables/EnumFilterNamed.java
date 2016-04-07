@@ -1,14 +1,17 @@
-package enumerator.primitive;
+package enumerator.primitive.tables;
 
 import enumerator.context.EnumContext;
 import enumerator.context.QueryChest;
+import enumerator.primitive.FilterEnumerator;
 import sql.lang.DataType.ValType;
+import sql.lang.ast.Environment;
 import sql.lang.ast.filter.Filter;
 import sql.lang.ast.table.NamedTable;
 import sql.lang.ast.table.SelectNode;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
+import sql.lang.exception.SQLEvalException;
 import util.RenameTNWrapper;
 
 import java.util.ArrayList;
@@ -89,6 +92,12 @@ public class EnumFilterNamed {
                 TableNode sn = new SelectNode(vals, tn, f);
                 // when a table is generated, emit it to the query chest
                 qc.updateQuery(RenameTNWrapper.tryRename(sn));
+                // inserting an edge from eval(tn) --> eval(sn)
+                try {
+                    qc.getEdges().insertEdge(tn.eval(new Environment()), sn.eval(new Environment()));
+                } catch (SQLEvalException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

@@ -1,7 +1,7 @@
 package enumerator;
 
 import enumerator.context.EnumContext;
-import enumerator.primitive.EnumJoinTableNodes;
+import enumerator.primitive.tables.EnumJoinTableNodes;
 import org.junit.Test;
 import sql.lang.Table;
 import sql.lang.ast.table.AggregationNode;

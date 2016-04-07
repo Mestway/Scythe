@@ -1,19 +1,19 @@
-package enumerator.primitive;
+package enumerator.primitive.tables;
 
 import enumerator.context.EnumContext;
 import enumerator.context.QueryChest;
-import sql.lang.DataType.ValType;
-import sql.lang.Table;
+import enumerator.primitive.EnumCanonicalFilters;
+import sql.lang.ast.Environment;
 import sql.lang.ast.filter.Filter;
 import sql.lang.ast.table.*;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
+import sql.lang.exception.SQLEvalException;
 import util.CombinationGenerator;
 import util.RenameTNWrapper;
 
 import java.util.*;
 import java.util.function.BiFunction;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -59,7 +59,14 @@ public class EnumJoinTableNodes {
                     List<ValNode> vals = rt.getSchema().stream()
                             .map(s -> new NamedVal(s))
                             .collect(Collectors.toList());
-                    qc.updateQuery(RenameTNWrapper.tryRename(new SelectNode(vals, rt, f)));
+                    TableNode resultTn = new SelectNode(vals, rt, f);
+                    qc.updateQuery(RenameTNWrapper.tryRename(resultTn));
+                    try {
+                        qc.getEdges().insertEdge(tns.get(0).eval(new Environment()),
+                                tns.get(1).eval(new Environment()), resultTn.eval(new Environment()));
+                    } catch (SQLEvalException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

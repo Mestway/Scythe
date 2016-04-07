@@ -1,9 +1,9 @@
 package enumerator.tableenumerator;
 
-import enumerator.primitive.EnumAggrTableNode;
+import enumerator.primitive.tables.EnumAggrTableNode;
 import enumerator.context.EnumContext;
-import enumerator.primitive.EnumJoinTableNodes;
-import enumerator.primitive.EnumSelTableNode;
+import enumerator.primitive.tables.EnumJoinTableNodes;
+import enumerator.primitive.tables.EnumSelTableNode;
 import enumerator.context.QueryChest;
 import sql.lang.ast.table.AggregationNode;
 import sql.lang.ast.table.TableNode;

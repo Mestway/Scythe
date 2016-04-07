@@ -1,4 +1,4 @@
-package enumerator.primitive;
+package enumerator.primitive.tables;
 
 import enumerator.context.EnumContext;
 import enumerator.context.QueryChest;
@@ -47,6 +47,42 @@ public class EnumProjection {
                     Table t = sn.eval(new Environment());
                     if (t.contentStrictEquals(outputTable)) {
                         result.add(sn);
+                    }
+                } catch (SQLEvalException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return result;
+    }
+
+    // projection enumeration only happens at the last step
+    public static List<TableNode> emitEnumProjection(EnumContext ec, Table outputTable, QueryChest qc) {
+        // TODO: definitely exists a way to solve the correspondence between the nodes and the output example
+
+        List<TableNode> tableNodes = ec.getTableNodes();
+        List<TableNode> result = new ArrayList<>();
+
+        for (TableNode tn : tableNodes) {
+
+            try {
+                Table t = tn.eval(new Environment());
+                if (t.getContent().size() != outputTable.getContent().size())
+                    continue;
+            } catch (SQLEvalException e) {
+                continue;
+            }
+
+            List<List<ValNode>> lvns = enumSelectArgs(tn, false);
+            for (List<ValNode> lvn : lvns) {
+                SelectNode sn = new SelectNode(lvn, tn, new EmptyFilter());
+                try {
+                    Table t = sn.eval(new Environment());
+                    if (t.contentStrictEquals(outputTable)) {
+                        result.add(sn);
+                        qc.updateQuery(sn);
+                        qc.getEdges().insertEdge(tn.eval(new Environment()), t);
                     }
                 } catch (SQLEvalException e) {
                     e.printStackTrace();

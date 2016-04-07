@@ -1,12 +1,8 @@
 package main;
 
-import entity.ExampleDS;
 import enumerator.tableenumerator.AbstractTableEnumerator;
 import enumerator.tableenumerator.CanonicalTableEnumeratorOnTheFly;
-import enumerator.tableenumerator.PlainTableEnumerator;
 import enumerator.tableenumerator.SymbolicTableEnumerator;
-
-import java.io.File;
 
 public class Main {
 

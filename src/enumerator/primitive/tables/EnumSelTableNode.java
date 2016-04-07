@@ -1,6 +1,7 @@
-package enumerator.primitive;
+package enumerator.primitive.tables;
 
 import enumerator.context.EnumContext;
+import enumerator.primitive.FilterEnumerator;
 import sql.lang.DataType.ValType;
 import sql.lang.ast.filter.*;
 import sql.lang.ast.table.SelectNode;

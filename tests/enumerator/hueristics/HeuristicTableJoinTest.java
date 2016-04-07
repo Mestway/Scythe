@@ -1,12 +1,10 @@
 package enumerator.hueristics;
 
+import enumerator.tableenumerator.hueristics.HeuristicTableJoin;
 import org.junit.Test;
 import sql.lang.Table;
-import sql.lang.ast.Environment;
 import sql.lang.ast.table.NamedTable;
 import util.TableInstanceParser;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by clwang on 2/20/16.

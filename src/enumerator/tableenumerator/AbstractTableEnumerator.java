@@ -35,7 +35,7 @@ public abstract class AbstractTableEnumerator {
                         vns,
                         c.getNumberOfParam());
 
-        System.out.println("  Parametereized Table Number: " + parameterizedTables.size());
+        System.out.println("  Parameterized Table Number: " + parameterizedTables.size());
 
         EnumContext ec = new EnumContext(input, c);
         ec.setParameterizedTables(parameterizedTables);
@@ -45,13 +45,6 @@ public abstract class AbstractTableEnumerator {
         System.out.println("[Enumeration Start]");
 
         QueryChest qc = this.enumTable(ec, c.maxDepth());
-        for (Table t : qc.getMemoizedTables().keySet()) {
-            if (t.equals(ec.getOutputTable())) {
-                System.out.println(t.hashCode() + "~" + ec.getOutputTable().hashCode());
-            //if (t.getContent().size() == 2 && t.getMetadata().size() == 3) {
-                System.out.println(t);
-            }
-        }
 
         List<TableNode> valid = qc.lookup(output);
 

@@ -1,4 +1,4 @@
-package enumerator.hueristics;
+package enumerator.tableenumerator.hueristics;
 
 import com.sun.tools.javac.util.Pair;
 import sql.lang.DataType.Value;

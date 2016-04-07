@@ -2,6 +2,7 @@ package enumerator.hueristics;
 
 import enumerator.Constraint;
 import enumerator.context.EnumContext;
+import enumerator.tableenumerator.hueristics.TableNaturalJoinWithAggr;
 import org.junit.Test;
 import sql.lang.Table;
 import sql.lang.ast.table.AggregationNode;

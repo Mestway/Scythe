@@ -2,10 +2,10 @@ package enumerator.tableenumerator;
 
 import enumerator.context.EnumContext;
 import enumerator.context.QueryChest;
-import enumerator.primitive.EnumAggrTableNode;
-import enumerator.primitive.EnumFilterNamed;
-import enumerator.primitive.EnumJoinTableNodes;
-import enumerator.primitive.EnumProjection;
+import enumerator.primitive.tables.EnumAggrTableNode;
+import enumerator.primitive.tables.EnumFilterNamed;
+import enumerator.primitive.tables.EnumJoinTableNodes;
+import enumerator.primitive.tables.EnumProjection;
 import sql.lang.ast.table.TableNode;
 import util.RenameTNWrapper;
 

@@ -82,6 +82,23 @@ public class Table {
         return str;
     }
 
+    public String toStringWithIndent(String indent) {
+        String str = indent + "@" + name + "\r\n";
+
+        str += indent;
+        for (String i : metadata) {
+            str += i + " | ";
+        }
+        str = str.substring(0, str.length() - 2) + "\r\n";
+
+        str += indent;
+        for (TableRow row : rows) {
+            str += row.toString() + "\r\n";
+            str += indent;
+        }
+        return str;
+    }
+
     // duplicate the current table
     // (All values in the table duplicated)
     public Table duplicate() {

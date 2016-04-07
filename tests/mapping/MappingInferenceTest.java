@@ -2,7 +2,7 @@ package mapping;
 
 import enumerator.Constraint;
 import enumerator.context.EnumContext;
-import enumerator.hueristics.TableNaturalJoinWithAggr;
+import enumerator.tableenumerator.hueristics.TableNaturalJoinWithAggr;
 import org.junit.Test;
 import sql.lang.Table;
 import sql.lang.ast.Environment;

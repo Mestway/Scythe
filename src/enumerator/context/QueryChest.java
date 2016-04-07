@@ -7,10 +7,7 @@ import sql.lang.ast.table.NamedTable;
 import sql.lang.ast.table.TableNode;
 import util.HierarchicalMap;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -19,12 +16,19 @@ import java.util.stream.Collectors;
  */
 public class QueryChest {
 
+    // these two fields are used for evaluating enumeration
     public int queryCount = 0;
+    public Set<Table> tracked = new HashSet<>();
 
     // tabled that is memoized
     private Map<Table, List<TableNode>> memory = new HierarchicalMap<>();
 
+    // the data structure to store what are the ways to generate one table from other tables.
+    // this data structure is updated during each enumeration module
+    private TableEdgeSet edges = new TableEdgeSet();
+
     public Map<Table, List<TableNode>> getMemoizedTables() { return this.memory; }
+    public TableEdgeSet getEdges() { return this.edges; }
 
     private QueryChest() {}
     public static QueryChest initWithInputTables(List<Table> input) {
@@ -49,6 +53,7 @@ public class QueryChest {
                     continue;
 
                 if (memory.containsKey(t)) {
+                    tracked.add(t);
                     //memory.get(t).add(tn);
                     //System.out.println("~ " + memory.get(t).size());
                 } else {
@@ -56,6 +61,7 @@ public class QueryChest {
                     ar.add(tn);
                     //System.out.println("[Query Chest 49] QC memory size: " + memory.size());
                     //System.out.println("tablesize: " + t.getContent().size() * t.getMetadata().size());
+                    tracked.add(t);
                     memory.put(t, ar);
                 }
             } catch (Exception e) {

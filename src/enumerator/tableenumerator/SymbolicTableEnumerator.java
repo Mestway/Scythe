@@ -1,9 +1,8 @@
 package enumerator.tableenumerator;
 
-import enumerator.primitive.EnumAggrTableNode;
+import enumerator.primitive.tables.EnumAggrTableNode;
 import enumerator.primitive.EnumCanonicalFilters;
-import enumerator.primitive.EnumProjection;
-import enumerator.primitive.FilterEnumerator;
+import enumerator.primitive.tables.EnumProjection;
 import enumerator.context.EnumContext;
 import enumerator.context.QueryChest;
 import sql.lang.Table;

@@ -1,4 +1,4 @@
-package enumerator.hueristics;
+package enumerator.tableenumerator.hueristics;
 
 import sql.lang.DataType.Value;
 import sql.lang.Table;

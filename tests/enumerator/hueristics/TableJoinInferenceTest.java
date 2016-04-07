@@ -1,5 +1,6 @@
 package enumerator.hueristics;
 
+import enumerator.tableenumerator.hueristics.NaturalJoinInference;
 import org.junit.Test;
 import sql.lang.ast.table.TableNode;
 import util.DebugHelper;

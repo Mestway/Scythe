@@ -1,4 +1,4 @@
-package enumerator.primitive;
+package enumerator.primitive.tables;
 
 import enumerator.context.EnumContext;
 import enumerator.context.QueryChest;
@@ -184,7 +184,8 @@ public class EnumAggrTableNode {
      * @param tn the table to perform aggregation on
      * @return the list of enumerated table based on the given tablenode
      */
-    private static List<AggregationNode> emitEnumAggrPerTableWithFilter(EnumContext ec, TableNode tn, boolean simplify, QueryChest qc) {
+    private static List<AggregationNode> emitEnumAggrPerTableWithFilter(
+            EnumContext ec, TableNode tn, boolean simplify, QueryChest qc) {
 
         List<AggregationNode> aggrNodes = new ArrayList<>();
 
@@ -243,6 +244,13 @@ public class EnumAggrTableNode {
                         qc.updateQuery(RenameTNWrapper.tryRename(new SelectNode(vals, rt, f)));
                     }*/
                     qc.updateQuery(rt);
+
+                    // updating the link between tables, an edge eval(tn) --> eval(rt) is inserted
+                    try {
+                        qc.getEdges().insertEdge(tn.eval(new Environment()), rt.eval(new Environment()));
+                    } catch (SQLEvalException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
