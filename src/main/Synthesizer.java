@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Synthesizer {
 
-    public static List<TableNode> Synthesize(String path, AbstractTableEnumerator enumerator) {
+    public static List<TableNode> Synthesize(String path, int maxDepth, AbstractTableEnumerator enumerator) {
 
         // read file
         ExampleDS exampleDS = ExampleDS.readFromFile(path);
@@ -19,6 +19,7 @@ public class Synthesizer {
         System.out.println("[Enumerator Type] " + enumerator.getClass().getSimpleName());
         long timeStart = System.currentTimeMillis();
 
+        exampleDS.enumConstraint.setMaxDepth(maxDepth);
 
         // synthesize
         List<TableNode> candidates = enumerator.enumProgramWithIO(exampleDS.inputs, exampleDS.output, exampleDS.enumConstraint);

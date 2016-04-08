@@ -3,6 +3,7 @@ package enumerator.tableenumerator;
 import enumerator.Constraint;
 import enumerator.context.EnumContext;
 import enumerator.context.QueryChest;
+import enumerator.context.TableTreeNode;
 import enumerator.parameterized.EnumParamTN;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
@@ -13,7 +14,9 @@ import sql.lang.exception.SQLEvalException;
 
 import javax.management.Query;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -49,7 +52,7 @@ public abstract class AbstractTableEnumerator {
         List<TableNode> valid = qc.lookup(output);
 
         if (valid == null) {
-            System.out.println("[Enumeration Finished] Table number null.");
+            System.out.println("[Enumeration Finished] Does not find a query in the search space.");
             return valid;
         } else {
             List<TableNode> tss = qc.lookup(output);
@@ -58,7 +61,32 @@ public abstract class AbstractTableEnumerator {
                 result.addAll(qc.export(ts, new ArrayList<>(),
                         input.stream().map(i -> new NamedTable(i)).collect(Collectors.toList())));
             }*/
-            System.out.println("[Enumeration Finished] Table number: " + result.size());
+
+            System.out.println("[Consistent Table number] " + qc.getEdges().getDirectLinkCount(ec.getOutputTable()));
+
+            Set<Table> leafNodes = new HashSet<>(); leafNodes.addAll(ec.getInputs());
+            List<TableTreeNode> trees = qc.getEdges().findTableTrees(ec.getOutputTable(), leafNodes, 4);
+
+            int totalQueryCount = 0;
+            for (TableTreeNode t : trees) {
+                //System.out.println("--------------------------");
+                t.inferQuery(ec);
+                //List<TableNode> tns = t.treeToQuery();
+                System.out.println("Queries corresponds to this tree: " + t.countQueryNum());
+                totalQueryCount += t.countQueryNum();
+
+                //t.print(0);
+
+                //for (TableNode tn : tns) {
+                //   System.out.println(tn.prettyPrint(0));
+                //}
+
+                //System.out.println("--------------------------");
+            }
+
+            System.out.println("Total Tree Count: " + trees.size());
+            System.out.println("Total Query Count: " + totalQueryCount);
+            System.out.println("[Enumeration Finished]");
             return result;
         }
     }

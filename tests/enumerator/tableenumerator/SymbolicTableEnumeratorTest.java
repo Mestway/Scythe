@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 public class SymbolicTableEnumeratorTest {
     @Test
     public void test1() {
-        Synthesizer.Synthesize("data//StackOverflow//002", new SymbolicTableEnumerator());
+        Synthesizer.Synthesize("data//StackOverflow//002", 2, new SymbolicTableEnumerator());
     }
 
 }

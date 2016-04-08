@@ -16,12 +16,16 @@ import java.util.stream.Collectors;
  * Created by clwang on 1/7/16.
  */
 public class Constraint {
-    int maxDepth = 1;
+    int maxDepth = 2;
     List<ValNode> constValNodes = new ArrayList<>();
     List<Function<List<Value>, Value>> aggrFuns = new ArrayList<>();
     int numberOfParam = 2;
     int maxFilterLength = 2;
 
+
+    public void setMaxDepth(int maxDepth) {
+        this.maxDepth = maxDepth;
+    }
 
     public Constraint(int maxDepth,
                       List<Value> constants,

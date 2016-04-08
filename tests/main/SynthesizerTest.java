@@ -23,7 +23,7 @@ import static org.junit.Assert.*;
 public class SynthesizerTest {
 
     public void test() {
-        Synthesizer.Synthesize("data//StackOverflow//001", new AggrHueristicTableEnumerator());
+        Synthesizer.Synthesize("data//StackOverflow//001", 2, new AggrHueristicTableEnumerator());
     }
 
     @Test
@@ -51,7 +51,7 @@ public class SynthesizerTest {
                         final Future<List<TableNode>> handler = executor.submit(new Callable<List<TableNode>>() {
                             @Override
                             public List<TableNode> call() throws Exception {
-                                return Synthesizer.Synthesize(f.getPath(), enumerator);
+                                return Synthesizer.Synthesize(f.getPath(), 2, enumerator);
                             }
                         });
 
