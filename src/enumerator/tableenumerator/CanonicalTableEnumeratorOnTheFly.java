@@ -32,6 +32,8 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
         ec.setTableNodes(qc.getRepresentativeTableNodes());
         EnumProjection.emitEnumProjection(ec, ec.getOutputTable(), qc);
 
+        System.out.println("[Runner up Table Count] " + qc.runnerUpTable);
+
         System.out.println("[Consistent Table number] " + qc.getEdges().getDirectLinkCount(ec.getOutputTable()));
 
 
@@ -42,9 +44,9 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
         for (TableTreeNode t : trees) {
             //System.out.println("--------------------------");
             t.inferQuery(ec);
-            List<TableNode> tns = t.treeToQuery();
-            System.out.println("Query corresponds to this one: " + tns.size());
-            totalQueryCount += tns.size();
+            //List<TableNode> tns = t.treeToQuery();
+            System.out.println("Queries corresponds to this tree: " + t.countQueryNum());
+            totalQueryCount += t.countQueryNum();
 
             //t.print(0);
 

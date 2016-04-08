@@ -76,7 +76,7 @@ public class EnumProjection {
     }
 
     // projection enumeration only happens at the last step
-    public static List<TableNode> emitEnumProjection(EnumContext ec, Table outputTable, QueryChest qc) {
+    public static void emitEnumProjection(EnumContext ec, Table outputTable, QueryChest qc) {
         // TODO: definitely exists a way to solve the correspondence between the nodes and the output example
 
         List<TableNode> tableNodes = ec.getTableNodes();
@@ -84,31 +84,43 @@ public class EnumProjection {
 
         for (TableNode tn : tableNodes) {
 
+            Table t;
             try {
-                Table t = tn.eval(new Environment());
+                 t = tn.eval(new Environment());
                 if (t.getContent().size() != outputTable.getContent().size())
                     continue;
             } catch (SQLEvalException e) {
                 continue;
             }
 
-            List<List<ValNode>> lvns = enumSelectArgs(tn, false);
+            MappingInference mi = MappingInference.buildMapping(t, outputTable);
+            List<CoordInstMap> maps = mi.genMappingInstances();
+
+            List<List<ValNode>> lvns =  new ArrayList<>();
+            for (CoordInstMap m : maps) {
+                List<ValNode> selectNodes = new ArrayList<>();
+                for (int j = 0; j < m.getMap().get(0).size(); j ++)
+                    selectNodes.add(new NamedVal(tn.getSchema().get(m.getMap().get(0).get(j).c())));
+                lvns.add(selectNodes);
+            }
+
+            if (lvns.size() > 0)
+                qc.runnerUpTable ++;
+
             for (List<ValNode> lvn : lvns) {
                 SelectNode sn = new SelectNode(lvn, tn, new EmptyFilter());
                 try {
-                    Table t = sn.eval(new Environment());
-                    if (t.contentStrictEquals(outputTable)) {
+                    Table tsn = sn.eval(new Environment());
+                    if (tsn.contentStrictEquals(outputTable)) {
                         result.add(sn);
                         qc.updateQuery(sn);
-                        qc.getEdges().insertEdge(tn.eval(new Environment()), t);
+                        qc.getEdges().insertEdge(t, tsn);
                     }
                 } catch (SQLEvalException e) {
                     e.printStackTrace();
                 }
             }
         }
-
-        return result;
     }
 
     // Enumerate the selection fields of a select query

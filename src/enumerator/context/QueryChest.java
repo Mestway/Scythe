@@ -19,6 +19,8 @@ public class QueryChest {
     // these two fields are used for evaluating enumeration
     public int queryCount = 0;
     public Set<Table> tracked = new HashSet<>();
+    // count the number of table before projection that can be projected into true output
+    public int runnerUpTable = 0;
 
     // tabled that is memoized
     private Map<Table, List<TableNode>> memory = new HierarchicalMap<>();

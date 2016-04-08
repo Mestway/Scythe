@@ -68,6 +68,13 @@ public class TableTreeNode {
     }
 
     public void inferQuery(EnumContext ec) {
+
+        // this is a leaf node, the query is NamedTable(t)
+        if (this.children.size() == 0) {
+            this.queries.add(new NamedTable(this.node));
+            return;
+        }
+
         ec.setTableNodes(childrenEncoding);
         List<TableNode> tns = OneStepQueryInference.infer(childrenEncoding, this.getTable(), ec);
         this.queries = tns;
@@ -77,15 +84,20 @@ public class TableTreeNode {
         }
     }
 
+    public int countQueryNum() {
+        // in this case, it is
+        int num = this.queries.size();
+        for (TableTreeNode ttn : this.children) {
+            num = num * ttn.countQueryNum();
+        }
+        return num;
+    }
+
     // translate an tree to a set of sql queries
+    // NOTE: this method can be very expensive,
+    // as all possible combinations of generating the query will be expanded
     public List<TableNode> treeToQuery() {
         List<TableNode> result = new ArrayList<>();
-
-        // this is a leaf node
-        if (this.children.size() == 0) {
-            result.add(new NamedTable(this.node));
-            return result;
-        }
 
         List<List<TableNode>> horizontalSelections = new ArrayList<>();
         horizontalSelections.add(new ArrayList<>());
