@@ -77,7 +77,6 @@ public class EnumProjection {
 
     // projection enumeration only happens at the last step
     public static void emitEnumProjection(EnumContext ec, Table outputTable, QueryChest qc) {
-        // TODO: definitely exists a way to solve the correspondence between the nodes and the output example
 
         List<TableNode> tableNodes = ec.getTableNodes();
         List<TableNode> result = new ArrayList<>();
@@ -93,6 +92,7 @@ public class EnumProjection {
                 continue;
             }
 
+            // Using coordinate map based inference to efficiently maintain result.
             MappingInference mi = MappingInference.buildMapping(t, outputTable);
             List<CoordInstMap> maps = mi.genMappingInstances();
 
@@ -123,7 +123,7 @@ public class EnumProjection {
         }
     }
 
-    // Enumerate the selection fields of a select query
+    // Enumerate all possible combinations of selection fields of a select query
     private static List<List<ValNode>> enumSelectArgs(TableNode tableNode, boolean enumStar) {
         List<ValNode> vals = new ArrayList<ValNode>();
 

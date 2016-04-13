@@ -23,6 +23,7 @@ for fn in os.listdir("."):
         if line.startswith("[[Synthesizer finished]] time:"):
                 time = line[len("[[Synthesizer finished]] time:") + 1:-1]
                 log_entry["time"] = time
+        
         # extract stage information
         elif line.startswith("[Stage"):
             stage_no = line[len("[Stage ")]

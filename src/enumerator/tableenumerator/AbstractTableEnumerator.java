@@ -72,8 +72,10 @@ public abstract class AbstractTableEnumerator {
                 //System.out.println("--------------------------");
                 t.inferQuery(ec);
                 //List<TableNode> tns = t.treeToQuery();
-                System.out.println("Queries corresponds to this tree: " + t.countQueryNum());
-                totalQueryCount += t.countQueryNum();
+
+                int count = t.countQueryNum();
+                System.out.println("Queries corresponds to this tree: " + count);
+                totalQueryCount += count;
 
                 //t.print(0);
 

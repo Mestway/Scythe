@@ -385,7 +385,7 @@ public class AggregationNode implements TableNode {
             for (Value sv : l) {
                 result += sv.getVal() + ", ";
             }
-            return new StringVal(result);
+            return new StringVal(result.substring(0, result.length() - 2));
         }
         System.err.println("[Error@AggregationNode110] aggregation on wrong type");
         return null;

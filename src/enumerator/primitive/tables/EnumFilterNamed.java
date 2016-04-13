@@ -65,11 +65,7 @@ public class EnumFilterNamed {
     // Emit enumerated query on the fly, whether to store them or not is determined by qc
     public static void emitEnumFilterNamed(EnumContext ec, QueryChest qc) {
 
-        List<TableNode> targets = ec.getTableNodes().stream()
-                .filter(tn -> (tn instanceof NamedTable))
-                .collect(Collectors.toList());
-
-        List<TableNode> result = new ArrayList<>();
+        List<TableNode> targets = ec.getTableNodes();
 
         for (TableNode tn : targets) {
 

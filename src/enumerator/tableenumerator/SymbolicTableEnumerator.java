@@ -48,10 +48,10 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
         // enumerating aggregation tables
         ec.setTableNodes(qc.getRepresentativeTableNodes());
-        List<AggregationNode> ans = EnumAggrTableNode.enumAggregationNode(ec);
+        List<TableNode> ans = EnumAggrTableNode.enumAggregationNode(ec);
 
         // build symbolic tables out of aggregation table nodes.
-        for (AggregationNode an : ans) {
+        for (TableNode an : ans) {
             RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(an);
             List<Filter> anFilters = new ArrayList<>(); //EnumCanonicalFilters.enumCanonicalFilterAggrNode(rt, ec);
             try {

@@ -24,8 +24,6 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
     @Override
     public QueryChest enumTable(EnumContext ec, int depth) {
 
-        depth = 2;
-
         QueryChest qc = QueryChest.initWithInputTables(ec.getInputs());
         enumTableWithoutProj(ec, qc, depth); // all intermediate result are stored in qc
 
@@ -58,6 +56,7 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
                 + "Tables generated: " + (qc.tracked.size()) + "\n\t"
                 + "Total Table by now: " + qc.getRepresentativeTableNodes().size());
         lastQueryCount = qc.queryCount;
+
         qc.tracked.clear();
 
         for (int i = 1; i <= depth; i ++) {

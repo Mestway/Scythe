@@ -44,23 +44,17 @@ public class OneStepQueryInference {
                 }
                 return false;
             }).collect(Collectors.toList()));
+
             tns.addAll(EnumProjection.enumProjection(ec, output));
 
-            try {
-                if (ec.getInputs().contains(inputTableNodes.get(0).eval(new Environment()))) {
-                    tns.addAll(EnumJoinTableNodes.enumJoinWithFilter(ec).stream().filter(tn -> {
-                        try {
-                            return (tn.eval(new Environment()).equals(output));
-                        } catch (SQLEvalException e) {
-                            e.printStackTrace();
-                        }
-                        return false;
-                    }).collect(Collectors.toList()));
-                    tns.addAll(EnumProjection.enumProjection(ec, output));
+            tns.addAll(EnumJoinTableNodes.enumJoinWithFilter(ec).stream().filter(tn -> {
+                try {
+                    return (tn.eval(new Environment()).equals(output));
+                } catch (SQLEvalException e) {
+                    e.printStackTrace();
                 }
-            } catch (SQLEvalException e) {
-                e.printStackTrace();
-            }
+                return false;
+            }).collect(Collectors.toList()));
 
             return tns;
         } else if (inputTableNodes.size() == 2) {

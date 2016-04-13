@@ -20,7 +20,7 @@ public class PlainTableEnumerator extends AbstractTableEnumerator {
     public QueryChest enumTable(EnumContext ec, int depth) {
 
         QueryChest qc = QueryChest.initWithInputTables(ec.getInputs());
-        List<AggregationNode> agrTables = EnumAggrTableNode.enumAggregationNode(ec);
+        List<TableNode> agrTables = EnumAggrTableNode.enumAggregationNode(ec);
         qc.updateQueries(agrTables.stream()
                         .map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
 
