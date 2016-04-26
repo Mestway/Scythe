@@ -9,7 +9,6 @@ public class Main {
 
     // the interface for running the tool in
     public static void main(String[] args) {
-
         if (args.length < 3) {
             System.out.println("Not enough arguments provided.");
             System.exit(-1);
@@ -22,7 +21,7 @@ public class Main {
     }
 
     public static AbstractTableEnumerator enumeratorSwitch(String name) {
-        if (name.equals("SymbolicTableEnumerator"))
+        if (name.equals("SymbolicEnumerator"))
             return new SymbolicTableEnumerator();
         else if (name.equals("CanonicalEnumeratorOnTheFly"))
             return new CanonicalTableEnumeratorOnTheFly();

@@ -3,6 +3,7 @@ package util;
 import enumerator.parameterized.InstantiateEnv;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 
@@ -75,6 +76,27 @@ public class CombinationGenerator {
                 newList.addAll(tempList);
                 newList.add(t);
                 result.add(newList);
+            }
+        }
+        return result;
+    }
+
+    public static <T> List<List<T>> rotateList(List<List<T>> lst) {
+        if (lst.size() == 1) {
+            List<List<T>> result = new ArrayList<>();
+            for (int i = 0; i < lst.get(0).size(); i ++)
+                result.add(Arrays.asList(lst.get(0).get(i)));
+            return result;
+        }
+
+        List<List<T>> last = rotateList(lst.subList(1, lst.size()));
+        List<List<T>> result = new ArrayList<>();
+        for (T t : lst.get(0)) {
+            for (List<T> rt : last) {
+                List<T> temp = new ArrayList<>();
+                temp.add(t);
+                temp.addAll(rt);
+                result.add(temp);
             }
         }
         return result;

@@ -15,15 +15,17 @@ for fn in os.listdir("."):
     log_entry["log_name"] = f.name
     log_entry["finished"] = False
     log_entry["fail_to_find"] = False
+    log_entry["last_table_number"] = "-"
+    log_entry["avg_table_size"] = "-"
     stages = []
     while i < len(content):
         line = content[i]
-      
+
         # extract the running time
         if line.startswith("[[Synthesizer finished]] time:"):
                 time = line[len("[[Synthesizer finished]] time:") + 1:-1]
                 log_entry["time"] = time
-        
+
         # extract stage information
         elif line.startswith("[Stage"):
             stage_no = line[len("[Stage ")]
@@ -59,12 +61,15 @@ for fn in os.listdir("."):
         elif (line.startswith("Total Query Count")):
             total_query_count = line[len("Total Query Count: "):-1]
             log_entry["total_query_count"] = (total_query_count)
+        elif (line.startswith("We have ")):
+            log_entry["avg_table_size"] = line.split()[-1][:line.split()[-1].index(".")]
+            log_entry["last_table_number"] = line.split()[2]
         i += 1
-     
+
     log_entry["stages"] = stages
     log.append(log_entry)
 
-table_header = ["id", "status", "time", "table_tree / queries", "runner up", "stage_1", "stage_2", "stage_3", "stage_4"]
+table_header = ["id", "status", "time", "table_tree / queries", "runner up", "table sz/cnt" ,"stage_1", "stage_2", "stage_3", "stage_4"]
 tabular_log = []
 for log_item in log:
     row = []
@@ -93,6 +98,8 @@ for log_item in log:
         row.append("---")
         row.append("---")
 
+    row.append(log_item["last_table_number"] + " / " + log_item["avg_table_size"])
+
     for i in range(4):
         if i >= len(log_item["stages"]):
             row.append("---")
@@ -101,4 +108,14 @@ for log_item in log:
 
     tabular_log.append(row)
 
-print tabulate(tabular_log, table_header)    
+#print tabulate(tabular_log, table_header)
+
+x = ""
+for s in table_header:
+    x = x + s + ", "
+print x[:-2]
+for l in tabular_log:
+    x = ""
+    for s in l:
+        x = x + s + ", "
+    print x[:-2]

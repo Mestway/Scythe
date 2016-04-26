@@ -35,7 +35,7 @@ public class ValNodeSubstBinding {
         if (lookupImage(p.getKey()).equalsToValNode(p.getKey())) {
             bindings.add(p);
         } else {
-            System.out.println("[ValNodeSubstBinding@37] Try to add a value of whose image is already inside");
+            //System.out.println("[ValNodeSubstBinding@37] Try to add a value of whose image is already inside");
         }
     }
 }

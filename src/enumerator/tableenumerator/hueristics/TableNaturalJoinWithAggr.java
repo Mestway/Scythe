@@ -26,7 +26,7 @@ public class TableNaturalJoinWithAggr {
         assert (ec.getTableNodes().size() == 1);
 
         TableNode tb = ec.getTableNodes().get(0);
-        List<TableNode> aggrTableNodes = EnumAggrTableNode.enumAggregationNodeFlag(ec, true);
+        List<TableNode> aggrTableNodes = EnumAggrTableNode.enumAggregationNodeFlag(ec, true, true);
 
         TableNode currentTb = tb;
 
@@ -53,7 +53,7 @@ public class TableNaturalJoinWithAggr {
             }
 
             List nodesToSelect = jntb.getSchema()
-                    .stream().map(s -> new NamedVal(s)).collect(Collectors.toList()).subList(0, tbLength);
+                    .stream().map(NamedVal::new).collect(Collectors.toList()).subList(0, tbLength);
 
             for (int i = 0; i < agrt.getSchema().size() -  aggrFieldLength; i ++) {
                 nodesToSelect.add(
@@ -63,7 +63,7 @@ public class TableNaturalJoinWithAggr {
             TableNode tn = new SelectNode(
                     nodesToSelect,
                     jntb,
-                    LogicAndFilter.ConnectByAnd(filters)
+                    LogicAndFilter.connectByAnd(filters)
             );
 
             currentTb = tn;
@@ -84,7 +84,7 @@ public class TableNaturalJoinWithAggr {
 
         // for each named table in the list
         for (TableNode tb : namedTables) {
-            List<TableNode> aggrTableNodes = EnumAggrTableNode.enumAggregationNodeFlag(ec, true);
+            List<TableNode> aggrTableNodes = EnumAggrTableNode.enumAggregationNodeFlag(ec, true, true);
 
             for (TableNode agrt : aggrTableNodes) {
                 // the length of fields
@@ -120,7 +120,7 @@ public class TableNaturalJoinWithAggr {
                 TableNode tn = new SelectNode(
                         nodesToSelect,
                         jntb,
-                        LogicAndFilter.ConnectByAnd(filters)
+                        LogicAndFilter.connectByAnd(filters)
                 );
                 result.add(tn);
             }

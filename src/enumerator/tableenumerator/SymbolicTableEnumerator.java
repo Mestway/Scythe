@@ -1,5 +1,6 @@
 package enumerator.tableenumerator;
 
+import enumerator.primitive.OneStepQueryInference;
 import enumerator.primitive.tables.EnumAggrTableNode;
 import enumerator.primitive.EnumCanonicalFilters;
 import enumerator.primitive.tables.EnumProjection;
@@ -10,10 +11,7 @@ import sql.lang.ast.Environment;
 import sql.lang.ast.filter.Filter;
 import sql.lang.ast.table.*;
 import sql.lang.exception.SQLEvalException;
-import symbolic.AbstractSymbolicTable;
-import symbolic.SymbolicCompoundTable;
-import symbolic.SymbolicFilter;
-import symbolic.SymbolicTable;
+import symbolic.*;
 import util.RenameTNWrapper;
 
 import java.util.*;
@@ -24,52 +22,40 @@ import java.util.stream.Collectors;
  */
 public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
-    boolean DEBUG = false;
-
     @Override
     public QueryChest enumTable(EnumContext ec, int depth) {
         QueryChest qc = QueryChest.initWithInputTables(ec.getInputs());
 
-        List<AbstractSymbolicTable> symTables = qc.getRepresentativeTableNodes()
-                .stream().filter(tn -> tn instanceof NamedTable)
-                .map(t -> SymbolicTable.buildSymbolicTable(((NamedTable) t).getTable(), ec))
+        // store all named table symbolically
+        List<AbstractSymbolicTable> symTables = qc.getMemoizedTables().keySet()
+                .stream().map(t -> new SymbolicTable(t))
                 .collect(Collectors.toList());
 
-        Set<Table> concreteTables = new HashSet<>();
-        for (AbstractSymbolicTable st : symTables) {
-            List<Table> tables = st.instantiateAllTables();
-            for (Table t : tables) {
-                concreteTables.add(t);
-            }
-        }
+        System.out.println("[Basic]: " + qc.getMemoizedTables().size() + " [SymTable]: " + symTables.size());
 
-        qc.updateQueries(concreteTables.stream().map(t -> new NamedTable(t)).collect(Collectors.toList()));
-        System.out.println("FilterNamed: " + concreteTables.size() + " ~ " + qc.getMemoizedTables().keySet().size());
-
-        // enumerating aggregation tables
+        // enumerating aggregation tables, the aggregation nodes are based on only the input tables
         ec.setTableNodes(qc.getRepresentativeTableNodes());
-        List<TableNode> ans = EnumAggrTableNode.enumAggregationNode(ec);
+
+        List<TableNode> ans = EnumAggrTableNode.enumAggregationNodeFlag(ec, EnumAggrTableNode.SIMPLIFY, false);
 
         // build symbolic tables out of aggregation table nodes.
         for (TableNode an : ans) {
-            RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(an);
-            List<Filter> anFilters = new ArrayList<>(); //EnumCanonicalFilters.enumCanonicalFilterAggrNode(rt, ec);
+            // these tables will be considered as normal, the filters of these aggreagtion tables
+            // are considered as normal named tables: they are stored abstractly, and they will only be evaluated afterwards
             try {
-                symTables.add(new SymbolicTable(an.eval(new Environment()),
-                        anFilters.stream().map(f -> SymbolicFilter.genSymbolicFilterFromTableNode(rt, f)).collect(Collectors.toSet())));
+                SymbolicTable st = new SymbolicTable(an.eval(new Environment()));
+                st.setIsFromAggregation();
+                symTables.add(st);
             } catch (SQLEvalException e) {
                 e.printStackTrace();
             }
         }
 
-        System.out.println("Aggregation: " + ans.size() + " ~ " + qc.getMemoizedTables().keySet().size());
+        System.out.println("[Aggregation]: " + ans.size() + " [SymTable]: " + symTables.size());
 
         List<AbstractSymbolicTable> collector = new ArrayList<>();
 
         for (int i = 1; i <= depth; i ++) {
-
-            System.out.println("[Level] " + i);
-
             for (int k = 0; k < symTables.size(); k ++) {
                 for (int l = 0; l < symTables.size(); l ++) {
                     AbstractSymbolicTable st1 = symTables.get(k);
@@ -78,57 +64,53 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
                     if (!st2.getBaseTable().equals(ec.getInputs().get(0)))
                         continue;
 
-                    if (DEBUG && st1.getBaseTable().contentStrictEquals(ec.getInputs().get(0)) && st2.getBaseTable().getContent().size() == 2) {
-                        System.out.println("||~~~~~~~~~~~~~~~~");
-                        System.out.println(st1.getBaseTable());
-                        System.out.println(st2.getBaseTable());
-                    }
-
-                    JoinNode jn = new JoinNode(
-                            Arrays.asList(new NamedTable(st1.getBaseTable()),
-                                    new NamedTable(st2.getBaseTable())));
-                    RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(jn);
-
-
-
-                    Table jt = null;
-
-                    try {
-                        jt = rt.eval(new Environment());
-                    } catch (SQLEvalException e) {
-                        e.printStackTrace();
-                    }
-
-                    List<Filter> filters = EnumCanonicalFilters.enumCanonicalFilterJoinNode(rt, ec);
-
-
-
-                    Set<SymbolicFilter> sfs = new HashSet<>();
-                    for (Filter f : filters) {
-                        sfs.add(SymbolicFilter.genSymbolicFilter(jt, f));
-                    }
-
-                    SymbolicCompoundTable sct =new SymbolicCompoundTable(st1, st2, sfs);
-
-                    if (DEBUG && st1.getBaseTable().contentStrictEquals(ec.getInputs().get(0)) && st2.getBaseTable().getContent().size() == 2) {
-                        System.out.println(jt);
-                        for (Table t : sct.instantiateAllTables())
-                            if (t.getContent().size() == 2) {
-                                System.out.println(t);
-                            }
-                        System.out.println(ec.getOutputTable());
-                        System.out.println("||~~~~~~~~~~~~~~~~");
-                    }
-
+                    SymbolicCompoundTable sct = new SymbolicCompoundTable(st1, st2);
                     collector.add(sct);
                 }
             }
+
+            System.out.println("[EnumJoin]level " + i + " [SymTable]: " + symTables.size());
             symTables.addAll(collector);
         }
 
         System.out.println("ASymTable Enumeration done: " + (symTables.size()));
 
-        concreteTables = new HashSet<>();
+        for (AbstractSymbolicTable st : symTables) {
+            st.emitInstantiateAllTables(ec, (p, fl) -> {
+
+                Table t = p.getKey().getBaseTable().duplicate();
+                t.getContent().clear();
+                for (Integer i : p.getValue().getFilterRep()) {
+                    t.getContent().add(p.getKey().getBaseTable().getContent().get(i).duplicate());
+                }
+
+                ec.setTableNodes(Arrays.asList(new NamedTable(t)));
+                boolean isRunnerUp = EnumProjection.emitEnumProjection(ec, ec.getOutputTable(), qc);
+
+                if (isRunnerUp) {
+                    List<TableNode> runnerUps = st.decodeToQuery(p, ec, fl);
+                    for (TableNode tn : runnerUps) {
+                        qc.insertQueries(OneStepQueryInference.infer(Arrays.asList(RenameTNWrapper.tryRename(tn)), ec.getOutputTable(), ec));
+                    }
+                }
+            });
+        }
+
+        System.out.println("Runnerups: " + qc.runnerUpTable);
+
+        for (TableNode tn : qc.getResultQueires()) {
+            System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+            System.out.println(tn.prettyPrint(0));
+            try {
+                System.out.println(tn.eval(new Environment()));
+            } catch (SQLEvalException e) {
+                e.printStackTrace();
+            }
+            System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+        }
+
+        /*
+        Set<Table> concreteTables = new HashSet<>();
         int kk = 0;
         for (AbstractSymbolicTable st : symTables) {
             kk ++;
@@ -142,11 +124,6 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
             for (Table t : tables) {
 
                 concreteTables.add(t);
-                if (DEBUG && st instanceof SymbolicCompoundTable) {
-                    if (((SymbolicCompoundTable) st).st1.getBaseTable().contentStrictEquals(ec.getInputs().get(0))
-                            && ((SymbolicCompoundTable) st).st2.getBaseTable().getContent().size() == 2)
-                    System.out.println(t);
-                }
             }
         }
 
@@ -156,7 +133,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
         ec.setTableNodes(qc.getRepresentativeTableNodes());
         List<TableNode> tns = EnumProjection.enumProjection(ec, ec.getOutputTable());
-        qc.updateQueries(tns);
+        qc.updateQueries(tns);*/
 
 
         /*

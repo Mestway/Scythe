@@ -90,7 +90,9 @@ public class EnumFilterNamed {
                 qc.updateQuery(RenameTNWrapper.tryRename(sn));
                 // inserting an edge from eval(tn) --> eval(sn)
                 try {
-                    qc.getEdges().insertEdge(tn.eval(new Environment()), sn.eval(new Environment()));
+                    qc.getEdges().insertEdge(
+                            qc.representative(tn.eval(new Environment())),
+                            qc.representative(sn.eval(new Environment())));
                 } catch (SQLEvalException e) {
                     e.printStackTrace();
                 }

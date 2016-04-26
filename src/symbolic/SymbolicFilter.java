@@ -35,7 +35,6 @@ public class SymbolicFilter {
         return this.filterRep;
     }
 
-
     public static SymbolicFilter genSymbolicFilterFromTableNode(TableNode tn, Filter f) {
         try {
             return genSymbolicFilter(tn.eval(new Environment()), f);
@@ -122,5 +121,14 @@ public class SymbolicFilter {
             }
         }
         return new SymbolicFilter(mergedFilterRep, f1.rowNumber);
+    }
+
+    @Override
+    public String toString() {
+        String s = "";
+        for (int i : this.filterRep) {
+            s += i + " ";
+        }
+        return s + " : " + this.rowNumber;
     }
 }
