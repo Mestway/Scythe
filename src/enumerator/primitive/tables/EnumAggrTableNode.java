@@ -149,7 +149,6 @@ public class EnumAggrTableNode {
             }
 
             if (! simplify) {
-
                 // allow comparison between different rows
                 AggregationNode an = new AggregationNode(tn, groupByFields, targetFuncList);
 

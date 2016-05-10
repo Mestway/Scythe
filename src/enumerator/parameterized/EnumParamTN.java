@@ -3,6 +3,7 @@ package enumerator.parameterized;
 import enumerator.context.EnumContext;
 import enumerator.primitive.tables.EnumSelTableNode;
 import sql.lang.DataType.ValType;
+import sql.lang.ast.table.NamedTable;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.ValHole;
 import sql.lang.ast.val.ValNode;

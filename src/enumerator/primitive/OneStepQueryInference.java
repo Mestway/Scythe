@@ -12,6 +12,7 @@ import sql.lang.ast.table.TableNode;
 import sql.lang.exception.SQLEvalException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -20,6 +21,21 @@ import java.util.stream.Collectors;
  * Created by clwang on 4/7/16.
  */
 public class OneStepQueryInference {
+
+    // Inference aggregation from one table.
+    public static List<TableNode> inferFromAggr(TableNode inputTableNode, Table output, EnumContext ec) {
+        ec.setTableNodes(Arrays.asList(inputTableNode));
+        return EnumAggrTableNode.enumAggregationNodeFlag(ec, true, false).stream()
+                .filter(tn -> {
+                    try {
+                        return tn.eval(new Environment()).equals(output);
+                    } catch (SQLEvalException e) {
+                        e.printStackTrace();
+                    }
+                    return false;
+                }).collect(Collectors.toList());
+    }
+
 
     public static List<TableNode> infer(List<TableNode> inputTableNodes, Table output, EnumContext ec) {
         if (inputTableNodes.size() == 1) {

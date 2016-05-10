@@ -107,6 +107,7 @@ public class FilterEnumerator {
                         }
                     } else {
                         atomicFilters.add(new VVComparator(Arrays.asList(l, r), VVComparator.eq));
+                        atomicFilters.add(new VVComparator(Arrays.asList(l, r), VVComparator.neq));
                     }
                 }
             }

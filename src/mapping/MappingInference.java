@@ -360,4 +360,12 @@ public class MappingInference {
         return s;
     }
 
+    // TODO: PLEASE DOUBlE CHECK
+    public boolean isValidMapping() {
+        for (int i = 0; i < map.maxR(); i ++)
+            for (int j = 0; j < map.maxC(); j++)
+                if (map.getImage(i,j).isEmpty())
+                    return false;
+        return true;
+    }
 }

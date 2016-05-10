@@ -11,7 +11,7 @@ import java.util.logging.Filter;
  */
 public class FilterLinks {
 
-    Map<Pair<AbstractSymbolicTable, SymbolicFilter>,
+    public Map<Pair<AbstractSymbolicTable, SymbolicFilter>,
             Set<Set<Pair<AbstractSymbolicTable, SymbolicFilter>>>> links = new HashMap<>();
 
     public void addLink(Set<Pair<AbstractSymbolicTable, SymbolicFilter>> srcSet,

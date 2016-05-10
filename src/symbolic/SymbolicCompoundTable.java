@@ -21,6 +21,7 @@ import util.RenameTNWrapper;
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by clwang on 3/26/16.
@@ -31,8 +32,13 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
     // the set of filters that use both st1 elements and st2 elements,
     // original filters on st1 and st2 are not contained here
     Set<SymbolicFilter> filtersLR = new HashSet<>();
+    // this list will be ready after primitiveFiltersEvaluated is evaluate to true.
+    List<SymbolicFilter> primitives = new ArrayList<>();
 
     private boolean primitiveFiltersEvaluated = false;
+    // the representitive table will not be available until primitives are evaluated
+    // this tableNode represent the tablenode used in evaluating the filters
+    RenameTableNode representitiveTableNode = null;
 
     private SymbolicCompoundTable() {}
 
@@ -47,12 +53,38 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
         return Table.joinTwo(st1.getBaseTable(), st2.getBaseTable());
     }
 
+    @Deprecated
+    // This function will instantiate all filters in a on the fly manner
+    public Pair<Set<SymbolicFilter>, FilterLinks> instantiateAllFiltersLazily() {
+
+        // System.out.println(this.representitiveTableNode.prettyPrint(0));
+        // System.out.println(" - - ");
+
+        Set<SymbolicFilter> result = new HashSet<>();
+        FilterLinks fl = new FilterLinks();
+
+        int k = 0;
+        while (true) {
+            Optional<Pair<SymbolicFilter, FilterLinks>> op = this.lazyFilterEval(k);
+            k ++;
+            if (! op.isPresent()) break;
+            result.add(op.get().getKey());
+            fl = FilterLinks.merge(Arrays.asList(fl, op.get().getValue()));
+        }
+
+        // this is used to make sure that the empty filter is added
+        result.add(SymbolicFilter.genSymbolicFilter(this.getBaseTable(), new EmptyFilter()));
+
+        return new Pair<>(result, fl);
+    }
+
     @Override
     public Pair<Set<SymbolicFilter>, FilterLinks> instantiateAllFilters() {
 
         // make sure that primitive filters are already evaluated
         assert primitiveFiltersEvaluated;
 
+        //Map<SymbolicFilter, Integer> hmp = new HashMap<>();
         Set<SymbolicFilter> instantiatedFilters = new HashSet<>();
 
         Pair<Set<SymbolicFilter>, FilterLinks> st1FiltersLinks = st1.instantiateAllFilters();
@@ -80,6 +112,11 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
                                     AbstractSymbolicTable.mergeFunction),
                             AbstractSymbolicTable.mergeFunction);
 
+                    /* if ( ! hmp.containsKey(mergedFilter)) {
+                        hmp.put(mergedFilter, 1);
+                    } else {
+                        hmp.put(mergedFilter, hmp.get(mergedFilter) + 1);
+                    }*/
                     instantiatedFilters.add(mergedFilter);
 
                     Set<Pair<AbstractSymbolicTable, SymbolicFilter>> src = new HashSet<>();
@@ -91,7 +128,75 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
             }
         }
 
+        //System.out.println("Reduction Rate: " + hmp.entrySet().stream().map(p -> p.getValue()).reduce(0, (x, y) -> (x + y)) /  hmp.entrySet().size());
+        //return new Pair<>(hmp.keySet(), filterLinks);
+
+        this.allfiltersEnumerated = true;
+        this.totalBitVecFiltersCount = instantiatedFilters.size();
         return new Pair<>(instantiatedFilters, filterLinks);
+    }
+
+
+    @Override
+    public Optional<Pair<SymbolicFilter, FilterLinks>> lazyFilterEval(Integer index) {
+
+        assert primitiveFiltersEvaluated;
+
+        int n3 = this.compoundPrimitiveFilterCount();
+        int n2 = this.st2.compoundFilterCount();
+        int n1 = this.st1.compoundFilterCount();
+
+        if (index >= n1 * n2 * n3)
+            return Optional.empty();
+
+        int k = index % n3;
+        int j = ((index - k) / n3) % n2;
+        int i = (index - j * n3 - k) / n2 / n3;
+
+        // (i) * n2 * n3 + (j) * n3 + (k)
+
+        Pair<SymbolicFilter, FilterLinks> p1 = st1.lazyFilterEval(i).get();
+        Pair<SymbolicFilter, FilterLinks> p2  = st2.lazyFilterEval(j).get();
+
+        FilterLinks filterLinks = FilterLinks.merge(Arrays.asList(p1.getValue(), p2.getValue()));
+
+        // the following code are used to generate a LR filter
+
+        SymbolicFilter LRFilter = null;
+
+        if (k == 0) {
+            LRFilter = SymbolicFilter.genSymbolicFilter(this.getBaseTable(), new EmptyFilter());
+        } else {
+            k --;
+            Pair<Integer, Integer> xy = this.inverseFilterIndex(this.primitives.size(), k);
+            LRFilter = SymbolicFilter.mergeFilter(
+                    primitives.get(xy.getKey()),
+                    primitives.get(xy.getValue()),
+                    AbstractSymbolicTable.mergeFunction);
+
+            // add the link from two source filter to the merged filter itself
+            Set<Pair<AbstractSymbolicTable, SymbolicFilter>> srcs = new HashSet<>();
+            srcs.add(new Pair<>(this, primitives.get(xy.getKey())));
+            srcs.add(new Pair<>(this, primitives.get(xy.getValue())));
+
+            filterLinks.addLink(srcs, new Pair<>(this, LRFilter));
+        }
+
+        SymbolicFilter mergedFilter = SymbolicFilter.mergeFilter(
+                this.promoteLeftFilter(p1.getKey()),
+                SymbolicFilter.mergeFilter(
+                        this.promoteRightFilter(p2.getKey()),
+                        LRFilter,
+                        AbstractSymbolicTable.mergeFunction),
+                AbstractSymbolicTable.mergeFunction);
+
+        Set<Pair<AbstractSymbolicTable, SymbolicFilter>> src = new HashSet<>();
+        src.add(new Pair<>(st1, p1.getKey()));
+        src.add(new Pair<>(st2, p2.getKey()));
+        src.add(new Pair<>(this, LRFilter));
+        filterLinks.addLink(src, new Pair<>(this, mergedFilter));
+
+        return Optional.of(new Pair<>(mergedFilter, filterLinks));
     }
 
     @Override
@@ -113,6 +218,7 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
                         new NamedTable(this.st2.getBaseTable())));
 
         RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(jn);
+        this.representitiveTableNode = rt;
 
         // the maximum filter length for filtersLR should be 1
         int backUpMaxFilterLength = ec.getMaxFilterLength();
@@ -128,6 +234,10 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
         }
 
         this.primitiveFiltersEvaluated = true;
+        this.primitives = this.filtersLR.stream().collect(Collectors.toList());
+
+        this.primitiveBitVecFilterCount = this.filtersLR.size();
+        this.primitiveSynFilterCount = filters.size();
     }
 
 
@@ -155,9 +265,25 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
 
 
     public List<Filter> decodeLR(Pair<AbstractSymbolicTable, SymbolicFilter> sfp, EnumContext ec) {
-        return EnumCanonicalFilters.enumCanonicalFilterNamedTable(new NamedTable(this.getBaseTable()), ec)
-                .stream().filter(f -> SymbolicFilter.genSymbolicFilter(this.getBaseTable(), f).equals(sfp.getValue()))
-                .collect(Collectors.toList());
+
+        List<Filter> filters = EnumCanonicalFilters
+                .enumCanonicalFilterJoinNode(this.representitiveTableNode, ec);
+
+        List<Filter> result = new ArrayList<Filter>();
+
+        for (Filter f : filters) {
+            try {
+                if (SymbolicFilter
+                        .genSymbolicFilter(this.representitiveTableNode.eval(new Environment()), f)
+                        .equals(sfp.getValue()))
+                    result.add(f);
+            } catch (SQLEvalException e) {
+                e.printStackTrace();
+                continue;
+            }
+        }
+
+        return result;
     }
 
     public List<List<Filter>> decodeLR(Set<Pair<AbstractSymbolicTable, SymbolicFilter>> srcs, EnumContext ec) {
@@ -182,6 +308,7 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
 
         // this means that the query can be obtained by only applying a filter to it
         List<Filter> directFilter = this.decodeLR(sfp, ec);
+
         for (Filter f : directFilter) {
             List<ValNode> vals = coreTableNode.getSchema().stream()
                     .map(s -> new NamedVal(s))
@@ -190,13 +317,12 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
             ValNodeSubstBinding vsb = new ValNodeSubstBinding();
             for (int i = 0; i < coreTableNode.getSchema().size(); i ++) {
                 vsb.addBinding(new Pair<>(
-                        new NamedVal(getBaseTable().getMetadata().get(i)),
+                        new NamedVal(this.representitiveTableNode.getSchema().get(i)),
                         new NamedVal(coreTableNode.getSchema().get(i))));
             }
             TableNode tn = new SelectNode(vals, coreTableNode, f.substNamedVal(vsb));
             result.add(tn);
         }
-
 
         Set<Set<Pair<AbstractSymbolicTable, SymbolicFilter>>> srcSet = fl.retrieveSource(sfp);
         if (srcSet == null)
@@ -226,9 +352,10 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
                     RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(jn);
                     for (Filter f : LRFilters) {
                         ValNodeSubstBinding vsb = new ValNodeSubstBinding();
-                        for (int i = 0; i < coreTableNode.getSchema().size(); i ++) {
+
+                        for (int i = 0; i < this.representitiveTableNode.getSchema().size(); i ++) {
                             vsb.addBinding(new Pair<>(
-                                    new NamedVal(getBaseTable().getMetadata().get(i)),
+                                    new NamedVal(this.representitiveTableNode.getSchema().get(i)),
                                     new NamedVal(rt.getSchema().get(i))));
                         }
                         List<ValNode> vals = rt.getSchema().stream()
@@ -247,5 +374,18 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
     @Override
     public TableNode queryForBaseTable(EnumContext ec) {
         return RenameTNWrapper.tryRename(new JoinNode(Arrays.asList(st1.queryForBaseTable(ec), st2.queryForBaseTable(ec))));
+    }
+
+    @Override
+    public int compoundPrimitiveFilterCount() {
+        return this.getPrimitiveFilterNum() * (this.getPrimitiveFilterNum() - 1) / 2 + 1;
+    }
+
+    @Override
+    public int compoundFilterCount() {
+        int n3 = this.compoundPrimitiveFilterCount();
+        int n2 = this.st2.compoundFilterCount();
+        int n1 = this.st1.compoundFilterCount();
+        return n3 * n2 * n1;
     }
 }

@@ -74,10 +74,10 @@ public class EnumCanonicalFilters {
                 for (int k = tableBoundaryIndex.get(j); k < tableBoundaryIndex.get(j+1); k ++) {
                     R.add(new NamedVal(rt.getSchema().get(k)));
                 }
+
                 filters.addAll(FilterEnumerator.enumFiltersLR(L, R, ec));
             }
         }
-
         return filters;
     }
 

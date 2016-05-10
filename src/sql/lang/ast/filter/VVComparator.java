@@ -104,7 +104,7 @@ public class VVComparator implements Filter {
     public static BiFunction<Value, Value, Boolean> ge = (v1, v2) -> ! lt.apply(v1, v2);
 
     public static List<BiFunction<Value, Value, Boolean>> getAllFunctions() {
-        return Arrays.asList(lt, eq, gt, le, ge);
+        return Arrays.asList(lt, eq, gt, le, ge, neq);
     }
 
     private String OperatorName(BiFunction<Value, Value, Boolean> op) {
@@ -113,6 +113,7 @@ public class VVComparator implements Filter {
         else if (op.equals(ge)) return ">=";
         else if (op.equals(lt)) return "<";
         else if (op.equals(gt)) return ">";
+        else if (op.equals(neq)) return "<>";
         else return "??";
     }
 

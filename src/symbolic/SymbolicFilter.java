@@ -63,7 +63,6 @@ public class SymbolicFilter {
                 rowBinding.put(valName, val);
             }
 
-            //System.out.println(filter.prettyPrint(0));
 
             Environment extEnv = new Environment().extend(rowBinding);
 

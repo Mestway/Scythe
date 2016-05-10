@@ -1,9 +1,7 @@
 package symbolic;
 
 import enumerator.primitive.EnumCanonicalFilters;
-import enumerator.primitive.FilterEnumerator;
 import enumerator.context.EnumContext;
-import enumerator.primitive.OneStepQueryInference;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.filter.EmptyFilter;
@@ -13,7 +11,6 @@ import sql.lang.ast.table.*;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
-import sun.jvm.hotspot.debugger.cdbg.Sym;
 import util.CombinationGenerator;
 import util.Pair;
 
@@ -26,22 +23,20 @@ import java.util.stream.Collectors;
  */
 public class SymbolicTable extends AbstractSymbolicTable {
 
-    // what is the base table derived from, there should be an edge:
-    // tableSrc --> baseTable
-    boolean isFromAggregation = false;
-
+    // this field records what is the query to construct the base table
+    private TableNode baseTableSrc;
     private Table baseTable;
+
     private Set<SymbolicFilter> symbolicPrimitiveFilters = new HashSet<>();
+    // after primitveFiltersEvaluated is done, the list will be ready to be used.
+    private List<SymbolicFilter> primitives = new ArrayList<>();
     private boolean primitiveFiltersEvaluated = false;
 
-    public SymbolicTable(Table baseTable) {
+    public SymbolicTable(Table baseTable, TableNode baseTableSrc) {
         this.baseTable = baseTable;
+        this.baseTableSrc = baseTableSrc;
         // the symbolic primitive filters are not evaluated here because we want to keep them lazy
         this.symbolicPrimitiveFilters = new HashSet<>();
-    }
-
-    public void setIsFromAggregation() {
-        this.isFromAggregation = true;
     }
 
     @Override
@@ -63,8 +58,65 @@ public class SymbolicTable extends AbstractSymbolicTable {
     public Pair<Set<SymbolicFilter>, FilterLinks> instantiateAllFilters() {
         // make sure that primitive filters are already evaluated
         assert primitiveFiltersEvaluated;
-        return AbstractSymbolicTable.mergeAndLinkFilters(this,
-                this.symbolicPrimitiveFilters.stream().collect(Collectors.toList()));
+
+        // this is the traditional way, invoking the mergeAndLink function to get it.
+        /*return AbstractSymbolicTable.mergeAndLinkFilters(this,
+                this.symbolicPrimitiveFilters.stream().collect(Collectors.toList()));*/
+
+
+        // This is an alternative way, invoking the lazy enumerator
+        Set<SymbolicFilter> result = new HashSet<>();
+        FilterLinks fl = new FilterLinks();
+
+        int k = 0;
+        while (true) {
+            Optional<Pair<SymbolicFilter, FilterLinks>> op = lazyFilterEval(k);
+            k ++;
+            if (! op.isPresent()) break;
+
+            result.add(op.get().getKey());
+            fl = FilterLinks.merge(Arrays.asList(fl, op.get().getValue()));
+        }
+
+        // this is used to make sure that the empty filter is added
+        // result.add(SymbolicFilter.genSymbolicFilter(this.getBaseTable(), new EmptyFilter()));
+
+        this.allfiltersEnumerated = true;
+        this.totalBitVecFiltersCount = result.size();
+        return new Pair<>(result, fl);
+    }
+
+
+    // A lazy version of instantiating all filters
+    @Override
+    public Optional<Pair<SymbolicFilter, FilterLinks>> lazyFilterEval(Integer index) {
+
+        assert primitiveFiltersEvaluated;
+
+        if (index == 0)
+            return Optional.of(new Pair<>(SymbolicFilter.genSymbolicFilter(this.getBaseTable(), new EmptyFilter()), new FilterLinks()));
+
+        index --;
+
+        FilterLinks filterLinks = new FilterLinks();
+        Pair<Integer, Integer> p = this.inverseFilterIndex(this.getPrimitiveFilterNum(), index);
+
+        if ((p.getKey() == -1) && (p.getValue() == -1))
+            return Optional.empty();
+
+        SymbolicFilter mergedFilter = SymbolicFilter.mergeFilter(
+                primitives.get(p.getKey()),
+                primitives.get(p.getValue()),
+                AbstractSymbolicTable.mergeFunction);
+
+        // add the link from two source filter to the merged filter itself
+        Set<Pair<AbstractSymbolicTable, SymbolicFilter>> srcs = new HashSet<>();
+        srcs.add(new Pair<>(this, primitives.get(p.getKey())));
+        srcs.add(new Pair<>(this, primitives.get(p.getValue())));
+
+        filterLinks.addLink(srcs, new Pair<>(this, mergedFilter));
+
+        return Optional.of(new Pair<>(mergedFilter, filterLinks));
     }
 
     public List<Filter> decodePrimitiveFilter(SymbolicFilter sf, TableNode tn, EnumContext ec) {
@@ -103,49 +155,41 @@ public class SymbolicTable extends AbstractSymbolicTable {
 
     @Override
     public List<TableNode> decodeToQuery(Pair<AbstractSymbolicTable, SymbolicFilter> sfp, EnumContext ec, FilterLinks fl) {
+
         // this decoder can only decode the first on the table
         assert (sfp.getKey().equals(this));
         Set<Set<Pair<AbstractSymbolicTable, SymbolicFilter>>> srcSet = fl.retrieveSource(sfp);
 
-        TableNode bt = new NamedTable(this.baseTable);
-        List<TableNode> tns = new ArrayList<>();
-        if (this.isFromAggregation) {
-            for (Table t : ec.getInputs()) {
-                tns.addAll(OneStepQueryInference.infer(Arrays.asList(new NamedTable(t)), this.baseTable, ec));
-            }
-        } else {
-            tns.add(bt);
-        }
+        TableNode tn = this.baseTableSrc;
 
         List<TableNode> result = new ArrayList<>();
 
-        for (TableNode tn : tns) {
+        List<ValNode> vals = tn.getSchema().stream()
+                .map(s -> new NamedVal(s))
+                .collect(Collectors.toList());
 
-            List<ValNode> vals = tn.getSchema().stream()
-                    .map(s -> new NamedVal(s))
-                    .collect(Collectors.toList());
+        if (srcSet == null) {
+            // the filter itself is already a primitive filter
+            // return this.decodePrimitiveFilter(sfp.getValue(), ec);
+            for (Filter f : this.decodePrimitiveFilter(sfp.getValue(), tn, ec)) {
+                result.add(new SelectNode(vals, tn, f));
+            }
+        } else {
+            for (Set<Pair<AbstractSymbolicTable, SymbolicFilter>> src : srcSet) {
+                List<List<Filter>> filterList = new ArrayList<>();
+                for (Pair<AbstractSymbolicTable, SymbolicFilter> p : src) {
+                    // the src link of these tables should be equal to the baseTable
+                    assert p.getKey().equals(this);
 
-            if (srcSet == null) {
-                // the filter itself is already a primitive filter
-                // return this.decodePrimitiveFilter(sfp.getValue(), ec);
-                for (Filter f : this.decodePrimitiveFilter(sfp.getValue(), tn, ec)) {
-                    result.add(new SelectNode(vals, tn, f));
+                    filterList.add(this.decodePrimitiveFilter(p.getValue(), tn, ec));
                 }
-            } else {
-                for (Set<Pair<AbstractSymbolicTable, SymbolicFilter>> src : srcSet) {
-                    List<List<Filter>> filterList = new ArrayList<>();
-                    for (Pair<AbstractSymbolicTable, SymbolicFilter> p : src) {
-                        // the src link of these tables should be equal to the baseTable
-                        assert p.getKey().equals(this);
-                        filterList.add(this.decodePrimitiveFilter(p.getValue(), tn, ec));
-                    }
-                    List<List<Filter>> rotated = CombinationGenerator.rotateList(filterList);
-                    for (List<Filter> filters : rotated) {
-                        result.add(new SelectNode(vals, tn, LogicAndFilter.connectByAnd(filters)));
-                    }
+                List<List<Filter>> rotated = CombinationGenerator.rotateList(filterList);
+                for (List<Filter> filters : rotated) {
+                    result.add(new SelectNode(vals, tn, LogicAndFilter.connectByAnd(filters)));
                 }
             }
         }
+
         return result;
     }
 
@@ -175,19 +219,27 @@ public class SymbolicTable extends AbstractSymbolicTable {
         }
         this.symbolicPrimitiveFilters = symfilters;
         this.primitiveFiltersEvaluated = true;
+        this.primitives = this.symbolicPrimitiveFilters.stream().collect(Collectors.toList());
+
+        // calculating count
+        this.primitiveSynFilterCount = filters.size();
+        this.primitiveBitVecFilterCount = this.primitives.size();
     }
 
     @Override
     public TableNode queryForBaseTable(EnumContext ec) {
-        if (this.isFromAggregation) {
-            List<TableNode> inferResult = new ArrayList<>();
-            for (Table t : ec.getInputs()) {
-                inferResult.addAll(OneStepQueryInference.infer(Arrays.asList(new NamedTable(t)), this.baseTable, ec));
-            }
-            return inferResult.get(0);
-        } else {
-            return new NamedTable(this.baseTable);
-        }
+        return this.baseTableSrc;
     }
 
+    @Override
+    public int compoundPrimitiveFilterCount() {
+        int n = this.getPrimitiveFilterNum();
+        return n * (n - 1) / 2 + 1;
+    }
+
+    @Override
+    public int compoundFilterCount() {
+        int n = this.getPrimitiveFilterNum();
+        return n * (n - 1) / 2 + 1;
+    }
 }
