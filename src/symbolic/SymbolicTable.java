@@ -1,5 +1,6 @@
 package symbolic;
 
+import com.sun.org.apache.regexp.internal.RE;
 import enumerator.primitive.EnumCanonicalFilters;
 import enumerator.context.EnumContext;
 import sql.lang.Table;
@@ -32,11 +33,47 @@ public class SymbolicTable extends AbstractSymbolicTable {
     private List<SymbolicFilter> primitives = new ArrayList<>();
     private boolean primitiveFiltersEvaluated = false;
 
+    private SymbolicTable() {}
+
     public SymbolicTable(Table baseTable, TableNode baseTableSrc) {
         this.baseTable = baseTable;
         this.baseTableSrc = baseTableSrc;
         // the symbolic primitive filters are not evaluated here because we want to keep them lazy
         this.symbolicPrimitiveFilters = new HashSet<>();
+    }
+
+    public SymbolicTable(Table baseTable, TableNode baseTableSrc, EnumContext ec) {
+        this.baseTable = baseTable;
+        this.baseTableSrc = baseTableSrc;
+        this.symbolicPrimitiveFilters = new HashSet<>();
+
+        // only simple filter will be evaluated
+        int backUpMaxFilterLength = ec.getMaxFilterLength();
+        ec.setMaxFilterLength(1);
+
+        List<Filter>  filters = new ArrayList<>();
+        if (this.baseTableSrc instanceof RenameTableNode
+                && ((RenameTableNode) this.baseTableSrc).getTableNode() instanceof AggregationNode)
+            filters = EnumCanonicalFilters.enumCanonicalFilterAggrNode((RenameTableNode) baseTableSrc, ec);
+        else
+            filters = EnumCanonicalFilters.enumCanonicalFilterNamedTable(new NamedTable(this.baseTable), ec);
+
+        ec.setMaxFilterLength(backUpMaxFilterLength);
+
+        // the empty filter is added here to make it complete.
+        filters.add(new EmptyFilter());
+
+        Set<symbolic.SymbolicFilter> symfilters = new HashSet<>();
+        for (Filter f : filters) {
+            symfilters.add(symbolic.SymbolicFilter.genSymbolicFilter(this.baseTable, f));
+        }
+        this.symbolicPrimitiveFilters = symfilters;
+        this.primitiveFiltersEvaluated = true;
+        this.primitives = this.symbolicPrimitiveFilters.stream().collect(Collectors.toList());
+
+        // calculating count
+        this.primitiveSynFilterCount = filters.size();
+        this.primitiveBitVecFilterCount = this.primitives.size();
     }
 
     @Override
@@ -60,12 +97,11 @@ public class SymbolicTable extends AbstractSymbolicTable {
         assert primitiveFiltersEvaluated;
 
         // this is the traditional way, invoking the mergeAndLink function to get it.
-        /*return AbstractSymbolicTable.mergeAndLinkFilters(this,
-                this.symbolicPrimitiveFilters.stream().collect(Collectors.toList()));*/
-
+        return AbstractSymbolicTable.mergeAndLinkFilters(this,
+                this.symbolicPrimitiveFilters.stream().collect(Collectors.toList()));
 
         // This is an alternative way, invoking the lazy enumerator
-        Set<SymbolicFilter> result = new HashSet<>();
+        /* Set<SymbolicFilter> result = new HashSet<>();
         FilterLinks fl = new FilterLinks();
 
         int k = 0;
@@ -83,9 +119,8 @@ public class SymbolicTable extends AbstractSymbolicTable {
 
         this.allfiltersEnumerated = true;
         this.totalBitVecFiltersCount = result.size();
-        return new Pair<>(result, fl);
+        return new Pair<>(result, fl); */
     }
-
 
     // A lazy version of instantiating all filters
     @Override
@@ -207,7 +242,14 @@ public class SymbolicTable extends AbstractSymbolicTable {
         // only simple filter will be evaluated
         int backUpMaxFilterLength = ec.getMaxFilterLength();
         ec.setMaxFilterLength(1);
-        List<Filter> filters = EnumCanonicalFilters.enumCanonicalFilterNamedTable(new NamedTable(this.baseTable), ec);
+        List<Filter> filters = new ArrayList<>();
+        if (this.baseTableSrc instanceof RenameTableNode
+                && ((RenameTableNode) this.baseTableSrc).getTableNode() instanceof AggregationNode) {
+            // filters = EnumCanonicalFilters.enumCanonicalFilterNamedTable(new NamedTable(this.baseTable), ec);
+            filters = EnumCanonicalFilters.enumCanonicalFilterAggrNode((RenameTableNode) this.baseTableSrc, ec);
+        }
+        else
+            filters = EnumCanonicalFilters.enumCanonicalFilterNamedTable(new NamedTable(this.baseTable), ec);
         ec.setMaxFilterLength(backUpMaxFilterLength);
 
         // the empty filter is added here to make it complete.

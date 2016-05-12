@@ -9,11 +9,9 @@ import sql.lang.ast.filter.Filter;
 import sql.lang.ast.table.TableNode;
 import sql.lang.exception.SQLEvalException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 
 /**
  * Created by clwang on 3/26/16.
@@ -24,14 +22,14 @@ public class SymbolicFilter {
 
     // refer to the table, not sure if it is necessary
     int rowNumber = -1;
-    List<Integer> filterRep = new ArrayList<>();
+    Set<Integer> filterRep = new HashSet<>();
 
-    public SymbolicFilter(List<Integer> filterRep, int rowNumber) {
+    public SymbolicFilter(Set<Integer> filterRep, int rowNumber) {
         this.filterRep = filterRep;
         this.rowNumber = rowNumber;
     }
 
-    public List<Integer> getFilterRep() {
+    public Set<Integer> getFilterRep() {
         return this.filterRep;
     }
 
@@ -46,7 +44,7 @@ public class SymbolicFilter {
 
     public static SymbolicFilter genSymbolicFilter(Table table, Filter filter) {
 
-        List<Integer> filteredRows = new ArrayList<>();
+        Set<Integer> filteredRows = new HashSet<>();
 
         for (int r = 0; r < table.getContent().size(); r ++) {
 
@@ -62,7 +60,6 @@ public class SymbolicFilter {
                 //System.out.println(valName + " : " + val.toString());
                 rowBinding.put(valName, val);
             }
-
 
             Environment extEnv = new Environment().extend(rowBinding);
 
@@ -83,8 +80,8 @@ public class SymbolicFilter {
         if (o instanceof SymbolicFilter) {
             if (this.rowNumber != ((SymbolicFilter) o).rowNumber) return false;
             if (this.filterRep.size() == ((SymbolicFilter) o).filterRep.size()) {
-                for (int i = 0; i < filterRep.size(); i ++) {
-                    if (! this.filterRep.get(i).equals(((SymbolicFilter) o).filterRep.get(i)))
+                for (Integer containedRow : filterRep) {
+                    if (! ((SymbolicFilter) o).filterRep.contains(containedRow))
                         return false;
                 }
                 return true;
@@ -97,8 +94,9 @@ public class SymbolicFilter {
     @Override
     public int hashCode() {
         Integer hash = 0, prime = 31;
-        for (int i = 0; i < this.filterRep.size(); i++) {
-            hash = hash + prime * hash + this.filterRep.get(i);
+        List<Integer> fr = filterRep.stream().sorted().collect(Collectors.toList());
+        for (int i = 0; i < fr.size(); i++) {
+            hash = hash + prime * hash + fr.get(i);
         }
         return hash;
     }
@@ -110,7 +108,7 @@ public class SymbolicFilter {
             BiFunction<Boolean, Boolean, Boolean> mergeFunction) {
         if (! (f1.rowNumber == f2.rowNumber))
             System.err.println("[SymbolicPrimitiveFilter 99] Merging two incompatible filters.");
-        List<Integer> mergedFilterRep = new ArrayList<>();
+        Set<Integer> mergedFilterRep = new HashSet<>();
         for (int i = 0; i < f1.rowNumber; i ++) {
             boolean valid1 = false, valid2 = false;
             if (f1.filterRep.contains(i)) valid1 = true;

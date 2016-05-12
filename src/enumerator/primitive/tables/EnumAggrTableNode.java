@@ -178,7 +178,9 @@ public class EnumAggrTableNode {
                     }
                     List<ValNode> R = ec2.getValNodes();
 
-                    List<Filter> filters = FilterEnumerator.enumFiltersLR(L, R, ec2);
+                    // we don't want to have EXISTS filters used in filtering aggregation
+                    boolean allowExists = false;
+                    List<Filter> filters = FilterEnumerator.enumFiltersLR(L, R, ec2, allowExists);
                     for (Filter f : filters) {
                         wrappedWithFilter.add(
                                 new SelectNode(

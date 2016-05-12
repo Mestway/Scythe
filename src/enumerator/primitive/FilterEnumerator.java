@@ -25,8 +25,8 @@ import java.util.stream.Collectors;
 public class FilterEnumerator {
 
     // filters enumerated without considering L-set and R-set
-    public static List<Filter> enumFiltersAll(EnumContext ec) {
-        List<Filter> basicFilters = enumAtomicFilter(ec);
+    public static List<Filter> enumFiltersAll(EnumContext ec, boolean allowExists) {
+        List<Filter> basicFilters = enumAtomicFilter(ec, allowExists);
         List<Filter> result = enumCompoundFilters(basicFilters, 1, ec.getMaxFilterLength());
         return result;
     }
@@ -38,8 +38,8 @@ public class FilterEnumerator {
      * @param ec The enumeration context
      * @return filters enumerated within this context
      */
-    public static List<Filter> enumFiltersLR(List<ValNode> L, List<ValNode> R, EnumContext ec) {
-        List<Filter> atomics = enumAtomicFiltersLR(L, R, ec);
+    public static List<Filter> enumFiltersLR(List<ValNode> L, List<ValNode> R, EnumContext ec, boolean allowExists) {
+        List<Filter> atomics = enumAtomicFiltersLR(L, R, ec, allowExists);
         List<Filter> result = enumCompoundFilters(atomics, 1, ec.getMaxFilterLength());
         return result;
     }
@@ -84,7 +84,7 @@ public class FilterEnumerator {
 
     // enumerate only atomic filters:
     //      filters such that length == 1
-    public static List<Filter> enumAtomicFilter(EnumContext ec) {
+    public static List<Filter> enumAtomicFilter(EnumContext ec, boolean allowExists) {
         List<Filter> atomicFilters = new ArrayList<Filter>();
 
         List<ValNode> valNodes = ValueEnumerator.enumValNodes(ec);
@@ -115,17 +115,18 @@ public class FilterEnumerator {
 
         // Enumerate Filter with Subquery,
         // only do this when the enum level is less than maximum level
-        List<List<ValNode>> llvns = CombinationGenerator.genCombination(
-                ec.getValNodes(), EnumParamTN.numberOfParams);
-        for (List<ValNode> vns : llvns) {
-            InstantiateEnv ie = new InstantiateEnv(vns, ec);
-            atomicFilters.addAll(
-                ec.getParameterizedTables().stream().map(tn -> tn.instantiate(ie))
-                    .filter(t -> t.getAllHoles().size() == 0)
-                    .map(tn -> new ExistComparator(tn))
-                    .collect(Collectors.toList()));
+        if (allowExists) {
+            List<List<ValNode>> llvns = CombinationGenerator.genCombination(
+                    ec.getValNodes(), EnumParamTN.numberOfParams);
+            for (List<ValNode> vns : llvns) {
+                InstantiateEnv ie = new InstantiateEnv(vns, ec);
+                atomicFilters.addAll(
+                        ec.getParameterizedTables().stream().map(tn -> tn.instantiate(ie))
+                                .filter(t -> t.getAllHoles().size() == 0)
+                                .map(tn -> new ExistComparator(tn))
+                                .collect(Collectors.toList()));
+            }
         }
-
         List<Filter> resultFilter = new ArrayList<>();
         resultFilter.addAll(atomicFilters);
 
@@ -138,7 +139,7 @@ public class FilterEnumerator {
     }
 
     // TODO: optimize by ruling out same filters
-    private static List<Filter> enumAtomicFiltersLR(List<ValNode> L, List<ValNode> R, EnumContext ec) {
+    private static List<Filter> enumAtomicFiltersLR(List<ValNode> L, List<ValNode> R, EnumContext ec, boolean allowExists) {
         // L contains all left values, and R contains all right values in a comparator
         List<Filter> atomics = new ArrayList<>();
         for (ValNode l : L) {
@@ -156,21 +157,22 @@ public class FilterEnumerator {
             }
         }
 
-        // Enumerate Filter with Subquery,
-        // only do this when the enum level is less than maximum level
-        List<ValNode> allValues = new ArrayList<>();
-        allValues.addAll(L);
-        allValues.addAll(R);
+        // Enumerate Filter with EXISTS clause, we don't want exists to
+        if (allowExists) {
+            List<ValNode> allValues = new ArrayList<>();
+            allValues.addAll(L);
+            allValues.addAll(R);
 
-        List<List<ValNode>> llvns = CombinationGenerator.genCombination(
-                allValues, EnumParamTN.numberOfParams);
-        for (List<ValNode> vns : llvns) {
-            InstantiateEnv ie = new InstantiateEnv(vns, ec);
-            atomics.addAll(
-                    ec.getParameterizedTables().stream().map(tn -> tn.instantiate(ie))
-                            .filter(t -> t.getAllHoles().size() == 0)
-                            .map(tn -> new ExistComparator(tn))
-                            .collect(Collectors.toList()));
+            List<List<ValNode>> llvns = CombinationGenerator.genCombination(
+                    allValues, EnumParamTN.numberOfParams);
+            for (List<ValNode> vns : llvns) {
+                InstantiateEnv ie = new InstantiateEnv(vns, ec);
+                atomics.addAll(
+                        ec.getParameterizedTables().stream().map(tn -> tn.instantiate(ie))
+                                .filter(t -> t.getAllHoles().size() == 0)
+                                .map(tn -> new ExistComparator(tn))
+                                .collect(Collectors.toList()));
+            }
         }
         return atomics;
     }

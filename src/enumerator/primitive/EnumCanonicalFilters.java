@@ -38,7 +38,8 @@ public class EnumCanonicalFilters {
         // enum filters
         EnumContext ec2 = EnumContext.extendTypeMap(ec, typeMap);
 
-        return FilterEnumerator.enumFiltersLR(vals, ec2.getValNodes(), ec2);
+        boolean allowExists = true;
+        return FilterEnumerator.enumFiltersLR(vals, ec2.getValNodes(), ec2, allowExists);
     }
 
     // Generated filters are used for filtering the renamed table rt
@@ -75,7 +76,8 @@ public class EnumCanonicalFilters {
                     R.add(new NamedVal(rt.getSchema().get(k)));
                 }
 
-                filters.addAll(FilterEnumerator.enumFiltersLR(L, R, ec));
+                boolean allowExists = false;
+                filters.addAll(FilterEnumerator.enumFiltersLR(L, R, ec, allowExists));
             }
         }
         return filters;
@@ -104,6 +106,8 @@ public class EnumCanonicalFilters {
             L.add(new NamedVal(rt.getSchema().get(i)));
         }
 
-        return FilterEnumerator.enumFiltersLR(L, ec.getValNodes(), ec);
+        // do not allow exists in aggregation result
+        boolean allowExists = false;
+        return FilterEnumerator.enumFiltersLR(L, ec.getValNodes(), ec, allowExists);
     }
 }

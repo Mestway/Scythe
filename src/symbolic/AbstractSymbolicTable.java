@@ -106,6 +106,7 @@ public abstract class AbstractSymbolicTable {
 
         FilterLinks filterLinks = new FilterLinks();
         Set<SymbolicFilter> filters = new HashSet<>();
+
         for (int i = 0; i < primitives.size(); i ++) {
             for (int j = i + 1; j < primitives.size(); j ++) {
 

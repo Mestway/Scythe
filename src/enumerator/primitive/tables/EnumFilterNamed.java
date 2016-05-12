@@ -52,7 +52,9 @@ public class EnumFilterNamed {
             // enum filters
             EnumContext ec2 = EnumContext.extendTypeMap(ec, typeMap);
 
-            List<Filter> filters = FilterEnumerator.enumFiltersLR(vals, ec2.getValNodes(), ec2);
+            // we allow using exists when enumerating filters for a named table.
+            boolean allowExists = true;
+            List<Filter> filters = FilterEnumerator.enumFiltersLR(vals, ec2.getValNodes(), ec2, allowExists);
 
             for (Filter f : filters) {
                 TableNode sn = new SelectNode(vals, tn, f);
@@ -82,7 +84,8 @@ public class EnumFilterNamed {
             // enum filters
             EnumContext ec2 = EnumContext.extendTypeMap(ec, typeMap);
 
-            List<Filter> filters = FilterEnumerator.enumFiltersLR(vals, ec2.getValNodes(), ec2);
+            boolean allowExists = true;
+            List<Filter> filters = FilterEnumerator.enumFiltersLR(vals, ec2.getValNodes(), ec2, allowExists);
 
             for (Filter f : filters) {
                 TableNode sn = new SelectNode(vals, tn, f);

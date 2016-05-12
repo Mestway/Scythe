@@ -57,6 +57,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
         List<TableNode> ans = EnumAggrTableNode.enumAggregationNodeFlag(ec, EnumAggrTableNode.SIMPLIFY, false);
 
+        // tables returned from last stage are all aggregation nodes
         // build symbolic tables out of aggregation table nodes.
         for (TableNode an : ans) {
             // these tables will be considered as normal, the filters of these aggreagtion tables
@@ -70,7 +71,6 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
         }
         System.out.println("[Aggregation]: " + ans.size() + " [SymTable]: " + symTables.size());
 
-
         List<AbstractSymbolicTable> basicAndAggr = symTables;
 
         // only contains symbolic table generated from last stage
@@ -80,8 +80,11 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
         for (AbstractSymbolicTable st : stFromLastStage) {
             boolean evalToOutput = tryEvalToOutput(st, ec, qc);
             this.containsQuery.put(st, evalToOutput);
+
             if (st.allfiltersEnumerated) {
-                System.out.println("[FiltersCount][" + "r" + st.getBaseTable().getContent().size() + ", c" + st.getBaseTable().getContent().get(0).getValues().size() + "]("
+                System.out.println("[FiltersCount]["
+                        + "r" + st.getBaseTable().getContent().size()
+                        + ", c" + st.getBaseTable().getContent().get(0).getValues().size() + "]("
                         + st.primitiveSynFilterCount + ", "
                         + st.primitiveBitVecFilterCount + ", "
                         + st.totalBitVecFiltersCount + ")");
@@ -100,8 +103,8 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
                     AbstractSymbolicTable st2 = basicAndAggr.get(l);
 
                     if (st1 instanceof SymbolicCompoundTable && containsQuery.containsKey(st1)) {
-                        if (containsQuery.get(st1))
-                            continue;
+                        //if (containsQuery.get(st1))
+                            //continue;
                     }
 
                     // only allow joining between an input table and a compound table
@@ -116,15 +119,21 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
             symTables.addAll(collector);
             stFromLastStage = collector;
 
+            System.out.println("SYMTABLE NUMBER: " + symTables.size());
+
             int kk = 0;
             for (AbstractSymbolicTable st : symTables) {
+
+                kk ++;
 
                 boolean evalToOutput = tryEvalToOutput(st, ec, qc);
 
                 this.containsQuery.put(st, evalToOutput);
 
                 if (!countPrinted.contains(st)  && st.allfiltersEnumerated) {
-                    System.out.println("[FiltersCount][" + "r" + st.getBaseTable().getContent().size() + ", c" + st.getBaseTable().getContent().get(0).getValues().size() + "]("
+                    System.out.println("[FiltersCount][" + "r"
+                            + st.getBaseTable().getContent().size() + ", c"
+                            + st.getBaseTable().getContent().get(0).getValues().size() + "]("
                             + st.primitiveSynFilterCount + ", "
                             + st.primitiveBitVecFilterCount + ", "
                             + st.totalBitVecFiltersCount + ")");
@@ -184,6 +193,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
             EnumContext ec,
             FilterLinks fl) {
 
+        // TODO: currently just print nothing, should modify this if we want to print top ones
         if (totalQueryCount < 0) {
             int idx = totalQueryCount;
 

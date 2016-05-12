@@ -57,9 +57,6 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
     // This function will instantiate all filters in a on the fly manner
     public Pair<Set<SymbolicFilter>, FilterLinks> instantiateAllFiltersLazily() {
 
-        // System.out.println(this.representitiveTableNode.prettyPrint(0));
-        // System.out.println(" - - ");
-
         Set<SymbolicFilter> result = new HashSet<>();
         FilterLinks fl = new FilterLinks();
 
@@ -100,14 +97,27 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
                         st2FiltersLinks.getValue(),
                         lrFiltersLinks.getValue()));
 
+        // the index for debugging
+        int tt = 0;
+
+        Map<SymbolicFilter, SymbolicFilter> promotedFilters1 = new HashMap<>();
+        Map<SymbolicFilter, SymbolicFilter> promotedFilters2 = new HashMap<>();
+
+        for (SymbolicFilter f1 : st1FiltersLinks.getKey()) {
+            promotedFilters1.put(f1, this.promoteLeftFilter(f1));
+        }
+        for (SymbolicFilter f2 : st2FiltersLinks.getKey()) {
+            promotedFilters2.put(f2, this.promoteLeftFilter(f2));
+        }
+
         for (SymbolicFilter f1 : st1FiltersLinks.getKey()) {
             for (SymbolicFilter f2 : st2FiltersLinks.getKey()) {
                 for (SymbolicFilter lrf : lrFiltersLinks.getKey()) {
 
                     SymbolicFilter mergedFilter = SymbolicFilter.mergeFilter(
-                            this.promoteLeftFilter(f1),
+                            promotedFilters1.get(f1),
                             SymbolicFilter.mergeFilter(
-                                    this.promoteRightFilter(f2),
+                                    promotedFilters2.get(f2),
                                     lrf,
                                     AbstractSymbolicTable.mergeFunction),
                             AbstractSymbolicTable.mergeFunction);
@@ -243,7 +253,7 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
 
     // Promote a filter in left table to a filter for current baseTable
     private SymbolicFilter promoteLeftFilter(SymbolicFilter sf1) {
-        List<Integer> promotedFilter = new ArrayList<>();
+        Set<Integer> promotedFilter = new HashSet<>();
         for (int i : sf1.getFilterRep()) {
             for (int j  = 0; j < this.st2.getBaseTable().getContent().size(); j ++) {
                 promotedFilter.add(i * this.st2.getBaseTable().getContent().size() + j);
@@ -254,7 +264,7 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
 
     // Promote a filter in right table to a filter for current baseTable
     private SymbolicFilter promoteRightFilter(SymbolicFilter sf2) {
-        List<Integer> promotedFilter = new ArrayList<>();
+        Set<Integer> promotedFilter = new HashSet<>();
         for (int i = 0; i < st1.getBaseTable().getContent().size(); i ++) {
             for (int j : sf2.getFilterRep()) {
                 promotedFilter.add(i * this.st2.getBaseTable().getContent().size() + j);

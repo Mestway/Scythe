@@ -106,10 +106,5 @@ public class MappingInferenceTest {
                 //System.out.println(entry.getKey() + " - " + entry.getValue());
             }
         }
-
-        List<Filter> atomicFilters = mi.atomicFilterEnum(new ArrayList<>(), 2);
-
-        System.out.println("[Atomic Filter Enum Done] size: " + atomicFilters.size());
-        MappingInference.filterMemoization(ot, atomicFilters);
     }
 }

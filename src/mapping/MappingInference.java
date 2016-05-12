@@ -191,46 +191,6 @@ public class MappingInference {
         return columnMap;
     }
 
-    public List<Filter> atomicFilterEnum(List<Value> constants, int paramNum) {
-        List<Filter> filters = new ArrayList<>();
-
-        List<ValNode> vns = constants.stream().map(c -> new ConstantVal(c)).collect(Collectors.toList());
-
-        // the named table comes from input
-        List<TableNode> baseTables = new ArrayList<>();
-        baseTables.add(new NamedTable(input));
-
-        List<TableNode> parameterizedTables = new ArrayList<>();
-        for (int k = 1; k <= paramNum; k ++) {
-             parameterizedTables.addAll(EnumParamTN
-                    .enumParameterizedTableNodes(
-                            baseTables,
-                            vns,
-                            k));
-        }
-
-        System.out.println("Parameterized table enum Done.");
-
-        EnumContext ec = new EnumContext(Arrays.asList(input), new Constraint(1, constants,new ArrayList<>(), paramNum));
-        ec.setParameterizedTables(parameterizedTables);
-
-        // the size of the table should be 1
-        assert (ec.getTableNodes().size() == 1);
-
-        TableNode tn = ec.getTableNodes().get(0);
-        Map<String, ValType> typeMap = new HashMap<>();
-        for (int i = 0; i < tn.getSchema().size(); i ++) {
-            typeMap.put(tn.getSchema().get(i), tn.getSchemaType().get(i));
-        }
-        // enum filters
-        EnumContext ec2 = EnumContext.extendTypeMap(ec, typeMap);
-        filters.addAll(FilterEnumerator.enumAtomicFilter(ec2));
-
-        System.out.println("Arrive checkpoint 3");
-
-        return filters;
-    }
-
     public static List<BitSet> bulkBitEncodingFilter(Table table, List<Filter> filters) {
 
         List<BitSet> encodingList = new ArrayList<>();
