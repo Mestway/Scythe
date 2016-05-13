@@ -120,6 +120,13 @@ public class SymbolicFilter {
         return new SymbolicFilter(mergedFilterRep, f1.rowNumber);
     }
 
+    // this is used to determine whether sf2 is fully contained in sf1,
+    // i.e. whether all elements in sf2 are contained in sf1
+    public boolean fullyContained(SymbolicFilter sf2) {
+        assert this.rowNumber == sf2.rowNumber;
+        return this.getFilterRep().containsAll(sf2.filterRep);
+    }
+
     @Override
     public String toString() {
         String s = "";

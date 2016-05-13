@@ -25,6 +25,11 @@ public class FilterLinks {
         }
     }
 
+    public void setLinkSource(Set<Set<Pair<AbstractSymbolicTable, SymbolicFilter>>> srcSet,
+                              Pair<AbstractSymbolicTable, SymbolicFilter> dst) {
+        this.links.put(dst, srcSet);
+    }
+
     public Set<Set<Pair<AbstractSymbolicTable, SymbolicFilter>>> retrieveSource(
             Pair<AbstractSymbolicTable, SymbolicFilter> dst) {
         return this.links.get(dst);

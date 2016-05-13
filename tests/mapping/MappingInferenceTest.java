@@ -8,15 +8,18 @@ import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.filter.Filter;
 import sql.lang.ast.table.*;
+import util.DebugHelper;
 import util.TableInstanceParser;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by clwang on 2/17/16.
  */
 public class MappingInferenceTest {
 
+    @Test
     public void testBuildMapping() throws Exception {
         String inputSrc =
             "| id   |  rev   |  content  |" + "\r\n" +
@@ -43,9 +46,9 @@ public class MappingInferenceTest {
             System.out.println("---");
             System.out.println(cim.toString());
         }
+
     }
 
-    @Test
     public void testMapping() throws Exception {
         String inputSrc =
                 "| id   |  rev   |  content  |" + "\r\n" +

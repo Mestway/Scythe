@@ -9,6 +9,7 @@ public class Main {
 
     // the interface for running the tool in
     public static void main(String[] args) {
+
         if (args.length < 3) {
             System.out.println("Not enough arguments provided.");
             System.exit(-1);

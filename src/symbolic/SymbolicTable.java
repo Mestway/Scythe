@@ -122,6 +122,28 @@ public class SymbolicTable extends AbstractSymbolicTable {
         return new Pair<>(result, fl); */
     }
 
+    @Override
+    public Pair<Set<SymbolicFilter>, FilterLinks> lastStageInstantiateAllFilters(Set<SymbolicFilter> targetFilters) {
+        // make sure that primitive filters are already evaluated
+        assert primitiveFiltersEvaluated;
+
+        // this is the traditional way, invoking the mergeAndLink function to get it.
+        Pair<Set<SymbolicFilter>, FilterLinks> allFilters = AbstractSymbolicTable.mergeAndLinkFilters(this,
+                this.symbolicPrimitiveFilters.stream().collect(Collectors.toList()));
+
+        Set<SymbolicFilter> filters = new HashSet<>();
+        FilterLinks fl = new FilterLinks();
+
+        for (SymbolicFilter sf : allFilters.getKey()) {
+            if (targetFilters.contains(sf)) {
+                filters.add(sf);
+                fl.setLinkSource(allFilters.getValue().retrieveSource(new Pair<>(this, sf)), new Pair<>(this, sf));
+            }
+        }
+
+        return new Pair<>(filters, fl);
+    }
+
     // A lazy version of instantiating all filters
     @Override
     public Optional<Pair<SymbolicFilter, FilterLinks>> lazyFilterEval(Integer index) {
@@ -242,7 +264,8 @@ public class SymbolicTable extends AbstractSymbolicTable {
         // only simple filter will be evaluated
         int backUpMaxFilterLength = ec.getMaxFilterLength();
         ec.setMaxFilterLength(1);
-        List<Filter> filters = new ArrayList<>();
+
+        List<Filter> filters;
         if (this.baseTableSrc instanceof RenameTableNode
                 && ((RenameTableNode) this.baseTableSrc).getTableNode() instanceof AggregationNode) {
             // filters = EnumCanonicalFilters.enumCanonicalFilterNamedTable(new NamedTable(this.baseTable), ec);

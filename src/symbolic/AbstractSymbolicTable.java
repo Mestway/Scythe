@@ -36,7 +36,7 @@ public abstract class AbstractSymbolicTable {
     abstract public int getPrimitiveFilterNum();
     abstract public int compoundPrimitiveFilterCount();
     abstract public int compoundFilterCount();
-
+    abstract public Pair<Set<SymbolicFilter>, FilterLinks> lastStageInstantiateAllFilters(Set<SymbolicFilter> targetFilters);
 
     // the lazy function that only calculate the primitive filters when necessary,
     abstract void evalPrimitive(EnumContext ec);
@@ -59,6 +59,20 @@ public abstract class AbstractSymbolicTable {
             } */
             f.accept(new Pair<>(this, spf), p.getValue());
         }
+    }
+
+    public void lastStageEmitInstanitateAllTables(
+            Set<SymbolicFilter> targetFilters,
+            EnumContext ec,
+            BiConsumer<Pair<AbstractSymbolicTable, SymbolicFilter>, FilterLinks> f) {
+
+        this.evalPrimitive(ec);
+        Pair<Set<SymbolicFilter>, FilterLinks> p = this.lastStageInstantiateAllFilters(targetFilters);
+        for (SymbolicFilter spf : p.getKey()) {
+            f.accept(new Pair<>(this, spf), p.getValue());
+        }
+
+        System.out.println("Real vs inferred: " + p.getKey().size() + " ~ " + targetFilters.size());
     }
 
     // the status is returned, either the filter we are looking up is a valid or not.
@@ -145,5 +159,16 @@ public abstract class AbstractSymbolicTable {
         }
 
         return new Pair<>(-1, -1);
+    }
+
+    // checks whether sf contains at least one filter in the target.
+    protected boolean fullyContainedAnElement(
+            SymbolicFilter sf, Set<SymbolicFilter> target) {
+        for (SymbolicFilter f : target) {
+            if (sf.fullyContained(f)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
