@@ -3,6 +3,7 @@ package symbolic;
 import com.sun.org.apache.regexp.internal.RE;
 import enumerator.primitive.EnumCanonicalFilters;
 import enumerator.context.EnumContext;
+import global.Statistics;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.filter.EmptyFilter;
@@ -266,13 +267,14 @@ public class SymbolicTable extends AbstractSymbolicTable {
         ec.setMaxFilterLength(1);
 
         List<Filter> filters;
+
         if (this.baseTableSrc instanceof RenameTableNode
                 && ((RenameTableNode) this.baseTableSrc).getTableNode() instanceof AggregationNode) {
             // filters = EnumCanonicalFilters.enumCanonicalFilterNamedTable(new NamedTable(this.baseTable), ec);
             filters = EnumCanonicalFilters.enumCanonicalFilterAggrNode((RenameTableNode) this.baseTableSrc, ec);
-        }
-        else
+        } else {
             filters = EnumCanonicalFilters.enumCanonicalFilterNamedTable(new NamedTable(this.baseTable), ec);
+        }
         ec.setMaxFilterLength(backUpMaxFilterLength);
 
         // the empty filter is added here to make it complete.
@@ -289,6 +291,13 @@ public class SymbolicTable extends AbstractSymbolicTable {
         // calculating count
         this.primitiveSynFilterCount = filters.size();
         this.primitiveBitVecFilterCount = this.primitives.size();
+
+        // calculating the reduction rate from bit vector to syntax filters
+        // System.out.println("#(BitVec)/#(SynFilter): " + this.primitives.size() + " / " + filters.size() + " = " + (this.primitives.size() / ((float)filters.size())));
+
+        Statistics.sum_red_syn_to_bv += ((float)filters.size()) / (this.primitives.size());
+        Statistics.sum_red_syn_to_bv ++;
+
     }
 
     @Override

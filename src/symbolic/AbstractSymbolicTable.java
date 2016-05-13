@@ -1,6 +1,7 @@
 package symbolic;
 
 import enumerator.context.EnumContext;
+import global.Statistics;
 import sql.lang.Table;
 import sql.lang.ast.filter.EmptyFilter;
 import sql.lang.ast.filter.Filter;
@@ -52,11 +53,6 @@ public abstract class AbstractSymbolicTable {
         Set<SymbolicFilter> filters = p.getKey();
 
         for (SymbolicFilter spf : filters) {
-            /* Table t = table.duplicate();
-            t.getContent().clear();
-            for (Integer i : spf.getFilterRep()) {
-                t.getContent().add(table.getContent().get(i).duplicate());
-            } */
             f.accept(new Pair<>(this, spf), p.getValue());
         }
     }
@@ -72,7 +68,9 @@ public abstract class AbstractSymbolicTable {
             f.accept(new Pair<>(this, spf), p.getValue());
         }
 
-        System.out.println("Real vs inferred: " + p.getKey().size() + " ~ " + targetFilters.size());
+        Statistics.sum_back_filter_bogus_rate += ((float)(targetFilters.size() - p.getKey().size())) / targetFilters.size();
+
+        //System.out.println("Real vs inferred: " + p.getKey().size() + " ~ " + targetFilters.size());
     }
 
     // the status is returned, either the filter we are looking up is a valid or not.
@@ -157,7 +155,6 @@ public abstract class AbstractSymbolicTable {
                     return new Pair<>(i, j);
             }
         }
-
         return new Pair<>(-1, -1);
     }
 

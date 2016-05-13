@@ -6,6 +6,7 @@ import enumerator.primitive.EnumCanonicalFilters;
 import enumerator.primitive.tables.EnumProjection;
 import enumerator.context.EnumContext;
 import enumerator.context.QueryChest;
+import global.GlobalConfig;
 import mapping.CoordInstMap;
 import mapping.Coordinate;
 import mapping.MappingInference;
@@ -30,8 +31,6 @@ import java.util.stream.Collectors;
 public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
     public int totalQueryCount = 0;
-
-    public static boolean notSpeciallyConsiderLastStage = false;
 
     // this is the map to store whether an abstract symbolic table contain queries or not.
     Map<AbstractSymbolicTable, Boolean> containsQuery = new HashMap<>();
@@ -107,7 +106,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
                     AbstractSymbolicTable st1 = stFromLastStage.get(k);
                     AbstractSymbolicTable st2 = basicAndAggr.get(l);
 
-                    // can this be a good hueristic?
+                    // can this be a good hueristic? I don't think so...
                     if (st1 instanceof SymbolicCompoundTable && containsQuery.containsKey(st1)) {
                         //if (containsQuery.get(st1))
                             //continue;
@@ -127,9 +126,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
             for (AbstractSymbolicTable st : symTables) {
 
-                boolean isLastStage = (i == depth) && (! notSpeciallyConsiderLastStage);
-
-                boolean evalToOutput = tryEvalToOutput(st, ec, qc, isLastStage);
+                boolean evalToOutput = tryEvalToOutput(st, ec, qc, i == depth);
                 this.containsQuery.put(st, evalToOutput);
 
                 if (! countPrinted.contains(st)  && st.allfiltersEnumerated) {
@@ -182,7 +179,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
         if (! mi.isValidMapping())
             return false;
 
-        if (isLastStage) {
+        if (isLastStage && GlobalConfig.SPECIAL_TREAT_LAST_STAGE) {
             List<CoordInstMap> map = mi.genMappingInstances();
             Set<SymbolicFilter> targetList = new HashSet<>();
             for (CoordInstMap cim : map) {

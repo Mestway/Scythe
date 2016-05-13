@@ -2,6 +2,7 @@ package symbolic;
 
 import enumerator.context.EnumContext;
 import enumerator.primitive.EnumCanonicalFilters;
+import global.Statistics;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.filter.EmptyFilter;
@@ -20,7 +21,6 @@ import util.RenameTNWrapper;
 
 import java.util.*;
 import java.util.function.BiFunction;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -111,11 +111,17 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
         }
 
         int filtersToBeVisited = promotedFilters1.keySet().size() * promotedFilters2.keySet().size() * lrFiltersLinks.getKey().size();
-        System.out.println("Filters to be visited: " + filtersToBeVisited);
+        // System.out.println("Filters to be visited: " + filtersToBeVisited);
+
+        Statistics.compound_case_cnt ++;
+        Statistics.sum_compound_filter_cnt += filtersToBeVisited;
+        Statistics.max_compound_filter_cnt = Statistics.max_compound_filter_cnt > filtersToBeVisited ? Statistics.max_compound_filter_cnt : filtersToBeVisited;
+
+        System.out.println("Filters to be visited " + filtersToBeVisited);
+
+        int storedCount = 0;
 
         int tt = 0;
-
-
         for (SymbolicFilter f1 : st1FiltersLinks.getKey()) {
             for (SymbolicFilter f2 : st2FiltersLinks.getKey()) {
 
@@ -126,10 +132,16 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
 
                 for (SymbolicFilter lrf : lrFiltersLinks.getKey()) {
 
+                    tt ++;
+
                     SymbolicFilter mergedFilter = SymbolicFilter
                             .mergeFilter(mergedf1f2, lrf, AbstractSymbolicTable.mergeFunction);
 
+
                     instantiatedFilters.add(mergedFilter);
+
+                    storedCount ++;
+                    System.out.println("stored cnt / visited compound cnt " + instantiatedFilters.size() + " / " + tt + "(" + filtersToBeVisited + ")" + " = " + instantiatedFilters.size() / ((float) tt));
 
                     Set<Pair<AbstractSymbolicTable, SymbolicFilter>> src = new HashSet<>();
                     src.add(new Pair<>(st1, f1));
@@ -140,13 +152,16 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
             }
         }
 
+        // System.out.println("#(BitVec)/#(CompoundFilter): " + instantiatedFilters.size() + " / " + tt + " = " + (((float)instantiatedFilters.size()) / tt));
+        Statistics.sum_red_compound_to_bv += (tt / ((float)instantiatedFilters.size()));
+
         this.allfiltersEnumerated = true;
         this.totalBitVecFiltersCount = instantiatedFilters.size();
         return new Pair<>(instantiatedFilters, filterLinks);
     }
 
-    public Pair<Set<SymbolicFilter>, FilterLinks> lastStageEmitAllFilters(
-            Set<SymbolicFilter> targetFilters, Consumer<SymbolicFilter> f) {
+    public Pair<Set<SymbolicFilter>, FilterLinks> lastStageInstantiateAllFilters(Set<SymbolicFilter> targetFilters) {
+
         // make sure that primitive filters are already evaluated
         assert primitiveFiltersEvaluated;
 
@@ -178,6 +193,13 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
         FilterLinks filterLinks = new FilterLinks();
         Set<SymbolicFilter> instantiatedFilters = new HashSet<>();
 
+        // For statistics
+        int filtersToBeVisited = promotedFilters1.keySet().size() * promotedFilters2.keySet().size() * lrFiltersLinks.getKey().size();
+        Statistics.compound_case_cnt ++;
+        Statistics.sum_compound_filter_cnt += filtersToBeVisited;
+        Statistics.max_compound_filter_cnt = Statistics.max_compound_filter_cnt > filtersToBeVisited ? Statistics.max_compound_filter_cnt : filtersToBeVisited;
+
+        int tt = 0;
         for (SymbolicFilter f1 : promotedFilters1.keySet()) {
             for (SymbolicFilter f2 : promotedFilters2.keySet()) {
                 SymbolicFilter mergedf1f2 = SymbolicFilter.mergeFilter(
@@ -187,6 +209,7 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
                 if (! fullyContainedAnElement(mergedf1f2, targetFilters))
                     continue;
                 for (SymbolicFilter lrf : validLRFilters) {
+                    tt ++;
                     SymbolicFilter mergedFilter = SymbolicFilter.mergeFilter(
                             mergedf1f2,
                             lrf,
@@ -213,6 +236,15 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
                 }
             }
         }
+
+        Statistics.sum_back_infer_filter_size += targetFilters.size();
+        Statistics.max_back_infer_filter_size = Statistics.max_back_infer_filter_size > targetFilters.size() ?
+                Statistics.max_back_infer_filter_size : targetFilters.size();
+        Statistics.sum_red_compound_to_bv += (tt / ((float)instantiatedFilters.size()));
+        Statistics.sum_last_stage_visited_filter_cnt += tt;
+        Statistics.sum_last_stage_compound_filter_cnt += filtersToBeVisited;
+        Statistics.sum_last_stage_red_visited_compound += filtersToBeVisited / ((float)tt);
+        Statistics.last_stage_compound_case_cnt ++;
 
         this.allfiltersEnumerated = true;
         this.totalBitVecFiltersCount = instantiatedFilters.size();
@@ -320,6 +352,12 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
 
         this.primitiveBitVecFilterCount = this.filtersLR.size();
         this.primitiveSynFilterCount = filters.size();
+
+        // calculating the reduction rate from bit vector to syntax filters
+        // System.out.println("#(BitVec)/#(SynFilter): " + this.filtersLR.size() + " / " + filters.size() + " = " + (((float)filtersLR.size()) / filters.size()));
+
+        Statistics.red_syn_to_bv_case_cnt ++;
+        Statistics.sum_red_syn_to_bv += ((float) filters.size()) / ((float)filtersLR.size());
     }
 
 

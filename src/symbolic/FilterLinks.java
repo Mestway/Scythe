@@ -1,5 +1,6 @@
 package symbolic;
 
+import global.GlobalConfig;
 import util.Pair;
 
 import java.util.*;
@@ -11,11 +12,15 @@ import java.util.logging.Filter;
  */
 public class FilterLinks {
 
-    public Map<Pair<AbstractSymbolicTable, SymbolicFilter>,
+    private Map<Pair<AbstractSymbolicTable, SymbolicFilter>,
             Set<Set<Pair<AbstractSymbolicTable, SymbolicFilter>>>> links = new HashMap<>();
 
     public void addLink(Set<Pair<AbstractSymbolicTable, SymbolicFilter>> srcSet,
                         Pair<AbstractSymbolicTable, SymbolicFilter> dst) {
+
+        if (GlobalConfig.TURNOFF_FILTERLINKS)
+            return;
+
         if (links.containsKey(dst)) {
             links.get(dst).add(srcSet);
         } else {
@@ -27,6 +32,9 @@ public class FilterLinks {
 
     public void setLinkSource(Set<Set<Pair<AbstractSymbolicTable, SymbolicFilter>>> srcSet,
                               Pair<AbstractSymbolicTable, SymbolicFilter> dst) {
+        if (GlobalConfig.TURNOFF_FILTERLINKS)
+            return;
+
         this.links.put(dst, srcSet);
     }
 
