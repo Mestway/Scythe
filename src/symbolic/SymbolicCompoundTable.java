@@ -137,7 +137,6 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
                     SymbolicFilter mergedFilter = SymbolicFilter
                             .mergeFilter(mergedf1f2, lrf, AbstractSymbolicTable.mergeFunction);
 
-
                     instantiatedFilters.add(mergedFilter);
 
                     storedCount ++;
