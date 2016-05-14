@@ -64,7 +64,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
         // tables returned from last stage are all aggregation nodes
         // build symbolic tables out of aggregation table nodes.
         for (TableNode an : ans) {
-            // these tables will be considered as normal, the filters of these aggreagtion tables
+            // these tables will be considered as normal, the filters of these aggregation tables
             // are considered as normal named tables: they are stored abstractly, and they will only be evaluated afterwards
             try {
                 SymbolicTable st = new SymbolicTable(an.eval(new Environment()), an);
@@ -124,6 +124,8 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
             symTables.addAll(collector);
             stFromLastStage = collector;
 
+            System.out.println("[EnumJoin] level " + i + " [SymTable]: " + symTables.size());
+
             for (AbstractSymbolicTable st : symTables) {
 
                 boolean evalToOutput = tryEvalToOutput(st, ec, qc, i == depth);
@@ -139,8 +141,6 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
                     countPrinted.add(st);
                 }
             }
-
-            System.out.println("[EnumJoin]level " + i + " [SymTable]: " + symTables.size());
         }
 
         System.out.println("ASymTable Enumeration done: " + (symTables.size()));
@@ -151,10 +151,12 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
     }
 
     public static boolean bad_usage_flag = false;
+    public static int validFilterBitVecCount = 0;
 
     private boolean tryEvalToOutput(AbstractSymbolicTable st, EnumContext ec, QueryChest qc, boolean isLastStage) {
 
         bad_usage_flag = false;
+        validFilterBitVecCount = 0;
 
         BiConsumer<Pair<AbstractSymbolicTable, SymbolicFilter>, FilterLinks> f = (p, fl) -> {
 
@@ -168,8 +170,10 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
             }
 
             ec.setTableNodes(Arrays.asList(new NamedTable(t)));
+
             boolean isRunnerUp = EnumProjection.emitEnumProjection(ec, ec.getOutputTable(), qc);
             if (isRunnerUp) {
+                validFilterBitVecCount ++;
                 printTopQueries(st, p, ec, fl);
                 bad_usage_flag = true;
             }
@@ -189,6 +193,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
             st.lastStageEmitInstanitateAllTables(targetList, ec, f);
         } else {
             st.emitInstantiateAllTables(ec, f);
+            System.out.println("[Valid BitVec Count (Runner up)]: " + validFilterBitVecCount);
         }
 
         return bad_usage_flag;

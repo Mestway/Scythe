@@ -15,6 +15,7 @@ import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
 import util.CombinationGenerator;
+import util.RenameTNWrapper;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -228,7 +228,6 @@ public class EnumAggrTableNode {
                     } else {
                         aggrNodes.add(rt);
                     }
-
                 }
             }
         }

@@ -1,6 +1,7 @@
 package symbolic;
 
 import enumerator.context.EnumContext;
+import enumerator.tableenumerator.SymbolicTableEnumerator;
 import global.Statistics;
 import sql.lang.Table;
 import sql.lang.ast.filter.EmptyFilter;
@@ -55,6 +56,10 @@ public abstract class AbstractSymbolicTable {
         for (SymbolicFilter spf : filters) {
             f.accept(new Pair<>(this, spf), p.getValue());
         }
+
+        System.out.println("[Valid Filter count / Stored Bitvec Count] "
+                + SymbolicTableEnumerator.validFilterBitVecCount + " / " + p.getKey().size()
+                + " = " + SymbolicTableEnumerator.validFilterBitVecCount / ((float) p.getKey().size()));
     }
 
     public void lastStageEmitInstanitateAllTables(

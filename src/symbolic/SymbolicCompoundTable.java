@@ -117,10 +117,6 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
         Statistics.sum_compound_filter_cnt += filtersToBeVisited;
         Statistics.max_compound_filter_cnt = Statistics.max_compound_filter_cnt > filtersToBeVisited ? Statistics.max_compound_filter_cnt : filtersToBeVisited;
 
-        System.out.println("Filters to be visited " + filtersToBeVisited);
-
-        int storedCount = 0;
-
         int tt = 0;
         for (SymbolicFilter f1 : st1FiltersLinks.getKey()) {
             for (SymbolicFilter f2 : st2FiltersLinks.getKey()) {
@@ -139,8 +135,8 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
 
                     instantiatedFilters.add(mergedFilter);
 
-                    storedCount ++;
-                    System.out.println("stored cnt / visited compound cnt " + instantiatedFilters.size() + " / " + tt + "(" + filtersToBeVisited + ")" + " = " + instantiatedFilters.size() / ((float) tt));
+                    if (tt % 100000 == 1000)
+                        System.out.println("stored cnt / visited compound cnt " + instantiatedFilters.size() + " / " + tt + "(" + filtersToBeVisited + ")" + " = " + instantiatedFilters.size() / ((float) tt));
 
                     Set<Pair<AbstractSymbolicTable, SymbolicFilter>> src = new HashSet<>();
                     src.add(new Pair<>(st1, f1));
@@ -347,7 +343,6 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
         }
 
         this.primitiveFiltersEvaluated = true;
-        this.primitives = this.filtersLR.stream().collect(Collectors.toList());
 
         this.primitiveBitVecFilterCount = this.filtersLR.size();
         this.primitiveSynFilterCount = filters.size();
