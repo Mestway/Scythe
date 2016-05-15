@@ -1,25 +1,17 @@
 package enumerator.tableenumerator;
 
-import enumerator.primitive.OneStepQueryInference;
 import enumerator.primitive.tables.EnumAggrTableNode;
-import enumerator.primitive.EnumCanonicalFilters;
 import enumerator.primitive.tables.EnumProjection;
 import enumerator.context.EnumContext;
 import enumerator.context.QueryChest;
 import global.GlobalConfig;
-import mapping.CoordInstMap;
-import mapping.Coordinate;
 import mapping.MappingInference;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
-import sql.lang.ast.filter.Filter;
 import sql.lang.ast.table.*;
 import sql.lang.exception.SQLEvalException;
-import sun.jvm.hotspot.debugger.cdbg.Sym;
 import symbolic.*;
-import util.DebugHelper;
 import util.Pair;
-import util.RenameTNWrapper;
 
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -180,7 +172,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
             return false;
 
         if (isLastStage && GlobalConfig.SPECIAL_TREAT_LAST_STAGE) {
-            st.emitVisitAllTables(mi, ec, f);
+            st.emitFinalVisitAllTables(mi, ec, f);
         } else {
             st.emitInstantiateAllTables(ec, f);
             System.out.println("[Valid BitVec Count (Runner up)]: " + validFilterBitVecCount);

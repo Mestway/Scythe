@@ -3,6 +3,8 @@ package symbolic;
 import enumerator.context.EnumContext;
 import enumerator.primitive.EnumCanonicalFilters;
 import global.Statistics;
+import mapping.CoordInstMap;
+import mapping.MappingInference;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.filter.EmptyFilter;
@@ -20,6 +22,7 @@ import util.Pair;
 import util.RenameTNWrapper;
 
 import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -74,6 +77,31 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
         result.add(SymbolicFilter.genSymbolicFilter(this.getBaseTable(), new EmptyFilter()));
 
         return new Pair<>(result, fl);
+    }
+
+    public void emitFinalVisitAllTables(
+            MappingInference mi,
+            EnumContext ec,
+            BiConsumer<Pair<AbstractSymbolicTable, SymbolicFilter>, FilterLinks> f) {
+
+        List<CoordInstMap> map = mi.genMappingInstances();
+
+        Set<SymbolicFilter> targetFilters = new HashSet<>();
+        for (CoordInstMap cim : map) {
+            SymbolicFilter sf = new SymbolicFilter(cim.rowsInvolved(), this.getBaseTable().getContent().size());
+            targetFilters.add(sf);
+        }
+
+        this.evalPrimitive(ec);
+        Pair<Set<SymbolicFilter>, FilterLinks> p = this.lastStageInstantiateAllFilters(targetFilters);
+        for (SymbolicFilter spf : p.getKey()) {
+            f.accept(new Pair<>(this, spf), p.getValue());
+        }
+
+        Statistics.sum_back_filter_bogus_rate += ((float)(targetFilters.size() - p.getKey().size())) / targetFilters.size();
+        Statistics.back_filter_bogus_cases ++;
+
+        //System.out.println("Real vs inferred: " + p.getKey().size() + " ~ " + targetFilters.size());
     }
 
     @Override

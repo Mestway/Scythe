@@ -150,6 +150,22 @@ public class MappingInference {
         return columnMapping;
     }
 
+    // We can have some interesting property here:
+    //      The row inference result can be obtained even if we only apply the inference on the first column
+    // the result is a list of set:
+    //      result.get(r) represents the image set of r in the mapping
+    public List<Set<Integer>> genRowMappingInstances() {
+        List<Set<Integer>> rowMapping = new ArrayList<>();
+        for (int r = 0; r < maxR; r ++) {
+            Set<Integer> destination = new HashSet<>();
+            for (int i = 0; i < map.getImage(r, 0).size(); i ++) {
+                destination.add(map.getImage(r, 0).get(i).r());
+            }
+            rowMapping.add(destination);
+        }
+        return rowMapping;
+    }
+
     // a mapping instance will map each coordinate in output table to a coordinate in input table
     // the mapping instance is generated through the refined map
     // in the result table, each list in quick coord table should have length 1.

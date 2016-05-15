@@ -56,6 +56,7 @@ public class MappingInferenceTest {
         }
 
         MappingInference.printColumnMapping(mi.genColumnMappingInstances());
+        MappingInference.printColumnMapping(mi.genRowMappingInstances());
 
     }
 

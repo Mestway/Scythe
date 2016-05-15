@@ -64,31 +64,10 @@ public abstract class AbstractSymbolicTable {
                 + " = " + SymbolicTableEnumerator.validFilterBitVecCount / ((float) p.getKey().size()));
     }
 
-    public void emitVisitAllTables(
+    public abstract void emitFinalVisitAllTables(
             MappingInference mi,
             EnumContext ec,
-            BiConsumer<Pair<AbstractSymbolicTable, SymbolicFilter>, FilterLinks> f) {
-
-        List<CoordInstMap> map = mi.genMappingInstances();
-
-        Set<SymbolicFilter> targetFilters = new HashSet<>();
-        for (CoordInstMap cim : map) {
-            SymbolicFilter sf = new SymbolicFilter(cim.rowsInvolved(), this.getBaseTable().getContent().size());
-            targetFilters.add(sf);
-        }
-
-        this.evalPrimitive(ec);
-        Pair<Set<SymbolicFilter>, FilterLinks> p = this.lastStageInstantiateAllFilters(targetFilters);
-        for (SymbolicFilter spf : p.getKey()) {
-            f.accept(new Pair<>(this, spf), p.getValue());
-        }
-
-        Statistics.sum_back_filter_bogus_rate += ((float)(targetFilters.size() - p.getKey().size())) / targetFilters.size();
-        Statistics.back_filter_bogus_cases ++;
-
-
-        //System.out.println("Real vs inferred: " + p.getKey().size() + " ~ " + targetFilters.size());
-    }
+            BiConsumer<Pair<AbstractSymbolicTable, SymbolicFilter>, FilterLinks> f);
 
     // the status is returned, either the filter we are looking up is a valid or not.
     public boolean lazyConsumeTable(
