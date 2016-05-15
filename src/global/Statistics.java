@@ -33,6 +33,7 @@ public class Statistics {
     public static int max_back_infer_filter_size = 0;
     // To calculate on average, how many of the backward inferred queries are bogus.
     public static double sum_back_filter_bogus_rate = 0;
+    public static double back_filter_bogus_cases = 0;
     // To calculate how many filters are actually visited during this process.
     public static double sum_last_stage_visited_filter_cnt = 0;
     public static double sum_last_stage_compound_filter_cnt = 0;
@@ -60,6 +61,6 @@ public class Statistics {
                 + max_back_infer_filter_size);
         System.out.println("[avg reduction visited compound filters rate (as using back inference)] "
                 + sum_last_stage_red_visited_compound / last_stage_compound_case_cnt );
-        System.out.println("[avg back inferred filter bogus rate] " + sum_back_filter_bogus_rate / last_stage_compound_case_cnt);
+        System.out.println("[avg back inferred filter bogus rate] " + sum_back_filter_bogus_rate / back_filter_bogus_cases);
     }
 }

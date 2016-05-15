@@ -22,12 +22,20 @@ public class MappingInferenceTest {
     @Test
     public void testBuildMapping() throws Exception {
         String inputSrc =
-            "| id   |  rev   |  content  |" + "\r\n" +
-            "|----------------------------------|" + "\r\n" +
-            "| 1    |  1     |  A        |" + "\r\n" +
-            "| 2    |  1     |  B        |" + "\r\n" +
-            "| 1    |  2     |  C        |" + "\r\n" +
-            "| 1    |  3     |  D        |";
+            "| id   |  rev   |  content  | n | m |" + "\r\n" +
+            "|-----------------------------------|" + "\r\n" +
+            "| 1    |  1     |  A        | 1 | a |" + "\r\n" +
+            "| 2    |  1     |  B        | 1 | a |" + "\r\n" +
+            "| 1    |  2     |  C        | 1 | a |" + "\r\n" +
+            "| 1    |  3     |  D        | 1 | a |" + "\r\n" +
+            "| 1    |  1     |  A        | 2 | b |" + "\r\n" +
+            "| 2    |  1     |  B        | 2 | b |" + "\r\n" +
+            "| 1    |  2     |  C        | 2 | b |" + "\r\n" +
+            "| 1    |  3     |  D        | 2 | b |" + "\r\n" +
+            "| 1    |  1     |  A        | 1 | c |" + "\r\n" +
+            "| 2    |  1     |  B        | 1 | c |" + "\r\n" +
+            "| 1    |  2     |  C        | 1 | c |" + "\r\n" +
+            "| 1    |  3     |  D        | 1 | c |";
 
         String outputSrc =
             "| col1 | col2 | col3 |" + "\r\n" +
@@ -41,11 +49,13 @@ public class MappingInferenceTest {
         MappingInference mi = MappingInference.buildMapping(input, output);
         System.out.println("-----");
         System.out.println(mi.toString());
-        List<CoordInstMap> instances = mi.genMappingInstances();
+        List<CoordInstMap> instances = mi.genMappingInstancesWColumnBarrier(3);
         for (CoordInstMap cim : instances) {
             System.out.println("---");
             System.out.println(cim.toString());
         }
+
+        MappingInference.printColumnMapping(mi.genColumnMappingInstances());
 
     }
 

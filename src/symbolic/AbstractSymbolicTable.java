@@ -74,6 +74,8 @@ public abstract class AbstractSymbolicTable {
         }
 
         Statistics.sum_back_filter_bogus_rate += ((float)(targetFilters.size() - p.getKey().size())) / targetFilters.size();
+        Statistics.back_filter_bogus_cases ++;
+
 
         //System.out.println("Real vs inferred: " + p.getKey().size() + " ~ " + targetFilters.size());
     }

@@ -15,6 +15,7 @@ import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.ConstantVal;
 import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
+import util.CombinationGenerator;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -77,6 +78,7 @@ public class MappingInference {
     // think carefully, we can either refine them into an approximate
     // set or instantiate them fully into concrete mappings,
     // how does this affect the result?
+    // Refine mapping is an approximate process, as it is simply trying to remove invalid mappings
     // TODO: refind mapping is now integrated into building process
     private void refineMapping() {
         boolean stable = false;
@@ -132,6 +134,22 @@ public class MappingInference {
         return true;
     }
 
+    // We can have some interesting property here:
+    //      The column inference result can be obtained even if we only apply the inference on the first row
+    // the result is a list of set:
+    //      result.get(c) represents the image sef ot c in the mapping
+    public List<Set<Integer>> genColumnMappingInstances() {
+        List<Set<Integer>> columnMapping = new ArrayList<>();
+        for (int c = 0; c < maxC; c ++) {
+            Set<Integer> destination = new HashSet<>();
+            for (int i = 0; i < map.getImage(0, c).size(); i ++) {
+                destination.add(map.getImage(0, c).get(i).c());
+            }
+            columnMapping.add(destination);
+        }
+        return columnMapping;
+    }
+
     // a mapping instance will map each coordinate in output table to a coordinate in input table
     // the mapping instance is generated through the refined map
     // in the result table, each list in quick coord table should have length 1.
@@ -169,6 +187,74 @@ public class MappingInference {
                         nextI, nextJ,
                         maxI, maxJ,
                         nextMap, resultCollector, candidatePool);
+            }
+        }
+    }
+
+    // a variant version of genMapping Instances,
+    // which requires some of the mapping images from left of the barrier while some other from right of the barrier.
+    public List<CoordInstMap> genMappingInstancesWColumnBarrier(int columnBarrier) {
+
+        List<Set<Integer>> columnMapping = this.genColumnMappingInstances();
+        List<List<Integer>> listRepColMapping = new ArrayList<>();
+        for (int i = 0; i < columnMapping.size(); i ++) {
+            listRepColMapping.add(columnMapping.get(i).stream().collect(Collectors.toList()));
+        }
+
+        List<List<Integer>> targetsToSearch = CombinationGenerator.rotateList(listRepColMapping);
+
+        List<CoordInstMap> resultCollector = new ArrayList<>();
+        for (List<Integer> target : targetsToSearch) {
+            boolean left = false;
+            boolean right = false;
+            for (Integer i : target) {
+                if (i < columnBarrier) left = true;
+                if (i >= columnBarrier) right = true;
+            }
+
+            if (! (left && right))
+                continue;
+
+            CoordInstMap instance = new CoordInstMap();
+            instance.initialize(maxR, maxC);
+            dfsMappingSearchWithFixedColumns(0, 0, maxR, maxC, instance, resultCollector, this.map, target);
+        }
+
+        return resultCollector;
+    }
+
+    // in this version
+    private void dfsMappingSearchWithFixedColumns(
+            int i, int j,
+            int maxI, int maxJ,
+            CoordInstMap currentMap,
+            List<CoordInstMap> resultCollector,
+            QuickCoordMap candidatePool,
+            List<Integer> columnRestriction) {
+
+        // when dfs reaches its goal
+        if (i >= maxI || j >= maxJ) {
+            resultCollector.add(currentMap);
+            return;
+        }
+
+        for (Coordinate coord : candidatePool.getImage(i,j)) {
+            if (coord.c() != columnRestriction.get(j))
+                continue;
+
+            if (currentMap.validCheck(new Coordinate(i,j), coord)) {
+                CoordInstMap nextMap = currentMap.deepCopy();
+                nextMap.addMap(new Coordinate(i,j), coord);
+                int nextI = i, nextJ = j + 1;
+                if (nextJ >= maxJ) {
+                    nextJ = nextJ % maxJ;
+                    nextI ++;
+                }
+                dfsMappingSearchWithFixedColumns(
+                        nextI, nextJ,
+                        maxI, maxJ,
+                        nextMap, resultCollector,
+                        candidatePool, columnRestriction);
             }
         }
     }
@@ -328,4 +414,28 @@ public class MappingInference {
                     return false;
         return true;
     }
+
+    public static void printColumnMapping(List<Set<Integer>> columnMapping) {
+        String s = "";
+        for (int k = 0; k < columnMapping.size(); k ++) {
+            Set<Integer> imgSet = columnMapping.get(k);
+            String eString = "";
+            eString = k + " -> ";
+            String img = "[";
+            boolean isFirst = true;
+            for (int i : imgSet) {
+                if (isFirst) {
+                    img += i;
+                    isFirst = false;
+                } else {
+                    img += ", " + i;
+                }
+            }
+            img += "]";
+            eString += img;
+            s += eString + "\n";
+        }
+        System.out.println(s);
+    }
+
 }

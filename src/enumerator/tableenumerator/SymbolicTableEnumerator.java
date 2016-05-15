@@ -32,12 +32,11 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
     public int totalQueryCount = 0;
 
-    // this is the map to store whether an abstract symbolic table contain queries or not.
-    Map<AbstractSymbolicTable, Boolean> containsQuery = new HashMap<>();
+    // this is a helper to print SQL queries
     Set<AbstractSymbolicTable> countPrinted = new HashSet<>();
 
     @Override
-    public QueryChest enumTable(EnumContext ec, int depth) {
+    public QueryChest enumTable(EnumContext ec, int maxDepth) {
 
         System.out.println("[FiltersCount format](primitiveSynFilterCount, primitiveBitVecFilterCount, totalBitVecFiltersCount)");
 
@@ -82,8 +81,8 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
         List<AbstractSymbolicTable> stFromLastStage = symTables;
 
         for (AbstractSymbolicTable st : stFromLastStage) {
-            boolean evalToOutput = tryEvalToOutput(st, ec, qc, false);
-            this.containsQuery.put(st, evalToOutput);
+
+            tryEvalToOutput(st, ec, qc, false);
 
             if (st.allfiltersEnumerated) {
                 System.out.println("[FiltersCount]["
@@ -96,7 +95,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
             }
         }
 
-        for (int i = 1; i <= depth; i ++) {
+        for (int i = 1; i <= maxDepth; i ++) {
 
             // used to collect queries generated in the most recent stage
             List<AbstractSymbolicTable> collector = new ArrayList<>();
@@ -105,12 +104,6 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
                     AbstractSymbolicTable st1 = stFromLastStage.get(k);
                     AbstractSymbolicTable st2 = basicAndAggr.get(l);
-
-                    // can this be a good hueristic? I don't think so...
-                    if (st1 instanceof SymbolicCompoundTable && containsQuery.containsKey(st1)) {
-                        //if (containsQuery.get(st1))
-                            //continue;
-                    }
 
                     // only allow joining between an input table and a compound table
                     if (! ec.getInputs().contains(st2.getBaseTable()))
@@ -128,8 +121,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
             for (AbstractSymbolicTable st : symTables) {
 
-                boolean evalToOutput = tryEvalToOutput(st, ec, qc, i == depth);
-                this.containsQuery.put(st, evalToOutput);
+                tryEvalToOutput(st, ec, qc, i == maxDepth);
 
                 if (! countPrinted.contains(st)  && st.allfiltersEnumerated) {
                     System.out.println("[FiltersCount][" + "r"
@@ -141,6 +133,10 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
                     countPrinted.add(st);
                 }
             }
+
+            if (qc.runnerUpTable > 0)
+                break;
+
         }
 
         System.out.println("ASymTable Enumeration done: " + (symTables.size()));
@@ -185,6 +181,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
         if (isLastStage && GlobalConfig.SPECIAL_TREAT_LAST_STAGE) {
             List<CoordInstMap> map = mi.genMappingInstances();
+
             Set<SymbolicFilter> targetList = new HashSet<>();
             for (CoordInstMap cim : map) {
                 SymbolicFilter sf = new SymbolicFilter(cim.rowsInvolved(), st.getBaseTable().getContent().size());
