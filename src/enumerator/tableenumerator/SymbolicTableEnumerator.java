@@ -121,7 +121,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
             for (AbstractSymbolicTable st : symTables) {
 
-                tryEvalToOutput(st, ec, qc, i == maxDepth);
+                tryEvalToOutput(st, ec, qc, true);
 
                 if (! countPrinted.contains(st)  && st.allfiltersEnumerated) {
                     System.out.println("[FiltersCount][" + "r"
@@ -180,14 +180,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
             return false;
 
         if (isLastStage && GlobalConfig.SPECIAL_TREAT_LAST_STAGE) {
-            List<CoordInstMap> map = mi.genMappingInstances();
-
-            Set<SymbolicFilter> targetList = new HashSet<>();
-            for (CoordInstMap cim : map) {
-                SymbolicFilter sf = new SymbolicFilter(cim.rowsInvolved(), st.getBaseTable().getContent().size());
-                targetList.add(sf);
-            }
-            st.lastStageEmitInstanitateAllTables(targetList, ec, f);
+            st.emitVisitAllTables(mi, ec, f);
         } else {
             st.emitInstantiateAllTables(ec, f);
             System.out.println("[Valid BitVec Count (Runner up)]: " + validFilterBitVecCount);

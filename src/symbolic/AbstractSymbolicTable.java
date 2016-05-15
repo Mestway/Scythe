@@ -3,6 +3,8 @@ package symbolic;
 import enumerator.context.EnumContext;
 import enumerator.tableenumerator.SymbolicTableEnumerator;
 import global.Statistics;
+import mapping.CoordInstMap;
+import mapping.MappingInference;
 import sql.lang.Table;
 import sql.lang.ast.filter.EmptyFilter;
 import sql.lang.ast.filter.Filter;
@@ -62,10 +64,18 @@ public abstract class AbstractSymbolicTable {
                 + " = " + SymbolicTableEnumerator.validFilterBitVecCount / ((float) p.getKey().size()));
     }
 
-    public void lastStageEmitInstanitateAllTables(
-            Set<SymbolicFilter> targetFilters,
+    public void emitVisitAllTables(
+            MappingInference mi,
             EnumContext ec,
             BiConsumer<Pair<AbstractSymbolicTable, SymbolicFilter>, FilterLinks> f) {
+
+        List<CoordInstMap> map = mi.genMappingInstances();
+
+        Set<SymbolicFilter> targetFilters = new HashSet<>();
+        for (CoordInstMap cim : map) {
+            SymbolicFilter sf = new SymbolicFilter(cim.rowsInvolved(), this.getBaseTable().getContent().size());
+            targetFilters.add(sf);
+        }
 
         this.evalPrimitive(ec);
         Pair<Set<SymbolicFilter>, FilterLinks> p = this.lastStageInstantiateAllFilters(targetFilters);

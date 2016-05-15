@@ -7,5 +7,5 @@ public final class GlobalConfig {
     // whether we are going to use filterlinks to store all filters in the space or not.
     public static final boolean TURNOFF_FILTERLINKS = true;
 
-    public static final boolean SPECIAL_TREAT_LAST_STAGE = false;
+    public static final boolean SPECIAL_TREAT_LAST_STAGE = true;
 }
