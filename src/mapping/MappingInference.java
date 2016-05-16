@@ -79,6 +79,7 @@ public class MappingInference {
     // set or instantiate them fully into concrete mappings,
     // how does this affect the result?
     // Refine mapping is an approximate process, as it is simply trying to remove invalid mappings
+    // TODO: calculate the complexity of this algorithm
     // TODO: refind mapping is now integrated into building process
     private void refineMapping() {
         boolean stable = false;
@@ -207,9 +208,15 @@ public class MappingInference {
         }
     }
 
-    // a variant version of genMapping Instances,
-    // which requires some of the mapping images from left of the barrier while some other from right of the barrier.
-    public List<CoordInstMap> genMappingInstancesWColumnBarrier(int columnBarrier) {
+    /**
+     * A variant of genMapping Instances,
+     * requiring mapping images appear in each range.
+     * @param columnRightBoundaries
+     *          the set of boundries to test,
+     *          e.g. [1 3 5] is asking to find mappings such that [0-1) [1-3) [3-5) have columns inside
+     * @return
+     */
+    public List<CoordInstMap> genMappingInstancesWColumnBarrier(List<Integer> columnRightBoundaries) {
 
         List<Set<Integer>> columnMapping = this.genColumnMappingInstances();
         List<List<Integer>> listRepColMapping = new ArrayList<>();
@@ -221,20 +228,30 @@ public class MappingInference {
 
         List<CoordInstMap> resultCollector = new ArrayList<>();
         for (List<Integer> target : targetsToSearch) {
-            boolean left = false;
-            boolean right = false;
-            for (Integer i : target) {
-                if (i < columnBarrier) left = true;
-                if (i >= columnBarrier) right = true;
+
+            List<Boolean> inRange = columnRightBoundaries.stream().map(x -> false).collect(Collectors.toList());
+
+            for (Integer t : target) {
+                for (int k = 0; k < columnRightBoundaries.size(); k ++) {
+                    if (t < columnRightBoundaries.get(k)) {
+                        inRange.set(k, true);
+                        break;
+                    }
+                }
             }
 
-            if (! (left && right))
+            boolean flag = true;
+            for (int k = 0; k < inRange.size(); k ++) {
+                flag = flag && inRange.get(k);
+            }
+            if (! flag)
                 continue;
-
             CoordInstMap instance = new CoordInstMap();
             instance.initialize(maxR, maxC);
             dfsMappingSearchWithFixedColumns(0, 0, maxR, maxC, instance, resultCollector, this.map, target);
         }
+
+
 
         return resultCollector;
     }

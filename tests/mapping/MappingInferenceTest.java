@@ -8,6 +8,7 @@ import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.filter.Filter;
 import sql.lang.ast.table.*;
+import symbolic.SymbolicTable;
 import util.DebugHelper;
 import util.TableInstanceParser;
 
@@ -49,7 +50,7 @@ public class MappingInferenceTest {
         MappingInference mi = MappingInference.buildMapping(input, output);
         System.out.println("-----");
         System.out.println(mi.toString());
-        List<CoordInstMap> instances = mi.genMappingInstancesWColumnBarrier(3);
+        List<CoordInstMap> instances = mi.genMappingInstancesWColumnBarrier(Arrays.asList(3, 3 + 2));
         for (CoordInstMap cim : instances) {
             System.out.println("---");
             System.out.println(cim.toString());

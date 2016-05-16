@@ -74,7 +74,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
         for (AbstractSymbolicTable st : stFromLastStage) {
 
-            tryEvalToOutput(st, ec, qc, false);
+            tryEvalToOutput(st, ec, qc, true);
 
             if (st.allfiltersEnumerated) {
                 System.out.println("[FiltersCount]["
@@ -98,8 +98,11 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
                     AbstractSymbolicTable st2 = basicAndAggr.get(l);
 
                     // only allow joining between an input table and a compound table
-                    if (! ec.getInputs().contains(st2.getBaseTable()))
+                    if (!GlobalConfig.ALLOW_JOIN_NONE_INPUT_TABLE && ! ec.getInputs().contains(st2.getBaseTable()))
                        continue;
+
+                    if (st2 instanceof SymbolicCompoundTable)
+                        continue;
 
                     SymbolicCompoundTable sct = new SymbolicCompoundTable(st1, st2);
                     collector.add(sct);
@@ -112,6 +115,8 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
             System.out.println("[EnumJoin] level " + i + " [SymTable]: " + symTables.size());
 
             for (AbstractSymbolicTable st : symTables) {
+
+                System.out.println(st.getBaseTable().getMetadata().stream().reduce("", (x,y)-> x+ ", " + y));
 
                 tryEvalToOutput(st, ec, qc, true);
 

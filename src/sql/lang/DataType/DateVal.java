@@ -35,6 +35,6 @@ public class DateVal implements Value {
         return ValType.DateVal;
     }
 
-    public String toString() { return this.getVal().toString(); }
+    public String toString() { return this.getVal().getMonth() + "/" + this.getVal().getDate() + "/" + this.getVal().getYear(); }
 
 }

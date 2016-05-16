@@ -40,7 +40,9 @@ public abstract class AbstractSymbolicTable {
     abstract public int getPrimitiveFilterNum();
     abstract public int compoundPrimitiveFilterCount();
     abstract public int compoundFilterCount();
-    abstract public Pair<Set<SymbolicFilter>, FilterLinks> lastStageInstantiateAllFilters(Set<SymbolicFilter> targetFilters);
+    abstract public List<Integer> getTableRightIndexBoundries();
+
+    // abstract public Pair<Set<SymbolicFilter>, FilterLinks> lastStageInstantiateAllFilters(Set<SymbolicFilter> targetFilters);
 
     // the lazy function that only calculate the primitive filters when necessary,
     abstract void evalPrimitive(EnumContext ec);

@@ -99,6 +99,7 @@ public class SymbolicTable extends AbstractSymbolicTable {
 
         List<CoordInstMap> map = mi.genMappingInstances();
 
+        // evaluate the set of all target filters that we learnt from output
         Set<SymbolicFilter> targetFilters = new HashSet<>();
         for (CoordInstMap cim : map) {
             SymbolicFilter sf = new SymbolicFilter(cim.rowsInvolved(), this.getBaseTable().getContent().size());
@@ -106,15 +107,26 @@ public class SymbolicTable extends AbstractSymbolicTable {
         }
 
         this.evalPrimitive(ec);
-        Pair<Set<SymbolicFilter>, FilterLinks> p = this.lastStageInstantiateAllFilters(targetFilters);
-        for (SymbolicFilter spf : p.getKey()) {
-            f.accept(new Pair<>(this, spf), p.getValue());
+        // make sure that primitive filters are already evaluated
+        assert primitiveFiltersEvaluated;
+
+        // this is the traditional way, invoking the mergeAndLink function to get it.
+        Pair<Set<SymbolicFilter>, FilterLinks> allFilters = AbstractSymbolicTable.mergeAndLinkFilters(this,
+                this.symbolicPrimitiveFilters.stream().collect(Collectors.toList()));
+
+        int noneBogusFilterCount = 0;
+
+        for (SymbolicFilter sf : allFilters.getKey()) {
+            if (targetFilters.contains(sf)) {
+                noneBogusFilterCount ++;
+                FilterLinks fl = new FilterLinks();
+                fl.setLinkSource(allFilters.getValue().retrieveSource(new Pair<>(this, sf)), new Pair<>(this, sf));
+                f.accept(new Pair<>(this, sf), fl);
+            }
         }
 
-        Statistics.sum_back_filter_bogus_rate += ((float)(targetFilters.size() - p.getKey().size())) / targetFilters.size();
+        Statistics.sum_back_filter_bogus_rate += ((float)(targetFilters.size() - noneBogusFilterCount)) / targetFilters.size();
         Statistics.back_filter_bogus_cases ++;
-
-        //System.out.println("Real vs inferred: " + p.getKey().size() + " ~ " + targetFilters.size());
     }
 
     // give the maximum filter length,
@@ -149,28 +161,6 @@ public class SymbolicTable extends AbstractSymbolicTable {
         this.allfiltersEnumerated = true;
         this.totalBitVecFiltersCount = result.size();
         return new Pair<>(result, fl); */
-    }
-
-    @Override
-    public Pair<Set<SymbolicFilter>, FilterLinks> lastStageInstantiateAllFilters(Set<SymbolicFilter> targetFilters) {
-        // make sure that primitive filters are already evaluated
-        assert primitiveFiltersEvaluated;
-
-        // this is the traditional way, invoking the mergeAndLink function to get it.
-        Pair<Set<SymbolicFilter>, FilterLinks> allFilters = AbstractSymbolicTable.mergeAndLinkFilters(this,
-                this.symbolicPrimitiveFilters.stream().collect(Collectors.toList()));
-
-        Set<SymbolicFilter> filters = new HashSet<>();
-        FilterLinks fl = new FilterLinks();
-
-        for (SymbolicFilter sf : allFilters.getKey()) {
-            if (targetFilters.contains(sf)) {
-                filters.add(sf);
-                fl.setLinkSource(allFilters.getValue().retrieveSource(new Pair<>(this, sf)), new Pair<>(this, sf));
-            }
-        }
-
-        return new Pair<>(filters, fl);
     }
 
     // A lazy version of instantiating all filters
@@ -343,5 +333,12 @@ public class SymbolicTable extends AbstractSymbolicTable {
     public int compoundFilterCount() {
         int n = this.getPrimitiveFilterNum();
         return n * (n - 1) / 2 + 1;
+    }
+
+    @Override
+    public List<Integer> getTableRightIndexBoundries() {
+        List<Integer> result = new ArrayList<>();
+        result.add(this.getBaseTable().getMetadata().size());
+        return result;
     }
 }

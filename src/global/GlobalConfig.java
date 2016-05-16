@@ -8,4 +8,5 @@ public final class GlobalConfig {
     public static final boolean TURNOFF_FILTERLINKS = true;
 
     public static final boolean SPECIAL_TREAT_LAST_STAGE = true;
+    public static final boolean ALLOW_JOIN_NONE_INPUT_TABLE = true;
 }
