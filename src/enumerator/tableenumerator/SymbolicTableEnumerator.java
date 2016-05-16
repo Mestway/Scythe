@@ -34,6 +34,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
         // construct symbolic table for each named table.
         QueryChest qc = QueryChest.initWithInputTables(ec.getInputs());
+
         List<AbstractSymbolicTable> symTables = qc.getMemoizedTables().keySet()
                 .stream().map(t -> new SymbolicTable(t, new NamedTable(t)))
                 .collect(Collectors.toList());
@@ -66,7 +67,8 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
         }
         System.out.println("[Aggregation]: " + ans.size() + " [SymTable]: " + symTables.size());
 
-        List<AbstractSymbolicTable> basicAndAggr = symTables;
+        List<AbstractSymbolicTable> basicAndAggr = new ArrayList<>();
+        basicAndAggr.addAll(symTables);
 
         // only contains symbolic table generated from last stage
         // (here includes those from aggr and input)
@@ -87,6 +89,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
             }
         }
 
+        // Synthesis of JOIN, can be up to 2 level of nested joins
         for (int i = 1; i <= maxDepth; i ++) {
 
             // used to collect queries generated in the most recent stage
@@ -98,8 +101,9 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
                     AbstractSymbolicTable st2 = basicAndAggr.get(l);
 
                     // only allow joining between an input table and a compound table
-                    if (!GlobalConfig.ALLOW_JOIN_NONE_INPUT_TABLE && ! ec.getInputs().contains(st2.getBaseTable()))
-                       continue;
+                    //if (!GlobalConfig.ALLOW_JOIN_NONE_INPUT_TABLE && ! ec.getInputs().contains(st2.getBaseTable()))
+                    if (! ec.getInputs().contains(st2.getBaseTable()))
+                            continue;
 
                     if (st2 instanceof SymbolicCompoundTable)
                         continue;
@@ -116,7 +120,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
             for (AbstractSymbolicTable st : symTables) {
 
-                System.out.println(st.getBaseTable().getMetadata().stream().reduce("", (x,y)-> x+ ", " + y));
+                System.out.println("\t" + st.getBaseTable().getMetadata().stream().reduce("", (x,y)-> x+ ", " + y).substring(1));
 
                 tryEvalToOutput(st, ec, qc, true);
 
@@ -134,6 +138,101 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
             if (qc.runnerUpTable > 0)
                 break;
 
+        }
+
+        // Try enumerate by joining two tables from aggregation
+        if (qc.runnerUpTable == 0) {
+
+            stFromLastStage = basicAndAggr;
+
+            for (int i = 1; i <= maxDepth; i ++) {
+                // used to collect queries generated in the most recent stage
+                List<AbstractSymbolicTable> collector = new ArrayList<>();
+                for (int k = 0; k < stFromLastStage.size(); k ++) {
+                    for (int l = 0; l < basicAndAggr.size(); l ++) {
+
+                        AbstractSymbolicTable st1 = stFromLastStage.get(k);
+                        AbstractSymbolicTable st2 = basicAndAggr.get(l);
+
+                        // Does not allow joining between an input table and a compound table
+                        if (st2 instanceof SymbolicCompoundTable)
+                            continue;
+
+                        SymbolicCompoundTable sct = new SymbolicCompoundTable(st1, st2);
+                        collector.add(sct);
+                    }
+                }
+
+                symTables.addAll(collector);
+                stFromLastStage = collector;
+
+                System.out.println("[EnumJoinOnAggr] level " + i + " [SymTable]: " + symTables.size());
+
+                for (AbstractSymbolicTable st : stFromLastStage) {
+                    System.out.println("\t" + st.getBaseTable().getMetadata().stream().reduce("", (x,y)-> x+ ", " + y).substring(1));
+                    tryEvalToOutput(st, ec, qc, true);
+                }
+
+                if (qc.runnerUpTable > 0)
+                    break;
+
+            }
+        }
+
+        // Enumerate aggregation on joined tables
+        if (qc.runnerUpTable == 0) {
+
+            List<AbstractSymbolicTable> basicSymTables = ec.getInputs()
+                    .stream().map(t -> new SymbolicTable(t, new NamedTable(t)))
+                    .collect(Collectors.toList());
+            for (int i = 0; i < basicSymTables.size(); i ++) {
+                for (int j = i; j < basicSymTables.size(); j ++) {
+                    AbstractSymbolicTable st1 = basicSymTables.get(i);
+                    AbstractSymbolicTable st2 = basicSymTables.get(j);
+
+                    SymbolicCompoundTable sct = new SymbolicCompoundTable(st1, st2);
+
+                    // core tables to be used in enumerate aggregation
+                    List<TableNode> joinedNodes = new ArrayList<>();
+                    joinedNodes.addAll(sct.instantiateAllTables(ec)
+                            .stream().map(t -> new NamedTable(t)).collect(Collectors.toList()));
+
+                    // enumerating aggregation tables, the aggregation nodes are based on these primitive filters
+                    ec.setTableNodes(joinedNodes);
+
+                    List<TableNode> aggregationOnJoinInputs = EnumAggrTableNode.enumAggregationNodeFlag(ec, EnumAggrTableNode.SIMPLIFY, false);
+                    List<SymbolicTable> enumHaving = new ArrayList<>();
+
+                    for (TableNode an : aggregationOnJoinInputs) {
+                        try {
+                            enumHaving.add(new SymbolicTable(an.eval(new Environment()), an));
+                        } catch (SQLEvalException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    for (AbstractSymbolicTable st : enumHaving) {
+                        System.out.println("\t" + st.getBaseTable().getMetadata().stream().reduce("", (x,y)-> x+ ", " + y).substring(1));
+                        tryEvalToOutput(st, ec, qc, true);
+                    }
+
+                    // two ways to do enumeration for HAVING clause
+
+                    /*
+                    List<TableNode> aggregationOnJoinInputs = EnumAggrTableNode.enumAggregationNodeFlag(ec, EnumAggrTableNode.SIMPLIFY, false);
+                    for (TableNode tn : aggregationOnJoinInputs) {
+                        System.out.println("\t" + tn.getSchema().stream().reduce("", (x,y)-> x+ ", " + y).substring(1));
+                        ec.setTableNodes(Arrays.asList(tn));
+                        boolean isRunnerUp = EnumProjection.emitEnumProjection(ec, ec.getOutputTable(), qc);
+                        if (isRunnerUp) {
+                            System.out.println("Find one here!");
+                        }
+                    }
+                    */
+
+
+                }
+            }
         }
 
         System.out.println("ASymTable Enumeration done: " + (symTables.size()));
@@ -166,6 +265,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
             boolean isRunnerUp = EnumProjection.emitEnumProjection(ec, ec.getOutputTable(), qc);
             if (isRunnerUp) {
+                System.out.println("Find one here!");
                 validFilterBitVecCount ++;
                 printTopQueries(st, p, ec, fl);
                 bad_usage_flag = true;

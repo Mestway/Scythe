@@ -95,6 +95,8 @@ public class EnumCanonicalFilters {
 
         // extend the type information to contain values inside enumcontext
         Map<String, ValType> typeMap = new HashMap<>();
+        if (rt.getSchema().size() != rt.getSchemaType().size())
+            System.out.println(rt.getSchema().size() + " ~ " + rt.getSchemaType().size());
         for (int i = 0; i < rt.getSchema().size(); i ++) {
             typeMap.put(rt.getSchema().get(i), rt.getSchemaType().get(i));
         }
