@@ -41,6 +41,7 @@ public abstract class AbstractSymbolicTable {
     abstract public int compoundPrimitiveFilterCount();
     abstract public int compoundFilterCount();
     abstract public List<Integer> getTableRightIndexBoundries();
+    abstract public List<Table> getAllPrimitiveBaseTables();
 
     // abstract public Pair<Set<SymbolicFilter>, FilterLinks> lastStageInstantiateAllFilters(Set<SymbolicFilter> targetFilters);
 

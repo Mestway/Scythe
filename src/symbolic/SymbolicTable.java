@@ -81,6 +81,13 @@ public class SymbolicTable extends AbstractSymbolicTable {
     }
 
     @Override
+    public List<Table> getAllPrimitiveBaseTables() {
+        List<Table> result = new ArrayList<>();
+        result.add(this.getBaseTable());
+        return result;
+    }
+
+    @Override
     public Table getBaseTable() { return this.baseTable; }
 
     public void setBaseTable(Table baseTable) { this.baseTable = baseTable; }

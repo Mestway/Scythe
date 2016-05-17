@@ -21,6 +21,7 @@ import util.DebugHelper;
 import util.Pair;
 import util.RenameTNWrapper;
 
+import java.time.Clock;
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
@@ -55,6 +56,13 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
     @Override
     public Table getBaseTable() {
         return Table.joinTwo(st1.getBaseTable(), st2.getBaseTable());
+    }
+
+    @Override
+    public List<Table> getAllPrimitiveBaseTables() {
+        List<Table> result = st1.getAllPrimitiveBaseTables();
+        result.addAll(st2.getAllPrimitiveBaseTables());
+        return result;
     }
 
     @Deprecated
@@ -93,14 +101,35 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
 
         this.evalPrimitive(ec);
         //emitVisitCrossTableMappingFilters(mi, f);
+
+        long before = System.nanoTime();
+
         emitVisitDemotedMappingFilters(ec, f);
 
-        //if (1 == 1) return;
+        System.out.println("[Time for demoted] " + (System.nanoTime() - before));
+        before = System.nanoTime();
 
+
+        //if (1 == 1) return;
         //System.out.println(this.getBaseTable());
 
-         List<CoordInstMap> map = mi.genMappingInstancesWColumnBarrier(this.getTableRightIndexBoundries());
-         //List<CoordInstMap> map = mi.genMappingInstances();
+        List<Table> primitiveBasicTables = this.getAllPrimitiveBaseTables();
+        boolean allEqual = true;
+        for (Table t : primitiveBasicTables) {
+            if (!t.contentEquals(primitiveBasicTables.get(0))) {
+                allEqual = false;
+                break;
+            }
+        }
+
+        if (allEqual) {
+            //return;
+        }
+
+        List<CoordInstMap> map = mi.genMappingInstancesWColumnBarrier(this.getTableRightIndexBoundries());
+        //List<CoordInstMap> map = mi.genMappingInstances();
+
+        System.out.println("[Mapping size here?] " + map.size());
 
         Set<SymbolicFilter> targetFilters = new HashSet<>();
         for (CoordInstMap cim : map) {
@@ -114,14 +143,18 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
             f.accept(new Pair<>(this, spf), p.getValue());
         }
 
+        System.out.println("[Time for crosstable] " + (System.nanoTime() - before));
+
         if (targetFilters.size() == 0)
             return;
 
         Statistics.sum_back_filter_bogus_rate += ((float)(targetFilters.size() - p.getKey().size())) / targetFilters.size();
         Statistics.back_filter_bogus_cases ++;
+
     }
 
     // given the mapping inference data structure, we only try to use evaluate those mapping
+    // TODO: This one is somehow less efficient than simply traversing.
     public void emitVisitCrossTableMappingFilters(
             MappingInference mi,
             BiConsumer<Pair<AbstractSymbolicTable, SymbolicFilter>, FilterLinks> f) {
@@ -131,11 +164,6 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
 
         // construct the target filters that we need, inferred backwardly
         List<CoordInstMap> map = mi.genMappingInstancesWColumnBarrier(this.getTableRightIndexBoundries());
-
-        System.out.println("Map size: " + map.size());
-
-        if (map.size() == 52488)
-            System.out.println("relatex");
 
         Set<SymbolicFilter> targetFilters = new HashSet<>();
         for (CoordInstMap cim : map) {
@@ -376,6 +404,9 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
                         f1,
                         AbstractSymbolicTable.mergeFunction);
 
+                if (! fullyContainedAnElement(mergedlrf1, targetFilters))
+                    continue;
+
                 if (targetFilters.contains(mergedlrf1)) {
 
                     SymbolicFilter emptyF2 = SymbolicFilter.genSymbolicFilter(st2.getBaseTable(), new EmptyFilter());
@@ -402,7 +433,6 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
                 }
 
                 for (SymbolicFilter f2 : promotedFilters2.keySet()) {
-
 
                     SymbolicFilter lrf2 = SymbolicFilter.mergeFilter(
                             lrf, promotedFilters2.get(f2),

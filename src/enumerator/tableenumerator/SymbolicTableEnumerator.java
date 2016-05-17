@@ -135,8 +135,8 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
                 }
             }
 
-            if (qc.runnerUpTable > 0)
-                break;
+            //if (qc.runnerUpTable > 0)
+            //    break;
 
         }
 

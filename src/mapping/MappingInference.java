@@ -175,6 +175,8 @@ public class MappingInference {
         instance.initialize(maxR, maxC);
         List<CoordInstMap> resultCollector = new ArrayList<>();
         dfsMappingSearch(0, 0, maxR, maxC, instance, resultCollector, this.map);
+
+        System.out.println("[MappingInfernce] mapping size " + resultCollector.size());
         return resultCollector;
     }
 
