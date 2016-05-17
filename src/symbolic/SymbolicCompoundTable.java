@@ -474,6 +474,10 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
 
     }
 
+    // TODO: implement visit demoted space
+    public Set<Pair<SymbolicFilter, SymbolicFilter>> visitDemotedSpace(
+            EnumContext ec, Set<SymbolicFilter> demotedExtFilters) { return null; }
+
     @Override
     public Pair<Set<SymbolicFilter>, FilterLinks> instantiateAllFilters() {
 

@@ -15,6 +15,7 @@ import sql.lang.ast.table.*;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
+import sun.jvm.hotspot.debugger.cdbg.Sym;
 import util.CombinationGenerator;
 import util.Pair;
 
@@ -97,6 +98,46 @@ public class SymbolicTable extends AbstractSymbolicTable {
     public void setSymbolicFilters(Set<SymbolicFilter> filters) {
         this.symbolicPrimitiveFilters = filters;
         this.symbolicPrimitiveFilters.add(SymbolicFilter.genSymbolicFilter(this.baseTable, new EmptyFilter()));
+    }
+
+    public Set<Pair<SymbolicFilter, SymbolicFilter>> visitDemotedSpace(
+            EnumContext ec, Set<SymbolicFilter> demotedExtFilters) {
+        MappingInference mi = MappingInference.buildMapping(this.getBaseTable(), ec.getOutputTable());
+        List<CoordInstMap> map = mi.genMappingInstances();
+
+        // evaluate the set of all target filters that we learnt from output
+        Set<SymbolicFilter> targetFilters = new HashSet<>();
+        for (CoordInstMap cim : map) {
+            SymbolicFilter sf = new SymbolicFilter(cim.rowsInvolved(), this.getBaseTable().getContent().size());
+            targetFilters.add(sf);
+        }
+
+        // this is the traditional way, invoking the mergeAndLink function to get it.
+        Pair<Set<SymbolicFilter>, FilterLinks> allFiltersLinks = AbstractSymbolicTable.mergeAndLinkFilters(this,
+                this.symbolicPrimitiveFilters.stream().collect(Collectors.toList()));
+
+        List<SymbolicFilter> validFilter = new ArrayList<>();
+        for (SymbolicFilter sf : allFiltersLinks.getKey()) {
+            if (! fullyContainedAnElement(sf, targetFilters))
+                continue;
+            validFilter.add(sf);
+        }
+
+        // TODO: we assume that all filters send in are those already checked,
+        // TODO: i.e. all of them should contain at least one element in the target filter set
+
+        Set<Pair<SymbolicFilter, SymbolicFilter>> validPairs = new HashSet<>();
+
+        for (SymbolicFilter vf : validFilter) {
+            for (SymbolicFilter ef : demotedExtFilters) {
+                SymbolicFilter merged = SymbolicFilter.mergeFilter(vf, ef, AbstractSymbolicTable.mergeFunction);
+                if (targetFilters.contains(merged)) {
+                    validPairs.add(new Pair<>(vf, ef));
+                }
+            }
+        }
+
+        return validPairs;
     }
 
     public void emitFinalVisitAllTables(
