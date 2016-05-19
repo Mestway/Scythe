@@ -71,7 +71,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
         basicAndAggr.addAll(symTables);
 
         // only contains symbolic table generated from last stage
-        // (here includes those from aggr and input)
+        //  (here includes those from aggr and input)
         List<AbstractSymbolicTable> stFromLastStage = symTables;
 
         for (AbstractSymbolicTable st : stFromLastStage) {
@@ -89,7 +89,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
             }
         }
 
-        // Synthesis of JOIN, can be up to 2 level of nested joins
+        // Synthesis of JOIN, can be up to 2 levels of nested joins
         for (int i = 1; i <= maxDepth; i ++) {
 
             // used to collect queries generated in the most recent stage

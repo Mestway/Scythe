@@ -96,6 +96,7 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
 
         Set<SymbolicFilter> dummyExtFilter = new HashSet<>();
         dummyExtFilter.add(SymbolicFilter.genSymbolicFilter(this.getBaseTable(), new EmptyFilter()));
+
         Set<Pair<SymbolicFilter, SymbolicFilter>> r = this.visitDemotedSpace(ec, dummyExtFilter);
 
         for (Pair<SymbolicFilter, SymbolicFilter> p : r) {
@@ -104,7 +105,7 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
     }
 
     // TODO: deal with symbolic compound table visit smartly
-    public void emitFinalVisitAllTablesv2(
+    public void emitFinalVisitAllTablesV2(
             MappingInference mi,
             EnumContext ec,
             BiConsumer<Pair<AbstractSymbolicTable, SymbolicFilter>, FilterLinks> f) {
@@ -117,25 +118,8 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
         this.evalPrimitive(ec);
         //emitVisitCrossTableMappingFilters(mi, f);
 
-        long before = System.nanoTime();
-
+        // visit demoted mapping space
         emitVisitDemotedMappingFilters(ec, f);
-
-        //if (1 == 1) return;
-        //System.out.println(this.getBaseTable());
-
-        List<Table> primitiveBasicTables = this.getAllPrimitiveBaseTables();
-        boolean allEqual = true;
-        for (Table t : primitiveBasicTables) {
-            if (!t.contentEquals(primitiveBasicTables.get(0))) {
-                allEqual = false;
-                break;
-            }
-        }
-
-        if (allEqual) {
-            //return;
-        }
 
         // TODO: think carefully about this, we may need a proof to show that we need *all* boundires
         List<CoordInstMap> map = mi.genMappingInstancesWColumnBarrier(this.getTableRightIndexBoundries());
