@@ -16,6 +16,7 @@ import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
 import sun.jvm.hotspot.debugger.cdbg.Sym;
+import sun.jvm.hotspot.oops.Symbol;
 import util.CombinationGenerator;
 import util.Pair;
 
@@ -141,10 +142,11 @@ public class SymbolicTable extends AbstractSymbolicTable {
         return validPairs;
     }
 
+    @Override
     public void emitFinalVisitAllTables(
             MappingInference mi,
             EnumContext ec,
-            BiConsumer<Pair<AbstractSymbolicTable, SymbolicFilter>, FilterLinks> f) {
+            BiConsumer<AbstractSymbolicTable, SymbolicFilter> f) {
 
         List<CoordInstMap> map = mi.genMappingInstances();
 
@@ -170,7 +172,7 @@ public class SymbolicTable extends AbstractSymbolicTable {
                 noneBogusFilterCount ++;
                 FilterLinks fl = new FilterLinks();
                 fl.setLinkSource(allFilters.getValue().retrieveSource(new Pair<>(this, sf)), new Pair<>(this, sf));
-                f.accept(new Pair<>(this, sf), fl);
+                f.accept(this, sf);
             }
         }
 
@@ -388,6 +390,53 @@ public class SymbolicTable extends AbstractSymbolicTable {
     public List<Integer> getTableRightIndexBoundries() {
         List<Integer> result = new ArrayList<>();
         result.add(this.getBaseTable().getMetadata().size());
+        return result;
+    }
+
+    @Override
+    public Map<SymbolicFilter, List<SymFilterCompTree>> batchGenDecomposition(Set<SymbolicFilter> targets) {
+
+        Map<SymbolicFilter, List<SymFilterCompTree>> result = new HashMap<>();
+        for (SymbolicFilter sf : targets) {
+            result.put(sf, new ArrayList<>());
+        }
+        List<SymbolicFilter> validFilters = this.primitives.stream()
+                .filter(x -> fullyContainedAnElement(x, targets))
+                .collect(Collectors.toList());
+
+        // this part deals only with none-empty filters
+        for (int i = 0; i < validFilters.size(); i ++) {
+            SymbolicFilter pi = validFilters.get(i);
+            for (int j = i + 1; j < validFilters.size(); j ++) {
+                SymbolicFilter pj = validFilters.get(j);
+                SymbolicFilter mergedij = SymbolicFilter.mergeFilter(pi, pj, AbstractSymbolicTable.mergeFunction);
+
+                if (targets.contains(mergedij)) {
+                    Set<SymbolicFilter> s = new HashSet<>();
+                    s.add(pi); s.add(pj);
+                    SymFilterCompTree sct = new SymFilterCompTree(this, s);
+
+                    result.get(mergedij).add(sct);
+                }
+            }
+        }
+
+        SymbolicFilter emptyFilter = SymbolicFilter.genSymbolicFilter(this.baseTable, new EmptyFilter());
+        if (targets.contains(emptyFilter)) {
+            Set<SymbolicFilter> s = new HashSet<>();
+            s.add(emptyFilter);
+            SymFilterCompTree sct = new SymFilterCompTree(this, s);
+
+            result.get(emptyFilter).add(sct);
+        }
+
+
+        for (Map.Entry<SymbolicFilter, List<SymFilterCompTree>> i : result.entrySet()) {
+            if (i.getValue().isEmpty()) {
+                System.out.println(i.getKey());
+            }
+        }
+
         return result;
     }
 }

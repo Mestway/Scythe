@@ -1,5 +1,7 @@
 package enumerator.context;
 
+import symbolic.AbstractSymbolicTable;
+import symbolic.SymbolicFilter;
 import util.Pair;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
@@ -16,16 +18,18 @@ import java.util.stream.Collectors;
  */
 public class QueryChest {
 
+    // this set store all candidate constructs, applying projection on candidates
+    private Set<Pair<AbstractSymbolicTable, SymbolicFilter>> candidates = new HashSet<>();
+
     // these two fields are used for evaluating enumeration
     public int queryCount = 0;
 
     // count the number of table before projection that can be projected into true output
     public int runnerUpTable = 0;
 
-    public long totalTableSize = 0;
-
     // tabled that is memoized
     private Map<Table, List<TableNode>> memory = new HashMap<>();
+
     // store the representative table of tables with the same content
     private Map<Table, Table> mirror = new HashMap<>();
 
@@ -69,10 +73,6 @@ public class QueryChest {
                     memory.put(t, ar);
                     mirror.put(t, t);
 
-                    /*totalTableSize += t.getContent().size() * t.getContent().get(0).getValues().size();
-                    if (memory.entrySet().size() % 1000 == 0) {
-                        System.out.println("We have " + memory.keySet().size() + " tables now; Avg size: " + ((double) totalTableSize) / memory.keySet().size() );
-                    }*/
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -95,11 +95,12 @@ public class QueryChest {
         return mirror.get(t);
     }
 
-
-    List<TableNode> resultQueires = new ArrayList<>();
-    public void insertQueries(List<TableNode> tns) {
-        resultQueires.addAll(tns);
+    public void insertCandidate(Pair<AbstractSymbolicTable, SymbolicFilter> p) {
+        this.candidates.add(p);
     }
-    public List<TableNode> getResultQueires() { return this.resultQueires; }
+
+    public Set<Pair<AbstractSymbolicTable, SymbolicFilter>> getAllCandidates() {
+        return this.candidates;
+    }
 
 }

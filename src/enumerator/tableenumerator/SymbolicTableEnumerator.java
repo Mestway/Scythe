@@ -72,11 +72,12 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
         // only contains symbolic table generated from last stage
         //  (here includes those from aggr and input)
+
         List<AbstractSymbolicTable> stFromLastStage = symTables;
 
         for (AbstractSymbolicTable st : stFromLastStage) {
 
-            tryEvalToOutput(st, ec, qc, true);
+            tryEvalToOutput(st, ec, qc);
 
             if (st.allfiltersEnumerated) {
                 System.out.println("[FiltersCount]["
@@ -122,7 +123,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
                 System.out.println("\t" + st.getBaseTable().getMetadata().stream().reduce("", (x,y)-> x+ ", " + y).substring(1));
 
-                tryEvalToOutput(st, ec, qc, true);
+                tryEvalToOutput(st, ec, qc);
 
                 if (! countPrinted.contains(st)  && st.allfiltersEnumerated) {
                     System.out.println("[FiltersCount][" + "r"
@@ -137,12 +138,10 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
             if (qc.runnerUpTable > 0)
                 break;
-
         }
 
         // Try enumerate by joining two tables from aggregation
         if (qc.runnerUpTable == 0) {
-
             stFromLastStage = basicAndAggr;
 
             for (int i = 1; i <= maxDepth; i ++) {
@@ -170,7 +169,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
                 for (AbstractSymbolicTable st : stFromLastStage) {
                     System.out.println("\t" + st.getBaseTable().getMetadata().stream().reduce("", (x,y)-> x+ ", " + y).substring(1));
-                    tryEvalToOutput(st, ec, qc, true);
+                    tryEvalToOutput(st, ec, qc);
                 }
 
                 if (qc.runnerUpTable > 0)
@@ -185,6 +184,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
             List<AbstractSymbolicTable> basicSymTables = ec.getInputs()
                     .stream().map(t -> new SymbolicTable(t, new NamedTable(t)))
                     .collect(Collectors.toList());
+
             for (int i = 0; i < basicSymTables.size(); i ++) {
                 for (int j = i; j < basicSymTables.size(); j ++) {
                     AbstractSymbolicTable st1 = basicSymTables.get(i);
@@ -213,24 +213,8 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
                     for (AbstractSymbolicTable st : enumHaving) {
                         System.out.println("\t" + st.getBaseTable().getMetadata().stream().reduce("", (x,y)-> x+ ", " + y).substring(1));
-                        tryEvalToOutput(st, ec, qc, true);
+                        tryEvalToOutput(st, ec, qc);
                     }
-
-                    // two ways to do enumeration for HAVING clause
-
-                    /*
-                    List<TableNode> aggregationOnJoinInputs = EnumAggrTableNode.enumAggregationNodeFlag(ec, EnumAggrTableNode.SIMPLIFY, false);
-                    for (TableNode tn : aggregationOnJoinInputs) {
-                        System.out.println("\t" + tn.getSchema().stream().reduce("", (x,y)-> x+ ", " + y).substring(1));
-                        ec.setTableNodes(Arrays.asList(tn));
-                        boolean isRunnerUp = EnumProjection.emitEnumProjection(ec, ec.getOutputTable(), qc);
-                        if (isRunnerUp) {
-                            System.out.println("Find one here!");
-                        }
-                    }
-                    */
-
-
                 }
             }
         }
@@ -239,81 +223,60 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
         System.out.println("Runner ups: " + qc.runnerUpTable);
 
+        System.out.println("Candidates: ");
+
+        for (Pair<AbstractSymbolicTable, SymbolicFilter> c : qc.getAllCandidates()) {
+
+            Set<SymbolicFilter> toDecode = new HashSet<SymbolicFilter>();
+            toDecode.add(c.getValue());
+
+            Map<SymbolicFilter, List<SymFilterCompTree>> cQuery = c.getKey().batchGenDecomposition(toDecode);
+
+            System.out.println("\t" + c.getKey().getBaseTable().getMetadata());
+            System.out.println("\t\t" + c.getValue());
+            for (Map.Entry<SymbolicFilter, List<SymFilterCompTree>> i : cQuery.entrySet()) {
+                System.out.println("\t\t[Filter] " + i.getKey());
+                for (SymFilterCompTree t :i.getValue()) {
+                    System.out.println("\t\t[Tree] " + t.toString());
+                }
+            }
+        }
+
         return qc;
     }
 
-    public static boolean bad_usage_flag = false;
-    public static int validFilterBitVecCount = 0;
+    private void tryEvalToOutput(AbstractSymbolicTable st, EnumContext ec, QueryChest qc) {
 
-    private boolean tryEvalToOutput(AbstractSymbolicTable st, EnumContext ec, QueryChest qc, boolean isLastStage) {
+        BiConsumer<AbstractSymbolicTable, SymbolicFilter> f = (symTable, symFilter) -> {
 
-        bad_usage_flag = false;
-        validFilterBitVecCount = 0;
-
-        BiConsumer<Pair<AbstractSymbolicTable, SymbolicFilter>, FilterLinks> f = (p, fl) -> {
-
-            if (p.getValue().getFilterRep().isEmpty())
+            if (symFilter.getFilterRep().isEmpty())
                 return;
 
-            Table t = p.getKey().getBaseTable().duplicate();
+            Table t = symTable.getBaseTable().duplicate();
             t.getContent().clear();
-            for (Integer i : p.getValue().getFilterRep()) {
-                t.getContent().add(p.getKey().getBaseTable().getContent().get(i).duplicate());
+            for (Integer i :symFilter.getFilterRep()) {
+                t.getContent().add(symTable.getBaseTable().getContent().get(i).duplicate());
             }
 
             ec.setTableNodes(Arrays.asList(new NamedTable(t)));
 
             boolean isRunnerUp = EnumProjection.emitEnumProjection(ec, ec.getOutputTable(), qc);
             if (isRunnerUp) {
+                qc.insertCandidate(new Pair<>(symTable, symFilter));
                 System.out.println("Find one here!");
-                validFilterBitVecCount ++;
-                printTopQueries(st, p, ec, fl);
-                bad_usage_flag = true;
+                //printTopQueries(st, p, ec, fl);
             }
         };
 
         MappingInference mi = MappingInference.buildMapping(st.getBaseTable(), ec.getOutputTable());
         if (! mi.isValidMapping())
-            return false;
+            return;
 
-        if (isLastStage && GlobalConfig.SPECIAL_TREAT_LAST_STAGE) {
+        if (GlobalConfig.SPECIAL_TREAT_LAST_STAGE) {
             st.emitFinalVisitAllTables(mi, ec, f);
         } else {
             st.emitInstantiateAllTables(ec, f);
-            System.out.println("[Valid BitVec Count (Runner up)]: " + validFilterBitVecCount);
-        }
-
-        return bad_usage_flag;
-    }
-
-    // After enumerating projection,
-    // we can print out the queries that applied on input can generate output
-    private void printTopQueries(
-            AbstractSymbolicTable st,
-            Pair<AbstractSymbolicTable, SymbolicFilter> p,
-            EnumContext ec,
-            FilterLinks fl) {
-
-        // TODO: currently just print nothing, should modify this if we want to print top ones
-        if (totalQueryCount < 0) {
-            int idx = totalQueryCount;
-
-            List<TableNode> runnerUps = st.decodeToQuery(p, ec, fl);
-
-            totalQueryCount += runnerUps.size();
-            if (totalQueryCount < 5000) {
-                for (TableNode tn : runnerUps) {
-                    System.out.println("===[Query " + idx + " ]===" );
-                    idx ++;
-                    System.out.println(tn.prettyPrint(0));
-                    try {
-                        System.out.println(tn.eval(new Environment()));
-                    } catch (SQLEvalException e) {
-                        e.printStackTrace();
-                    }
-                    //qc.insertQueries(OneStepQueryInference.infer(Arrays.asList(RenameTNWrapper.tryRename(tn)), ec.getOutputTable(), ec));
-                }
-            }
         }
     }
+
 }
