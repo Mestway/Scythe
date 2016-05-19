@@ -87,9 +87,24 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
         return new Pair<>(result, fl);
     }
 
+    // an version 2 that visits the tables with multi-level demotion
+    public void emitFinalVisitAllTables(
+            MappingInference mi,
+            EnumContext ec,
+            BiConsumer<Pair<AbstractSymbolicTable, SymbolicFilter>, FilterLinks> f) {
+        this.evalPrimitive(ec);
+
+        Set<SymbolicFilter> dummyExtFilter = new HashSet<>();
+        dummyExtFilter.add(SymbolicFilter.genSymbolicFilter(this.getBaseTable(), new EmptyFilter()));
+        Set<Pair<SymbolicFilter, SymbolicFilter>> r = this.visitDemotedSpace(ec, dummyExtFilter);
+
+        for (Pair<SymbolicFilter, SymbolicFilter> p : r) {
+            f.accept(new Pair<>(this, p.getKey()), new FilterLinks());
+        }
+    }
 
     // TODO: deal with symbolic compound table visit smartly
-    public void emitFinalVisitAllTables(
+    public void emitFinalVisitAllTablesv2(
             MappingInference mi,
             EnumContext ec,
             BiConsumer<Pair<AbstractSymbolicTable, SymbolicFilter>, FilterLinks> f) {
@@ -105,10 +120,6 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
         long before = System.nanoTime();
 
         emitVisitDemotedMappingFilters(ec, f);
-
-        System.out.println("[Time for demoted] " + (System.nanoTime() - before));
-        before = System.nanoTime();
-
 
         //if (1 == 1) return;
         //System.out.println(this.getBaseTable());
@@ -126,10 +137,11 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
             //return;
         }
 
+        // TODO: think carefully about this, we may need a proof to show that we need *all* boundires
         List<CoordInstMap> map = mi.genMappingInstancesWColumnBarrier(this.getTableRightIndexBoundries());
         //List<CoordInstMap> map = mi.genMappingInstances();
 
-        System.out.println("[Mapping size here?] " + map.size());
+        System.out.println("[Cross Table Mapping Size] " + map.size());
 
         Set<SymbolicFilter> targetFilters = new HashSet<>();
         for (CoordInstMap cim : map) {
@@ -142,8 +154,6 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
         for (SymbolicFilter spf : p.getKey()) {
             f.accept(new Pair<>(this, spf), p.getValue());
         }
-
-        System.out.println("[Time for crosstable] " + (System.nanoTime() - before));
 
         if (targetFilters.size() == 0)
             return;
@@ -331,6 +341,9 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
 
         // construct the target filters that we need, inferred backwardly
         List<CoordInstMap> map = mi.genMappingInstances();
+
+        System.out.println("[Demoted Mapping Size] " + map.size());
+
         Set<SymbolicFilter> targetFilters = new HashSet<>();
         for (CoordInstMap cim : map) {
             SymbolicFilter sf = new SymbolicFilter(cim.rowsInvolved(), this.getBaseTable().getContent().size());
@@ -471,12 +484,169 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
                 }
             }
         }
-
     }
 
     // TODO: implement visit demoted space
+    // The result is a set of pairs p = (sf, ef),
+    //  where sf is the a filter generated from combining f1*f2*lrf and ef is a filter from demotedExtFilters
+    //  p is the pair that satisfies the property sf*ef is a filter that can generate output
     public Set<Pair<SymbolicFilter, SymbolicFilter>> visitDemotedSpace(
-            EnumContext ec, Set<SymbolicFilter> demotedExtFilters) { return null; }
+            EnumContext ec, Set<SymbolicFilter> demotedExtFilters) {
+
+        Set<Pair<SymbolicFilter, SymbolicFilter>> resultPairs = new HashSet<>();
+
+        MappingInference mi = MappingInference.buildMapping(this.getBaseTable(), ec.getOutputTable());
+        Set<SymbolicFilter> targetFilters = new HashSet<>();
+
+        // construct the target filters backwardly
+        List<CoordInstMap> map = mi.genMappingInstancesWColumnBarrier(this.getTableRightIndexBoundries());
+
+        System.out.println("[CrossTableMapping Instances] " + map.size());
+        for (CoordInstMap cim : map) {
+            SymbolicFilter sf = new SymbolicFilter(cim.rowsInvolved(), this.getBaseTable().getContent().size());
+            targetFilters.add(sf);
+        }
+
+        Pair<Set<SymbolicFilter>, FilterLinks> st1FiltersLinks = st1.instantiateAllFilters();
+        Pair<Set<SymbolicFilter>, FilterLinks> st2FiltersLinks = st2.instantiateAllFilters();
+        Pair<Set<SymbolicFilter>, FilterLinks> lrFiltersLinks =
+                AbstractSymbolicTable.mergeAndLinkFilters(this, this.filtersLR.stream().collect(Collectors.toList()));
+
+        // map each filter in the sub-symbolic table to its promoted form in the cartesian product table.
+        Map<SymbolicFilter, SymbolicFilter> promotedFilters1 = new HashMap<>();
+        Map<SymbolicFilter, SymbolicFilter> promotedFilters2 = new HashMap<>();
+        for (SymbolicFilter f1 : st1FiltersLinks.getKey()) {
+            SymbolicFilter promotedf1 = this.promoteLeftFilter(f1);
+            if (fullyContainedAnElement(promotedf1, targetFilters))
+                promotedFilters1.put(f1, promotedf1);
+        }
+        for (SymbolicFilter f2 : st2FiltersLinks.getKey()) {
+            SymbolicFilter promotedf2 = this.promoteRightFilter(f2);
+            if (fullyContainedAnElement(promotedf2, targetFilters))
+                promotedFilters2.put(f2, promotedf2);
+        }
+        Set<SymbolicFilter> validLRFilters = new HashSet<>();
+        for (SymbolicFilter sf : lrFiltersLinks.getKey()) {
+            if (fullyContainedAnElement(sf, targetFilters))
+                validLRFilters.add(sf);
+        }
+
+        // In the first part, we are trying to visit filters to infer filters that can yield to a cross table filtering
+        for (SymbolicFilter lrf : validLRFilters) {
+            for (SymbolicFilter f2 : promotedFilters2.keySet()) {
+                SymbolicFilter mergedlrf2 = SymbolicFilter.mergeFilter(
+                        lrf, promotedFilters2.get(f2), AbstractSymbolicTable.mergeFunction);
+                if (! fullyContainedAnElement(mergedlrf2, targetFilters))
+                    continue;
+
+                for (SymbolicFilter ef : demotedExtFilters) {
+                    SymbolicFilter mergedlrf2ef = SymbolicFilter.mergeFilter(
+                            mergedlrf2, ef,
+                            AbstractSymbolicTable.mergeFunction
+                    );
+
+                    if (! fullyContainedAnElement(mergedlrf2ef, targetFilters))
+                        continue;
+
+                    for (SymbolicFilter f1 : promotedFilters1.keySet()) {
+                        SymbolicFilter mergedlrf2eff1 = SymbolicFilter.mergeFilter(
+                                mergedlrf2ef, promotedFilters1.get(f1),
+                                AbstractSymbolicTable.mergeFunction
+                        );
+                        // Add the pair to the result set.
+                        if (! targetFilters.contains(mergedlrf2eff1))
+                            continue;
+
+                        resultPairs.add(new Pair<>(
+                                SymbolicFilter.mergeFilter(mergedlrf2, promotedFilters1.get(f1), AbstractSymbolicTable.mergeFunction),
+                                ef));
+                    }
+                }
+            }
+        }
+
+        MappingInference st1Mi = MappingInference.buildMapping(this.st1.getBaseTable(), ec.getOutputTable());
+        boolean furtherDemotionToSt1 = st1Mi.isValidMapping();
+
+        // If we cannot perform further demotion
+        if (! furtherDemotionToSt1) return resultPairs;
+
+        Set<SymbolicFilter> st1TargetFilters = new HashSet<>();
+        List<CoordInstMap> st1Map = st1Mi.genMappingInstances();
+        System.out.println("[demotedFilter Mapping Instances] " + st1Map.size());
+
+        for (CoordInstMap cim : st1Map) {
+            SymbolicFilter sf = new SymbolicFilter(cim.rowsInvolved(), st1.getBaseTable().getContent().size());
+            st1TargetFilters.add(sf);
+        }
+
+        // map each filter in the sub-symbolic table to its promoted form in the cartesian product table.
+        Map<SymbolicFilter, SymbolicFilter> validPromotedDemotedf2 = new HashMap<>();
+        for (SymbolicFilter f2 : st2FiltersLinks.getKey()) {
+            SymbolicFilter promotedf2 = this.promoteRightFilter(f2);
+            SymbolicFilter lDemotedf2 = this.demoteToLeftFilter(promotedf2);
+            if (fullyContainedAnElement(lDemotedf2, st1TargetFilters))
+                validPromotedDemotedf2.put(f2, promotedf2);
+        }
+        Map<SymbolicFilter, SymbolicFilter> validLRDemoted = new HashMap<>();
+        for (SymbolicFilter sf : lrFiltersLinks.getKey()) {
+            SymbolicFilter lDemotedLRF = this.demoteToLeftFilter(sf);
+            if (fullyContainedAnElement(lDemotedLRF, st1TargetFilters))
+                validLRDemoted.put(sf, lDemotedLRF);
+        }
+        Map<SymbolicFilter, SymbolicFilter> validExtDemoted = new HashMap<>();
+        for (SymbolicFilter ef : demotedExtFilters) {
+            SymbolicFilter lDemotedEF = this.demoteToLeftFilter(ef);
+            if (fullyContainedAnElement(lDemotedEF, st1TargetFilters))
+                validExtDemoted.put(ef, lDemotedEF);
+        }
+
+        // TODO: think carefully whether we should store all these mappings
+        Map<SymbolicFilter, Set<Pair<SymbolicFilter, SymbolicFilter>>> demotedCompoundToOriginalFilter = new HashMap<>();
+
+        for (SymbolicFilter lrf : validLRDemoted.keySet()) {
+            for (SymbolicFilter f2 : validPromotedDemotedf2.keySet()) {
+                SymbolicFilter mergedlrf2 = SymbolicFilter.mergeFilter(
+                        lrf, validPromotedDemotedf2.get(f2), AbstractSymbolicTable.mergeFunction);
+                if (! fullyContainedAnElement(demoteToLeftFilter(mergedlrf2), st1TargetFilters))
+                    continue;
+                for (SymbolicFilter ef : validExtDemoted.keySet()) {
+                    SymbolicFilter mergedlrf2ef = SymbolicFilter.mergeFilter(
+                            mergedlrf2, ef,
+                            AbstractSymbolicTable.mergeFunction
+                    );
+
+                    SymbolicFilter lDemotedMergedlrf2ef = demoteToLeftFilter(mergedlrf2ef);
+                    if (! fullyContainedAnElement(lDemotedMergedlrf2ef, st1TargetFilters))
+                        continue;
+
+                    Pair<SymbolicFilter, SymbolicFilter> p = new Pair<>(mergedlrf2, ef);
+
+                    if (! demotedCompoundToOriginalFilter.containsKey(lDemotedMergedlrf2ef)) {
+                        demotedCompoundToOriginalFilter.put(lDemotedMergedlrf2ef, new HashSet<>());
+                    }
+                    demotedCompoundToOriginalFilter.get(lDemotedMergedlrf2ef).add(p);
+                }
+            }
+        }
+
+        Set<Pair<SymbolicFilter, SymbolicFilter>> demotedEvalResult = st1.visitDemotedSpace(ec, demotedCompoundToOriginalFilter.keySet());
+
+        // the first element of p is a filter from st1, second element is a demoted filter
+        for (Pair<SymbolicFilter, SymbolicFilter> p : demotedEvalResult) {
+            SymbolicFilter promotedF1 = this.promoteLeftFilter(p.getKey());
+
+            // key of p2 is mergedf2lr, value of p2 is a extFilter
+            for (Pair<SymbolicFilter, SymbolicFilter> p2 : demotedCompoundToOriginalFilter.get(p.getValue())) {
+                SymbolicFilter mergedf1f2lr = SymbolicFilter.mergeFilter(promotedF1, p2.getKey(),
+                        AbstractSymbolicTable.mergeFunction);
+
+                resultPairs.add(new Pair<>(mergedf1f2lr, p2.getValue()));
+            }
+        }
+
+        return resultPairs;
+    }
 
     @Override
     public Pair<Set<SymbolicFilter>, FilterLinks> instantiateAllFilters() {
@@ -781,24 +951,26 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
 
     private SymbolicFilter demoteToLeftFilter(SymbolicFilter f) {
         Set<Integer> demotedFilter = new HashSet<>();
-        for (int i = 0; i < st1.getBaseTable().getContent().size(); i ++) {
+
+        for (Integer n : f.getFilterRep()) {
+            demotedFilter.add(n / st2.getBaseTable().getContent().size());
+        }
+
+        /* for (int i = 0; i < st1.getBaseTable().getContent().size(); i ++) {
             for (int j = 0; j < st2.getBaseTable().getContent().size(); j ++) {
                 if (f.getFilterRep().contains(i * st2.getBaseTable().getContent().size() + j)) {
                     demotedFilter.add(i);
                 }
             }
-        }
+        } */
         return new SymbolicFilter(demotedFilter, st1.getBaseTable().getContent().size());
     }
 
     private SymbolicFilter demoteToRightFilter(SymbolicFilter f) {
         Set<Integer> demotedFilter = new HashSet<>();
-        for (int i = 0; i < st1.getBaseTable().getContent().size(); i ++) {
-            for (int j = 0; j < st2.getBaseTable().getContent().size(); j ++) {
-                if (f.getFilterRep().contains(i * st2.getBaseTable().getContent().size() + j)) {
-                    demotedFilter.add(j);
-                }
-            }
+
+        for (Integer n : f.getFilterRep()) {
+            demotedFilter.add(n % st2.getBaseTable().getContent().size());
         }
         return new SymbolicFilter(demotedFilter, st2.getBaseTable().getContent().size());
     }

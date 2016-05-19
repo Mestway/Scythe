@@ -102,6 +102,7 @@ public class SymbolicTable extends AbstractSymbolicTable {
 
     public Set<Pair<SymbolicFilter, SymbolicFilter>> visitDemotedSpace(
             EnumContext ec, Set<SymbolicFilter> demotedExtFilters) {
+
         MappingInference mi = MappingInference.buildMapping(this.getBaseTable(), ec.getOutputTable());
         List<CoordInstMap> map = mi.genMappingInstances();
 
