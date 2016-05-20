@@ -39,7 +39,7 @@ public class SymbolicTable extends AbstractSymbolicTable {
     private List<SymbolicFilter> primitives = new ArrayList<>();
     private boolean primitiveFiltersEvaluated = false;
 
-    private SymbolicTable() {}
+    public TableNode getBaseTableSrc() { return this.baseTableSrc; }
 
     public SymbolicTable(Table baseTable, TableNode baseTableSrc) {
         this.baseTable = baseTable;

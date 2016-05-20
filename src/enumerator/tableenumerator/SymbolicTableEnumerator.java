@@ -56,6 +56,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
         // tables returned from last stage are all aggregation nodes
         // build symbolic tables out of aggregation table nodes.
         for (TableNode an : ans) {
+
             // these tables will be considered as normal, the filters of these aggregation tables
             // are considered as normal named tables: they are stored abstractly, and they will only be evaluated afterwards
             try {
@@ -232,12 +233,16 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
             Map<SymbolicFilter, List<SymFilterCompTree>> cQuery = c.getKey().batchGenDecomposition(toDecode);
 
-            System.out.println("\t" + c.getKey().getBaseTable().getMetadata());
-            System.out.println("\t\t" + c.getValue());
             for (Map.Entry<SymbolicFilter, List<SymFilterCompTree>> i : cQuery.entrySet()) {
-                System.out.println("\t\t[Filter] " + i.getKey());
                 for (SymFilterCompTree t :i.getValue()) {
-                    System.out.println("\t\t[Tree] " + t.toString());
+                    System.out.println("\t[Tree] " + t.prettyString(2).trim());
+                    System.out.println("===============================");
+                    System.out.println(t.translateToTopSQL(ec).prettyPrint(0));
+                    try {
+                        System.out.println(t.translateToTopSQL(ec).eval(new Environment()));
+                    } catch (SQLEvalException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -245,6 +250,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
         return qc;
     }
 
+    // Try to evaluate whether the output table can be derived from symbolic table st.
     private void tryEvalToOutput(AbstractSymbolicTable st, EnumContext ec, QueryChest qc) {
 
         BiConsumer<AbstractSymbolicTable, SymbolicFilter> f = (symTable, symFilter) -> {

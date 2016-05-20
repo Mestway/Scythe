@@ -129,10 +129,10 @@ public class SymbolicFilter {
 
     @Override
     public String toString() {
-        String s = "";
+        String s = "[";
         for (int i : this.filterRep) {
             s += i + " ";
         }
-        return s + " : " + this.rowNumber;
+        return s + ": " + this.rowNumber +"]";
     }
 }

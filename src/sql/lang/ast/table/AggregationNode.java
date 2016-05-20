@@ -23,7 +23,7 @@ public class AggregationNode implements TableNode {
 
     public static String magicSeparatorSymbol = "-_-";
 
-    List<String> aggrFields = new ArrayList<String>();
+    List<String> groupbyFields = new ArrayList<String>();
     List<Pair<String, Function<List<Value>, Value>>> targets = new ArrayList<>();
     TableNode tn;
 
@@ -31,7 +31,7 @@ public class AggregationNode implements TableNode {
                            List<String> fields,
                            List<Pair<String, Function<List<Value>,Value>>> targets) {
         this.tn = tn;
-        this.aggrFields = fields;
+        this.groupbyFields = fields;
         this.targets = targets;
     }
 
@@ -42,7 +42,7 @@ public class AggregationNode implements TableNode {
         Table resultTable = new Table();
         resultTable.updateName("anonymous");
         List<String> resultMeta = new ArrayList<String>();
-        for (String s : this.aggrFields)
+        for (String s : this.groupbyFields)
             resultMeta.add(s);
         for (Pair<String, Function<List<Value>, Value>> t : targets) {
             resultMeta.add("aggr-" + t.getKey());
@@ -54,7 +54,7 @@ public class AggregationNode implements TableNode {
 
         // indices for aggregation fields
         List<Integer> indices = new ArrayList<Integer>();
-        for (String s : aggrFields) {
+        for (String s : groupbyFields) {
             indices.add(tbl.retrieveIndex(s));
         }
         // indices for aggregation targets
@@ -81,7 +81,6 @@ public class AggregationNode implements TableNode {
                 aggregationTargetLists.get(k).add(currentRow.getValue(targetIndices.get(k)));
             }
             alreadyCollected.add(i);
-
 
             for (int j = i + 1; j < tbl.getContent().size(); j ++) {
                 if (ListValEqual(tbl.getContent().get(j).retrieveValuesByIndices(indices), valuesForTheRow)) {
@@ -117,7 +116,7 @@ public class AggregationNode implements TableNode {
     @Override
     public List<String> getSchema() {
         List<String> schema = new ArrayList<String>();
-        schema.addAll(this.aggrFields);
+        schema.addAll(this.groupbyFields);
         for (Pair<String, Function<List<Value>,Value>> t : targets) {
             schema.add(FuncName(t.getValue()) + magicSeparatorSymbol + t.getKey());
         }
@@ -125,7 +124,7 @@ public class AggregationNode implements TableNode {
     }
 
     public List<String> getFields() {
-        return this.aggrFields;
+        return this.groupbyFields;
     }
 
     @Override
@@ -139,7 +138,7 @@ public class AggregationNode implements TableNode {
         List<ValType> tableSchemaType = this.tn.getSchemaType();
 
         List<String> nameToRetrieve = new ArrayList<>();
-        nameToRetrieve.addAll(this.aggrFields);
+        nameToRetrieve.addAll(this.groupbyFields);
         for (Pair<String, Function<List<Value>, Value>> t : targets) {
             nameToRetrieve.add(t.getKey());
         }
@@ -148,7 +147,7 @@ public class AggregationNode implements TableNode {
 
         // TODO: think about naming stuff
         if (tn.getTableName().equals("anonymous")) {
-            for (String n : this.aggrFields) {
+            for (String n : this.groupbyFields) {
                 for (int i = 0; i < tableSchema.size(); i ++) {
                     if (tableSchema.get(i).equals(n)) {
                         schemaTypes.add(tableSchemaType.get(i));
@@ -171,7 +170,7 @@ public class AggregationNode implements TableNode {
                 }
             }
         } else {
-            for (String n : this.aggrFields) {
+            for (String n : this.groupbyFields) {
                 for (int i = 0; i < tableSchema.size(); i ++) {
                     if (tableSchema.get(i).equals(n)) {
                         schemaTypes.add(tableSchemaType.get(i));
@@ -199,7 +198,7 @@ public class AggregationNode implements TableNode {
     }
 
     public int getAggrFieldSize() {
-        return this.aggrFields.size();
+        return this.groupbyFields.size();
     }
 
     @Override
@@ -210,7 +209,7 @@ public class AggregationNode implements TableNode {
     @Override
     public String prettyPrint(int indentLv) {
         String result = "SELECT\r\n" + IndentionManagement.basicIndent();
-        for (String f : aggrFields) {
+        for (String f : groupbyFields) {
             result += f + ", ";
         }
         for (int i = 0; i < targets.size(); i ++) {
@@ -226,7 +225,7 @@ public class AggregationNode implements TableNode {
         result += this.tn.prettyPrint(1);
         result += "\r\nGROUP BY\r\n";
         boolean flag = true;
-        for (String f : aggrFields) {
+        for (String f : groupbyFields) {
             if (flag == true)
                 result += IndentionManagement.basicIndent() + f;
             else result += ", " + f;
@@ -447,13 +446,13 @@ public class AggregationNode implements TableNode {
     public TableNode instantiate(InstantiateEnv env) {
         return new AggregationNode(
                 tn.instantiate(env),
-                this.aggrFields,
+                this.groupbyFields,
                 this.targets);
     }
 
     @Override
     public TableNode substNamedVal(ValNodeSubstBinding vnsb) {
-        return new AggregationNode(tn.substNamedVal(vnsb), this.aggrFields, this.targets);
+        return new AggregationNode(tn.substNamedVal(vnsb), this.groupbyFields, this.targets);
     }
 
     @Override
@@ -464,6 +463,20 @@ public class AggregationNode implements TableNode {
     @Override
     public TableNode tableSubst(List<Pair<TableNode,TableNode>> pairs) {
         return this;
+    }
+
+    @Override
+    public List<String> originalColumnName() {
+
+        List<String> innerQueryOriginalColName = this.tn.originalColumnName();
+        List<String> result = new ArrayList<>();
+        for (String s : this.groupbyFields)
+            result.add(innerQueryOriginalColName.get(this.tn.getSchema().indexOf(s)));
+
+        for (Pair<String, Function<List<Value>, Value>> p : this.targets) {
+            result.add(innerQueryOriginalColName.get(this.tn.getSchema().indexOf(p.getKey())));
+        }
+        return result;
     }
 
 }

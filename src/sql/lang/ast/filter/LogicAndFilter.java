@@ -38,8 +38,14 @@ public class LogicAndFilter implements Filter {
 
     @Override
     public String prettyPrint(int indentLv) {
-        String result = f1.prettyPrint(0) + "\r\n AND " + f2.prettyPrint(0);
-        return IndentionManagement.addIndention(result, indentLv);
+        if (f1 instanceof EmptyFilter)
+            return IndentionManagement.addIndention(f2.prettyPrint(0), indentLv);
+        else if (f2 instanceof EmptyFilter)
+            return IndentionManagement.addIndention(f1.prettyPrint(0), indentLv);
+        else {
+            String result = f1.prettyPrint(0) + "\r\n AND " + f2.prettyPrint(0);
+            return IndentionManagement.addIndention(result, indentLv);
+        }
     }
 
     @Override

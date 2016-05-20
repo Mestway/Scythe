@@ -16,10 +16,8 @@ import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
 import sql.lang.trans.ValNodeSubstBinding;
 import sun.jvm.hotspot.debugger.cdbg.Sym;
-import util.CombinationGenerator;
-import util.DebugHelper;
-import util.Pair;
-import util.RenameTNWrapper;
+import sun.jvm.hotspot.oops.Symbol;
+import util.*;
 
 import java.time.Clock;
 import java.util.*;
@@ -668,10 +666,11 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
                 validLRFilters.add(sf);
         }
 
-        // List<Pair<AbstractSymbolicTable, SymbolicFilter>>> is the components that can generate the key,
-        //      i.e. there should be three elements (this: lrf) (st1: f1) (st2: f2)
+        // Set<Triple<SymbolicFilter, SymbolicFilter, SymbolicFilter>> is the components that compose
+        // together will generate the symbolic filter that stored in the key, the tree elements in a triple are lrf, f1, f2,
+        // respectively.
         // (since a key can have many different combination ways, we use a set to store it)
-        Map<SymbolicFilter, Set<Map<AbstractSymbolicTable, SymbolicFilter>>> resultToProcess = new HashMap<>();
+        Map<SymbolicFilter, Set<Triple<SymbolicFilter, SymbolicFilter, SymbolicFilter>>> resultToProcess = new HashMap<>();
 
         for (SymbolicFilter sf : targets) {
             resultToProcess.put(sf, new HashSet<>());
@@ -692,10 +691,7 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
                             mergef1f2, lrf, AbstractSymbolicTable.mergeFunction);
 
                     if (targets.contains(mergef1f2lr)) {
-                        Map<AbstractSymbolicTable, SymbolicFilter> triple = new HashMap<>();
-                        triple.put(this, lrf);
-                        triple.put(st1, f1);
-                        triple.put(st2, f2);
+                        Triple<SymbolicFilter, SymbolicFilter, SymbolicFilter> triple = new Triple<>(lrf, f1, f2);
                         resultToProcess.get(mergef1f2lr).add(triple);
                     }
                 }
@@ -704,18 +700,18 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
 
         // For doulecheck and debugging purpose
         if (resultToProcess.values().stream().map(x -> x.isEmpty()).reduce(false, (x, y)->(x || y)))
-            System.err.println("[FATAL ERROER][SymbolicCompoundTable 707] exists filters that cannot be decomposed.");
+            System.err.println("[FATAL ERROR][SymbolicCompoundTable 707] exists filters that cannot be decomposed.");
 
         Map<SymbolicFilter, Set<Set<SymbolicFilter>>> decomposedLR = new HashMap<>();
         Set<SymbolicFilter> st1FiltersToDecode = new HashSet<>();
         Set<SymbolicFilter> st2FiltersToDecode = new HashSet<>();
 
-        for (Map.Entry<SymbolicFilter, Set<Map<AbstractSymbolicTable, SymbolicFilter>>>
+        for (Map.Entry<SymbolicFilter, Set<Triple<SymbolicFilter, SymbolicFilter, SymbolicFilter>>>
                 e : resultToProcess.entrySet()) {
-            for (Map<AbstractSymbolicTable, SymbolicFilter> mp : e.getValue()) {
-                decomposedLR.put(mp.get(this), new HashSet<>());
-                st1FiltersToDecode.add(mp.get(st1));
-                st2FiltersToDecode.add(mp.get(st2));
+            for (Triple<SymbolicFilter, SymbolicFilter, SymbolicFilter> triple : e.getValue()) {
+                decomposedLR.put(triple.first(), new HashSet<>());
+                st1FiltersToDecode.add(triple.second());
+                st2FiltersToDecode.add(triple.third());
             }
         }
 
@@ -740,6 +736,7 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
                 }
             }
         }
+
         SymbolicFilter emptyFilter = SymbolicFilter.genSymbolicFilter(this.getBaseTable(), new EmptyFilter());
         if (decomposedLR.containsKey(emptyFilter)) {
             Set<SymbolicFilter> s = new HashSet<>();
@@ -755,12 +752,13 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
             result.put(t, new ArrayList<>());
         }
 
-        for (Map.Entry<SymbolicFilter, Set<Map<AbstractSymbolicTable, SymbolicFilter>>>
+        for (Map.Entry<SymbolicFilter, Set<Triple<SymbolicFilter, SymbolicFilter, SymbolicFilter>>>
                 e : resultToProcess.entrySet()) {
-            for (Map<AbstractSymbolicTable, SymbolicFilter> triple : e.getValue()) {
-                for (SymFilterCompTree st1SubTree : st1Trees.get(triple.get(st1))) {
-                    for (SymFilterCompTree st2SubTree :  st2Trees.get(triple.get(st2))) {
-                        for (Set<SymbolicFilter> lrDecomposition : decomposedLR.get(triple.get(this))) {
+            for (Triple<SymbolicFilter, SymbolicFilter, SymbolicFilter> triple : e.getValue()) {
+                for (SymFilterCompTree st1SubTree : st1Trees.get(triple.second())) {
+                    for (SymFilterCompTree st2SubTree :  st2Trees.get(triple.third())) {
+                        for (Set<SymbolicFilter> lrDecomposition : decomposedLR.get(triple.first())) {
+
                             SymFilterCompTree sfct = new SymFilterCompTree(this, lrDecomposition);
                             sfct.addChildren(st1SubTree);
                             sfct.addChildren(st2SubTree);
@@ -773,7 +771,7 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
         }
 
         if (resultToProcess.values().stream().map(x -> x.isEmpty()).reduce(false, (x, y)->(x || y)))
-            System.err.println("[FATAL ERROER][SymbolicCompoundTable 707] exists filters that cannot be decomposed.");
+            System.err.println("[FATAL ERROR][SymbolicCompoundTable 707] exists filters that cannot be decomposed.");
 
         return result;
     }

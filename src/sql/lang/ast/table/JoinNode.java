@@ -14,6 +14,7 @@ import util.IndentionManagement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -121,6 +122,14 @@ public class JoinNode implements TableNode {
                         .collect(Collectors.toList()));
     }
 
+    @Override
+    public List<String> originalColumnName() {
+        List<String> result = new ArrayList<>();
+        for (TableNode tn : this.tableNodes) {
+            result.addAll(tn.originalColumnName());
+        }
+        return result;
+    }
 
 
     public List<TableNode> getTableNodes() { return this.tableNodes; }

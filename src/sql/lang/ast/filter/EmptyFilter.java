@@ -1,5 +1,6 @@
 package sql.lang.ast.filter;
 
+import enumerator.context.EnumContext;
 import enumerator.parameterized.InstantiateEnv;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
@@ -8,6 +9,7 @@ import sql.lang.trans.ValNodeSubstBinding;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by clwang on 1/4/16.
@@ -53,5 +55,4 @@ public class EmptyFilter implements Filter {
     public Filter substNamedVal(ValNodeSubstBinding vnsb) {
         return this;
     }
-
 }

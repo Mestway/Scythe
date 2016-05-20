@@ -141,6 +141,11 @@ public class RenameTableNode implements TableNode {
     }
 
     @Override
+    public List<String> originalColumnName() {
+        return this.tableNode.originalColumnName();
+    }
+
+    @Override
     public List<String> getSchema() {
         if (this.newTableName.equals("anonymous"))
             return this.newFieldNames;

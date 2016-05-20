@@ -11,7 +11,6 @@ import sql.lang.ast.val.ValNode;
 import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 import java.util.function.BiFunction;
@@ -23,7 +22,7 @@ import java.util.stream.Collectors;
  */
 public class VVComparator implements Filter {
 
-    List<ValNode> args = new ArrayList<ValNode>();
+    List<ValNode> args = new ArrayList<>();
     BiFunction<Value, Value, Boolean> compareFunc;
 
     public VVComparator(List<ValNode> args, BiFunction func) {
@@ -136,5 +135,8 @@ public class VVComparator implements Filter {
         Filter f = new VVComparator(args.stream().map(vn -> vn.subst(vnsb)).collect(Collectors.toList()), this.compareFunc);
         return f;
     }
+
+    public List<ValNode> getArgs() { return this.args; }
+    public BiFunction<Value, Value, Boolean> getComparator() { return this.compareFunc; }
 
 }

@@ -11,9 +11,7 @@ import sql.lang.exception.SQLEvalException;
 import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by clwang on 12/16/15.
@@ -88,6 +86,12 @@ public class NamedTable implements TableNode {
             e.printStackTrace();
         }
         return this;
+    }
+
+    @Override
+    public List<String> originalColumnName() {
+        // original name is just its schema
+        return this.getSchema();
     }
 
     @Override
