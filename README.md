@@ -1,1 +1,1 @@
-A program enumerator for enumerating SQL queries from input/output examples.
+Synthesizing SQL queries from input / output examples.
