@@ -158,7 +158,7 @@ public class AggregationNode implements TableNode {
             for (Pair<String, Function<List<Value>, Value>> t : targets) {
                 for (int i = 0; i < tableSchema.size(); i ++) {
                     if (tableSchema.get(i).equals(t.getKey())) {
-                        if (!t.getValue().equals(AggrCount)) {
+                        if (!(t.getValue().equals(AggrCount) || t.getValue().equals(AggrCountDistinct))) {
                             schemaTypes.add(tableSchemaType.get(i));
                         } else {
                             // if the aggregation function is COUNT,
@@ -181,10 +181,10 @@ public class AggregationNode implements TableNode {
             for (Pair<String, Function<List<Value>, Value>> t : targets) {
                 for (int i = 0; i < tableSchema.size(); i ++) {
                     if (tableSchema.get(i).equals(t.getKey())) {
-                        if (!t.getValue().equals(AggrCount)) {
+                        if (!(t.getValue().equals(AggrCount) || t.getValue().equals(AggrCountDistinct))) {
                             schemaTypes.add(tableSchemaType.get(i));
                         } else {
-                            // if the aggregation function is COUNT,
+                            // if the aggregation function is COUNT or COUNTDISTINCT,
                             // the type of the aggregation field will be changed to NumberVal
                             schemaTypes.add(ValType.NumberVal);
                         }
@@ -223,12 +223,15 @@ public class AggregationNode implements TableNode {
         }
         result += "FROM\r\n";
         result += this.tn.prettyPrint(1);
-        result += "\r\nGROUP BY\r\n";
-        boolean flag = true;
-        for (String f : groupbyFields) {
-            if (flag == true)
-                result += IndentionManagement.basicIndent() + f;
-            else result += ", " + f;
+
+        if (! groupbyFields.isEmpty()) {
+            result += "\r\nGROUP BY\r\n";
+            boolean flag = true;
+            for (String f : groupbyFields) {
+                if (flag == true)
+                    result += IndentionManagement.basicIndent() + f;
+                else result += ", " + f;
+            }
         }
         return IndentionManagement.addIndention(result, indentLv);
     }
@@ -392,6 +395,21 @@ public class AggregationNode implements TableNode {
 
     public static Function<List<Value>, Value> AggrCount = l -> new NumberVal(l.size());
 
+    public static Function<List<Value>, Value> AggrCountDistinct = l -> {
+        List<Value> distinctVals = new ArrayList<>();
+        for (Value v : l) {
+            boolean flag = false;
+            for (Value vv : distinctVals) {
+                if (vv.getVal().equals(v.getVal()))
+                    flag = true;
+            }
+            if (!flag)
+                distinctVals.add(v);
+        }
+        return new NumberVal(distinctVals.size());
+    };
+
+
     private static String FuncName(Function<List<Value>, Value> f) {
         if (f.equals(AggrSum))
             return "SUM";
@@ -401,6 +419,8 @@ public class AggregationNode implements TableNode {
             return "CONCAT";
         else if (f.equals(AggrCount))
             return "COUNT";
+        else if (f.equals(AggrCountDistinct))
+            return "COUNT_DISTINCT";
         else if (f.equals(AggrMax))
             return "MAX";
         else if (f.equals(AggrMin))
@@ -419,18 +439,22 @@ public class AggregationNode implements TableNode {
         if (type.equals(ValType.NumberVal)) {
             aggrFuncs.add(AggrAvg);
             aggrFuncs.add(AggrCount);
+            aggrFuncs.add(AggrCountDistinct);
             aggrFuncs.add(AggrMax);
             aggrFuncs.add(AggrMin);
             aggrFuncs.add(AggrSum);
         } else if (type.equals(ValType.DateVal)) {
             aggrFuncs.add(AggrCount);
+            aggrFuncs.add(AggrCountDistinct);
             aggrFuncs.add(AggrMax);
             aggrFuncs.add(AggrMin);
         } else if (type.equals(ValType.StringVal)) {
             aggrFuncs.add(AggrCount);
+            aggrFuncs.add(AggrCountDistinct);
             aggrFuncs.add(AggrConcat);
         } else if (type.equals(ValType.TimeVal)) {
             aggrFuncs.add(AggrCount);
+            aggrFuncs.add(AggrCountDistinct);
             aggrFuncs.add(AggrMax);
             aggrFuncs.add(AggrMin);
         }

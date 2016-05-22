@@ -237,9 +237,10 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
                 for (SymFilterCompTree t :i.getValue()) {
                     System.out.println("\t[Tree] " + t.prettyString(2).trim());
                     System.out.println("===============================");
-                    System.out.println(t.translateToTopSQL(ec).prettyPrint(0));
+                    List<TableNode> results = t.translateToTopSQL(ec);
+                    System.out.println(results.get(0).prettyPrint(0));
                     try {
-                        System.out.println(t.translateToTopSQL(ec).eval(new Environment()));
+                        System.out.println(results.get(0).eval(new Environment()));
                     } catch (SQLEvalException e) {
                         e.printStackTrace();
                     }
@@ -252,6 +253,13 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
     // Try to evaluate whether the output table can be derived from symbolic table st.
     private void tryEvalToOutput(AbstractSymbolicTable st, EnumContext ec, QueryChest qc) {
+
+        if (st instanceof SymbolicCompoundTable) {
+            if (st.getBaseTable().getMetadata().get(0).toString().contains("home")) {
+                if (st.getBaseTable().getMetadata().get(1).toString().contains("MAX-datetime"))
+                        System.out.println("fan xue bie zou");
+            }
+        }
 
         BiConsumer<AbstractSymbolicTable, SymbolicFilter> f = (symTable, symFilter) -> {
 

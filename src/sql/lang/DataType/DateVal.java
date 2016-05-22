@@ -1,5 +1,7 @@
 package sql.lang.DataType;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -35,6 +37,9 @@ public class DateVal implements Value {
         return ValType.DateVal;
     }
 
-    public String toString() { return this.getVal().getMonth() + "/" + this.getVal().getDate() + "/" + this.getVal().getYear(); }
+    public String toString() {
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        return df.format(val);
+    }
 
 }

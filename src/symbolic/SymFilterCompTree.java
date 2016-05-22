@@ -13,10 +13,12 @@ import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
 import sql.lang.trans.ValNodeSubstBinding;
+import util.CombinationGenerator;
 import util.CostEstimator;
 import util.Pair;
 import util.RenameTNWrapper;
 
+import javax.rmi.CORBA.Util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -74,52 +76,72 @@ public class SymFilterCompTree {
         return s;
     }
 
-    public TableNode translateToTopSQL(EnumContext ec) {
+    public List<TableNode> translateToTopSQL(EnumContext ec) {
+
         if (symTable instanceof SymbolicTable) {
+
+            List<TableNode> result = new ArrayList<>();
+
             TableNode tn = ((SymbolicTable) symTable).getBaseTableSrc();
 
-            List<Filter> filters = new ArrayList<>();
+            List<List<Filter>> unRotated = new ArrayList<>();
             for (SymbolicFilter sf : this.primitiveFilters) {
                 List<Filter> decoded = ((SymbolicTable) symTable)
                         .decodePrimitiveFilter(sf, tn, ec);
-
-                float minCost = 999; Filter candidate = null;
-                for (Filter f : decoded) {
-                    float score = CostEstimator.estimateFilterCost(f,
-                            TableNode.nameToOriginMap(tn.getSchema(),tn.originalColumnName()));
-                    if (score < minCost) {
-                        minCost = score;
-                        candidate = f;
-                    }
-                }
-
-                filters.add(candidate);
+                unRotated.add(decoded);
             }
 
-            return new SelectNode(tn.getSchema().stream().map(s -> new NamedVal(s)).collect(Collectors.toList()),
-                    tn, LogicAndFilter.connectByAnd(filters));
+            List<List<Filter>> rotated = CombinationGenerator.rotateList(unRotated);
+
+            List<Filter> candiateConjFilter = null;
+            float minCost = 999;
+
+            for (List<Filter> filters : rotated) {
+
+                float score = CostEstimator.estimateConjFilterList(filters,
+                        TableNode.nameToOriginMap(tn.getSchema(),tn.originalColumnName()));
+
+                if (score < minCost) {
+                    minCost = score;
+                    candiateConjFilter = filters;
+                }
+            }
+
+            result.add(new SelectNode(tn.getSchema().stream().map(s -> new NamedVal(s)).collect(Collectors.toList()),
+                    tn, LogicAndFilter.connectByAnd(candiateConjFilter)));
+
+            return result;
+
         } else if (symTable instanceof SymbolicCompoundTable) {
 
+            List<TableNode> result = new ArrayList<>();
+
             // we shall first generate the core table of the select predicate
-            List<TableNode> subQueries = new ArrayList<>();
+
+            // the subquery list contains two lists, the first lists are queries that are generated from st1
+            // the second list contains queries generated from st2.
+            List<List<TableNode>> subQueryLists = new ArrayList<>();
             for (SymFilterCompTree sfct : this.children) {
-                subQueries.add(sfct.translateToTopSQL(ec));
+                subQueryLists.add(sfct.translateToTopSQL(ec));
             }
-            JoinNode jn = new JoinNode(subQueries);
-            RenameTableNode coreTableNode = (RenameTableNode) RenameTNWrapper.tryRename(jn);
 
+            List<List<TableNode>> rotated = CombinationGenerator.rotateList(subQueryLists);
 
-            // Then we concrete the LR filter on this table
+            for (List<TableNode> subQueries : rotated) {
 
-            Table st1Table = ((SymbolicCompoundTable) symTable).st1.getBaseTable();
-            Table st2Table = ((SymbolicCompoundTable) symTable).st2.getBaseTable();
-            JoinNode fakeJN = new JoinNode(Arrays.asList(new NamedTable(st1Table), new NamedTable(st2Table)));
-            RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(fakeJN);
+                JoinNode jn = new JoinNode(subQueries);
+                RenameTableNode coreTableNode = (RenameTableNode) RenameTNWrapper.tryRename(jn);
 
-            List<Filter> filters = new ArrayList<>();
+                // Then we concrete the LR filter on this table
 
-            for (SymbolicFilter sf : this.primitiveFilters) {
+                Table st1Table = ((SymbolicCompoundTable) symTable).st1.getBaseTable();
+                Table st2Table = ((SymbolicCompoundTable) symTable).st2.getBaseTable();
+                JoinNode fakeJN = new JoinNode(Arrays.asList(new NamedTable(st1Table), new NamedTable(st2Table)));
+                RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(fakeJN);
 
+                List<Filter> filters = new ArrayList<>();
+
+                // Enumerate the syntactical forms of all these filters
                 int backupMaxFilterLength = ec.getMaxFilterLength();
                 ec.setMaxFilterLength(1);
                 List<Filter> enumerated = EnumCanonicalFilters
@@ -127,43 +149,47 @@ public class SymFilterCompTree {
                 enumerated.add(new EmptyFilter());
                 ec.setMaxFilterLength(backupMaxFilterLength);
 
-                float minCost = 999; Filter candidate = null;
-                for (Filter f : enumerated) {
-                    try {
-                        SymbolicFilter ff = SymbolicFilter.genSymbolicFilter(rt.eval(new Environment()), f);
-                        float cost = CostEstimator.estimateFilterCost(f, TableNode.nameToOriginMap(rt.getSchema(), rt.originalColumnName()));
-                        if (ff.equals(sf) && cost < minCost) {
-                            candidate = f;
-                            minCost = cost;
+                for (SymbolicFilter sf : this.primitiveFilters) {
+
+                    float minCost = 999; Filter candidate = null;
+                    for (Filter f : enumerated) {
+                        try {
+                            SymbolicFilter ff = SymbolicFilter.genSymbolicFilter(rt.eval(new Environment()), f);
+                            float cost = CostEstimator.estimateFilterCost(f, TableNode.nameToOriginMap(rt.getSchema(), rt.originalColumnName()));
+                            if (ff.equals(sf) && cost < minCost) {
+                                candidate = f;
+                                minCost = cost;
+                            }
+                        } catch (SQLEvalException e) {
+                            e.printStackTrace();
+                            continue;
                         }
-                    } catch (SQLEvalException e) {
-                        e.printStackTrace();
-                        continue;
                     }
+                    filters.add(candidate);
                 }
-                filters.add(candidate);
+
+                // Since the filters are built upon fakeRT, we cannot directly use these filters to construct the desired output,
+                // and we will first need to rename the columns in each filter to construct a real filter
+
+                // rename the filters so that the filters refer to the elements in the new table.
+                ValNodeSubstBinding vsb = new ValNodeSubstBinding();
+                for (int i = 0; i < coreTableNode.getSchema().size(); i ++) {
+                    vsb.addBinding(new Pair<>(
+                            new NamedVal(rt.getSchema().get(i)),
+                            new NamedVal(coreTableNode.getSchema().get(i))));
+                }
+
+                List<Filter> renamedFilters = new ArrayList<>();
+                for (Filter f : filters) {
+                    renamedFilters.add(f.substNamedVal(vsb));
+                }
+
+                result.add(new SelectNode(coreTableNode.getSchema().stream().map(s -> new NamedVal(s)).collect(Collectors.toList()),
+                        coreTableNode,
+                        LogicAndFilter.connectByAnd(renamedFilters)));
             }
 
-            // Since the filters are built upon fakeRT, we cannot directly use these filters to construct the desired output,
-            // and we will first need to rename the columns in each filter to construct a real filter
-
-
-            // rename the filters so that the filters refer to the elements in the new table.
-            ValNodeSubstBinding vsb = new ValNodeSubstBinding();
-            for (int i = 0; i < coreTableNode.getSchema().size(); i ++) {
-                vsb.addBinding(new Pair<>(
-                        new NamedVal(rt.getSchema().get(i)),
-                        new NamedVal(coreTableNode.getSchema().get(i))));
-            }
-
-            List<Filter> renamedFilters = new ArrayList<>();
-            for (Filter f : filters) {
-                renamedFilters.add(f.substNamedVal(vsb));
-            }
-
-            return new SelectNode(coreTableNode.getSchema().stream().map(s -> new NamedVal(s)).collect(Collectors.toList()),
-                    coreTableNode,
-                    LogicAndFilter.connectByAnd(renamedFilters));
+            return result;
         }
 
         return null;

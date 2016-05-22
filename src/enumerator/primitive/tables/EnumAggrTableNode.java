@@ -97,6 +97,7 @@ public class EnumAggrTableNode {
         List<TableNode> aggrNodes = new ArrayList<>();
 
         List<List<String>> groupByFieldsComb = CombinationGenerator.genCombination(tn.getSchema());
+        groupByFieldsComb.add(new ArrayList<>());
 
         for (List<String> groupByFields : groupByFieldsComb) {
 
@@ -112,15 +113,16 @@ public class EnumAggrTableNode {
 
             // Part I: add the group by query without aggregation into the group by fields
 
-            RenameTableNode query = (RenameTableNode) RenameTNWrapper
-                    .tryRename(new AggregationNode(tn,
-                            groupByFields, new ArrayList<Pair<String, Function<List<Value>, Value>>>()));
-            if (optionalQC.isPresent()) {
-                emitToQueryChest(query, tn, optionalQC.get());
-            } else {
-                aggrNodes.add(query);
+            if (! groupByFields.isEmpty()) {
+                RenameTableNode query = (RenameTableNode) RenameTNWrapper
+                        .tryRename(new AggregationNode(tn,
+                                groupByFields, new ArrayList<Pair<String, Function<List<Value>, Value>>>()));
+                if (optionalQC.isPresent()) {
+                    emitToQueryChest(query, tn, optionalQC.get());
+                } else {
+                    aggrNodes.add(query);
+                }
             }
-
 
             // If the group by size is equal to the schema size, we shall skip the process of finding a target field
             // if (groupByFields.size() == tn.getSchema().size())

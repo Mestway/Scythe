@@ -104,6 +104,7 @@ public class Constraint {
                         case "max": return AggregationNode.AggrMax;
                         case "avg": return AggregationNode.AggrAvg;
                         case "count": return AggregationNode.AggrCount;
+                        case "count-distinct": return AggregationNode.AggrCountDistinct;
                         case "concat": return AggregationNode.AggrConcat;
                         case "sum": return AggregationNode.AggrSum;
                         default: return null;
