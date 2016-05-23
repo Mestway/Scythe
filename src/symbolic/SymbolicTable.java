@@ -1,6 +1,5 @@
 package symbolic;
 
-import com.sun.org.apache.regexp.internal.RE;
 import enumerator.primitive.EnumCanonicalFilters;
 import enumerator.context.EnumContext;
 import global.Statistics;
@@ -15,10 +14,9 @@ import sql.lang.ast.table.*;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
-import sun.jvm.hotspot.debugger.cdbg.Sym;
-import sun.jvm.hotspot.oops.Symbol;
 import util.CombinationGenerator;
 import util.Pair;
+import util.RenameTNWrapper;
 
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -32,6 +30,11 @@ public class SymbolicTable extends AbstractSymbolicTable {
 
     // this field records what is the query to construct the base table
     private TableNode baseTableSrc;
+
+    // This field only presence when the baseTableSrc is an aggregation node,
+    // the aggregation core identifies the core used in enumerating aggregation.
+    private Optional<Pair<AbstractSymbolicTable, SymbolicFilter>> coreSymTableNFilter;
+
     private Table baseTable;
 
     private Set<SymbolicFilter> symbolicPrimitiveFilters = new HashSet<>();
@@ -46,6 +49,15 @@ public class SymbolicTable extends AbstractSymbolicTable {
         this.baseTableSrc = baseTableSrc;
         // the symbolic primitive filters are not evaluated here because we want to keep them lazy
         this.symbolicPrimitiveFilters = new HashSet<>();
+        this.coreSymTableNFilter = Optional.ofNullable(null);
+    }
+
+    public SymbolicTable(Table baseTable, TableNode baseTableSrc, Pair<AbstractSymbolicTable, SymbolicFilter> p) {
+        this.baseTable = baseTable;
+        this.baseTableSrc = baseTableSrc;
+        // the symbolic primitive filters are not evaluated here because we want to keep them lazy
+        this.symbolicPrimitiveFilters = new HashSet<>();
+        this.coreSymTableNFilter = Optional.of(p);
     }
 
     public SymbolicTable(Table baseTable, TableNode baseTableSrc, EnumContext ec) {
@@ -438,5 +450,29 @@ public class SymbolicTable extends AbstractSymbolicTable {
         }
 
         return result;
+    }
+
+    public List<TableNode> genTableSrc(EnumContext ec) {
+        if (! this.coreSymTableNFilter.isPresent())
+            return Arrays.asList(this.baseTableSrc);
+
+        AbstractSymbolicTable symTable = coreSymTableNFilter.get().getKey();
+        SymbolicFilter sf = coreSymTableNFilter.get().getValue();
+
+
+        Set<SymbolicFilter> sfSet = new HashSet<>();
+        sfSet.add(sf);
+        List<SymFilterCompTree> trees = symTable.batchGenDecomposition(sfSet).get(sf);
+        List<TableNode> cores = new ArrayList<>();
+        for (SymFilterCompTree tr : trees) {
+            cores.addAll(tr.translateToTopSQL(ec));
+        }
+
+        List<TableNode> tableSrcs = new ArrayList<>();
+        for(TableNode core : cores) {
+            tableSrcs.add(RenameTNWrapper.tryRename(((AggregationNode)((RenameTableNode)baseTableSrc).getTableNode()).substCoreTable(core)));
+        }
+
+        return tableSrcs;
     }
 }

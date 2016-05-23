@@ -17,7 +17,7 @@ public class Table {
     static int TableCount = 0;
     public static String AssignNewName() {
         TableCount ++;
-        return "DefaultTableName" + TableCount;
+        return "{Default" + TableCount + "}";
     }
 
     String name = "";

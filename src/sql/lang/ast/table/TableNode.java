@@ -1,5 +1,6 @@
 package sql.lang.ast.table;
 
+import enumerator.context.EnumContext;
 import enumerator.parameterized.InstantiateEnv;
 import util.Pair;
 import sql.lang.DataType.ValType;
@@ -46,4 +47,6 @@ public interface TableNode extends Node {
         }
         return map;
     }
+
+    double estimateAllFilterCost();
 }

@@ -4,6 +4,7 @@ import enumerator.context.EnumContext;
 import enumerator.parameterized.InstantiateEnv;
 import sql.lang.ast.filter.EmptyFilter;
 import sun.invoke.empty.Empty;
+import util.CostEstimator;
 import util.Pair;
 import sql.lang.DataType.ValType;
 import sql.lang.DataType.Value;
@@ -267,5 +268,21 @@ public class SelectNode implements TableNode {
     public TableNode getTableNode() { return this.tableNode; }
     public Filter getFilter() { return this.filter; }
     public List<ValNode> getColumns() { return this.columns; }
+
+    @Override
+    public double estimateAllFilterCost() {
+        double cost = tableNode.estimateAllFilterCost();
+        double filterCost = CostEstimator.estimateFilterCost(this.filter, TableNode.nameToOriginMap(this.getSchema(), originalColumnName()));
+
+        if (tableNode instanceof RenameTableNode) {
+            if (((RenameTableNode) tableNode).tableNode instanceof AggregationNode) {
+                filterCost = filterCost * 1;
+            } else if (((RenameTableNode) tableNode).tableNode instanceof JoinNode) {
+                filterCost = filterCost * 1;
+            }
+        }
+
+        return cost + filterCost;
+    }
 
 }

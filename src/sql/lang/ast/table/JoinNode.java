@@ -134,4 +134,10 @@ public class JoinNode implements TableNode {
 
     public List<TableNode> getTableNodes() { return this.tableNodes; }
 
+    @Override
+    public double estimateAllFilterCost() {
+        return tableNodes.stream().map(tn -> tn.estimateAllFilterCost()).reduce(0., (x,y) -> (x + y));
+    }
+
+
 }

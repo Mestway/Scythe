@@ -107,4 +107,9 @@ public class NamedTable implements TableNode {
         return false;
     }
 
+    @Override
+    public double estimateAllFilterCost() {
+        return 0;
+    }
+
 }

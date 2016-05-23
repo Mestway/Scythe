@@ -19,10 +19,7 @@ import util.Pair;
 import util.RenameTNWrapper;
 
 import javax.rmi.CORBA.Util;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -82,7 +79,16 @@ public class SymFilterCompTree {
 
             List<TableNode> result = new ArrayList<>();
 
-            TableNode tn = ((SymbolicTable) symTable).getBaseTableSrc();
+            List<TableNode> cores = ((SymbolicTable) symTable).genTableSrc(ec);
+            cores.sort(new Comparator<TableNode>() {
+                @Override
+                public int compare(TableNode o1, TableNode o2) {
+                    return o1.estimateAllFilterCost() <= o2.estimateAllFilterCost() ?
+                            (o1.estimateAllFilterCost() < o2.estimateAllFilterCost() ? -1 : 0) : 1;
+                }
+            });
+
+            TableNode tn = cores.get(0);
 
             List<List<Filter>> unRotated = new ArrayList<>();
             for (SymbolicFilter sf : this.primitiveFilters) {

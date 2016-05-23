@@ -15,16 +15,11 @@ import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
 import sql.lang.trans.ValNodeSubstBinding;
-import sun.jvm.hotspot.debugger.cdbg.Sym;
-import sun.jvm.hotspot.oops.Symbol;
 import util.*;
 
-import java.time.Clock;
 import java.util.*;
 import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Created by clwang on 3/26/16.

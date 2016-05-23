@@ -135,4 +135,11 @@ public class SymbolicFilter {
         }
         return s + ": " + this.rowNumber +"]";
     }
+
+    //Determine whether the filter is built from an empty filter
+    public boolean isEmptyFilter() {
+        if (this.rowNumber == this.filterRep.size())
+            return true;
+        return false;
+    }
 }

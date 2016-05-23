@@ -5,6 +5,7 @@ import enumerator.primitive.tables.EnumProjection;
 import enumerator.context.EnumContext;
 import enumerator.context.QueryChest;
 import global.GlobalConfig;
+import jdk.nashorn.internal.ir.Symbol;
 import mapping.MappingInference;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
@@ -32,41 +33,53 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
         System.out.println("[FiltersCount format](primitiveSynFilterCount, primitiveBitVecFilterCount, totalBitVecFiltersCount)");
 
+        // this is the list to store all symbolic tables used in enumeration
+        List<AbstractSymbolicTable> symTables = new ArrayList<>();
+
         // construct symbolic table for each named table.
         QueryChest qc = QueryChest.initWithInputTables(ec.getInputs());
 
-        List<AbstractSymbolicTable> symTables = qc.getMemoizedTables().keySet()
+        // build symbolic table for each input table, and store them in SymTables
+        List<SymbolicTable> symTablesForInputs = qc.getMemoizedTables().keySet()
                 .stream().map(t -> new SymbolicTable(t, new NamedTable(t)))
                 .collect(Collectors.toList());
+        symTables.addAll(symTablesForInputs);
 
-        System.out.println("[Basic]: " + qc.getMemoizedTables().size() + " [SymTable]: " + symTables.size());
+        System.out.println("[Basic]: " + qc.getMemoizedTables().size() + " [SymTableForInputs]: " + symTablesForInputs.size());
 
-        // core tables to be used in enumerate aggregation
-        List<TableNode> tns = new ArrayList<>();
-        for (AbstractSymbolicTable st : symTables) {
-            tns.addAll(st.instantiateAllTables(ec)
-                    .stream().map(t -> new NamedTable(t)).collect(Collectors.toList()));
-        }
+        int aggrNodeCount = 0;
+        List<AbstractSymbolicTable> symTableForAggr = new ArrayList<>();
 
-        // enumerating aggregation tables, the aggregation nodes are based on these primitive filters
-        ec.setTableNodes(tns);
+        for (SymbolicTable st : symTablesForInputs) {
+            // core tables to be used in enumerate aggregation
+            List<Pair<Table, SymbolicFilter>> instantiated = st.instantiatedAllTablesWithSymFilters(ec);
 
-        List<TableNode> ans = EnumAggrTableNode.enumAggregationNodeFlag(ec, EnumAggrTableNode.SIMPLIFY, false);
-
-        // tables returned from last stage are all aggregation nodes
-        // build symbolic tables out of aggregation table nodes.
-        for (TableNode an : ans) {
-
-            // these tables will be considered as normal, the filters of these aggregation tables
-            // are considered as normal named tables: they are stored abstractly, and they will only be evaluated afterwards
-            try {
-                SymbolicTable st = new SymbolicTable(an.eval(new Environment()), an);
-                symTables.add(st);
-            } catch (SQLEvalException e) {
-                e.printStackTrace();
+            for (Pair<Table, SymbolicFilter> p : instantiated) {
+                // enumerating aggregation queries,
+                // the core of each query is built atop a filtering clause on an input table
+                ec.setTableNodes(Arrays.asList(new NamedTable(p.getKey())));
+                List<TableNode> ans = EnumAggrTableNode.enumAggregationNodeFlag(ec, EnumAggrTableNode.SIMPLIFY, false);
+                for (TableNode an : ans) {
+                    try {
+                        // build symbolic tables out of aggregation table nodes, and store them for next stage enumeration
+                        SymbolicTable aggrSt;
+                        if (p.getValue().isEmptyFilter()) {
+                            aggrSt = new SymbolicTable(an.eval(new Environment()), an);
+                        } else {
+                            aggrSt = new SymbolicTable(an.eval(new Environment()), an, new Pair<>(st, p.getValue()));
+                        }
+                        aggrNodeCount ++;
+                        symTableForAggr.add(aggrSt);
+                    } catch (SQLEvalException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
-        System.out.println("[Aggregation]: " + ans.size() + " [SymTable]: " + symTables.size());
+
+        symTables.addAll(symTableForAggr);
+
+        System.out.println("[Aggregation]: " + aggrNodeCount + " [SymTable]: " + symTables.size());
 
         List<AbstractSymbolicTable> basicAndAggr = new ArrayList<>();
         basicAndAggr.addAll(symTables);
@@ -226,6 +239,8 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
         System.out.println("Candidates: ");
 
+        List<TableNode> unrankedResult = new ArrayList<>();
+
         for (Pair<AbstractSymbolicTable, SymbolicFilter> c : qc.getAllCandidates()) {
 
             Set<SymbolicFilter> toDecode = new HashSet<SymbolicFilter>();
@@ -235,7 +250,9 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
             for (Map.Entry<SymbolicFilter, List<SymFilterCompTree>> i : cQuery.entrySet()) {
                 for (SymFilterCompTree t :i.getValue()) {
-                    System.out.println("\t[Tree] " + t.prettyString(2).trim());
+                    unrankedResult.addAll(t.translateToTopSQL(ec));
+
+                    /* System.out.println("\t[Tree] " + t.prettyString(2).trim());
                     System.out.println("===============================");
                     List<TableNode> results = t.translateToTopSQL(ec);
                     System.out.println(results.get(0).prettyPrint(0));
@@ -243,8 +260,25 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
                         System.out.println(results.get(0).eval(new Environment()));
                     } catch (SQLEvalException e) {
                         e.printStackTrace();
-                    }
+                    } */
+
                 }
+            }
+        }
+
+        unrankedResult.sort((x,y) -> (x.estimateAllFilterCost() <= y.estimateAllFilterCost() ?
+                (x.estimateAllFilterCost() < y.estimateAllFilterCost() ? -1 : 0) : 1));
+
+        int count = 0;
+        for (TableNode tn : unrankedResult) {
+            if( count >= 5) break;
+            System.out.println("[No. " + count + "]===============================");
+            count ++;
+            System.out.println(tn.prettyPrint(0));
+            try {
+                System.out.println(tn.eval(new Environment()));
+            } catch (SQLEvalException e) {
+                e.printStackTrace();
             }
         }
 
@@ -253,13 +287,6 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
     // Try to evaluate whether the output table can be derived from symbolic table st.
     private void tryEvalToOutput(AbstractSymbolicTable st, EnumContext ec, QueryChest qc) {
-
-        if (st instanceof SymbolicCompoundTable) {
-            if (st.getBaseTable().getMetadata().get(0).toString().contains("home")) {
-                if (st.getBaseTable().getMetadata().get(1).toString().contains("MAX-datetime"))
-                        System.out.println("fan xue bie zou");
-            }
-        }
 
         BiConsumer<AbstractSymbolicTable, SymbolicFilter> f = (symTable, symFilter) -> {
 

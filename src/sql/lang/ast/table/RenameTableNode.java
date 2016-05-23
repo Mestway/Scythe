@@ -1,5 +1,6 @@
 package sql.lang.ast.table;
 
+import enumerator.context.EnumContext;
 import enumerator.parameterized.InstantiateEnv;
 import util.Pair;
 import sql.lang.DataType.ValType;
@@ -157,4 +158,9 @@ public class RenameTableNode implements TableNode {
     }
 
     public TableNode getTableNode() { return this.tableNode; }
+
+    @Override
+    public double estimateAllFilterCost() {
+        return this.tableNode.estimateAllFilterCost();
+    }
 }

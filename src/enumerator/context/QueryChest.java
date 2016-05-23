@@ -22,9 +22,11 @@ public class QueryChest {
     private Set<Pair<AbstractSymbolicTable, SymbolicFilter>> candidates = new HashSet<>();
 
     // these two fields are used for evaluating enumeration
+    @Deprecated
     public int queryCount = 0;
 
     // count the number of table before projection that can be projected into true output
+    @Deprecated
     public int runnerUpTable = 0;
 
     // tabled that is memoized

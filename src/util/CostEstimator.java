@@ -1,10 +1,7 @@
 package util;
 
 import enumerator.context.EnumContext;
-import sql.lang.ast.filter.EmptyFilter;
-import sql.lang.ast.filter.ExistComparator;
-import sql.lang.ast.filter.Filter;
-import sql.lang.ast.filter.VVComparator;
+import sql.lang.ast.filter.*;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.ConstantVal;
 import sql.lang.ast.val.NamedVal;
@@ -46,6 +43,8 @@ public class CostEstimator {
             }
 
             return score;
+        } else if (f instanceof LogicAndFilter) {
+            return estimateConjFilterList(((LogicAndFilter) f).getAllFilters(), originNameMap);
         } else {
             return 3;
         }

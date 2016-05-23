@@ -38,8 +38,9 @@ public class DateVal implements Value {
     }
 
     public String toString() {
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-        return df.format(val);
+        //DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        //return df.format(val);
+        return val.toString();
     }
 
 }

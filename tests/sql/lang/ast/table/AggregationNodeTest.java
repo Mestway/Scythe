@@ -1,5 +1,8 @@
 package sql.lang.ast.table;
 
+import com.sun.org.apache.bcel.internal.generic.Select;
+import sql.lang.ast.filter.VVComparator;
+import sql.lang.ast.val.NamedVal;
 import util.Pair;
 import org.junit.Test;
 import sql.lang.Table;
@@ -8,6 +11,7 @@ import sql.lang.exception.SQLEvalException;
 import util.TableInstanceParser;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * Created by clwang on 12/22/15.
@@ -27,7 +31,6 @@ public class AggregationNodeTest {
 
     Table t1 = TableInstanceParser.parseMarkDownTable("table1", src);
 
-    @Test
     public void Test1() {
         AggregationNode agrNode = new AggregationNode(
                 new NamedTable(t1),
@@ -49,8 +52,26 @@ public class AggregationNodeTest {
                 Arrays.asList("table1.home", "table1.player"),
                 Arrays.asList(new Pair<>("table1.resource", AggregationNode.AggrMax)));
 
+        SelectNode sn = new SelectNode(t1.getQualifiedMetadata().stream().map(t -> new NamedVal(t)).collect(Collectors.toList()),
+                new NamedTable(t1), new VVComparator(Arrays.asList(new NamedVal("table1.id"), new NamedVal("table1.broId")), VVComparator.le));
+
         try {
+
+            System.out.println(sn.prettyPrint(0));
+            System.out.println(sn.eval(new Environment()));
+
+            System.out.println(" - - - - - - - -  - -");
+
             System.out.println(agrNode.eval(new Environment()));
+
+            System.out.println(agrNode.prettyPrint(0));
+
+            System.out.println(" - - - - - - - -  - -");
+
+            System.out.println(agrNode.substCoreTable(sn).prettyPrint(0));
+
+            System.out.println(agrNode.substCoreTable(sn).eval(new Environment()));
+
         } catch (SQLEvalException e) {
             e.printStackTrace();
         }

@@ -1,6 +1,9 @@
 package sql.lang.ast.table;
 
+import enumerator.context.EnumContext;
 import enumerator.parameterized.InstantiateEnv;
+import sql.lang.ast.val.NamedVal;
+import sql.lang.ast.val.ValNode;
 import util.Pair;
 import sql.lang.DataType.*;
 import sql.lang.Table;
@@ -10,6 +13,7 @@ import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
 import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;
+import util.RenameTNWrapper;
 
 import java.sql.Time;
 import java.util.*;
@@ -489,6 +493,47 @@ public class AggregationNode implements TableNode {
         return this;
     }
 
+    public TableNode substCoreTable(TableNode newCore) {
+
+        TableNode rt = RenameTNWrapper.tryRename(newCore);
+
+        // rename the filters so that the filters refer to the elements in the new table.
+        List<Pair<String, String>> stringNameBinding = new ArrayList<>();
+        for (int i = 0; i < rt.getSchema().size(); i ++) {
+            stringNameBinding.add(new Pair<>(
+                    this.tn.getSchema().get(i),
+                    rt.getSchema().get(i)));
+        }
+
+        List<String> newGroupByFields = new ArrayList<>();
+        List<Pair<String, Function<List<Value>, Value>>> newTargets = new ArrayList<>();
+
+        for (String s : groupbyFields) {
+            for (Pair<String, String> p : stringNameBinding) {
+                if (p.getKey().equals(s)) {
+                    newGroupByFields.add(p.getValue());
+                    break;
+                }
+            }
+        }
+
+        for (Pair<String, Function<List<Value>, Value>> targetPair : targets) {
+            for (Pair<String, String> p : stringNameBinding) {
+                if (p.getKey().equals(targetPair.getKey())) {
+                    newTargets.add(new Pair<>(p.getValue(), targetPair.getValue()));
+                    break;
+                }
+            }
+        }
+
+        if (newGroupByFields.size() != groupbyFields.size() || newTargets.size() != targets.size()) {
+            System.out.println("[Fatal Error @ AggregationNode] failure to subsitute the core.");
+        }
+
+        TableNode newTN = new AggregationNode(rt, newGroupByFields, newTargets);
+        return newTN;
+    }
+
     @Override
     public List<String> originalColumnName() {
 
@@ -503,4 +548,8 @@ public class AggregationNode implements TableNode {
         return result;
     }
 
+    @Override
+    public double estimateAllFilterCost() {
+        return tn.estimateAllFilterCost();
+    }
 }

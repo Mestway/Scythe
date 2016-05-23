@@ -115,9 +115,36 @@ public abstract class AbstractSymbolicTable {
             for (Integer i : spf.getFilterRep()) {
                 t.getContent().add(table.getContent().get(i).duplicate());
             }
+            if (! t.equals(table))
+                t.updateName(Table.AssignNewName());
             instantiatedTables.add(t);
         }
         return instantiatedTables.stream().filter(t -> t.getContent().size() > 0).collect(Collectors.toList());
+    }
+
+    public List<Pair<Table,SymbolicFilter>> instantiatedAllTablesWithSymFilters(EnumContext ec) {
+
+        this.evalPrimitive(ec);
+
+        Set<SymbolicFilter> filters = this.instantiateAllFilters().getKey();
+        Table table = this.getBaseTable();
+
+        List<Pair<Table, SymbolicFilter>> result = new ArrayList<>();
+        for (SymbolicFilter sf : filters) {
+            Table t = table.duplicate();
+            t.getContent().clear();
+            for (Integer i : sf.getFilterRep()) {
+                t.getContent().add(table.getContent().get(i).duplicate());
+            }
+            if (t.getContent().size() > 0) {
+                // if sf is an empty filter, then the filtered table is just the original table
+                if (! sf.isEmptyFilter())
+                    t.updateName(Table.AssignNewName());
+                result.add(new Pair<>(t, sf));
+            }
+        }
+
+        return result;
     }
 
     // TODO: currently only allow filters of length 2
