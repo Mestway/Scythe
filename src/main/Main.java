@@ -2,7 +2,6 @@ package main;
 
 import enumerator.tableenumerator.AbstractTableEnumerator;
 import enumerator.tableenumerator.CanonicalTableEnumeratorOnTheFly;
-import enumerator.tableenumerator.CanonicalWithoutExistsEnumerator;
 import enumerator.tableenumerator.SymbolicTableEnumerator;
 import global.Statistics;
 
@@ -15,6 +14,8 @@ public class Main {
             System.out.println("Not enough arguments provided.");
             System.exit(-1);
         }
+
+        System.setErr(System.out);
 
         String filename = args[0];
         String enumerator = args[1];

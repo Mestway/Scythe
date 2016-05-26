@@ -139,5 +139,9 @@ public class JoinNode implements TableNode {
         return tableNodes.stream().map(tn -> tn.estimateAllFilterCost()).reduce(0., (x,y) -> (x + y));
     }
 
+    @Override
+    public String getQuerySkeleton() {
+        return "(J" + tableNodes.stream().map(tn -> tn.getQuerySkeleton()).reduce("", (x,y)-> (x + " " + y)) + ")";
+    }
 
 }

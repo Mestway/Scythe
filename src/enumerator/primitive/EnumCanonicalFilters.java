@@ -38,6 +38,7 @@ public class EnumCanonicalFilters {
         // enum filters
         EnumContext ec2 = EnumContext.extendTypeMap(ec, typeMap);
 
+        // For enumeration of named table, allow exists is always set to true.
         boolean allowExists = true;
         return FilterEnumerator.enumFiltersLR(vals, ec2.getValNodes(), ec2, allowExists);
     }

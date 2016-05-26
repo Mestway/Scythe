@@ -552,4 +552,9 @@ public class AggregationNode implements TableNode {
     public double estimateAllFilterCost() {
         return tn.estimateAllFilterCost();
     }
+
+    @Override
+    public String getQuerySkeleton() {
+        return "(A " + this.tn.getQuerySkeleton() + ")";
+    }
 }

@@ -49,4 +49,8 @@ public interface TableNode extends Node {
     }
 
     double estimateAllFilterCost();
+
+    // Obtain the skeleton of a SQL query, the skeleton describes what does the query looks like,
+    // this string can be used to distinguish query structure information
+    String getQuerySkeleton();
 }

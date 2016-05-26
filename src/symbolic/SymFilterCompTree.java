@@ -1,24 +1,17 @@
 package symbolic;
 
 import enumerator.context.EnumContext;
-import enumerator.primitive.EnumCanonicalFilters;
 import sql.lang.Table;
-import sql.lang.ast.Environment;
-import sql.lang.ast.filter.EmptyFilter;
 import sql.lang.ast.filter.Filter;
 import sql.lang.ast.filter.LogicAndFilter;
-import sql.lang.ast.filter.VVComparator;
 import sql.lang.ast.table.*;
 import sql.lang.ast.val.NamedVal;
-import sql.lang.ast.val.ValNode;
-import sql.lang.exception.SQLEvalException;
 import sql.lang.trans.ValNodeSubstBinding;
 import util.CombinationGenerator;
 import util.CostEstimator;
 import util.Pair;
 import util.RenameTNWrapper;
 
-import javax.rmi.CORBA.Util;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -51,6 +44,12 @@ public class SymFilterCompTree {
     public List<SymFilterCompTree> getChildren() { return this.children; }
     public AbstractSymbolicTable getSymTable() { return this.symTable; }
     public Set<SymbolicFilter> getPrimitiveFilters() { return this.primitiveFilters; }
+
+    public double estimateTreeCost() {
+        double childCost = children.stream().map(t -> t.estimateTreeCost()).reduce(0., (x,y) -> x + y);
+        return childCost + this.primitiveFilters.stream()
+                .map(sf -> symTable.estimatePrimitiveSymFilterCost(sf)).reduce(0., (x,y)->x + y);
+    }
 
     public String prettyString(int indentLevel) {
 
@@ -99,22 +98,22 @@ public class SymFilterCompTree {
 
             List<List<Filter>> rotated = CombinationGenerator.rotateList(unRotated);
 
-            List<Filter> candiateConjFilter = null;
-            float minCost = 999;
+            List<Filter> candidateConjFilter = null;
+            double minCost = 999;
 
             for (List<Filter> filters : rotated) {
 
-                float score = CostEstimator.estimateConjFilterList(filters,
+                double score = CostEstimator.estimateConjFilterList(filters,
                         TableNode.nameToOriginMap(tn.getSchema(),tn.originalColumnName()));
 
                 if (score < minCost) {
                     minCost = score;
-                    candiateConjFilter = filters;
+                    candidateConjFilter = filters;
                 }
             }
 
             result.add(new SelectNode(tn.getSchema().stream().map(s -> new NamedVal(s)).collect(Collectors.toList()),
-                    tn, LogicAndFilter.connectByAnd(candiateConjFilter)));
+                    tn, LogicAndFilter.connectByAnd(candidateConjFilter)));
 
             return result;
 
@@ -147,28 +146,13 @@ public class SymFilterCompTree {
 
                 List<Filter> filters = new ArrayList<>();
 
-                // Enumerate the syntactical forms of all these filters
-                int backupMaxFilterLength = ec.getMaxFilterLength();
-                ec.setMaxFilterLength(1);
-                List<Filter> enumerated = EnumCanonicalFilters
-                        .enumCanonicalFilterJoinNode(rt, ec);
-                enumerated.add(new EmptyFilter());
-                ec.setMaxFilterLength(backupMaxFilterLength);
-
                 for (SymbolicFilter sf : this.primitiveFilters) {
-
-                    float minCost = 999; Filter candidate = null;
-                    for (Filter f : enumerated) {
-                        try {
-                            SymbolicFilter ff = SymbolicFilter.genSymbolicFilter(rt.eval(new Environment()), f);
-                            float cost = CostEstimator.estimateFilterCost(f, TableNode.nameToOriginMap(rt.getSchema(), rt.originalColumnName()));
-                            if (ff.equals(sf) && cost < minCost) {
-                                candidate = f;
-                                minCost = cost;
-                            }
-                        } catch (SQLEvalException e) {
-                            e.printStackTrace();
-                            continue;
+                    double minCost = 999; Filter candidate = null;
+                    for (Filter f : ((SymbolicCompoundTable) symTable).decodeLR(sf)) {
+                        double cost = CostEstimator.estimateFilterCost(f, TableNode.nameToOriginMap(rt.getSchema(), rt.originalColumnName()));
+                        if (cost < minCost) {
+                            candidate = f;
+                            minCost = cost;
                         }
                     }
                     filters.add(candidate);
@@ -181,7 +165,7 @@ public class SymFilterCompTree {
                 ValNodeSubstBinding vsb = new ValNodeSubstBinding();
                 for (int i = 0; i < coreTableNode.getSchema().size(); i ++) {
                     vsb.addBinding(new Pair<>(
-                            new NamedVal(rt.getSchema().get(i)),
+                            new NamedVal(((SymbolicCompoundTable) symTable).representitiveTableNode.getSchema().get(i)),
                             new NamedVal(coreTableNode.getSchema().get(i))));
                 }
 
@@ -190,14 +174,13 @@ public class SymFilterCompTree {
                     renamedFilters.add(f.substNamedVal(vsb));
                 }
 
-                result.add(new SelectNode(coreTableNode.getSchema().stream().map(s -> new NamedVal(s)).collect(Collectors.toList()),
+                result.add(new SelectNode(
+                        coreTableNode.getSchema().stream().map(s -> new NamedVal(s)).collect(Collectors.toList()),
                         coreTableNode,
                         LogicAndFilter.connectByAnd(renamedFilters)));
             }
-
             return result;
         }
-
         return null;
     }
 

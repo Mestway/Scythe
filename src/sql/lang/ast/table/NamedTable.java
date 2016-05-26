@@ -112,4 +112,9 @@ public class NamedTable implements TableNode {
         return 0;
     }
 
+    @Override
+    public String getQuerySkeleton() {
+        return "(N " + this.getTable().getName() + ")";
+    }
+
 }

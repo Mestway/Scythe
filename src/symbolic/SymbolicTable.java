@@ -9,12 +9,11 @@ import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.filter.EmptyFilter;
 import sql.lang.ast.filter.Filter;
-import sql.lang.ast.filter.LogicAndFilter;
 import sql.lang.ast.table.*;
 import sql.lang.ast.val.NamedVal;
-import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
-import util.CombinationGenerator;
+import sql.lang.trans.ValNodeSubstBinding;
+import util.CostEstimator;
 import util.Pair;
 import util.RenameTNWrapper;
 
@@ -38,6 +37,9 @@ public class SymbolicTable extends AbstractSymbolicTable {
     private Table baseTable;
 
     private Set<SymbolicFilter> symbolicPrimitiveFilters = new HashSet<>();
+    // mapping each symbolic filter to its cost and concrete form
+    private Map<SymbolicFilter, Pair<Double, List<Filter>>> decodedPrimitives = new HashMap<>();
+
     // after primitveFiltersEvaluated is done, the list will be ready to be used.
     private List<SymbolicFilter> primitives = new ArrayList<>();
     private boolean primitiveFiltersEvaluated = false;
@@ -260,76 +262,25 @@ public class SymbolicTable extends AbstractSymbolicTable {
 
     public List<Filter> decodePrimitiveFilter(SymbolicFilter sf, TableNode tn, EnumContext ec) {
         // the table can either be a named table or a renamed table from an aggregation table.
+
         try {
             if (sf.getFilterRep().size() == tn.eval(new Environment()).getContent().size())
                 return Arrays.asList(new EmptyFilter());
-
-            if (tn instanceof NamedTable) {
-                return EnumCanonicalFilters
-                    .enumCanonicalFilterNamedTable((NamedTable) tn, ec)
-                    .stream()
-                    .filter(f -> {
-                        try {
-                            return SymbolicFilter.genSymbolicFilter(tn.eval(new Environment()), f).equals(sf);
-                        } catch (SQLEvalException e) {
-                            return false;
-                        }
-                    }).collect(Collectors.toList());
-            } else {
-                return EnumCanonicalFilters.enumCanonicalFilterAggrNode((RenameTableNode) tn, ec)
-                        .stream()
-                        .filter(f -> {
-                            try {
-                                return SymbolicFilter.genSymbolicFilter(tn.eval(new Environment()), f).equals(sf);
-                            } catch (SQLEvalException e) {
-                                return false;
-                            }
-                        }).collect(Collectors.toList());
-            }
         } catch (SQLEvalException e) {
             e.printStackTrace();
-            return new ArrayList<>();
-        }
-    }
-
-    @Override
-    public List<TableNode> decodeToQuery(Pair<AbstractSymbolicTable, SymbolicFilter> sfp, EnumContext ec, FilterLinks fl) {
-
-        // this decoder can only decode the first on the table
-        assert (sfp.getKey().equals(this));
-        Set<Set<Pair<AbstractSymbolicTable, SymbolicFilter>>> srcSet = fl.retrieveSource(sfp);
-
-        TableNode tn = this.baseTableSrc;
-
-        List<TableNode> result = new ArrayList<>();
-
-        List<ValNode> vals = tn.getSchema().stream()
-                .map(s -> new NamedVal(s))
-                .collect(Collectors.toList());
-
-        if (srcSet == null) {
-            // the filter itself is already a primitive filter
-            // return this.decodePrimitiveFilter(sfp.getValue(), ec);
-            for (Filter f : this.decodePrimitiveFilter(sfp.getValue(), tn, ec)) {
-                result.add(new SelectNode(vals, tn, f));
-            }
-        } else {
-            for (Set<Pair<AbstractSymbolicTable, SymbolicFilter>> src : srcSet) {
-                List<List<Filter>> filterList = new ArrayList<>();
-                for (Pair<AbstractSymbolicTable, SymbolicFilter> p : src) {
-                    // the src link of these tables should be equal to the baseTable
-                    assert p.getKey().equals(this);
-
-                    filterList.add(this.decodePrimitiveFilter(p.getValue(), tn, ec));
-                }
-                List<List<Filter>> rotated = CombinationGenerator.rotateList(filterList);
-                for (List<Filter> filters : rotated) {
-                    result.add(new SelectNode(vals, tn, LogicAndFilter.connectByAnd(filters)));
-                }
-            }
         }
 
-        return result;
+        ValNodeSubstBinding vnsb = new ValNodeSubstBinding();
+        for (int i = 0; i < this.baseTableSrc.getSchema().size(); i++) {
+            vnsb.addBinding(new Pair<>(new NamedVal(this.baseTableSrc.getSchema().get(i)), new NamedVal(tn.getSchema().get(i))));
+        }
+        List<Filter> result = decodedPrimitives.get(sf).getValue();
+        List<Filter> postProcessed = new ArrayList<>();
+        for (int i = 0; i < 5; i ++) {
+            if (i == result.size()) break;
+            postProcessed.add(result.get(i).substNamedVal(vnsb));
+        }
+        return postProcessed;
     }
 
     @Override
@@ -363,8 +314,37 @@ public class SymbolicTable extends AbstractSymbolicTable {
 
         Set<symbolic.SymbolicFilter> symfilters = new HashSet<>();
         for (Filter f : filters) {
-            symfilters.add(symbolic.SymbolicFilter.genSymbolicFilter(this.baseTable, f));
+            SymbolicFilter symFilter = SymbolicFilter.genSymbolicFilter(baseTable, f);
+            symfilters.add(symFilter);
+            if (! decodedPrimitives.containsKey(symFilter)) {
+                decodedPrimitives.put(symFilter, new Pair<>(99999., new ArrayList<>()));
+            }
+
+            Pair<Double, List<Filter>> entryRef = decodedPrimitives.get(symFilter);
+
+            entryRef.getValue().add(f);
+            double cost = CostEstimator.estimateFilterCost(f,
+                    TableNode.nameToOriginMap(
+                            baseTableSrc.getSchema(),
+                            baseTableSrc.originalColumnName()));
+            if (cost < entryRef.getKey()) {
+                decodedPrimitives.put(symFilter, new Pair<>(cost, entryRef.getValue()));
+            }
         }
+
+        for (Map.Entry<SymbolicFilter, Pair<Double, List<Filter>>> e : decodedPrimitives.entrySet()) {
+            e.getValue().getValue().sort(new Comparator<Filter>() {
+                @Override
+                public int compare(Filter o1, Filter o2) {
+                    double cost1 = CostEstimator.estimateFilterCost(o1,
+                            TableNode.nameToOriginMap(baseTableSrc.getSchema(), baseTableSrc.originalColumnName()));
+                    double cost2 = CostEstimator.estimateFilterCost(o2,
+                            TableNode.nameToOriginMap(baseTableSrc.getSchema(), baseTableSrc.originalColumnName()));
+                    return cost1 <= cost2 ? (cost1 < cost2 ? -1 : 0) : 1;
+                }
+            });
+        }
+
         this.symbolicPrimitiveFilters = symfilters;
         this.primitiveFiltersEvaluated = true;
         this.primitives = this.symbolicPrimitiveFilters.stream().collect(Collectors.toList());
@@ -443,13 +423,28 @@ public class SymbolicTable extends AbstractSymbolicTable {
         }
 
 
+        Map<SymbolicFilter, List<SymFilterCompTree>> postProcessed = new HashMap<>();
+
+        // limit the number of trees generated from one single source, sort by their score
         for (Map.Entry<SymbolicFilter, List<SymFilterCompTree>> i : result.entrySet()) {
-            if (i.getValue().isEmpty()) {
-                System.out.println(i.getKey());
+            List<SymFilterCompTree> trees = i.getValue();
+            if (trees.size() > 5) {
+                trees.sort(new Comparator<SymFilterCompTree>() {
+                    @Override
+                    public int compare(SymFilterCompTree o1, SymFilterCompTree o2) {
+                        double cost1 = o1.estimateTreeCost();
+                        double cost2 = o2.estimateTreeCost();
+                        return cost1 < cost2 ?  -1 : (cost1 == cost2 ? 0 : 1);
+                    }
+                });
+                trees = trees.subList(0, 5);
+                postProcessed.put(i.getKey(), trees);
+            } else {
+                postProcessed.put(i.getKey(), i.getValue());
             }
         }
 
-        return result;
+        return postProcessed;
     }
 
     public List<TableNode> genTableSrc(EnumContext ec) {
@@ -475,4 +470,10 @@ public class SymbolicTable extends AbstractSymbolicTable {
 
         return tableSrcs;
     }
+
+    @Override
+    public double estimatePrimitiveSymFilterCost(SymbolicFilter sf) {
+        return this.decodedPrimitives.get(sf).getKey();
+    }
+
 }

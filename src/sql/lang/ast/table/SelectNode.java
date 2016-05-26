@@ -285,4 +285,9 @@ public class SelectNode implements TableNode {
         return cost + filterCost;
     }
 
+
+    public String getQuerySkeleton() {
+        return "(S " + tableNode.getQuerySkeleton() + ")";
+    }
+
 }

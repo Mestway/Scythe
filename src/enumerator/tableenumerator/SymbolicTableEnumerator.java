@@ -23,8 +23,6 @@ import java.util.stream.Collectors;
  */
 public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
-    public int totalQueryCount = 0;
-
     // this is a helper to print SQL queries
     Set<AbstractSymbolicTable> countPrinted = new HashSet<>();
 
@@ -150,12 +148,12 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
                 }
             }
 
-            if (qc.runnerUpTable > 0)
+            if (qc.getAllCandidates().size() > 0)
                 break;
         }
 
         // Try enumerate by joining two tables from aggregation
-        if (qc.runnerUpTable == 0) {
+        if (qc.getAllCandidates().size() == 0) {
             stFromLastStage = basicAndAggr;
 
             for (int i = 1; i <= maxDepth; i ++) {
@@ -186,14 +184,14 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
                     tryEvalToOutput(st, ec, qc);
                 }
 
-                if (qc.runnerUpTable > 0)
+                if (qc.getAllCandidates().size() > 0)
                     break;
 
             }
         }
 
         // Enumerate aggregation on joined tables
-        if (qc.runnerUpTable == 0) {
+        if (qc.getAllCandidates().size() == 0) {
 
             List<AbstractSymbolicTable> basicSymTables = ec.getInputs()
                     .stream().map(t -> new SymbolicTable(t, new NamedTable(t)))
@@ -239,31 +237,31 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
         System.out.println("Candidates: ");
 
-        List<TableNode> unrankedResult = new ArrayList<>();
-
+        Map<AbstractSymbolicTable, Set<SymbolicFilter>> filtersToDecode = new HashMap<>();
         for (Pair<AbstractSymbolicTable, SymbolicFilter> c : qc.getAllCandidates()) {
+            if (! filtersToDecode.containsKey(c.getKey())) {
+                filtersToDecode.put(c.getKey(), new HashSet<>());
+            }
+            filtersToDecode.get(c.getKey()).add(c.getValue());
+        }
 
-            Set<SymbolicFilter> toDecode = new HashSet<SymbolicFilter>();
-            toDecode.add(c.getValue());
+        List<SymFilterCompTree> candidateTrees = new ArrayList<>();
 
-            Map<SymbolicFilter, List<SymFilterCompTree>> cQuery = c.getKey().batchGenDecomposition(toDecode);
+        for (Map.Entry<AbstractSymbolicTable, Set<SymbolicFilter>> c : filtersToDecode.entrySet()) {
+
+            Map<SymbolicFilter, List<SymFilterCompTree>> cQuery = c.getKey().batchGenDecomposition(c.getValue());
 
             for (Map.Entry<SymbolicFilter, List<SymFilterCompTree>> i : cQuery.entrySet()) {
-                for (SymFilterCompTree t :i.getValue()) {
-                    unrankedResult.addAll(t.translateToTopSQL(ec));
-
-                    /* System.out.println("\t[Tree] " + t.prettyString(2).trim());
-                    System.out.println("===============================");
-                    List<TableNode> results = t.translateToTopSQL(ec);
-                    System.out.println(results.get(0).prettyPrint(0));
-                    try {
-                        System.out.println(results.get(0).eval(new Environment()));
-                    } catch (SQLEvalException e) {
-                        e.printStackTrace();
-                    } */
-
-                }
+                candidateTrees.addAll(i.getValue());
             }
+        }
+
+        List<TableNode> unrankedResult = new ArrayList<>();
+        System.out.println(candidateTrees.size());
+
+        for (SymFilterCompTree t : candidateTrees) {
+            List<TableNode> temp = t.translateToTopSQL(ec);
+            unrankedResult.addAll(temp);
         }
 
         unrankedResult.sort((x,y) -> (x.estimateAllFilterCost() <= y.estimateAllFilterCost() ?
@@ -271,8 +269,8 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
         int count = 0;
         for (TableNode tn : unrankedResult) {
-            if( count >= 5) break;
-            System.out.println("[No. " + count + "]===============================");
+            if( count >= 20) break;
+            System.out.println("[No." + count + "]===============================");
             count ++;
             System.out.println(tn.prettyPrint(0));
             try {

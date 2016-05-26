@@ -1,23 +1,15 @@
 package symbolic;
 
 import enumerator.context.EnumContext;
-import enumerator.tableenumerator.SymbolicTableEnumerator;
-import global.Statistics;
-import mapping.CoordInstMap;
 import mapping.MappingInference;
 import sql.lang.Table;
 import sql.lang.ast.filter.EmptyFilter;
-import sql.lang.ast.filter.Filter;
 import sql.lang.ast.table.TableNode;
-import sun.jvm.hotspot.debugger.cdbg.Sym;
-import util.CombinationGenerator;
 import util.Pair;
 
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
-import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -42,6 +34,8 @@ public abstract class AbstractSymbolicTable {
     abstract public int compoundFilterCount();
     abstract public List<Integer> getTableRightIndexBoundries();
     abstract public List<Table> getAllPrimitiveBaseTables();
+    // calculate the cost of a symbolic filter
+    abstract public double estimatePrimitiveSymFilterCost(SymbolicFilter sf);
 
     // Given a list of target symbolic filters to decompose, we will generate what are their decompositions
     // For each one, a tree will be generated and the tree represent how the symbolic is built from ground.
@@ -179,7 +173,6 @@ public abstract class AbstractSymbolicTable {
         return new Pair<>(filters, filterLinks);
     }
 
-    public abstract List<TableNode> decodeToQuery(Pair<AbstractSymbolicTable, SymbolicFilter> sfp, EnumContext ec, FilterLinks fl);
     public abstract TableNode queryForBaseTable(EnumContext ec);
 
     // index = sum_{k=1}^{i} (n-k) + (j-i)

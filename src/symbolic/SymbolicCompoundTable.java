@@ -9,12 +9,8 @@ import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.filter.EmptyFilter;
 import sql.lang.ast.filter.Filter;
-import sql.lang.ast.filter.LogicAndFilter;
 import sql.lang.ast.table.*;
-import sql.lang.ast.val.NamedVal;
-import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
-import sql.lang.trans.ValNodeSubstBinding;
 import util.*;
 
 import java.util.*;
@@ -30,6 +26,8 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
     // the set of filters that use both st1 elements and st2 elements,
     // original filters on st1 and st2 are not contained here
     Set<SymbolicFilter> filtersLR = new HashSet<>();
+    Map<SymbolicFilter, Pair<Double, List<Filter>>> decodedLR = new HashMap<>();
+
     // this list will be ready after primitiveFiltersEvaluated is evaluate to true.
     List<SymbolicFilter> primitives = new ArrayList<>();
 
@@ -432,17 +430,31 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
         filters.add(new EmptyFilter());
 
         for (Filter f : filters) {
-            this.filtersLR.add(SymbolicFilter.genSymbolicFilterFromTableNode(rt, f));
+            SymbolicFilter symFilter = SymbolicFilter.genSymbolicFilterFromTableNode(rt, f);
+
+            this.filtersLR.add(symFilter);
+            if (! decodedLR.containsKey(symFilter)) {
+                decodedLR.put(symFilter, new Pair<>(99999., new ArrayList<>()));
+            }
+
+            Pair<Double, List<Filter>> entryRef = decodedLR.get(symFilter);
+
+            entryRef.getValue().add(f);
+            double cost = CostEstimator.estimateFilterCost(f,
+                    TableNode.nameToOriginMap(
+                            representitiveTableNode.getSchema(),
+                            representitiveTableNode.originalColumnName()));
+            if (cost < entryRef.getKey()) {
+                decodedLR.put(symFilter, new Pair<>(cost, entryRef.getValue()));
+            }
         }
 
         this.primitiveFiltersEvaluated = true;
-
         this.primitiveBitVecFilterCount = this.filtersLR.size();
         this.primitiveSynFilterCount = filters.size();
 
         // calculating the reduction rate from bit vector to syntax filters
         // System.out.println("#(BitVec)/#(SynFilter): " + this.filtersLR.size() + " / " + filters.size() + " = " + (((float)filtersLR.size()) / filters.size()));
-
         Statistics.red_syn_to_bv_case_cnt ++;
         Statistics.sum_red_syn_to_bv += ((float) filters.size()) / ((float)filtersLR.size());
     }
@@ -497,111 +509,8 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
     }
 
 
-    public List<Filter> decodeLR(Pair<AbstractSymbolicTable, SymbolicFilter> sfp, EnumContext ec) {
-
-        List<Filter> filters = EnumCanonicalFilters
-                .enumCanonicalFilterJoinNode(this.representitiveTableNode, ec);
-
-        List<Filter> result = new ArrayList<Filter>();
-
-        for (Filter f : filters) {
-            try {
-                if (SymbolicFilter
-                        .genSymbolicFilter(this.representitiveTableNode.eval(new Environment()), f)
-                        .equals(sfp.getValue()))
-                    result.add(f);
-            } catch (SQLEvalException e) {
-                e.printStackTrace();
-                continue;
-            }
-        }
-
-        return result;
-    }
-
-    public List<List<Filter>> decodeLR(Set<Pair<AbstractSymbolicTable, SymbolicFilter>> srcs, EnumContext ec) {
-        List<List<Filter>> unRotatedFilters = new ArrayList<>();
-        for (Pair<AbstractSymbolicTable, SymbolicFilter> p : srcs) {
-            if (p.getKey().equals(this)) {
-                unRotatedFilters.add(decodeLR(p, ec));
-            }
-        }
-        return CombinationGenerator.rotateList(unRotatedFilters);
-    }
-
-    // decoding the filter representation based on the links between filters
-    @Override
-    public List<TableNode> decodeToQuery(Pair<AbstractSymbolicTable, SymbolicFilter> sfp, EnumContext ec, FilterLinks fl) {
-
-        assert (sfp.getKey().equals(this));
-
-        TableNode coreTableNode = this.queryForBaseTable(ec);
-
-        List<TableNode> result = new ArrayList<>();
-
-        // this means that the query can be obtained by only applying a filter to it
-        List<Filter> directFilter = this.decodeLR(sfp, ec);
-
-        for (Filter f : directFilter) {
-            List<ValNode> vals = coreTableNode.getSchema().stream()
-                    .map(s -> new NamedVal(s))
-                    .collect(Collectors.toList());
-            // rename the filters so that the filters refer to the elements in the new table.
-            ValNodeSubstBinding vsb = new ValNodeSubstBinding();
-            for (int i = 0; i < coreTableNode.getSchema().size(); i ++) {
-                vsb.addBinding(new Pair<>(
-                        new NamedVal(this.representitiveTableNode.getSchema().get(i)),
-                        new NamedVal(coreTableNode.getSchema().get(i))));
-            }
-            TableNode tn = new SelectNode(vals, coreTableNode, f.substNamedVal(vsb));
-            result.add(tn);
-        }
-
-        Set<Set<Pair<AbstractSymbolicTable, SymbolicFilter>>> srcSet = fl.retrieveSource(sfp);
-        if (srcSet == null)
-            return result;
-
-        // the followings are the queries with several leading nodes
-        for (Set<Pair<AbstractSymbolicTable, SymbolicFilter>> s : srcSet) {
-
-            List<List<Filter>> filterList = this.decodeLR(s, ec);
-
-            // now try to decode left and right table
-            List<TableNode> decodeSt1 = new ArrayList<>(), decodeSt2 = new ArrayList<>();
-            for (Pair<AbstractSymbolicTable, SymbolicFilter> p : s) {
-                if (p.getKey().equals(this.st1)) {
-                    decodeSt1 = st1.decodeToQuery(p, ec, fl);
-                }
-                if (p.getKey().equals(this.st2)) {
-                    decodeSt2 = st2.decodeToQuery(p, ec, fl);
-                }
-            }
-            List<Filter> LRFilters = filterList.stream()
-                    .map(lst -> LogicAndFilter.connectByAnd(lst)).collect(Collectors.toList());
-
-            for (TableNode tn1 : decodeSt1) {
-                for (TableNode tn2 : decodeSt2) {
-                    JoinNode jn = new JoinNode(Arrays.asList(tn1, tn2));
-                    RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(jn);
-                    for (Filter f : LRFilters) {
-                        ValNodeSubstBinding vsb = new ValNodeSubstBinding();
-
-                        for (int i = 0; i < this.representitiveTableNode.getSchema().size(); i ++) {
-                            vsb.addBinding(new Pair<>(
-                                    new NamedVal(this.representitiveTableNode.getSchema().get(i)),
-                                    new NamedVal(rt.getSchema().get(i))));
-                        }
-                        List<ValNode> vals = rt.getSchema().stream()
-                                .map(x -> new NamedVal(x))
-                                .collect(Collectors.toList());
-                        TableNode tn = new SelectNode(vals, rt, f.substNamedVal(vsb));
-                        result.add(tn);
-                    }
-                }
-            }
-        }
-
-        return result;
+    public List<Filter> decodeLR(SymbolicFilter sf) {
+        return decodedLR.get(sf).getValue();
     }
 
     @Override
@@ -768,7 +677,33 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
         if (resultToProcess.values().stream().map(x -> x.isEmpty()).reduce(false, (x, y)->(x || y)))
             System.err.println("[FATAL ERROR][SymbolicCompoundTable 707] exists filters that cannot be decomposed.");
 
-        return result;
+        Map<SymbolicFilter, List<SymFilterCompTree>> postProcessed = new HashMap<>();
+
+        // limit the number of trees generated from one single source, sort by their score
+        for (Map.Entry<SymbolicFilter, List<SymFilterCompTree>> i : result.entrySet()) {
+            List<SymFilterCompTree> trees = i.getValue();
+            if (trees.size() > 5) {
+                trees.sort(new Comparator<SymFilterCompTree>() {
+                    @Override
+                    public int compare(SymFilterCompTree o1, SymFilterCompTree o2) {
+                        double cost1 = o1.estimateTreeCost();
+                        double cost2 = o2.estimateTreeCost();
+                        return cost1 <= cost2 ?  (cost1 < cost2 ? -1 : 0) : 1;
+                    }
+                });
+                trees = trees.subList(0, 5);
+                postProcessed.put(i.getKey(), trees);
+            } else {
+                postProcessed.put(i.getKey(), i.getValue());
+            }
+        }
+
+        return postProcessed;
+    }
+
+    @Override
+    public double estimatePrimitiveSymFilterCost(SymbolicFilter sf) {
+        return this.decodedLR.get(sf).getKey();
     }
 
 }
