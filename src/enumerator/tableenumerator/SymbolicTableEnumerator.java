@@ -13,6 +13,7 @@ import sql.lang.ast.table.*;
 import sql.lang.exception.SQLEvalException;
 import symbolic.*;
 import util.Pair;
+import util.TableInstanceParser;
 
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -204,28 +205,30 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
                     SymbolicCompoundTable sct = new SymbolicCompoundTable(st1, st2);
 
-                    // core tables to be used in enumerate aggregation
-                    List<TableNode> joinedNodes = new ArrayList<>();
-                    joinedNodes.addAll(sct.instantiateAllTables(ec)
-                            .stream().map(t -> new NamedTable(t)).collect(Collectors.toList()));
+                    List<Pair<Table, SymbolicFilter>> tablesWFilters = sct.instantiatedAllTablesWithSymFilters(ec);
+                    for (Pair<Table, SymbolicFilter> p : tablesWFilters) {
+                        // core tables to be used in enumerate aggregation
+                        List<TableNode> joinedNodes = new ArrayList<>();
+                        joinedNodes.add(new NamedTable(p.getKey()));
 
-                    // enumerating aggregation tables, the aggregation nodes are based on these primitive filters
-                    ec.setTableNodes(joinedNodes);
+                        // enumerating aggregation tables, the aggregation nodes are based on these primitive filters
+                        ec.setTableNodes(joinedNodes);
+                        List<TableNode> aggregationOnJoinInputs = EnumAggrTableNode.enumAggregationNodeFlag(ec, EnumAggrTableNode.SIMPLIFY, false);
 
-                    List<TableNode> aggregationOnJoinInputs = EnumAggrTableNode.enumAggregationNodeFlag(ec, EnumAggrTableNode.SIMPLIFY, false);
-                    List<SymbolicTable> enumHaving = new ArrayList<>();
+                        List<SymbolicTable> enumHaving = new ArrayList<>();
 
-                    for (TableNode an : aggregationOnJoinInputs) {
-                        try {
-                            enumHaving.add(new SymbolicTable(an.eval(new Environment()), an));
-                        } catch (SQLEvalException e) {
-                            e.printStackTrace();
+                        for (TableNode an : aggregationOnJoinInputs) {
+                            try {
+                                enumHaving.add(new SymbolicTable(an.eval(new Environment()), an, new Pair<>(sct, p.getValue())));
+                            } catch (SQLEvalException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
 
-                    for (AbstractSymbolicTable st : enumHaving) {
-                        System.out.println("\t" + st.getBaseTable().getMetadata().stream().reduce("", (x,y)-> x+ ", " + y).substring(1));
-                        tryEvalToOutput(st, ec, qc);
+                        for (AbstractSymbolicTable st : enumHaving) {
+                            System.out.println("\t" + st.getBaseTable().getMetadata().stream().reduce("", (x,y)-> x+ ", " + y).substring(1));
+                            tryEvalToOutput(st, ec, qc);
+                        }
                     }
                 }
             }

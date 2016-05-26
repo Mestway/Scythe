@@ -71,7 +71,7 @@ public class SymbolicTable extends AbstractSymbolicTable {
         int backUpMaxFilterLength = ec.getMaxFilterLength();
         ec.setMaxFilterLength(1);
 
-        List<Filter>  filters = new ArrayList<>();
+        List<Filter>  filters;
         if (this.baseTableSrc instanceof RenameTableNode
                 && ((RenameTableNode) this.baseTableSrc).getTableNode() instanceof AggregationNode)
             filters = EnumCanonicalFilters.enumCanonicalFilterAggrNode((RenameTableNode) baseTableSrc, ec);
