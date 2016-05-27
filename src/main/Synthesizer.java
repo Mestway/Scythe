@@ -24,20 +24,6 @@ public class Synthesizer {
         // synthesize
         List<TableNode> candidates = enumerator.enumProgramWithIO(exampleDS.inputs, exampleDS.output, exampleDS.enumConstraint);
 
-        /*
-        Path file = Paths.get("output//StackOverflow//" + path.substring(path.length() -3, path.length())
-                + "-" + enumerator.getClass().getSimpleName());
-        try {
-            List<String> lines = new ArrayList<>();
-            for (TableNode tn : candidates) {
-                lines.add(tn.prettyPrint(0));
-                lines.add(" ########################################### ");
-            }
-            Files.write(file, lines, Charset.forName("UTF-8"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
         // formatting time
         long timeUsed = System.currentTimeMillis() - timeStart;
         long second = (timeUsed / 1000) % 60;

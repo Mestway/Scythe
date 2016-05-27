@@ -57,9 +57,12 @@ public abstract class AbstractTableEnumerator {
         } else {
             List<TableNode> result = new ArrayList<>();
 
-            System.out.println("[Consistent Table number] " + qc.getEdges().getDirectLinkCount(ec.getOutputTable()));
+            if (this instanceof CanonicalTableEnumerator)
+                System.out.println("[Consistent Table number] " + qc.getEdges().getDirectLinkCount(ec.getOutputTable()));
+            else if (this instanceof SymbolicTableEnumerator)
+                System.out.println("[Consistent Table number] " + qc.getAllCandidates().size());
 
-            // this is not always enabled because
+            // this is not always enabled, as this export algorithm is only designed for canonical SQL enumerator
             if (qc.isEnableExport()) {
                 Set<Table> leafNodes = new HashSet<>();
                 leafNodes.addAll(ec.getInputs());
