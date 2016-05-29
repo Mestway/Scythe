@@ -34,6 +34,8 @@ public interface TableNode extends Node {
     TableNode instantiate(InstantiateEnv env);
     TableNode substNamedVal(ValNodeSubstBinding vnsb);
     List<NamedTable> namedTableInvolved();
+
+    // substitute a named table based on the cores
     TableNode tableSubst(List<Pair<TableNode,TableNode>> pairs);
 
     // the function will return a map,

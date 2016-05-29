@@ -11,6 +11,9 @@ import sql.lang.ast.table.NamedTable;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
+import symbolic.AbstractSymbolicTable;
+import symbolic.SymbolicFilter;
+import util.Pair;
 
 import javax.management.Query;
 import java.util.ArrayList;
@@ -86,6 +89,13 @@ public abstract class AbstractTableEnumerator {
 
             return result;
         }
+    }
+
+    // The default simple reEnumProgramWithIO will simply ignore all old IO pairs
+    public List<TableNode> reEnumProgramWithIO(
+            List<Pair<List<Table>, Table>> oldIOPairs,
+            Pair<List<Table>, Table> newIOPair, Constraint c) {
+        return enumProgramWithIO(newIOPair.getKey(), newIOPair.getValue(), c);
     }
 
     // the enumeration result will be stored in EC

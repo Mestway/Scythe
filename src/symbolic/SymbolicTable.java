@@ -428,6 +428,7 @@ public class SymbolicTable extends AbstractSymbolicTable {
         // limit the number of trees generated from one single source, sort by their score
         for (Map.Entry<SymbolicFilter, List<SymFilterCompTree>> i : result.entrySet()) {
             List<SymFilterCompTree> trees = i.getValue();
+            System.out.println("[(SymbolicTable) tree count] " + trees.size());
             if (trees.size() > 5) {
                 trees.sort(new Comparator<SymFilterCompTree>() {
                     @Override

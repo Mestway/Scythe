@@ -87,34 +87,56 @@ public class SymFilterCompTree {
                 }
             });
 
-            TableNode tn = cores.get(0);
+            // select and print only the best core
+            System.out.println("[(SymFitlterCompTree) Core count]: " + cores.size());
+            int upperBound = cores.size() > 1 ? 1 : cores.size();
+            List<TableNode> topTNs = cores.subList(0, upperBound);
 
-            List<List<Filter>> unRotated = new ArrayList<>();
-            for (SymbolicFilter sf : this.primitiveFilters) {
-                List<Filter> decoded = ((SymbolicTable) symTable)
-                        .decodePrimitiveFilter(sf, tn, ec);
-                unRotated.add(decoded);
-            }
+            for (TableNode tn : topTNs) {
 
-            List<List<Filter>> rotated = CombinationGenerator.rotateList(unRotated);
-
-            List<Filter> candidateConjFilter = null;
-            double minCost = 999;
-
-            for (List<Filter> filters : rotated) {
-
-                double score = CostEstimator.estimateConjFilterList(filters,
-                        TableNode.nameToOriginMap(tn.getSchema(),tn.originalColumnName()));
-
-                if (score < minCost) {
-                    minCost = score;
-                    candidateConjFilter = filters;
+                //TableNode tn = cores.get(0);
+                List<List<Filter>> unRotated = new ArrayList<>();
+                for (SymbolicFilter sf : this.primitiveFilters) {
+                    List<Filter> decoded = ((SymbolicTable) symTable)
+                            .decodePrimitiveFilter(sf, tn, ec);
+                    unRotated.add(decoded);
                 }
+
+                List<List<Filter>> rotated = CombinationGenerator.rotateList(unRotated);
+
+                rotated.sort(new Comparator<List<Filter>>() {
+                    @Override
+                    public int compare(List<Filter> o1, List<Filter> o2) {
+                        double score1 = CostEstimator.estimateConjFilterList(o1,
+                                TableNode.nameToOriginMap(tn.getSchema(), tn.originalColumnName()));
+                        double score2 = CostEstimator.estimateConjFilterList(o2,
+                                TableNode.nameToOriginMap(tn.getSchema(), tn.originalColumnName()));
+                        return Double.compare(score1, score2);
+                    }
+                });
+
+                int SELECT_TOP = 1;
+                for (int r = 0; r < rotated.size(); r ++) {
+                    if (r >= SELECT_TOP) break;
+                    result.add(new SelectNode(tn.getSchema().stream().map(s -> new NamedVal(s)).collect(Collectors.toList()),
+                            tn, LogicAndFilter.connectByAnd(rotated.get(r))));
+                }
+
+                /* List<Filter> candidateConjFilter = null;
+                double minCost = 999;
+
+                for (List<Filter> filters : rotated) {
+
+                    double score = CostEstimator.estimateConjFilterList(filters,
+                            TableNode.nameToOriginMap(tn.getSchema(), tn.originalColumnName()));
+
+                    if (score < minCost) {
+                        minCost = score;
+                        candidateConjFilter = filters;
+                    }
+                }*/
+
             }
-
-            result.add(new SelectNode(tn.getSchema().stream().map(s -> new NamedVal(s)).collect(Collectors.toList()),
-                    tn, LogicAndFilter.connectByAnd(candidateConjFilter)));
-
             return result;
 
         } else if (symTable instanceof SymbolicCompoundTable) {

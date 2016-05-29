@@ -1,5 +1,6 @@
 package enumerator.tableenumerator;
 
+import enumerator.Constraint;
 import enumerator.primitive.tables.EnumAggrTableNode;
 import enumerator.primitive.tables.EnumProjection;
 import enumerator.context.EnumContext;
@@ -187,7 +188,6 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
                 if (qc.getAllCandidates().size() > 0)
                     break;
-
             }
         }
 
@@ -235,11 +235,17 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
         }
 
         System.out.println("ASymTable Enumeration done: " + (symTables.size()));
-
         System.out.println("Runner ups: " + qc.runnerUpTable);
+
+        handleEnumerationResult(qc, ec);
+        return qc;
+    }
+
+    public void handleEnumerationResult(QueryChest qc, EnumContext ec) {
 
         System.out.println("Candidates: ");
 
+        // Extract the filters to be decoded for each AbstractSymbolicTable from qc
         Map<AbstractSymbolicTable, Set<SymbolicFilter>> filtersToDecode = new HashMap<>();
         for (Pair<AbstractSymbolicTable, SymbolicFilter> c : qc.getAllCandidates()) {
             if (! filtersToDecode.containsKey(c.getKey())) {
@@ -248,12 +254,10 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
             filtersToDecode.get(c.getKey()).add(c.getValue());
         }
 
+        // generate candidate symFilterTrees for each candidate
         List<SymFilterCompTree> candidateTrees = new ArrayList<>();
-
         for (Map.Entry<AbstractSymbolicTable, Set<SymbolicFilter>> c : filtersToDecode.entrySet()) {
-
             Map<SymbolicFilter, List<SymFilterCompTree>> cQuery = c.getKey().batchGenDecomposition(c.getValue());
-
             for (Map.Entry<SymbolicFilter, List<SymFilterCompTree>> i : cQuery.entrySet()) {
                 candidateTrees.addAll(i.getValue());
             }
@@ -282,8 +286,6 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
                 e.printStackTrace();
             }
         }
-
-        return qc;
     }
 
     // Try to evaluate whether the output table can be derived from symbolic table st.
