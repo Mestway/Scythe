@@ -135,7 +135,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
             for (AbstractSymbolicTable st : symTables) {
 
-                System.out.println("\t" + st.getBaseTable().getMetadata().stream().reduce("", (x,y)-> x+ ", " + y).substring(1));
+                //System.out.println("\t" + st.getBaseTable().getMetadata().stream().reduce("", (x,y)-> x+ ", " + y).substring(1));
 
                 tryEvalToOutput(st, ec, qc);
 
@@ -155,7 +155,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
         }
 
         // Try enumerate by joining two tables from aggregation
-        if (qc.getAllCandidates().size() == 0) {
+        if (qc.getAllCandidates().size() == 0 && false) {
             stFromLastStage = basicAndAggr;
 
             for (int i = 1; i <= maxDepth; i ++) {
@@ -182,7 +182,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
                 System.out.println("[EnumJoinOnAggr] level " + i + " [SymTable]: " + symTables.size());
 
                 for (AbstractSymbolicTable st : stFromLastStage) {
-                    System.out.println("\t" + st.getBaseTable().getMetadata().stream().reduce("", (x,y)-> x+ ", " + y).substring(1));
+                    //System.out.println("\t" + st.getBaseTable().getMetadata().stream().reduce("", (x,y)-> x+ ", " + y).substring(1));
                     tryEvalToOutput(st, ec, qc);
                 }
 
@@ -226,7 +226,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
                         }
 
                         for (AbstractSymbolicTable st : enumHaving) {
-                            System.out.println("\t" + st.getBaseTable().getMetadata().stream().reduce("", (x,y)-> x+ ", " + y).substring(1));
+                            //System.out.println("\t" + st.getBaseTable().getMetadata().stream().reduce("", (x,y)-> x+ ", " + y).substring(1));
                             tryEvalToOutput(st, ec, qc);
                         }
                     }
@@ -276,8 +276,8 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
         int count = 0;
         for (TableNode tn : unrankedResult) {
-            if( count >= 20) break;
-            System.out.println("[No." + count + "]===============================");
+            if( count >= 5) break;
+            System.out.println("[No." + (count + 1) + "]===============================");
             count ++;
             System.out.println(tn.prettyPrint(0));
             try {
@@ -307,7 +307,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
             boolean isRunnerUp = EnumProjection.emitEnumProjection(ec, ec.getOutputTable(), qc);
             if (isRunnerUp) {
                 qc.insertCandidate(new Pair<>(symTable, symFilter));
-                System.out.println("Find one here!");
+                //System.out.println("Find one here!");
                 //printTopQueries(st, p, ec, fl);
             }
         };

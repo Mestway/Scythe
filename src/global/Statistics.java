@@ -41,11 +41,35 @@ public class Statistics {
     public static int last_stage_compound_case_cnt = 0;
 
 
+    public static double sumPrimitiveFilterCount = 0;
+    public static int maxPrimitiveFilterCount = 0;
+    public static int cntPrimitiveFilterCount = 0;
+
+
+    public static double sumLRFilterCount = 0;
+    public static int cntLRFilterCount = 0;
+    public static int maxLRFilterCount = 0;
+
+    public static double sumDecomposeTreeCount = 0;
+    public static int maxDecomposeTreeCount = 0;
+    public static int cntDecomposeTreeCount = 0;
+
+
     public static void printAllStatistics() {
         System.out.println("[avg reduction rate: syn filter / bit vector] " + sum_red_syn_to_bv / red_syn_to_bv_case_cnt);
         System.out.println("[avg reduction rate: compound filter / bit vector] " + sum_red_compound_to_bv / compound_case_cnt);
         System.out.println("[avg compound filter count] " + sum_compound_filter_cnt / compound_case_cnt);
         System.out.println("[max compound filter count] " + max_compound_filter_cnt);
+
+        System.out.println("[avg PrimitiveFilterCount] " + sumPrimitiveFilterCount / cntPrimitiveFilterCount);
+        System.out.println("[max PrimitiveFilterCount] " + maxPrimitiveFilterCount);
+
+        System.out.println("[avg LRFilterCount] " + sumLRFilterCount / cntLRFilterCount);
+        System.out.println("[max LRFilterCount] " + maxLRFilterCount);
+
+        System.out.println("[avg decompose tree count] " + sumDecomposeTreeCount / cntDecomposeTreeCount);
+        System.out.println("[max decomposeTreeCount] " + maxDecomposeTreeCount);
+
 
         if (last_stage_compound_case_cnt == 0)
             return;

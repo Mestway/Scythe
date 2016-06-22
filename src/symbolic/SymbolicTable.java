@@ -275,8 +275,15 @@ public class SymbolicTable extends AbstractSymbolicTable {
             vnsb.addBinding(new Pair<>(new NamedVal(this.baseTableSrc.getSchema().get(i)), new NamedVal(tn.getSchema().get(i))));
         }
         List<Filter> result = decodedPrimitives.get(sf).getValue();
+
+        Statistics.sumPrimitiveFilterCount += result.size();
+        Statistics.cntPrimitiveFilterCount ++;
+        Statistics.maxPrimitiveFilterCount = Statistics.maxPrimitiveFilterCount > result.size() ?  Statistics.maxPrimitiveFilterCount : result.size();
+
         List<Filter> postProcessed = new ArrayList<>();
-        for (int i = 0; i < 5; i ++) {
+        // TODO: if we want to limit the number, use the commented one
+        //        for (int i = 0; i < 5; i ++) {
+        for (int i = 0; i < result.size(); i ++) {
             if (i == result.size()) break;
             postProcessed.add(result.get(i).substNamedVal(vnsb));
         }
@@ -428,7 +435,11 @@ public class SymbolicTable extends AbstractSymbolicTable {
         // limit the number of trees generated from one single source, sort by their score
         for (Map.Entry<SymbolicFilter, List<SymFilterCompTree>> i : result.entrySet()) {
             List<SymFilterCompTree> trees = i.getValue();
-            System.out.println("[(SymbolicTable) tree count] " + trees.size());
+
+            Statistics.cntDecomposeTreeCount ++;
+            Statistics.sumDecomposeTreeCount += trees.size();
+            Statistics.maxDecomposeTreeCount = Statistics.maxDecomposeTreeCount > trees.size()? Statistics.maxDecomposeTreeCount : trees.size();
+
             if (trees.size() > 5) {
                 trees.sort(new Comparator<SymFilterCompTree>() {
                     @Override

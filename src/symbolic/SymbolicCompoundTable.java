@@ -111,7 +111,7 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
         // construct the target filters backwardly
         List<CoordInstMap> map = mi.genMappingInstancesWColumnBarrier(this.getTableRightIndexBoundries());
 
-        System.out.println("[CrossTableMapping Instances] " + map.size());
+        //System.out.println("[CrossTableMapping Instances] " + map.size());
         for (CoordInstMap cim : map) {
             SymbolicFilter sf = new SymbolicFilter(cim.rowsInvolved(), this.getBaseTable().getContent().size());
             targetFilters.add(sf);
@@ -183,7 +183,7 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
 
         Set<SymbolicFilter> st1TargetFilters = new HashSet<>();
         List<CoordInstMap> st1Map = st1Mi.genMappingInstances();
-        System.out.println("[demotedFilter Mapping Instances] " + st1Map.size());
+        //System.out.println("[demotedFilter Mapping Instances] " + st1Map.size());
 
         for (CoordInstMap cim : st1Map) {
             SymbolicFilter sf = new SymbolicFilter(cim.rowsInvolved(), st1.getBaseTable().getContent().size());
@@ -682,7 +682,11 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
         // limit the number of trees generated from one single source, sort by their score
         for (Map.Entry<SymbolicFilter, List<SymFilterCompTree>> i : result.entrySet()) {
             List<SymFilterCompTree> trees = i.getValue();
-            System.out.println("[(SymbolicCompoundTable) tree count] " + trees.size());
+
+            Statistics.cntDecomposeTreeCount ++;
+            Statistics.sumDecomposeTreeCount += trees.size();
+            Statistics.maxDecomposeTreeCount = Statistics.maxDecomposeTreeCount > trees.size()? Statistics.maxDecomposeTreeCount : trees.size();
+
             if (trees.size() > 5) {
                 trees.sort(new Comparator<SymFilterCompTree>() {
                     @Override
@@ -692,7 +696,8 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
                         return cost1 <= cost2 ?  (cost1 < cost2 ? -1 : 0) : 1;
                     }
                 });
-                trees = trees.subList(0, 5);
+                //TODO: if we want to limit the number, use the commented one
+                //trees = trees.subList(0, 5);
                 postProcessed.put(i.getKey(), trees);
             } else {
                 postProcessed.put(i.getKey(), i.getValue());

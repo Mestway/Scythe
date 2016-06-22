@@ -1,6 +1,7 @@
 package symbolic;
 
 import enumerator.context.EnumContext;
+import global.Statistics;
 import sql.lang.Table;
 import sql.lang.ast.filter.Filter;
 import sql.lang.ast.filter.LogicAndFilter;
@@ -88,7 +89,7 @@ public class SymFilterCompTree {
             });
 
             // select and print only the best core
-            System.out.println("[(SymFitlterCompTree) Core count]: " + cores.size());
+            // System.out.println("[(SymFitlterCompTree) Core count]: " + cores.size());
             int upperBound = cores.size() > 1 ? 1 : cores.size();
             List<TableNode> topTNs = cores.subList(0, upperBound);
 
@@ -170,14 +171,21 @@ public class SymFilterCompTree {
 
                 for (SymbolicFilter sf : this.primitiveFilters) {
                     double minCost = 999; Filter candidate = null;
+
+                    Statistics.sumLRFilterCount += ((SymbolicCompoundTable) symTable).decodeLR(sf).size();
+                    Statistics.cntLRFilterCount ++;
+                    Statistics.maxLRFilterCount = Statistics.maxLRFilterCount > ((SymbolicCompoundTable) symTable).decodeLR(sf).size() ?  Statistics.maxLRFilterCount : ((SymbolicCompoundTable) symTable).decodeLR(sf).size();
+
                     for (Filter f : ((SymbolicCompoundTable) symTable).decodeLR(sf)) {
                         double cost = CostEstimator.estimateFilterCost(f, TableNode.nameToOriginMap(rt.getSchema(), rt.originalColumnName()));
                         if (cost < minCost) {
                             candidate = f;
                             minCost = cost;
                         }
+                        filters.add(f);
                     }
-                    filters.add(candidate);
+                    // TODO: if we want to limit the number, use the commented one
+                    //filters.add(candidate);
                 }
 
                 // Since the filters are built upon fakeRT, we cannot directly use these filters to construct the desired output,

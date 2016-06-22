@@ -20,7 +20,57 @@ import java.util.stream.Collectors;
  */
 public class MappingInferenceTest {
 
+
     @Test
+    public void testBuildMapping0() throws Exception {
+        String inputSrc =
+                "| T1.User   |  T1.Phone   |  T1.Value  | T2.User | T2.MaxVal |" + "\r\n" +
+                        "|---------------------------------------------|" + "\r\n" +
+                        "| Peter    |  0       |  1        | Peter | 3 |" + "\r\n" +
+                        "| Peter    |  0       |  1        | Paul  | 7 |" + "\r\n" +
+                        "| Peter    |  456     |  2        | Peter | 3 |" + "\r\n" +
+                        "| Peter    |  456     |  2        | Paul  | 7 |" + "\r\n" +
+                        "| Peter    |  456     |  3        | Peter | 3 |" + "\r\n" +
+                        "| Peter    |  456     |  3        | Paul  | 7 |" + "\r\n" +
+                        "| Paul     |  456     |  7        | Peter | 3 |" + "\r\n" +
+                        "| Paul     |  456     |  7        | Paul  | 7 |" + "\r\n" +
+                        "| Paul     |  789     |  10        | Peter | 3 |" + "\r\n" +
+                        "| Paul     |  789     |  10        | Paul  | 7 |";
+
+        String outputSrc =
+                "| col1 | col2 | col3 |" + "\r\n" +
+                        "|--------------------|" + "\r\n" +
+                        "|  Peter   |  456  |  3   |" + "\r\n" +
+                        "|  Paul    |  456  |  7   |";
+
+        Table input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
+        Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
+
+        MappingInference mi = MappingInference.buildMapping(input, output);
+        System.out.println("-----");
+        System.out.println(mi.toString());
+        List<CoordInstMap> instances = mi.genMappingInstancesWColumnBarrier(Arrays.asList(3, 3 + 2));
+        for (CoordInstMap cim : instances) {
+           // System.out.println("---");
+           // System.out.println(cim.toString());
+        }
+
+        System.out.println(instances.size());
+
+        MappingInference.printColumnMapping(mi.genColumnMappingInstances());
+        MappingInference.printColumnMapping(mi.genRowMappingInstances());
+
+        List<CoordInstMap> is = mi.genMappingInstances();
+        System.out.println(is.size());
+        for (CoordInstMap cim : is) {
+            //System.out.println("---");
+            //System.out.println(cim.toString());
+        }
+
+        System.out.println(is.size());
+
+    }
+
     public void testBuildMapping() throws Exception {
         String inputSrc =
             "| id   |  rev   |  content  | n | m |" + "\r\n" +
@@ -58,6 +108,7 @@ public class MappingInferenceTest {
 
         MappingInference.printColumnMapping(mi.genColumnMappingInstances());
         MappingInference.printColumnMapping(mi.genRowMappingInstances());
+
 
     }
 
