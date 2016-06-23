@@ -428,6 +428,7 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
 
         // make sure that the empty filter is added
         filters.add(new EmptyFilter());
+        decodedLR.put(SymbolicFilter.genSymbolicFilterFromTableNode(rt, new EmptyFilter()), new Pair<>(0., new ArrayList<>()));
 
         for (Filter f : filters) {
             SymbolicFilter symFilter = SymbolicFilter.genSymbolicFilterFromTableNode(rt, f);
@@ -697,7 +698,7 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
                     }
                 });
                 //TODO: if we want to limit the number, use the commented one
-                //trees = trees.subList(0, 5);
+                trees = trees.subList(0, 5);
                 postProcessed.put(i.getKey(), trees);
             } else {
                 postProcessed.put(i.getKey(), i.getValue());

@@ -100,12 +100,25 @@ public class SymFilterCompTree {
                 for (SymbolicFilter sf : this.primitiveFilters) {
                     List<Filter> decoded = ((SymbolicTable) symTable)
                             .decodePrimitiveFilter(sf, tn, ec);
-                    unRotated.add(decoded);
+
+                    decoded.sort(new Comparator<Filter>() {
+                        @Override
+                        public int compare(Filter o1, Filter o2) {
+                            double score1 = CostEstimator.estimateFilterCost(o1,
+                                    TableNode.nameToOriginMap(tn.getSchema(), tn.originalColumnName()));
+                            double score2 = CostEstimator.estimateFilterCost(o2,
+                                    TableNode.nameToOriginMap(tn.getSchema(), tn.originalColumnName()));
+                            return Double.compare(score1, score2);
+                        }
+                    });
+
+                    unRotated.add(decoded.subList(0,decoded.size() > 10? 10 : decoded.size()));
                 }
 
                 List<List<Filter>> rotated = CombinationGenerator.rotateList(unRotated);
 
-                rotated.sort(new Comparator<List<Filter>>() {
+                // sort all combinations and choose the best one
+                /*rotated.sort(new Comparator<List<Filter>>() {
                     @Override
                     public int compare(List<Filter> o1, List<Filter> o2) {
                         double score1 = CostEstimator.estimateConjFilterList(o1,
@@ -121,9 +134,9 @@ public class SymFilterCompTree {
                     if (r >= SELECT_TOP) break;
                     result.add(new SelectNode(tn.getSchema().stream().map(s -> new NamedVal(s)).collect(Collectors.toList()),
                             tn, LogicAndFilter.connectByAnd(rotated.get(r))));
-                }
+                }*/
 
-                /* List<Filter> candidateConjFilter = null;
+                 List<Filter> candidateConjFilter = null;
                 double minCost = 999;
 
                 for (List<Filter> filters : rotated) {
@@ -135,8 +148,10 @@ public class SymFilterCompTree {
                         minCost = score;
                         candidateConjFilter = filters;
                     }
-                }*/
+                }
 
+                result.add(new SelectNode(tn.getSchema().stream().map(s -> new NamedVal(s)).collect(Collectors.toList()),
+                            tn, LogicAndFilter.connectByAnd(candidateConjFilter)));
             }
             return result;
 
@@ -181,11 +196,12 @@ public class SymFilterCompTree {
                         if (cost < minCost) {
                             candidate = f;
                             minCost = cost;
+
                         }
-                        filters.add(f);
+                        //filters.add(f);
                     }
                     // TODO: if we want to limit the number, use the commented one
-                    //filters.add(candidate);
+                    filters.add(candidate);
                 }
 
                 // Since the filters are built upon fakeRT, we cannot directly use these filters to construct the desired output,

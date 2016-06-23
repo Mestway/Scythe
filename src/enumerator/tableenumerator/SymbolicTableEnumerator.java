@@ -155,7 +155,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
         }
 
         // Try enumerate by joining two tables from aggregation
-        if (qc.getAllCandidates().size() == 0 && false) {
+        if (qc.getAllCandidates().size() == 0) {
             stFromLastStage = basicAndAggr;
 
             for (int i = 1; i <= maxDepth; i ++) {
@@ -276,7 +276,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
         int count = 0;
         for (TableNode tn : unrankedResult) {
-            if( count >= 5) break;
+            if( count >= 20) break;
             System.out.println("[No." + (count + 1) + "]===============================");
             count ++;
             System.out.println(tn.prettyPrint(0));

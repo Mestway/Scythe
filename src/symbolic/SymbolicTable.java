@@ -319,6 +319,8 @@ public class SymbolicTable extends AbstractSymbolicTable {
         // the empty filter is added here to make it complete.
         filters.add(new EmptyFilter());
 
+        decodedPrimitives.put(SymbolicFilter.genSymbolicFilter(baseTable, new EmptyFilter()), new Pair<>(0., new ArrayList<>()));
+
         Set<symbolic.SymbolicFilter> symfilters = new HashSet<>();
         for (Filter f : filters) {
             SymbolicFilter symFilter = SymbolicFilter.genSymbolicFilter(baseTable, f);
@@ -460,6 +462,7 @@ public class SymbolicTable extends AbstractSymbolicTable {
     }
 
     public List<TableNode> genTableSrc(EnumContext ec) {
+
         if (! this.coreSymTableNFilter.isPresent())
             return Arrays.asList(this.baseTableSrc);
 

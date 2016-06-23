@@ -69,7 +69,7 @@ public class CostEstimator {
             if (((VVComparator) f).getComparator().equals(VVComparator.eq)) {
                 score += 0;
             } else if (((VVComparator) f).getComparator().equals(VVComparator.neq)) {
-                score += 1;
+                score += 1.5;
             } else {
                 score += 1.5;
             }
