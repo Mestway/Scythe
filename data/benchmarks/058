@@ -1,0 +1,31 @@
+#constraint
+{
+	"max_depth": 2,
+	"constants": ["1"],
+	"aggregation_functions": ["count"],
+	"parameter_number": 0,
+	"max_filter_length": 2
+}
+
+#input
+
+| chapterid | xmlfile |
+|---------------------|
+| 1234      | 123.xml |
+| 1234      | 123.xml |
+| 1234      | 123.xml |
+| 1234      | 123.xml |
+| 4567      | 123.xml |
+| 4567      | 123.xml |
+| 6789      | 145.xml |
+| 7890      | 234.xml |
+| 7890      | 234.xml |
+| 7890      | 234.xml |
+
+#output
+
+| chapterid | xmlfile |
+|---------------------|
+| 1234      | 123.xml | 
+| 4567      | 123.xml |
+| 7890      | 234.xml |
