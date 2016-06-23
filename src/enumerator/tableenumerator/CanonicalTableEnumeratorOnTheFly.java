@@ -77,6 +77,9 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
                     + "Total Table by now: " + qc.getRepresentativeTableNodes().size());
             lastQueryCount = qc.queryCount;
             qc.tracked.clear();
+
+            if (qc.runnerUpTable != 0)
+                break;
         }
     }
 }
