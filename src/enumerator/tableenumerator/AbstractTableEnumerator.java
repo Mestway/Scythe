@@ -71,7 +71,7 @@ public abstract class AbstractTableEnumerator {
             for (TableTreeNode t : trees) {
                 //System.out.println("--------------------------");
                 t.inferQuery(ec);
-                //List<TableNode> tns = t.treeToQuery();
+                List<TableNode> tns = t.treeToQuery();
 
                 int count = t.countQueryNum();
                 System.out.println("Queries corresponds to this tree: " + count);
@@ -79,9 +79,9 @@ public abstract class AbstractTableEnumerator {
 
                 //t.print(0);
 
-                //for (TableNode tn : tns) {
-                //   System.out.println(tn.prettyPrint(0));
-                //}
+                for (TableNode tn : tns) {
+                   System.out.println(tn.prettyPrint(0));
+                }
 
                 //System.out.println("--------------------------");
             }
