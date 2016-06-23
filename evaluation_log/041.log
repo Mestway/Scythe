@@ -1,0 +1,157 @@
+================
+[[Synthesizer start]] data/benchmarks/041
+[Enumerator Type] SymbolicTableEnumerator
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[FiltersCount format](primitiveSynFilterCount, primitiveBitVecFilterCount, totalBitVecFiltersCount)
+[Basic]: 1 [SymTableForInputs]: 1
+[Aggregation]: 7 [SymTable]: 8
+[EnumJoin] level 1 [SymTable]: 16
+ASymTable Enumeration done: 16
+Runner ups: 1
+Candidates: 
+5
+[No.1]===============================
+SELECT
+  [T16].Train,[T16].MAX-Time,[T16].Train1,[T16].Dest,[T16].Time
+FROM
+  (( SELECT
+        [T2].Train,[T2].MAX-Time
+      FROM
+        (SELECT
+            input1.Train, MAX(input1.Time)
+          FROM
+            input1
+          GROUP BY
+            input1.Train) AS [T2][Train, MAX-Time] ) JOIN (
+      SELECT
+        input1.Train,input1.Dest,input1.Time
+      FROM
+        input1
+       )) AS [T16][Train, MAX-Time, Train1, Dest, Time]
+WHERE
+  [T16].MAX-Time == [T16].Time
+@anonymous
+[T16].Train | [T16].MAX-Time | [T16].Train1 | [T16].Dest | [T16].Time 
+1.0 | 14.0 | 1.0 | SZ | 14.0 
+2.0 | 13.0 | 2.0 | HK | 13.0 
+
+[No.2]===============================
+SELECT
+  [T18].Train,[T18].MAX-Time,[T18].Train1,[T18].Dest,[T18].Time
+FROM
+  (( SELECT
+        [T2].Train,[T2].MAX-Time
+      FROM
+        (SELECT
+            input1.Train, MAX(input1.Time)
+          FROM
+            input1
+          GROUP BY
+            input1.Train) AS [T2][Train, MAX-Time] ) JOIN (
+      SELECT
+        input1.Train,input1.Dest,input1.Time
+      FROM
+        input1
+       )) AS [T18][Train, MAX-Time, Train1, Dest, Time]
+WHERE
+  [T18].MAX-Time == [T18].Time
+   AND [T18].Train == [T18].Train1
+@anonymous
+[T18].Train | [T18].MAX-Time | [T18].Train1 | [T18].Dest | [T18].Time 
+1.0 | 14.0 | 1.0 | SZ | 14.0 
+2.0 | 13.0 | 2.0 | HK | 13.0 
+
+[No.3]===============================
+SELECT
+  [T20].Train,[T20].MAX-Time,[T20].Train1,[T20].Dest,[T20].Time
+FROM
+  (( SELECT
+        [T2].Train,[T2].MAX-Time
+      FROM
+        (SELECT
+            input1.Train, MAX(input1.Time)
+          FROM
+            input1
+          GROUP BY
+            input1.Train) AS [T2][Train, MAX-Time] ) JOIN (
+      SELECT
+        input1.Train,input1.Dest,input1.Time
+      FROM
+        input1
+       )) AS [T20][Train, MAX-Time, Train1, Dest, Time]
+WHERE
+  [T20].MAX-Time == [T20].Time
+   AND [T20].Train >= [T20].Train1
+@anonymous
+[T20].Train | [T20].MAX-Time | [T20].Train1 | [T20].Dest | [T20].Time 
+1.0 | 14.0 | 1.0 | SZ | 14.0 
+2.0 | 13.0 | 2.0 | HK | 13.0 
+
+[No.4]===============================
+SELECT
+  [T22].Train,[T22].MAX-Time,[T22].Train1,[T22].Dest,[T22].Time
+FROM
+  (( SELECT
+        [T2].Train,[T2].MAX-Time
+      FROM
+        (SELECT
+            input1.Train, MAX(input1.Time)
+          FROM
+            input1
+          GROUP BY
+            input1.Train) AS [T2][Train, MAX-Time] ) JOIN (
+      SELECT
+        input1.Train,input1.Dest,input1.Time
+      FROM
+        input1
+       )) AS [T22][Train, MAX-Time, Train1, Dest, Time]
+WHERE
+  [T22].Train <= [T22].Train1
+   AND [T22].MAX-Time == [T22].Time
+@anonymous
+[T22].Train | [T22].MAX-Time | [T22].Train1 | [T22].Dest | [T22].Time 
+1.0 | 14.0 | 1.0 | SZ | 14.0 
+2.0 | 13.0 | 2.0 | HK | 13.0 
+
+[No.5]===============================
+SELECT
+  [T24].Train,[T24].MAX-Time,[T24].Train1,[T24].Dest,[T24].Time
+FROM
+  (( SELECT
+        [T2].Train,[T2].MAX-Time
+      FROM
+        (SELECT
+            input1.Train, MAX(input1.Time)
+          FROM
+            input1
+          GROUP BY
+            input1.Train) AS [T2][Train, MAX-Time] ) JOIN (
+      SELECT
+        input1.Train,input1.Dest,input1.Time
+      FROM
+        input1
+       )) AS [T24][Train, MAX-Time, Train1, Dest, Time]
+WHERE
+  [T24].MAX-Time == [T24].Time
+   AND [T24].MAX-Time <= [T24].Time
+@anonymous
+[T24].Train | [T24].MAX-Time | [T24].Train1 | [T24].Dest | [T24].Time 
+1.0 | 14.0 | 1.0 | SZ | 14.0 
+2.0 | 13.0 | 2.0 | HK | 13.0 
+
+[Consistent Table number] 1
+[Enumeration Finished]
+[[Synthesizer finished]] time: 00:00:00:171
+[[Synthesizer finished]] seconds: 0.171
+[avg reduction rate: syn filter / bit vector] 5.124950394034386
+[avg reduction rate: compound filter / bit vector] NaN
+[avg compound filter count] NaN
+[max compound filter count] 0
+[avg PrimitiveFilterCount] NaN
+[max PrimitiveFilterCount] 0
+[avg LRFilterCount] 1.6
+[max LRFilterCount] 7
+[avg decompose tree count] 3.6666666666666665
+[max decomposeTreeCount] 9

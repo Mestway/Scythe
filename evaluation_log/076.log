@@ -1,0 +1,598 @@
+================
+[[Synthesizer start]] data/benchmarks/076
+[Enumerator Type] SymbolicTableEnumerator
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[FiltersCount format](primitiveSynFilterCount, primitiveBitVecFilterCount, totalBitVecFiltersCount)
+[Basic]: 1 [SymTableForInputs]: 1
+[Aggregation]: 105 [SymTable]: 106
+[EnumJoin] level 1 [SymTable]: 212
+ASymTable Enumeration done: 212
+Runner ups: 33
+Candidates: 
+63
+[No.1]===============================
+SELECT
+  [T102].comp,[T102].Sub-comp,[T102].id,[T102].Firname,[T102].LAstname,[T102].MAX-Lognum
+FROM
+  (SELECT
+      input1.comp, input1.Sub-comp, input1.id, input1.Firname, input1.LAstname, MAX(input1.Lognum)
+    FROM
+      input1
+    GROUP BY
+      input1.comp  input1.Sub-comp  input1.id  input1.Firname  input1.LAstname) AS [T102][comp, Sub-comp, id, Firname, LAstname, MAX-Lognum]
+
+@anonymous
+[T102].comp | [T102].Sub-comp | [T102].id | [T102].Firname | [T102].LAstname | [T102].MAX-Lognum 
+AK | AK-G | 3897.0 | ABC | DEF | 0.0 
+AK | AK-G | 5432.0 | mark | ray | 0.0 
+MC | MC-A | 1234.0 | john | steve | 84.0 
+MC | MC-A | 5678.0 | dan | pitcher | 84.0 
+MC | MC-A | 9843.0 | james | robin | 84.0 
+
+[No.2]===============================
+SELECT
+  [T212].id,[T212].Firname,[T212].MAX-Lognum,[T212].comp,[T212].Sub-comp,[T212].Lognum,[T212].id1,[T212].Firname1,[T212].LAstname
+FROM
+  (( SELECT
+        [T45].id,[T45].Firname,[T45].MAX-Lognum
+      FROM
+        (SELECT
+            input1.id, input1.Firname, MAX(input1.Lognum)
+          FROM
+            input1
+          GROUP BY
+            input1.id  input1.Firname) AS [T45][id, Firname, MAX-Lognum] ) JOIN (
+      SELECT
+        input1.comp,input1.Sub-comp,input1.Lognum,input1.id,input1.Firname,input1.LAstname
+      FROM
+        input1
+       )) AS [T212][id, Firname, MAX-Lognum, comp, Sub-comp, Lognum, id1, Firname1, LAstname]
+WHERE
+  [T212].MAX-Lognum == [T212].Lognum
+   AND [T212].id == [T212].id1
+@anonymous
+[T212].id | [T212].Firname | [T212].MAX-Lognum | [T212].comp | [T212].Sub-comp | [T212].Lognum | [T212].id1 | [T212].Firname1 | [T212].LAstname 
+3897.0 | ABC | 0.0 | AK | AK-G | 0.0 | 3897.0 | ABC | DEF 
+5432.0 | mark | 0.0 | AK | AK-G | 0.0 | 5432.0 | mark | ray 
+1234.0 | john | 84.0 | MC | MC-A | 84.0 | 1234.0 | john | steve 
+5678.0 | dan | 84.0 | MC | MC-A | 84.0 | 5678.0 | dan | pitcher 
+9843.0 | james | 84.0 | MC | MC-A | 84.0 | 9843.0 | james | robin 
+
+[No.3]===============================
+SELECT
+  [T216].Sub-comp,[T216].id,[T216].Firname,[T216].MAX-Lognum,[T216].comp,[T216].Sub-comp1,[T216].Lognum,[T216].id1,[T216].Firname1,[T216].LAstname
+FROM
+  (( SELECT
+        [T75].Sub-comp,[T75].id,[T75].Firname,[T75].MAX-Lognum
+      FROM
+        (SELECT
+            input1.Sub-comp, input1.id, input1.Firname, MAX(input1.Lognum)
+          FROM
+            input1
+          GROUP BY
+            input1.Sub-comp  input1.id  input1.Firname) AS [T75][Sub-comp, id, Firname, MAX-Lognum] ) JOIN (
+      SELECT
+        input1.comp,input1.Sub-comp,input1.Lognum,input1.id,input1.Firname,input1.LAstname
+      FROM
+        input1
+       )) AS [T216][Sub-comp, id, Firname, MAX-Lognum, comp, Sub-comp1, Lognum, id1, Firname1, LAstname]
+WHERE
+  [T216].MAX-Lognum == [T216].Lognum
+   AND [T216].id == [T216].id1
+@anonymous
+[T216].Sub-comp | [T216].id | [T216].Firname | [T216].MAX-Lognum | [T216].comp | [T216].Sub-comp1 | [T216].Lognum | [T216].id1 | [T216].Firname1 | [T216].LAstname 
+AK-G | 3897.0 | ABC | 0.0 | AK | AK-G | 0.0 | 3897.0 | ABC | DEF 
+AK-G | 5432.0 | mark | 0.0 | AK | AK-G | 0.0 | 5432.0 | mark | ray 
+MC-A | 1234.0 | john | 84.0 | MC | MC-A | 84.0 | 1234.0 | john | steve 
+MC-A | 5678.0 | dan | 84.0 | MC | MC-A | 84.0 | 5678.0 | dan | pitcher 
+MC-A | 9843.0 | james | 84.0 | MC | MC-A | 84.0 | 9843.0 | james | robin 
+
+[No.4]===============================
+SELECT
+  [T220].comp,[T220].LAstname,[T220].MAX-Lognum,[T220].comp1,[T220].Sub-comp,[T220].Lognum,[T220].id,[T220].Firname,[T220].LAstname1
+FROM
+  (( SELECT
+        [T30].comp,[T30].LAstname,[T30].MAX-Lognum
+      FROM
+        (SELECT
+            input1.comp, input1.LAstname, MAX(input1.Lognum)
+          FROM
+            input1
+          GROUP BY
+            input1.comp  input1.LAstname) AS [T30][comp, LAstname, MAX-Lognum] ) JOIN (
+      SELECT
+        input1.comp,input1.Sub-comp,input1.Lognum,input1.id,input1.Firname,input1.LAstname
+      FROM
+        input1
+       )) AS [T220][comp, LAstname, MAX-Lognum, comp1, Sub-comp, Lognum, id, Firname, LAstname1]
+WHERE
+  [T220].MAX-Lognum == [T220].Lognum
+   AND [T220].LAstname == [T220].LAstname1
+@anonymous
+[T220].comp | [T220].LAstname | [T220].MAX-Lognum | [T220].comp1 | [T220].Sub-comp | [T220].Lognum | [T220].id | [T220].Firname | [T220].LAstname1 
+AK | DEF | 0.0 | AK | AK-G | 0.0 | 3897.0 | ABC | DEF 
+AK | ray | 0.0 | AK | AK-G | 0.0 | 5432.0 | mark | ray 
+MC | steve | 84.0 | MC | MC-A | 84.0 | 1234.0 | john | steve 
+MC | pitcher | 84.0 | MC | MC-A | 84.0 | 5678.0 | dan | pitcher 
+MC | robin | 84.0 | MC | MC-A | 84.0 | 9843.0 | james | robin 
+
+[No.5]===============================
+SELECT
+  [T224].id,[T224].Firname,[T224].LAstname,[T224].MAX-Lognum,[T224].comp,[T224].Sub-comp,[T224].Lognum,[T224].id1,[T224].Firname1,[T224].LAstname1
+FROM
+  (( SELECT
+        [T84].id,[T84].Firname,[T84].LAstname,[T84].MAX-Lognum
+      FROM
+        (SELECT
+            input1.id, input1.Firname, input1.LAstname, MAX(input1.Lognum)
+          FROM
+            input1
+          GROUP BY
+            input1.id  input1.Firname  input1.LAstname) AS [T84][id, Firname, LAstname, MAX-Lognum] ) JOIN (
+      SELECT
+        input1.comp,input1.Sub-comp,input1.Lognum,input1.id,input1.Firname,input1.LAstname
+      FROM
+        input1
+       )) AS [T224][id, Firname, LAstname, MAX-Lognum, comp, Sub-comp, Lognum, id1, Firname1, LAstname1]
+WHERE
+  [T224].MAX-Lognum == [T224].Lognum
+   AND [T224].id == [T224].id1
+@anonymous
+[T224].id | [T224].Firname | [T224].LAstname | [T224].MAX-Lognum | [T224].comp | [T224].Sub-comp | [T224].Lognum | [T224].id1 | [T224].Firname1 | [T224].LAstname1 
+3897.0 | ABC | DEF | 0.0 | AK | AK-G | 0.0 | 3897.0 | ABC | DEF 
+5432.0 | mark | ray | 0.0 | AK | AK-G | 0.0 | 5432.0 | mark | ray 
+1234.0 | john | steve | 84.0 | MC | MC-A | 84.0 | 1234.0 | john | steve 
+5678.0 | dan | pitcher | 84.0 | MC | MC-A | 84.0 | 5678.0 | dan | pitcher 
+9843.0 | james | robin | 84.0 | MC | MC-A | 84.0 | 9843.0 | james | robin 
+
+[No.6]===============================
+SELECT
+  [T228].comp,[T228].Firname,[T228].LAstname,[T228].MAX-Lognum,[T228].comp1,[T228].Sub-comp,[T228].Lognum,[T228].id,[T228].Firname1,[T228].LAstname1
+FROM
+  (( SELECT
+        [T72].comp,[T72].Firname,[T72].LAstname,[T72].MAX-Lognum
+      FROM
+        (SELECT
+            input1.comp, input1.Firname, input1.LAstname, MAX(input1.Lognum)
+          FROM
+            input1
+          GROUP BY
+            input1.comp  input1.Firname  input1.LAstname) AS [T72][comp, Firname, LAstname, MAX-Lognum] ) JOIN (
+      SELECT
+        input1.comp,input1.Sub-comp,input1.Lognum,input1.id,input1.Firname,input1.LAstname
+      FROM
+        input1
+       )) AS [T228][comp, Firname, LAstname, MAX-Lognum, comp1, Sub-comp, Lognum, id, Firname1, LAstname1]
+WHERE
+  [T228].MAX-Lognum == [T228].Lognum
+   AND [T228].Firname == [T228].Firname1
+@anonymous
+[T228].comp | [T228].Firname | [T228].LAstname | [T228].MAX-Lognum | [T228].comp1 | [T228].Sub-comp | [T228].Lognum | [T228].id | [T228].Firname1 | [T228].LAstname1 
+AK | ABC | DEF | 0.0 | AK | AK-G | 0.0 | 3897.0 | ABC | DEF 
+AK | mark | ray | 0.0 | AK | AK-G | 0.0 | 5432.0 | mark | ray 
+MC | john | steve | 84.0 | MC | MC-A | 84.0 | 1234.0 | john | steve 
+MC | dan | pitcher | 84.0 | MC | MC-A | 84.0 | 5678.0 | dan | pitcher 
+MC | james | robin | 84.0 | MC | MC-A | 84.0 | 9843.0 | james | robin 
+
+[No.7]===============================
+SELECT
+  [T232].comp,[T232].Sub-comp,[T232].LAstname,[T232].MAX-Lognum,[T232].comp1,[T232].Sub-comp1,[T232].Lognum,[T232].id,[T232].Firname,[T232].LAstname1
+FROM
+  (( SELECT
+        [T63].comp,[T63].Sub-comp,[T63].LAstname,[T63].MAX-Lognum
+      FROM
+        (SELECT
+            input1.comp, input1.Sub-comp, input1.LAstname, MAX(input1.Lognum)
+          FROM
+            input1
+          GROUP BY
+            input1.comp  input1.Sub-comp  input1.LAstname) AS [T63][comp, Sub-comp, LAstname, MAX-Lognum] ) JOIN (
+      SELECT
+        input1.comp,input1.Sub-comp,input1.Lognum,input1.id,input1.Firname,input1.LAstname
+      FROM
+        input1
+       )) AS [T232][comp, Sub-comp, LAstname, MAX-Lognum, comp1, Sub-comp1, Lognum, id, Firname, LAstname1]
+WHERE
+  [T232].MAX-Lognum == [T232].Lognum
+   AND [T232].LAstname == [T232].LAstname1
+@anonymous
+[T232].comp | [T232].Sub-comp | [T232].LAstname | [T232].MAX-Lognum | [T232].comp1 | [T232].Sub-comp1 | [T232].Lognum | [T232].id | [T232].Firname | [T232].LAstname1 
+AK | AK-G | DEF | 0.0 | AK | AK-G | 0.0 | 3897.0 | ABC | DEF 
+AK | AK-G | ray | 0.0 | AK | AK-G | 0.0 | 5432.0 | mark | ray 
+MC | MC-A | steve | 84.0 | MC | MC-A | 84.0 | 1234.0 | john | steve 
+MC | MC-A | pitcher | 84.0 | MC | MC-A | 84.0 | 5678.0 | dan | pitcher 
+MC | MC-A | robin | 84.0 | MC | MC-A | 84.0 | 9843.0 | james | robin 
+
+[No.8]===============================
+SELECT
+  [T236].comp,[T236].Sub-comp,[T236].id,[T236].Firname,[T236].MAX-Lognum,[T236].comp1,[T236].Sub-comp1,[T236].Lognum,[T236].id1,[T236].Firname1,[T236].LAstname
+FROM
+  (( SELECT
+        [T87].comp,[T87].Sub-comp,[T87].id,[T87].Firname,[T87].MAX-Lognum
+      FROM
+        (SELECT
+            input1.comp, input1.Sub-comp, input1.id, input1.Firname, MAX(input1.Lognum)
+          FROM
+            input1
+          GROUP BY
+            input1.comp  input1.Sub-comp  input1.id  input1.Firname) AS [T87][comp, Sub-comp, id, Firname, MAX-Lognum] ) JOIN (
+      SELECT
+        input1.comp,input1.Sub-comp,input1.Lognum,input1.id,input1.Firname,input1.LAstname
+      FROM
+        input1
+       )) AS [T236][comp, Sub-comp, id, Firname, MAX-Lognum, comp1, Sub-comp1, Lognum, id1, Firname1, LAstname]
+WHERE
+  [T236].MAX-Lognum == [T236].Lognum
+   AND [T236].id == [T236].id1
+@anonymous
+[T236].comp | [T236].Sub-comp | [T236].id | [T236].Firname | [T236].MAX-Lognum | [T236].comp1 | [T236].Sub-comp1 | [T236].Lognum | [T236].id1 | [T236].Firname1 | [T236].LAstname 
+AK | AK-G | 3897.0 | ABC | 0.0 | AK | AK-G | 0.0 | 3897.0 | ABC | DEF 
+AK | AK-G | 5432.0 | mark | 0.0 | AK | AK-G | 0.0 | 5432.0 | mark | ray 
+MC | MC-A | 1234.0 | john | 84.0 | MC | MC-A | 84.0 | 1234.0 | john | steve 
+MC | MC-A | 5678.0 | dan | 84.0 | MC | MC-A | 84.0 | 5678.0 | dan | pitcher 
+MC | MC-A | 9843.0 | james | 84.0 | MC | MC-A | 84.0 | 9843.0 | james | robin 
+
+[No.9]===============================
+SELECT
+  [T240].Sub-comp,[T240].Firname,[T240].LAstname,[T240].MAX-Lognum,[T240].comp,[T240].Sub-comp1,[T240].Lognum,[T240].id,[T240].Firname1,[T240].LAstname1
+FROM
+  (( SELECT
+        [T81].Sub-comp,[T81].Firname,[T81].LAstname,[T81].MAX-Lognum
+      FROM
+        (SELECT
+            input1.Sub-comp, input1.Firname, input1.LAstname, MAX(input1.Lognum)
+          FROM
+            input1
+          GROUP BY
+            input1.Sub-comp  input1.Firname  input1.LAstname) AS [T81][Sub-comp, Firname, LAstname, MAX-Lognum] ) JOIN (
+      SELECT
+        input1.comp,input1.Sub-comp,input1.Lognum,input1.id,input1.Firname,input1.LAstname
+      FROM
+        input1
+       )) AS [T240][Sub-comp, Firname, LAstname, MAX-Lognum, comp, Sub-comp1, Lognum, id, Firname1, LAstname1]
+WHERE
+  [T240].MAX-Lognum == [T240].Lognum
+   AND [T240].Firname == [T240].Firname1
+@anonymous
+[T240].Sub-comp | [T240].Firname | [T240].LAstname | [T240].MAX-Lognum | [T240].comp | [T240].Sub-comp1 | [T240].Lognum | [T240].id | [T240].Firname1 | [T240].LAstname1 
+AK-G | ABC | DEF | 0.0 | AK | AK-G | 0.0 | 3897.0 | ABC | DEF 
+AK-G | mark | ray | 0.0 | AK | AK-G | 0.0 | 5432.0 | mark | ray 
+MC-A | john | steve | 84.0 | MC | MC-A | 84.0 | 1234.0 | john | steve 
+MC-A | dan | pitcher | 84.0 | MC | MC-A | 84.0 | 5678.0 | dan | pitcher 
+MC-A | james | robin | 84.0 | MC | MC-A | 84.0 | 9843.0 | james | robin 
+
+[No.10]===============================
+SELECT
+  [T244].comp,[T244].Sub-comp,[T244].id,[T244].LAstname,[T244].MAX-Lognum,[T244].comp1,[T244].Sub-comp1,[T244].Lognum,[T244].id1,[T244].Firname,[T244].LAstname1
+FROM
+  (( SELECT
+        [T90].comp,[T90].Sub-comp,[T90].id,[T90].LAstname,[T90].MAX-Lognum
+      FROM
+        (SELECT
+            input1.comp, input1.Sub-comp, input1.id, input1.LAstname, MAX(input1.Lognum)
+          FROM
+            input1
+          GROUP BY
+            input1.comp  input1.Sub-comp  input1.id  input1.LAstname) AS [T90][comp, Sub-comp, id, LAstname, MAX-Lognum] ) JOIN (
+      SELECT
+        input1.comp,input1.Sub-comp,input1.Lognum,input1.id,input1.Firname,input1.LAstname
+      FROM
+        input1
+       )) AS [T244][comp, Sub-comp, id, LAstname, MAX-Lognum, comp1, Sub-comp1, Lognum, id1, Firname, LAstname1]
+WHERE
+  [T244].MAX-Lognum == [T244].Lognum
+   AND [T244].id == [T244].id1
+@anonymous
+[T244].comp | [T244].Sub-comp | [T244].id | [T244].LAstname | [T244].MAX-Lognum | [T244].comp1 | [T244].Sub-comp1 | [T244].Lognum | [T244].id1 | [T244].Firname | [T244].LAstname1 
+AK | AK-G | 3897.0 | DEF | 0.0 | AK | AK-G | 0.0 | 3897.0 | ABC | DEF 
+AK | AK-G | 5432.0 | ray | 0.0 | AK | AK-G | 0.0 | 5432.0 | mark | ray 
+MC | MC-A | 1234.0 | steve | 84.0 | MC | MC-A | 84.0 | 1234.0 | john | steve 
+MC | MC-A | 5678.0 | pitcher | 84.0 | MC | MC-A | 84.0 | 5678.0 | dan | pitcher 
+MC | MC-A | 9843.0 | robin | 84.0 | MC | MC-A | 84.0 | 9843.0 | james | robin 
+
+[No.11]===============================
+SELECT
+  [T248].Sub-comp,[T248].LAstname,[T248].MAX-Lognum,[T248].comp,[T248].Sub-comp1,[T248].Lognum,[T248].id,[T248].Firname,[T248].LAstname1
+FROM
+  (( SELECT
+        [T42].Sub-comp,[T42].LAstname,[T42].MAX-Lognum
+      FROM
+        (SELECT
+            input1.Sub-comp, input1.LAstname, MAX(input1.Lognum)
+          FROM
+            input1
+          GROUP BY
+            input1.Sub-comp  input1.LAstname) AS [T42][Sub-comp, LAstname, MAX-Lognum] ) JOIN (
+      SELECT
+        input1.comp,input1.Sub-comp,input1.Lognum,input1.id,input1.Firname,input1.LAstname
+      FROM
+        input1
+       )) AS [T248][Sub-comp, LAstname, MAX-Lognum, comp, Sub-comp1, Lognum, id, Firname, LAstname1]
+WHERE
+  [T248].MAX-Lognum == [T248].Lognum
+   AND [T248].LAstname == [T248].LAstname1
+@anonymous
+[T248].Sub-comp | [T248].LAstname | [T248].MAX-Lognum | [T248].comp | [T248].Sub-comp1 | [T248].Lognum | [T248].id | [T248].Firname | [T248].LAstname1 
+AK-G | DEF | 0.0 | AK | AK-G | 0.0 | 3897.0 | ABC | DEF 
+AK-G | ray | 0.0 | AK | AK-G | 0.0 | 5432.0 | mark | ray 
+MC-A | steve | 84.0 | MC | MC-A | 84.0 | 1234.0 | john | steve 
+MC-A | pitcher | 84.0 | MC | MC-A | 84.0 | 5678.0 | dan | pitcher 
+MC-A | robin | 84.0 | MC | MC-A | 84.0 | 9843.0 | james | robin 
+
+[No.12]===============================
+SELECT
+  [T252].Sub-comp,[T252].id,[T252].Firname,[T252].LAstname,[T252].MAX-Lognum,[T252].comp,[T252].Sub-comp1,[T252].Lognum,[T252].id1,[T252].Firname1,[T252].LAstname1
+FROM
+  (( SELECT
+        [T99].Sub-comp,[T99].id,[T99].Firname,[T99].LAstname,[T99].MAX-Lognum
+      FROM
+        (SELECT
+            input1.Sub-comp, input1.id, input1.Firname, input1.LAstname, MAX(input1.Lognum)
+          FROM
+            input1
+          GROUP BY
+            input1.Sub-comp  input1.id  input1.Firname  input1.LAstname) AS [T99][Sub-comp, id, Firname, LAstname, MAX-Lognum] ) JOIN (
+      SELECT
+        input1.comp,input1.Sub-comp,input1.Lognum,input1.id,input1.Firname,input1.LAstname
+      FROM
+        input1
+       )) AS [T252][Sub-comp, id, Firname, LAstname, MAX-Lognum, comp, Sub-comp1, Lognum, id1, Firname1, LAstname1]
+WHERE
+  [T252].MAX-Lognum == [T252].Lognum
+   AND [T252].id == [T252].id1
+@anonymous
+[T252].Sub-comp | [T252].id | [T252].Firname | [T252].LAstname | [T252].MAX-Lognum | [T252].comp | [T252].Sub-comp1 | [T252].Lognum | [T252].id1 | [T252].Firname1 | [T252].LAstname1 
+AK-G | 3897.0 | ABC | DEF | 0.0 | AK | AK-G | 0.0 | 3897.0 | ABC | DEF 
+AK-G | 5432.0 | mark | ray | 0.0 | AK | AK-G | 0.0 | 5432.0 | mark | ray 
+MC-A | 1234.0 | john | steve | 84.0 | MC | MC-A | 84.0 | 1234.0 | john | steve 
+MC-A | 5678.0 | dan | pitcher | 84.0 | MC | MC-A | 84.0 | 5678.0 | dan | pitcher 
+MC-A | 9843.0 | james | robin | 84.0 | MC | MC-A | 84.0 | 9843.0 | james | robin 
+
+[No.13]===============================
+SELECT
+  [T256].comp,[T256].id,[T256].LAstname,[T256].MAX-Lognum,[T256].comp1,[T256].Sub-comp,[T256].Lognum,[T256].id1,[T256].Firname,[T256].LAstname1
+FROM
+  (( SELECT
+        [T69].comp,[T69].id,[T69].LAstname,[T69].MAX-Lognum
+      FROM
+        (SELECT
+            input1.comp, input1.id, input1.LAstname, MAX(input1.Lognum)
+          FROM
+            input1
+          GROUP BY
+            input1.comp  input1.id  input1.LAstname) AS [T69][comp, id, LAstname, MAX-Lognum] ) JOIN (
+      SELECT
+        input1.comp,input1.Sub-comp,input1.Lognum,input1.id,input1.Firname,input1.LAstname
+      FROM
+        input1
+       )) AS [T256][comp, id, LAstname, MAX-Lognum, comp1, Sub-comp, Lognum, id1, Firname, LAstname1]
+WHERE
+  [T256].MAX-Lognum == [T256].Lognum
+   AND [T256].id == [T256].id1
+@anonymous
+[T256].comp | [T256].id | [T256].LAstname | [T256].MAX-Lognum | [T256].comp1 | [T256].Sub-comp | [T256].Lognum | [T256].id1 | [T256].Firname | [T256].LAstname1 
+AK | 3897.0 | DEF | 0.0 | AK | AK-G | 0.0 | 3897.0 | ABC | DEF 
+AK | 5432.0 | ray | 0.0 | AK | AK-G | 0.0 | 5432.0 | mark | ray 
+MC | 1234.0 | steve | 84.0 | MC | MC-A | 84.0 | 1234.0 | john | steve 
+MC | 5678.0 | pitcher | 84.0 | MC | MC-A | 84.0 | 5678.0 | dan | pitcher 
+MC | 9843.0 | robin | 84.0 | MC | MC-A | 84.0 | 9843.0 | james | robin 
+
+[No.14]===============================
+SELECT
+  [T260].id,[T260].MAX-Lognum,[T260].comp,[T260].Sub-comp,[T260].Lognum,[T260].id1,[T260].Firname,[T260].LAstname
+FROM
+  (( SELECT
+        [T10].id,[T10].MAX-Lognum
+      FROM
+        (SELECT
+            input1.id, MAX(input1.Lognum)
+          FROM
+            input1
+          GROUP BY
+            input1.id) AS [T10][id, MAX-Lognum] ) JOIN (
+      SELECT
+        input1.comp,input1.Sub-comp,input1.Lognum,input1.id,input1.Firname,input1.LAstname
+      FROM
+        input1
+       )) AS [T260][id, MAX-Lognum, comp, Sub-comp, Lognum, id1, Firname, LAstname]
+WHERE
+  [T260].MAX-Lognum == [T260].Lognum
+   AND [T260].id == [T260].id1
+@anonymous
+[T260].id | [T260].MAX-Lognum | [T260].comp | [T260].Sub-comp | [T260].Lognum | [T260].id1 | [T260].Firname | [T260].LAstname 
+3897.0 | 0.0 | AK | AK-G | 0.0 | 3897.0 | ABC | DEF 
+5432.0 | 0.0 | AK | AK-G | 0.0 | 5432.0 | mark | ray 
+1234.0 | 84.0 | MC | MC-A | 84.0 | 1234.0 | john | steve 
+5678.0 | 84.0 | MC | MC-A | 84.0 | 5678.0 | dan | pitcher 
+9843.0 | 84.0 | MC | MC-A | 84.0 | 9843.0 | james | robin 
+
+[No.15]===============================
+SELECT
+  [T264].Sub-comp,[T264].Firname,[T264].MAX-Lognum,[T264].comp,[T264].Sub-comp1,[T264].Lognum,[T264].id,[T264].Firname1,[T264].LAstname
+FROM
+  (( SELECT
+        [T39].Sub-comp,[T39].Firname,[T39].MAX-Lognum
+      FROM
+        (SELECT
+            input1.Sub-comp, input1.Firname, MAX(input1.Lognum)
+          FROM
+            input1
+          GROUP BY
+            input1.Sub-comp  input1.Firname) AS [T39][Sub-comp, Firname, MAX-Lognum] ) JOIN (
+      SELECT
+        input1.comp,input1.Sub-comp,input1.Lognum,input1.id,input1.Firname,input1.LAstname
+      FROM
+        input1
+       )) AS [T264][Sub-comp, Firname, MAX-Lognum, comp, Sub-comp1, Lognum, id, Firname1, LAstname]
+WHERE
+  [T264].MAX-Lognum == [T264].Lognum
+   AND [T264].Firname == [T264].Firname1
+@anonymous
+[T264].Sub-comp | [T264].Firname | [T264].MAX-Lognum | [T264].comp | [T264].Sub-comp1 | [T264].Lognum | [T264].id | [T264].Firname1 | [T264].LAstname 
+AK-G | ABC | 0.0 | AK | AK-G | 0.0 | 3897.0 | ABC | DEF 
+AK-G | mark | 0.0 | AK | AK-G | 0.0 | 5432.0 | mark | ray 
+MC-A | john | 84.0 | MC | MC-A | 84.0 | 1234.0 | john | steve 
+MC-A | dan | 84.0 | MC | MC-A | 84.0 | 5678.0 | dan | pitcher 
+MC-A | james | 84.0 | MC | MC-A | 84.0 | 9843.0 | james | robin 
+
+[No.16]===============================
+SELECT
+  [T268].comp,[T268].Firname,[T268].MAX-Lognum,[T268].comp1,[T268].Sub-comp,[T268].Lognum,[T268].id,[T268].Firname1,[T268].LAstname
+FROM
+  (( SELECT
+        [T27].comp,[T27].Firname,[T27].MAX-Lognum
+      FROM
+        (SELECT
+            input1.comp, input1.Firname, MAX(input1.Lognum)
+          FROM
+            input1
+          GROUP BY
+            input1.comp  input1.Firname) AS [T27][comp, Firname, MAX-Lognum] ) JOIN (
+      SELECT
+        input1.comp,input1.Sub-comp,input1.Lognum,input1.id,input1.Firname,input1.LAstname
+      FROM
+        input1
+       )) AS [T268][comp, Firname, MAX-Lognum, comp1, Sub-comp, Lognum, id, Firname1, LAstname]
+WHERE
+  [T268].MAX-Lognum == [T268].Lognum
+   AND [T268].Firname == [T268].Firname1
+@anonymous
+[T268].comp | [T268].Firname | [T268].MAX-Lognum | [T268].comp1 | [T268].Sub-comp | [T268].Lognum | [T268].id | [T268].Firname1 | [T268].LAstname 
+AK | ABC | 0.0 | AK | AK-G | 0.0 | 3897.0 | ABC | DEF 
+AK | mark | 0.0 | AK | AK-G | 0.0 | 5432.0 | mark | ray 
+MC | john | 84.0 | MC | MC-A | 84.0 | 1234.0 | john | steve 
+MC | dan | 84.0 | MC | MC-A | 84.0 | 5678.0 | dan | pitcher 
+MC | james | 84.0 | MC | MC-A | 84.0 | 9843.0 | james | robin 
+
+[No.17]===============================
+SELECT
+  [T272].comp,[T272].id,[T272].Firname,[T272].MAX-Lognum,[T272].comp1,[T272].Sub-comp,[T272].Lognum,[T272].id1,[T272].Firname1,[T272].LAstname
+FROM
+  (( SELECT
+        [T66].comp,[T66].id,[T66].Firname,[T66].MAX-Lognum
+      FROM
+        (SELECT
+            input1.comp, input1.id, input1.Firname, MAX(input1.Lognum)
+          FROM
+            input1
+          GROUP BY
+            input1.comp  input1.id  input1.Firname) AS [T66][comp, id, Firname, MAX-Lognum] ) JOIN (
+      SELECT
+        input1.comp,input1.Sub-comp,input1.Lognum,input1.id,input1.Firname,input1.LAstname
+      FROM
+        input1
+       )) AS [T272][comp, id, Firname, MAX-Lognum, comp1, Sub-comp, Lognum, id1, Firname1, LAstname]
+WHERE
+  [T272].MAX-Lognum == [T272].Lognum
+   AND [T272].id == [T272].id1
+@anonymous
+[T272].comp | [T272].id | [T272].Firname | [T272].MAX-Lognum | [T272].comp1 | [T272].Sub-comp | [T272].Lognum | [T272].id1 | [T272].Firname1 | [T272].LAstname 
+AK | 3897.0 | ABC | 0.0 | AK | AK-G | 0.0 | 3897.0 | ABC | DEF 
+AK | 5432.0 | mark | 0.0 | AK | AK-G | 0.0 | 5432.0 | mark | ray 
+MC | 1234.0 | john | 84.0 | MC | MC-A | 84.0 | 1234.0 | john | steve 
+MC | 5678.0 | dan | 84.0 | MC | MC-A | 84.0 | 5678.0 | dan | pitcher 
+MC | 9843.0 | james | 84.0 | MC | MC-A | 84.0 | 9843.0 | james | robin 
+
+[No.18]===============================
+SELECT
+  [T276].LAstname,[T276].MAX-Lognum,[T276].comp,[T276].Sub-comp,[T276].Lognum,[T276].id,[T276].Firname,[T276].LAstname1
+FROM
+  (( SELECT
+        [T15].LAstname,[T15].MAX-Lognum
+      FROM
+        (SELECT
+            input1.LAstname, MAX(input1.Lognum)
+          FROM
+            input1
+          GROUP BY
+            input1.LAstname) AS [T15][LAstname, MAX-Lognum] ) JOIN (
+      SELECT
+        input1.comp,input1.Sub-comp,input1.Lognum,input1.id,input1.Firname,input1.LAstname
+      FROM
+        input1
+       )) AS [T276][LAstname, MAX-Lognum, comp, Sub-comp, Lognum, id, Firname, LAstname1]
+WHERE
+  [T276].MAX-Lognum == [T276].Lognum
+   AND [T276].LAstname == [T276].LAstname1
+@anonymous
+[T276].LAstname | [T276].MAX-Lognum | [T276].comp | [T276].Sub-comp | [T276].Lognum | [T276].id | [T276].Firname | [T276].LAstname1 
+DEF | 0.0 | AK | AK-G | 0.0 | 3897.0 | ABC | DEF 
+ray | 0.0 | AK | AK-G | 0.0 | 5432.0 | mark | ray 
+steve | 84.0 | MC | MC-A | 84.0 | 1234.0 | john | steve 
+pitcher | 84.0 | MC | MC-A | 84.0 | 5678.0 | dan | pitcher 
+robin | 84.0 | MC | MC-A | 84.0 | 9843.0 | james | robin 
+
+[No.19]===============================
+SELECT
+  [T280].id,[T280].LAstname,[T280].MAX-Lognum,[T280].comp,[T280].Sub-comp,[T280].Lognum,[T280].id1,[T280].Firname,[T280].LAstname1
+FROM
+  (( SELECT
+        [T48].id,[T48].LAstname,[T48].MAX-Lognum
+      FROM
+        (SELECT
+            input1.id, input1.LAstname, MAX(input1.Lognum)
+          FROM
+            input1
+          GROUP BY
+            input1.id  input1.LAstname) AS [T48][id, LAstname, MAX-Lognum] ) JOIN (
+      SELECT
+        input1.comp,input1.Sub-comp,input1.Lognum,input1.id,input1.Firname,input1.LAstname
+      FROM
+        input1
+       )) AS [T280][id, LAstname, MAX-Lognum, comp, Sub-comp, Lognum, id1, Firname, LAstname1]
+WHERE
+  [T280].MAX-Lognum == [T280].Lognum
+   AND [T280].id == [T280].id1
+@anonymous
+[T280].id | [T280].LAstname | [T280].MAX-Lognum | [T280].comp | [T280].Sub-comp | [T280].Lognum | [T280].id1 | [T280].Firname | [T280].LAstname1 
+3897.0 | DEF | 0.0 | AK | AK-G | 0.0 | 3897.0 | ABC | DEF 
+5432.0 | ray | 0.0 | AK | AK-G | 0.0 | 5432.0 | mark | ray 
+1234.0 | steve | 84.0 | MC | MC-A | 84.0 | 1234.0 | john | steve 
+5678.0 | pitcher | 84.0 | MC | MC-A | 84.0 | 5678.0 | dan | pitcher 
+9843.0 | robin | 84.0 | MC | MC-A | 84.0 | 9843.0 | james | robin 
+
+[No.20]===============================
+SELECT
+  [T284].Sub-comp,[T284].id,[T284].LAstname,[T284].MAX-Lognum,[T284].comp,[T284].Sub-comp1,[T284].Lognum,[T284].id1,[T284].Firname,[T284].LAstname1
+FROM
+  (( SELECT
+        [T78].Sub-comp,[T78].id,[T78].LAstname,[T78].MAX-Lognum
+      FROM
+        (SELECT
+            input1.Sub-comp, input1.id, input1.LAstname, MAX(input1.Lognum)
+          FROM
+            input1
+          GROUP BY
+            input1.Sub-comp  input1.id  input1.LAstname) AS [T78][Sub-comp, id, LAstname, MAX-Lognum] ) JOIN (
+      SELECT
+        input1.comp,input1.Sub-comp,input1.Lognum,input1.id,input1.Firname,input1.LAstname
+      FROM
+        input1
+       )) AS [T284][Sub-comp, id, LAstname, MAX-Lognum, comp, Sub-comp1, Lognum, id1, Firname, LAstname1]
+WHERE
+  [T284].MAX-Lognum == [T284].Lognum
+   AND [T284].id == [T284].id1
+@anonymous
+[T284].Sub-comp | [T284].id | [T284].LAstname | [T284].MAX-Lognum | [T284].comp | [T284].Sub-comp1 | [T284].Lognum | [T284].id1 | [T284].Firname | [T284].LAstname1 
+AK-G | 3897.0 | DEF | 0.0 | AK | AK-G | 0.0 | 3897.0 | ABC | DEF 
+AK-G | 5432.0 | ray | 0.0 | AK | AK-G | 0.0 | 5432.0 | mark | ray 
+MC-A | 1234.0 | steve | 84.0 | MC | MC-A | 84.0 | 1234.0 | john | steve 
+MC-A | 5678.0 | pitcher | 84.0 | MC | MC-A | 84.0 | 5678.0 | dan | pitcher 
+MC-A | 9843.0 | robin | 84.0 | MC | MC-A | 84.0 | 9843.0 | james | robin 
+
+[Consistent Table number] 32
+[Enumeration Finished]
+[[Synthesizer finished]] time: 00:00:05:388
+[[Synthesizer finished]] seconds: 5.388
+[avg reduction rate: syn filter / bit vector] 5.607753055275611
+[avg reduction rate: compound filter / bit vector] NaN
+[avg compound filter count] NaN
+[max compound filter count] 0
+[avg PrimitiveFilterCount] NaN
+[max PrimitiveFilterCount] 0
+[avg LRFilterCount] 1.3387096774193548
+[max LRFilterCount] 3
+[avg decompose tree count] 1.3297872340425532
+[max decomposeTreeCount] 2

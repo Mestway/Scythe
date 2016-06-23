@@ -1,0 +1,621 @@
+================
+[[Synthesizer start]] data/benchmarks/051
+[Enumerator Type] SymbolicTableEnumerator
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[FiltersCount format](primitiveSynFilterCount, primitiveBitVecFilterCount, totalBitVecFiltersCount)
+[Basic]: 1 [SymTableForInputs]: 1
+[Aggregation]: 40 [SymTable]: 41
+[EnumJoin] level 1 [SymTable]: 82
+ASymTable Enumeration done: 82
+Runner ups: 30
+Candidates: 
+82
+[No.1]===============================
+SELECT
+  [T152].User,[T152].MAX-Value,[T152].User1,[T152].Phone,[T152].Value
+FROM
+  (( SELECT
+        [T151].User,[T151].MAX-Value
+      FROM
+        (SELECT
+            [T150].User, MAX([T150].Value)
+          FROM
+            (SELECT
+                input1.User,input1.Phone,input1.Value
+              FROM
+                input1
+              WHERE
+                input1.Value < 8.0) AS [T150][User, Phone, Value]
+          GROUP BY
+            [T150].User) AS [T151][User, MAX-Value] ) JOIN (
+      SELECT
+        input1.User,input1.Phone,input1.Value
+      FROM
+        input1
+       )) AS [T152][User, MAX-Value, User1, Phone, Value]
+WHERE
+  [T152].MAX-Value == [T152].Value
+@anonymous
+[T152].User | [T152].MAX-Value | [T152].User1 | [T152].Phone | [T152].Value 
+Peter | 3.0 | Peter | 456.0 | 3.0 
+Paul | 7.0 | Paul | 456.0 | 7.0 
+
+[No.2]===============================
+SELECT
+  [T156].User,[T156].MAX-Value,[T156].User1,[T156].Phone,[T156].Value
+FROM
+  (( SELECT
+        [T155].User,[T155].MAX-Value
+      FROM
+        (SELECT
+            [T154].User, MAX([T154].Value)
+          FROM
+            (SELECT
+                input1.User,input1.Phone,input1.Value
+              FROM
+                input1
+              WHERE
+                input1.Value < 8.0) AS [T154][User, Phone, Value]
+          GROUP BY
+            [T154].User) AS [T155][User, MAX-Value] ) JOIN (
+      SELECT
+        input1.User,input1.Phone,input1.Value
+      FROM
+        input1
+       )) AS [T156][User, MAX-Value, User1, Phone, Value]
+WHERE
+  [T156].MAX-Value == [T156].Value
+   AND [T156].User == [T156].User1
+@anonymous
+[T156].User | [T156].MAX-Value | [T156].User1 | [T156].Phone | [T156].Value 
+Peter | 3.0 | Peter | 456.0 | 3.0 
+Paul | 7.0 | Paul | 456.0 | 7.0 
+
+[No.3]===============================
+SELECT
+  [T261].User,[T261].Phone,[T261].MAX-Value
+FROM
+  (SELECT
+      [T260].User, [T260].Phone, MAX([T260].Value)
+    FROM
+      (SELECT
+          input1.User,input1.Phone,input1.Value
+        FROM
+          input1
+        WHERE
+          input1.Value < 8.0
+           AND input1.Phone > 8.0) AS [T260][User, Phone, Value]
+    GROUP BY
+      [T260].User  [T260].Phone) AS [T261][User, Phone, MAX-Value]
+
+@anonymous
+[T261].User | [T261].Phone | [T261].MAX-Value 
+Peter | 456.0 | 3.0 
+Paul | 456.0 | 7.0 
+
+[No.4]===============================
+SELECT
+  [T297].User,[T297].Phone,[T297].MAX-Value
+FROM
+  (SELECT
+      [T296].User, [T296].Phone, MAX([T296].Value)
+    FROM
+      (SELECT
+          input1.User,input1.Phone,input1.Value
+        FROM
+          input1
+        WHERE
+          input1.Phone > 8.0) AS [T296][User, Phone, Value]
+    GROUP BY
+      [T296].User  [T296].Phone) AS [T297][User, Phone, MAX-Value]
+WHERE
+  [T297].MAX-Value < 8.0
+@anonymous
+[T297].User | [T297].Phone | [T297].MAX-Value 
+Peter | 456.0 | 3.0 
+Paul | 456.0 | 7.0 
+
+[No.5]===============================
+SELECT
+  [T84].User,[T84].Phone,[T84].MAX-Value,[T84].User1,[T84].Phone1,[T84].Value
+FROM
+  (( SELECT
+        [T83].User,[T83].Phone,[T83].MAX-Value
+      FROM
+        (SELECT
+            [T82].User, [T82].Phone, MAX([T82].Value)
+          FROM
+            (SELECT
+                input1.User,input1.Phone,input1.Value
+              FROM
+                input1
+              WHERE
+                input1.Value < 8.0) AS [T82][User, Phone, Value]
+          GROUP BY
+            [T82].User  [T82].Phone) AS [T83][User, Phone, MAX-Value] ) JOIN (
+      SELECT
+        input1.User,input1.Phone,input1.Value
+      FROM
+        input1
+       )) AS [T84][User, Phone, MAX-Value, User1, Phone1, Value]
+WHERE
+  [T84].Phone > [T84].Phone1
+@anonymous
+[T84].User | [T84].Phone | [T84].MAX-Value | [T84].User1 | [T84].Phone1 | [T84].Value 
+Peter | 456.0 | 3.0 | Peter | 0.0 | 1.0 
+Paul | 456.0 | 7.0 | Peter | 0.0 | 1.0 
+
+[No.6]===============================
+SELECT
+  [T104].User,[T104].Phone,[T104].MAX-Value,[T104].User1,[T104].Phone1,[T104].Value
+FROM
+  (( SELECT
+        [T103].User,[T103].Phone,[T103].MAX-Value
+      FROM
+        (SELECT
+            [T102].User, [T102].Phone, MAX([T102].Value)
+          FROM
+            (SELECT
+                input1.User,input1.Phone,input1.Value
+              FROM
+                input1
+              WHERE
+                input1.Value < 8.0) AS [T102][User, Phone, Value]
+          GROUP BY
+            [T102].User  [T102].Phone) AS [T103][User, Phone, MAX-Value] ) JOIN (
+      SELECT
+        input1.User,input1.Phone,input1.Value
+      FROM
+        input1
+      WHERE
+        input1.Phone > 8.0 )) AS [T104][User, Phone, MAX-Value, User1, Phone1, Value]
+WHERE
+  [T104].MAX-Value == [T104].Value
+@anonymous
+[T104].User | [T104].Phone | [T104].MAX-Value | [T104].User1 | [T104].Phone1 | [T104].Value 
+Peter | 456.0 | 3.0 | Peter | 456.0 | 3.0 
+Paul | 456.0 | 7.0 | Paul | 456.0 | 7.0 
+
+[No.7]===============================
+SELECT
+  [T160].User,[T160].MAX-Value,[T160].User1,[T160].Phone,[T160].Value
+FROM
+  (( SELECT
+        [T159].User,[T159].MAX-Value
+      FROM
+        (SELECT
+            [T158].User, MAX([T158].Value)
+          FROM
+            (SELECT
+                input1.User,input1.Phone,input1.Value
+              FROM
+                input1
+              WHERE
+                input1.Value < 8.0) AS [T158][User, Phone, Value]
+          GROUP BY
+            [T158].User) AS [T159][User, MAX-Value] ) JOIN (
+      SELECT
+        input1.User,input1.Phone,input1.Value
+      FROM
+        input1
+      WHERE
+        input1.Value < 8.0 )) AS [T160][User, MAX-Value, User1, Phone, Value]
+WHERE
+  [T160].MAX-Value == [T160].Value
+@anonymous
+[T160].User | [T160].MAX-Value | [T160].User1 | [T160].Phone | [T160].Value 
+Peter | 3.0 | Peter | 456.0 | 3.0 
+Paul | 7.0 | Paul | 456.0 | 7.0 
+
+[No.8]===============================
+SELECT
+  [T164].User,[T164].MAX-Value,[T164].User1,[T164].Phone,[T164].Value
+FROM
+  (( SELECT
+        [T163].User,[T163].MAX-Value
+      FROM
+        (SELECT
+            [T162].User, MAX([T162].Value)
+          FROM
+            (SELECT
+                input1.User,input1.Phone,input1.Value
+              FROM
+                input1
+              WHERE
+                input1.Value < 8.0) AS [T162][User, Phone, Value]
+          GROUP BY
+            [T162].User) AS [T163][User, MAX-Value] ) JOIN (
+      SELECT
+        input1.User,input1.Phone,input1.Value
+      FROM
+        input1
+      WHERE
+        input1.Phone > 8.0 )) AS [T164][User, MAX-Value, User1, Phone, Value]
+WHERE
+  [T164].MAX-Value == [T164].Value
+@anonymous
+[T164].User | [T164].MAX-Value | [T164].User1 | [T164].Phone | [T164].Value 
+Peter | 3.0 | Peter | 456.0 | 3.0 
+Paul | 7.0 | Paul | 456.0 | 7.0 
+
+[No.9]===============================
+SELECT
+  [T192].User,[T192].Phone,[T192].MAX-Value,[T192].User1,[T192].Phone1,[T192].Value
+FROM
+  (( SELECT
+        [T191].User,[T191].Phone,[T191].MAX-Value
+      FROM
+        (SELECT
+            [T190].User, [T190].Phone, MAX([T190].Value)
+          FROM
+            (SELECT
+                input1.User,input1.Phone,input1.Value
+              FROM
+                input1
+              WHERE
+                input1.Value < 8.0
+                 AND input1.Phone > 8.0) AS [T190][User, Phone, Value]
+          GROUP BY
+            [T190].User  [T190].Phone) AS [T191][User, Phone, MAX-Value] ) JOIN (
+      SELECT
+        input1.User,input1.Phone,input1.Value
+      FROM
+        input1
+       )) AS [T192][User, Phone, MAX-Value, User1, Phone1, Value]
+WHERE
+  [T192].MAX-Value == [T192].Value
+@anonymous
+[T192].User | [T192].Phone | [T192].MAX-Value | [T192].User1 | [T192].Phone1 | [T192].Value 
+Peter | 456.0 | 3.0 | Peter | 456.0 | 3.0 
+Paul | 456.0 | 7.0 | Paul | 456.0 | 7.0 
+
+[No.10]===============================
+SELECT
+  [T240].User,[T240].MAX-Value,[T240].User1,[T240].Phone,[T240].Value
+FROM
+  (( SELECT
+        [T239].User,[T239].MAX-Value
+      FROM
+        (SELECT
+            [T238].User, MAX([T238].Value)
+          FROM
+            (SELECT
+                input1.User,input1.Phone,input1.Value
+              FROM
+                input1
+              WHERE
+                input1.Value < 8.0
+                 AND input1.Phone > 8.0) AS [T238][User, Phone, Value]
+          GROUP BY
+            [T238].User) AS [T239][User, MAX-Value] ) JOIN (
+      SELECT
+        input1.User,input1.Phone,input1.Value
+      FROM
+        input1
+       )) AS [T240][User, MAX-Value, User1, Phone, Value]
+WHERE
+  [T240].MAX-Value == [T240].Value
+@anonymous
+[T240].User | [T240].MAX-Value | [T240].User1 | [T240].Phone | [T240].Value 
+Peter | 3.0 | Peter | 456.0 | 3.0 
+Paul | 7.0 | Paul | 456.0 | 7.0 
+
+[No.11]===============================
+SELECT
+  [T262].User,[T262].Phone,[T262].MAX-Value,[T262].User1,[T262].Phone1,[T262].Value
+FROM
+  (( SELECT
+        [T38].User,[T38].Phone,[T38].MAX-Value
+      FROM
+        (SELECT
+            input1.User, input1.Phone, MAX(input1.Value)
+          FROM
+            input1
+          GROUP BY
+            input1.User  input1.Phone) AS [T38][User, Phone, MAX-Value]
+      WHERE
+        [T38].MAX-Value < 8.0 ) JOIN (
+      SELECT
+        input1.User,input1.Phone,input1.Value
+      FROM
+        input1
+       )) AS [T262][User, Phone, MAX-Value, User1, Phone1, Value]
+WHERE
+  [T262].Phone > [T262].Phone1
+@anonymous
+[T262].User | [T262].Phone | [T262].MAX-Value | [T262].User1 | [T262].Phone1 | [T262].Value 
+Peter | 456.0 | 3.0 | Peter | 0.0 | 1.0 
+Paul | 456.0 | 7.0 | Peter | 0.0 | 1.0 
+
+[No.12]===============================
+SELECT
+  [T272].User,[T272].Phone,[T272].MAX-Value,[T272].User1,[T272].Phone1,[T272].Value
+FROM
+  (( SELECT
+        [T38].User,[T38].Phone,[T38].MAX-Value
+      FROM
+        (SELECT
+            input1.User, input1.Phone, MAX(input1.Value)
+          FROM
+            input1
+          GROUP BY
+            input1.User  input1.Phone) AS [T38][User, Phone, MAX-Value] ) JOIN (
+      SELECT
+        input1.User,input1.Phone,input1.Value
+      FROM
+        input1
+      WHERE
+        input1.Value < 8.0
+         AND input1.Phone > 8.0 )) AS [T272][User, Phone, MAX-Value, User1, Phone1, Value]
+WHERE
+  [T272].MAX-Value == [T272].Value
+@anonymous
+[T272].User | [T272].Phone | [T272].MAX-Value | [T272].User1 | [T272].Phone1 | [T272].Value 
+Peter | 456.0 | 3.0 | Peter | 456.0 | 3.0 
+Paul | 456.0 | 7.0 | Paul | 456.0 | 7.0 
+
+[No.13]===============================
+SELECT
+  [T274].User,[T274].Phone,[T274].MAX-Value,[T274].User1,[T274].Phone1,[T274].Value
+FROM
+  (( SELECT
+        [T38].User,[T38].Phone,[T38].MAX-Value
+      FROM
+        (SELECT
+            input1.User, input1.Phone, MAX(input1.Value)
+          FROM
+            input1
+          GROUP BY
+            input1.User  input1.Phone) AS [T38][User, Phone, MAX-Value]
+      WHERE
+        [T38].MAX-Value < 8.0 ) JOIN (
+      SELECT
+        input1.User,input1.Phone,input1.Value
+      FROM
+        input1
+      WHERE
+        input1.Phone > 8.0 )) AS [T274][User, Phone, MAX-Value, User1, Phone1, Value]
+WHERE
+  [T274].MAX-Value == [T274].Value
+@anonymous
+[T274].User | [T274].Phone | [T274].MAX-Value | [T274].User1 | [T274].Phone1 | [T274].Value 
+Peter | 456.0 | 3.0 | Peter | 456.0 | 3.0 
+Paul | 456.0 | 7.0 | Paul | 456.0 | 7.0 
+
+[No.14]===============================
+SELECT
+  [T320].User,[T320].Phone,[T320].MAX-Value,[T320].User1,[T320].Phone1,[T320].Value
+FROM
+  (( SELECT
+        [T319].User,[T319].Phone,[T319].MAX-Value
+      FROM
+        (SELECT
+            [T318].User, [T318].Phone, MAX([T318].Value)
+          FROM
+            (SELECT
+                input1.User,input1.Phone,input1.Value
+              FROM
+                input1
+              WHERE
+                input1.Phone > 8.0) AS [T318][User, Phone, Value]
+          GROUP BY
+            [T318].User  [T318].Phone) AS [T319][User, Phone, MAX-Value] ) JOIN (
+      SELECT
+        input1.User,input1.Phone,input1.Value
+      FROM
+        input1
+      WHERE
+        input1.Value < 8.0 )) AS [T320][User, Phone, MAX-Value, User1, Phone1, Value]
+WHERE
+  [T320].MAX-Value == [T320].Value
+@anonymous
+[T320].User | [T320].Phone | [T320].MAX-Value | [T320].User1 | [T320].Phone1 | [T320].Value 
+Peter | 456.0 | 3.0 | Peter | 456.0 | 3.0 
+Paul | 456.0 | 7.0 | Paul | 456.0 | 7.0 
+
+[No.15]===============================
+SELECT
+  [T324].User,[T324].Phone,[T324].MAX-Value,[T324].User1,[T324].Phone1,[T324].Value
+FROM
+  (( SELECT
+        [T323].User,[T323].Phone,[T323].MAX-Value
+      FROM
+        (SELECT
+            [T322].User, [T322].Phone, MAX([T322].Value)
+          FROM
+            (SELECT
+                input1.User,input1.Phone,input1.Value
+              FROM
+                input1
+              WHERE
+                input1.Phone > 8.0) AS [T322][User, Phone, Value]
+          GROUP BY
+            [T322].User  [T322].Phone) AS [T323][User, Phone, MAX-Value]
+      WHERE
+        [T323].MAX-Value < 8.0 ) JOIN (
+      SELECT
+        input1.User,input1.Phone,input1.Value
+      FROM
+        input1
+       )) AS [T324][User, Phone, MAX-Value, User1, Phone1, Value]
+WHERE
+  [T324].MAX-Value == [T324].Value
+@anonymous
+[T324].User | [T324].Phone | [T324].MAX-Value | [T324].User1 | [T324].Phone1 | [T324].Value 
+Peter | 456.0 | 3.0 | Peter | 456.0 | 3.0 
+Paul | 456.0 | 7.0 | Paul | 456.0 | 7.0 
+
+[No.16]===============================
+SELECT
+  [T344].User,[T344].Phone,[T344].MAX-Value,[T344].User1,[T344].Phone1,[T344].Value
+FROM
+  (( SELECT
+        [T343].User,[T343].Phone,[T343].MAX-Value
+      FROM
+        (SELECT
+            [T342].User, [T342].Phone, MAX([T342].Value)
+          FROM
+            (SELECT
+                input1.User,input1.Phone,input1.Value
+              FROM
+                input1
+              WHERE
+                input1.Phone > 8.0) AS [T342][User, Phone, Value]
+          GROUP BY
+            [T342].User  [T342].Phone) AS [T343][User, Phone, MAX-Value] ) JOIN (
+      SELECT
+        input1.User,input1.Phone,input1.Value
+      FROM
+        input1
+       )) AS [T344][User, Phone, MAX-Value, User1, Phone1, Value]
+WHERE
+  [T344].Phone < [T344].Phone1
+@anonymous
+[T344].User | [T344].Phone | [T344].MAX-Value | [T344].User1 | [T344].Phone1 | [T344].Value 
+Peter | 456.0 | 3.0 | Paul | 789.0 | 10.0 
+Paul | 456.0 | 7.0 | Paul | 789.0 | 10.0 
+
+[No.17]===============================
+SELECT
+  [T108].User,[T108].Phone,[T108].MAX-Value,[T108].User1,[T108].Phone1,[T108].Value
+FROM
+  (( SELECT
+        [T107].User,[T107].Phone,[T107].MAX-Value
+      FROM
+        (SELECT
+            [T106].User, [T106].Phone, MAX([T106].Value)
+          FROM
+            (SELECT
+                input1.User,input1.Phone,input1.Value
+              FROM
+                input1
+              WHERE
+                input1.Value < 8.0) AS [T106][User, Phone, Value]
+          GROUP BY
+            [T106].User  [T106].Phone) AS [T107][User, Phone, MAX-Value] ) JOIN (
+      SELECT
+        input1.User,input1.Phone,input1.Value
+      FROM
+        input1
+      WHERE
+        input1.Phone > 8.0 )) AS [T108][User, Phone, MAX-Value, User1, Phone1, Value]
+WHERE
+  [T108].MAX-Value == [T108].Value
+   AND [T108].User == [T108].User1
+@anonymous
+[T108].User | [T108].Phone | [T108].MAX-Value | [T108].User1 | [T108].Phone1 | [T108].Value 
+Peter | 456.0 | 3.0 | Peter | 456.0 | 3.0 
+Paul | 456.0 | 7.0 | Paul | 456.0 | 7.0 
+
+[No.18]===============================
+SELECT
+  [T112].User,[T112].Phone,[T112].MAX-Value,[T112].User1,[T112].Phone1,[T112].Value
+FROM
+  (( SELECT
+        [T111].User,[T111].Phone,[T111].MAX-Value
+      FROM
+        (SELECT
+            [T110].User, [T110].Phone, MAX([T110].Value)
+          FROM
+            (SELECT
+                input1.User,input1.Phone,input1.Value
+              FROM
+                input1
+              WHERE
+                input1.Value < 8.0) AS [T110][User, Phone, Value]
+          GROUP BY
+            [T110].User  [T110].Phone) AS [T111][User, Phone, MAX-Value] ) JOIN (
+      SELECT
+        input1.User,input1.Phone,input1.Value
+      FROM
+        input1
+      WHERE
+        input1.Phone > 8.0 )) AS [T112][User, Phone, MAX-Value, User1, Phone1, Value]
+WHERE
+  [T112].Phone == [T112].Phone1
+   AND [T112].MAX-Value == [T112].Value
+@anonymous
+[T112].User | [T112].Phone | [T112].MAX-Value | [T112].User1 | [T112].Phone1 | [T112].Value 
+Peter | 456.0 | 3.0 | Peter | 456.0 | 3.0 
+Paul | 456.0 | 7.0 | Paul | 456.0 | 7.0 
+
+[No.19]===============================
+SELECT
+  [T168].User,[T168].MAX-Value,[T168].User1,[T168].Phone,[T168].Value
+FROM
+  (( SELECT
+        [T167].User,[T167].MAX-Value
+      FROM
+        (SELECT
+            [T166].User, MAX([T166].Value)
+          FROM
+            (SELECT
+                input1.User,input1.Phone,input1.Value
+              FROM
+                input1
+              WHERE
+                input1.Value < 8.0) AS [T166][User, Phone, Value]
+          GROUP BY
+            [T166].User) AS [T167][User, MAX-Value] ) JOIN (
+      SELECT
+        input1.User,input1.Phone,input1.Value
+      FROM
+        input1
+      WHERE
+        input1.Value < 8.0 )) AS [T168][User, MAX-Value, User1, Phone, Value]
+WHERE
+  [T168].MAX-Value == [T168].Value
+   AND [T168].User == [T168].User1
+@anonymous
+[T168].User | [T168].MAX-Value | [T168].User1 | [T168].Phone | [T168].Value 
+Peter | 3.0 | Peter | 456.0 | 3.0 
+Paul | 7.0 | Paul | 456.0 | 7.0 
+
+[No.20]===============================
+SELECT
+  [T196].User,[T196].Phone,[T196].MAX-Value,[T196].User1,[T196].Phone1,[T196].Value
+FROM
+  (( SELECT
+        [T195].User,[T195].Phone,[T195].MAX-Value
+      FROM
+        (SELECT
+            [T194].User, [T194].Phone, MAX([T194].Value)
+          FROM
+            (SELECT
+                input1.User,input1.Phone,input1.Value
+              FROM
+                input1
+              WHERE
+                input1.Value < 8.0
+                 AND input1.Phone > 8.0) AS [T194][User, Phone, Value]
+          GROUP BY
+            [T194].User  [T194].Phone) AS [T195][User, Phone, MAX-Value] ) JOIN (
+      SELECT
+        input1.User,input1.Phone,input1.Value
+      FROM
+        input1
+       )) AS [T196][User, Phone, MAX-Value, User1, Phone1, Value]
+WHERE
+  [T196].MAX-Value == [T196].Value
+   AND [T196].User == [T196].User1
+@anonymous
+[T196].User | [T196].Phone | [T196].MAX-Value | [T196].User1 | [T196].Phone1 | [T196].Value 
+Peter | 456.0 | 3.0 | Peter | 456.0 | 3.0 
+Paul | 456.0 | 7.0 | Paul | 456.0 | 7.0 
+
+[Consistent Table number] 26
+[Enumeration Finished]
+[[Synthesizer finished]] time: 00:00:00:620
+[[Synthesizer finished]] seconds: 0.62
+[avg reduction rate: syn filter / bit vector] 5.557808204395015
+[avg reduction rate: compound filter / bit vector] NaN
+[avg compound filter count] NaN
+[max compound filter count] 0
+[avg PrimitiveFilterCount] 3.662921348314607
+[max PrimitiveFilterCount] 6
+[avg LRFilterCount] 2.046979865771812
+[max LRFilterCount] 5
+[avg decompose tree count] 11.541353383458647
+[max decomposeTreeCount] 204

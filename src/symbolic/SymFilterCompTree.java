@@ -112,7 +112,7 @@ public class SymFilterCompTree {
                         }
                     });
 
-                    unRotated.add(decoded.subList(0,decoded.size() > 10? 10 : decoded.size()));
+                    unRotated.add(decoded.subList(0,decoded.size() > 5? 5 : decoded.size()));
                 }
 
                 List<List<Filter>> rotated = CombinationGenerator.rotateList(unRotated);

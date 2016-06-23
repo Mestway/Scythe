@@ -1,0 +1,131 @@
+================
+[[Synthesizer start]] data/benchmarks/020
+[Enumerator Type] SymbolicTableEnumerator
+[Initialize Enumeration]
+  Parameterized Table Number: 142
+[Enumeration Start]
+[FiltersCount format](primitiveSynFilterCount, primitiveBitVecFilterCount, totalBitVecFiltersCount)
+[Basic]: 2 [SymTableForInputs]: 2
+[Aggregation]: 30 [SymTable]: 32
+[EnumJoin] level 1 [SymTable]: 96
+ASymTable Enumeration done: 96
+Runner ups: 1
+Candidates: 
+4
+[No.1]===============================
+SELECT
+  [T179].VehicleID,[T179].CONCAT-City,[T179].VehicleID1,[T179].Name
+FROM
+  (( SELECT
+        [T172].VehicleID,[T172].CONCAT-City
+      FROM
+        (SELECT
+            input2.VehicleID, CONCAT(input2.City)
+          FROM
+            input2
+          GROUP BY
+            input2.VehicleID) AS [T172][VehicleID, CONCAT-City] ) JOIN (
+      SELECT
+        input1.VehicleID,input1.Name
+      FROM
+        input1
+       )) AS [T179][VehicleID, CONCAT-City, VehicleID1, Name]
+WHERE
+  [T179].VehicleID == [T179].VehicleID1
+@anonymous
+[T179].VehicleID | [T179].CONCAT-City | [T179].VehicleID1 | [T179].Name 
+1.0 | New York, Seattle, Vancouver | 1.0 | Chuck 
+2.0 | Los Angeles, Houston | 2.0 | Larry 
+
+[No.2]===============================
+SELECT
+  [T175].VehicleID,[T175].CONCAT-City,[T175].VehicleID1,[T175].Name
+FROM
+  (( SELECT
+        [T172].VehicleID,[T172].CONCAT-City
+      FROM
+        (SELECT
+            input2.VehicleID, CONCAT(input2.City)
+          FROM
+            input2
+          GROUP BY
+            input2.VehicleID) AS [T172][VehicleID, CONCAT-City] ) JOIN (
+      SELECT
+        input1.VehicleID,input1.Name
+      FROM
+        input1
+       )) AS [T175][VehicleID, CONCAT-City, VehicleID1, Name]
+WHERE
+  [T175].VehicleID == [T175].VehicleID1
+   AND [T175].VehicleID <= [T175].VehicleID1
+@anonymous
+[T175].VehicleID | [T175].CONCAT-City | [T175].VehicleID1 | [T175].Name 
+1.0 | New York, Seattle, Vancouver | 1.0 | Chuck 
+2.0 | Los Angeles, Houston | 2.0 | Larry 
+
+[No.3]===============================
+SELECT
+  [T177].VehicleID,[T177].CONCAT-City,[T177].VehicleID1,[T177].Name
+FROM
+  (( SELECT
+        [T172].VehicleID,[T172].CONCAT-City
+      FROM
+        (SELECT
+            input2.VehicleID, CONCAT(input2.City)
+          FROM
+            input2
+          GROUP BY
+            input2.VehicleID) AS [T172][VehicleID, CONCAT-City] ) JOIN (
+      SELECT
+        input1.VehicleID,input1.Name
+      FROM
+        input1
+       )) AS [T177][VehicleID, CONCAT-City, VehicleID1, Name]
+WHERE
+  [T177].VehicleID == [T177].VehicleID1
+   AND [T177].VehicleID >= [T177].VehicleID1
+@anonymous
+[T177].VehicleID | [T177].CONCAT-City | [T177].VehicleID1 | [T177].Name 
+1.0 | New York, Seattle, Vancouver | 1.0 | Chuck 
+2.0 | Los Angeles, Houston | 2.0 | Larry 
+
+[No.4]===============================
+SELECT
+  [T181].VehicleID,[T181].CONCAT-City,[T181].VehicleID1,[T181].Name
+FROM
+  (( SELECT
+        [T172].VehicleID,[T172].CONCAT-City
+      FROM
+        (SELECT
+            input2.VehicleID, CONCAT(input2.City)
+          FROM
+            input2
+          GROUP BY
+            input2.VehicleID) AS [T172][VehicleID, CONCAT-City] ) JOIN (
+      SELECT
+        input1.VehicleID,input1.Name
+      FROM
+        input1
+       )) AS [T181][VehicleID, CONCAT-City, VehicleID1, Name]
+WHERE
+  [T181].VehicleID <= [T181].VehicleID1
+   AND [T181].VehicleID >= [T181].VehicleID1
+@anonymous
+[T181].VehicleID | [T181].CONCAT-City | [T181].VehicleID1 | [T181].Name 
+1.0 | New York, Seattle, Vancouver | 1.0 | Chuck 
+2.0 | Los Angeles, Houston | 2.0 | Larry 
+
+[Consistent Table number] 1
+[Enumeration Finished]
+[[Synthesizer finished]] time: 00:00:00:494
+[[Synthesizer finished]] seconds: 0.494
+[avg reduction rate: syn filter / bit vector] 237.66666412353516
+[avg reduction rate: compound filter / bit vector] NaN
+[avg compound filter count] NaN
+[max compound filter count] 0
+[avg PrimitiveFilterCount] NaN
+[max PrimitiveFilterCount] 0
+[avg LRFilterCount] 1.0
+[max LRFilterCount] 1
+[avg decompose tree count] 2.0
+[max decomposeTreeCount] 4

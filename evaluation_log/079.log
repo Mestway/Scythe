@@ -1,0 +1,544 @@
+================
+[[Synthesizer start]] data/benchmarks/079
+[Enumerator Type] SymbolicTableEnumerator
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[FiltersCount format](primitiveSynFilterCount, primitiveBitVecFilterCount, totalBitVecFiltersCount)
+[Basic]: 1 [SymTableForInputs]: 1
+[Aggregation]: 22 [SymTable]: 23
+[EnumJoin] level 1 [SymTable]: 46
+ASymTable Enumeration done: 46
+Runner ups: 8
+Candidates: 
+38
+[No.1]===============================
+SELECT
+  [T76].data1,[T76].MAX-id,[T76].id,[T76].data11,[T76].data2
+FROM
+  (( SELECT
+        [T13].data1,[T13].MAX-id
+      FROM
+        (SELECT
+            input1.data1, MAX(input1.id)
+          FROM
+            input1
+          GROUP BY
+            input1.data1) AS [T13][data1, MAX-id] ) JOIN (
+      SELECT
+        input1.id,input1.data1,input1.data2
+      FROM
+        input1
+       )) AS [T76][data1, MAX-id, id, data11, data2]
+WHERE
+  [T76].MAX-id == [T76].id
+@anonymous
+[T76].data1 | [T76].MAX-id | [T76].id | [T76].data11 | [T76].data2 
+1.0 | 2.0 | 2.0 | 1.0 | 5.0 
+2.0 | 4.0 | 4.0 | 2.0 | 7.0 
+
+[No.2]===============================
+SELECT
+  [T122].data1,[T122].MAX-data2,[T122].id,[T122].data11,[T122].data2
+FROM
+  (( SELECT
+        [T15].data1,[T15].MAX-data2
+      FROM
+        (SELECT
+            input1.data1, MAX(input1.data2)
+          FROM
+            input1
+          GROUP BY
+            input1.data1) AS [T15][data1, MAX-data2] ) JOIN (
+      SELECT
+        input1.id,input1.data1,input1.data2
+      FROM
+        input1
+       )) AS [T122][data1, MAX-data2, id, data11, data2]
+WHERE
+  [T122].MAX-data2 == [T122].data2
+@anonymous
+[T122].data1 | [T122].MAX-data2 | [T122].id | [T122].data11 | [T122].data2 
+1.0 | 5.0 | 2.0 | 1.0 | 5.0 
+2.0 | 7.0 | 4.0 | 2.0 | 7.0 
+
+[No.3]===============================
+SELECT
+  [T78].data1,[T78].MAX-id,[T78].id,[T78].data11,[T78].data2
+FROM
+  (( SELECT
+        [T13].data1,[T13].MAX-id
+      FROM
+        (SELECT
+            input1.data1, MAX(input1.id)
+          FROM
+            input1
+          GROUP BY
+            input1.data1) AS [T13][data1, MAX-id] ) JOIN (
+      SELECT
+        input1.id,input1.data1,input1.data2
+      FROM
+        input1
+       )) AS [T78][data1, MAX-id, id, data11, data2]
+WHERE
+  [T78].data1 == [T78].data11
+   AND [T78].MAX-id == [T78].id
+@anonymous
+[T78].data1 | [T78].MAX-id | [T78].id | [T78].data11 | [T78].data2 
+1.0 | 2.0 | 2.0 | 1.0 | 5.0 
+2.0 | 4.0 | 4.0 | 2.0 | 7.0 
+
+[No.4]===============================
+SELECT
+  [T124].data1,[T124].MAX-data2,[T124].id,[T124].data11,[T124].data2
+FROM
+  (( SELECT
+        [T15].data1,[T15].MAX-data2
+      FROM
+        (SELECT
+            input1.data1, MAX(input1.data2)
+          FROM
+            input1
+          GROUP BY
+            input1.data1) AS [T15][data1, MAX-data2] ) JOIN (
+      SELECT
+        input1.id,input1.data1,input1.data2
+      FROM
+        input1
+       )) AS [T124][data1, MAX-data2, id, data11, data2]
+WHERE
+  [T124].data1 == [T124].data11
+   AND [T124].MAX-data2 == [T124].data2
+@anonymous
+[T124].data1 | [T124].MAX-data2 | [T124].id | [T124].data11 | [T124].data2 
+1.0 | 5.0 | 2.0 | 1.0 | 5.0 
+2.0 | 7.0 | 4.0 | 2.0 | 7.0 
+
+[No.5]===============================
+SELECT
+  [T66].data1,[T66].MIN-data2,[T66].id,[T66].data11,[T66].data2
+FROM
+  (( SELECT
+        [T16].data1,[T16].MIN-data2
+      FROM
+        (SELECT
+            input1.data1, MIN(input1.data2)
+          FROM
+            input1
+          GROUP BY
+            input1.data1) AS [T16][data1, MIN-data2] ) JOIN (
+      SELECT
+        input1.id,input1.data1,input1.data2
+      FROM
+        input1
+       )) AS [T66][data1, MIN-data2, id, data11, data2]
+WHERE
+  [T66].MIN-data2 <> [T66].data2
+   AND [T66].data1 == [T66].data11
+@anonymous
+[T66].data1 | [T66].MIN-data2 | [T66].id | [T66].data11 | [T66].data2 
+1.0 | 4.0 | 2.0 | 1.0 | 5.0 
+2.0 | 6.0 | 4.0 | 2.0 | 7.0 
+
+[No.6]===============================
+SELECT
+  [T82].data1,[T82].MAX-id,[T82].id,[T82].data11,[T82].data2
+FROM
+  (( SELECT
+        [T13].data1,[T13].MAX-id
+      FROM
+        (SELECT
+            input1.data1, MAX(input1.id)
+          FROM
+            input1
+          GROUP BY
+            input1.data1) AS [T13][data1, MAX-id] ) JOIN (
+      SELECT
+        input1.id,input1.data1,input1.data2
+      FROM
+        input1
+       )) AS [T82][data1, MAX-id, id, data11, data2]
+WHERE
+  [T82].data1 >= [T82].data11
+   AND [T82].MAX-id == [T82].id
+@anonymous
+[T82].data1 | [T82].MAX-id | [T82].id | [T82].data11 | [T82].data2 
+1.0 | 2.0 | 2.0 | 1.0 | 5.0 
+2.0 | 4.0 | 4.0 | 2.0 | 7.0 
+
+[No.7]===============================
+SELECT
+  [T110].id,[T110].data1,[T110].data2,[T110].id1,[T110].data11,[T110].data21
+FROM
+  (( SELECT
+        input1.id,input1.data1,input1.data2
+      FROM
+        input1 ) JOIN (
+      SELECT
+        input1.id,input1.data1,input1.data2
+      FROM
+        input1
+       )) AS [T110][id, data1, data2, id1, data11, data21]
+WHERE
+  [T110].id < [T110].id1
+   AND [T110].data1 == [T110].data11
+@anonymous
+[T110].id | [T110].data1 | [T110].data2 | [T110].id1 | [T110].data11 | [T110].data21 
+1.0 | 1.0 | 4.0 | 2.0 | 1.0 | 5.0 
+3.0 | 2.0 | 6.0 | 4.0 | 2.0 | 7.0 
+
+[No.8]===============================
+SELECT
+  [T118].id,[T118].data1,[T118].data2,[T118].id1,[T118].data11,[T118].data21
+FROM
+  (( SELECT
+        input1.id,input1.data1,input1.data2
+      FROM
+        input1 ) JOIN (
+      SELECT
+        input1.id,input1.data1,input1.data2
+      FROM
+        input1
+       )) AS [T118][id, data1, data2, id1, data11, data21]
+WHERE
+  [T118].data1 == [T118].data11
+   AND [T118].id > [T118].id1
+@anonymous
+[T118].id | [T118].data1 | [T118].data2 | [T118].id1 | [T118].data11 | [T118].data21 
+2.0 | 1.0 | 5.0 | 1.0 | 1.0 | 4.0 
+4.0 | 2.0 | 7.0 | 3.0 | 2.0 | 6.0 
+
+[No.9]===============================
+SELECT
+  [T128].data1,[T128].MAX-data2,[T128].id,[T128].data11,[T128].data2
+FROM
+  (( SELECT
+        [T15].data1,[T15].MAX-data2
+      FROM
+        (SELECT
+            input1.data1, MAX(input1.data2)
+          FROM
+            input1
+          GROUP BY
+            input1.data1) AS [T15][data1, MAX-data2] ) JOIN (
+      SELECT
+        input1.id,input1.data1,input1.data2
+      FROM
+        input1
+       )) AS [T128][data1, MAX-data2, id, data11, data2]
+WHERE
+  [T128].data1 >= [T128].data11
+   AND [T128].MAX-data2 == [T128].data2
+@anonymous
+[T128].data1 | [T128].MAX-data2 | [T128].id | [T128].data11 | [T128].data2 
+1.0 | 5.0 | 2.0 | 1.0 | 5.0 
+2.0 | 7.0 | 4.0 | 2.0 | 7.0 
+
+[No.10]===============================
+SELECT
+  [T132].data1,[T132].MIN-id,[T132].id,[T132].data11,[T132].data2
+FROM
+  (( SELECT
+        [T14].data1,[T14].MIN-id
+      FROM
+        (SELECT
+            input1.data1, MIN(input1.id)
+          FROM
+            input1
+          GROUP BY
+            input1.data1) AS [T14][data1, MIN-id] ) JOIN (
+      SELECT
+        input1.id,input1.data1,input1.data2
+      FROM
+        input1
+       )) AS [T132][data1, MIN-id, id, data11, data2]
+WHERE
+  [T132].MIN-id <> [T132].id
+   AND [T132].data1 == [T132].data11
+@anonymous
+[T132].data1 | [T132].MIN-id | [T132].id | [T132].data11 | [T132].data2 
+1.0 | 1.0 | 2.0 | 1.0 | 5.0 
+2.0 | 3.0 | 4.0 | 2.0 | 7.0 
+
+[No.11]===============================
+SELECT
+  [T48].data1,[T48].MAX-data2,[T48].id,[T48].data11,[T48].data2
+FROM
+  (( SELECT
+        [T47].data1,[T47].MAX-data2
+      FROM
+        (SELECT
+            [T46].data1, MAX([T46].data2)
+          FROM
+            (SELECT
+                input1.id,input1.data1,input1.data2
+              FROM
+                input1
+              WHERE
+                input1.id > input1.data1) AS [T46][id, data1, data2]
+          GROUP BY
+            [T46].data1) AS [T47][data1, MAX-data2] ) JOIN (
+      SELECT
+        input1.id,input1.data1,input1.data2
+      FROM
+        input1
+       )) AS [T48][data1, MAX-data2, id, data11, data2]
+WHERE
+  [T48].MAX-data2 == [T48].data2
+@anonymous
+[T48].data1 | [T48].MAX-data2 | [T48].id | [T48].data11 | [T48].data2 
+1.0 | 5.0 | 2.0 | 1.0 | 5.0 
+2.0 | 7.0 | 4.0 | 2.0 | 7.0 
+
+[No.12]===============================
+SELECT
+  [T80].data1,[T80].MAX-id,[T80].id,[T80].data11,[T80].data2
+FROM
+  (( SELECT
+        [T13].data1,[T13].MAX-id
+      FROM
+        (SELECT
+            input1.data1, MAX(input1.id)
+          FROM
+            input1
+          GROUP BY
+            input1.data1) AS [T13][data1, MAX-id] ) JOIN (
+      SELECT
+        input1.id,input1.data1,input1.data2
+      FROM
+        input1
+      WHERE
+        input1.id > input1.data1 )) AS [T80][data1, MAX-id, id, data11, data2]
+WHERE
+  [T80].MAX-id == [T80].id
+@anonymous
+[T80].data1 | [T80].MAX-id | [T80].id | [T80].data11 | [T80].data2 
+1.0 | 2.0 | 2.0 | 1.0 | 5.0 
+2.0 | 4.0 | 4.0 | 2.0 | 7.0 
+
+[No.13]===============================
+SELECT
+  [T84].data1,[T84].MAX-id,[T84].id,[T84].data11,[T84].data2
+FROM
+  (( SELECT
+        [T13].data1,[T13].MAX-id
+      FROM
+        (SELECT
+            input1.data1, MAX(input1.id)
+          FROM
+            input1
+          GROUP BY
+            input1.data1) AS [T13][data1, MAX-id] ) JOIN (
+      SELECT
+        input1.id,input1.data1,input1.data2
+      FROM
+        input1
+       )) AS [T84][data1, MAX-id, id, data11, data2]
+WHERE
+  [T84].data1 <= [T84].id
+   AND [T84].MAX-id == [T84].id
+@anonymous
+[T84].data1 | [T84].MAX-id | [T84].id | [T84].data11 | [T84].data2 
+1.0 | 2.0 | 2.0 | 1.0 | 5.0 
+2.0 | 4.0 | 4.0 | 2.0 | 7.0 
+
+[No.14]===============================
+SELECT
+  [T88].data1,[T88].MAX-id,[T88].id,[T88].data11,[T88].data2
+FROM
+  (( SELECT
+        [T87].data1,[T87].MAX-id
+      FROM
+        (SELECT
+            [T86].data1, MAX([T86].id)
+          FROM
+            (SELECT
+                input1.id,input1.data1,input1.data2
+              FROM
+                input1
+              WHERE
+                input1.id > input1.data1) AS [T86][id, data1, data2]
+          GROUP BY
+            [T86].data1) AS [T87][data1, MAX-id] ) JOIN (
+      SELECT
+        input1.id,input1.data1,input1.data2
+      FROM
+        input1
+       )) AS [T88][data1, MAX-id, id, data11, data2]
+WHERE
+  [T88].MAX-id == [T88].id
+@anonymous
+[T88].data1 | [T88].MAX-id | [T88].id | [T88].data11 | [T88].data2 
+1.0 | 2.0 | 2.0 | 1.0 | 5.0 
+2.0 | 4.0 | 4.0 | 2.0 | 7.0 
+
+[No.15]===============================
+SELECT
+  [T126].data1,[T126].MAX-data2,[T126].id,[T126].data11,[T126].data2
+FROM
+  (( SELECT
+        [T15].data1,[T15].MAX-data2
+      FROM
+        (SELECT
+            input1.data1, MAX(input1.data2)
+          FROM
+            input1
+          GROUP BY
+            input1.data1) AS [T15][data1, MAX-data2] ) JOIN (
+      SELECT
+        input1.id,input1.data1,input1.data2
+      FROM
+        input1
+      WHERE
+        input1.id > input1.data1 )) AS [T126][data1, MAX-data2, id, data11, data2]
+WHERE
+  [T126].MAX-data2 == [T126].data2
+@anonymous
+[T126].data1 | [T126].MAX-data2 | [T126].id | [T126].data11 | [T126].data2 
+1.0 | 5.0 | 2.0 | 1.0 | 5.0 
+2.0 | 7.0 | 4.0 | 2.0 | 7.0 
+
+[No.16]===============================
+SELECT
+  [T130].data1,[T130].MAX-data2,[T130].id,[T130].data11,[T130].data2
+FROM
+  (( SELECT
+        [T15].data1,[T15].MAX-data2
+      FROM
+        (SELECT
+            input1.data1, MAX(input1.data2)
+          FROM
+            input1
+          GROUP BY
+            input1.data1) AS [T15][data1, MAX-data2] ) JOIN (
+      SELECT
+        input1.id,input1.data1,input1.data2
+      FROM
+        input1
+       )) AS [T130][data1, MAX-data2, id, data11, data2]
+WHERE
+  [T130].data1 <= [T130].id
+   AND [T130].MAX-data2 == [T130].data2
+@anonymous
+[T130].data1 | [T130].MAX-data2 | [T130].id | [T130].data11 | [T130].data2 
+1.0 | 5.0 | 2.0 | 1.0 | 5.0 
+2.0 | 7.0 | 4.0 | 2.0 | 7.0 
+
+[No.17]===============================
+SELECT
+  [T52].data1,[T52].MAX-data2,[T52].id,[T52].data11,[T52].data2
+FROM
+  (( SELECT
+        [T51].data1,[T51].MAX-data2
+      FROM
+        (SELECT
+            [T50].data1, MAX([T50].data2)
+          FROM
+            (SELECT
+                input1.id,input1.data1,input1.data2
+              FROM
+                input1
+              WHERE
+                input1.id > input1.data1) AS [T50][id, data1, data2]
+          GROUP BY
+            [T50].data1) AS [T51][data1, MAX-data2] ) JOIN (
+      SELECT
+        input1.id,input1.data1,input1.data2
+      FROM
+        input1
+       )) AS [T52][data1, MAX-data2, id, data11, data2]
+WHERE
+  [T52].data1 == [T52].data11
+   AND [T52].MAX-data2 == [T52].data2
+@anonymous
+[T52].data1 | [T52].MAX-data2 | [T52].id | [T52].data11 | [T52].data2 
+1.0 | 5.0 | 2.0 | 1.0 | 5.0 
+2.0 | 7.0 | 4.0 | 2.0 | 7.0 
+
+[No.18]===============================
+SELECT
+  [T92].data1,[T92].MAX-id,[T92].id,[T92].data11,[T92].data2
+FROM
+  (( SELECT
+        [T91].data1,[T91].MAX-id
+      FROM
+        (SELECT
+            [T90].data1, MAX([T90].id)
+          FROM
+            (SELECT
+                input1.id,input1.data1,input1.data2
+              FROM
+                input1
+              WHERE
+                input1.id > input1.data1) AS [T90][id, data1, data2]
+          GROUP BY
+            [T90].data1) AS [T91][data1, MAX-id] ) JOIN (
+      SELECT
+        input1.id,input1.data1,input1.data2
+      FROM
+        input1
+       )) AS [T92][data1, MAX-id, id, data11, data2]
+WHERE
+  [T92].data1 == [T92].data11
+   AND [T92].MAX-id == [T92].id
+@anonymous
+[T92].data1 | [T92].MAX-id | [T92].id | [T92].data11 | [T92].data2 
+1.0 | 2.0 | 2.0 | 1.0 | 5.0 
+2.0 | 4.0 | 4.0 | 2.0 | 7.0 
+
+[No.19]===============================
+SELECT
+  [T112].id,[T112].data1,[T112].data2,[T112].id1,[T112].data11,[T112].data21
+FROM
+  (( SELECT
+        input1.id,input1.data1,input1.data2
+      FROM
+        input1 ) JOIN (
+      SELECT
+        input1.id,input1.data1,input1.data2
+      FROM
+        input1
+       )) AS [T112][id, data1, data2, id1, data11, data21]
+WHERE
+  [T112].data1 >= [T112].data11
+   AND [T112].id < [T112].id1
+@anonymous
+[T112].id | [T112].data1 | [T112].data2 | [T112].id1 | [T112].data11 | [T112].data21 
+1.0 | 1.0 | 4.0 | 2.0 | 1.0 | 5.0 
+3.0 | 2.0 | 6.0 | 4.0 | 2.0 | 7.0 
+
+[No.20]===============================
+SELECT
+  [T120].id,[T120].data1,[T120].data2,[T120].id1,[T120].data11,[T120].data21
+FROM
+  (( SELECT
+        input1.id,input1.data1,input1.data2
+      FROM
+        input1 ) JOIN (
+      SELECT
+        input1.id,input1.data1,input1.data2
+      FROM
+        input1
+       )) AS [T120][id, data1, data2, id1, data11, data21]
+WHERE
+  [T120].id > [T120].id1
+   AND [T120].data1 <= [T120].data11
+@anonymous
+[T120].id | [T120].data1 | [T120].data2 | [T120].id1 | [T120].data11 | [T120].data21 
+2.0 | 1.0 | 5.0 | 1.0 | 1.0 | 4.0 
+4.0 | 2.0 | 7.0 | 3.0 | 2.0 | 6.0 
+
+[Consistent Table number] 8
+[Enumeration Finished]
+[[Synthesizer finished]] time: 00:00:00:362
+[[Synthesizer finished]] seconds: 0.362
+[avg reduction rate: syn filter / bit vector] 5.691859613294187
+[avg reduction rate: compound filter / bit vector] NaN
+[avg compound filter count] NaN
+[max compound filter count] 0
+[avg PrimitiveFilterCount] 4.0
+[max PrimitiveFilterCount] 4
+[avg LRFilterCount] 2.013157894736842
+[max LRFilterCount] 10
+[avg decompose tree count] 3.3
+[max decomposeTreeCount] 20

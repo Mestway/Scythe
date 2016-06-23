@@ -32,6 +32,7 @@ public class Synthesizer {
         String time = String.format("%02d:%02d:%02d:%d", hour, minute, second, timeUsed % 1000);
 
         System.out.println("[[Synthesizer finished]] time: " + time);
+        System.out.println("[[Synthesizer finished]] seconds: " + (minute*60. + second + 0.001 * (timeUsed % 1000)));
         return candidates;
     }
 }
