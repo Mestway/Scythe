@@ -2,6 +2,7 @@ package enumerator.primitive;
 
 import enumerator.context.EnumContext;
 import sql.lang.DataType.ValType;
+import sql.lang.ast.filter.EmptyFilter;
 import sql.lang.ast.filter.Filter;
 import sql.lang.ast.table.AggregationNode;
 import sql.lang.ast.table.JoinNode;
@@ -63,6 +64,7 @@ public class EnumCanonicalFilters {
         ec = EnumContext.extendTypeMap(ec, typeMap);
 
         List<Filter> filters = new ArrayList<>();
+        filters.add(new EmptyFilter());
 
         for (int i = 0; i < tableBoundaryIndex.size() - 1; i ++) {
             List<ValNode> L = new ArrayList<>();

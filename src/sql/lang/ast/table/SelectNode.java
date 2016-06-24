@@ -4,6 +4,7 @@ import enumerator.context.EnumContext;
 import enumerator.parameterized.InstantiateEnv;
 import sql.lang.ast.filter.EmptyFilter;
 import sun.invoke.empty.Empty;
+import util.CostEstimator;
 import util.Pair;
 import sql.lang.DataType.ValType;
 import sql.lang.DataType.Value;
@@ -234,5 +235,58 @@ public class SelectNode implements TableNode {
     public TableNode getTableNode() { return this.tableNode; }
     public Filter getFilter() { return this.filter; }
     public List<ValNode> getColumns() { return this.columns; }
+
+    @Override
+    public double estimateAllFilterCost() {
+        double cost = tableNode.estimateAllFilterCost();
+        double filterCost = CostEstimator.estimateFilterCost(this.filter, TableNode.nameToOriginMap(this.getSchema(), originalColumnName()));
+
+        if (tableNode instanceof RenameTableNode) {
+            if (((RenameTableNode) tableNode).tableNode instanceof AggregationNode) {
+                filterCost = filterCost * 1;
+            } else if (((RenameTableNode) tableNode).tableNode instanceof JoinNode) {
+                filterCost = filterCost * 1;
+            }
+        }
+
+        return cost + filterCost;
+    }
+
+    public String getQuerySkeleton() {
+        return "(S " + tableNode.getQuerySkeleton() + ")";
+    }
+
+    @Override
+    public List<String> originalColumnName() {
+        List<Integer> indices = new ArrayList<>();
+        for (ValNode c : this.columns) {
+            if (! (c instanceof  NamedVal))
+                indices.add(-1);
+            else {
+                boolean added = false;
+                for (int i = 0; i < this.tableNode.getSchema().size(); i ++) {
+                    if (this.tableNode.getSchema().get(i).equals(c.getName())) {
+                        indices.add(i);
+                        added = true;
+                        break;
+                    }
+                }
+                if (! added) {
+                    System.err.println("[SelectNode250] Unrecognized schema.");
+                    indices.add(-1);
+                }
+            }
+        }
+        List<String> innerLevelColumnName = this.tableNode.originalColumnName();
+        List<String> result = new ArrayList<>();
+        for (Integer i : indices) {
+            if (i == -1) {
+                result.add("none-col-name");
+            } else {
+                result.add(innerLevelColumnName.get(i));
+            }
+        }
+        return result;
+    }
 
 }

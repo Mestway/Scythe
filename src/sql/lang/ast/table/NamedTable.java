@@ -90,4 +90,33 @@ public class NamedTable implements TableNode {
         return this;
     }
 
+    @Override
+    public List<String> originalColumnName() {
+        // original name is just its schema
+        return this.getSchema();
+    }
+
+    @Override
+    public int hashCode() {
+        return this.table.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof NamedTable) {
+            return ((NamedTable) obj).table.equals(this.table);
+        }
+        return false;
+    }
+
+    @Override
+    public double estimateAllFilterCost() {
+        return 0;
+    }
+
+    @Override
+    public String getQuerySkeleton() {
+        return "(N " + this.getTable().getName() + ")";
+    }
+
 }

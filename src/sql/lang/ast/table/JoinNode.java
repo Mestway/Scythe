@@ -121,8 +121,25 @@ public class JoinNode implements TableNode {
                         .collect(Collectors.toList()));
     }
 
+    @Override
+    public List<String> originalColumnName() {
+        List<String> result = new ArrayList<>();
+        for (TableNode tn : this.tableNodes) {
+            result.addAll(tn.originalColumnName());
+        }
+        return result;
+    }
 
 
     public List<TableNode> getTableNodes() { return this.tableNodes; }
 
+    @Override
+    public double estimateAllFilterCost() {
+        return tableNodes.stream().map(tn -> tn.estimateAllFilterCost()).reduce(0., (x,y) -> (x + y));
+    }
+
+    @Override
+    public String getQuerySkeleton() {
+        return "(J" + tableNodes.stream().map(tn -> tn.getQuerySkeleton()).reduce("", (x,y)-> (x + " " + y)) + ")";
+    }
 }

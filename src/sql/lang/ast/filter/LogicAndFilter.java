@@ -7,6 +7,7 @@ import sql.lang.exception.SQLEvalException;
 import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -72,4 +73,10 @@ public class LogicAndFilter implements Filter {
         return new LogicAndFilter(f1.substNamedVal(vnsb), f2.substNamedVal(vnsb));
     }
 
+    public List<Filter> getAllFilters() {
+        List<Filter> filters = new ArrayList<>();
+        filters.add(f1);
+        filters.add(f2);
+        return filters;
+    }
 }

@@ -152,4 +152,19 @@ public class RenameTableNode implements TableNode {
     }
 
     public TableNode getTableNode() { return this.tableNode; }
+
+    @Override
+    public List<String> originalColumnName() {
+        return this.tableNode.originalColumnName();
+    }
+
+    @Override
+    public double estimateAllFilterCost() {
+        return this.tableNode.estimateAllFilterCost();
+    }
+
+    @Override
+    public String getQuerySkeleton() {
+        return this.tableNode.getQuerySkeleton();
+    }
 }

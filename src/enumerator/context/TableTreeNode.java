@@ -4,10 +4,12 @@ import enumerator.primitive.OneStepQueryInference;
 import sql.lang.Table;
 import sql.lang.ast.table.NamedTable;
 import sql.lang.ast.table.TableNode;
+import util.CostEstimator;
 import util.Pair;
 import util.RenameTNWrapper;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -96,7 +98,7 @@ public class TableTreeNode {
     // translate an tree to a set of sql queries
     // NOTE: this method can be very expensive,
     // as all possible combinations of generating the query will be expanded
-    public List<TableNode> treeToQuery() {
+    public List<TableNode> treeToQuery(EnumContext ec) {
         List<TableNode> result = new ArrayList<>();
 
         List<List<TableNode>> horizontalSelections = new ArrayList<>();
@@ -104,7 +106,24 @@ public class TableTreeNode {
 
         for (TableTreeNode ttn : this.children) {
             List<List<TableNode>> newHS = new ArrayList<>();
-            List<TableNode> tns = ttn.treeToQuery();
+            List<TableNode> tns = ttn.treeToQuery(ec);
+
+            tns.sort(new Comparator<TableNode>() {
+                @Override
+                public int compare(TableNode o1, TableNode o2) {
+                    double c1 = CostEstimator.estimateTableNodeCost(o1, ec);
+                    double c2 = CostEstimator.estimateTableNodeCost(o2, ec);
+                    if (c1 < c2) {
+                        return -1;
+                    } else if (c1 == c2) {
+                        return 0;
+                    } else return 1;
+                }
+            });
+
+            tns = tns.subList(0, tns.size() > 10 ? 10 : tns.size());
+
+
             for (List<TableNode> hs : horizontalSelections) {
                 for (TableNode tn : tns) {
                     List<TableNode> updated = new ArrayList<>();

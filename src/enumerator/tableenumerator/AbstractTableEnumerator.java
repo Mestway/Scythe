@@ -11,12 +11,10 @@ import sql.lang.ast.table.NamedTable;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
+import util.CostEstimator;
 
 import javax.management.Query;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -68,22 +66,56 @@ public abstract class AbstractTableEnumerator {
             List<TableTreeNode> trees = qc.getEdges().findTableTrees(ec.getOutputTable(), leafNodes, 4);
 
             int totalQueryCount = 0;
+
+            List<TableNode> synthesisResult = new ArrayList<>();
+
             for (TableTreeNode t : trees) {
                 //System.out.println("--------------------------");
                 t.inferQuery(ec);
-                List<TableNode> tns = t.treeToQuery();
+                List<TableNode> tns = t.treeToQuery(ec);
+
+                tns.sort(new Comparator<TableNode>() {
+                    @Override
+                    public int compare(TableNode o1, TableNode o2) {
+                        double c1 = CostEstimator.estimateTableNodeCost(o1, ec);
+                        double c2 = CostEstimator.estimateTableNodeCost(o2, ec);
+                        if (c1 < c2) {
+                            return -1;
+                        } else if (c1 == c2) {
+                            return 0;
+                        } else return 1;
+                    }
+                });
+
+                tns = tns.subList(0, tns.size() > 10 ? 10 : tns.size());
 
                 int count = t.countQueryNum();
-                System.out.println("Queries corresponds to this tree: " + count);
                 totalQueryCount += count;
 
                 //t.print(0);
 
-                for (TableNode tn : tns) {
-                   System.out.println(tn.prettyPrint(0));
-                }
+                synthesisResult.addAll(tns);
 
                 //System.out.println("--------------------------");
+            }
+
+            synthesisResult.sort(new Comparator<TableNode>() {
+                @Override
+                public int compare(TableNode o1, TableNode o2) {
+                    double c1 = CostEstimator.estimateTableNodeCost(o1, ec);
+                    double c2 = CostEstimator.estimateTableNodeCost(o2, ec);
+                    if (c1 < c2) {
+                        return -1;
+                    } else if (c1 == c2) {
+                        return 0;
+                    } else return 1;
+                }
+            });
+
+            for (int i = 0; i < 20; i ++) {
+                if (i >= synthesisResult.size()) break;
+                System.out.println("==== [No. " + i + " ] ====");
+                System.out.println(synthesisResult.get(i).prettyPrint(0));
             }
 
             System.out.println("Total Tree Count: " + trees.size());

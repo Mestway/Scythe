@@ -140,6 +140,9 @@ public class FilterEnumerator {
     private static List<Filter> enumAtomicFiltersLR(List<ValNode> L, List<ValNode> R, EnumContext ec) {
         // L contains all left values, and R contains all right values in a comparator
         List<Filter> atomics = new ArrayList<>();
+
+        atomics.add(new EmptyFilter());
+
         for (ValNode l : L) {
             for (ValNode r : R) {
                 if (l.equalsToValNode(r)) continue;

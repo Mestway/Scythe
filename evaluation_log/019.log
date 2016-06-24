@@ -1,0 +1,298 @@
+================
+[[Synthesizer start]] data/benchmarks/019
+[Enumerator Type] CanonicalTableEnumeratorOnTheFly
+[Initialize Enumeration]
+  Parameterized Table Number: 11
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Queries generated: 46
+	Tables generated: 4
+	Total Table by now: 4
+[Stage 2] EnumAggregationNode: 
+	Queries generated: 196
+	Tables generated: 15
+	Total Table by now: 19
+[Stage 3] EnumJoin1 
+	Queries generated: 3494
+	Tables generated: 434
+	Total Table by now: 453
+[Runner up Table Count] 1
+[Consistent Table number] 1
+==== [No. 0 ] ====
+SELECT
+  [T4098].username,[T4098].MAX-date,[T4098].value
+FROM
+  (SELECT
+      [T4093].username,[T4093].MAX-date,[T4093].username1,[T4093].date,[T4093].value
+    FROM
+      (( (SELECT
+              [T4250].username,[T4250].MAX-date
+            FROM
+              (SELECT
+                  input1.username, MAX(input1.date)
+                FROM
+                  input1
+                GROUP BY
+                  input1.username) AS [T4250][username, MAX-date]) AS [T4251][username, MAX-date] ) JOIN (
+          input1 )) AS [T4093][username, MAX-date, username1, date, value]
+    WHERE
+      [T4093].MAX-date == [T4093].date) AS [T4098][username, MAX-date, username1, date, value]
+
+==== [No. 1 ] ====
+SELECT
+  [T4098].username,[T4098].MAX-date,[T4098].value
+FROM
+  (SELECT
+      [T4093].username,[T4093].MAX-date,[T4093].username1,[T4093].date,[T4093].value
+    FROM
+      (( (SELECT
+              [T4250].username,[T4250].MAX-date
+            FROM
+              (SELECT
+                  input1.username, MAX(input1.date)
+                FROM
+                  input1
+                GROUP BY
+                  input1.username) AS [T4250][username, MAX-date]
+            WHERE
+              EXIST (
+                (SELECT
+                    [T0].username,[T0].date,[T0].value
+                  FROM
+                    (input1) AS [T0][username, date, value]
+                  WHERE
+                    [T4250].MAX-date == [T0].date) AS [T3][username, date, value])) AS [T4253][username, MAX-date] ) JOIN (
+          input1 )) AS [T4093][username, MAX-date, username1, date, value]
+    WHERE
+      [T4093].MAX-date == [T4093].date) AS [T4098][username, MAX-date, username1, date, value]
+
+==== [No. 2 ] ====
+SELECT
+  [T4098].username,[T4098].MAX-date,[T4098].value
+FROM
+  (SELECT
+      [T4093].username,[T4093].MAX-date,[T4093].username1,[T4093].date,[T4093].value
+    FROM
+      (( (SELECT
+              [T4250].username,[T4250].MAX-date
+            FROM
+              (SELECT
+                  input1.username, MAX(input1.date)
+                FROM
+                  input1
+                GROUP BY
+                  input1.username) AS [T4250][username, MAX-date]
+            WHERE
+              EXIST (
+                (SELECT
+                    [T0].username,[T0].date,[T0].value
+                  FROM
+                    (input1) AS [T0][username, date, value]
+                  WHERE
+                    [T4250].MAX-date <= [T0].date) AS [T5][username, date, value])) AS [T4255][username, MAX-date] ) JOIN (
+          input1 )) AS [T4093][username, MAX-date, username1, date, value]
+    WHERE
+      [T4093].MAX-date == [T4093].date) AS [T4098][username, MAX-date, username1, date, value]
+
+==== [No. 3 ] ====
+SELECT
+  [T4098].username,[T4098].MAX-date,[T4098].value
+FROM
+  (SELECT
+      [T4093].username,[T4093].MAX-date,[T4093].username1,[T4093].date,[T4093].value
+    FROM
+      (( (SELECT
+              [T4250].username,[T4250].MAX-date
+            FROM
+              (SELECT
+                  input1.username, MAX(input1.date)
+                FROM
+                  input1
+                GROUP BY
+                  input1.username) AS [T4250][username, MAX-date]
+            WHERE
+              EXIST (
+                (SELECT
+                    [T0].username,[T0].date,[T0].value
+                  FROM
+                    (input1) AS [T0][username, date, value]
+                  WHERE
+                    [T4250].MAX-date >= [T0].date) AS [T6][username, date, value])) AS [T4256][username, MAX-date] ) JOIN (
+          input1 )) AS [T4093][username, MAX-date, username1, date, value]
+    WHERE
+      [T4093].MAX-date == [T4093].date) AS [T4098][username, MAX-date, username1, date, value]
+
+==== [No. 4 ] ====
+SELECT
+  [T4098].username,[T4098].MAX-date,[T4098].value
+FROM
+  (SELECT
+      [T4093].username,[T4093].MAX-date,[T4093].username1,[T4093].date,[T4093].value
+    FROM
+      (( (SELECT
+              [T4250].username,[T4250].MAX-date
+            FROM
+              (SELECT
+                  input1.username, MAX(input1.date)
+                FROM
+                  input1
+                GROUP BY
+                  input1.username) AS [T4250][username, MAX-date]
+            WHERE
+              EXIST (
+                (SELECT
+                    [T0].username,[T0].date,[T0].value
+                  FROM
+                    (input1) AS [T0][username, date, value]
+                  WHERE
+                    [T4250].username == [T0].username) AS [T1][username, date, value])) AS [T4257][username, MAX-date] ) JOIN (
+          input1 )) AS [T4093][username, MAX-date, username1, date, value]
+    WHERE
+      [T4093].MAX-date == [T4093].date) AS [T4098][username, MAX-date, username1, date, value]
+
+==== [No. 5 ] ====
+SELECT
+  [T4098].username,[T4098].MAX-date,[T4098].value
+FROM
+  (SELECT
+      [T4093].username,[T4093].MAX-date,[T4093].username1,[T4093].date,[T4093].value
+    FROM
+      (( (SELECT
+              [T4250].username,[T4250].MAX-date
+            FROM
+              (SELECT
+                  input1.username, MAX(input1.date)
+                FROM
+                  input1
+                GROUP BY
+                  input1.username) AS [T4250][username, MAX-date]
+            WHERE
+              EXIST (
+                (SELECT
+                    [T0].username,[T0].date,[T0].value
+                  FROM
+                    (input1) AS [T0][username, date, value]
+                  WHERE
+                    [T4250].MAX-date == [T0].date) AS [T3][username, date, value])) AS [T4259][username, MAX-date] ) JOIN (
+          input1 )) AS [T4093][username, MAX-date, username1, date, value]
+    WHERE
+      [T4093].MAX-date == [T4093].date) AS [T4098][username, MAX-date, username1, date, value]
+
+==== [No. 6 ] ====
+SELECT
+  [T4098].username,[T4098].MAX-date,[T4098].value
+FROM
+  (SELECT
+      [T4093].username,[T4093].MAX-date,[T4093].username1,[T4093].date,[T4093].value
+    FROM
+      (( (SELECT
+              [T4250].username,[T4250].MAX-date
+            FROM
+              (SELECT
+                  input1.username, MAX(input1.date)
+                FROM
+                  input1
+                GROUP BY
+                  input1.username) AS [T4250][username, MAX-date]
+            WHERE
+              EXIST (
+                (SELECT
+                    [T0].username,[T0].date,[T0].value
+                  FROM
+                    (input1) AS [T0][username, date, value]
+                  WHERE
+                    [T4250].MAX-date <= [T0].date) AS [T5][username, date, value])) AS [T4261][username, MAX-date] ) JOIN (
+          input1 )) AS [T4093][username, MAX-date, username1, date, value]
+    WHERE
+      [T4093].MAX-date == [T4093].date) AS [T4098][username, MAX-date, username1, date, value]
+
+==== [No. 7 ] ====
+SELECT
+  [T4098].username,[T4098].MAX-date,[T4098].value
+FROM
+  (SELECT
+      [T4093].username,[T4093].MAX-date,[T4093].username1,[T4093].date,[T4093].value
+    FROM
+      (( (SELECT
+              [T4250].username,[T4250].MAX-date
+            FROM
+              (SELECT
+                  input1.username, MAX(input1.date)
+                FROM
+                  input1
+                GROUP BY
+                  input1.username) AS [T4250][username, MAX-date]
+            WHERE
+              EXIST (
+                (SELECT
+                    [T0].username,[T0].date,[T0].value
+                  FROM
+                    (input1) AS [T0][username, date, value]
+                  WHERE
+                    [T4250].MAX-date >= [T0].date) AS [T6][username, date, value])) AS [T4262][username, MAX-date] ) JOIN (
+          input1 )) AS [T4093][username, MAX-date, username1, date, value]
+    WHERE
+      [T4093].MAX-date == [T4093].date) AS [T4098][username, MAX-date, username1, date, value]
+
+==== [No. 8 ] ====
+SELECT
+  [T4098].username,[T4098].MAX-date,[T4098].value
+FROM
+  (SELECT
+      [T4093].username,[T4093].MAX-date,[T4093].username1,[T4093].date,[T4093].value
+    FROM
+      (( (SELECT
+              [T4250].username,[T4250].MAX-date
+            FROM
+              (SELECT
+                  input1.username, MAX(input1.date)
+                FROM
+                  input1
+                GROUP BY
+                  input1.username) AS [T4250][username, MAX-date]
+            WHERE
+              
+               AND EXIST (
+                (SELECT
+                    [T0].username,[T0].date,[T0].value
+                  FROM
+                    (input1) AS [T0][username, date, value]
+                  WHERE
+                    [T4250].MAX-date == [T0].date) AS [T3][username, date, value])) AS [T4264][username, MAX-date] ) JOIN (
+          input1 )) AS [T4093][username, MAX-date, username1, date, value]
+    WHERE
+      [T4093].MAX-date == [T4093].date) AS [T4098][username, MAX-date, username1, date, value]
+
+==== [No. 9 ] ====
+SELECT
+  [T4098].username,[T4098].MAX-date,[T4098].value
+FROM
+  (SELECT
+      [T4093].username,[T4093].MAX-date,[T4093].username1,[T4093].date,[T4093].value
+    FROM
+      (( (SELECT
+              [T4250].username,[T4250].MAX-date
+            FROM
+              (SELECT
+                  input1.username, MAX(input1.date)
+                FROM
+                  input1
+                GROUP BY
+                  input1.username) AS [T4250][username, MAX-date]
+            WHERE
+              
+               AND EXIST (
+                (SELECT
+                    [T0].username,[T0].date,[T0].value
+                  FROM
+                    (input1) AS [T0][username, date, value]
+                  WHERE
+                    [T4250].MAX-date <= [T0].date) AS [T5][username, date, value])) AS [T4266][username, MAX-date] ) JOIN (
+          input1 )) AS [T4093][username, MAX-date, username1, date, value]
+    WHERE
+      [T4093].MAX-date == [T4093].date) AS [T4098][username, MAX-date, username1, date, value]
+
+Total Tree Count: 1
+Total Query Count: 960
+[Enumeration Finished]
+[[Synthesizer finished]] time: 00:00:01:390

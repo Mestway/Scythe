@@ -9,6 +9,7 @@ import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
 import sql.lang.ast.val.ValNode;
 import sql.lang.trans.ValNodeSubstBinding;
+import sun.security.x509.X509CertInfo;
 import util.IndentionManagement;
 
 import java.awt.*;
@@ -136,4 +137,11 @@ public class VVComparator implements Filter {
         return f;
     }
 
+    public List<ValNode> getArgs() {
+        return args;
+    }
+
+    public BiFunction<Value, Value, Boolean> getComparator() {
+        return compareFunc;
+    }
 }

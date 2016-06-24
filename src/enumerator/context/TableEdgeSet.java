@@ -36,18 +36,6 @@ public class TableEdgeSet {
     // insert an edge with two leading source nodes
     public void insertEdge(Table src1, Table src2, Table dst) {
 
-        if (dst.equals(TableInstanceParser.parseMarkDownTable("dump",
-                "|id | customer | total | id1 | customer1 | total1 | \r\n" +
-                "|1.0 | Joe | 5.0 | 1.0 | Joe | 5.0 | \r\n" +
-                "|1.0 | Joe | 5.0 | 2.0 | Sally | 3.0 | \r\n" +
-                "|1.0 | Joe | 5.0 | 3.0 | Joe | 2.0 | \r\n" +
-                "|1.0 | Joe | 5.0 | 4.0 | Sally | 1.0 | \r\n" +
-                "|2.0 | Sally | 3.0 | 1.0 | Joe | 5.0 | \r\n" +
-                "|2.0 | Sally | 3.0 | 2.0 | Sally | 3.0 | \r\n" +
-                "|2.0 | Sally | 3.0 | 3.0 | Joe | 2.0 | \r\n" +
-                "|2.0 | Sally | 3.0 | 4.0 | Sally | 1.0 ))) \r\n")))
-            System.out.println(dst);
-
         // the node contain two tables
         Set<Table> node = new HashSet<>();
         node.add(src1);

@@ -1,0 +1,440 @@
+================
+[[Synthesizer start]] data/benchmarks/038
+[Enumerator Type] CanonicalTableEnumeratorOnTheFly
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Queries generated: 2
+	Tables generated: 1
+	Total Table by now: 1
+[Stage 2] EnumAggregationNode: 
+	Queries generated: 8
+	Tables generated: 5
+	Total Table by now: 6
+[Stage 3] EnumJoin1 
+	Queries generated: 166
+	Tables generated: 55
+	Total Table by now: 61
+[Runner up Table Count] 3
+[Consistent Table number] 4
+==== [No. 0 ] ====
+SELECT
+  [T186].Alerts,[T186].Alert_Date
+FROM
+  (SELECT
+      [T181].Alerts,[T181].MAX-Id,[T181].Id,[T181].Alerts1,[T181].Alert_Date
+    FROM
+      (( (SELECT
+              [T262].Alerts,[T262].MAX-Id
+            FROM
+              (SELECT
+                  input1.Alerts, MAX(input1.Id)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Alerts) AS [T262][Alerts, MAX-Id]) AS [T263][Alerts, MAX-Id] ) JOIN (
+          input1 )) AS [T181][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+    WHERE
+      [T181].MAX-Id == [T181].Id) AS [T186][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+
+==== [No. 1 ] ====
+SELECT
+  [T186].Alerts,[T186].Alert_Date
+FROM
+  (SELECT
+      [T181].Alerts,[T181].MAX-Id,[T181].Id,[T181].Alerts1,[T181].Alert_Date
+    FROM
+      (( (SELECT
+              input1.Alerts, MAX(input1.Id)
+            FROM
+              input1
+            GROUP BY
+              input1.Alerts) AS [T262][Alerts, MAX-Id] ) JOIN (
+          input1 )) AS [T181][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+    WHERE
+      [T181].MAX-Id == [T181].Id) AS [T186][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+
+==== [No. 2 ] ====
+SELECT
+  [T192].Alerts,[T192].Alert_Date
+FROM
+  (SELECT
+      [T181].Alerts,[T181].MAX-Id,[T181].Id,[T181].Alerts1,[T181].Alert_Date
+    FROM
+      (( (SELECT
+              [T262].Alerts,[T262].MAX-Id
+            FROM
+              (SELECT
+                  input1.Alerts, MAX(input1.Id)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Alerts) AS [T262][Alerts, MAX-Id]) AS [T263][Alerts, MAX-Id] ) JOIN (
+          input1 )) AS [T181][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+    WHERE
+      
+       AND [T181].MAX-Id == [T181].Id) AS [T192][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+
+==== [No. 3 ] ====
+SELECT
+  [T192].Alerts,[T192].Alert_Date
+FROM
+  (SELECT
+      [T181].Alerts,[T181].MAX-Id,[T181].Id,[T181].Alerts1,[T181].Alert_Date
+    FROM
+      (( (SELECT
+              input1.Alerts, MAX(input1.Id)
+            FROM
+              input1
+            GROUP BY
+              input1.Alerts) AS [T262][Alerts, MAX-Id] ) JOIN (
+          input1 )) AS [T181][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+    WHERE
+      
+       AND [T181].MAX-Id == [T181].Id) AS [T192][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+
+==== [No. 4 ] ====
+SELECT
+  [T197].Alerts,[T197].Alert_Date
+FROM
+  (SELECT
+      [T181].Alerts,[T181].MAX-Id,[T181].Id,[T181].Alerts1,[T181].Alert_Date
+    FROM
+      (( (SELECT
+              [T262].Alerts,[T262].MAX-Id
+            FROM
+              (SELECT
+                  input1.Alerts, MAX(input1.Id)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Alerts) AS [T262][Alerts, MAX-Id]) AS [T263][Alerts, MAX-Id] ) JOIN (
+          input1 )) AS [T181][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+    WHERE
+      [T181].Alerts == [T181].Alerts1
+       AND [T181].MAX-Id == [T181].Id) AS [T197][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+
+==== [No. 5 ] ====
+SELECT
+  [T197].Alerts,[T197].Alert_Date
+FROM
+  (SELECT
+      [T181].Alerts,[T181].MAX-Id,[T181].Id,[T181].Alerts1,[T181].Alert_Date
+    FROM
+      (( (SELECT
+              input1.Alerts, MAX(input1.Id)
+            FROM
+              input1
+            GROUP BY
+              input1.Alerts) AS [T262][Alerts, MAX-Id] ) JOIN (
+          input1 )) AS [T181][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+    WHERE
+      [T181].Alerts == [T181].Alerts1
+       AND [T181].MAX-Id == [T181].Id) AS [T197][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+
+==== [No. 6 ] ====
+SELECT
+  [T199].Alerts,[T199].Alert_Date
+FROM
+  (SELECT
+      [T181].Alerts,[T181].MAX-Id,[T181].Id,[T181].Alerts1,[T181].Alert_Date
+    FROM
+      (( (SELECT
+              [T262].Alerts,[T262].MAX-Id
+            FROM
+              (SELECT
+                  input1.Alerts, MAX(input1.Id)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Alerts) AS [T262][Alerts, MAX-Id]) AS [T263][Alerts, MAX-Id] ) JOIN (
+          input1 )) AS [T181][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+    WHERE
+      [T181].Alerts == [T181].Alerts1
+       AND [T181].MAX-Id <= [T181].Id) AS [T199][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+
+==== [No. 7 ] ====
+SELECT
+  [T199].Alerts,[T199].Alert_Date
+FROM
+  (SELECT
+      [T181].Alerts,[T181].MAX-Id,[T181].Id,[T181].Alerts1,[T181].Alert_Date
+    FROM
+      (( (SELECT
+              input1.Alerts, MAX(input1.Id)
+            FROM
+              input1
+            GROUP BY
+              input1.Alerts) AS [T262][Alerts, MAX-Id] ) JOIN (
+          input1 )) AS [T181][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+    WHERE
+      [T181].Alerts == [T181].Alerts1
+       AND [T181].MAX-Id <= [T181].Id) AS [T199][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+
+==== [No. 8 ] ====
+SELECT
+  [T186].Alerts1,[T186].Alert_Date
+FROM
+  (SELECT
+      [T181].Alerts,[T181].MAX-Id,[T181].Id,[T181].Alerts1,[T181].Alert_Date
+    FROM
+      (( (SELECT
+              [T262].Alerts,[T262].MAX-Id
+            FROM
+              (SELECT
+                  input1.Alerts, MAX(input1.Id)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Alerts) AS [T262][Alerts, MAX-Id]) AS [T263][Alerts, MAX-Id] ) JOIN (
+          input1 )) AS [T181][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+    WHERE
+      [T181].MAX-Id == [T181].Id) AS [T186][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+
+==== [No. 9 ] ====
+SELECT
+  [T186].Alerts1,[T186].Alert_Date
+FROM
+  (SELECT
+      [T181].Alerts,[T181].MAX-Id,[T181].Id,[T181].Alerts1,[T181].Alert_Date
+    FROM
+      (( (SELECT
+              input1.Alerts, MAX(input1.Id)
+            FROM
+              input1
+            GROUP BY
+              input1.Alerts) AS [T262][Alerts, MAX-Id] ) JOIN (
+          input1 )) AS [T181][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+    WHERE
+      [T181].MAX-Id == [T181].Id) AS [T186][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+
+==== [No. 10 ] ====
+SELECT
+  [T472].Alerts,[T472].MAX-Alert_Date
+FROM
+  (SELECT
+      [T456].Alerts,[T456].MAX-Alert_Date,[T456].Id,[T456].Alerts1,[T456].Alert_Date
+    FROM
+      (( (SELECT
+              [T541].Alerts,[T541].MAX-Alert_Date
+            FROM
+              (SELECT
+                  [T540].Alerts,[T540].MAX-Alert_Date
+                FROM
+                  (SELECT
+                      input1.Alerts, MAX(input1.Alert_Date)
+                    FROM
+                      input1
+                    GROUP BY
+                      input1.Alerts) AS [T540][Alerts, MAX-Alert_Date]) AS [T541][Alerts, MAX-Alert_Date]) AS [T605][Alerts, MAX-Alert_Date] ) JOIN (
+          input1 )) AS [T456][Alerts, MAX-Alert_Date, Id, Alerts1, Alert_Date]
+    WHERE
+      [T456].Alerts == [T456].Alerts1
+       AND [T456].MAX-Alert_Date == [T456].Alert_Date) AS [T472][Alerts, MAX-Alert_Date, Id, Alerts1, Alert_Date]
+
+==== [No. 11 ] ====
+SELECT
+  [T472].Alerts,[T472].MAX-Alert_Date
+FROM
+  (SELECT
+      [T456].Alerts,[T456].MAX-Alert_Date,[T456].Id,[T456].Alerts1,[T456].Alert_Date
+    FROM
+      (( (SELECT
+              [T540].Alerts,[T540].MAX-Alert_Date
+            FROM
+              (SELECT
+                  input1.Alerts, MAX(input1.Alert_Date)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Alerts) AS [T540][Alerts, MAX-Alert_Date]) AS [T606][Alerts, MAX-Alert_Date] ) JOIN (
+          input1 )) AS [T456][Alerts, MAX-Alert_Date, Id, Alerts1, Alert_Date]
+    WHERE
+      [T456].Alerts == [T456].Alerts1
+       AND [T456].MAX-Alert_Date == [T456].Alert_Date) AS [T472][Alerts, MAX-Alert_Date, Id, Alerts1, Alert_Date]
+
+==== [No. 12 ] ====
+SELECT
+  [T472].Alerts,[T472].MAX-Alert_Date
+FROM
+  (SELECT
+      [T456].Alerts,[T456].MAX-Alert_Date,[T456].Id,[T456].Alerts1,[T456].Alert_Date
+    FROM
+      (( (SELECT
+              [T541].Alerts,[T541].MAX-Alert_Date
+            FROM
+              (SELECT
+                  [T540].Alerts,[T540].MAX-Alert_Date
+                FROM
+                  (SELECT
+                      input1.Alerts, MAX(input1.Alert_Date)
+                    FROM
+                      input1
+                    GROUP BY
+                      input1.Alerts) AS [T540][Alerts, MAX-Alert_Date]) AS [T541][Alerts, MAX-Alert_Date]) AS [T607][Alerts, MAX-Alert_Date] ) JOIN (
+          input1 )) AS [T456][Alerts, MAX-Alert_Date, Id, Alerts1, Alert_Date]
+    WHERE
+      [T456].Alerts == [T456].Alerts1
+       AND [T456].MAX-Alert_Date == [T456].Alert_Date) AS [T472][Alerts, MAX-Alert_Date, Id, Alerts1, Alert_Date]
+
+==== [No. 13 ] ====
+SELECT
+  [T472].Alerts,[T472].MAX-Alert_Date
+FROM
+  (SELECT
+      [T456].Alerts,[T456].MAX-Alert_Date,[T456].Id,[T456].Alerts1,[T456].Alert_Date
+    FROM
+      (( (SELECT
+              [T540].Alerts,[T540].MAX-Alert_Date
+            FROM
+              (SELECT
+                  input1.Alerts, MAX(input1.Alert_Date)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Alerts) AS [T540][Alerts, MAX-Alert_Date]) AS [T608][Alerts, MAX-Alert_Date] ) JOIN (
+          input1 )) AS [T456][Alerts, MAX-Alert_Date, Id, Alerts1, Alert_Date]
+    WHERE
+      [T456].Alerts == [T456].Alerts1
+       AND [T456].MAX-Alert_Date == [T456].Alert_Date) AS [T472][Alerts, MAX-Alert_Date, Id, Alerts1, Alert_Date]
+
+==== [No. 14 ] ====
+SELECT
+  [T474].Alerts,[T474].MAX-Alert_Date
+FROM
+  (SELECT
+      [T456].Alerts,[T456].MAX-Alert_Date,[T456].Id,[T456].Alerts1,[T456].Alert_Date
+    FROM
+      (( (SELECT
+              [T541].Alerts,[T541].MAX-Alert_Date
+            FROM
+              (SELECT
+                  [T540].Alerts,[T540].MAX-Alert_Date
+                FROM
+                  (SELECT
+                      input1.Alerts, MAX(input1.Alert_Date)
+                    FROM
+                      input1
+                    GROUP BY
+                      input1.Alerts) AS [T540][Alerts, MAX-Alert_Date]) AS [T541][Alerts, MAX-Alert_Date]) AS [T609][Alerts, MAX-Alert_Date] ) JOIN (
+          input1 )) AS [T456][Alerts, MAX-Alert_Date, Id, Alerts1, Alert_Date]
+    WHERE
+      [T456].Alerts == [T456].Alerts1
+       AND [T456].MAX-Alert_Date <= [T456].Alert_Date) AS [T474][Alerts, MAX-Alert_Date, Id, Alerts1, Alert_Date]
+
+==== [No. 15 ] ====
+SELECT
+  [T474].Alerts,[T474].MAX-Alert_Date
+FROM
+  (SELECT
+      [T456].Alerts,[T456].MAX-Alert_Date,[T456].Id,[T456].Alerts1,[T456].Alert_Date
+    FROM
+      (( (SELECT
+              [T540].Alerts,[T540].MAX-Alert_Date
+            FROM
+              (SELECT
+                  input1.Alerts, MAX(input1.Alert_Date)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Alerts) AS [T540][Alerts, MAX-Alert_Date]) AS [T610][Alerts, MAX-Alert_Date] ) JOIN (
+          input1 )) AS [T456][Alerts, MAX-Alert_Date, Id, Alerts1, Alert_Date]
+    WHERE
+      [T456].Alerts == [T456].Alerts1
+       AND [T456].MAX-Alert_Date <= [T456].Alert_Date) AS [T474][Alerts, MAX-Alert_Date, Id, Alerts1, Alert_Date]
+
+==== [No. 16 ] ====
+SELECT
+  [T474].Alerts,[T474].MAX-Alert_Date
+FROM
+  (SELECT
+      [T456].Alerts,[T456].MAX-Alert_Date,[T456].Id,[T456].Alerts1,[T456].Alert_Date
+    FROM
+      (( (SELECT
+              [T541].Alerts,[T541].MAX-Alert_Date
+            FROM
+              (SELECT
+                  [T540].Alerts,[T540].MAX-Alert_Date
+                FROM
+                  (SELECT
+                      input1.Alerts, MAX(input1.Alert_Date)
+                    FROM
+                      input1
+                    GROUP BY
+                      input1.Alerts) AS [T540][Alerts, MAX-Alert_Date]) AS [T541][Alerts, MAX-Alert_Date]) AS [T611][Alerts, MAX-Alert_Date] ) JOIN (
+          input1 )) AS [T456][Alerts, MAX-Alert_Date, Id, Alerts1, Alert_Date]
+    WHERE
+      [T456].Alerts == [T456].Alerts1
+       AND [T456].MAX-Alert_Date <= [T456].Alert_Date) AS [T474][Alerts, MAX-Alert_Date, Id, Alerts1, Alert_Date]
+
+==== [No. 17 ] ====
+SELECT
+  [T474].Alerts,[T474].MAX-Alert_Date
+FROM
+  (SELECT
+      [T456].Alerts,[T456].MAX-Alert_Date,[T456].Id,[T456].Alerts1,[T456].Alert_Date
+    FROM
+      (( (SELECT
+              [T540].Alerts,[T540].MAX-Alert_Date
+            FROM
+              (SELECT
+                  input1.Alerts, MAX(input1.Alert_Date)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Alerts) AS [T540][Alerts, MAX-Alert_Date]) AS [T612][Alerts, MAX-Alert_Date] ) JOIN (
+          input1 )) AS [T456][Alerts, MAX-Alert_Date, Id, Alerts1, Alert_Date]
+    WHERE
+      [T456].Alerts == [T456].Alerts1
+       AND [T456].MAX-Alert_Date <= [T456].Alert_Date) AS [T474][Alerts, MAX-Alert_Date, Id, Alerts1, Alert_Date]
+
+==== [No. 18 ] ====
+SELECT
+  [T472].Alerts,[T472].Alert_Date
+FROM
+  (SELECT
+      [T456].Alerts,[T456].MAX-Alert_Date,[T456].Id,[T456].Alerts1,[T456].Alert_Date
+    FROM
+      (( (SELECT
+              [T541].Alerts,[T541].MAX-Alert_Date
+            FROM
+              (SELECT
+                  [T540].Alerts,[T540].MAX-Alert_Date
+                FROM
+                  (SELECT
+                      input1.Alerts, MAX(input1.Alert_Date)
+                    FROM
+                      input1
+                    GROUP BY
+                      input1.Alerts) AS [T540][Alerts, MAX-Alert_Date]) AS [T541][Alerts, MAX-Alert_Date]) AS [T605][Alerts, MAX-Alert_Date] ) JOIN (
+          input1 )) AS [T456][Alerts, MAX-Alert_Date, Id, Alerts1, Alert_Date]
+    WHERE
+      [T456].Alerts == [T456].Alerts1
+       AND [T456].MAX-Alert_Date == [T456].Alert_Date) AS [T472][Alerts, MAX-Alert_Date, Id, Alerts1, Alert_Date]
+
+==== [No. 19 ] ====
+SELECT
+  [T472].Alerts,[T472].Alert_Date
+FROM
+  (SELECT
+      [T456].Alerts,[T456].MAX-Alert_Date,[T456].Id,[T456].Alerts1,[T456].Alert_Date
+    FROM
+      (( (SELECT
+              [T540].Alerts,[T540].MAX-Alert_Date
+            FROM
+              (SELECT
+                  input1.Alerts, MAX(input1.Alert_Date)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Alerts) AS [T540][Alerts, MAX-Alert_Date]) AS [T606][Alerts, MAX-Alert_Date] ) JOIN (
+          input1 )) AS [T456][Alerts, MAX-Alert_Date, Id, Alerts1, Alert_Date]
+    WHERE
+      [T456].Alerts == [T456].Alerts1
+       AND [T456].MAX-Alert_Date == [T456].Alert_Date) AS [T472][Alerts, MAX-Alert_Date, Id, Alerts1, Alert_Date]
+
+Total Tree Count: 9
+Total Query Count: 174
+[Enumeration Finished]
+[[Synthesizer finished]] time: 00:00:00:348

@@ -68,4 +68,7 @@ public class ExistComparator implements Filter {
         return new ExistComparator(this.tableNode.substNamedVal(vnsb));
     }
 
+    public TableNode getTableNode() {
+        return tableNode;
+    }
 }

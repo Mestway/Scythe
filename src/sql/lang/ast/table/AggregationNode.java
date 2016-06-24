@@ -466,4 +466,28 @@ public class AggregationNode implements TableNode {
         return this;
     }
 
+    @Override
+    public List<String> originalColumnName() {
+
+        List<String> innerQueryOriginalColName = this.tn.originalColumnName();
+        List<String> result = new ArrayList<>();
+        for (String s : this.aggrFields)
+            result.add(innerQueryOriginalColName.get(this.tn.getSchema().indexOf(s)));
+
+        for (Pair<String, Function<List<Value>, Value>> p : this.targets) {
+            result.add(innerQueryOriginalColName.get(this.tn.getSchema().indexOf(p.getKey())));
+        }
+        return result;
+    }
+
+    @Override
+    public double estimateAllFilterCost() {
+        return tn.estimateAllFilterCost();
+    }
+
+    @Override
+    public String getQuerySkeleton() {
+        return "(A " + this.tn.getQuerySkeleton() + ")";
+    }
+
 }

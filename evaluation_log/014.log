@@ -1,0 +1,424 @@
+================
+[[Synthesizer start]] data/benchmarks/014
+[Enumerator Type] CanonicalTableEnumeratorOnTheFly
+[Initialize Enumeration]
+  Parameterized Table Number: 145
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Queries generated: 1707
+	Tables generated: 7
+	Total Table by now: 7
+[Stage 2] EnumAggregationNode: 
+	Queries generated: 9071
+	Tables generated: 23
+	Total Table by now: 30
+[Stage 3] EnumJoin1 
+	Queries generated: 93904
+	Tables generated: 892
+	Total Table by now: 922
+[Runner up Table Count] 71
+[Consistent Table number] 45
+==== [No. 0 ] ====
+SELECT
+  [T178586].NAME
+FROM
+  (SELECT
+      [T177704].ID,[T177704].NAME,[T177704].EMAIL,[T177704].ID1,[T177704].NAME1,[T177704].EMAIL1
+    FROM
+      (( input1 ) JOIN (
+          input1 )) AS [T177704][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T177704].ID < [T177704].ID1
+       AND EXIST (
+        (SELECT
+            [T0].ID,[T0].NAME,[T0].EMAIL
+          FROM
+            (input1) AS [T0][ID, NAME, EMAIL]
+          WHERE
+            [T177704].ID < [T0].ID
+             AND [T177704].NAME == [T0].NAME) AS [T81][ID, NAME, EMAIL])) AS [T178586][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+
+==== [No. 1 ] ====
+SELECT
+  [T178815].NAME
+FROM
+  (SELECT
+      [T177704].ID,[T177704].NAME,[T177704].EMAIL,[T177704].ID1,[T177704].NAME1,[T177704].EMAIL1
+    FROM
+      (( input1 ) JOIN (
+          input1 )) AS [T177704][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T177704].ID < [T177704].ID1
+       AND EXIST (
+        (SELECT
+            [T0].ID,[T0].NAME,[T0].EMAIL
+          FROM
+            (input1) AS [T0][ID, NAME, EMAIL]
+          WHERE
+            [T177704].NAME == [T0].NAME
+             AND [T177704].ID1 <= [T0].ID) AS [T125][ID, NAME, EMAIL])) AS [T178815][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+
+==== [No. 2 ] ====
+SELECT
+  [T178586].NAME
+FROM
+  (SELECT
+      [T177704].ID,[T177704].NAME,[T177704].EMAIL,[T177704].ID1,[T177704].NAME1,[T177704].EMAIL1
+    FROM
+      (( input1 ) JOIN (
+          input1 )) AS [T177704][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T177704].ID < [T177704].ID1
+       AND EXIST (
+        (SELECT
+            [T0].ID,[T0].NAME,[T0].EMAIL
+          FROM
+            (input1) AS [T0][ID, NAME, EMAIL]
+          WHERE
+            [T177704].ID < [T0].ID
+             AND [T177704].NAME == [T0].NAME) AS [T81][ID, NAME, EMAIL])) AS [T178586][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+
+==== [No. 3 ] ====
+SELECT
+  [T178815].NAME
+FROM
+  (SELECT
+      [T177704].ID,[T177704].NAME,[T177704].EMAIL,[T177704].ID1,[T177704].NAME1,[T177704].EMAIL1
+    FROM
+      (( input1 ) JOIN (
+          input1 )) AS [T177704][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T177704].ID < [T177704].ID1
+       AND EXIST (
+        (SELECT
+            [T0].ID,[T0].NAME,[T0].EMAIL
+          FROM
+            (input1) AS [T0][ID, NAME, EMAIL]
+          WHERE
+            [T177704].NAME == [T0].NAME
+             AND [T177704].ID1 <= [T0].ID) AS [T125][ID, NAME, EMAIL])) AS [T178815][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+
+==== [No. 4 ] ====
+SELECT
+  [T178586].NAME
+FROM
+  (SELECT
+      [T177704].ID,[T177704].NAME,[T177704].EMAIL,[T177704].ID1,[T177704].NAME1,[T177704].EMAIL1
+    FROM
+      (( input1 ) JOIN (
+          input1 )) AS [T177704][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T177704].ID < [T177704].ID1
+       AND EXIST (
+        (SELECT
+            [T0].ID,[T0].NAME,[T0].EMAIL
+          FROM
+            (input1) AS [T0][ID, NAME, EMAIL]
+          WHERE
+            [T177704].ID < [T0].ID
+             AND [T177704].NAME == [T0].NAME) AS [T81][ID, NAME, EMAIL])) AS [T178586][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+
+==== [No. 5 ] ====
+SELECT
+  [T178815].NAME
+FROM
+  (SELECT
+      [T177704].ID,[T177704].NAME,[T177704].EMAIL,[T177704].ID1,[T177704].NAME1,[T177704].EMAIL1
+    FROM
+      (( input1 ) JOIN (
+          input1 )) AS [T177704][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T177704].ID < [T177704].ID1
+       AND EXIST (
+        (SELECT
+            [T0].ID,[T0].NAME,[T0].EMAIL
+          FROM
+            (input1) AS [T0][ID, NAME, EMAIL]
+          WHERE
+            [T177704].NAME == [T0].NAME
+             AND [T177704].ID1 <= [T0].ID) AS [T125][ID, NAME, EMAIL])) AS [T178815][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+
+==== [No. 6 ] ====
+SELECT
+  [T178586].NAME
+FROM
+  (SELECT
+      [T177704].ID,[T177704].NAME,[T177704].EMAIL,[T177704].ID1,[T177704].NAME1,[T177704].EMAIL1
+    FROM
+      (( input1 ) JOIN (
+          input1 )) AS [T177704][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T177704].ID < [T177704].ID1
+       AND EXIST (
+        (SELECT
+            [T0].ID,[T0].NAME,[T0].EMAIL
+          FROM
+            (input1) AS [T0][ID, NAME, EMAIL]
+          WHERE
+            [T177704].ID < [T0].ID
+             AND [T177704].NAME == [T0].NAME) AS [T81][ID, NAME, EMAIL])) AS [T178586][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+
+==== [No. 7 ] ====
+SELECT
+  [T178815].NAME
+FROM
+  (SELECT
+      [T177704].ID,[T177704].NAME,[T177704].EMAIL,[T177704].ID1,[T177704].NAME1,[T177704].EMAIL1
+    FROM
+      (( input1 ) JOIN (
+          input1 )) AS [T177704][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T177704].ID < [T177704].ID1
+       AND EXIST (
+        (SELECT
+            [T0].ID,[T0].NAME,[T0].EMAIL
+          FROM
+            (input1) AS [T0][ID, NAME, EMAIL]
+          WHERE
+            [T177704].NAME == [T0].NAME
+             AND [T177704].ID1 <= [T0].ID) AS [T125][ID, NAME, EMAIL])) AS [T178815][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+
+==== [No. 8 ] ====
+SELECT
+  [T253578].NAME
+FROM
+  (SELECT
+      [T252696].ID,[T252696].NAME,[T252696].EMAIL,[T252696].ID1,[T252696].NAME1,[T252696].EMAIL1
+    FROM
+      (( input1 ) JOIN (
+          input1 )) AS [T252696][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T252696].ID < [T252696].ID1
+       AND EXIST (
+        (SELECT
+            [T0].ID,[T0].NAME,[T0].EMAIL
+          FROM
+            (input1) AS [T0][ID, NAME, EMAIL]
+          WHERE
+            [T252696].ID < [T0].ID
+             AND [T252696].NAME == [T0].NAME) AS [T81][ID, NAME, EMAIL])) AS [T253578][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+
+==== [No. 9 ] ====
+SELECT
+  [T253578].NAME
+FROM
+  (SELECT
+      [T252696].ID,[T252696].NAME,[T252696].EMAIL,[T252696].ID1,[T252696].NAME1,[T252696].EMAIL1
+    FROM
+      (( input1 ) JOIN (
+          input1 )) AS [T252696][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T252696].ID < [T252696].ID1
+       AND EXIST (
+        (SELECT
+            [T0].ID,[T0].NAME,[T0].EMAIL
+          FROM
+            (input1) AS [T0][ID, NAME, EMAIL]
+          WHERE
+            [T252696].ID < [T0].ID
+             AND [T252696].NAME == [T0].NAME) AS [T81][ID, NAME, EMAIL])) AS [T253578][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+
+==== [No. 10 ] ====
+SELECT
+  [T253578].NAME
+FROM
+  (SELECT
+      [T252696].ID,[T252696].NAME,[T252696].EMAIL,[T252696].ID1,[T252696].NAME1,[T252696].EMAIL1
+    FROM
+      (( input1 ) JOIN (
+          input1 )) AS [T252696][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T252696].ID < [T252696].ID1
+       AND EXIST (
+        (SELECT
+            [T0].ID,[T0].NAME,[T0].EMAIL
+          FROM
+            (input1) AS [T0][ID, NAME, EMAIL]
+          WHERE
+            [T252696].ID < [T0].ID
+             AND [T252696].NAME == [T0].NAME) AS [T81][ID, NAME, EMAIL])) AS [T253578][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+
+==== [No. 11 ] ====
+SELECT
+  [T253578].NAME
+FROM
+  (SELECT
+      [T252696].ID,[T252696].NAME,[T252696].EMAIL,[T252696].ID1,[T252696].NAME1,[T252696].EMAIL1
+    FROM
+      (( input1 ) JOIN (
+          input1 )) AS [T252696][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T252696].ID < [T252696].ID1
+       AND EXIST (
+        (SELECT
+            [T0].ID,[T0].NAME,[T0].EMAIL
+          FROM
+            (input1) AS [T0][ID, NAME, EMAIL]
+          WHERE
+            [T252696].ID < [T0].ID
+             AND [T252696].NAME == [T0].NAME) AS [T81][ID, NAME, EMAIL])) AS [T253578][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+
+==== [No. 12 ] ====
+SELECT
+  [T253578].NAME
+FROM
+  (SELECT
+      [T252696].ID,[T252696].NAME,[T252696].EMAIL,[T252696].ID1,[T252696].NAME1,[T252696].EMAIL1
+    FROM
+      (( input1 ) JOIN (
+          input1 )) AS [T252696][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T252696].ID < [T252696].ID1
+       AND EXIST (
+        (SELECT
+            [T0].ID,[T0].NAME,[T0].EMAIL
+          FROM
+            (input1) AS [T0][ID, NAME, EMAIL]
+          WHERE
+            [T252696].ID < [T0].ID
+             AND [T252696].NAME == [T0].NAME) AS [T81][ID, NAME, EMAIL])) AS [T253578][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+
+==== [No. 13 ] ====
+SELECT
+  [T253578].NAME
+FROM
+  (SELECT
+      [T252696].ID,[T252696].NAME,[T252696].EMAIL,[T252696].ID1,[T252696].NAME1,[T252696].EMAIL1
+    FROM
+      (( input1 ) JOIN (
+          input1 )) AS [T252696][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T252696].ID < [T252696].ID1
+       AND EXIST (
+        (SELECT
+            [T0].ID,[T0].NAME,[T0].EMAIL
+          FROM
+            (input1) AS [T0][ID, NAME, EMAIL]
+          WHERE
+            [T252696].ID < [T0].ID
+             AND [T252696].NAME == [T0].NAME) AS [T81][ID, NAME, EMAIL])) AS [T253578][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+
+==== [No. 14 ] ====
+SELECT
+  [T253578].NAME
+FROM
+  (SELECT
+      [T252696].ID,[T252696].NAME,[T252696].EMAIL,[T252696].ID1,[T252696].NAME1,[T252696].EMAIL1
+    FROM
+      (( input1 ) JOIN (
+          input1 )) AS [T252696][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T252696].ID < [T252696].ID1
+       AND EXIST (
+        (SELECT
+            [T0].ID,[T0].NAME,[T0].EMAIL
+          FROM
+            (input1) AS [T0][ID, NAME, EMAIL]
+          WHERE
+            [T252696].ID < [T0].ID
+             AND [T252696].NAME == [T0].NAME) AS [T81][ID, NAME, EMAIL])) AS [T253578][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+
+==== [No. 15 ] ====
+SELECT
+  [T253578].NAME
+FROM
+  (SELECT
+      [T252696].ID,[T252696].NAME,[T252696].EMAIL,[T252696].ID1,[T252696].NAME1,[T252696].EMAIL1
+    FROM
+      (( input1 ) JOIN (
+          input1 )) AS [T252696][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T252696].ID < [T252696].ID1
+       AND EXIST (
+        (SELECT
+            [T0].ID,[T0].NAME,[T0].EMAIL
+          FROM
+            (input1) AS [T0][ID, NAME, EMAIL]
+          WHERE
+            [T252696].ID < [T0].ID
+             AND [T252696].NAME == [T0].NAME) AS [T81][ID, NAME, EMAIL])) AS [T253578][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+
+==== [No. 16 ] ====
+SELECT
+  [T253578].NAME
+FROM
+  (SELECT
+      [T252696].ID,[T252696].NAME,[T252696].EMAIL,[T252696].ID1,[T252696].NAME1,[T252696].EMAIL1
+    FROM
+      (( input1 ) JOIN (
+          input1 )) AS [T252696][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T252696].ID < [T252696].ID1
+       AND EXIST (
+        (SELECT
+            [T0].ID,[T0].NAME,[T0].EMAIL
+          FROM
+            (input1) AS [T0][ID, NAME, EMAIL]
+          WHERE
+            [T252696].ID < [T0].ID
+             AND [T252696].NAME == [T0].NAME) AS [T81][ID, NAME, EMAIL])) AS [T253578][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+
+==== [No. 17 ] ====
+SELECT
+  [T253578].NAME
+FROM
+  (SELECT
+      [T252696].ID,[T252696].NAME,[T252696].EMAIL,[T252696].ID1,[T252696].NAME1,[T252696].EMAIL1
+    FROM
+      (( input1 ) JOIN (
+          input1 )) AS [T252696][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T252696].ID < [T252696].ID1
+       AND EXIST (
+        (SELECT
+            [T0].ID,[T0].NAME,[T0].EMAIL
+          FROM
+            (input1) AS [T0][ID, NAME, EMAIL]
+          WHERE
+            [T252696].ID < [T0].ID
+             AND [T252696].NAME == [T0].NAME) AS [T81][ID, NAME, EMAIL])) AS [T253578][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+
+==== [No. 18 ] ====
+SELECT
+  [T340661].NAME
+FROM
+  (SELECT
+      [T339779].ID,[T339779].NAME,[T339779].EMAIL,[T339779].ID1,[T339779].NAME1,[T339779].EMAIL1
+    FROM
+      (( input1 ) JOIN (
+          input1 )) AS [T339779][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T339779].ID < [T339779].ID1
+       AND EXIST (
+        (SELECT
+            [T0].ID,[T0].NAME,[T0].EMAIL
+          FROM
+            (input1) AS [T0][ID, NAME, EMAIL]
+          WHERE
+            [T339779].ID < [T0].ID
+             AND [T339779].NAME == [T0].NAME) AS [T81][ID, NAME, EMAIL])) AS [T340661][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+
+==== [No. 19 ] ====
+SELECT
+  [T340661].NAME
+FROM
+  (SELECT
+      [T339779].ID,[T339779].NAME,[T339779].EMAIL,[T339779].ID1,[T339779].NAME1,[T339779].EMAIL1
+    FROM
+      (( input1 ) JOIN (
+          input1 )) AS [T339779][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+    WHERE
+      [T339779].ID < [T339779].ID1
+       AND EXIST (
+        (SELECT
+            [T0].ID,[T0].NAME,[T0].EMAIL
+          FROM
+            (input1) AS [T0][ID, NAME, EMAIL]
+          WHERE
+            [T339779].ID < [T0].ID
+             AND [T339779].NAME == [T0].NAME) AS [T81][ID, NAME, EMAIL])) AS [T340661][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+
+Total Tree Count: 151
+Total Query Count: 47022592
+[Enumeration Finished]
+[[Synthesizer finished]] time: 00:08:47:954

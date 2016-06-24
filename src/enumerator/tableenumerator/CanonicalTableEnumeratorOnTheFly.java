@@ -27,9 +27,6 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
         QueryChest qc = QueryChest.initWithInputTables(ec.getInputs());
         enumTableWithoutProj(ec, qc, depth); // all intermediate result are stored in qc
 
-        ec.setTableNodes(qc.getRepresentativeTableNodes());
-        EnumProjection.emitEnumProjection(ec, ec.getOutputTable(), qc);
-
         System.out.println("[Runner up Table Count] " + qc.runnerUpTable);
 
         return qc;
@@ -78,8 +75,34 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
             lastQueryCount = qc.queryCount;
             qc.tracked.clear();
 
-            if (qc.runnerUpTable != 0)
+            ec.setTableNodes(qc.getRepresentativeTableNodes());
+            EnumProjection.emitEnumProjection(ec, ec.getOutputTable(), qc);
+
+            if (qc.runnerUpTable > 0)
                 break;
+        }
+
+        if (qc.runnerUpTable == 0) {
+            for (int i = 1; i <= depth; i ++) {
+
+                ec.setTableNodes(qc.getRepresentativeTableNodes());
+
+                EnumJoinTableNodes.emitEnumJoinWithFilter(ec, qc);
+
+                //System.out.println("after enumJoinWithFilter: " + qc.getRepresentativeTableNodes().size() + " tables");
+                System.out.println("[Stage " + (4 + i) + "] EnumJoin" + i + " \n\t"
+                        + "Queries generated: " + (qc.queryCount - lastQueryCount) + "\n\t"
+                        + "Tables generated: " + (qc.tracked.size()) + "\n\t"
+                        + "Total Table by now: " + qc.getRepresentativeTableNodes().size());
+                lastQueryCount = qc.queryCount;
+                qc.tracked.clear();
+
+                ec.setTableNodes(qc.getRepresentativeTableNodes());
+                EnumProjection.emitEnumProjection(ec, ec.getOutputTable(), qc);
+
+                if (qc.runnerUpTable > 0)
+                    break;
+            }
         }
     }
 }
