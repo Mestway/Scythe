@@ -1524,3 +1524,84 @@
     |---------|
     |  3      |
 
+# 053
+### [In SQL, how to select the top 2 rows for each group](http://stackoverflow.com/questions/15969614/in-sql-how-to-select-the-top-2-rows-for-each-group)
+#### description
+
+
+    The aggregation function for group by only allow me to get the highest score for each name. I would like to make a query to get the highest 2 score for each name, how should I do?
+
+
+#### input
+
+
+    | NAME  | SCORE |
+    |---------------|
+    | willy |     1 |
+    | willy |     2 |
+    | willy |     3 |
+    | zoe   |     4 |
+    | zoe   |     5 |
+    | zoe   |     6 |
+
+#### output
+
+    | NAME  | SCORE |
+    |---------------|
+    | willy |     2 |
+    | willy |     3 |
+    | zoe   |     5 |
+    | zoe   |     6 |
+
+# 054
+### [SQL Greatest N Per Group with Extra Criteria](http://stackoverflow.com/questions/20282081/sql-greatest-n-per-group-with-extra-criteria)
+
+#### description
+
+    The current query would be:
+
+    SELECT Person, SUM(Time) AS Duration 
+    FROM Table
+    GROUP BY Person
+
+    What I need to add to this result set is the Uniq and value of the largest value per person
+
+#### input
+
+    | Uniq |  Value | Time | Person |
+    |-------------------------------|
+    |   1  |  6     | 180  | Bob    |
+    |   2  |  8     | 170  | Bob    |
+    |   3  |  4     | 45   | Claire |
+    |   4  |  4     | 90   | Claire |
+
+#### output
+
+    | Person | Duration | Value | Uniq |
+    |----------------------------------|
+    | Bob    | 350      | 8     | 2    |
+    | Claire | 135      | 4     | 3    |
+
+# 055
+### [Select records with certain value but exclude if it has another one](http://stackoverflow.com/questions/32045677/select-records-with-certain-value-but-exclude-if-it-has-another-one)
+#### description
+
+    Basically I need to select the product_ID's that's exclusive to client_id = 2.
+
+#### input
+
+
+    | Product_ID | Client_ID  |
+    |-------------------------|
+    | 1          | 2          |
+    | 1          | 3          |
+    | 2          | 2          |
+    | 3          | 2          |
+
+
+#### output
+
+    | c1 |
+    |----|
+    | 2  |
+    | 3  |
