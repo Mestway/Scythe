@@ -5,454 +5,418 @@
   Parameterized Table Number: 0
 [Enumeration Start]
 [Stage 1] EnumFilterNamed: 
-	Queries generated: 469
-	Tables generated: 13
-	Total Table by now: 13
+	Queries generated: 501
+	Tables generated: 15
+	Total Table by now: 15
 [Stage 2] EnumAggregationNode: 
-	Queries generated: 976
-	Tables generated: 102
-	Total Table by now: 115
+	Queries generated: 983
+	Tables generated: 105
+	Total Table by now: 120
 [Stage 3] EnumJoin1 
-	Queries generated: 48620
-	Tables generated: 6172
-	Total Table by now: 6287
-[Runner up Table Count] 570
-[Consistent Table number] 22
+	Queries generated: 53550
+	Tables generated: 6966
+	Total Table by now: 7086
+[Runner up Table Count] 694
+[Consistent Table number] 29
 ==== [No. 0 ] ====
 SELECT
-  [T50992].id,[T50992].productId,[T50992].MIN-orderIndex,[T50992].rejected
+  [T78471].id1,[T78471].productId1,[T78471].orderIndex1,[T78471].rejected
 FROM
   (SELECT
-      [T50768].productId,[T50768].MIN-orderIndex,[T50768].id,[T50768].productId1,[T50768].orderIndex,[T50768].rejected
+      [T77885].id,[T77885].productId,[T77885].orderIndex,[T77885].rejected,[T77885].id1,[T77885].productId1,[T77885].orderIndex1,[T77885].rejected1
     FROM
       (( (SELECT
-              [T52259].productId,[T52259].MIN-orderIndex
+              input1.id,input1.productId,input1.orderIndex,input1.rejected
             FROM
-              (SELECT
-                  [T240].productId, MIN([T240].orderIndex)
-                FROM
-                  [T240]
-                GROUP BY
-                  [T240].productId) AS [T52259][productId, MIN-orderIndex]) AS [T52260][productId, MIN-orderIndex] ) JOIN (
-          input1 )) AS [T50768][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+              input1
+            WHERE
+              input1.productId == input1.orderIndex) AS [T81277][id, productId, orderIndex, rejected] ) JOIN (
+          input1 )) AS [T77885][id, productId, orderIndex, rejected, id1, productId1, orderIndex1, rejected1]
     WHERE
-      [T50768].productId == [T50768].productId1
-       AND [T50768].MIN-orderIndex == [T50768].orderIndex) AS [T50992][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+      [T77885].id > [T77885].orderIndex1
+       AND [T77885].rejected == [T77885].rejected1) AS [T78471][id, productId, orderIndex, rejected, id1, productId1, orderIndex1, rejected1]
 
 ==== [No. 1 ] ====
 SELECT
-  [T50992].id,[T50992].productId,[T50992].MIN-orderIndex,[T50992].rejected
+  [T78471].id1,[T78471].productId1,[T78471].orderIndex1,[T78471].rejected
 FROM
   (SELECT
-      [T50768].productId,[T50768].MIN-orderIndex,[T50768].id,[T50768].productId1,[T50768].orderIndex,[T50768].rejected
+      [T77885].id,[T77885].productId,[T77885].orderIndex,[T77885].rejected,[T77885].id1,[T77885].productId1,[T77885].orderIndex1,[T77885].rejected1
     FROM
       (( (SELECT
-              [T52259].productId,[T52259].MIN-orderIndex
+              input1.id,input1.productId,input1.orderIndex,input1.rejected
             FROM
-              (SELECT
-                  [T240].productId, MIN([T240].orderIndex)
-                FROM
-                  [T240]
-                GROUP BY
-                  [T240].productId) AS [T52259][productId, MIN-orderIndex]) AS [T52260][productId, MIN-orderIndex] ) JOIN (
-          input1 )) AS [T50768][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+              input1
+            WHERE
+              input1.orderIndex == input1.productId) AS [T81278][id, productId, orderIndex, rejected] ) JOIN (
+          input1 )) AS [T77885][id, productId, orderIndex, rejected, id1, productId1, orderIndex1, rejected1]
     WHERE
-      [T50768].productId == [T50768].productId1
-       AND [T50768].MIN-orderIndex == [T50768].orderIndex) AS [T50992][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+      [T77885].id > [T77885].orderIndex1
+       AND [T77885].rejected == [T77885].rejected1) AS [T78471][id, productId, orderIndex, rejected, id1, productId1, orderIndex1, rejected1]
 
 ==== [No. 2 ] ====
 SELECT
-  [T50992].id,[T50992].productId,[T50992].MIN-orderIndex,[T50992].rejected
+  [T78471].id1,[T78471].productId1,[T78471].orderIndex1,[T78471].rejected
 FROM
   (SELECT
-      [T50768].productId,[T50768].MIN-orderIndex,[T50768].id,[T50768].productId1,[T50768].orderIndex,[T50768].rejected
+      [T77885].id,[T77885].productId,[T77885].orderIndex,[T77885].rejected,[T77885].id1,[T77885].productId1,[T77885].orderIndex1,[T77885].rejected1
     FROM
       (( (SELECT
-              [T52259].productId,[T52259].MIN-orderIndex
+              input1.id,input1.productId,input1.orderIndex,input1.rejected
             FROM
-              (SELECT
-                  [T240].productId, MIN([T240].orderIndex)
-                FROM
-                  [T240]
-                GROUP BY
-                  [T240].productId) AS [T52259][productId, MIN-orderIndex]) AS [T52260][productId, MIN-orderIndex] ) JOIN (
-          input1 )) AS [T50768][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+              input1
+            WHERE
+              
+               AND input1.productId == input1.orderIndex) AS [T81279][id, productId, orderIndex, rejected] ) JOIN (
+          input1 )) AS [T77885][id, productId, orderIndex, rejected, id1, productId1, orderIndex1, rejected1]
     WHERE
-      [T50768].productId == [T50768].productId1
-       AND [T50768].MIN-orderIndex == [T50768].orderIndex) AS [T50992][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+      [T77885].id > [T77885].orderIndex1
+       AND [T77885].rejected == [T77885].rejected1) AS [T78471][id, productId, orderIndex, rejected, id1, productId1, orderIndex1, rejected1]
 
 ==== [No. 3 ] ====
 SELECT
-  [T50992].id,[T50992].productId,[T50992].MIN-orderIndex,[T50992].rejected
+  [T78471].id1,[T78471].productId1,[T78471].orderIndex1,[T78471].rejected
 FROM
   (SELECT
-      [T50768].productId,[T50768].MIN-orderIndex,[T50768].id,[T50768].productId1,[T50768].orderIndex,[T50768].rejected
+      [T77885].id,[T77885].productId,[T77885].orderIndex,[T77885].rejected,[T77885].id1,[T77885].productId1,[T77885].orderIndex1,[T77885].rejected1
     FROM
       (( (SELECT
-              [T52259].productId,[T52259].MIN-orderIndex
+              input1.id,input1.productId,input1.orderIndex,input1.rejected
             FROM
-              (SELECT
-                  [T240].productId, MIN([T240].orderIndex)
-                FROM
-                  [T240]
-                GROUP BY
-                  [T240].productId) AS [T52259][productId, MIN-orderIndex]) AS [T52260][productId, MIN-orderIndex] ) JOIN (
-          input1 )) AS [T50768][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+              input1
+            WHERE
+              
+               AND input1.orderIndex == input1.productId) AS [T81280][id, productId, orderIndex, rejected] ) JOIN (
+          input1 )) AS [T77885][id, productId, orderIndex, rejected, id1, productId1, orderIndex1, rejected1]
     WHERE
-      [T50768].productId == [T50768].productId1
-       AND [T50768].MIN-orderIndex == [T50768].orderIndex) AS [T50992][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+      [T77885].id > [T77885].orderIndex1
+       AND [T77885].rejected == [T77885].rejected1) AS [T78471][id, productId, orderIndex, rejected, id1, productId1, orderIndex1, rejected1]
 
 ==== [No. 4 ] ====
 SELECT
-  [T50992].id,[T50992].productId,[T50992].MIN-orderIndex,[T50992].rejected
+  [T78471].id1,[T78471].productId1,[T78471].orderIndex1,[T78471].rejected
 FROM
   (SELECT
-      [T50768].productId,[T50768].MIN-orderIndex,[T50768].id,[T50768].productId1,[T50768].orderIndex,[T50768].rejected
+      [T77885].id,[T77885].productId,[T77885].orderIndex,[T77885].rejected,[T77885].id1,[T77885].productId1,[T77885].orderIndex1,[T77885].rejected1
     FROM
       (( (SELECT
-              [T52259].productId,[T52259].MIN-orderIndex
+              input1.id,input1.productId,input1.orderIndex,input1.rejected
             FROM
-              (SELECT
-                  [T240].productId, MIN([T240].orderIndex)
-                FROM
-                  [T240]
-                GROUP BY
-                  [T240].productId) AS [T52259][productId, MIN-orderIndex]
+              input1
             WHERE
-              [T52259].MIN-orderIndex <= [T52259].productId) AS [T52264][productId, MIN-orderIndex] ) JOIN (
-          input1 )) AS [T50768][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+              input1.id > input1.orderIndex
+               AND input1.productId == input1.orderIndex) AS [T81281][id, productId, orderIndex, rejected] ) JOIN (
+          input1 )) AS [T77885][id, productId, orderIndex, rejected, id1, productId1, orderIndex1, rejected1]
     WHERE
-      [T50768].productId == [T50768].productId1
-       AND [T50768].MIN-orderIndex == [T50768].orderIndex) AS [T50992][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+      [T77885].id > [T77885].orderIndex1
+       AND [T77885].rejected == [T77885].rejected1) AS [T78471][id, productId, orderIndex, rejected, id1, productId1, orderIndex1, rejected1]
 
 ==== [No. 5 ] ====
 SELECT
-  [T50992].id,[T50992].productId,[T50992].MIN-orderIndex,[T50992].rejected
+  [T78471].id1,[T78471].productId1,[T78471].orderIndex1,[T78471].rejected
 FROM
   (SELECT
-      [T50768].productId,[T50768].MIN-orderIndex,[T50768].id,[T50768].productId1,[T50768].orderIndex,[T50768].rejected
+      [T77885].id,[T77885].productId,[T77885].orderIndex,[T77885].rejected,[T77885].id1,[T77885].productId1,[T77885].orderIndex1,[T77885].rejected1
     FROM
       (( (SELECT
-              [T52259].productId,[T52259].MIN-orderIndex
+              input1.id,input1.productId,input1.orderIndex,input1.rejected
             FROM
-              (SELECT
-                  [T240].productId, MIN([T240].orderIndex)
-                FROM
-                  [T240]
-                GROUP BY
-                  [T240].productId) AS [T52259][productId, MIN-orderIndex]
+              input1
             WHERE
-              [T52259].MIN-orderIndex <= [T52259].productId) AS [T52264][productId, MIN-orderIndex] ) JOIN (
-          input1 )) AS [T50768][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+              input1.id > input1.orderIndex
+               AND input1.orderIndex == input1.productId) AS [T81282][id, productId, orderIndex, rejected] ) JOIN (
+          input1 )) AS [T77885][id, productId, orderIndex, rejected, id1, productId1, orderIndex1, rejected1]
     WHERE
-      [T50768].productId == [T50768].productId1
-       AND [T50768].MIN-orderIndex == [T50768].orderIndex) AS [T50992][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+      [T77885].id > [T77885].orderIndex1
+       AND [T77885].rejected == [T77885].rejected1) AS [T78471][id, productId, orderIndex, rejected, id1, productId1, orderIndex1, rejected1]
 
 ==== [No. 6 ] ====
 SELECT
-  [T50992].id,[T50992].productId,[T50992].MIN-orderIndex,[T50992].rejected
+  [T78471].id1,[T78471].productId1,[T78471].orderIndex1,[T78471].rejected
 FROM
   (SELECT
-      [T50768].productId,[T50768].MIN-orderIndex,[T50768].id,[T50768].productId1,[T50768].orderIndex,[T50768].rejected
+      [T77885].id,[T77885].productId,[T77885].orderIndex,[T77885].rejected,[T77885].id1,[T77885].productId1,[T77885].orderIndex1,[T77885].rejected1
     FROM
       (( (SELECT
-              [T52259].productId,[T52259].MIN-orderIndex
+              input1.id,input1.productId,input1.orderIndex,input1.rejected
             FROM
-              (SELECT
-                  [T240].productId, MIN([T240].orderIndex)
-                FROM
-                  [T240]
-                GROUP BY
-                  [T240].productId) AS [T52259][productId, MIN-orderIndex]
+              input1
             WHERE
-              [T52259].MIN-orderIndex <= [T52259].productId) AS [T52264][productId, MIN-orderIndex] ) JOIN (
-          input1 )) AS [T50768][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+              input1.id >= input1.orderIndex
+               AND input1.productId == input1.orderIndex) AS [T81283][id, productId, orderIndex, rejected] ) JOIN (
+          input1 )) AS [T77885][id, productId, orderIndex, rejected, id1, productId1, orderIndex1, rejected1]
     WHERE
-      [T50768].productId == [T50768].productId1
-       AND [T50768].MIN-orderIndex == [T50768].orderIndex) AS [T50992][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+      [T77885].id > [T77885].orderIndex1
+       AND [T77885].rejected == [T77885].rejected1) AS [T78471][id, productId, orderIndex, rejected, id1, productId1, orderIndex1, rejected1]
 
 ==== [No. 7 ] ====
 SELECT
-  [T50992].id,[T50992].productId,[T50992].MIN-orderIndex,[T50992].rejected
+  [T78471].id1,[T78471].productId1,[T78471].orderIndex1,[T78471].rejected
 FROM
   (SELECT
-      [T50768].productId,[T50768].MIN-orderIndex,[T50768].id,[T50768].productId1,[T50768].orderIndex,[T50768].rejected
+      [T77885].id,[T77885].productId,[T77885].orderIndex,[T77885].rejected,[T77885].id1,[T77885].productId1,[T77885].orderIndex1,[T77885].rejected1
     FROM
       (( (SELECT
-              [T52259].productId,[T52259].MIN-orderIndex
+              input1.id,input1.productId,input1.orderIndex,input1.rejected
             FROM
-              (SELECT
-                  [T240].productId, MIN([T240].orderIndex)
-                FROM
-                  [T240]
-                GROUP BY
-                  [T240].productId) AS [T52259][productId, MIN-orderIndex]
+              input1
             WHERE
-              [T52259].MIN-orderIndex <= [T52259].productId) AS [T52264][productId, MIN-orderIndex] ) JOIN (
-          input1 )) AS [T50768][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+              input1.id >= input1.orderIndex
+               AND input1.orderIndex == input1.productId) AS [T81284][id, productId, orderIndex, rejected] ) JOIN (
+          input1 )) AS [T77885][id, productId, orderIndex, rejected, id1, productId1, orderIndex1, rejected1]
     WHERE
-      [T50768].productId == [T50768].productId1
-       AND [T50768].MIN-orderIndex == [T50768].orderIndex) AS [T50992][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+      [T77885].id > [T77885].orderIndex1
+       AND [T77885].rejected == [T77885].rejected1) AS [T78471][id, productId, orderIndex, rejected, id1, productId1, orderIndex1, rejected1]
 
 ==== [No. 8 ] ====
 SELECT
-  [T50992].id,[T50992].productId,[T50992].MIN-orderIndex,[T50992].rejected
+  [T78471].id1,[T78471].productId1,[T78471].orderIndex1,[T78471].rejected
 FROM
   (SELECT
-      [T50768].productId,[T50768].MIN-orderIndex,[T50768].id,[T50768].productId1,[T50768].orderIndex,[T50768].rejected
+      [T77885].id,[T77885].productId,[T77885].orderIndex,[T77885].rejected,[T77885].id1,[T77885].productId1,[T77885].orderIndex1,[T77885].rejected1
     FROM
       (( (SELECT
-              [T52259].productId,[T52259].MIN-orderIndex
+              input1.id,input1.productId,input1.orderIndex,input1.rejected
             FROM
-              (SELECT
-                  [T240].productId, MIN([T240].orderIndex)
-                FROM
-                  [T240]
-                GROUP BY
-                  [T240].productId) AS [T52259][productId, MIN-orderIndex]
+              input1
             WHERE
-              
-               AND [T52259].MIN-orderIndex <= [T52259].productId) AS [T52269][productId, MIN-orderIndex] ) JOIN (
-          input1 )) AS [T50768][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+              input1.id > input1.productId
+               AND input1.productId == input1.orderIndex) AS [T81285][id, productId, orderIndex, rejected] ) JOIN (
+          input1 )) AS [T77885][id, productId, orderIndex, rejected, id1, productId1, orderIndex1, rejected1]
     WHERE
-      [T50768].productId == [T50768].productId1
-       AND [T50768].MIN-orderIndex == [T50768].orderIndex) AS [T50992][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+      [T77885].id > [T77885].orderIndex1
+       AND [T77885].rejected == [T77885].rejected1) AS [T78471][id, productId, orderIndex, rejected, id1, productId1, orderIndex1, rejected1]
 
 ==== [No. 9 ] ====
 SELECT
-  [T50992].id,[T50992].productId,[T50992].MIN-orderIndex,[T50992].rejected
+  [T78471].id1,[T78471].productId1,[T78471].orderIndex1,[T78471].rejected
 FROM
   (SELECT
-      [T50768].productId,[T50768].MIN-orderIndex,[T50768].id,[T50768].productId1,[T50768].orderIndex,[T50768].rejected
+      [T77885].id,[T77885].productId,[T77885].orderIndex,[T77885].rejected,[T77885].id1,[T77885].productId1,[T77885].orderIndex1,[T77885].rejected1
     FROM
       (( (SELECT
-              [T52259].productId,[T52259].MIN-orderIndex
+              input1.id,input1.productId,input1.orderIndex,input1.rejected
             FROM
-              (SELECT
-                  [T240].productId, MIN([T240].orderIndex)
-                FROM
-                  [T240]
-                GROUP BY
-                  [T240].productId) AS [T52259][productId, MIN-orderIndex]
+              input1
             WHERE
-              
-               AND [T52259].MIN-orderIndex <= [T52259].productId) AS [T52269][productId, MIN-orderIndex] ) JOIN (
-          input1 )) AS [T50768][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+              input1.id > input1.productId
+               AND input1.orderIndex == input1.productId) AS [T81286][id, productId, orderIndex, rejected] ) JOIN (
+          input1 )) AS [T77885][id, productId, orderIndex, rejected, id1, productId1, orderIndex1, rejected1]
     WHERE
-      [T50768].productId == [T50768].productId1
-       AND [T50768].MIN-orderIndex == [T50768].orderIndex) AS [T50992][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+      [T77885].id > [T77885].orderIndex1
+       AND [T77885].rejected == [T77885].rejected1) AS [T78471][id, productId, orderIndex, rejected, id1, productId1, orderIndex1, rejected1]
 
 ==== [No. 10 ] ====
 SELECT
-  [T54454].id,[T54454].productId,[T54454].MIN-orderIndex,[T54454].rejected
+  [T87422].id,[T87422].productId1,[T87422].orderIndex,[T87422].rejected
 FROM
   (SELECT
-      [T54230].productId,[T54230].MIN-orderIndex,[T54230].id,[T54230].productId1,[T54230].orderIndex,[T54230].rejected
+      [T87042].productId,[T87042].rejected,[T87042].MIN-productId,[T87042].id,[T87042].productId1,[T87042].orderIndex,[T87042].rejected1
     FROM
       (( (SELECT
-              [T55721].productId,[T55721].MIN-orderIndex
+              [T88676].productId,[T88676].rejected,[T88676].MIN-productId
             FROM
               (SELECT
-                  [T9].productId, MIN([T9].orderIndex)
+                  [T15].productId, [T15].rejected, MIN([T15].productId)
                 FROM
-                  [T9]
+                  [T15]
                 GROUP BY
-                  [T9].productId) AS [T55721][productId, MIN-orderIndex]) AS [T55722][productId, MIN-orderIndex] ) JOIN (
-          input1 )) AS [T54230][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+                  [T15].productId  [T15].rejected) AS [T88676][productId, rejected, MIN-productId]) AS [T88677][productId, rejected, MIN-productId] ) JOIN (
+          input1 )) AS [T87042][productId, rejected, MIN-productId, id, productId1, orderIndex, rejected1]
     WHERE
-      [T54230].productId == [T54230].productId1
-       AND [T54230].MIN-orderIndex == [T54230].orderIndex) AS [T54454][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+      [T87042].productId >= [T87042].orderIndex
+       AND [T87042].rejected == [T87042].rejected1) AS [T87422][productId, rejected, MIN-productId, id, productId1, orderIndex, rejected1]
 
 ==== [No. 11 ] ====
 SELECT
-  [T54454].id,[T54454].productId,[T54454].MIN-orderIndex,[T54454].rejected
+  [T87422].id,[T87422].productId1,[T87422].orderIndex,[T87422].rejected
 FROM
   (SELECT
-      [T54230].productId,[T54230].MIN-orderIndex,[T54230].id,[T54230].productId1,[T54230].orderIndex,[T54230].rejected
+      [T87042].productId,[T87042].rejected,[T87042].MIN-productId,[T87042].id,[T87042].productId1,[T87042].orderIndex,[T87042].rejected1
     FROM
       (( (SELECT
-              [T55721].productId,[T55721].MIN-orderIndex
+              [T88676].productId,[T88676].rejected,[T88676].MIN-productId
             FROM
               (SELECT
-                  [T9].productId, MIN([T9].orderIndex)
+                  [T15].productId, [T15].rejected, MIN([T15].productId)
                 FROM
-                  [T9]
+                  [T15]
                 GROUP BY
-                  [T9].productId) AS [T55721][productId, MIN-orderIndex]) AS [T55722][productId, MIN-orderIndex] ) JOIN (
-          input1 )) AS [T54230][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+                  [T15].productId  [T15].rejected) AS [T88676][productId, rejected, MIN-productId]) AS [T88677][productId, rejected, MIN-productId] ) JOIN (
+          input1 )) AS [T87042][productId, rejected, MIN-productId, id, productId1, orderIndex, rejected1]
     WHERE
-      [T54230].productId == [T54230].productId1
-       AND [T54230].MIN-orderIndex == [T54230].orderIndex) AS [T54454][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+      [T87042].productId >= [T87042].orderIndex
+       AND [T87042].rejected == [T87042].rejected1) AS [T87422][productId, rejected, MIN-productId, id, productId1, orderIndex, rejected1]
 
 ==== [No. 12 ] ====
 SELECT
-  [T54454].id,[T54454].productId,[T54454].MIN-orderIndex,[T54454].rejected
+  [T87422].id,[T87422].productId1,[T87422].orderIndex,[T87422].rejected
 FROM
   (SELECT
-      [T54230].productId,[T54230].MIN-orderIndex,[T54230].id,[T54230].productId1,[T54230].orderIndex,[T54230].rejected
+      [T87042].productId,[T87042].rejected,[T87042].MIN-productId,[T87042].id,[T87042].productId1,[T87042].orderIndex,[T87042].rejected1
     FROM
       (( (SELECT
-              [T55721].productId,[T55721].MIN-orderIndex
+              [T88676].productId,[T88676].rejected,[T88676].MIN-productId
             FROM
               (SELECT
-                  [T9].productId, MIN([T9].orderIndex)
+                  [T15].productId, [T15].rejected, MIN([T15].productId)
                 FROM
-                  [T9]
+                  [T15]
                 GROUP BY
-                  [T9].productId) AS [T55721][productId, MIN-orderIndex]) AS [T55722][productId, MIN-orderIndex] ) JOIN (
-          input1 )) AS [T54230][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+                  [T15].productId  [T15].rejected) AS [T88676][productId, rejected, MIN-productId]) AS [T88677][productId, rejected, MIN-productId] ) JOIN (
+          input1 )) AS [T87042][productId, rejected, MIN-productId, id, productId1, orderIndex, rejected1]
     WHERE
-      [T54230].productId == [T54230].productId1
-       AND [T54230].MIN-orderIndex == [T54230].orderIndex) AS [T54454][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+      [T87042].productId >= [T87042].orderIndex
+       AND [T87042].rejected == [T87042].rejected1) AS [T87422][productId, rejected, MIN-productId, id, productId1, orderIndex, rejected1]
 
 ==== [No. 13 ] ====
 SELECT
-  [T54454].id,[T54454].productId,[T54454].MIN-orderIndex,[T54454].rejected
+  [T87422].id,[T87422].productId1,[T87422].orderIndex,[T87422].rejected
 FROM
   (SELECT
-      [T54230].productId,[T54230].MIN-orderIndex,[T54230].id,[T54230].productId1,[T54230].orderIndex,[T54230].rejected
+      [T87042].productId,[T87042].rejected,[T87042].MIN-productId,[T87042].id,[T87042].productId1,[T87042].orderIndex,[T87042].rejected1
     FROM
       (( (SELECT
-              [T55721].productId,[T55721].MIN-orderIndex
+              [T88676].productId,[T88676].rejected,[T88676].MIN-productId
             FROM
               (SELECT
-                  [T9].productId, MIN([T9].orderIndex)
+                  [T15].productId, [T15].rejected, MIN([T15].productId)
                 FROM
-                  [T9]
+                  [T15]
                 GROUP BY
-                  [T9].productId) AS [T55721][productId, MIN-orderIndex]) AS [T55722][productId, MIN-orderIndex] ) JOIN (
-          input1 )) AS [T54230][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+                  [T15].productId  [T15].rejected) AS [T88676][productId, rejected, MIN-productId]) AS [T88677][productId, rejected, MIN-productId] ) JOIN (
+          input1 )) AS [T87042][productId, rejected, MIN-productId, id, productId1, orderIndex, rejected1]
     WHERE
-      [T54230].productId == [T54230].productId1
-       AND [T54230].MIN-orderIndex == [T54230].orderIndex) AS [T54454][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+      [T87042].productId >= [T87042].orderIndex
+       AND [T87042].rejected == [T87042].rejected1) AS [T87422][productId, rejected, MIN-productId, id, productId1, orderIndex, rejected1]
 
 ==== [No. 14 ] ====
 SELECT
-  [T54454].id,[T54454].productId,[T54454].MIN-orderIndex,[T54454].rejected
+  [T87422].id,[T87422].productId1,[T87422].orderIndex,[T87422].rejected
 FROM
   (SELECT
-      [T54230].productId,[T54230].MIN-orderIndex,[T54230].id,[T54230].productId1,[T54230].orderIndex,[T54230].rejected
+      [T87042].productId,[T87042].rejected,[T87042].MIN-productId,[T87042].id,[T87042].productId1,[T87042].orderIndex,[T87042].rejected1
     FROM
       (( (SELECT
-              [T55721].productId,[T55721].MIN-orderIndex
+              [T88676].productId,[T88676].rejected,[T88676].MIN-productId
             FROM
               (SELECT
-                  [T9].productId, MIN([T9].orderIndex)
+                  [T15].productId, [T15].rejected, MIN([T15].productId)
                 FROM
-                  [T9]
+                  [T15]
                 GROUP BY
-                  [T9].productId) AS [T55721][productId, MIN-orderIndex]) AS [T55722][productId, MIN-orderIndex] ) JOIN (
-          input1 )) AS [T54230][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+                  [T15].productId  [T15].rejected) AS [T88676][productId, rejected, MIN-productId]) AS [T88677][productId, rejected, MIN-productId] ) JOIN (
+          input1 )) AS [T87042][productId, rejected, MIN-productId, id, productId1, orderIndex, rejected1]
     WHERE
-      [T54230].productId == [T54230].productId1
-       AND [T54230].MIN-orderIndex == [T54230].orderIndex) AS [T54454][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+      [T87042].productId >= [T87042].orderIndex
+       AND [T87042].rejected == [T87042].rejected1) AS [T87422][productId, rejected, MIN-productId, id, productId1, orderIndex, rejected1]
 
 ==== [No. 15 ] ====
 SELECT
-  [T54454].id,[T54454].productId,[T54454].MIN-orderIndex,[T54454].rejected
+  [T87422].id,[T87422].productId1,[T87422].orderIndex,[T87422].rejected
 FROM
   (SELECT
-      [T54230].productId,[T54230].MIN-orderIndex,[T54230].id,[T54230].productId1,[T54230].orderIndex,[T54230].rejected
+      [T87042].productId,[T87042].rejected,[T87042].MIN-productId,[T87042].id,[T87042].productId1,[T87042].orderIndex,[T87042].rejected1
     FROM
       (( (SELECT
-              [T55721].productId,[T55721].MIN-orderIndex
+              [T88676].productId,[T88676].rejected,[T88676].MIN-productId
             FROM
               (SELECT
-                  [T9].productId, MIN([T9].orderIndex)
+                  [T15].productId, [T15].rejected, MIN([T15].productId)
                 FROM
-                  [T9]
+                  [T15]
                 GROUP BY
-                  [T9].productId) AS [T55721][productId, MIN-orderIndex]) AS [T55722][productId, MIN-orderIndex] ) JOIN (
-          input1 )) AS [T54230][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+                  [T15].productId  [T15].rejected) AS [T88676][productId, rejected, MIN-productId]) AS [T88677][productId, rejected, MIN-productId] ) JOIN (
+          input1 )) AS [T87042][productId, rejected, MIN-productId, id, productId1, orderIndex, rejected1]
     WHERE
-      [T54230].productId == [T54230].productId1
-       AND [T54230].MIN-orderIndex == [T54230].orderIndex) AS [T54454][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+      [T87042].productId >= [T87042].orderIndex
+       AND [T87042].rejected == [T87042].rejected1) AS [T87422][productId, rejected, MIN-productId, id, productId1, orderIndex, rejected1]
 
 ==== [No. 16 ] ====
 SELECT
-  [T54454].id,[T54454].productId,[T54454].MIN-orderIndex,[T54454].rejected
+  [T87422].id,[T87422].productId1,[T87422].orderIndex,[T87422].rejected
 FROM
   (SELECT
-      [T54230].productId,[T54230].MIN-orderIndex,[T54230].id,[T54230].productId1,[T54230].orderIndex,[T54230].rejected
+      [T87042].productId,[T87042].rejected,[T87042].MIN-productId,[T87042].id,[T87042].productId1,[T87042].orderIndex,[T87042].rejected1
     FROM
       (( (SELECT
-              [T55721].productId,[T55721].MIN-orderIndex
+              [T88676].productId,[T88676].rejected,[T88676].MIN-productId
             FROM
               (SELECT
-                  [T9].productId, MIN([T9].orderIndex)
+                  [T15].productId, [T15].rejected, MIN([T15].productId)
                 FROM
-                  [T9]
+                  [T15]
                 GROUP BY
-                  [T9].productId) AS [T55721][productId, MIN-orderIndex]) AS [T55722][productId, MIN-orderIndex] ) JOIN (
-          input1 )) AS [T54230][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+                  [T15].productId  [T15].rejected) AS [T88676][productId, rejected, MIN-productId]) AS [T88677][productId, rejected, MIN-productId] ) JOIN (
+          input1 )) AS [T87042][productId, rejected, MIN-productId, id, productId1, orderIndex, rejected1]
     WHERE
-      [T54230].productId == [T54230].productId1
-       AND [T54230].MIN-orderIndex == [T54230].orderIndex) AS [T54454][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+      [T87042].productId >= [T87042].orderIndex
+       AND [T87042].rejected == [T87042].rejected1) AS [T87422][productId, rejected, MIN-productId, id, productId1, orderIndex, rejected1]
 
 ==== [No. 17 ] ====
 SELECT
-  [T54454].id,[T54454].productId,[T54454].MIN-orderIndex,[T54454].rejected
+  [T87422].id,[T87422].productId1,[T87422].orderIndex,[T87422].rejected
 FROM
   (SELECT
-      [T54230].productId,[T54230].MIN-orderIndex,[T54230].id,[T54230].productId1,[T54230].orderIndex,[T54230].rejected
+      [T87042].productId,[T87042].rejected,[T87042].MIN-productId,[T87042].id,[T87042].productId1,[T87042].orderIndex,[T87042].rejected1
     FROM
       (( (SELECT
-              [T55721].productId,[T55721].MIN-orderIndex
+              [T88676].productId,[T88676].rejected,[T88676].MIN-productId
             FROM
               (SELECT
-                  [T9].productId, MIN([T9].orderIndex)
+                  [T15].productId, [T15].rejected, MIN([T15].productId)
                 FROM
-                  [T9]
+                  [T15]
                 GROUP BY
-                  [T9].productId) AS [T55721][productId, MIN-orderIndex]) AS [T55722][productId, MIN-orderIndex] ) JOIN (
-          input1 )) AS [T54230][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+                  [T15].productId  [T15].rejected) AS [T88676][productId, rejected, MIN-productId]) AS [T88677][productId, rejected, MIN-productId] ) JOIN (
+          input1 )) AS [T87042][productId, rejected, MIN-productId, id, productId1, orderIndex, rejected1]
     WHERE
-      [T54230].productId == [T54230].productId1
-       AND [T54230].MIN-orderIndex == [T54230].orderIndex) AS [T54454][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+      [T87042].productId >= [T87042].orderIndex
+       AND [T87042].rejected == [T87042].rejected1) AS [T87422][productId, rejected, MIN-productId, id, productId1, orderIndex, rejected1]
 
 ==== [No. 18 ] ====
 SELECT
-  [T54454].id,[T54454].productId,[T54454].MIN-orderIndex,[T54454].rejected
+  [T87422].id,[T87422].productId1,[T87422].orderIndex,[T87422].rejected
 FROM
   (SELECT
-      [T54230].productId,[T54230].MIN-orderIndex,[T54230].id,[T54230].productId1,[T54230].orderIndex,[T54230].rejected
+      [T87042].productId,[T87042].rejected,[T87042].MIN-productId,[T87042].id,[T87042].productId1,[T87042].orderIndex,[T87042].rejected1
     FROM
       (( (SELECT
-              [T55721].productId,[T55721].MIN-orderIndex
+              [T88676].productId,[T88676].rejected,[T88676].MIN-productId
             FROM
               (SELECT
-                  [T9].productId, MIN([T9].orderIndex)
+                  [T15].productId, [T15].rejected, MIN([T15].productId)
                 FROM
-                  [T9]
+                  [T15]
                 GROUP BY
-                  [T9].productId) AS [T55721][productId, MIN-orderIndex]) AS [T55722][productId, MIN-orderIndex] ) JOIN (
-          input1 )) AS [T54230][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+                  [T15].productId  [T15].rejected) AS [T88676][productId, rejected, MIN-productId]) AS [T88677][productId, rejected, MIN-productId] ) JOIN (
+          input1 )) AS [T87042][productId, rejected, MIN-productId, id, productId1, orderIndex, rejected1]
     WHERE
-      [T54230].productId == [T54230].productId1
-       AND [T54230].MIN-orderIndex == [T54230].orderIndex) AS [T54454][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+      [T87042].productId >= [T87042].orderIndex
+       AND [T87042].rejected == [T87042].rejected1) AS [T87422][productId, rejected, MIN-productId, id, productId1, orderIndex, rejected1]
 
 ==== [No. 19 ] ====
 SELECT
-  [T54454].id,[T54454].productId,[T54454].MIN-orderIndex,[T54454].rejected
+  [T87422].id,[T87422].productId1,[T87422].orderIndex,[T87422].rejected
 FROM
   (SELECT
-      [T54230].productId,[T54230].MIN-orderIndex,[T54230].id,[T54230].productId1,[T54230].orderIndex,[T54230].rejected
+      [T87042].productId,[T87042].rejected,[T87042].MIN-productId,[T87042].id,[T87042].productId1,[T87042].orderIndex,[T87042].rejected1
     FROM
       (( (SELECT
-              [T55721].productId,[T55721].MIN-orderIndex
+              [T88676].productId,[T88676].rejected,[T88676].MIN-productId
             FROM
               (SELECT
-                  [T9].productId, MIN([T9].orderIndex)
+                  [T15].productId, [T15].rejected, MIN([T15].productId)
                 FROM
-                  [T9]
+                  [T15]
                 GROUP BY
-                  [T9].productId) AS [T55721][productId, MIN-orderIndex]) AS [T55722][productId, MIN-orderIndex] ) JOIN (
-          input1 )) AS [T54230][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+                  [T15].productId  [T15].rejected) AS [T88676][productId, rejected, MIN-productId]) AS [T88677][productId, rejected, MIN-productId] ) JOIN (
+          input1 )) AS [T87042][productId, rejected, MIN-productId, id, productId1, orderIndex, rejected1]
     WHERE
-      [T54230].productId == [T54230].productId1
-       AND [T54230].MIN-orderIndex == [T54230].orderIndex) AS [T54454][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+      [T87042].productId >= [T87042].orderIndex
+       AND [T87042].rejected == [T87042].rejected1) AS [T87422][productId, rejected, MIN-productId, id, productId1, orderIndex, rejected1]
 
-Total Tree Count: 58
-Total Query Count: 1045066
+Total Tree Count: 75
+Total Query Count: 1058490
 [Enumeration Finished]
-[[Synthesizer finished]] time: 00:00:21:59
+[[Synthesizer finished]] time: 00:00:22:851

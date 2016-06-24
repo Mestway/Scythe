@@ -10,347 +10,339 @@
 	Total Table by now: 6
 [Stage 2] EnumAggregationNode: 
 	Queries generated: 828
-	Tables generated: 58
-	Total Table by now: 64
+	Tables generated: 62
+	Total Table by now: 68
 [Stage 3] EnumJoin1 
-	Queries generated: 4278
-	Tables generated: 995
-	Total Table by now: 1059
-[Runner up Table Count] 94
-[Consistent Table number] 5
+	Queries generated: 5338
+	Tables generated: 1484
+	Total Table by now: 1552
+[Runner up Table Count] 101
+[Consistent Table number] 8
 ==== [No. 0 ] ====
 SELECT
-  [T5278].Team
+  [T6188].COUNT-Player
 FROM
   (SELECT
-      [T5275].Team,[T5275].Player,[T5275].COUNT-Team
+      [T6179].Team,[T6179].COUNT-Player
     FROM
       (SELECT
-          input1.Team, input1.Player, COUNT(input1.Team)
+          input1.Team, COUNT(input1.Player)
         FROM
           input1
         GROUP BY
-          input1.Team  input1.Player) AS [T5275][Team, Player, COUNT-Team]
+          input1.Team) AS [T6179][Team, COUNT-Player]
     WHERE
-      [T5275].COUNT-Team == 2.0) AS [T5278][Team, Player, COUNT-Team]
+      [T6179].COUNT-Player > [T6179].Team) AS [T6188][Team, COUNT-Player]
 
 ==== [No. 1 ] ====
 SELECT
-  [T5281].Team
+  [T6190].COUNT-Player
 FROM
   (SELECT
-      [T5275].Team,[T5275].Player,[T5275].COUNT-Team
+      [T6179].Team,[T6179].COUNT-Player
     FROM
       (SELECT
-          input1.Team, input1.Player, COUNT(input1.Team)
+          input1.Team, COUNT(input1.Player)
         FROM
           input1
         GROUP BY
-          input1.Team  input1.Player) AS [T5275][Team, Player, COUNT-Team]
+          input1.Team) AS [T6179][Team, COUNT-Player]
     WHERE
-      [T5275].COUNT-Team >= 2.0) AS [T5281][Team, Player, COUNT-Team]
+      [T6179].COUNT-Player >= [T6179].Team) AS [T6190][Team, COUNT-Player]
 
 ==== [No. 2 ] ====
 SELECT
-  [T5288].Team
+  [T6198].COUNT-Player
 FROM
   (SELECT
-      [T5275].Team,[T5275].Player,[T5275].COUNT-Team
+      [T6179].Team,[T6179].COUNT-Player
     FROM
       (SELECT
-          input1.Team, input1.Player, COUNT(input1.Team)
+          input1.Team, COUNT(input1.Player)
         FROM
           input1
         GROUP BY
-          input1.Team  input1.Player) AS [T5275][Team, Player, COUNT-Team]
+          input1.Team) AS [T6179][Team, COUNT-Player]
     WHERE
       
-       AND [T5275].COUNT-Team == 2.0) AS [T5288][Team, Player, COUNT-Team]
+       AND [T6179].COUNT-Player > [T6179].Team) AS [T6198][Team, COUNT-Player]
 
 ==== [No. 3 ] ====
 SELECT
-  [T5291].Team
+  [T6200].COUNT-Player
 FROM
   (SELECT
-      [T5275].Team,[T5275].Player,[T5275].COUNT-Team
+      [T6179].Team,[T6179].COUNT-Player
     FROM
       (SELECT
-          input1.Team, input1.Player, COUNT(input1.Team)
+          input1.Team, COUNT(input1.Player)
         FROM
           input1
         GROUP BY
-          input1.Team  input1.Player) AS [T5275][Team, Player, COUNT-Team]
+          input1.Team) AS [T6179][Team, COUNT-Player]
     WHERE
       
-       AND [T5275].COUNT-Team >= 2.0) AS [T5291][Team, Player, COUNT-Team]
+       AND [T6179].COUNT-Player >= [T6179].Team) AS [T6200][Team, COUNT-Player]
 
 ==== [No. 4 ] ====
 SELECT
-  [T5305].Team
+  [T6223].COUNT-Player
 FROM
   (SELECT
-      [T5275].Team,[T5275].Player,[T5275].COUNT-Team
+      [T6179].Team,[T6179].COUNT-Player
     FROM
       (SELECT
-          input1.Team, input1.Player, COUNT(input1.Team)
+          input1.Team, COUNT(input1.Player)
         FROM
           input1
         GROUP BY
-          input1.Team  input1.Player) AS [T5275][Team, Player, COUNT-Team]
+          input1.Team) AS [T6179][Team, COUNT-Player]
     WHERE
-      [T5275].COUNT-Team == 2.0
-       AND [T5275].COUNT-Team <= [T5275].Team) AS [T5305][Team, Player, COUNT-Team]
+      [T6179].COUNT-Player >= 2.0
+       AND [T6179].COUNT-Player > [T6179].Team) AS [T6223][Team, COUNT-Player]
 
 ==== [No. 5 ] ====
 SELECT
-  [T5320].Team
+  [T6225].COUNT-Player
 FROM
   (SELECT
-      [T5275].Team,[T5275].Player,[T5275].COUNT-Team
+      [T6179].Team,[T6179].COUNT-Player
     FROM
       (SELECT
-          input1.Team, input1.Player, COUNT(input1.Team)
+          input1.Team, COUNT(input1.Player)
         FROM
           input1
         GROUP BY
-          input1.Team  input1.Player) AS [T5275][Team, Player, COUNT-Team]
+          input1.Team) AS [T6179][Team, COUNT-Player]
     WHERE
-      [T5275].COUNT-Team >= 2.0
-       AND [T5275].COUNT-Team <= [T5275].Team) AS [T5320][Team, Player, COUNT-Team]
+      [T6179].COUNT-Player >= 2.0
+       AND [T6179].COUNT-Player >= [T6179].Team) AS [T6225][Team, COUNT-Player]
 
 ==== [No. 6 ] ====
 SELECT
-  [T5325].Team
+  [T6363].COUNT-Player
 FROM
   (SELECT
-      [T5322].Team,[T5322].Player,[T5322].COUNT-Player
+      [T6362].Team,[T6362].COUNT-Player
     FROM
       (SELECT
-          input1.Team, input1.Player, COUNT(input1.Player)
+          [T5].Team, COUNT([T5].Player)
         FROM
-          input1
+          [T5]
         GROUP BY
-          input1.Team  input1.Player) AS [T5322][Team, Player, COUNT-Player]
-    WHERE
-      [T5322].COUNT-Player == 2.0) AS [T5325][Team, Player, COUNT-Player]
+          [T5].Team) AS [T6362][Team, COUNT-Player]) AS [T6363][Team, COUNT-Player]
 
 ==== [No. 7 ] ====
 SELECT
-  [T5328].Team
+  [T6363].COUNT-Player
 FROM
   (SELECT
-      [T5322].Team,[T5322].Player,[T5322].COUNT-Player
+      [T6362].Team,[T6362].COUNT-Player
     FROM
       (SELECT
-          input1.Team, input1.Player, COUNT(input1.Player)
+          [T5].Team, COUNT([T5].Player)
         FROM
-          input1
+          [T5]
         GROUP BY
-          input1.Team  input1.Player) AS [T5322][Team, Player, COUNT-Player]
-    WHERE
-      [T5322].COUNT-Player >= 2.0) AS [T5328][Team, Player, COUNT-Player]
+          [T5].Team) AS [T6362][Team, COUNT-Player]) AS [T6363][Team, COUNT-Player]
 
 ==== [No. 8 ] ====
 SELECT
-  [T5335].Team
+  [T6368].COUNT-Player
 FROM
   (SELECT
-      [T5322].Team,[T5322].Player,[T5322].COUNT-Player
+      [T6362].Team,[T6362].COUNT-Player
     FROM
       (SELECT
-          input1.Team, input1.Player, COUNT(input1.Player)
+          [T5].Team, COUNT([T5].Player)
         FROM
-          input1
+          [T5]
         GROUP BY
-          input1.Team  input1.Player) AS [T5322][Team, Player, COUNT-Player]
+          [T5].Team) AS [T6362][Team, COUNT-Player]
     WHERE
-      
-       AND [T5322].COUNT-Player == 2.0) AS [T5335][Team, Player, COUNT-Player]
+      [T6362].COUNT-Player >= 2.0) AS [T6368][Team, COUNT-Player]
 
 ==== [No. 9 ] ====
 SELECT
-  [T5338].Team
+  [T6368].COUNT-Player
 FROM
   (SELECT
-      [T5322].Team,[T5322].Player,[T5322].COUNT-Player
+      [T6362].Team,[T6362].COUNT-Player
     FROM
       (SELECT
-          input1.Team, input1.Player, COUNT(input1.Player)
+          [T5].Team, COUNT([T5].Player)
         FROM
-          input1
+          [T5]
         GROUP BY
-          input1.Team  input1.Player) AS [T5322][Team, Player, COUNT-Player]
+          [T5].Team) AS [T6362][Team, COUNT-Player]
     WHERE
-      
-       AND [T5322].COUNT-Player >= 2.0) AS [T5338][Team, Player, COUNT-Player]
+      [T6362].COUNT-Player >= 2.0) AS [T6368][Team, COUNT-Player]
 
 ==== [No. 10 ] ====
 SELECT
-  [T5549].Team
+  [T6371].COUNT-Player
 FROM
   (SELECT
-      [T5546].Team,[T5546].Player,[T5546].COUNT-Team
+      [T6362].Team,[T6362].COUNT-Player
     FROM
       (SELECT
-          [T6].Team, [T6].Player, COUNT([T6].Team)
+          [T5].Team, COUNT([T5].Player)
         FROM
-          [T6]
+          [T5]
         GROUP BY
-          [T6].Team  [T6].Player) AS [T5546][Team, Player, COUNT-Team]
+          [T5].Team) AS [T6362][Team, COUNT-Player]
     WHERE
-      [T5546].COUNT-Team == 2.0) AS [T5549][Team, Player, COUNT-Team]
+      [T6362].COUNT-Player > [T6362].Team) AS [T6371][Team, COUNT-Player]
 
 ==== [No. 11 ] ====
 SELECT
-  [T5549].Team
+  [T6371].COUNT-Player
 FROM
   (SELECT
-      [T5546].Team,[T5546].Player,[T5546].COUNT-Team
+      [T6362].Team,[T6362].COUNT-Player
     FROM
       (SELECT
-          [T6].Team, [T6].Player, COUNT([T6].Team)
+          [T5].Team, COUNT([T5].Player)
         FROM
-          [T6]
+          [T5]
         GROUP BY
-          [T6].Team  [T6].Player) AS [T5546][Team, Player, COUNT-Team]
+          [T5].Team) AS [T6362][Team, COUNT-Player]
     WHERE
-      [T5546].COUNT-Team == 2.0) AS [T5549][Team, Player, COUNT-Team]
+      [T6362].COUNT-Player > [T6362].Team) AS [T6371][Team, COUNT-Player]
 
 ==== [No. 12 ] ====
 SELECT
-  [T5552].Team
+  [T6373].COUNT-Player
 FROM
   (SELECT
-      [T5546].Team,[T5546].Player,[T5546].COUNT-Team
+      [T6362].Team,[T6362].COUNT-Player
     FROM
       (SELECT
-          [T6].Team, [T6].Player, COUNT([T6].Team)
+          [T5].Team, COUNT([T5].Player)
         FROM
-          [T6]
+          [T5]
         GROUP BY
-          [T6].Team  [T6].Player) AS [T5546][Team, Player, COUNT-Team]
+          [T5].Team) AS [T6362][Team, COUNT-Player]
     WHERE
-      [T5546].COUNT-Team >= 2.0) AS [T5552][Team, Player, COUNT-Team]
+      [T6362].COUNT-Player >= [T6362].Team) AS [T6373][Team, COUNT-Player]
 
 ==== [No. 13 ] ====
 SELECT
-  [T5552].Team
+  [T6373].COUNT-Player
 FROM
   (SELECT
-      [T5546].Team,[T5546].Player,[T5546].COUNT-Team
+      [T6362].Team,[T6362].COUNT-Player
     FROM
       (SELECT
-          [T6].Team, [T6].Player, COUNT([T6].Team)
+          [T5].Team, COUNT([T5].Player)
         FROM
-          [T6]
+          [T5]
         GROUP BY
-          [T6].Team  [T6].Player) AS [T5546][Team, Player, COUNT-Team]
+          [T5].Team) AS [T6362][Team, COUNT-Player]
     WHERE
-      [T5546].COUNT-Team >= 2.0) AS [T5552][Team, Player, COUNT-Team]
+      [T6362].COUNT-Player >= [T6362].Team) AS [T6373][Team, COUNT-Player]
 
 ==== [No. 14 ] ====
 SELECT
-  [T5559].Team
+  [T6378].COUNT-Player
 FROM
   (SELECT
-      [T5546].Team,[T5546].Player,[T5546].COUNT-Team
+      [T6362].Team,[T6362].COUNT-Player
     FROM
       (SELECT
-          [T6].Team, [T6].Player, COUNT([T6].Team)
+          [T5].Team, COUNT([T5].Player)
         FROM
-          [T6]
+          [T5]
         GROUP BY
-          [T6].Team  [T6].Player) AS [T5546][Team, Player, COUNT-Team]
+          [T5].Team) AS [T6362][Team, COUNT-Player]
     WHERE
       
-       AND [T5546].COUNT-Team == 2.0) AS [T5559][Team, Player, COUNT-Team]
+       AND [T6362].COUNT-Player >= 2.0) AS [T6378][Team, COUNT-Player]
 
 ==== [No. 15 ] ====
 SELECT
-  [T5559].Team
+  [T6378].COUNT-Player
 FROM
   (SELECT
-      [T5546].Team,[T5546].Player,[T5546].COUNT-Team
+      [T6362].Team,[T6362].COUNT-Player
     FROM
       (SELECT
-          [T6].Team, [T6].Player, COUNT([T6].Team)
+          [T5].Team, COUNT([T5].Player)
         FROM
-          [T6]
+          [T5]
         GROUP BY
-          [T6].Team  [T6].Player) AS [T5546][Team, Player, COUNT-Team]
+          [T5].Team) AS [T6362][Team, COUNT-Player]
     WHERE
       
-       AND [T5546].COUNT-Team == 2.0) AS [T5559][Team, Player, COUNT-Team]
+       AND [T6362].COUNT-Player >= 2.0) AS [T6378][Team, COUNT-Player]
 
 ==== [No. 16 ] ====
 SELECT
-  [T5562].Team
+  [T6727].Team
 FROM
   (SELECT
-      [T5546].Team,[T5546].Player,[T5546].COUNT-Team
+      [T6721].Team,[T6721].COUNT-Player
     FROM
       (SELECT
-          [T6].Team, [T6].Player, COUNT([T6].Team)
+          [T6].Team, COUNT([T6].Player)
         FROM
           [T6]
         GROUP BY
-          [T6].Team  [T6].Player) AS [T5546][Team, Player, COUNT-Team]
+          [T6].Team) AS [T6721][Team, COUNT-Player]
     WHERE
-      
-       AND [T5546].COUNT-Team >= 2.0) AS [T5562][Team, Player, COUNT-Team]
+      [T6721].COUNT-Player >= 2.0) AS [T6727][Team, COUNT-Player]
 
 ==== [No. 17 ] ====
 SELECT
-  [T5562].Team
+  [T6727].Team
 FROM
   (SELECT
-      [T5546].Team,[T5546].Player,[T5546].COUNT-Team
+      [T6721].Team,[T6721].COUNT-Player
     FROM
       (SELECT
-          [T6].Team, [T6].Player, COUNT([T6].Team)
+          [T6].Team, COUNT([T6].Player)
         FROM
           [T6]
         GROUP BY
-          [T6].Team  [T6].Player) AS [T5546][Team, Player, COUNT-Team]
+          [T6].Team) AS [T6721][Team, COUNT-Player]
     WHERE
-      
-       AND [T5546].COUNT-Team >= 2.0) AS [T5562][Team, Player, COUNT-Team]
+      [T6721].COUNT-Player >= 2.0) AS [T6727][Team, COUNT-Player]
 
 ==== [No. 18 ] ====
 SELECT
-  [T5576].Team
+  [T6737].Team
 FROM
   (SELECT
-      [T5546].Team,[T5546].Player,[T5546].COUNT-Team
+      [T6721].Team,[T6721].COUNT-Player
     FROM
       (SELECT
-          [T6].Team, [T6].Player, COUNT([T6].Team)
+          [T6].Team, COUNT([T6].Player)
         FROM
           [T6]
         GROUP BY
-          [T6].Team  [T6].Player) AS [T5546][Team, Player, COUNT-Team]
+          [T6].Team) AS [T6721][Team, COUNT-Player]
     WHERE
-      [T5546].COUNT-Team == 2.0
-       AND [T5546].COUNT-Team <= [T5546].Team) AS [T5576][Team, Player, COUNT-Team]
+      
+       AND [T6721].COUNT-Player >= 2.0) AS [T6737][Team, COUNT-Player]
 
 ==== [No. 19 ] ====
 SELECT
-  [T5576].Team
+  [T6737].Team
 FROM
   (SELECT
-      [T5546].Team,[T5546].Player,[T5546].COUNT-Team
+      [T6721].Team,[T6721].COUNT-Player
     FROM
       (SELECT
-          [T6].Team, [T6].Player, COUNT([T6].Team)
+          [T6].Team, COUNT([T6].Player)
         FROM
           [T6]
         GROUP BY
-          [T6].Team  [T6].Player) AS [T5546][Team, Player, COUNT-Team]
+          [T6].Team) AS [T6721][Team, COUNT-Player]
     WHERE
-      [T5546].COUNT-Team == 2.0
-       AND [T5546].COUNT-Team <= [T5546].Team) AS [T5576][Team, Player, COUNT-Team]
+      
+       AND [T6721].COUNT-Player >= 2.0) AS [T6737][Team, COUNT-Player]
 
-Total Tree Count: 7
-Total Query Count: 788
+Total Tree Count: 13
+Total Query Count: 302
 [Enumeration Finished]
-[[Synthesizer finished]] time: 00:00:01:261
+[[Synthesizer finished]] time: 00:00:01:638

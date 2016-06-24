@@ -9,452 +9,464 @@
 	Tables generated: 1
 	Total Table by now: 1
 [Stage 2] EnumAggregationNode: 
-	Queries generated: 83
-	Tables generated: 12
-	Total Table by now: 13
+	Queries generated: 533
+	Tables generated: 38
+	Total Table by now: 39
 [Stage 3] EnumJoin1 
-	Queries generated: 5094
-	Tables generated: 89
-	Total Table by now: 102
-[Runner up Table Count] 23
-[Consistent Table number] 4
+	Queries generated: 20317
+	Tables generated: 474
+	Total Table by now: 513
+[Runner up Table Count] 12
+[Consistent Table number] 2
 ==== [No. 0 ] ====
 SELECT
-  [T6882].acct_id,[T6882].Bill_Id,[T6882].Bill_dt,[T6882].MAX-alt_bill_id
+  [T22635].acct_id,[T22635].Bill_Id,[T22635].Bill_dt,[T22635].MAX-alt_bill_id
 FROM
   (SELECT
-      [T6853].acct_id,[T6853].MAX-alt_bill_id,[T6853].acct_id1,[T6853].Bill_Id,[T6853].Bill_dt,[T6853].alt_bill_id
+      [T22526].acct_id,[T22526].MAX-alt_bill_id,[T22526].acct_id1,[T22526].Bill_Id,[T22526].Bill_dt,[T22526].alt_bill_id
     FROM
       (( (SELECT
-              [T7306].acct_id,[T7306].MAX-alt_bill_id
+              [T22979].acct_id,[T22979].MAX-alt_bill_id
             FROM
               (SELECT
                   input1.acct_id, MAX(input1.alt_bill_id)
                 FROM
                   input1
                 GROUP BY
-                  input1.acct_id) AS [T7306][acct_id, MAX-alt_bill_id]) AS [T7307][acct_id, MAX-alt_bill_id] ) JOIN (
-          input1 )) AS [T6853][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+                  input1.acct_id) AS [T22979][acct_id, MAX-alt_bill_id]) AS [T22980][acct_id, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T22526][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
     WHERE
-      [T6853].MAX-alt_bill_id == [T6853].alt_bill_id) AS [T6882][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+      [T22526].acct_id == [T22526].acct_id1
+       AND [T22526].MAX-alt_bill_id == [T22526].alt_bill_id) AS [T22635][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
 
 ==== [No. 1 ] ====
 SELECT
-  [T6882].acct_id,[T6882].Bill_Id,[T6882].Bill_dt,[T6882].MAX-alt_bill_id
+  [T22635].acct_id,[T22635].Bill_Id,[T22635].Bill_dt,[T22635].MAX-alt_bill_id
 FROM
   (SELECT
-      [T6853].acct_id,[T6853].MAX-alt_bill_id,[T6853].acct_id1,[T6853].Bill_Id,[T6853].Bill_dt,[T6853].alt_bill_id
+      [T22526].acct_id,[T22526].MAX-alt_bill_id,[T22526].acct_id1,[T22526].Bill_Id,[T22526].Bill_dt,[T22526].alt_bill_id
     FROM
       (( (SELECT
-              [T7306].acct_id,[T7306].MAX-alt_bill_id
+              [T22979].acct_id,[T22979].MAX-alt_bill_id
             FROM
               (SELECT
                   input1.acct_id, MAX(input1.alt_bill_id)
                 FROM
                   input1
                 GROUP BY
-                  input1.acct_id) AS [T7306][acct_id, MAX-alt_bill_id]
+                  input1.acct_id) AS [T22979][acct_id, MAX-alt_bill_id]
             WHERE
-              [T7306].MAX-alt_bill_id < [T7306].acct_id) AS [T7308][acct_id, MAX-alt_bill_id] ) JOIN (
-          input1 )) AS [T6853][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+              [T22979].MAX-alt_bill_id < [T22979].acct_id) AS [T22981][acct_id, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T22526][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
     WHERE
-      [T6853].MAX-alt_bill_id == [T6853].alt_bill_id) AS [T6882][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+      [T22526].acct_id == [T22526].acct_id1
+       AND [T22526].MAX-alt_bill_id == [T22526].alt_bill_id) AS [T22635][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
 
 ==== [No. 2 ] ====
 SELECT
-  [T6882].acct_id,[T6882].Bill_Id,[T6882].Bill_dt,[T6882].MAX-alt_bill_id
+  [T22635].acct_id,[T22635].Bill_Id,[T22635].Bill_dt,[T22635].MAX-alt_bill_id
 FROM
   (SELECT
-      [T6853].acct_id,[T6853].MAX-alt_bill_id,[T6853].acct_id1,[T6853].Bill_Id,[T6853].Bill_dt,[T6853].alt_bill_id
+      [T22526].acct_id,[T22526].MAX-alt_bill_id,[T22526].acct_id1,[T22526].Bill_Id,[T22526].Bill_dt,[T22526].alt_bill_id
     FROM
       (( (SELECT
-              [T7306].acct_id,[T7306].MAX-alt_bill_id
+              [T22979].acct_id,[T22979].MAX-alt_bill_id
             FROM
               (SELECT
                   input1.acct_id, MAX(input1.alt_bill_id)
                 FROM
                   input1
                 GROUP BY
-                  input1.acct_id) AS [T7306][acct_id, MAX-alt_bill_id]
+                  input1.acct_id) AS [T22979][acct_id, MAX-alt_bill_id]
             WHERE
-              [T7306].MAX-alt_bill_id <= [T7306].acct_id) AS [T7311][acct_id, MAX-alt_bill_id] ) JOIN (
-          input1 )) AS [T6853][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+              [T22979].MAX-alt_bill_id <= [T22979].acct_id) AS [T22984][acct_id, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T22526][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
     WHERE
-      [T6853].MAX-alt_bill_id == [T6853].alt_bill_id) AS [T6882][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+      [T22526].acct_id == [T22526].acct_id1
+       AND [T22526].MAX-alt_bill_id == [T22526].alt_bill_id) AS [T22635][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
 
 ==== [No. 3 ] ====
 SELECT
-  [T6882].acct_id,[T6882].Bill_Id,[T6882].Bill_dt,[T6882].MAX-alt_bill_id
+  [T22635].acct_id,[T22635].Bill_Id,[T22635].Bill_dt,[T22635].MAX-alt_bill_id
 FROM
   (SELECT
-      [T6853].acct_id,[T6853].MAX-alt_bill_id,[T6853].acct_id1,[T6853].Bill_Id,[T6853].Bill_dt,[T6853].alt_bill_id
+      [T22526].acct_id,[T22526].MAX-alt_bill_id,[T22526].acct_id1,[T22526].Bill_Id,[T22526].Bill_dt,[T22526].alt_bill_id
     FROM
       (( (SELECT
-              [T7306].acct_id,[T7306].MAX-alt_bill_id
+              [T22979].acct_id,[T22979].MAX-alt_bill_id
             FROM
               (SELECT
                   input1.acct_id, MAX(input1.alt_bill_id)
                 FROM
                   input1
                 GROUP BY
-                  input1.acct_id) AS [T7306][acct_id, MAX-alt_bill_id]
+                  input1.acct_id) AS [T22979][acct_id, MAX-alt_bill_id]
             WHERE
               
-               AND [T7306].MAX-alt_bill_id < [T7306].acct_id) AS [T7313][acct_id, MAX-alt_bill_id] ) JOIN (
-          input1 )) AS [T6853][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+               AND [T22979].MAX-alt_bill_id < [T22979].acct_id) AS [T22986][acct_id, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T22526][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
     WHERE
-      [T6853].MAX-alt_bill_id == [T6853].alt_bill_id) AS [T6882][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+      [T22526].acct_id == [T22526].acct_id1
+       AND [T22526].MAX-alt_bill_id == [T22526].alt_bill_id) AS [T22635][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
 
 ==== [No. 4 ] ====
 SELECT
-  [T6882].acct_id,[T6882].Bill_Id,[T6882].Bill_dt,[T6882].MAX-alt_bill_id
+  [T22635].acct_id,[T22635].Bill_Id,[T22635].Bill_dt,[T22635].MAX-alt_bill_id
 FROM
   (SELECT
-      [T6853].acct_id,[T6853].MAX-alt_bill_id,[T6853].acct_id1,[T6853].Bill_Id,[T6853].Bill_dt,[T6853].alt_bill_id
+      [T22526].acct_id,[T22526].MAX-alt_bill_id,[T22526].acct_id1,[T22526].Bill_Id,[T22526].Bill_dt,[T22526].alt_bill_id
     FROM
       (( (SELECT
-              [T7306].acct_id,[T7306].MAX-alt_bill_id
+              [T22979].acct_id,[T22979].MAX-alt_bill_id
             FROM
               (SELECT
                   input1.acct_id, MAX(input1.alt_bill_id)
                 FROM
                   input1
                 GROUP BY
-                  input1.acct_id) AS [T7306][acct_id, MAX-alt_bill_id]
+                  input1.acct_id) AS [T22979][acct_id, MAX-alt_bill_id]
             WHERE
               
-               AND [T7306].MAX-alt_bill_id <= [T7306].acct_id) AS [T7316][acct_id, MAX-alt_bill_id] ) JOIN (
-          input1 )) AS [T6853][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+               AND [T22979].MAX-alt_bill_id <= [T22979].acct_id) AS [T22989][acct_id, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T22526][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
     WHERE
-      [T6853].MAX-alt_bill_id == [T6853].alt_bill_id) AS [T6882][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+      [T22526].acct_id == [T22526].acct_id1
+       AND [T22526].MAX-alt_bill_id == [T22526].alt_bill_id) AS [T22635][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
 
 ==== [No. 5 ] ====
 SELECT
-  [T6882].acct_id,[T6882].Bill_Id,[T6882].Bill_dt,[T6882].MAX-alt_bill_id
+  [T22635].acct_id,[T22635].Bill_Id,[T22635].Bill_dt,[T22635].MAX-alt_bill_id
 FROM
   (SELECT
-      [T6853].acct_id,[T6853].MAX-alt_bill_id,[T6853].acct_id1,[T6853].Bill_Id,[T6853].Bill_dt,[T6853].alt_bill_id
+      [T22526].acct_id,[T22526].MAX-alt_bill_id,[T22526].acct_id1,[T22526].Bill_Id,[T22526].Bill_dt,[T22526].alt_bill_id
     FROM
       (( (SELECT
               input1.acct_id, MAX(input1.alt_bill_id)
             FROM
               input1
             GROUP BY
-              input1.acct_id) AS [T7306][acct_id, MAX-alt_bill_id] ) JOIN (
-          input1 )) AS [T6853][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+              input1.acct_id) AS [T22979][acct_id, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T22526][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
     WHERE
-      [T6853].MAX-alt_bill_id == [T6853].alt_bill_id) AS [T6882][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+      [T22526].acct_id == [T22526].acct_id1
+       AND [T22526].MAX-alt_bill_id == [T22526].alt_bill_id) AS [T22635][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
 
 ==== [No. 6 ] ====
 SELECT
-  [T6912].acct_id,[T6912].Bill_Id,[T6912].Bill_dt,[T6912].MAX-alt_bill_id
+  [T22637].acct_id,[T22637].Bill_Id,[T22637].Bill_dt,[T22637].MAX-alt_bill_id
 FROM
   (SELECT
-      [T6853].acct_id,[T6853].MAX-alt_bill_id,[T6853].acct_id1,[T6853].Bill_Id,[T6853].Bill_dt,[T6853].alt_bill_id
+      [T22526].acct_id,[T22526].MAX-alt_bill_id,[T22526].acct_id1,[T22526].Bill_Id,[T22526].Bill_dt,[T22526].alt_bill_id
     FROM
       (( (SELECT
-              [T7306].acct_id,[T7306].MAX-alt_bill_id
+              [T22979].acct_id,[T22979].MAX-alt_bill_id
             FROM
               (SELECT
                   input1.acct_id, MAX(input1.alt_bill_id)
                 FROM
                   input1
                 GROUP BY
-                  input1.acct_id) AS [T7306][acct_id, MAX-alt_bill_id]) AS [T7307][acct_id, MAX-alt_bill_id] ) JOIN (
-          input1 )) AS [T6853][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+                  input1.acct_id) AS [T22979][acct_id, MAX-alt_bill_id]) AS [T22980][acct_id, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T22526][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
     WHERE
-      
-       AND [T6853].MAX-alt_bill_id == [T6853].alt_bill_id) AS [T6912][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+      [T22526].acct_id == [T22526].acct_id1
+       AND [T22526].MAX-alt_bill_id <= [T22526].alt_bill_id) AS [T22637][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
 
 ==== [No. 7 ] ====
 SELECT
-  [T6912].acct_id,[T6912].Bill_Id,[T6912].Bill_dt,[T6912].MAX-alt_bill_id
+  [T22637].acct_id,[T22637].Bill_Id,[T22637].Bill_dt,[T22637].MAX-alt_bill_id
 FROM
   (SELECT
-      [T6853].acct_id,[T6853].MAX-alt_bill_id,[T6853].acct_id1,[T6853].Bill_Id,[T6853].Bill_dt,[T6853].alt_bill_id
+      [T22526].acct_id,[T22526].MAX-alt_bill_id,[T22526].acct_id1,[T22526].Bill_Id,[T22526].Bill_dt,[T22526].alt_bill_id
     FROM
       (( (SELECT
-              [T7306].acct_id,[T7306].MAX-alt_bill_id
+              [T22979].acct_id,[T22979].MAX-alt_bill_id
             FROM
               (SELECT
                   input1.acct_id, MAX(input1.alt_bill_id)
                 FROM
                   input1
                 GROUP BY
-                  input1.acct_id) AS [T7306][acct_id, MAX-alt_bill_id]
+                  input1.acct_id) AS [T22979][acct_id, MAX-alt_bill_id]
             WHERE
-              [T7306].MAX-alt_bill_id < [T7306].acct_id) AS [T7308][acct_id, MAX-alt_bill_id] ) JOIN (
-          input1 )) AS [T6853][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+              [T22979].MAX-alt_bill_id < [T22979].acct_id) AS [T22981][acct_id, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T22526][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
     WHERE
-      
-       AND [T6853].MAX-alt_bill_id == [T6853].alt_bill_id) AS [T6912][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+      [T22526].acct_id == [T22526].acct_id1
+       AND [T22526].MAX-alt_bill_id <= [T22526].alt_bill_id) AS [T22637][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
 
 ==== [No. 8 ] ====
 SELECT
-  [T6912].acct_id,[T6912].Bill_Id,[T6912].Bill_dt,[T6912].MAX-alt_bill_id
+  [T22637].acct_id,[T22637].Bill_Id,[T22637].Bill_dt,[T22637].MAX-alt_bill_id
 FROM
   (SELECT
-      [T6853].acct_id,[T6853].MAX-alt_bill_id,[T6853].acct_id1,[T6853].Bill_Id,[T6853].Bill_dt,[T6853].alt_bill_id
+      [T22526].acct_id,[T22526].MAX-alt_bill_id,[T22526].acct_id1,[T22526].Bill_Id,[T22526].Bill_dt,[T22526].alt_bill_id
     FROM
       (( (SELECT
-              [T7306].acct_id,[T7306].MAX-alt_bill_id
+              [T22979].acct_id,[T22979].MAX-alt_bill_id
             FROM
               (SELECT
                   input1.acct_id, MAX(input1.alt_bill_id)
                 FROM
                   input1
                 GROUP BY
-                  input1.acct_id) AS [T7306][acct_id, MAX-alt_bill_id]
+                  input1.acct_id) AS [T22979][acct_id, MAX-alt_bill_id]
             WHERE
-              [T7306].MAX-alt_bill_id <= [T7306].acct_id) AS [T7311][acct_id, MAX-alt_bill_id] ) JOIN (
-          input1 )) AS [T6853][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+              [T22979].MAX-alt_bill_id <= [T22979].acct_id) AS [T22984][acct_id, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T22526][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
     WHERE
-      
-       AND [T6853].MAX-alt_bill_id == [T6853].alt_bill_id) AS [T6912][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+      [T22526].acct_id == [T22526].acct_id1
+       AND [T22526].MAX-alt_bill_id <= [T22526].alt_bill_id) AS [T22637][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
 
 ==== [No. 9 ] ====
 SELECT
-  [T6912].acct_id,[T6912].Bill_Id,[T6912].Bill_dt,[T6912].MAX-alt_bill_id
+  [T22637].acct_id,[T22637].Bill_Id,[T22637].Bill_dt,[T22637].MAX-alt_bill_id
 FROM
   (SELECT
-      [T6853].acct_id,[T6853].MAX-alt_bill_id,[T6853].acct_id1,[T6853].Bill_Id,[T6853].Bill_dt,[T6853].alt_bill_id
+      [T22526].acct_id,[T22526].MAX-alt_bill_id,[T22526].acct_id1,[T22526].Bill_Id,[T22526].Bill_dt,[T22526].alt_bill_id
     FROM
       (( (SELECT
-              [T7306].acct_id,[T7306].MAX-alt_bill_id
+              [T22979].acct_id,[T22979].MAX-alt_bill_id
             FROM
               (SELECT
                   input1.acct_id, MAX(input1.alt_bill_id)
                 FROM
                   input1
                 GROUP BY
-                  input1.acct_id) AS [T7306][acct_id, MAX-alt_bill_id]
+                  input1.acct_id) AS [T22979][acct_id, MAX-alt_bill_id]
             WHERE
               
-               AND [T7306].MAX-alt_bill_id < [T7306].acct_id) AS [T7313][acct_id, MAX-alt_bill_id] ) JOIN (
-          input1 )) AS [T6853][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+               AND [T22979].MAX-alt_bill_id < [T22979].acct_id) AS [T22986][acct_id, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T22526][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
     WHERE
-      
-       AND [T6853].MAX-alt_bill_id == [T6853].alt_bill_id) AS [T6912][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+      [T22526].acct_id == [T22526].acct_id1
+       AND [T22526].MAX-alt_bill_id <= [T22526].alt_bill_id) AS [T22637][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
 
 ==== [No. 10 ] ====
 SELECT
-  [T8782].acct_id,[T8782].MAX-Bill_Id,[T8782].Bill_dt,[T8782].alt_bill_id
+  [T25005].acct_id,[T25005].Bill_Id,[T25005].Bill_dt,[T25005].MAX-alt_bill_id
 FROM
   (SELECT
-      [T8753].acct_id,[T8753].Bill_dt,[T8753].MAX-Bill_Id,[T8753].acct_id1,[T8753].Bill_Id,[T8753].Bill_dt1,[T8753].alt_bill_id
+      [T24876].acct_id,[T24876].Bill_dt,[T24876].MAX-alt_bill_id,[T24876].acct_id1,[T24876].Bill_Id,[T24876].Bill_dt1,[T24876].alt_bill_id
     FROM
       (( (SELECT
-              [T10626].acct_id,[T10626].Bill_dt,[T10626].MAX-Bill_Id
+              [T26971].acct_id,[T26971].Bill_dt,[T26971].MAX-alt_bill_id
             FROM
               (SELECT
-                  input1.acct_id, input1.Bill_dt, MAX(input1.Bill_Id)
+                  input1.acct_id, input1.Bill_dt, MAX(input1.alt_bill_id)
                 FROM
                   input1
                 GROUP BY
-                  input1.acct_id  input1.Bill_dt) AS [T10626][acct_id, Bill_dt, MAX-Bill_Id]) AS [T10627][acct_id, Bill_dt, MAX-Bill_Id] ) JOIN (
-          input1 )) AS [T8753][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
+                  input1.acct_id  input1.Bill_dt) AS [T26971][acct_id, Bill_dt, MAX-alt_bill_id]) AS [T26972][acct_id, Bill_dt, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T24876][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
     WHERE
-      [T8753].MAX-Bill_Id == [T8753].Bill_Id) AS [T8782][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
+      [T24876].acct_id == [T24876].acct_id1
+       AND [T24876].MAX-alt_bill_id == [T24876].alt_bill_id) AS [T25005][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
 
 ==== [No. 11 ] ====
 SELECT
-  [T8782].acct_id,[T8782].MAX-Bill_Id,[T8782].Bill_dt,[T8782].alt_bill_id
+  [T25005].acct_id,[T25005].Bill_Id,[T25005].Bill_dt,[T25005].MAX-alt_bill_id
 FROM
   (SELECT
-      [T8753].acct_id,[T8753].Bill_dt,[T8753].MAX-Bill_Id,[T8753].acct_id1,[T8753].Bill_Id,[T8753].Bill_dt1,[T8753].alt_bill_id
+      [T24876].acct_id,[T24876].Bill_dt,[T24876].MAX-alt_bill_id,[T24876].acct_id1,[T24876].Bill_Id,[T24876].Bill_dt1,[T24876].alt_bill_id
     FROM
       (( (SELECT
-              [T10626].acct_id,[T10626].Bill_dt,[T10626].MAX-Bill_Id
+              [T26971].acct_id,[T26971].Bill_dt,[T26971].MAX-alt_bill_id
             FROM
               (SELECT
-                  input1.acct_id, input1.Bill_dt, MAX(input1.Bill_Id)
+                  input1.acct_id, input1.Bill_dt, MAX(input1.alt_bill_id)
                 FROM
                   input1
                 GROUP BY
-                  input1.acct_id  input1.Bill_dt) AS [T10626][acct_id, Bill_dt, MAX-Bill_Id]
+                  input1.acct_id  input1.Bill_dt) AS [T26971][acct_id, Bill_dt, MAX-alt_bill_id]
             WHERE
-              [T10626].MAX-Bill_Id > [T10626].acct_id) AS [T10630][acct_id, Bill_dt, MAX-Bill_Id] ) JOIN (
-          input1 )) AS [T8753][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
+              [T26971].MAX-alt_bill_id < [T26971].acct_id) AS [T26973][acct_id, Bill_dt, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T24876][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
     WHERE
-      [T8753].MAX-Bill_Id == [T8753].Bill_Id) AS [T8782][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
+      [T24876].acct_id == [T24876].acct_id1
+       AND [T24876].MAX-alt_bill_id == [T24876].alt_bill_id) AS [T25005][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
 
 ==== [No. 12 ] ====
 SELECT
-  [T8782].acct_id,[T8782].MAX-Bill_Id,[T8782].Bill_dt,[T8782].alt_bill_id
+  [T25005].acct_id,[T25005].Bill_Id,[T25005].Bill_dt,[T25005].MAX-alt_bill_id
 FROM
   (SELECT
-      [T8753].acct_id,[T8753].Bill_dt,[T8753].MAX-Bill_Id,[T8753].acct_id1,[T8753].Bill_Id,[T8753].Bill_dt1,[T8753].alt_bill_id
+      [T24876].acct_id,[T24876].Bill_dt,[T24876].MAX-alt_bill_id,[T24876].acct_id1,[T24876].Bill_Id,[T24876].Bill_dt1,[T24876].alt_bill_id
     FROM
       (( (SELECT
-              [T10626].acct_id,[T10626].Bill_dt,[T10626].MAX-Bill_Id
+              [T26971].acct_id,[T26971].Bill_dt,[T26971].MAX-alt_bill_id
             FROM
               (SELECT
-                  input1.acct_id, input1.Bill_dt, MAX(input1.Bill_Id)
+                  input1.acct_id, input1.Bill_dt, MAX(input1.alt_bill_id)
                 FROM
                   input1
                 GROUP BY
-                  input1.acct_id  input1.Bill_dt) AS [T10626][acct_id, Bill_dt, MAX-Bill_Id]
+                  input1.acct_id  input1.Bill_dt) AS [T26971][acct_id, Bill_dt, MAX-alt_bill_id]
             WHERE
-              [T10626].MAX-Bill_Id >= [T10626].acct_id) AS [T10632][acct_id, Bill_dt, MAX-Bill_Id] ) JOIN (
-          input1 )) AS [T8753][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
+              [T26971].MAX-alt_bill_id <= [T26971].acct_id) AS [T26976][acct_id, Bill_dt, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T24876][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
     WHERE
-      [T8753].MAX-Bill_Id == [T8753].Bill_Id) AS [T8782][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
+      [T24876].acct_id == [T24876].acct_id1
+       AND [T24876].MAX-alt_bill_id == [T24876].alt_bill_id) AS [T25005][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
 
 ==== [No. 13 ] ====
 SELECT
-  [T8782].acct_id,[T8782].MAX-Bill_Id,[T8782].Bill_dt,[T8782].alt_bill_id
+  [T25005].acct_id,[T25005].Bill_Id,[T25005].Bill_dt,[T25005].MAX-alt_bill_id
 FROM
   (SELECT
-      [T8753].acct_id,[T8753].Bill_dt,[T8753].MAX-Bill_Id,[T8753].acct_id1,[T8753].Bill_Id,[T8753].Bill_dt1,[T8753].alt_bill_id
+      [T24876].acct_id,[T24876].Bill_dt,[T24876].MAX-alt_bill_id,[T24876].acct_id1,[T24876].Bill_Id,[T24876].Bill_dt1,[T24876].alt_bill_id
     FROM
       (( (SELECT
-              [T10626].acct_id,[T10626].Bill_dt,[T10626].MAX-Bill_Id
+              [T26971].acct_id,[T26971].Bill_dt,[T26971].MAX-alt_bill_id
             FROM
               (SELECT
-                  input1.acct_id, input1.Bill_dt, MAX(input1.Bill_Id)
+                  input1.acct_id, input1.Bill_dt, MAX(input1.alt_bill_id)
                 FROM
                   input1
                 GROUP BY
-                  input1.acct_id  input1.Bill_dt) AS [T10626][acct_id, Bill_dt, MAX-Bill_Id]
+                  input1.acct_id  input1.Bill_dt) AS [T26971][acct_id, Bill_dt, MAX-alt_bill_id]
             WHERE
               
-               AND [T10626].MAX-Bill_Id > [T10626].acct_id) AS [T10635][acct_id, Bill_dt, MAX-Bill_Id] ) JOIN (
-          input1 )) AS [T8753][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
+               AND [T26971].MAX-alt_bill_id < [T26971].acct_id) AS [T26978][acct_id, Bill_dt, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T24876][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
     WHERE
-      [T8753].MAX-Bill_Id == [T8753].Bill_Id) AS [T8782][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
+      [T24876].acct_id == [T24876].acct_id1
+       AND [T24876].MAX-alt_bill_id == [T24876].alt_bill_id) AS [T25005][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
 
 ==== [No. 14 ] ====
 SELECT
-  [T8782].acct_id,[T8782].MAX-Bill_Id,[T8782].Bill_dt,[T8782].alt_bill_id
+  [T25005].acct_id,[T25005].Bill_Id,[T25005].Bill_dt,[T25005].MAX-alt_bill_id
 FROM
   (SELECT
-      [T8753].acct_id,[T8753].Bill_dt,[T8753].MAX-Bill_Id,[T8753].acct_id1,[T8753].Bill_Id,[T8753].Bill_dt1,[T8753].alt_bill_id
+      [T24876].acct_id,[T24876].Bill_dt,[T24876].MAX-alt_bill_id,[T24876].acct_id1,[T24876].Bill_Id,[T24876].Bill_dt1,[T24876].alt_bill_id
     FROM
       (( (SELECT
-              [T10626].acct_id,[T10626].Bill_dt,[T10626].MAX-Bill_Id
+              [T26971].acct_id,[T26971].Bill_dt,[T26971].MAX-alt_bill_id
             FROM
               (SELECT
-                  input1.acct_id, input1.Bill_dt, MAX(input1.Bill_Id)
+                  input1.acct_id, input1.Bill_dt, MAX(input1.alt_bill_id)
                 FROM
                   input1
                 GROUP BY
-                  input1.acct_id  input1.Bill_dt) AS [T10626][acct_id, Bill_dt, MAX-Bill_Id]
+                  input1.acct_id  input1.Bill_dt) AS [T26971][acct_id, Bill_dt, MAX-alt_bill_id]
             WHERE
               
-               AND [T10626].MAX-Bill_Id >= [T10626].acct_id) AS [T10637][acct_id, Bill_dt, MAX-Bill_Id] ) JOIN (
-          input1 )) AS [T8753][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
+               AND [T26971].MAX-alt_bill_id <= [T26971].acct_id) AS [T26981][acct_id, Bill_dt, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T24876][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
     WHERE
-      [T8753].MAX-Bill_Id == [T8753].Bill_Id) AS [T8782][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
+      [T24876].acct_id == [T24876].acct_id1
+       AND [T24876].MAX-alt_bill_id == [T24876].alt_bill_id) AS [T25005][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
 
 ==== [No. 15 ] ====
 SELECT
-  [T8782].acct_id,[T8782].MAX-Bill_Id,[T8782].Bill_dt,[T8782].alt_bill_id
+  [T25005].acct_id,[T25005].Bill_Id,[T25005].Bill_dt,[T25005].MAX-alt_bill_id
 FROM
   (SELECT
-      [T8753].acct_id,[T8753].Bill_dt,[T8753].MAX-Bill_Id,[T8753].acct_id1,[T8753].Bill_Id,[T8753].Bill_dt1,[T8753].alt_bill_id
+      [T24876].acct_id,[T24876].Bill_dt,[T24876].MAX-alt_bill_id,[T24876].acct_id1,[T24876].Bill_Id,[T24876].Bill_dt1,[T24876].alt_bill_id
     FROM
       (( (SELECT
-              input1.acct_id, input1.Bill_dt, MAX(input1.Bill_Id)
+              input1.acct_id, input1.Bill_dt, MAX(input1.alt_bill_id)
             FROM
               input1
             GROUP BY
-              input1.acct_id  input1.Bill_dt) AS [T10626][acct_id, Bill_dt, MAX-Bill_Id] ) JOIN (
-          input1 )) AS [T8753][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
+              input1.acct_id  input1.Bill_dt) AS [T26971][acct_id, Bill_dt, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T24876][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
     WHERE
-      [T8753].MAX-Bill_Id == [T8753].Bill_Id) AS [T8782][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
+      [T24876].acct_id == [T24876].acct_id1
+       AND [T24876].MAX-alt_bill_id == [T24876].alt_bill_id) AS [T25005][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
 
 ==== [No. 16 ] ====
 SELECT
-  [T8817].acct_id,[T8817].MAX-Bill_Id,[T8817].Bill_dt,[T8817].alt_bill_id
+  [T25007].acct_id,[T25007].Bill_Id,[T25007].Bill_dt,[T25007].MAX-alt_bill_id
 FROM
   (SELECT
-      [T8753].acct_id,[T8753].Bill_dt,[T8753].MAX-Bill_Id,[T8753].acct_id1,[T8753].Bill_Id,[T8753].Bill_dt1,[T8753].alt_bill_id
+      [T24876].acct_id,[T24876].Bill_dt,[T24876].MAX-alt_bill_id,[T24876].acct_id1,[T24876].Bill_Id,[T24876].Bill_dt1,[T24876].alt_bill_id
     FROM
       (( (SELECT
-              [T10626].acct_id,[T10626].Bill_dt,[T10626].MAX-Bill_Id
+              [T26971].acct_id,[T26971].Bill_dt,[T26971].MAX-alt_bill_id
             FROM
               (SELECT
-                  input1.acct_id, input1.Bill_dt, MAX(input1.Bill_Id)
+                  input1.acct_id, input1.Bill_dt, MAX(input1.alt_bill_id)
                 FROM
                   input1
                 GROUP BY
-                  input1.acct_id  input1.Bill_dt) AS [T10626][acct_id, Bill_dt, MAX-Bill_Id]) AS [T10627][acct_id, Bill_dt, MAX-Bill_Id] ) JOIN (
-          input1 )) AS [T8753][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
+                  input1.acct_id  input1.Bill_dt) AS [T26971][acct_id, Bill_dt, MAX-alt_bill_id]) AS [T26972][acct_id, Bill_dt, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T24876][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
     WHERE
-      
-       AND [T8753].MAX-Bill_Id == [T8753].Bill_Id) AS [T8817][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
+      [T24876].acct_id == [T24876].acct_id1
+       AND [T24876].MAX-alt_bill_id <= [T24876].alt_bill_id) AS [T25007][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
 
 ==== [No. 17 ] ====
 SELECT
-  [T8817].acct_id,[T8817].MAX-Bill_Id,[T8817].Bill_dt,[T8817].alt_bill_id
+  [T25007].acct_id,[T25007].Bill_Id,[T25007].Bill_dt,[T25007].MAX-alt_bill_id
 FROM
   (SELECT
-      [T8753].acct_id,[T8753].Bill_dt,[T8753].MAX-Bill_Id,[T8753].acct_id1,[T8753].Bill_Id,[T8753].Bill_dt1,[T8753].alt_bill_id
+      [T24876].acct_id,[T24876].Bill_dt,[T24876].MAX-alt_bill_id,[T24876].acct_id1,[T24876].Bill_Id,[T24876].Bill_dt1,[T24876].alt_bill_id
     FROM
       (( (SELECT
-              [T10626].acct_id,[T10626].Bill_dt,[T10626].MAX-Bill_Id
+              [T26971].acct_id,[T26971].Bill_dt,[T26971].MAX-alt_bill_id
             FROM
               (SELECT
-                  input1.acct_id, input1.Bill_dt, MAX(input1.Bill_Id)
+                  input1.acct_id, input1.Bill_dt, MAX(input1.alt_bill_id)
                 FROM
                   input1
                 GROUP BY
-                  input1.acct_id  input1.Bill_dt) AS [T10626][acct_id, Bill_dt, MAX-Bill_Id]
+                  input1.acct_id  input1.Bill_dt) AS [T26971][acct_id, Bill_dt, MAX-alt_bill_id]
             WHERE
-              [T10626].MAX-Bill_Id > [T10626].acct_id) AS [T10630][acct_id, Bill_dt, MAX-Bill_Id] ) JOIN (
-          input1 )) AS [T8753][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
+              [T26971].MAX-alt_bill_id < [T26971].acct_id) AS [T26973][acct_id, Bill_dt, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T24876][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
     WHERE
-      
-       AND [T8753].MAX-Bill_Id == [T8753].Bill_Id) AS [T8817][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
+      [T24876].acct_id == [T24876].acct_id1
+       AND [T24876].MAX-alt_bill_id <= [T24876].alt_bill_id) AS [T25007][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
 
 ==== [No. 18 ] ====
 SELECT
-  [T8817].acct_id,[T8817].MAX-Bill_Id,[T8817].Bill_dt,[T8817].alt_bill_id
+  [T25007].acct_id,[T25007].Bill_Id,[T25007].Bill_dt,[T25007].MAX-alt_bill_id
 FROM
   (SELECT
-      [T8753].acct_id,[T8753].Bill_dt,[T8753].MAX-Bill_Id,[T8753].acct_id1,[T8753].Bill_Id,[T8753].Bill_dt1,[T8753].alt_bill_id
+      [T24876].acct_id,[T24876].Bill_dt,[T24876].MAX-alt_bill_id,[T24876].acct_id1,[T24876].Bill_Id,[T24876].Bill_dt1,[T24876].alt_bill_id
     FROM
       (( (SELECT
-              [T10626].acct_id,[T10626].Bill_dt,[T10626].MAX-Bill_Id
+              [T26971].acct_id,[T26971].Bill_dt,[T26971].MAX-alt_bill_id
             FROM
               (SELECT
-                  input1.acct_id, input1.Bill_dt, MAX(input1.Bill_Id)
+                  input1.acct_id, input1.Bill_dt, MAX(input1.alt_bill_id)
                 FROM
                   input1
                 GROUP BY
-                  input1.acct_id  input1.Bill_dt) AS [T10626][acct_id, Bill_dt, MAX-Bill_Id]
+                  input1.acct_id  input1.Bill_dt) AS [T26971][acct_id, Bill_dt, MAX-alt_bill_id]
             WHERE
-              [T10626].MAX-Bill_Id >= [T10626].acct_id) AS [T10632][acct_id, Bill_dt, MAX-Bill_Id] ) JOIN (
-          input1 )) AS [T8753][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
+              [T26971].MAX-alt_bill_id <= [T26971].acct_id) AS [T26976][acct_id, Bill_dt, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T24876][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
     WHERE
-      
-       AND [T8753].MAX-Bill_Id == [T8753].Bill_Id) AS [T8817][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
+      [T24876].acct_id == [T24876].acct_id1
+       AND [T24876].MAX-alt_bill_id <= [T24876].alt_bill_id) AS [T25007][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
 
 ==== [No. 19 ] ====
 SELECT
-  [T8817].acct_id,[T8817].MAX-Bill_Id,[T8817].Bill_dt,[T8817].alt_bill_id
+  [T25007].acct_id,[T25007].Bill_Id,[T25007].Bill_dt,[T25007].MAX-alt_bill_id
 FROM
   (SELECT
-      [T8753].acct_id,[T8753].Bill_dt,[T8753].MAX-Bill_Id,[T8753].acct_id1,[T8753].Bill_Id,[T8753].Bill_dt1,[T8753].alt_bill_id
+      [T24876].acct_id,[T24876].Bill_dt,[T24876].MAX-alt_bill_id,[T24876].acct_id1,[T24876].Bill_Id,[T24876].Bill_dt1,[T24876].alt_bill_id
     FROM
       (( (SELECT
-              [T10626].acct_id,[T10626].Bill_dt,[T10626].MAX-Bill_Id
+              [T26971].acct_id,[T26971].Bill_dt,[T26971].MAX-alt_bill_id
             FROM
               (SELECT
-                  input1.acct_id, input1.Bill_dt, MAX(input1.Bill_Id)
+                  input1.acct_id, input1.Bill_dt, MAX(input1.alt_bill_id)
                 FROM
                   input1
                 GROUP BY
-                  input1.acct_id  input1.Bill_dt) AS [T10626][acct_id, Bill_dt, MAX-Bill_Id]
+                  input1.acct_id  input1.Bill_dt) AS [T26971][acct_id, Bill_dt, MAX-alt_bill_id]
             WHERE
               
-               AND [T10626].MAX-Bill_Id > [T10626].acct_id) AS [T10635][acct_id, Bill_dt, MAX-Bill_Id] ) JOIN (
-          input1 )) AS [T8753][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
+               AND [T26971].MAX-alt_bill_id < [T26971].acct_id) AS [T26978][acct_id, Bill_dt, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T24876][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
     WHERE
-      
-       AND [T8753].MAX-Bill_Id == [T8753].Bill_Id) AS [T8817][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
+      [T24876].acct_id == [T24876].acct_id1
+       AND [T24876].MAX-alt_bill_id <= [T24876].alt_bill_id) AS [T25007][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
 
-Total Tree Count: 4
-Total Query Count: 2448
+Total Tree Count: 2
+Total Query Count: 288
 [Enumeration Finished]
-[[Synthesizer finished]] time: 00:00:01:877
+[[Synthesizer finished]] time: 00:00:02:903

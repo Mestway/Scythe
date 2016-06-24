@@ -5,38 +5,38 @@
   Parameterized Table Number: 69
 [Enumeration Start]
 [Stage 1] EnumFilterNamed: 
-	Queries generated: 11251
+	Queries generated: 38367
 	Tables generated: 2
 	Total Table by now: 2
 [Stage 2] EnumAggregationNode: 
-	Queries generated: 3537
+	Queries generated: 7023
 	Tables generated: 10
 	Total Table by now: 12
 [Stage 3] EnumJoin1 
-	Queries generated: 106626
-	Tables generated: 92
-	Total Table by now: 104
-[Runner up Table Count] 11
-[Consistent Table number] 1
+	Queries generated: 359436
+	Tables generated: 173
+	Total Table by now: 185
+[Runner up Table Count] 22
+[Consistent Table number] 3
 ==== [No. 0 ] ====
 SELECT
-  [T163247].PID,[T163247].GUID1,[T163247].LastName,[T163247].FirstName
+  [T487127].PID,[T487127].GUID1,[T487127].LastName,[T487127].FirstName
 FROM
   (SELECT
-      [T162910].GUID,[T162910].PID,[T162910].COUNT-GUID,[T162910].GUID1,[T162910].LastName,[T162910].FirstName
+      [T486468].GUID,[T486468].PID,[T486468].COUNT-GUID,[T486468].GUID1,[T486468].LastName,[T486468].FirstName
     FROM
       (( (SELECT
-              [T181569].GUID,[T181569].PID,[T181569].COUNT-GUID
+              [T551965].GUID,[T551965].PID,[T551965].COUNT-GUID
             FROM
               (SELECT
                   input1.GUID, input1.PID, COUNT(input1.GUID)
                 FROM
                   input1
                 GROUP BY
-                  input1.GUID  input1.PID) AS [T181569][GUID, PID, COUNT-GUID]
+                  input1.GUID  input1.PID) AS [T551965][GUID, PID, COUNT-GUID]
             WHERE
-              [T181569].COUNT-GUID < 2.0) AS [T181571][GUID, PID, COUNT-GUID] ) JOIN (
-          input2 )) AS [T162910][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+              [T551965].COUNT-GUID < 2.0) AS [T551967][GUID, PID, COUNT-GUID] ) JOIN (
+          input2 )) AS [T486468][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
     WHERE
       EXIST (
         (SELECT
@@ -44,28 +44,28 @@ FROM
           FROM
             (input1) AS [T0][GUID, PID]
           WHERE
-            [T162910].PID == [T0].PID
-             AND [T162910].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T163247][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+            [T486468].PID == [T0].PID
+             AND [T486468].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T487127][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
 
 ==== [No. 1 ] ====
 SELECT
-  [T163247].PID,[T163247].GUID1,[T163247].LastName,[T163247].FirstName
+  [T487127].PID,[T487127].GUID1,[T487127].LastName,[T487127].FirstName
 FROM
   (SELECT
-      [T162910].GUID,[T162910].PID,[T162910].COUNT-GUID,[T162910].GUID1,[T162910].LastName,[T162910].FirstName
+      [T486468].GUID,[T486468].PID,[T486468].COUNT-GUID,[T486468].GUID1,[T486468].LastName,[T486468].FirstName
     FROM
       (( (SELECT
-              [T181569].GUID,[T181569].PID,[T181569].COUNT-GUID
+              [T551965].GUID,[T551965].PID,[T551965].COUNT-GUID
             FROM
               (SELECT
                   input1.GUID, input1.PID, COUNT(input1.GUID)
                 FROM
                   input1
                 GROUP BY
-                  input1.GUID  input1.PID) AS [T181569][GUID, PID, COUNT-GUID]
+                  input1.GUID  input1.PID) AS [T551965][GUID, PID, COUNT-GUID]
             WHERE
-              [T181569].COUNT-GUID <= 2.0) AS [T181574][GUID, PID, COUNT-GUID] ) JOIN (
-          input2 )) AS [T162910][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+              [T551965].COUNT-GUID <= 2.0) AS [T551970][GUID, PID, COUNT-GUID] ) JOIN (
+          input2 )) AS [T486468][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
     WHERE
       EXIST (
         (SELECT
@@ -73,29 +73,29 @@ FROM
           FROM
             (input1) AS [T0][GUID, PID]
           WHERE
-            [T162910].PID == [T0].PID
-             AND [T162910].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T163247][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+            [T486468].PID == [T0].PID
+             AND [T486468].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T487127][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
 
 ==== [No. 2 ] ====
 SELECT
-  [T163247].PID,[T163247].GUID1,[T163247].LastName,[T163247].FirstName
+  [T487127].PID,[T487127].GUID1,[T487127].LastName,[T487127].FirstName
 FROM
   (SELECT
-      [T162910].GUID,[T162910].PID,[T162910].COUNT-GUID,[T162910].GUID1,[T162910].LastName,[T162910].FirstName
+      [T486468].GUID,[T486468].PID,[T486468].COUNT-GUID,[T486468].GUID1,[T486468].LastName,[T486468].FirstName
     FROM
       (( (SELECT
-              [T181569].GUID,[T181569].PID,[T181569].COUNT-GUID
+              [T551965].GUID,[T551965].PID,[T551965].COUNT-GUID
             FROM
               (SELECT
                   input1.GUID, input1.PID, COUNT(input1.GUID)
                 FROM
                   input1
                 GROUP BY
-                  input1.GUID  input1.PID) AS [T181569][GUID, PID, COUNT-GUID]
+                  input1.GUID  input1.PID) AS [T551965][GUID, PID, COUNT-GUID]
             WHERE
               
-               AND [T181569].COUNT-GUID < 2.0) AS [T181765][GUID, PID, COUNT-GUID] ) JOIN (
-          input2 )) AS [T162910][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+               AND [T551965].COUNT-GUID < 2.0) AS [T552350][GUID, PID, COUNT-GUID] ) JOIN (
+          input2 )) AS [T486468][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
     WHERE
       EXIST (
         (SELECT
@@ -103,29 +103,29 @@ FROM
           FROM
             (input1) AS [T0][GUID, PID]
           WHERE
-            [T162910].PID == [T0].PID
-             AND [T162910].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T163247][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+            [T486468].PID == [T0].PID
+             AND [T486468].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T487127][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
 
 ==== [No. 3 ] ====
 SELECT
-  [T163247].PID,[T163247].GUID1,[T163247].LastName,[T163247].FirstName
+  [T487127].PID,[T487127].GUID1,[T487127].LastName,[T487127].FirstName
 FROM
   (SELECT
-      [T162910].GUID,[T162910].PID,[T162910].COUNT-GUID,[T162910].GUID1,[T162910].LastName,[T162910].FirstName
+      [T486468].GUID,[T486468].PID,[T486468].COUNT-GUID,[T486468].GUID1,[T486468].LastName,[T486468].FirstName
     FROM
       (( (SELECT
-              [T181569].GUID,[T181569].PID,[T181569].COUNT-GUID
+              [T551965].GUID,[T551965].PID,[T551965].COUNT-GUID
             FROM
               (SELECT
                   input1.GUID, input1.PID, COUNT(input1.GUID)
                 FROM
                   input1
                 GROUP BY
-                  input1.GUID  input1.PID) AS [T181569][GUID, PID, COUNT-GUID]
+                  input1.GUID  input1.PID) AS [T551965][GUID, PID, COUNT-GUID]
             WHERE
               
-               AND [T181569].COUNT-GUID <= 2.0) AS [T181768][GUID, PID, COUNT-GUID] ) JOIN (
-          input2 )) AS [T162910][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+               AND [T551965].COUNT-GUID <= 2.0) AS [T552353][GUID, PID, COUNT-GUID] ) JOIN (
+          input2 )) AS [T486468][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
     WHERE
       EXIST (
         (SELECT
@@ -133,35 +133,35 @@ FROM
           FROM
             (input1) AS [T0][GUID, PID]
           WHERE
-            [T162910].PID == [T0].PID
-             AND [T162910].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T163247][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+            [T486468].PID == [T0].PID
+             AND [T486468].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T487127][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
 
 ==== [No. 4 ] ====
 SELECT
-  [T163247].PID,[T163247].GUID1,[T163247].LastName,[T163247].FirstName
+  [T487127].PID,[T487127].GUID1,[T487127].LastName,[T487127].FirstName
 FROM
   (SELECT
-      [T162910].GUID,[T162910].PID,[T162910].COUNT-GUID,[T162910].GUID1,[T162910].LastName,[T162910].FirstName
+      [T486468].GUID,[T486468].PID,[T486468].COUNT-GUID,[T486468].GUID1,[T486468].LastName,[T486468].FirstName
     FROM
       (( (SELECT
-              [T181569].GUID,[T181569].PID,[T181569].COUNT-GUID
+              [T551965].GUID,[T551965].PID,[T551965].COUNT-GUID
             FROM
               (SELECT
                   input1.GUID, input1.PID, COUNT(input1.GUID)
                 FROM
                   input1
                 GROUP BY
-                  input1.GUID  input1.PID) AS [T181569][GUID, PID, COUNT-GUID]
+                  input1.GUID  input1.PID) AS [T551965][GUID, PID, COUNT-GUID]
             WHERE
-              [T181569].COUNT-GUID < 2.0
+              [T551965].COUNT-GUID < 2.0
                AND EXIST (
                 (SELECT
                     2.0,[T0].GUID,[T0].PID
                   FROM
                     (input1) AS [T0][GUID, PID]
                   WHERE
-                    [T181569].GUID == [T0].GUID) AS [T6][anonymous, GUID, PID])) AS [T181960][GUID, PID, COUNT-GUID] ) JOIN (
-          input2 )) AS [T162910][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+                    [T551965].PID == [T0].PID) AS [T5][anonymous, GUID, PID])) AS [T552733][GUID, PID, COUNT-GUID] ) JOIN (
+          input2 )) AS [T486468][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
     WHERE
       EXIST (
         (SELECT
@@ -169,35 +169,35 @@ FROM
           FROM
             (input1) AS [T0][GUID, PID]
           WHERE
-            [T162910].PID == [T0].PID
-             AND [T162910].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T163247][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+            [T486468].PID == [T0].PID
+             AND [T486468].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T487127][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
 
 ==== [No. 5 ] ====
 SELECT
-  [T163247].PID,[T163247].GUID1,[T163247].LastName,[T163247].FirstName
+  [T487127].PID,[T487127].GUID1,[T487127].LastName,[T487127].FirstName
 FROM
   (SELECT
-      [T162910].GUID,[T162910].PID,[T162910].COUNT-GUID,[T162910].GUID1,[T162910].LastName,[T162910].FirstName
+      [T486468].GUID,[T486468].PID,[T486468].COUNT-GUID,[T486468].GUID1,[T486468].LastName,[T486468].FirstName
     FROM
       (( (SELECT
-              [T181569].GUID,[T181569].PID,[T181569].COUNT-GUID
+              [T551965].GUID,[T551965].PID,[T551965].COUNT-GUID
             FROM
               (SELECT
                   input1.GUID, input1.PID, COUNT(input1.GUID)
                 FROM
                   input1
                 GROUP BY
-                  input1.GUID  input1.PID) AS [T181569][GUID, PID, COUNT-GUID]
+                  input1.GUID  input1.PID) AS [T551965][GUID, PID, COUNT-GUID]
             WHERE
-              [T181569].COUNT-GUID < 2.0
+              [T551965].COUNT-GUID < 2.0
                AND EXIST (
                 (SELECT
-                    2.0,[T1].GUID,[T1].LastName,[T1].FirstName
+                    2.0,[T0].GUID,[T0].PID
                   FROM
-                    (input2) AS [T1][GUID, LastName, FirstName]
+                    (input1) AS [T0][GUID, PID]
                   WHERE
-                    [T181569].GUID == [T1].GUID) AS [T26][anonymous, GUID, LastName, FirstName])) AS [T181964][GUID, PID, COUNT-GUID] ) JOIN (
-          input2 )) AS [T162910][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+                    [T551965].PID == [T0].GUID) AS [T6][anonymous, GUID, PID])) AS [T552754][GUID, PID, COUNT-GUID] ) JOIN (
+          input2 )) AS [T486468][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
     WHERE
       EXIST (
         (SELECT
@@ -205,35 +205,36 @@ FROM
           FROM
             (input1) AS [T0][GUID, PID]
           WHERE
-            [T162910].PID == [T0].PID
-             AND [T162910].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T163247][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+            [T486468].PID == [T0].PID
+             AND [T486468].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T487127][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
 
 ==== [No. 6 ] ====
 SELECT
-  [T163247].PID,[T163247].GUID1,[T163247].LastName,[T163247].FirstName
+  [T487127].PID,[T487127].GUID1,[T487127].LastName,[T487127].FirstName
 FROM
   (SELECT
-      [T162910].GUID,[T162910].PID,[T162910].COUNT-GUID,[T162910].GUID1,[T162910].LastName,[T162910].FirstName
+      [T486468].GUID,[T486468].PID,[T486468].COUNT-GUID,[T486468].GUID1,[T486468].LastName,[T486468].FirstName
     FROM
       (( (SELECT
-              [T181569].GUID,[T181569].PID,[T181569].COUNT-GUID
+              [T551965].GUID,[T551965].PID,[T551965].COUNT-GUID
             FROM
               (SELECT
                   input1.GUID, input1.PID, COUNT(input1.GUID)
                 FROM
                   input1
                 GROUP BY
-                  input1.GUID  input1.PID) AS [T181569][GUID, PID, COUNT-GUID]
+                  input1.GUID  input1.PID) AS [T551965][GUID, PID, COUNT-GUID]
             WHERE
-              [T181569].COUNT-GUID < 2.0
+              [T551965].COUNT-GUID < 2.0
                AND EXIST (
                 (SELECT
                     2.0,[T0].GUID,[T0].PID
                   FROM
                     (input1) AS [T0][GUID, PID]
                   WHERE
-                    [T181569].PID == [T0].PID) AS [T5][anonymous, GUID, PID])) AS [T181979][GUID, PID, COUNT-GUID] ) JOIN (
-          input2 )) AS [T162910][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+                    [T551965].PID == [T0].PID
+                     AND [T551965].PID == [T0].GUID) AS [T19][anonymous, GUID, PID])) AS [T552755][GUID, PID, COUNT-GUID] ) JOIN (
+          input2 )) AS [T486468][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
     WHERE
       EXIST (
         (SELECT
@@ -241,35 +242,36 @@ FROM
           FROM
             (input1) AS [T0][GUID, PID]
           WHERE
-            [T162910].PID == [T0].PID
-             AND [T162910].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T163247][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+            [T486468].PID == [T0].PID
+             AND [T486468].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T487127][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
 
 ==== [No. 7 ] ====
 SELECT
-  [T163247].PID,[T163247].GUID1,[T163247].LastName,[T163247].FirstName
+  [T487127].PID,[T487127].GUID1,[T487127].LastName,[T487127].FirstName
 FROM
   (SELECT
-      [T162910].GUID,[T162910].PID,[T162910].COUNT-GUID,[T162910].GUID1,[T162910].LastName,[T162910].FirstName
+      [T486468].GUID,[T486468].PID,[T486468].COUNT-GUID,[T486468].GUID1,[T486468].LastName,[T486468].FirstName
     FROM
       (( (SELECT
-              [T181569].GUID,[T181569].PID,[T181569].COUNT-GUID
+              [T551965].GUID,[T551965].PID,[T551965].COUNT-GUID
             FROM
               (SELECT
                   input1.GUID, input1.PID, COUNT(input1.GUID)
                 FROM
                   input1
                 GROUP BY
-                  input1.GUID  input1.PID) AS [T181569][GUID, PID, COUNT-GUID]
+                  input1.GUID  input1.PID) AS [T551965][GUID, PID, COUNT-GUID]
             WHERE
-              [T181569].COUNT-GUID < 2.0
+              [T551965].COUNT-GUID < 2.0
                AND EXIST (
                 (SELECT
                     2.0,[T0].GUID,[T0].PID
                   FROM
                     (input1) AS [T0][GUID, PID]
                   WHERE
-                    [T181569].GUID == [T0].GUID) AS [T6][anonymous, GUID, PID])) AS [T182000][GUID, PID, COUNT-GUID] ) JOIN (
-          input2 )) AS [T162910][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+                    [T551965].PID == [T0].PID
+                     AND [T0].PID == [T0].GUID) AS [T20][anonymous, GUID, PID])) AS [T552756][GUID, PID, COUNT-GUID] ) JOIN (
+          input2 )) AS [T486468][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
     WHERE
       EXIST (
         (SELECT
@@ -277,35 +279,72 @@ FROM
           FROM
             (input1) AS [T0][GUID, PID]
           WHERE
-            [T162910].PID == [T0].PID
-             AND [T162910].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T163247][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+            [T486468].PID == [T0].PID
+             AND [T486468].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T487127][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
 
 ==== [No. 8 ] ====
 SELECT
-  [T163247].PID,[T163247].GUID1,[T163247].LastName,[T163247].FirstName
+  [T487127].PID,[T487127].GUID1,[T487127].LastName,[T487127].FirstName
 FROM
   (SELECT
-      [T162910].GUID,[T162910].PID,[T162910].COUNT-GUID,[T162910].GUID1,[T162910].LastName,[T162910].FirstName
+      [T486468].GUID,[T486468].PID,[T486468].COUNT-GUID,[T486468].GUID1,[T486468].LastName,[T486468].FirstName
     FROM
       (( (SELECT
-              [T181569].GUID,[T181569].PID,[T181569].COUNT-GUID
+              [T551965].GUID,[T551965].PID,[T551965].COUNT-GUID
             FROM
               (SELECT
                   input1.GUID, input1.PID, COUNT(input1.GUID)
                 FROM
                   input1
                 GROUP BY
-                  input1.GUID  input1.PID) AS [T181569][GUID, PID, COUNT-GUID]
+                  input1.GUID  input1.PID) AS [T551965][GUID, PID, COUNT-GUID]
             WHERE
-              [T181569].COUNT-GUID < 2.0
+              [T551965].COUNT-GUID < 2.0
+               AND EXIST (
+                (SELECT
+                    2.0,[T0].GUID,[T0].PID
+                  FROM
+                    (input1) AS [T0][GUID, PID]
+                  WHERE
+                    [T551965].PID == [T0].GUID
+                     AND [T0].PID == [T0].GUID) AS [T21][anonymous, GUID, PID])) AS [T552757][GUID, PID, COUNT-GUID] ) JOIN (
+          input2 )) AS [T486468][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+    WHERE
+      EXIST (
+        (SELECT
+            2.0,[T0].GUID,[T0].PID
+          FROM
+            (input1) AS [T0][GUID, PID]
+          WHERE
+            [T486468].PID == [T0].PID
+             AND [T486468].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T487127][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+
+==== [No. 9 ] ====
+SELECT
+  [T487127].PID,[T487127].GUID1,[T487127].LastName,[T487127].FirstName
+FROM
+  (SELECT
+      [T486468].GUID,[T486468].PID,[T486468].COUNT-GUID,[T486468].GUID1,[T486468].LastName,[T486468].FirstName
+    FROM
+      (( (SELECT
+              [T551965].GUID,[T551965].PID,[T551965].COUNT-GUID
+            FROM
+              (SELECT
+                  input1.GUID, input1.PID, COUNT(input1.GUID)
+                FROM
+                  input1
+                GROUP BY
+                  input1.GUID  input1.PID) AS [T551965][GUID, PID, COUNT-GUID]
+            WHERE
+              [T551965].COUNT-GUID < 2.0
                AND EXIST (
                 (SELECT
                     2.0,[T1].GUID,[T1].LastName,[T1].FirstName
                   FROM
                     (input2) AS [T1][GUID, LastName, FirstName]
                   WHERE
-                    [T181569].GUID == [T1].GUID) AS [T26][anonymous, GUID, LastName, FirstName])) AS [T182004][GUID, PID, COUNT-GUID] ) JOIN (
-          input2 )) AS [T162910][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+                    [T551965].PID == [T1].GUID) AS [T26][anonymous, GUID, LastName, FirstName])) AS [T552758][GUID, PID, COUNT-GUID] ) JOIN (
+          input2 )) AS [T486468][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
     WHERE
       EXIST (
         (SELECT
@@ -313,46 +352,353 @@ FROM
           FROM
             (input1) AS [T0][GUID, PID]
           WHERE
-            [T162910].PID == [T0].PID
-             AND [T162910].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T163247][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+            [T486468].PID == [T0].PID
+             AND [T486468].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T487127][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
 
-==== [No. 9 ] ====
+==== [No. 10 ] ====
 SELECT
-  [T163247].PID,[T163247].GUID1,[T163247].LastName,[T163247].FirstName
+  [T634754].PID,[T634754].GUID1,[T634754].LastName,[T634754].FirstName
 FROM
   (SELECT
-      [T162910].GUID,[T162910].PID,[T162910].COUNT-GUID,[T162910].GUID1,[T162910].LastName,[T162910].FirstName
+      [T630003].GUID,[T630003].PID,[T630003].GUID1,[T630003].LastName,[T630003].FirstName
     FROM
       (( (SELECT
-              [T181569].GUID,[T181569].PID,[T181569].COUNT-GUID
+              input1.GUID, input1.PID, FROM
+              input1
+            GROUP BY
+              input1.GUID  input1.PID) AS [T659439][GUID, PID] ) JOIN (
+          input2 )) AS [T630003][GUID, PID, GUID1, LastName, FirstName]
+    WHERE
+      [T630003].GUID ?? [T630003].GUID1
+       AND EXIST (
+        (SELECT
+            2.0,[T0].GUID,[T0].PID
+          FROM
+            (input1) AS [T0][GUID, PID]
+          WHERE
+            [T630003].PID == [T0].PID
+             AND [T630003].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T634754][GUID, PID, GUID1, LastName, FirstName]
+
+==== [No. 11 ] ====
+SELECT
+  [T724354].PID,[T724354].GUID1,[T724354].LastName,[T724354].FirstName
+FROM
+  (SELECT
+      [T718923].GUID,[T718923].PID,[T718923].COUNT-GUID,[T718923].GUID1,[T718923].LastName,[T718923].FirstName
+    FROM
+      (( (SELECT
+              [T742837].GUID,[T742837].PID,[T742837].COUNT-GUID
             FROM
               (SELECT
                   input1.GUID, input1.PID, COUNT(input1.GUID)
                 FROM
                   input1
                 GROUP BY
-                  input1.GUID  input1.PID) AS [T181569][GUID, PID, COUNT-GUID]
-            WHERE
-              [T181569].COUNT-GUID < 2.0
-               AND EXIST (
-                (SELECT
-                    2.0,[T0].GUID,[T0].PID
-                  FROM
-                    (input1) AS [T0][GUID, PID]
-                  WHERE
-                    [T181569].PID == [T0].PID) AS [T5][anonymous, GUID, PID])) AS [T182019][GUID, PID, COUNT-GUID] ) JOIN (
-          input2 )) AS [T162910][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+                  input1.GUID  input1.PID) AS [T742837][GUID, PID, COUNT-GUID]) AS [T742838][GUID, PID, COUNT-GUID] ) JOIN (
+          input2 )) AS [T718923][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
     WHERE
-      EXIST (
+      [T718923].GUID ?? [T718923].GUID1
+       AND EXIST (
         (SELECT
             2.0,[T0].GUID,[T0].PID
           FROM
             (input1) AS [T0][GUID, PID]
           WHERE
-            [T162910].PID == [T0].PID
-             AND [T162910].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T163247][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+            [T718923].PID == [T0].PID
+             AND [T718923].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T724354][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
 
-Total Tree Count: 1
-Total Query Count: 120
+==== [No. 12 ] ====
+SELECT
+  [T724354].PID,[T724354].GUID1,[T724354].LastName,[T724354].FirstName
+FROM
+  (SELECT
+      [T718923].GUID,[T718923].PID,[T718923].COUNT-GUID,[T718923].GUID1,[T718923].LastName,[T718923].FirstName
+    FROM
+      (( (SELECT
+              [T742837].GUID,[T742837].PID,[T742837].COUNT-GUID
+            FROM
+              (SELECT
+                  input1.GUID, input1.PID, COUNT(input1.GUID)
+                FROM
+                  input1
+                GROUP BY
+                  input1.GUID  input1.PID) AS [T742837][GUID, PID, COUNT-GUID]
+            WHERE
+              EXIST (
+                (SELECT
+                    2.0,[T0].GUID,[T0].PID
+                  FROM
+                    (input1) AS [T0][GUID, PID]
+                  WHERE
+                    [T742837].GUID == [T0].GUID) AS [T6][anonymous, GUID, PID])) AS [T742845][GUID, PID, COUNT-GUID] ) JOIN (
+          input2 )) AS [T718923][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+    WHERE
+      [T718923].GUID ?? [T718923].GUID1
+       AND EXIST (
+        (SELECT
+            2.0,[T0].GUID,[T0].PID
+          FROM
+            (input1) AS [T0][GUID, PID]
+          WHERE
+            [T718923].PID == [T0].PID
+             AND [T718923].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T724354][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+
+==== [No. 13 ] ====
+SELECT
+  [T724354].PID,[T724354].GUID1,[T724354].LastName,[T724354].FirstName
+FROM
+  (SELECT
+      [T718923].GUID,[T718923].PID,[T718923].COUNT-GUID,[T718923].GUID1,[T718923].LastName,[T718923].FirstName
+    FROM
+      (( (SELECT
+              [T742837].GUID,[T742837].PID,[T742837].COUNT-GUID
+            FROM
+              (SELECT
+                  input1.GUID, input1.PID, COUNT(input1.GUID)
+                FROM
+                  input1
+                GROUP BY
+                  input1.GUID  input1.PID) AS [T742837][GUID, PID, COUNT-GUID]
+            WHERE
+              EXIST (
+                (SELECT
+                    2.0,[T1].GUID,[T1].LastName,[T1].FirstName
+                  FROM
+                    (input2) AS [T1][GUID, LastName, FirstName]
+                  WHERE
+                    [T742837].GUID == [T1].GUID) AS [T26][anonymous, GUID, LastName, FirstName])) AS [T742849][GUID, PID, COUNT-GUID] ) JOIN (
+          input2 )) AS [T718923][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+    WHERE
+      [T718923].GUID ?? [T718923].GUID1
+       AND EXIST (
+        (SELECT
+            2.0,[T0].GUID,[T0].PID
+          FROM
+            (input1) AS [T0][GUID, PID]
+          WHERE
+            [T718923].PID == [T0].PID
+             AND [T718923].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T724354][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+
+==== [No. 14 ] ====
+SELECT
+  [T724354].PID,[T724354].GUID1,[T724354].LastName,[T724354].FirstName
+FROM
+  (SELECT
+      [T718923].GUID,[T718923].PID,[T718923].COUNT-GUID,[T718923].GUID1,[T718923].LastName,[T718923].FirstName
+    FROM
+      (( (SELECT
+              [T742837].GUID,[T742837].PID,[T742837].COUNT-GUID
+            FROM
+              (SELECT
+                  input1.GUID, input1.PID, COUNT(input1.GUID)
+                FROM
+                  input1
+                GROUP BY
+                  input1.GUID  input1.PID) AS [T742837][GUID, PID, COUNT-GUID]
+            WHERE
+              EXIST (
+                (SELECT
+                    2.0,[T0].GUID,[T0].PID
+                  FROM
+                    (input1) AS [T0][GUID, PID]
+                  WHERE
+                    [T742837].GUID == [T0].PID) AS [T5][anonymous, GUID, PID])) AS [T742864][GUID, PID, COUNT-GUID] ) JOIN (
+          input2 )) AS [T718923][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+    WHERE
+      [T718923].GUID ?? [T718923].GUID1
+       AND EXIST (
+        (SELECT
+            2.0,[T0].GUID,[T0].PID
+          FROM
+            (input1) AS [T0][GUID, PID]
+          WHERE
+            [T718923].PID == [T0].PID
+             AND [T718923].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T724354][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+
+==== [No. 15 ] ====
+SELECT
+  [T724354].PID,[T724354].GUID1,[T724354].LastName,[T724354].FirstName
+FROM
+  (SELECT
+      [T718923].GUID,[T718923].PID,[T718923].COUNT-GUID,[T718923].GUID1,[T718923].LastName,[T718923].FirstName
+    FROM
+      (( (SELECT
+              [T742837].GUID,[T742837].PID,[T742837].COUNT-GUID
+            FROM
+              (SELECT
+                  input1.GUID, input1.PID, COUNT(input1.GUID)
+                FROM
+                  input1
+                GROUP BY
+                  input1.GUID  input1.PID) AS [T742837][GUID, PID, COUNT-GUID]
+            WHERE
+              EXIST (
+                (SELECT
+                    2.0,[T0].GUID,[T0].PID
+                  FROM
+                    (input1) AS [T0][GUID, PID]
+                  WHERE
+                    [T742837].GUID == [T0].PID
+                     AND [T742837].GUID == [T0].GUID) AS [T19][anonymous, GUID, PID])) AS [T742866][GUID, PID, COUNT-GUID] ) JOIN (
+          input2 )) AS [T718923][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+    WHERE
+      [T718923].GUID ?? [T718923].GUID1
+       AND EXIST (
+        (SELECT
+            2.0,[T0].GUID,[T0].PID
+          FROM
+            (input1) AS [T0][GUID, PID]
+          WHERE
+            [T718923].PID == [T0].PID
+             AND [T718923].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T724354][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+
+==== [No. 16 ] ====
+SELECT
+  [T724354].PID,[T724354].GUID1,[T724354].LastName,[T724354].FirstName
+FROM
+  (SELECT
+      [T718923].GUID,[T718923].PID,[T718923].COUNT-GUID,[T718923].GUID1,[T718923].LastName,[T718923].FirstName
+    FROM
+      (( (SELECT
+              [T742837].GUID,[T742837].PID,[T742837].COUNT-GUID
+            FROM
+              (SELECT
+                  input1.GUID, input1.PID, COUNT(input1.GUID)
+                FROM
+                  input1
+                GROUP BY
+                  input1.GUID  input1.PID) AS [T742837][GUID, PID, COUNT-GUID]
+            WHERE
+              EXIST (
+                (SELECT
+                    2.0,[T0].GUID,[T0].PID
+                  FROM
+                    (input1) AS [T0][GUID, PID]
+                  WHERE
+                    [T742837].GUID == [T0].PID
+                     AND [T0].PID == [T0].GUID) AS [T20][anonymous, GUID, PID])) AS [T742867][GUID, PID, COUNT-GUID] ) JOIN (
+          input2 )) AS [T718923][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+    WHERE
+      [T718923].GUID ?? [T718923].GUID1
+       AND EXIST (
+        (SELECT
+            2.0,[T0].GUID,[T0].PID
+          FROM
+            (input1) AS [T0][GUID, PID]
+          WHERE
+            [T718923].PID == [T0].PID
+             AND [T718923].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T724354][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+
+==== [No. 17 ] ====
+SELECT
+  [T724354].PID,[T724354].GUID1,[T724354].LastName,[T724354].FirstName
+FROM
+  (SELECT
+      [T718923].GUID,[T718923].PID,[T718923].COUNT-GUID,[T718923].GUID1,[T718923].LastName,[T718923].FirstName
+    FROM
+      (( (SELECT
+              [T742837].GUID,[T742837].PID,[T742837].COUNT-GUID
+            FROM
+              (SELECT
+                  input1.GUID, input1.PID, COUNT(input1.GUID)
+                FROM
+                  input1
+                GROUP BY
+                  input1.GUID  input1.PID) AS [T742837][GUID, PID, COUNT-GUID]
+            WHERE
+              EXIST (
+                (SELECT
+                    2.0,[T0].GUID,[T0].PID
+                  FROM
+                    (input1) AS [T0][GUID, PID]
+                  WHERE
+                    [T742837].GUID == [T0].GUID
+                     AND [T0].PID == [T0].GUID) AS [T21][anonymous, GUID, PID])) AS [T742868][GUID, PID, COUNT-GUID] ) JOIN (
+          input2 )) AS [T718923][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+    WHERE
+      [T718923].GUID ?? [T718923].GUID1
+       AND EXIST (
+        (SELECT
+            2.0,[T0].GUID,[T0].PID
+          FROM
+            (input1) AS [T0][GUID, PID]
+          WHERE
+            [T718923].PID == [T0].PID
+             AND [T718923].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T724354][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+
+==== [No. 18 ] ====
+SELECT
+  [T724354].PID,[T724354].GUID1,[T724354].LastName,[T724354].FirstName
+FROM
+  (SELECT
+      [T718923].GUID,[T718923].PID,[T718923].COUNT-GUID,[T718923].GUID1,[T718923].LastName,[T718923].FirstName
+    FROM
+      (( (SELECT
+              [T742837].GUID,[T742837].PID,[T742837].COUNT-GUID
+            FROM
+              (SELECT
+                  input1.GUID, input1.PID, COUNT(input1.GUID)
+                FROM
+                  input1
+                GROUP BY
+                  input1.GUID  input1.PID) AS [T742837][GUID, PID, COUNT-GUID]
+            WHERE
+              EXIST (
+                (SELECT
+                    2.0,[T1].GUID,[T1].LastName,[T1].FirstName
+                  FROM
+                    (input2) AS [T1][GUID, LastName, FirstName]
+                  WHERE
+                    [T742837].GUID == [T1].LastName) AS [T27][anonymous, GUID, LastName, FirstName])) AS [T742870][GUID, PID, COUNT-GUID] ) JOIN (
+          input2 )) AS [T718923][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+    WHERE
+      [T718923].GUID ?? [T718923].GUID1
+       AND EXIST (
+        (SELECT
+            2.0,[T0].GUID,[T0].PID
+          FROM
+            (input1) AS [T0][GUID, PID]
+          WHERE
+            [T718923].PID == [T0].PID
+             AND [T718923].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T724354][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+
+==== [No. 19 ] ====
+SELECT
+  [T724354].PID,[T724354].GUID1,[T724354].LastName,[T724354].FirstName
+FROM
+  (SELECT
+      [T718923].GUID,[T718923].PID,[T718923].COUNT-GUID,[T718923].GUID1,[T718923].LastName,[T718923].FirstName
+    FROM
+      (( (SELECT
+              [T742837].GUID,[T742837].PID,[T742837].COUNT-GUID
+            FROM
+              (SELECT
+                  input1.GUID, input1.PID, COUNT(input1.GUID)
+                FROM
+                  input1
+                GROUP BY
+                  input1.GUID  input1.PID) AS [T742837][GUID, PID, COUNT-GUID]
+            WHERE
+              EXIST (
+                (SELECT
+                    2.0,[T1].GUID,[T1].LastName,[T1].FirstName
+                  FROM
+                    (input2) AS [T1][GUID, LastName, FirstName]
+                  WHERE
+                    [T742837].GUID == [T1].FirstName) AS [T28][anonymous, GUID, LastName, FirstName])) AS [T742871][GUID, PID, COUNT-GUID] ) JOIN (
+          input2 )) AS [T718923][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+    WHERE
+      [T718923].GUID ?? [T718923].GUID1
+       AND EXIST (
+        (SELECT
+            2.0,[T0].GUID,[T0].PID
+          FROM
+            (input1) AS [T0][GUID, PID]
+          WHERE
+            [T718923].PID == [T0].PID
+             AND [T718923].GUID1 == [T0].GUID) AS [T14][anonymous, GUID, PID])) AS [T724354][GUID, PID, COUNT-GUID, GUID1, LastName, FirstName]
+
+Total Tree Count: 3
+Total Query Count: 6109
 [Enumeration Finished]
-[[Synthesizer finished]] time: 00:00:11:14
+[[Synthesizer finished]] time: 00:00:53:919

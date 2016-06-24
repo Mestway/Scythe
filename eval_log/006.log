@@ -5,456 +5,440 @@
   Parameterized Table Number: 0
 [Enumeration Start]
 [Stage 1] EnumFilterNamed: 
-	Queries generated: 571
-	Tables generated: 4
-	Total Table by now: 4
+	Queries generated: 717
+	Tables generated: 6
+	Total Table by now: 6
 [Stage 2] EnumAggregationNode: 
-	Queries generated: 1791
-	Tables generated: 131
-	Total Table by now: 135
+	Queries generated: 752
+	Tables generated: 107
+	Total Table by now: 113
 [Stage 3] EnumJoin1 
-	Queries generated: 75235
-	Tables generated: 2515
-	Total Table by now: 2650
-[Runner up Table Count] 323
-[Consistent Table number] 2
+	Queries generated: 48765
+	Tables generated: 2346
+	Total Table by now: 2459
+[Runner up Table Count] 270
+[Consistent Table number] 6
 ==== [No. 0 ] ====
 SELECT
-  [T78838].MAX-message_id,[T78838].conversation_id,[T78838].from_user,[T78838].timestamp,[T78838].message
+  [T51720].message_id,[T51720].conversation_id,[T51720].from_user,[T51720].MAX-timestamp,[T51720].message
 FROM
   (SELECT
-      [T78817].conversation_id,[T78817].message,[T78817].MAX-message_id,[T78817].message_id,[T78817].conversation_id1,[T78817].from_user,[T78817].timestamp,[T78817].message1
+      [T51654].from_user,[T51654].message,[T51654].MAX-timestamp,[T51654].message_id,[T51654].conversation_id,[T51654].from_user1,[T51654].timestamp,[T51654].message1
     FROM
       (( (SELECT
-              [T79564].conversation_id,[T79564].message,[T79564].MAX-message_id
+              [T52040].from_user,[T52040].message,[T52040].MAX-timestamp
             FROM
               (SELECT
-                  input1.conversation_id, input1.message, MAX(input1.message_id)
+                  [T23].from_user, [T23].message, MAX([T23].timestamp)
                 FROM
-                  input1
+                  [T23]
                 GROUP BY
-                  input1.conversation_id  input1.message) AS [T79564][conversation_id, message, MAX-message_id]) AS [T79565][conversation_id, message, MAX-message_id] ) JOIN (
-          input1 )) AS [T78817][conversation_id, message, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message1]
+                  [T23].from_user  [T23].message) AS [T52040][from_user, message, MAX-timestamp]) AS [T52041][from_user, message, MAX-timestamp] ) JOIN (
+          input1 )) AS [T51654][from_user, message, MAX-timestamp, message_id, conversation_id, from_user1, timestamp, message1]
     WHERE
-      [T78817].MAX-message_id == [T78817].message_id) AS [T78838][conversation_id, message, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message1]
+      [T51654].from_user == [T51654].from_user1
+       AND [T51654].MAX-timestamp == [T51654].timestamp) AS [T51720][from_user, message, MAX-timestamp, message_id, conversation_id, from_user1, timestamp, message1]
 
 ==== [No. 1 ] ====
 SELECT
-  [T78838].MAX-message_id,[T78838].conversation_id,[T78838].from_user,[T78838].timestamp,[T78838].message
+  [T51720].message_id,[T51720].conversation_id,[T51720].from_user,[T51720].MAX-timestamp,[T51720].message
 FROM
   (SELECT
-      [T78817].conversation_id,[T78817].message,[T78817].MAX-message_id,[T78817].message_id,[T78817].conversation_id1,[T78817].from_user,[T78817].timestamp,[T78817].message1
+      [T51654].from_user,[T51654].message,[T51654].MAX-timestamp,[T51654].message_id,[T51654].conversation_id,[T51654].from_user1,[T51654].timestamp,[T51654].message1
     FROM
       (( (SELECT
-              [T79564].conversation_id,[T79564].message,[T79564].MAX-message_id
+              [T52040].from_user,[T52040].message,[T52040].MAX-timestamp
             FROM
               (SELECT
-                  input1.conversation_id, input1.message, MAX(input1.message_id)
+                  [T23].from_user, [T23].message, MAX([T23].timestamp)
                 FROM
-                  input1
+                  [T23]
                 GROUP BY
-                  input1.conversation_id  input1.message) AS [T79564][conversation_id, message, MAX-message_id]
-            WHERE
-              [T79564].MAX-message_id < [T79564].conversation_id) AS [T79566][conversation_id, message, MAX-message_id] ) JOIN (
-          input1 )) AS [T78817][conversation_id, message, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message1]
+                  [T23].from_user  [T23].message) AS [T52040][from_user, message, MAX-timestamp]) AS [T52041][from_user, message, MAX-timestamp] ) JOIN (
+          input1 )) AS [T51654][from_user, message, MAX-timestamp, message_id, conversation_id, from_user1, timestamp, message1]
     WHERE
-      [T78817].MAX-message_id == [T78817].message_id) AS [T78838][conversation_id, message, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message1]
+      [T51654].from_user == [T51654].from_user1
+       AND [T51654].MAX-timestamp == [T51654].timestamp) AS [T51720][from_user, message, MAX-timestamp, message_id, conversation_id, from_user1, timestamp, message1]
 
 ==== [No. 2 ] ====
 SELECT
-  [T78838].MAX-message_id,[T78838].conversation_id,[T78838].from_user,[T78838].timestamp,[T78838].message
+  [T51720].message_id,[T51720].conversation_id,[T51720].from_user,[T51720].MAX-timestamp,[T51720].message
 FROM
   (SELECT
-      [T78817].conversation_id,[T78817].message,[T78817].MAX-message_id,[T78817].message_id,[T78817].conversation_id1,[T78817].from_user,[T78817].timestamp,[T78817].message1
+      [T51654].from_user,[T51654].message,[T51654].MAX-timestamp,[T51654].message_id,[T51654].conversation_id,[T51654].from_user1,[T51654].timestamp,[T51654].message1
     FROM
       (( (SELECT
-              [T79564].conversation_id,[T79564].message,[T79564].MAX-message_id
+              [T52040].from_user,[T52040].message,[T52040].MAX-timestamp
             FROM
               (SELECT
-                  input1.conversation_id, input1.message, MAX(input1.message_id)
+                  [T23].from_user, [T23].message, MAX([T23].timestamp)
                 FROM
-                  input1
+                  [T23]
                 GROUP BY
-                  input1.conversation_id  input1.message) AS [T79564][conversation_id, message, MAX-message_id]
-            WHERE
-              [T79564].MAX-message_id <= [T79564].conversation_id) AS [T79569][conversation_id, message, MAX-message_id] ) JOIN (
-          input1 )) AS [T78817][conversation_id, message, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message1]
+                  [T23].from_user  [T23].message) AS [T52040][from_user, message, MAX-timestamp]) AS [T52041][from_user, message, MAX-timestamp] ) JOIN (
+          input1 )) AS [T51654][from_user, message, MAX-timestamp, message_id, conversation_id, from_user1, timestamp, message1]
     WHERE
-      [T78817].MAX-message_id == [T78817].message_id) AS [T78838][conversation_id, message, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message1]
+      [T51654].from_user == [T51654].from_user1
+       AND [T51654].MAX-timestamp == [T51654].timestamp) AS [T51720][from_user, message, MAX-timestamp, message_id, conversation_id, from_user1, timestamp, message1]
 
 ==== [No. 3 ] ====
 SELECT
-  [T78838].MAX-message_id,[T78838].conversation_id,[T78838].from_user,[T78838].timestamp,[T78838].message
+  [T51720].message_id,[T51720].conversation_id,[T51720].from_user,[T51720].MAX-timestamp,[T51720].message
 FROM
   (SELECT
-      [T78817].conversation_id,[T78817].message,[T78817].MAX-message_id,[T78817].message_id,[T78817].conversation_id1,[T78817].from_user,[T78817].timestamp,[T78817].message1
+      [T51654].from_user,[T51654].message,[T51654].MAX-timestamp,[T51654].message_id,[T51654].conversation_id,[T51654].from_user1,[T51654].timestamp,[T51654].message1
     FROM
       (( (SELECT
-              [T79564].conversation_id,[T79564].message,[T79564].MAX-message_id
+              [T52040].from_user,[T52040].message,[T52040].MAX-timestamp
             FROM
               (SELECT
-                  input1.conversation_id, input1.message, MAX(input1.message_id)
+                  [T23].from_user, [T23].message, MAX([T23].timestamp)
                 FROM
-                  input1
+                  [T23]
                 GROUP BY
-                  input1.conversation_id  input1.message) AS [T79564][conversation_id, message, MAX-message_id]
-            WHERE
-              
-               AND [T79564].MAX-message_id < [T79564].conversation_id) AS [T79571][conversation_id, message, MAX-message_id] ) JOIN (
-          input1 )) AS [T78817][conversation_id, message, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message1]
+                  [T23].from_user  [T23].message) AS [T52040][from_user, message, MAX-timestamp]) AS [T52041][from_user, message, MAX-timestamp] ) JOIN (
+          input1 )) AS [T51654][from_user, message, MAX-timestamp, message_id, conversation_id, from_user1, timestamp, message1]
     WHERE
-      [T78817].MAX-message_id == [T78817].message_id) AS [T78838][conversation_id, message, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message1]
+      [T51654].from_user == [T51654].from_user1
+       AND [T51654].MAX-timestamp == [T51654].timestamp) AS [T51720][from_user, message, MAX-timestamp, message_id, conversation_id, from_user1, timestamp, message1]
 
 ==== [No. 4 ] ====
 SELECT
-  [T78838].MAX-message_id,[T78838].conversation_id,[T78838].from_user,[T78838].timestamp,[T78838].message
+  [T51720].message_id,[T51720].conversation_id,[T51720].from_user,[T51720].MAX-timestamp,[T51720].message
 FROM
   (SELECT
-      [T78817].conversation_id,[T78817].message,[T78817].MAX-message_id,[T78817].message_id,[T78817].conversation_id1,[T78817].from_user,[T78817].timestamp,[T78817].message1
+      [T51654].from_user,[T51654].message,[T51654].MAX-timestamp,[T51654].message_id,[T51654].conversation_id,[T51654].from_user1,[T51654].timestamp,[T51654].message1
     FROM
       (( (SELECT
-              [T79564].conversation_id,[T79564].message,[T79564].MAX-message_id
+              [T52040].from_user,[T52040].message,[T52040].MAX-timestamp
             FROM
               (SELECT
-                  input1.conversation_id, input1.message, MAX(input1.message_id)
+                  [T23].from_user, [T23].message, MAX([T23].timestamp)
                 FROM
-                  input1
+                  [T23]
                 GROUP BY
-                  input1.conversation_id  input1.message) AS [T79564][conversation_id, message, MAX-message_id]
-            WHERE
-              
-               AND [T79564].MAX-message_id <= [T79564].conversation_id) AS [T79574][conversation_id, message, MAX-message_id] ) JOIN (
-          input1 )) AS [T78817][conversation_id, message, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message1]
+                  [T23].from_user  [T23].message) AS [T52040][from_user, message, MAX-timestamp]) AS [T52041][from_user, message, MAX-timestamp] ) JOIN (
+          input1 )) AS [T51654][from_user, message, MAX-timestamp, message_id, conversation_id, from_user1, timestamp, message1]
     WHERE
-      [T78817].MAX-message_id == [T78817].message_id) AS [T78838][conversation_id, message, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message1]
+      [T51654].from_user == [T51654].from_user1
+       AND [T51654].MAX-timestamp == [T51654].timestamp) AS [T51720][from_user, message, MAX-timestamp, message_id, conversation_id, from_user1, timestamp, message1]
 
 ==== [No. 5 ] ====
 SELECT
-  [T78838].MAX-message_id,[T78838].conversation_id,[T78838].from_user,[T78838].timestamp,[T78838].message
+  [T51720].message_id,[T51720].conversation_id,[T51720].from_user,[T51720].MAX-timestamp,[T51720].message
 FROM
   (SELECT
-      [T78817].conversation_id,[T78817].message,[T78817].MAX-message_id,[T78817].message_id,[T78817].conversation_id1,[T78817].from_user,[T78817].timestamp,[T78817].message1
+      [T51654].from_user,[T51654].message,[T51654].MAX-timestamp,[T51654].message_id,[T51654].conversation_id,[T51654].from_user1,[T51654].timestamp,[T51654].message1
     FROM
       (( (SELECT
-              input1.conversation_id, input1.message, MAX(input1.message_id)
+              [T52040].from_user,[T52040].message,[T52040].MAX-timestamp
             FROM
-              input1
-            GROUP BY
-              input1.conversation_id  input1.message) AS [T79564][conversation_id, message, MAX-message_id] ) JOIN (
-          input1 )) AS [T78817][conversation_id, message, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message1]
+              (SELECT
+                  [T23].from_user, [T23].message, MAX([T23].timestamp)
+                FROM
+                  [T23]
+                GROUP BY
+                  [T23].from_user  [T23].message) AS [T52040][from_user, message, MAX-timestamp]) AS [T52041][from_user, message, MAX-timestamp] ) JOIN (
+          input1 )) AS [T51654][from_user, message, MAX-timestamp, message_id, conversation_id, from_user1, timestamp, message1]
     WHERE
-      [T78817].MAX-message_id == [T78817].message_id) AS [T78838][conversation_id, message, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message1]
+      [T51654].from_user == [T51654].from_user1
+       AND [T51654].MAX-timestamp == [T51654].timestamp) AS [T51720][from_user, message, MAX-timestamp, message_id, conversation_id, from_user1, timestamp, message1]
 
 ==== [No. 6 ] ====
 SELECT
-  [T78870].MAX-message_id,[T78870].conversation_id,[T78870].from_user,[T78870].timestamp,[T78870].message
+  [T51720].message_id,[T51720].conversation_id,[T51720].from_user,[T51720].MAX-timestamp,[T51720].message
 FROM
   (SELECT
-      [T78817].conversation_id,[T78817].message,[T78817].MAX-message_id,[T78817].message_id,[T78817].conversation_id1,[T78817].from_user,[T78817].timestamp,[T78817].message1
+      [T51654].from_user,[T51654].message,[T51654].MAX-timestamp,[T51654].message_id,[T51654].conversation_id,[T51654].from_user1,[T51654].timestamp,[T51654].message1
     FROM
       (( (SELECT
-              [T79564].conversation_id,[T79564].message,[T79564].MAX-message_id
+              [T52040].from_user,[T52040].message,[T52040].MAX-timestamp
             FROM
               (SELECT
-                  input1.conversation_id, input1.message, MAX(input1.message_id)
+                  [T23].from_user, [T23].message, MAX([T23].timestamp)
                 FROM
-                  input1
+                  [T23]
                 GROUP BY
-                  input1.conversation_id  input1.message) AS [T79564][conversation_id, message, MAX-message_id]) AS [T79565][conversation_id, message, MAX-message_id] ) JOIN (
-          input1 )) AS [T78817][conversation_id, message, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message1]
+                  [T23].from_user  [T23].message) AS [T52040][from_user, message, MAX-timestamp]) AS [T52041][from_user, message, MAX-timestamp] ) JOIN (
+          input1 )) AS [T51654][from_user, message, MAX-timestamp, message_id, conversation_id, from_user1, timestamp, message1]
     WHERE
-      
-       AND [T78817].MAX-message_id == [T78817].message_id) AS [T78870][conversation_id, message, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message1]
+      [T51654].from_user == [T51654].from_user1
+       AND [T51654].MAX-timestamp == [T51654].timestamp) AS [T51720][from_user, message, MAX-timestamp, message_id, conversation_id, from_user1, timestamp, message1]
 
 ==== [No. 7 ] ====
 SELECT
-  [T78870].MAX-message_id,[T78870].conversation_id,[T78870].from_user,[T78870].timestamp,[T78870].message
+  [T51720].message_id,[T51720].conversation_id,[T51720].from_user,[T51720].MAX-timestamp,[T51720].message
 FROM
   (SELECT
-      [T78817].conversation_id,[T78817].message,[T78817].MAX-message_id,[T78817].message_id,[T78817].conversation_id1,[T78817].from_user,[T78817].timestamp,[T78817].message1
+      [T51654].from_user,[T51654].message,[T51654].MAX-timestamp,[T51654].message_id,[T51654].conversation_id,[T51654].from_user1,[T51654].timestamp,[T51654].message1
     FROM
       (( (SELECT
-              [T79564].conversation_id,[T79564].message,[T79564].MAX-message_id
+              [T52040].from_user,[T52040].message,[T52040].MAX-timestamp
             FROM
               (SELECT
-                  input1.conversation_id, input1.message, MAX(input1.message_id)
+                  [T23].from_user, [T23].message, MAX([T23].timestamp)
                 FROM
-                  input1
+                  [T23]
                 GROUP BY
-                  input1.conversation_id  input1.message) AS [T79564][conversation_id, message, MAX-message_id]
-            WHERE
-              [T79564].MAX-message_id < [T79564].conversation_id) AS [T79566][conversation_id, message, MAX-message_id] ) JOIN (
-          input1 )) AS [T78817][conversation_id, message, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message1]
+                  [T23].from_user  [T23].message) AS [T52040][from_user, message, MAX-timestamp]) AS [T52041][from_user, message, MAX-timestamp] ) JOIN (
+          input1 )) AS [T51654][from_user, message, MAX-timestamp, message_id, conversation_id, from_user1, timestamp, message1]
     WHERE
-      
-       AND [T78817].MAX-message_id == [T78817].message_id) AS [T78870][conversation_id, message, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message1]
+      [T51654].from_user == [T51654].from_user1
+       AND [T51654].MAX-timestamp == [T51654].timestamp) AS [T51720][from_user, message, MAX-timestamp, message_id, conversation_id, from_user1, timestamp, message1]
 
 ==== [No. 8 ] ====
 SELECT
-  [T78870].MAX-message_id,[T78870].conversation_id,[T78870].from_user,[T78870].timestamp,[T78870].message
+  [T51720].message_id,[T51720].conversation_id,[T51720].from_user,[T51720].MAX-timestamp,[T51720].message
 FROM
   (SELECT
-      [T78817].conversation_id,[T78817].message,[T78817].MAX-message_id,[T78817].message_id,[T78817].conversation_id1,[T78817].from_user,[T78817].timestamp,[T78817].message1
+      [T51654].from_user,[T51654].message,[T51654].MAX-timestamp,[T51654].message_id,[T51654].conversation_id,[T51654].from_user1,[T51654].timestamp,[T51654].message1
     FROM
       (( (SELECT
-              [T79564].conversation_id,[T79564].message,[T79564].MAX-message_id
+              [T52040].from_user,[T52040].message,[T52040].MAX-timestamp
             FROM
               (SELECT
-                  input1.conversation_id, input1.message, MAX(input1.message_id)
+                  [T23].from_user, [T23].message, MAX([T23].timestamp)
                 FROM
-                  input1
+                  [T23]
                 GROUP BY
-                  input1.conversation_id  input1.message) AS [T79564][conversation_id, message, MAX-message_id]
-            WHERE
-              [T79564].MAX-message_id <= [T79564].conversation_id) AS [T79569][conversation_id, message, MAX-message_id] ) JOIN (
-          input1 )) AS [T78817][conversation_id, message, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message1]
+                  [T23].from_user  [T23].message) AS [T52040][from_user, message, MAX-timestamp]) AS [T52041][from_user, message, MAX-timestamp] ) JOIN (
+          input1 )) AS [T51654][from_user, message, MAX-timestamp, message_id, conversation_id, from_user1, timestamp, message1]
     WHERE
-      
-       AND [T78817].MAX-message_id == [T78817].message_id) AS [T78870][conversation_id, message, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message1]
+      [T51654].from_user == [T51654].from_user1
+       AND [T51654].MAX-timestamp == [T51654].timestamp) AS [T51720][from_user, message, MAX-timestamp, message_id, conversation_id, from_user1, timestamp, message1]
 
 ==== [No. 9 ] ====
 SELECT
-  [T78870].MAX-message_id,[T78870].conversation_id,[T78870].from_user,[T78870].timestamp,[T78870].message
+  [T51720].message_id,[T51720].conversation_id,[T51720].from_user,[T51720].MAX-timestamp,[T51720].message
 FROM
   (SELECT
-      [T78817].conversation_id,[T78817].message,[T78817].MAX-message_id,[T78817].message_id,[T78817].conversation_id1,[T78817].from_user,[T78817].timestamp,[T78817].message1
+      [T51654].from_user,[T51654].message,[T51654].MAX-timestamp,[T51654].message_id,[T51654].conversation_id,[T51654].from_user1,[T51654].timestamp,[T51654].message1
     FROM
       (( (SELECT
-              [T79564].conversation_id,[T79564].message,[T79564].MAX-message_id
+              [T52040].from_user,[T52040].message,[T52040].MAX-timestamp
             FROM
               (SELECT
-                  input1.conversation_id, input1.message, MAX(input1.message_id)
+                  [T23].from_user, [T23].message, MAX([T23].timestamp)
                 FROM
-                  input1
+                  [T23]
                 GROUP BY
-                  input1.conversation_id  input1.message) AS [T79564][conversation_id, message, MAX-message_id]
-            WHERE
-              
-               AND [T79564].MAX-message_id < [T79564].conversation_id) AS [T79571][conversation_id, message, MAX-message_id] ) JOIN (
-          input1 )) AS [T78817][conversation_id, message, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message1]
+                  [T23].from_user  [T23].message) AS [T52040][from_user, message, MAX-timestamp]) AS [T52041][from_user, message, MAX-timestamp] ) JOIN (
+          input1 )) AS [T51654][from_user, message, MAX-timestamp, message_id, conversation_id, from_user1, timestamp, message1]
     WHERE
-      
-       AND [T78817].MAX-message_id == [T78817].message_id) AS [T78870][conversation_id, message, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message1]
+      [T51654].from_user == [T51654].from_user1
+       AND [T51654].MAX-timestamp == [T51654].timestamp) AS [T51720][from_user, message, MAX-timestamp, message_id, conversation_id, from_user1, timestamp, message1]
 
 ==== [No. 10 ] ====
 SELECT
-  [T82585].MAX-message_id,[T82585].conversation_id,[T82585].from_user,[T82585].timestamp,[T82585].message
+  [T55403].message_id,[T55403].conversation_id,[T55403].from_user,[T55403].MAX-timestamp,[T55403].message
 FROM
   (SELECT
-      [T82566].conversation_id,[T82566].MAX-message_id,[T82566].message_id,[T82566].conversation_id1,[T82566].from_user,[T82566].timestamp,[T82566].message
+      [T55143].conversation_id,[T55143].message,[T55143].MAX-timestamp,[T55143].message_id,[T55143].conversation_id1,[T55143].from_user,[T55143].timestamp,[T55143].message1
     FROM
       (( (SELECT
-              [T83005].conversation_id,[T83005].MAX-message_id
+              [T55814].conversation_id,[T55814].message,[T55814].MAX-timestamp
             FROM
               (SELECT
-                  input1.conversation_id, MAX(input1.message_id)
+                  [T23].conversation_id, [T23].message, MAX([T23].timestamp)
                 FROM
-                  input1
+                  [T23]
                 GROUP BY
-                  input1.conversation_id) AS [T83005][conversation_id, MAX-message_id]) AS [T83006][conversation_id, MAX-message_id] ) JOIN (
-          input1 )) AS [T82566][conversation_id, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message]
+                  [T23].conversation_id  [T23].message) AS [T55814][conversation_id, message, MAX-timestamp]) AS [T55815][conversation_id, message, MAX-timestamp] ) JOIN (
+          input1 )) AS [T55143][conversation_id, message, MAX-timestamp, message_id, conversation_id1, from_user, timestamp, message1]
     WHERE
-      [T82566].MAX-message_id == [T82566].message_id) AS [T82585][conversation_id, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message]
+      [T55143].conversation_id == [T55143].conversation_id1
+       AND [T55143].MAX-timestamp == [T55143].timestamp) AS [T55403][conversation_id, message, MAX-timestamp, message_id, conversation_id1, from_user, timestamp, message1]
 
 ==== [No. 11 ] ====
 SELECT
-  [T82585].MAX-message_id,[T82585].conversation_id,[T82585].from_user,[T82585].timestamp,[T82585].message
+  [T55403].message_id,[T55403].conversation_id,[T55403].from_user,[T55403].MAX-timestamp,[T55403].message
 FROM
   (SELECT
-      [T82566].conversation_id,[T82566].MAX-message_id,[T82566].message_id,[T82566].conversation_id1,[T82566].from_user,[T82566].timestamp,[T82566].message
+      [T55143].conversation_id,[T55143].message,[T55143].MAX-timestamp,[T55143].message_id,[T55143].conversation_id1,[T55143].from_user,[T55143].timestamp,[T55143].message1
     FROM
       (( (SELECT
-              [T83005].conversation_id,[T83005].MAX-message_id
+              [T55814].conversation_id,[T55814].message,[T55814].MAX-timestamp
             FROM
               (SELECT
-                  input1.conversation_id, MAX(input1.message_id)
+                  [T23].conversation_id, [T23].message, MAX([T23].timestamp)
                 FROM
-                  input1
+                  [T23]
                 GROUP BY
-                  input1.conversation_id) AS [T83005][conversation_id, MAX-message_id]
-            WHERE
-              [T83005].MAX-message_id < [T83005].conversation_id) AS [T83007][conversation_id, MAX-message_id] ) JOIN (
-          input1 )) AS [T82566][conversation_id, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message]
+                  [T23].conversation_id  [T23].message) AS [T55814][conversation_id, message, MAX-timestamp]) AS [T55815][conversation_id, message, MAX-timestamp] ) JOIN (
+          input1 )) AS [T55143][conversation_id, message, MAX-timestamp, message_id, conversation_id1, from_user, timestamp, message1]
     WHERE
-      [T82566].MAX-message_id == [T82566].message_id) AS [T82585][conversation_id, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message]
+      [T55143].conversation_id == [T55143].conversation_id1
+       AND [T55143].MAX-timestamp == [T55143].timestamp) AS [T55403][conversation_id, message, MAX-timestamp, message_id, conversation_id1, from_user, timestamp, message1]
 
 ==== [No. 12 ] ====
 SELECT
-  [T82585].MAX-message_id,[T82585].conversation_id,[T82585].from_user,[T82585].timestamp,[T82585].message
+  [T55403].message_id,[T55403].conversation_id,[T55403].from_user,[T55403].MAX-timestamp,[T55403].message
 FROM
   (SELECT
-      [T82566].conversation_id,[T82566].MAX-message_id,[T82566].message_id,[T82566].conversation_id1,[T82566].from_user,[T82566].timestamp,[T82566].message
+      [T55143].conversation_id,[T55143].message,[T55143].MAX-timestamp,[T55143].message_id,[T55143].conversation_id1,[T55143].from_user,[T55143].timestamp,[T55143].message1
     FROM
       (( (SELECT
-              [T83005].conversation_id,[T83005].MAX-message_id
+              [T55814].conversation_id,[T55814].message,[T55814].MAX-timestamp
             FROM
               (SELECT
-                  input1.conversation_id, MAX(input1.message_id)
+                  [T23].conversation_id, [T23].message, MAX([T23].timestamp)
                 FROM
-                  input1
+                  [T23]
                 GROUP BY
-                  input1.conversation_id) AS [T83005][conversation_id, MAX-message_id]
-            WHERE
-              [T83005].MAX-message_id <= [T83005].conversation_id) AS [T83010][conversation_id, MAX-message_id] ) JOIN (
-          input1 )) AS [T82566][conversation_id, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message]
+                  [T23].conversation_id  [T23].message) AS [T55814][conversation_id, message, MAX-timestamp]) AS [T55815][conversation_id, message, MAX-timestamp] ) JOIN (
+          input1 )) AS [T55143][conversation_id, message, MAX-timestamp, message_id, conversation_id1, from_user, timestamp, message1]
     WHERE
-      [T82566].MAX-message_id == [T82566].message_id) AS [T82585][conversation_id, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message]
+      [T55143].conversation_id == [T55143].conversation_id1
+       AND [T55143].MAX-timestamp == [T55143].timestamp) AS [T55403][conversation_id, message, MAX-timestamp, message_id, conversation_id1, from_user, timestamp, message1]
 
 ==== [No. 13 ] ====
 SELECT
-  [T82585].MAX-message_id,[T82585].conversation_id,[T82585].from_user,[T82585].timestamp,[T82585].message
+  [T55403].message_id,[T55403].conversation_id,[T55403].from_user,[T55403].MAX-timestamp,[T55403].message
 FROM
   (SELECT
-      [T82566].conversation_id,[T82566].MAX-message_id,[T82566].message_id,[T82566].conversation_id1,[T82566].from_user,[T82566].timestamp,[T82566].message
+      [T55143].conversation_id,[T55143].message,[T55143].MAX-timestamp,[T55143].message_id,[T55143].conversation_id1,[T55143].from_user,[T55143].timestamp,[T55143].message1
     FROM
       (( (SELECT
-              [T83005].conversation_id,[T83005].MAX-message_id
+              [T55814].conversation_id,[T55814].message,[T55814].MAX-timestamp
             FROM
               (SELECT
-                  input1.conversation_id, MAX(input1.message_id)
+                  [T23].conversation_id, [T23].message, MAX([T23].timestamp)
                 FROM
-                  input1
+                  [T23]
                 GROUP BY
-                  input1.conversation_id) AS [T83005][conversation_id, MAX-message_id]
-            WHERE
-              
-               AND [T83005].MAX-message_id < [T83005].conversation_id) AS [T83012][conversation_id, MAX-message_id] ) JOIN (
-          input1 )) AS [T82566][conversation_id, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message]
+                  [T23].conversation_id  [T23].message) AS [T55814][conversation_id, message, MAX-timestamp]) AS [T55815][conversation_id, message, MAX-timestamp] ) JOIN (
+          input1 )) AS [T55143][conversation_id, message, MAX-timestamp, message_id, conversation_id1, from_user, timestamp, message1]
     WHERE
-      [T82566].MAX-message_id == [T82566].message_id) AS [T82585][conversation_id, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message]
+      [T55143].conversation_id == [T55143].conversation_id1
+       AND [T55143].MAX-timestamp == [T55143].timestamp) AS [T55403][conversation_id, message, MAX-timestamp, message_id, conversation_id1, from_user, timestamp, message1]
 
 ==== [No. 14 ] ====
 SELECT
-  [T82585].MAX-message_id,[T82585].conversation_id,[T82585].from_user,[T82585].timestamp,[T82585].message
+  [T55403].message_id,[T55403].conversation_id,[T55403].from_user,[T55403].MAX-timestamp,[T55403].message
 FROM
   (SELECT
-      [T82566].conversation_id,[T82566].MAX-message_id,[T82566].message_id,[T82566].conversation_id1,[T82566].from_user,[T82566].timestamp,[T82566].message
+      [T55143].conversation_id,[T55143].message,[T55143].MAX-timestamp,[T55143].message_id,[T55143].conversation_id1,[T55143].from_user,[T55143].timestamp,[T55143].message1
     FROM
       (( (SELECT
-              [T83005].conversation_id,[T83005].MAX-message_id
+              [T55814].conversation_id,[T55814].message,[T55814].MAX-timestamp
             FROM
               (SELECT
-                  input1.conversation_id, MAX(input1.message_id)
+                  [T23].conversation_id, [T23].message, MAX([T23].timestamp)
                 FROM
-                  input1
+                  [T23]
                 GROUP BY
-                  input1.conversation_id) AS [T83005][conversation_id, MAX-message_id]
-            WHERE
-              
-               AND [T83005].MAX-message_id <= [T83005].conversation_id) AS [T83015][conversation_id, MAX-message_id] ) JOIN (
-          input1 )) AS [T82566][conversation_id, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message]
+                  [T23].conversation_id  [T23].message) AS [T55814][conversation_id, message, MAX-timestamp]) AS [T55815][conversation_id, message, MAX-timestamp] ) JOIN (
+          input1 )) AS [T55143][conversation_id, message, MAX-timestamp, message_id, conversation_id1, from_user, timestamp, message1]
     WHERE
-      [T82566].MAX-message_id == [T82566].message_id) AS [T82585][conversation_id, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message]
+      [T55143].conversation_id == [T55143].conversation_id1
+       AND [T55143].MAX-timestamp == [T55143].timestamp) AS [T55403][conversation_id, message, MAX-timestamp, message_id, conversation_id1, from_user, timestamp, message1]
 
 ==== [No. 15 ] ====
 SELECT
-  [T82585].MAX-message_id,[T82585].conversation_id,[T82585].from_user,[T82585].timestamp,[T82585].message
+  [T55403].message_id,[T55403].conversation_id,[T55403].from_user,[T55403].MAX-timestamp,[T55403].message
 FROM
   (SELECT
-      [T82566].conversation_id,[T82566].MAX-message_id,[T82566].message_id,[T82566].conversation_id1,[T82566].from_user,[T82566].timestamp,[T82566].message
+      [T55143].conversation_id,[T55143].message,[T55143].MAX-timestamp,[T55143].message_id,[T55143].conversation_id1,[T55143].from_user,[T55143].timestamp,[T55143].message1
     FROM
       (( (SELECT
-              input1.conversation_id, MAX(input1.message_id)
+              [T55814].conversation_id,[T55814].message,[T55814].MAX-timestamp
             FROM
-              input1
-            GROUP BY
-              input1.conversation_id) AS [T83005][conversation_id, MAX-message_id] ) JOIN (
-          input1 )) AS [T82566][conversation_id, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message]
+              (SELECT
+                  [T23].conversation_id, [T23].message, MAX([T23].timestamp)
+                FROM
+                  [T23]
+                GROUP BY
+                  [T23].conversation_id  [T23].message) AS [T55814][conversation_id, message, MAX-timestamp]) AS [T55815][conversation_id, message, MAX-timestamp] ) JOIN (
+          input1 )) AS [T55143][conversation_id, message, MAX-timestamp, message_id, conversation_id1, from_user, timestamp, message1]
     WHERE
-      [T82566].MAX-message_id == [T82566].message_id) AS [T82585][conversation_id, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message]
+      [T55143].conversation_id == [T55143].conversation_id1
+       AND [T55143].MAX-timestamp == [T55143].timestamp) AS [T55403][conversation_id, message, MAX-timestamp, message_id, conversation_id1, from_user, timestamp, message1]
 
 ==== [No. 16 ] ====
 SELECT
-  [T82615].MAX-message_id,[T82615].conversation_id,[T82615].from_user,[T82615].timestamp,[T82615].message
+  [T55403].message_id,[T55403].conversation_id,[T55403].from_user,[T55403].MAX-timestamp,[T55403].message
 FROM
   (SELECT
-      [T82566].conversation_id,[T82566].MAX-message_id,[T82566].message_id,[T82566].conversation_id1,[T82566].from_user,[T82566].timestamp,[T82566].message
+      [T55143].conversation_id,[T55143].message,[T55143].MAX-timestamp,[T55143].message_id,[T55143].conversation_id1,[T55143].from_user,[T55143].timestamp,[T55143].message1
     FROM
       (( (SELECT
-              [T83005].conversation_id,[T83005].MAX-message_id
+              [T55814].conversation_id,[T55814].message,[T55814].MAX-timestamp
             FROM
               (SELECT
-                  input1.conversation_id, MAX(input1.message_id)
+                  [T23].conversation_id, [T23].message, MAX([T23].timestamp)
                 FROM
-                  input1
+                  [T23]
                 GROUP BY
-                  input1.conversation_id) AS [T83005][conversation_id, MAX-message_id]) AS [T83006][conversation_id, MAX-message_id] ) JOIN (
-          input1 )) AS [T82566][conversation_id, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message]
+                  [T23].conversation_id  [T23].message) AS [T55814][conversation_id, message, MAX-timestamp]) AS [T55815][conversation_id, message, MAX-timestamp] ) JOIN (
+          input1 )) AS [T55143][conversation_id, message, MAX-timestamp, message_id, conversation_id1, from_user, timestamp, message1]
     WHERE
-      
-       AND [T82566].MAX-message_id == [T82566].message_id) AS [T82615][conversation_id, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message]
+      [T55143].conversation_id == [T55143].conversation_id1
+       AND [T55143].MAX-timestamp == [T55143].timestamp) AS [T55403][conversation_id, message, MAX-timestamp, message_id, conversation_id1, from_user, timestamp, message1]
 
 ==== [No. 17 ] ====
 SELECT
-  [T82615].MAX-message_id,[T82615].conversation_id,[T82615].from_user,[T82615].timestamp,[T82615].message
+  [T55403].message_id,[T55403].conversation_id,[T55403].from_user,[T55403].MAX-timestamp,[T55403].message
 FROM
   (SELECT
-      [T82566].conversation_id,[T82566].MAX-message_id,[T82566].message_id,[T82566].conversation_id1,[T82566].from_user,[T82566].timestamp,[T82566].message
+      [T55143].conversation_id,[T55143].message,[T55143].MAX-timestamp,[T55143].message_id,[T55143].conversation_id1,[T55143].from_user,[T55143].timestamp,[T55143].message1
     FROM
       (( (SELECT
-              [T83005].conversation_id,[T83005].MAX-message_id
+              [T55814].conversation_id,[T55814].message,[T55814].MAX-timestamp
             FROM
               (SELECT
-                  input1.conversation_id, MAX(input1.message_id)
+                  [T23].conversation_id, [T23].message, MAX([T23].timestamp)
                 FROM
-                  input1
+                  [T23]
                 GROUP BY
-                  input1.conversation_id) AS [T83005][conversation_id, MAX-message_id]
-            WHERE
-              [T83005].MAX-message_id < [T83005].conversation_id) AS [T83007][conversation_id, MAX-message_id] ) JOIN (
-          input1 )) AS [T82566][conversation_id, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message]
+                  [T23].conversation_id  [T23].message) AS [T55814][conversation_id, message, MAX-timestamp]) AS [T55815][conversation_id, message, MAX-timestamp] ) JOIN (
+          input1 )) AS [T55143][conversation_id, message, MAX-timestamp, message_id, conversation_id1, from_user, timestamp, message1]
     WHERE
-      
-       AND [T82566].MAX-message_id == [T82566].message_id) AS [T82615][conversation_id, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message]
+      [T55143].conversation_id == [T55143].conversation_id1
+       AND [T55143].MAX-timestamp == [T55143].timestamp) AS [T55403][conversation_id, message, MAX-timestamp, message_id, conversation_id1, from_user, timestamp, message1]
 
 ==== [No. 18 ] ====
 SELECT
-  [T82615].MAX-message_id,[T82615].conversation_id,[T82615].from_user,[T82615].timestamp,[T82615].message
+  [T55403].message_id,[T55403].conversation_id,[T55403].from_user,[T55403].MAX-timestamp,[T55403].message
 FROM
   (SELECT
-      [T82566].conversation_id,[T82566].MAX-message_id,[T82566].message_id,[T82566].conversation_id1,[T82566].from_user,[T82566].timestamp,[T82566].message
+      [T55143].conversation_id,[T55143].message,[T55143].MAX-timestamp,[T55143].message_id,[T55143].conversation_id1,[T55143].from_user,[T55143].timestamp,[T55143].message1
     FROM
       (( (SELECT
-              [T83005].conversation_id,[T83005].MAX-message_id
+              [T55814].conversation_id,[T55814].message,[T55814].MAX-timestamp
             FROM
               (SELECT
-                  input1.conversation_id, MAX(input1.message_id)
+                  [T23].conversation_id, [T23].message, MAX([T23].timestamp)
                 FROM
-                  input1
+                  [T23]
                 GROUP BY
-                  input1.conversation_id) AS [T83005][conversation_id, MAX-message_id]
-            WHERE
-              [T83005].MAX-message_id <= [T83005].conversation_id) AS [T83010][conversation_id, MAX-message_id] ) JOIN (
-          input1 )) AS [T82566][conversation_id, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message]
+                  [T23].conversation_id  [T23].message) AS [T55814][conversation_id, message, MAX-timestamp]) AS [T55815][conversation_id, message, MAX-timestamp] ) JOIN (
+          input1 )) AS [T55143][conversation_id, message, MAX-timestamp, message_id, conversation_id1, from_user, timestamp, message1]
     WHERE
-      
-       AND [T82566].MAX-message_id == [T82566].message_id) AS [T82615][conversation_id, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message]
+      [T55143].conversation_id == [T55143].conversation_id1
+       AND [T55143].MAX-timestamp == [T55143].timestamp) AS [T55403][conversation_id, message, MAX-timestamp, message_id, conversation_id1, from_user, timestamp, message1]
 
 ==== [No. 19 ] ====
 SELECT
-  [T82615].MAX-message_id,[T82615].conversation_id,[T82615].from_user,[T82615].timestamp,[T82615].message
+  [T55403].message_id,[T55403].conversation_id,[T55403].from_user,[T55403].MAX-timestamp,[T55403].message
 FROM
   (SELECT
-      [T82566].conversation_id,[T82566].MAX-message_id,[T82566].message_id,[T82566].conversation_id1,[T82566].from_user,[T82566].timestamp,[T82566].message
+      [T55143].conversation_id,[T55143].message,[T55143].MAX-timestamp,[T55143].message_id,[T55143].conversation_id1,[T55143].from_user,[T55143].timestamp,[T55143].message1
     FROM
       (( (SELECT
-              [T83005].conversation_id,[T83005].MAX-message_id
+              [T55814].conversation_id,[T55814].message,[T55814].MAX-timestamp
             FROM
               (SELECT
-                  input1.conversation_id, MAX(input1.message_id)
+                  [T23].conversation_id, [T23].message, MAX([T23].timestamp)
                 FROM
-                  input1
+                  [T23]
                 GROUP BY
-                  input1.conversation_id) AS [T83005][conversation_id, MAX-message_id]
-            WHERE
-              
-               AND [T83005].MAX-message_id < [T83005].conversation_id) AS [T83012][conversation_id, MAX-message_id] ) JOIN (
-          input1 )) AS [T82566][conversation_id, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message]
+                  [T23].conversation_id  [T23].message) AS [T55814][conversation_id, message, MAX-timestamp]) AS [T55815][conversation_id, message, MAX-timestamp] ) JOIN (
+          input1 )) AS [T55143][conversation_id, message, MAX-timestamp, message_id, conversation_id1, from_user, timestamp, message1]
     WHERE
-      
-       AND [T82566].MAX-message_id == [T82566].message_id) AS [T82615][conversation_id, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message]
+      [T55143].conversation_id == [T55143].conversation_id1
+       AND [T55143].MAX-timestamp == [T55143].timestamp) AS [T55403][conversation_id, message, MAX-timestamp, message_id, conversation_id1, from_user, timestamp, message1]
 
-Total Tree Count: 2
-Total Query Count: 912
+Total Tree Count: 6
+Total Query Count: 3744
 [Enumeration Finished]
-[[Synthesizer finished]] time: 00:00:07:689
+[[Synthesizer finished]] time: 00:00:06:482

@@ -6,440 +6,410 @@
 [Enumeration Start]
 [Stage 1] EnumFilterNamed: 
 	Queries generated: 12
-	Tables generated: 6
-	Total Table by now: 6
+	Tables generated: 3
+	Total Table by now: 3
 [Stage 2] EnumAggregationNode: 
-	Queries generated: 279
-	Tables generated: 19
-	Total Table by now: 25
+	Queries generated: 170
+	Tables generated: 14
+	Total Table by now: 17
 [Stage 3] EnumJoin1 
-	Queries generated: 618
-	Tables generated: 188
-	Total Table by now: 213
-[Runner up Table Count] 35
-[Consistent Table number] 20
+	Queries generated: 523
+	Tables generated: 162
+	Total Table by now: 179
+[Runner up Table Count] 27
+[Consistent Table number] 12
 ==== [No. 0 ] ====
 SELECT
-  input1.ARIDNR,input1.LIEFNR
-FROM
-  input1
-WHERE
-  input1.ARIDNR <= 2.0
-==== [No. 1 ] ====
-SELECT
-  input1.ARIDNR,input1.LIEFNR
-FROM
-  input1
-WHERE
-  
-   AND input1.ARIDNR <= 2.0
-==== [No. 2 ] ====
-SELECT
-  [T3538].COUNT-LIEFNR,[T3538].LIEFNR
+  [T1622].ARIDNR,[T1622].LIEFNR
 FROM
   (SELECT
-      [T3529].ARIDNR,[T3529].COUNT-LIEFNR,[T3529].ARIDNR1,[T3529].LIEFNR
+      [T1602].ARIDNR,[T1602].LIEFNR,[T1602].ARIDNR1,[T1602].LIEFNR1
     FROM
-      (( (SELECT
-              [T3578].ARIDNR,[T3578].COUNT-LIEFNR
-            FROM
-              (SELECT
-                  input1.ARIDNR, COUNT(input1.LIEFNR)
-                FROM
-                  input1
-                GROUP BY
-                  input1.ARIDNR) AS [T3578][ARIDNR, COUNT-LIEFNR]
-            WHERE
-              [T3578].COUNT-LIEFNR <= [T3578].ARIDNR) AS [T3588][ARIDNR, COUNT-LIEFNR] ) JOIN (
-          input1 )) AS [T3529][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+      (( input1 ) JOIN (
+          input1 )) AS [T1602][ARIDNR, LIEFNR, ARIDNR1, LIEFNR1]
     WHERE
-      [T3529].COUNT-LIEFNR == [T3529].ARIDNR1) AS [T3538][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+      [T1602].ARIDNR == [T1602].ARIDNR1
+       AND [T1602].LIEFNR ?? [T1602].LIEFNR1) AS [T1622][ARIDNR, LIEFNR, ARIDNR1, LIEFNR1]
+
+==== [No. 1 ] ====
+SELECT
+  [T1622].ARIDNR1,[T1622].LIEFNR
+FROM
+  (SELECT
+      [T1602].ARIDNR,[T1602].LIEFNR,[T1602].ARIDNR1,[T1602].LIEFNR1
+    FROM
+      (( input1 ) JOIN (
+          input1 )) AS [T1602][ARIDNR, LIEFNR, ARIDNR1, LIEFNR1]
+    WHERE
+      [T1602].ARIDNR == [T1602].ARIDNR1
+       AND [T1602].LIEFNR ?? [T1602].LIEFNR1) AS [T1622][ARIDNR, LIEFNR, ARIDNR1, LIEFNR1]
+
+==== [No. 2 ] ====
+SELECT
+  [T1622].ARIDNR,[T1622].LIEFNR1
+FROM
+  (SELECT
+      [T1602].ARIDNR,[T1602].LIEFNR,[T1602].ARIDNR1,[T1602].LIEFNR1
+    FROM
+      (( input1 ) JOIN (
+          input1 )) AS [T1602][ARIDNR, LIEFNR, ARIDNR1, LIEFNR1]
+    WHERE
+      [T1602].ARIDNR == [T1602].ARIDNR1
+       AND [T1602].LIEFNR ?? [T1602].LIEFNR1) AS [T1622][ARIDNR, LIEFNR, ARIDNR1, LIEFNR1]
 
 ==== [No. 3 ] ====
 SELECT
-  [T3538].COUNT-LIEFNR,[T3538].LIEFNR
+  [T1622].ARIDNR1,[T1622].LIEFNR1
 FROM
   (SELECT
-      [T3529].ARIDNR,[T3529].COUNT-LIEFNR,[T3529].ARIDNR1,[T3529].LIEFNR
+      [T1602].ARIDNR,[T1602].LIEFNR,[T1602].ARIDNR1,[T1602].LIEFNR1
     FROM
-      (( (SELECT
-              [T3578].ARIDNR,[T3578].COUNT-LIEFNR
-            FROM
-              (SELECT
-                  input1.ARIDNR, COUNT(input1.LIEFNR)
-                FROM
-                  input1
-                GROUP BY
-                  input1.ARIDNR) AS [T3578][ARIDNR, COUNT-LIEFNR]
-            WHERE
-              
-               AND [T3578].COUNT-LIEFNR <= [T3578].ARIDNR) AS [T3598][ARIDNR, COUNT-LIEFNR] ) JOIN (
-          input1 )) AS [T3529][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+      (( input1 ) JOIN (
+          input1 )) AS [T1602][ARIDNR, LIEFNR, ARIDNR1, LIEFNR1]
     WHERE
-      [T3529].COUNT-LIEFNR == [T3529].ARIDNR1) AS [T3538][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+      [T1602].ARIDNR == [T1602].ARIDNR1
+       AND [T1602].LIEFNR ?? [T1602].LIEFNR1) AS [T1622][ARIDNR, LIEFNR, ARIDNR1, LIEFNR1]
 
 ==== [No. 4 ] ====
 SELECT
-  [T3538].COUNT-LIEFNR,[T3538].LIEFNR
+  [T3256].COUNT-ARIDNR,[T3256].LIEFNR1
 FROM
   (SELECT
-      [T3529].ARIDNR,[T3529].COUNT-LIEFNR,[T3529].ARIDNR1,[T3529].LIEFNR
+      [T3250].LIEFNR,[T3250].COUNT-ARIDNR,[T3250].ARIDNR,[T3250].LIEFNR1
     FROM
       (( (SELECT
-              [T3578].ARIDNR,[T3578].COUNT-LIEFNR
+              [T3326].LIEFNR,[T3326].COUNT-ARIDNR
             FROM
               (SELECT
-                  input1.ARIDNR, COUNT(input1.LIEFNR)
+                  [T4].LIEFNR, COUNT([T4].ARIDNR)
                 FROM
-                  input1
+                  [T4]
                 GROUP BY
-                  input1.ARIDNR) AS [T3578][ARIDNR, COUNT-LIEFNR]
-            WHERE
-              [T3578].COUNT-LIEFNR <= 2.0
-               AND [T3578].COUNT-LIEFNR <= [T3578].ARIDNR) AS [T3618][ARIDNR, COUNT-LIEFNR] ) JOIN (
-          input1 )) AS [T3529][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+                  [T4].LIEFNR) AS [T3326][LIEFNR, COUNT-ARIDNR]) AS [T3327][LIEFNR, COUNT-ARIDNR] ) JOIN (
+          input1 )) AS [T3250][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
     WHERE
-      [T3529].COUNT-LIEFNR == [T3529].ARIDNR1) AS [T3538][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+      [T3250].COUNT-ARIDNR == [T3250].ARIDNR) AS [T3256][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
 
 ==== [No. 5 ] ====
 SELECT
-  [T3548].COUNT-LIEFNR,[T3548].LIEFNR
+  [T3256].COUNT-ARIDNR,[T3256].LIEFNR1
 FROM
   (SELECT
-      [T3529].ARIDNR,[T3529].COUNT-LIEFNR,[T3529].ARIDNR1,[T3529].LIEFNR
+      [T3250].LIEFNR,[T3250].COUNT-ARIDNR,[T3250].ARIDNR,[T3250].LIEFNR1
     FROM
       (( (SELECT
-              [T3578].ARIDNR,[T3578].COUNT-LIEFNR
+              [T3326].LIEFNR,[T3326].COUNT-ARIDNR
             FROM
               (SELECT
-                  input1.ARIDNR, COUNT(input1.LIEFNR)
+                  [T4].LIEFNR, COUNT([T4].ARIDNR)
                 FROM
-                  input1
+                  [T4]
                 GROUP BY
-                  input1.ARIDNR) AS [T3578][ARIDNR, COUNT-LIEFNR]
-            WHERE
-              [T3578].COUNT-LIEFNR <= [T3578].ARIDNR) AS [T3588][ARIDNR, COUNT-LIEFNR] ) JOIN (
-          input1 )) AS [T3529][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+                  [T4].LIEFNR) AS [T3326][LIEFNR, COUNT-ARIDNR]) AS [T3327][LIEFNR, COUNT-ARIDNR] ) JOIN (
+          input1 )) AS [T3250][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
     WHERE
-      
-       AND [T3529].COUNT-LIEFNR == [T3529].ARIDNR1) AS [T3548][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+      [T3250].COUNT-ARIDNR == [T3250].ARIDNR) AS [T3256][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
 
 ==== [No. 6 ] ====
 SELECT
-  [T3548].COUNT-LIEFNR,[T3548].LIEFNR
+  [T3256].COUNT-ARIDNR,[T3256].LIEFNR1
 FROM
   (SELECT
-      [T3529].ARIDNR,[T3529].COUNT-LIEFNR,[T3529].ARIDNR1,[T3529].LIEFNR
+      [T3250].LIEFNR,[T3250].COUNT-ARIDNR,[T3250].ARIDNR,[T3250].LIEFNR1
     FROM
       (( (SELECT
-              [T3578].ARIDNR,[T3578].COUNT-LIEFNR
+              [T3326].LIEFNR,[T3326].COUNT-ARIDNR
             FROM
               (SELECT
-                  input1.ARIDNR, COUNT(input1.LIEFNR)
+                  [T4].LIEFNR, COUNT([T4].ARIDNR)
                 FROM
-                  input1
+                  [T4]
                 GROUP BY
-                  input1.ARIDNR) AS [T3578][ARIDNR, COUNT-LIEFNR]
+                  [T4].LIEFNR) AS [T3326][LIEFNR, COUNT-ARIDNR]
             WHERE
-              
-               AND [T3578].COUNT-LIEFNR <= [T3578].ARIDNR) AS [T3598][ARIDNR, COUNT-LIEFNR] ) JOIN (
-          input1 )) AS [T3529][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+              [T3326].COUNT-ARIDNR >= 1.0) AS [T3332][LIEFNR, COUNT-ARIDNR] ) JOIN (
+          input1 )) AS [T3250][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
     WHERE
-      
-       AND [T3529].COUNT-LIEFNR == [T3529].ARIDNR1) AS [T3548][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+      [T3250].COUNT-ARIDNR == [T3250].ARIDNR) AS [T3256][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
 
 ==== [No. 7 ] ====
 SELECT
-  [T3548].COUNT-LIEFNR,[T3548].LIEFNR
+  [T3256].COUNT-ARIDNR,[T3256].LIEFNR1
 FROM
   (SELECT
-      [T3529].ARIDNR,[T3529].COUNT-LIEFNR,[T3529].ARIDNR1,[T3529].LIEFNR
+      [T3250].LIEFNR,[T3250].COUNT-ARIDNR,[T3250].ARIDNR,[T3250].LIEFNR1
     FROM
       (( (SELECT
-              [T3578].ARIDNR,[T3578].COUNT-LIEFNR
+              [T3326].LIEFNR,[T3326].COUNT-ARIDNR
             FROM
               (SELECT
-                  input1.ARIDNR, COUNT(input1.LIEFNR)
+                  [T4].LIEFNR, COUNT([T4].ARIDNR)
                 FROM
-                  input1
+                  [T4]
                 GROUP BY
-                  input1.ARIDNR) AS [T3578][ARIDNR, COUNT-LIEFNR]
+                  [T4].LIEFNR) AS [T3326][LIEFNR, COUNT-ARIDNR]
             WHERE
-              [T3578].COUNT-LIEFNR <= 2.0
-               AND [T3578].COUNT-LIEFNR <= [T3578].ARIDNR) AS [T3618][ARIDNR, COUNT-LIEFNR] ) JOIN (
-          input1 )) AS [T3529][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+              [T3326].COUNT-ARIDNR >= 1.0) AS [T3332][LIEFNR, COUNT-ARIDNR] ) JOIN (
+          input1 )) AS [T3250][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
     WHERE
-      
-       AND [T3529].COUNT-LIEFNR == [T3529].ARIDNR1) AS [T3548][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+      [T3250].COUNT-ARIDNR == [T3250].ARIDNR) AS [T3256][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
 
 ==== [No. 8 ] ====
 SELECT
-  [T3573].COUNT-LIEFNR,[T3573].LIEFNR
+  [T3256].COUNT-ARIDNR,[T3256].LIEFNR1
 FROM
   (SELECT
-      [T3529].ARIDNR,[T3529].COUNT-LIEFNR,[T3529].ARIDNR1,[T3529].LIEFNR
+      [T3250].LIEFNR,[T3250].COUNT-ARIDNR,[T3250].ARIDNR,[T3250].LIEFNR1
     FROM
       (( (SELECT
-              [T3578].ARIDNR,[T3578].COUNT-LIEFNR
+              [T3326].LIEFNR,[T3326].COUNT-ARIDNR
             FROM
               (SELECT
-                  input1.ARIDNR, COUNT(input1.LIEFNR)
+                  [T4].LIEFNR, COUNT([T4].ARIDNR)
                 FROM
-                  input1
+                  [T4]
                 GROUP BY
-                  input1.ARIDNR) AS [T3578][ARIDNR, COUNT-LIEFNR]
+                  [T4].LIEFNR) AS [T3326][LIEFNR, COUNT-ARIDNR]
             WHERE
-              [T3578].COUNT-LIEFNR <= [T3578].ARIDNR) AS [T3588][ARIDNR, COUNT-LIEFNR] ) JOIN (
-          input1 )) AS [T3529][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+              
+               AND [T3326].COUNT-ARIDNR >= 1.0) AS [T3337][LIEFNR, COUNT-ARIDNR] ) JOIN (
+          input1 )) AS [T3250][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
     WHERE
-      [T3529].ARIDNR >= [T3529].ARIDNR1
-       AND [T3529].COUNT-LIEFNR == [T3529].ARIDNR1) AS [T3573][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+      [T3250].COUNT-ARIDNR == [T3250].ARIDNR) AS [T3256][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
 
 ==== [No. 9 ] ====
 SELECT
-  [T3573].COUNT-LIEFNR,[T3573].LIEFNR
+  [T3256].COUNT-ARIDNR,[T3256].LIEFNR1
 FROM
   (SELECT
-      [T3529].ARIDNR,[T3529].COUNT-LIEFNR,[T3529].ARIDNR1,[T3529].LIEFNR
+      [T3250].LIEFNR,[T3250].COUNT-ARIDNR,[T3250].ARIDNR,[T3250].LIEFNR1
     FROM
       (( (SELECT
-              [T3578].ARIDNR,[T3578].COUNT-LIEFNR
+              [T3326].LIEFNR,[T3326].COUNT-ARIDNR
             FROM
               (SELECT
-                  input1.ARIDNR, COUNT(input1.LIEFNR)
+                  [T4].LIEFNR, COUNT([T4].ARIDNR)
                 FROM
-                  input1
+                  [T4]
                 GROUP BY
-                  input1.ARIDNR) AS [T3578][ARIDNR, COUNT-LIEFNR]
+                  [T4].LIEFNR) AS [T3326][LIEFNR, COUNT-ARIDNR]
             WHERE
               
-               AND [T3578].COUNT-LIEFNR <= [T3578].ARIDNR) AS [T3598][ARIDNR, COUNT-LIEFNR] ) JOIN (
-          input1 )) AS [T3529][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+               AND [T3326].COUNT-ARIDNR >= 1.0) AS [T3337][LIEFNR, COUNT-ARIDNR] ) JOIN (
+          input1 )) AS [T3250][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
     WHERE
-      [T3529].ARIDNR >= [T3529].ARIDNR1
-       AND [T3529].COUNT-LIEFNR == [T3529].ARIDNR1) AS [T3573][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+      [T3250].COUNT-ARIDNR == [T3250].ARIDNR) AS [T3256][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
 
 ==== [No. 10 ] ====
 SELECT
-  [T3573].COUNT-LIEFNR,[T3573].LIEFNR
+  [T3256].COUNT-ARIDNR,[T3256].LIEFNR1
 FROM
   (SELECT
-      [T3529].ARIDNR,[T3529].COUNT-LIEFNR,[T3529].ARIDNR1,[T3529].LIEFNR
+      [T3250].LIEFNR,[T3250].COUNT-ARIDNR,[T3250].ARIDNR,[T3250].LIEFNR1
     FROM
       (( (SELECT
-              [T3578].ARIDNR,[T3578].COUNT-LIEFNR
+              [T4].LIEFNR, COUNT([T4].ARIDNR)
             FROM
-              (SELECT
-                  input1.ARIDNR, COUNT(input1.LIEFNR)
-                FROM
-                  input1
-                GROUP BY
-                  input1.ARIDNR) AS [T3578][ARIDNR, COUNT-LIEFNR]
-            WHERE
-              [T3578].COUNT-LIEFNR <= 2.0
-               AND [T3578].COUNT-LIEFNR <= [T3578].ARIDNR) AS [T3618][ARIDNR, COUNT-LIEFNR] ) JOIN (
-          input1 )) AS [T3529][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+              [T4]
+            GROUP BY
+              [T4].LIEFNR) AS [T3326][LIEFNR, COUNT-ARIDNR] ) JOIN (
+          input1 )) AS [T3250][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
     WHERE
-      [T3529].ARIDNR >= [T3529].ARIDNR1
-       AND [T3529].COUNT-LIEFNR == [T3529].ARIDNR1) AS [T3573][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+      [T3250].COUNT-ARIDNR == [T3250].ARIDNR) AS [T3256][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
 
 ==== [No. 11 ] ====
 SELECT
-  [T3538].ARIDNR1,[T3538].LIEFNR
+  [T3256].COUNT-ARIDNR,[T3256].LIEFNR1
 FROM
   (SELECT
-      [T3529].ARIDNR,[T3529].COUNT-LIEFNR,[T3529].ARIDNR1,[T3529].LIEFNR
+      [T3250].LIEFNR,[T3250].COUNT-ARIDNR,[T3250].ARIDNR,[T3250].LIEFNR1
     FROM
       (( (SELECT
-              [T3578].ARIDNR,[T3578].COUNT-LIEFNR
+              [T4].LIEFNR, COUNT([T4].ARIDNR)
             FROM
-              (SELECT
-                  input1.ARIDNR, COUNT(input1.LIEFNR)
-                FROM
-                  input1
-                GROUP BY
-                  input1.ARIDNR) AS [T3578][ARIDNR, COUNT-LIEFNR]
-            WHERE
-              [T3578].COUNT-LIEFNR <= [T3578].ARIDNR) AS [T3588][ARIDNR, COUNT-LIEFNR] ) JOIN (
-          input1 )) AS [T3529][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+              [T4]
+            GROUP BY
+              [T4].LIEFNR) AS [T3326][LIEFNR, COUNT-ARIDNR] ) JOIN (
+          input1 )) AS [T3250][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
     WHERE
-      [T3529].COUNT-LIEFNR == [T3529].ARIDNR1) AS [T3538][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+      [T3250].COUNT-ARIDNR == [T3250].ARIDNR) AS [T3256][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
 
 ==== [No. 12 ] ====
 SELECT
-  [T6206].COUNT-LIEFNR,[T6206].LIEFNR
+  [T3263].COUNT-ARIDNR,[T3263].LIEFNR1
 FROM
   (SELECT
-      [T6197].ARIDNR,[T6197].COUNT-LIEFNR,[T6197].ARIDNR1,[T6197].LIEFNR
+      [T3250].LIEFNR,[T3250].COUNT-ARIDNR,[T3250].ARIDNR,[T3250].LIEFNR1
     FROM
       (( (SELECT
-              [T6246].ARIDNR,[T6246].COUNT-LIEFNR
+              [T3326].LIEFNR,[T3326].COUNT-ARIDNR
             FROM
               (SELECT
-                  [T6].ARIDNR, COUNT([T6].LIEFNR)
+                  [T4].LIEFNR, COUNT([T4].ARIDNR)
                 FROM
-                  [T6]
+                  [T4]
                 GROUP BY
-                  [T6].ARIDNR) AS [T6246][ARIDNR, COUNT-LIEFNR]) AS [T6247][ARIDNR, COUNT-LIEFNR] ) JOIN (
-          input1 )) AS [T6197][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+                  [T4].LIEFNR) AS [T3326][LIEFNR, COUNT-ARIDNR]) AS [T3327][LIEFNR, COUNT-ARIDNR] ) JOIN (
+          input1 )) AS [T3250][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
     WHERE
-      [T6197].COUNT-LIEFNR == [T6197].ARIDNR1) AS [T6206][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+      
+       AND [T3250].COUNT-ARIDNR == [T3250].ARIDNR) AS [T3263][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
 
 ==== [No. 13 ] ====
 SELECT
-  [T6206].COUNT-LIEFNR,[T6206].LIEFNR
+  [T3263].COUNT-ARIDNR,[T3263].LIEFNR1
 FROM
   (SELECT
-      [T6197].ARIDNR,[T6197].COUNT-LIEFNR,[T6197].ARIDNR1,[T6197].LIEFNR
+      [T3250].LIEFNR,[T3250].COUNT-ARIDNR,[T3250].ARIDNR,[T3250].LIEFNR1
     FROM
       (( (SELECT
-              [T6246].ARIDNR,[T6246].COUNT-LIEFNR
+              [T3326].LIEFNR,[T3326].COUNT-ARIDNR
             FROM
               (SELECT
-                  [T6].ARIDNR, COUNT([T6].LIEFNR)
+                  [T4].LIEFNR, COUNT([T4].ARIDNR)
                 FROM
-                  [T6]
+                  [T4]
                 GROUP BY
-                  [T6].ARIDNR) AS [T6246][ARIDNR, COUNT-LIEFNR]) AS [T6247][ARIDNR, COUNT-LIEFNR] ) JOIN (
-          input1 )) AS [T6197][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+                  [T4].LIEFNR) AS [T3326][LIEFNR, COUNT-ARIDNR]) AS [T3327][LIEFNR, COUNT-ARIDNR] ) JOIN (
+          input1 )) AS [T3250][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
     WHERE
-      [T6197].COUNT-LIEFNR == [T6197].ARIDNR1) AS [T6206][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+      
+       AND [T3250].COUNT-ARIDNR == [T3250].ARIDNR) AS [T3263][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
 
 ==== [No. 14 ] ====
 SELECT
-  [T6206].COUNT-LIEFNR,[T6206].LIEFNR
+  [T4461].ARIDNR,[T4461].LIEFNR
 FROM
   (SELECT
-      [T6197].ARIDNR,[T6197].COUNT-LIEFNR,[T6197].ARIDNR1,[T6197].LIEFNR
+      [T4435].LIEFNR,[T4435].COUNT-ARIDNR,[T4435].ARIDNR,[T4435].LIEFNR1
     FROM
       (( (SELECT
-              [T6246].ARIDNR,[T6246].COUNT-LIEFNR
+              [T4511].LIEFNR,[T4511].COUNT-ARIDNR
             FROM
               (SELECT
-                  [T6].ARIDNR, COUNT([T6].LIEFNR)
+                  input1.LIEFNR, COUNT(input1.ARIDNR)
                 FROM
-                  [T6]
+                  input1
                 GROUP BY
-                  [T6].ARIDNR) AS [T6246][ARIDNR, COUNT-LIEFNR]
-            WHERE
-              [T6246].COUNT-LIEFNR <= 2.0) AS [T6251][ARIDNR, COUNT-LIEFNR] ) JOIN (
-          input1 )) AS [T6197][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+                  input1.LIEFNR) AS [T4511][LIEFNR, COUNT-ARIDNR]) AS [T4512][LIEFNR, COUNT-ARIDNR] ) JOIN (
+          input1 )) AS [T4435][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
     WHERE
-      [T6197].COUNT-LIEFNR == [T6197].ARIDNR1) AS [T6206][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+      [T4435].LIEFNR ?? [T4435].LIEFNR1
+       AND [T4435].COUNT-ARIDNR >= [T4435].ARIDNR) AS [T4461][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
 
 ==== [No. 15 ] ====
 SELECT
-  [T6206].COUNT-LIEFNR,[T6206].LIEFNR
+  [T4461].ARIDNR,[T4461].LIEFNR
 FROM
   (SELECT
-      [T6197].ARIDNR,[T6197].COUNT-LIEFNR,[T6197].ARIDNR1,[T6197].LIEFNR
+      [T4435].LIEFNR,[T4435].COUNT-ARIDNR,[T4435].ARIDNR,[T4435].LIEFNR1
     FROM
       (( (SELECT
-              [T6246].ARIDNR,[T6246].COUNT-LIEFNR
+              [T4511].LIEFNR,[T4511].COUNT-ARIDNR
             FROM
               (SELECT
-                  [T6].ARIDNR, COUNT([T6].LIEFNR)
+                  input1.LIEFNR, COUNT(input1.ARIDNR)
                 FROM
-                  [T6]
+                  input1
                 GROUP BY
-                  [T6].ARIDNR) AS [T6246][ARIDNR, COUNT-LIEFNR]
+                  input1.LIEFNR) AS [T4511][LIEFNR, COUNT-ARIDNR]
             WHERE
-              [T6246].COUNT-LIEFNR <= 2.0) AS [T6251][ARIDNR, COUNT-LIEFNR] ) JOIN (
-          input1 )) AS [T6197][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+              [T4511].COUNT-ARIDNR > 1.0) AS [T4515][LIEFNR, COUNT-ARIDNR] ) JOIN (
+          input1 )) AS [T4435][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
     WHERE
-      [T6197].COUNT-LIEFNR == [T6197].ARIDNR1) AS [T6206][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+      [T4435].LIEFNR ?? [T4435].LIEFNR1
+       AND [T4435].COUNT-ARIDNR >= [T4435].ARIDNR) AS [T4461][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
 
 ==== [No. 16 ] ====
 SELECT
-  [T6206].COUNT-LIEFNR,[T6206].LIEFNR
+  [T4461].ARIDNR,[T4461].LIEFNR
 FROM
   (SELECT
-      [T6197].ARIDNR,[T6197].COUNT-LIEFNR,[T6197].ARIDNR1,[T6197].LIEFNR
+      [T4435].LIEFNR,[T4435].COUNT-ARIDNR,[T4435].ARIDNR,[T4435].LIEFNR1
     FROM
       (( (SELECT
-              [T6246].ARIDNR,[T6246].COUNT-LIEFNR
+              [T4511].LIEFNR,[T4511].COUNT-ARIDNR
             FROM
               (SELECT
-                  [T6].ARIDNR, COUNT([T6].LIEFNR)
+                  input1.LIEFNR, COUNT(input1.ARIDNR)
                 FROM
-                  [T6]
+                  input1
                 GROUP BY
-                  [T6].ARIDNR) AS [T6246][ARIDNR, COUNT-LIEFNR]
+                  input1.LIEFNR) AS [T4511][LIEFNR, COUNT-ARIDNR]
             WHERE
-              [T6246].COUNT-LIEFNR <= [T6246].ARIDNR) AS [T6256][ARIDNR, COUNT-LIEFNR] ) JOIN (
-          input1 )) AS [T6197][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+              [T4511].COUNT-ARIDNR >= 1.0) AS [T4517][LIEFNR, COUNT-ARIDNR] ) JOIN (
+          input1 )) AS [T4435][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
     WHERE
-      [T6197].COUNT-LIEFNR == [T6197].ARIDNR1) AS [T6206][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+      [T4435].LIEFNR ?? [T4435].LIEFNR1
+       AND [T4435].COUNT-ARIDNR >= [T4435].ARIDNR) AS [T4461][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
 
 ==== [No. 17 ] ====
 SELECT
-  [T6206].COUNT-LIEFNR,[T6206].LIEFNR
+  [T4461].ARIDNR,[T4461].LIEFNR
 FROM
   (SELECT
-      [T6197].ARIDNR,[T6197].COUNT-LIEFNR,[T6197].ARIDNR1,[T6197].LIEFNR
+      [T4435].LIEFNR,[T4435].COUNT-ARIDNR,[T4435].ARIDNR,[T4435].LIEFNR1
     FROM
       (( (SELECT
-              [T6246].ARIDNR,[T6246].COUNT-LIEFNR
+              [T4511].LIEFNR,[T4511].COUNT-ARIDNR
             FROM
               (SELECT
-                  [T6].ARIDNR, COUNT([T6].LIEFNR)
+                  input1.LIEFNR, COUNT(input1.ARIDNR)
                 FROM
-                  [T6]
+                  input1
                 GROUP BY
-                  [T6].ARIDNR) AS [T6246][ARIDNR, COUNT-LIEFNR]
+                  input1.LIEFNR) AS [T4511][LIEFNR, COUNT-ARIDNR]
             WHERE
-              [T6246].COUNT-LIEFNR <= [T6246].ARIDNR) AS [T6256][ARIDNR, COUNT-LIEFNR] ) JOIN (
-          input1 )) AS [T6197][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+              
+               AND [T4511].COUNT-ARIDNR > 1.0) AS [T4520][LIEFNR, COUNT-ARIDNR] ) JOIN (
+          input1 )) AS [T4435][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
     WHERE
-      [T6197].COUNT-LIEFNR == [T6197].ARIDNR1) AS [T6206][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+      [T4435].LIEFNR ?? [T4435].LIEFNR1
+       AND [T4435].COUNT-ARIDNR >= [T4435].ARIDNR) AS [T4461][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
 
 ==== [No. 18 ] ====
 SELECT
-  [T6206].COUNT-LIEFNR,[T6206].LIEFNR
+  [T4461].ARIDNR,[T4461].LIEFNR
 FROM
   (SELECT
-      [T6197].ARIDNR,[T6197].COUNT-LIEFNR,[T6197].ARIDNR1,[T6197].LIEFNR
+      [T4435].LIEFNR,[T4435].COUNT-ARIDNR,[T4435].ARIDNR,[T4435].LIEFNR1
     FROM
       (( (SELECT
-              [T6246].ARIDNR,[T6246].COUNT-LIEFNR
+              [T4511].LIEFNR,[T4511].COUNT-ARIDNR
             FROM
               (SELECT
-                  [T6].ARIDNR, COUNT([T6].LIEFNR)
+                  input1.LIEFNR, COUNT(input1.ARIDNR)
                 FROM
-                  [T6]
+                  input1
                 GROUP BY
-                  [T6].ARIDNR) AS [T6246][ARIDNR, COUNT-LIEFNR]
+                  input1.LIEFNR) AS [T4511][LIEFNR, COUNT-ARIDNR]
             WHERE
               
-               AND [T6246].COUNT-LIEFNR <= 2.0) AS [T6261][ARIDNR, COUNT-LIEFNR] ) JOIN (
-          input1 )) AS [T6197][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+               AND [T4511].COUNT-ARIDNR >= 1.0) AS [T4522][LIEFNR, COUNT-ARIDNR] ) JOIN (
+          input1 )) AS [T4435][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
     WHERE
-      [T6197].COUNT-LIEFNR == [T6197].ARIDNR1) AS [T6206][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+      [T4435].LIEFNR ?? [T4435].LIEFNR1
+       AND [T4435].COUNT-ARIDNR >= [T4435].ARIDNR) AS [T4461][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
 
 ==== [No. 19 ] ====
 SELECT
-  [T6206].COUNT-LIEFNR,[T6206].LIEFNR
+  [T4461].ARIDNR,[T4461].LIEFNR
 FROM
   (SELECT
-      [T6197].ARIDNR,[T6197].COUNT-LIEFNR,[T6197].ARIDNR1,[T6197].LIEFNR
+      [T4435].LIEFNR,[T4435].COUNT-ARIDNR,[T4435].ARIDNR,[T4435].LIEFNR1
     FROM
       (( (SELECT
-              [T6246].ARIDNR,[T6246].COUNT-LIEFNR
+              input1.LIEFNR, COUNT(input1.ARIDNR)
             FROM
-              (SELECT
-                  [T6].ARIDNR, COUNT([T6].LIEFNR)
-                FROM
-                  [T6]
-                GROUP BY
-                  [T6].ARIDNR) AS [T6246][ARIDNR, COUNT-LIEFNR]
-            WHERE
-              
-               AND [T6246].COUNT-LIEFNR <= 2.0) AS [T6261][ARIDNR, COUNT-LIEFNR] ) JOIN (
-          input1 )) AS [T6197][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+              input1
+            GROUP BY
+              input1.LIEFNR) AS [T4511][LIEFNR, COUNT-ARIDNR] ) JOIN (
+          input1 )) AS [T4435][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
     WHERE
-      [T6197].COUNT-LIEFNR == [T6197].ARIDNR1) AS [T6206][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+      [T4435].LIEFNR ?? [T4435].LIEFNR1
+       AND [T4435].COUNT-ARIDNR >= [T4435].ARIDNR) AS [T4461][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
 
-Total Tree Count: 62
-Total Query Count: 4537
+Total Tree Count: 25
+Total Query Count: 1174
 [Enumeration Finished]
-[[Synthesizer finished]] time: 00:00:02:879
+[[Synthesizer finished]] time: 00:00:01:601

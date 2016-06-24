@@ -6,311 +6,323 @@
 [Enumeration Start]
 [Stage 1] EnumFilterNamed: 
 	Queries generated: 437
-	Tables generated: 3
-	Total Table by now: 3
+	Tables generated: 10
+	Total Table by now: 10
 [Stage 2] EnumAggregationNode: 
-	Queries generated: 0
-	Tables generated: 0
-	Total Table by now: 3
+	Queries generated: 6
+	Tables generated: 6
+	Total Table by now: 16
 [Stage 3] EnumJoin1 
-	Queries generated: 645
-	Tables generated: 14
-	Total Table by now: 17
-[Runner up Table Count] 2
-[Consistent Table number] 2
+	Queries generated: 2576
+	Tables generated: 227
+	Total Table by now: 243
+[Runner up Table Count] 14
+[Consistent Table number] 6
 ==== [No. 0 ] ====
 SELECT
-  [T1297].yrq
+  [T3258].yrq
 FROM
   (SELECT
       input1.yrq,input1.start_date,input1.end_date
     FROM
       input1
     WHERE
-      input1.end_date > Fri Feb 01 00:00:00 PST 2013) AS [T1297][yrq, start_date, end_date]
+      input1.start_date < Fri Feb 01 00:00:00 PST 2013
+       AND input1.end_date > Fri Feb 15 00:00:00 PST 2013) AS [T3258][yrq, start_date, end_date]
 
 ==== [No. 1 ] ====
 SELECT
-  [T1298].yrq
+  [T3259].yrq
 FROM
   (SELECT
       input1.yrq,input1.start_date,input1.end_date
     FROM
       input1
     WHERE
-      input1.end_date >= Fri Feb 01 00:00:00 PST 2013) AS [T1298][yrq, start_date, end_date]
+      input1.start_date < Fri Feb 01 00:00:00 PST 2013
+       AND input1.end_date >= Fri Feb 15 00:00:00 PST 2013) AS [T3259][yrq, start_date, end_date]
 
 ==== [No. 2 ] ====
 SELECT
-  [T1299].yrq
+  [T3260].yrq
 FROM
   (SELECT
       input1.yrq,input1.start_date,input1.end_date
     FROM
       input1
     WHERE
-      input1.end_date > Fri Feb 15 00:00:00 PST 2013) AS [T1299][yrq, start_date, end_date]
+      input1.start_date <= Fri Feb 01 00:00:00 PST 2013
+       AND input1.end_date > Fri Feb 15 00:00:00 PST 2013) AS [T3260][yrq, start_date, end_date]
 
 ==== [No. 3 ] ====
 SELECT
-  [T1300].yrq
+  [T3261].yrq
 FROM
   (SELECT
       input1.yrq,input1.start_date,input1.end_date
     FROM
       input1
     WHERE
-      input1.end_date >= Fri Feb 15 00:00:00 PST 2013) AS [T1300][yrq, start_date, end_date]
+      input1.start_date <= Fri Feb 01 00:00:00 PST 2013
+       AND input1.end_date >= Fri Feb 15 00:00:00 PST 2013) AS [T3261][yrq, start_date, end_date]
 
 ==== [No. 4 ] ====
 SELECT
-  [T1301].yrq
+  [T3282].yrq1
 FROM
   (SELECT
-      input1.yrq,input1.start_date,input1.end_date
+      [T3262].yrq,[T3262].start_date,[T3262].end_date,[T3262].yrq1,[T3262].start_date1,[T3262].end_date1
     FROM
-      input1
+      (( (SELECT
+              input1.yrq,input1.start_date,input1.end_date
+            FROM
+              input1
+            WHERE
+              input1.end_date > Fri Feb 15 00:00:00 PST 2013) AS [T3975][yrq, start_date, end_date] ) JOIN (
+          input1 )) AS [T3262][yrq, start_date, end_date, yrq1, start_date1, end_date1]
     WHERE
-      
-       AND input1.end_date > Fri Feb 01 00:00:00 PST 2013) AS [T1301][yrq, start_date, end_date]
+      [T3262].end_date < [T3262].end_date1) AS [T3282][yrq, start_date, end_date, yrq1, start_date1, end_date1]
 
 ==== [No. 5 ] ====
 SELECT
-  [T1302].yrq
+  [T3282].yrq1
 FROM
   (SELECT
-      input1.yrq,input1.start_date,input1.end_date
+      [T3262].yrq,[T3262].start_date,[T3262].end_date,[T3262].yrq1,[T3262].start_date1,[T3262].end_date1
     FROM
-      input1
+      (( (SELECT
+              input1.yrq,input1.start_date,input1.end_date
+            FROM
+              input1
+            WHERE
+              input1.end_date >= Fri Feb 15 00:00:00 PST 2013) AS [T3976][yrq, start_date, end_date] ) JOIN (
+          input1 )) AS [T3262][yrq, start_date, end_date, yrq1, start_date1, end_date1]
     WHERE
-      
-       AND input1.end_date >= Fri Feb 01 00:00:00 PST 2013) AS [T1302][yrq, start_date, end_date]
+      [T3262].end_date < [T3262].end_date1) AS [T3282][yrq, start_date, end_date, yrq1, start_date1, end_date1]
 
 ==== [No. 6 ] ====
 SELECT
-  [T1303].yrq
+  [T3282].yrq1
 FROM
   (SELECT
-      input1.yrq,input1.start_date,input1.end_date
+      [T3262].yrq,[T3262].start_date,[T3262].end_date,[T3262].yrq1,[T3262].start_date1,[T3262].end_date1
     FROM
-      input1
+      (( (SELECT
+              input1.yrq,input1.start_date,input1.end_date
+            FROM
+              input1
+            WHERE
+              
+               AND input1.end_date > Fri Feb 15 00:00:00 PST 2013) AS [T3977][yrq, start_date, end_date] ) JOIN (
+          input1 )) AS [T3262][yrq, start_date, end_date, yrq1, start_date1, end_date1]
     WHERE
-      
-       AND input1.end_date > Fri Feb 15 00:00:00 PST 2013) AS [T1303][yrq, start_date, end_date]
+      [T3262].end_date < [T3262].end_date1) AS [T3282][yrq, start_date, end_date, yrq1, start_date1, end_date1]
 
 ==== [No. 7 ] ====
 SELECT
-  [T1304].yrq
+  [T3282].yrq1
 FROM
   (SELECT
-      input1.yrq,input1.start_date,input1.end_date
+      [T3262].yrq,[T3262].start_date,[T3262].end_date,[T3262].yrq1,[T3262].start_date1,[T3262].end_date1
     FROM
-      input1
+      (( (SELECT
+              input1.yrq,input1.start_date,input1.end_date
+            FROM
+              input1
+            WHERE
+              
+               AND input1.end_date >= Fri Feb 15 00:00:00 PST 2013) AS [T3978][yrq, start_date, end_date] ) JOIN (
+          input1 )) AS [T3262][yrq, start_date, end_date, yrq1, start_date1, end_date1]
     WHERE
-      
-       AND input1.end_date >= Fri Feb 15 00:00:00 PST 2013) AS [T1304][yrq, start_date, end_date]
+      [T3262].end_date < [T3262].end_date1) AS [T3282][yrq, start_date, end_date, yrq1, start_date1, end_date1]
 
 ==== [No. 8 ] ====
 SELECT
-  [T1305].yrq
+  [T3282].yrq1
 FROM
   (SELECT
-      input1.yrq,input1.start_date,input1.end_date
+      [T3262].yrq,[T3262].start_date,[T3262].end_date,[T3262].yrq1,[T3262].start_date1,[T3262].end_date1
     FROM
-      input1
+      (( (SELECT
+              input1.yrq,input1.start_date,input1.end_date
+            FROM
+              input1
+            WHERE
+              input1.start_date < Fri Feb 15 00:00:00 PST 2013
+               AND input1.end_date > Fri Feb 15 00:00:00 PST 2013) AS [T3979][yrq, start_date, end_date] ) JOIN (
+          input1 )) AS [T3262][yrq, start_date, end_date, yrq1, start_date1, end_date1]
     WHERE
-      input1.start_date < Fri Feb 01 00:00:00 PST 2013
-       AND input1.end_date > Fri Feb 01 00:00:00 PST 2013) AS [T1305][yrq, start_date, end_date]
+      [T3262].end_date < [T3262].end_date1) AS [T3282][yrq, start_date, end_date, yrq1, start_date1, end_date1]
 
 ==== [No. 9 ] ====
 SELECT
-  [T1306].yrq
+  [T3282].yrq1
 FROM
   (SELECT
-      input1.yrq,input1.start_date,input1.end_date
+      [T3262].yrq,[T3262].start_date,[T3262].end_date,[T3262].yrq1,[T3262].start_date1,[T3262].end_date1
     FROM
-      input1
+      (( (SELECT
+              input1.yrq,input1.start_date,input1.end_date
+            FROM
+              input1
+            WHERE
+              input1.start_date < Fri Feb 15 00:00:00 PST 2013
+               AND input1.end_date >= Fri Feb 15 00:00:00 PST 2013) AS [T3980][yrq, start_date, end_date] ) JOIN (
+          input1 )) AS [T3262][yrq, start_date, end_date, yrq1, start_date1, end_date1]
     WHERE
-      input1.start_date < Fri Feb 01 00:00:00 PST 2013
-       AND input1.end_date >= Fri Feb 01 00:00:00 PST 2013) AS [T1306][yrq, start_date, end_date]
+      [T3262].end_date < [T3262].end_date1) AS [T3282][yrq, start_date, end_date, yrq1, start_date1, end_date1]
 
 ==== [No. 10 ] ====
 SELECT
-  [T1320].yrq
+  [T3282].yrq1
 FROM
   (SELECT
-      [T1317].yrq,[T1317].start_date,[T1317].end_date,[T1317].yrq1,[T1317].start_date1,[T1317].end_date1
+      [T3262].yrq,[T3262].start_date,[T3262].end_date,[T3262].yrq1,[T3262].start_date1,[T3262].end_date1
     FROM
       (( (SELECT
               input1.yrq,input1.start_date,input1.end_date
             FROM
               input1
             WHERE
-              input1.end_date > Fri Feb 01 00:00:00 PST 2013) AS [T1962][yrq, start_date, end_date] ) JOIN (
-          input1 )) AS [T1317][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+              input1.start_date <= Fri Feb 15 00:00:00 PST 2013
+               AND input1.end_date > Fri Feb 15 00:00:00 PST 2013) AS [T3981][yrq, start_date, end_date] ) JOIN (
+          input1 )) AS [T3262][yrq, start_date, end_date, yrq1, start_date1, end_date1]
     WHERE
-      [T1317].yrq == [T1317].yrq1) AS [T1320][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+      [T3262].end_date < [T3262].end_date1) AS [T3282][yrq, start_date, end_date, yrq1, start_date1, end_date1]
 
 ==== [No. 11 ] ====
 SELECT
-  [T1320].yrq
+  [T3282].yrq1
 FROM
   (SELECT
-      [T1317].yrq,[T1317].start_date,[T1317].end_date,[T1317].yrq1,[T1317].start_date1,[T1317].end_date1
+      [T3262].yrq,[T3262].start_date,[T3262].end_date,[T3262].yrq1,[T3262].start_date1,[T3262].end_date1
     FROM
       (( (SELECT
               input1.yrq,input1.start_date,input1.end_date
             FROM
               input1
             WHERE
-              input1.end_date >= Fri Feb 01 00:00:00 PST 2013) AS [T1963][yrq, start_date, end_date] ) JOIN (
-          input1 )) AS [T1317][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+              input1.start_date <= Fri Feb 15 00:00:00 PST 2013
+               AND input1.end_date >= Fri Feb 15 00:00:00 PST 2013) AS [T3982][yrq, start_date, end_date] ) JOIN (
+          input1 )) AS [T3262][yrq, start_date, end_date, yrq1, start_date1, end_date1]
     WHERE
-      [T1317].yrq == [T1317].yrq1) AS [T1320][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+      [T3262].end_date < [T3262].end_date1) AS [T3282][yrq, start_date, end_date, yrq1, start_date1, end_date1]
 
 ==== [No. 12 ] ====
 SELECT
-  [T1320].yrq
+  [T3282].yrq1
 FROM
   (SELECT
-      [T1317].yrq,[T1317].start_date,[T1317].end_date,[T1317].yrq1,[T1317].start_date1,[T1317].end_date1
+      [T3262].yrq,[T3262].start_date,[T3262].end_date,[T3262].yrq1,[T3262].start_date1,[T3262].end_date1
     FROM
       (( (SELECT
               input1.yrq,input1.start_date,input1.end_date
             FROM
               input1
             WHERE
-              input1.end_date > Fri Feb 15 00:00:00 PST 2013) AS [T1964][yrq, start_date, end_date] ) JOIN (
-          input1 )) AS [T1317][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+              input1.start_date < input1.end_date
+               AND input1.end_date > Fri Feb 15 00:00:00 PST 2013) AS [T3983][yrq, start_date, end_date] ) JOIN (
+          input1 )) AS [T3262][yrq, start_date, end_date, yrq1, start_date1, end_date1]
     WHERE
-      [T1317].yrq == [T1317].yrq1) AS [T1320][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+      [T3262].end_date < [T3262].end_date1) AS [T3282][yrq, start_date, end_date, yrq1, start_date1, end_date1]
 
 ==== [No. 13 ] ====
 SELECT
-  [T1320].yrq
+  [T3282].yrq1
 FROM
   (SELECT
-      [T1317].yrq,[T1317].start_date,[T1317].end_date,[T1317].yrq1,[T1317].start_date1,[T1317].end_date1
+      [T3262].yrq,[T3262].start_date,[T3262].end_date,[T3262].yrq1,[T3262].start_date1,[T3262].end_date1
     FROM
       (( (SELECT
               input1.yrq,input1.start_date,input1.end_date
             FROM
               input1
             WHERE
-              input1.end_date >= Fri Feb 15 00:00:00 PST 2013) AS [T1965][yrq, start_date, end_date] ) JOIN (
-          input1 )) AS [T1317][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+              input1.start_date < input1.end_date
+               AND input1.end_date >= Fri Feb 15 00:00:00 PST 2013) AS [T3984][yrq, start_date, end_date] ) JOIN (
+          input1 )) AS [T3262][yrq, start_date, end_date, yrq1, start_date1, end_date1]
     WHERE
-      [T1317].yrq == [T1317].yrq1) AS [T1320][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+      [T3262].end_date < [T3262].end_date1) AS [T3282][yrq, start_date, end_date, yrq1, start_date1, end_date1]
 
 ==== [No. 14 ] ====
 SELECT
-  [T1320].yrq
+  [T4362].yrq1
 FROM
   (SELECT
-      [T1317].yrq,[T1317].start_date,[T1317].end_date,[T1317].yrq1,[T1317].start_date1,[T1317].end_date1
+      [T4235].yrq,[T4235].start_date,[T4235].end_date,[T4235].yrq1,[T4235].start_date1,[T4235].end_date1
     FROM
-      (( (SELECT
-              input1.yrq,input1.start_date,input1.end_date
-            FROM
-              input1
-            WHERE
-              
-               AND input1.end_date > Fri Feb 01 00:00:00 PST 2013) AS [T1966][yrq, start_date, end_date] ) JOIN (
-          input1 )) AS [T1317][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+      (( input1 ) JOIN (
+          input1 )) AS [T4235][yrq, start_date, end_date, yrq1, start_date1, end_date1]
     WHERE
-      [T1317].yrq == [T1317].yrq1) AS [T1320][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+      [T4235].start_date > [T4235].start_date1
+       AND [T4235].end_date < [T4235].end_date1) AS [T4362][yrq, start_date, end_date, yrq1, start_date1, end_date1]
 
 ==== [No. 15 ] ====
 SELECT
-  [T1320].yrq
+  [T4362].yrq1
 FROM
   (SELECT
-      [T1317].yrq,[T1317].start_date,[T1317].end_date,[T1317].yrq1,[T1317].start_date1,[T1317].end_date1
+      [T4235].yrq,[T4235].start_date,[T4235].end_date,[T4235].yrq1,[T4235].start_date1,[T4235].end_date1
     FROM
-      (( (SELECT
-              input1.yrq,input1.start_date,input1.end_date
-            FROM
-              input1
-            WHERE
-              
-               AND input1.end_date >= Fri Feb 01 00:00:00 PST 2013) AS [T1967][yrq, start_date, end_date] ) JOIN (
-          input1 )) AS [T1317][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+      (( input1 ) JOIN (
+          input1 )) AS [T4235][yrq, start_date, end_date, yrq1, start_date1, end_date1]
     WHERE
-      [T1317].yrq == [T1317].yrq1) AS [T1320][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+      [T4235].start_date > [T4235].start_date1
+       AND [T4235].end_date < [T4235].end_date1) AS [T4362][yrq, start_date, end_date, yrq1, start_date1, end_date1]
 
 ==== [No. 16 ] ====
 SELECT
-  [T1320].yrq
+  [T4362].yrq1
 FROM
   (SELECT
-      [T1317].yrq,[T1317].start_date,[T1317].end_date,[T1317].yrq1,[T1317].start_date1,[T1317].end_date1
+      [T4235].yrq,[T4235].start_date,[T4235].end_date,[T4235].yrq1,[T4235].start_date1,[T4235].end_date1
     FROM
-      (( (SELECT
-              input1.yrq,input1.start_date,input1.end_date
-            FROM
-              input1
-            WHERE
-              
-               AND input1.end_date > Fri Feb 15 00:00:00 PST 2013) AS [T1968][yrq, start_date, end_date] ) JOIN (
-          input1 )) AS [T1317][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+      (( input1 ) JOIN (
+          input1 )) AS [T4235][yrq, start_date, end_date, yrq1, start_date1, end_date1]
     WHERE
-      [T1317].yrq == [T1317].yrq1) AS [T1320][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+      [T4235].start_date > [T4235].start_date1
+       AND [T4235].end_date < [T4235].end_date1) AS [T4362][yrq, start_date, end_date, yrq1, start_date1, end_date1]
 
 ==== [No. 17 ] ====
 SELECT
-  [T1320].yrq
+  [T4362].yrq1
 FROM
   (SELECT
-      [T1317].yrq,[T1317].start_date,[T1317].end_date,[T1317].yrq1,[T1317].start_date1,[T1317].end_date1
+      [T4235].yrq,[T4235].start_date,[T4235].end_date,[T4235].yrq1,[T4235].start_date1,[T4235].end_date1
     FROM
-      (( (SELECT
-              input1.yrq,input1.start_date,input1.end_date
-            FROM
-              input1
-            WHERE
-              
-               AND input1.end_date >= Fri Feb 15 00:00:00 PST 2013) AS [T1969][yrq, start_date, end_date] ) JOIN (
-          input1 )) AS [T1317][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+      (( input1 ) JOIN (
+          input1 )) AS [T4235][yrq, start_date, end_date, yrq1, start_date1, end_date1]
     WHERE
-      [T1317].yrq == [T1317].yrq1) AS [T1320][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+      [T4235].start_date > [T4235].start_date1
+       AND [T4235].end_date < [T4235].end_date1) AS [T4362][yrq, start_date, end_date, yrq1, start_date1, end_date1]
 
 ==== [No. 18 ] ====
 SELECT
-  [T1320].yrq
+  [T4362].yrq1
 FROM
   (SELECT
-      [T1317].yrq,[T1317].start_date,[T1317].end_date,[T1317].yrq1,[T1317].start_date1,[T1317].end_date1
+      [T4235].yrq,[T4235].start_date,[T4235].end_date,[T4235].yrq1,[T4235].start_date1,[T4235].end_date1
     FROM
-      (( (SELECT
-              input1.yrq,input1.start_date,input1.end_date
-            FROM
-              input1
-            WHERE
-              input1.start_date < Fri Feb 01 00:00:00 PST 2013
-               AND input1.end_date > Fri Feb 01 00:00:00 PST 2013) AS [T1970][yrq, start_date, end_date] ) JOIN (
-          input1 )) AS [T1317][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+      (( input1 ) JOIN (
+          input1 )) AS [T4235][yrq, start_date, end_date, yrq1, start_date1, end_date1]
     WHERE
-      [T1317].yrq == [T1317].yrq1) AS [T1320][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+      [T4235].start_date > [T4235].start_date1
+       AND [T4235].end_date < [T4235].end_date1) AS [T4362][yrq, start_date, end_date, yrq1, start_date1, end_date1]
 
 ==== [No. 19 ] ====
 SELECT
-  [T1320].yrq
+  [T4362].yrq1
 FROM
   (SELECT
-      [T1317].yrq,[T1317].start_date,[T1317].end_date,[T1317].yrq1,[T1317].start_date1,[T1317].end_date1
+      [T4235].yrq,[T4235].start_date,[T4235].end_date,[T4235].yrq1,[T4235].start_date1,[T4235].end_date1
     FROM
-      (( (SELECT
-              input1.yrq,input1.start_date,input1.end_date
-            FROM
-              input1
-            WHERE
-              input1.start_date < Fri Feb 01 00:00:00 PST 2013
-               AND input1.end_date >= Fri Feb 01 00:00:00 PST 2013) AS [T1971][yrq, start_date, end_date] ) JOIN (
-          input1 )) AS [T1317][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+      (( input1 ) JOIN (
+          input1 )) AS [T4235][yrq, start_date, end_date, yrq1, start_date1, end_date1]
     WHERE
-      [T1317].yrq == [T1317].yrq1) AS [T1320][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+      [T4235].start_date > [T4235].start_date1
+       AND [T4235].end_date < [T4235].end_date1) AS [T4362][yrq, start_date, end_date, yrq1, start_date1, end_date1]
 
-Total Tree Count: 2
-Total Query Count: 4972
+Total Tree Count: 24
+Total Query Count: 1722
 [Enumeration Finished]
-[[Synthesizer finished]] time: 00:00:00:465
+[[Synthesizer finished]] time: 00:00:02:58
