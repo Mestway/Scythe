@@ -1,27 +1,26 @@
 #input
 
-| id | productId | orderIndex | rejected |
-|----------------------------------------|
-| 1  |  1        |   0        |   true      |
-| 2  |  1        |   1        |   false      |
-| 3  |  1        |   2        |   false      |
-| 4  |  2        |   0        |   false      |
-| 5  |  2        |   1        |   true      |
-| 6  |  3        |   0        |   false      |
+|product_code | qty | stock_before | stock_after |   date     |
+|-------------------------------------------------------------|
+| xpto1       |  0  |            1 |           1 | 2015-01-01 |
+| xpto1       |  1  |            1 |           2 | 2015-02-01 |
+| xpto1       |  2  |           -1 |           1 | 2015-03-01 |
+| xpto2       |  0  |            1 |           1 | 2015-01-01 |
+| xpto2       |  1  |            1 |           2 | 2015-02-01 |
+| xpto2       |  2  |           -1 |           1 | 2015-03-01 |
 
 #output
 
-| id | productId | orderIndex | rejected |
-|----------------------------------------|
-| 2  |  1        |   1        |   false      |
-| 4  |  2        |   0        |   false      |
-| 6  |  3        |   0        |   false      |
+|product_code | qty | stock_before | stock_after |   date     |
+|--------------------------------|
+| xpto1 | 1 | 1 | 2 | 2015-02-01 |
+| xpto2 | 1 | 1 | 2 | 2015-02-01 |
 
 #constraint
 {
 	"max_depth": 2,
-	"constants": ["false"],
-	"aggregation_functions": ["min"],
+	"constants": ["2015-01-01"],
+	"aggregation_functions": ["max"],
 	"parameter_number": 0,
 	"max_filter_length": 2
 }

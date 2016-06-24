@@ -1,26 +1,24 @@
 #input
 
-| Train | Dest | Time  |
-|----------------------|
-| 1     | HK   | 10 |
-| 1     | SH   | 12 |
-| 1     | SZ   | 14 |
-| 2     | HK   | 13 |
-| 2     | SH   | 09 |
-| 2     | SZ   | 07 |
+    | NBR | ID | DT         |
+    |-----------------------|
+    | 1   | 1  | 12/01/2001 |
+    | 1   | 2  | 01/01/2001 |
+    | 2   | 3  | 01/01/2001 |
+    | 2   | 4  | 01/02/2001 |
 
 #output
 
-| Train | Dest | Time  |
-|----------------------|
-| 1     | SZ   | 14 |
-| 2     | HK   | 13 |
+    | NBR | ID | DT        |
+    |----------------------|
+    | 1   | 2  | 01/01/2001 |
+    | 2   | 3  | 01/01/2001 |
 
 #constraint
 {
 	"max_depth": 2,
 	"constants": [],
-	"aggregation_functions": ["max"],
+	"aggregation_functions": ["min"],
 	"parameter_number": 0,
 	"max_filter_length": 2
 }
