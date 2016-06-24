@@ -105,7 +105,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
         }
 
         // Synthesis of JOIN, can be up to 2 levels of nested joins
-        /* for (int i = 1; i <= maxDepth; i ++) {
+        for (int i = 1; i <= maxDepth; i ++) {
 
             // used to collect queries generated in the most recent stage
             List<AbstractSymbolicTable> collector = new ArrayList<>();
@@ -152,10 +152,10 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
             if (qc.getAllCandidates().size() > 0)
                 break;
-        }*/
+        }
 
         // Try enumerate by joining two tables from aggregation
-        if (qc.getAllCandidates().size() == 0 || true) {
+        if (qc.getAllCandidates().size() == 0) {
             stFromLastStage = basicAndAggr;
 
             for (int i = 1; i <= maxDepth; i ++) {

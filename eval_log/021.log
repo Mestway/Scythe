@@ -1,0 +1,509 @@
+================
+[[Synthesizer start]] data/benchmarks/021
+[Enumerator Type] SymbolicTableEnumerator
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[FiltersCount format](primitiveSynFilterCount, primitiveBitVecFilterCount, totalBitVecFiltersCount)
+[Basic]: 1 [SymTableForInputs]: 1
+[Aggregation]: 80 [SymTable]: 81
+[EnumJoin] level 1 [SymTable]: 162
+ASymTable Enumeration done: 162
+Runner ups: 172
+Candidates: 
+445
+[No.1]===============================
+SELECT
+  [T352].Customer,[T352].COUNT-shop,[T352].Customer1,[T352].email,[T352].ZIP,[T352].shop
+FROM
+  (( SELECT
+        [T44].Customer,[T44].COUNT-shop
+      FROM
+        (SELECT
+            input1.Customer, COUNT(input1.shop)
+          FROM
+            input1
+          GROUP BY
+            input1.Customer) AS [T44][Customer, COUNT-shop] ) JOIN (
+      SELECT
+        input1.Customer,input1.email,input1.ZIP,input1.shop
+      FROM
+        input1
+       )) AS [T352][Customer, COUNT-shop, Customer1, email, ZIP, shop]
+WHERE
+  [T352].COUNT-shop == [T352].shop
+   AND [T352].Customer == [T352].Customer1
+@anonymous
+[T352].Customer | [T352].COUNT-shop | [T352].Customer1 | [T352].email | [T352].ZIP | [T352].shop 
+John Smith | 3.0 | John Smith | js@mail.com | 75016.0 | 3.0 
+Mary King | 2.0 | Mary King | mary@ymail.com | 97430.0 | 2.0 
+
+[No.2]===============================
+SELECT
+  [T676].Customer,[T676].ZIP,[T676].COUNT-shop,[T676].Customer1,[T676].email,[T676].ZIP1,[T676].shop
+FROM
+  (( SELECT
+        [T66].Customer,[T66].ZIP,[T66].COUNT-shop
+      FROM
+        (SELECT
+            input1.Customer, input1.ZIP, COUNT(input1.shop)
+          FROM
+            input1
+          GROUP BY
+            input1.Customer  input1.ZIP) AS [T66][Customer, ZIP, COUNT-shop] ) JOIN (
+      SELECT
+        input1.Customer,input1.email,input1.ZIP,input1.shop
+      FROM
+        input1
+       )) AS [T676][Customer, ZIP, COUNT-shop, Customer1, email, ZIP1, shop]
+WHERE
+  [T676].COUNT-shop == [T676].shop
+   AND [T676].Customer == [T676].Customer1
+@anonymous
+[T676].Customer | [T676].ZIP | [T676].COUNT-shop | [T676].Customer1 | [T676].email | [T676].ZIP1 | [T676].shop 
+John Smith | 75016.0 | 3.0 | John Smith | js@mail.com | 75016.0 | 3.0 
+Mary King | 97430.0 | 2.0 | Mary King | mary@ymail.com | 97430.0 | 2.0 
+
+[No.3]===============================
+SELECT
+  [T1246].Customer,[T1246].email,[T1246].COUNT-shop,[T1246].Customer1,[T1246].email1,[T1246].ZIP,[T1246].shop
+FROM
+  (( SELECT
+        [T61].Customer,[T61].email,[T61].COUNT-shop
+      FROM
+        (SELECT
+            input1.Customer, input1.email, COUNT(input1.shop)
+          FROM
+            input1
+          GROUP BY
+            input1.Customer  input1.email) AS [T61][Customer, email, COUNT-shop] ) JOIN (
+      SELECT
+        input1.Customer,input1.email,input1.ZIP,input1.shop
+      FROM
+        input1
+       )) AS [T1246][Customer, email, COUNT-shop, Customer1, email1, ZIP, shop]
+WHERE
+  [T1246].COUNT-shop == [T1246].shop
+   AND [T1246].Customer == [T1246].Customer1
+@anonymous
+[T1246].Customer | [T1246].email | [T1246].COUNT-shop | [T1246].Customer1 | [T1246].email1 | [T1246].ZIP | [T1246].shop 
+John Smith | js@mail.com | 3.0 | John Smith | js@mail.com | 75016.0 | 3.0 
+Mary King | mary@ymail.com | 2.0 | Mary King | mary@ymail.com | 97430.0 | 2.0 
+
+[No.4]===============================
+SELECT
+  [T1330].Customer,[T1330].email,[T1330].ZIP,[T1330].COUNT-shop,[T1330].Customer1,[T1330].email1,[T1330].ZIP1,[T1330].shop
+FROM
+  (( SELECT
+        [T76].Customer,[T76].email,[T76].ZIP,[T76].COUNT-shop
+      FROM
+        (SELECT
+            input1.Customer, input1.email, input1.ZIP, COUNT(input1.shop)
+          FROM
+            input1
+          GROUP BY
+            input1.Customer  input1.email  input1.ZIP) AS [T76][Customer, email, ZIP, COUNT-shop] ) JOIN (
+      SELECT
+        input1.Customer,input1.email,input1.ZIP,input1.shop
+      FROM
+        input1
+       )) AS [T1330][Customer, email, ZIP, COUNT-shop, Customer1, email1, ZIP1, shop]
+WHERE
+  [T1330].COUNT-shop == [T1330].shop
+   AND [T1330].Customer == [T1330].Customer1
+@anonymous
+[T1330].Customer | [T1330].email | [T1330].ZIP | [T1330].COUNT-shop | [T1330].Customer1 | [T1330].email1 | [T1330].ZIP1 | [T1330].shop 
+John Smith | js@mail.com | 75016.0 | 3.0 | John Smith | js@mail.com | 75016.0 | 3.0 
+Mary King | mary@ymail.com | 97430.0 | 2.0 | Mary King | mary@ymail.com | 97430.0 | 2.0 
+
+[No.5]===============================
+SELECT
+  [T162].Customer,[T162].COUNT-ZIP,[T162].Customer1,[T162].email,[T162].ZIP,[T162].shop
+FROM
+  (( SELECT
+        [T43].Customer,[T43].COUNT-ZIP
+      FROM
+        (SELECT
+            input1.Customer, COUNT(input1.ZIP)
+          FROM
+            input1
+          GROUP BY
+            input1.Customer) AS [T43][Customer, COUNT-ZIP]
+      WHERE
+        [T43].COUNT-ZIP > 1.0 ) JOIN (
+      SELECT
+        input1.Customer,input1.email,input1.ZIP,input1.shop
+      FROM
+        input1
+      WHERE
+        input1.shop == 1.0 )) AS [T162][Customer, COUNT-ZIP, Customer1, email, ZIP, shop]
+
+@anonymous
+[T162].Customer | [T162].COUNT-ZIP | [T162].Customer1 | [T162].email | [T162].ZIP | [T162].shop 
+John Smith | 3.0 | John Smith | js@mail.com | 75016.0 | 1.0 
+Mary King | 2.0 | John Smith | js@mail.com | 75016.0 | 1.0 
+
+[No.6]===============================
+SELECT
+  [T172].Customer,[T172].COUNT-ZIP,[T172].Customer1,[T172].email,[T172].ZIP,[T172].shop
+FROM
+  (( SELECT
+        [T43].Customer,[T43].COUNT-ZIP
+      FROM
+        (SELECT
+            input1.Customer, COUNT(input1.ZIP)
+          FROM
+            input1
+          GROUP BY
+            input1.Customer) AS [T43][Customer, COUNT-ZIP] ) JOIN (
+      SELECT
+        input1.Customer,input1.email,input1.ZIP,input1.shop
+      FROM
+        input1
+       )) AS [T172][Customer, COUNT-ZIP, Customer1, email, ZIP, shop]
+WHERE
+  [T172].COUNT-ZIP == [T172].shop
+   AND [T172].Customer == [T172].Customer1
+@anonymous
+[T172].Customer | [T172].COUNT-ZIP | [T172].Customer1 | [T172].email | [T172].ZIP | [T172].shop 
+John Smith | 3.0 | John Smith | js@mail.com | 75016.0 | 3.0 
+Mary King | 2.0 | Mary King | mary@ymail.com | 97430.0 | 2.0 
+
+[No.7]===============================
+SELECT
+  [T66].Customer,[T66].ZIP,[T66].COUNT-shop
+FROM
+  (SELECT
+      input1.Customer, input1.ZIP, COUNT(input1.shop)
+    FROM
+      input1
+    GROUP BY
+      input1.Customer  input1.ZIP) AS [T66][Customer, ZIP, COUNT-shop]
+WHERE
+  [T66].COUNT-shop > 1.0
+@anonymous
+[T66].Customer | [T66].ZIP | [T66].COUNT-shop 
+John Smith | 75016.0 | 3.0 
+Mary King | 97430.0 | 2.0 
+
+[No.8]===============================
+SELECT
+  [T42].Customer,[T42].COUNT-email
+FROM
+  (SELECT
+      input1.Customer, COUNT(input1.email)
+    FROM
+      input1
+    GROUP BY
+      input1.Customer) AS [T42][Customer, COUNT-email]
+WHERE
+  [T42].COUNT-email > 1.0
+@anonymous
+[T42].Customer | [T42].COUNT-email 
+John Smith | 3.0 
+Mary King | 2.0 
+
+[No.9]===============================
+SELECT
+  [T64].Customer,[T64].ZIP,[T64].COUNT-email
+FROM
+  (SELECT
+      input1.Customer, input1.ZIP, COUNT(input1.email)
+    FROM
+      input1
+    GROUP BY
+      input1.Customer  input1.ZIP) AS [T64][Customer, ZIP, COUNT-email]
+WHERE
+  [T64].COUNT-email > 1.0
+@anonymous
+[T64].Customer | [T64].ZIP | [T64].COUNT-email 
+John Smith | 75016.0 | 3.0 
+Mary King | 97430.0 | 2.0 
+
+[No.10]===============================
+SELECT
+  [T342].Customer,[T342].COUNT-shop,[T342].Customer1,[T342].email,[T342].ZIP,[T342].shop
+FROM
+  (( SELECT
+        [T44].Customer,[T44].COUNT-shop
+      FROM
+        (SELECT
+            input1.Customer, COUNT(input1.shop)
+          FROM
+            input1
+          GROUP BY
+            input1.Customer) AS [T44][Customer, COUNT-shop]
+      WHERE
+        [T44].COUNT-shop > 1.0 ) JOIN (
+      SELECT
+        input1.Customer,input1.email,input1.ZIP,input1.shop
+      FROM
+        input1
+      WHERE
+        input1.shop == 1.0 )) AS [T342][Customer, COUNT-shop, Customer1, email, ZIP, shop]
+
+@anonymous
+[T342].Customer | [T342].COUNT-shop | [T342].Customer1 | [T342].email | [T342].ZIP | [T342].shop 
+John Smith | 3.0 | John Smith | js@mail.com | 75016.0 | 1.0 
+Mary King | 2.0 | John Smith | js@mail.com | 75016.0 | 1.0 
+
+[No.11]===============================
+SELECT
+  [T370].Customer,[T370].email,[T370].COUNT-email,[T370].Customer1,[T370].email1,[T370].ZIP,[T370].shop
+FROM
+  (( SELECT
+        [T59].Customer,[T59].email,[T59].COUNT-email
+      FROM
+        (SELECT
+            input1.Customer, input1.email, COUNT(input1.email)
+          FROM
+            input1
+          GROUP BY
+            input1.Customer  input1.email) AS [T59][Customer, email, COUNT-email]
+      WHERE
+        [T59].COUNT-email > 1.0 ) JOIN (
+      SELECT
+        input1.Customer,input1.email,input1.ZIP,input1.shop
+      FROM
+        input1
+      WHERE
+        input1.shop == 1.0 )) AS [T370][Customer, email, COUNT-email, Customer1, email1, ZIP, shop]
+
+@anonymous
+[T370].Customer | [T370].email | [T370].COUNT-email | [T370].Customer1 | [T370].email1 | [T370].ZIP | [T370].shop 
+John Smith | js@mail.com | 3.0 | John Smith | js@mail.com | 75016.0 | 1.0 
+Mary King | mary@ymail.com | 2.0 | John Smith | js@mail.com | 75016.0 | 1.0 
+
+[No.12]===============================
+SELECT
+  [T380].Customer,[T380].email,[T380].COUNT-email,[T380].Customer1,[T380].email1,[T380].ZIP,[T380].shop
+FROM
+  (( SELECT
+        [T59].Customer,[T59].email,[T59].COUNT-email
+      FROM
+        (SELECT
+            input1.Customer, input1.email, COUNT(input1.email)
+          FROM
+            input1
+          GROUP BY
+            input1.Customer  input1.email) AS [T59][Customer, email, COUNT-email] ) JOIN (
+      SELECT
+        input1.Customer,input1.email,input1.ZIP,input1.shop
+      FROM
+        input1
+       )) AS [T380][Customer, email, COUNT-email, Customer1, email1, ZIP, shop]
+WHERE
+  [T380].COUNT-email == [T380].shop
+   AND [T380].Customer == [T380].Customer1
+@anonymous
+[T380].Customer | [T380].email | [T380].COUNT-email | [T380].Customer1 | [T380].email1 | [T380].ZIP | [T380].shop 
+John Smith | js@mail.com | 3.0 | John Smith | js@mail.com | 75016.0 | 3.0 
+Mary King | mary@ymail.com | 2.0 | Mary King | mary@ymail.com | 97430.0 | 2.0 
+
+[No.13]===============================
+SELECT
+  [T496].Customer,[T496].email,[T496].COUNT-Customer,[T496].Customer1,[T496].email1,[T496].ZIP,[T496].shop
+FROM
+  (( SELECT
+        [T58].Customer,[T58].email,[T58].COUNT-Customer
+      FROM
+        (SELECT
+            input1.Customer, input1.email, COUNT(input1.Customer)
+          FROM
+            input1
+          GROUP BY
+            input1.Customer  input1.email) AS [T58][Customer, email, COUNT-Customer]
+      WHERE
+        [T58].COUNT-Customer > 1.0 ) JOIN (
+      SELECT
+        input1.Customer,input1.email,input1.ZIP,input1.shop
+      FROM
+        input1
+      WHERE
+        input1.shop == 1.0 )) AS [T496][Customer, email, COUNT-Customer, Customer1, email1, ZIP, shop]
+
+@anonymous
+[T496].Customer | [T496].email | [T496].COUNT-Customer | [T496].Customer1 | [T496].email1 | [T496].ZIP | [T496].shop 
+John Smith | js@mail.com | 3.0 | John Smith | js@mail.com | 75016.0 | 1.0 
+Mary King | mary@ymail.com | 2.0 | John Smith | js@mail.com | 75016.0 | 1.0 
+
+[No.14]===============================
+SELECT
+  [T506].Customer,[T506].email,[T506].COUNT-Customer,[T506].Customer1,[T506].email1,[T506].ZIP,[T506].shop
+FROM
+  (( SELECT
+        [T58].Customer,[T58].email,[T58].COUNT-Customer
+      FROM
+        (SELECT
+            input1.Customer, input1.email, COUNT(input1.Customer)
+          FROM
+            input1
+          GROUP BY
+            input1.Customer  input1.email) AS [T58][Customer, email, COUNT-Customer] ) JOIN (
+      SELECT
+        input1.Customer,input1.email,input1.ZIP,input1.shop
+      FROM
+        input1
+       )) AS [T506][Customer, email, COUNT-Customer, Customer1, email1, ZIP, shop]
+WHERE
+  [T506].COUNT-Customer == [T506].shop
+   AND [T506].Customer == [T506].Customer1
+@anonymous
+[T506].Customer | [T506].email | [T506].COUNT-Customer | [T506].Customer1 | [T506].email1 | [T506].ZIP | [T506].shop 
+John Smith | js@mail.com | 3.0 | John Smith | js@mail.com | 75016.0 | 3.0 
+Mary King | mary@ymail.com | 2.0 | Mary King | mary@ymail.com | 97430.0 | 2.0 
+
+[No.15]===============================
+SELECT
+  [T528].Customer,[T528].ZIP,[T528].COUNT-email,[T528].Customer1,[T528].email,[T528].ZIP1,[T528].shop
+FROM
+  (( SELECT
+        [T64].Customer,[T64].ZIP,[T64].COUNT-email
+      FROM
+        (SELECT
+            input1.Customer, input1.ZIP, COUNT(input1.email)
+          FROM
+            input1
+          GROUP BY
+            input1.Customer  input1.ZIP) AS [T64][Customer, ZIP, COUNT-email]
+      WHERE
+        [T64].COUNT-email > 1.0 ) JOIN (
+      SELECT
+        input1.Customer,input1.email,input1.ZIP,input1.shop
+      FROM
+        input1
+      WHERE
+        input1.shop == 1.0 )) AS [T528][Customer, ZIP, COUNT-email, Customer1, email, ZIP1, shop]
+
+@anonymous
+[T528].Customer | [T528].ZIP | [T528].COUNT-email | [T528].Customer1 | [T528].email | [T528].ZIP1 | [T528].shop 
+John Smith | 75016.0 | 3.0 | John Smith | js@mail.com | 75016.0 | 1.0 
+Mary King | 97430.0 | 2.0 | John Smith | js@mail.com | 75016.0 | 1.0 
+
+[No.16]===============================
+SELECT
+  [T538].Customer,[T538].ZIP,[T538].COUNT-email,[T538].Customer1,[T538].email,[T538].ZIP1,[T538].shop
+FROM
+  (( SELECT
+        [T64].Customer,[T64].ZIP,[T64].COUNT-email
+      FROM
+        (SELECT
+            input1.Customer, input1.ZIP, COUNT(input1.email)
+          FROM
+            input1
+          GROUP BY
+            input1.Customer  input1.ZIP) AS [T64][Customer, ZIP, COUNT-email] ) JOIN (
+      SELECT
+        input1.Customer,input1.email,input1.ZIP,input1.shop
+      FROM
+        input1
+       )) AS [T538][Customer, ZIP, COUNT-email, Customer1, email, ZIP1, shop]
+WHERE
+  [T538].COUNT-email == [T538].shop
+   AND [T538].Customer == [T538].Customer1
+@anonymous
+[T538].Customer | [T538].ZIP | [T538].COUNT-email | [T538].Customer1 | [T538].email | [T538].ZIP1 | [T538].shop 
+John Smith | 75016.0 | 3.0 | John Smith | js@mail.com | 75016.0 | 3.0 
+Mary King | 97430.0 | 2.0 | Mary King | mary@ymail.com | 97430.0 | 2.0 
+
+[No.17]===============================
+SELECT
+  [T58].Customer,[T58].email,[T58].COUNT-Customer
+FROM
+  (SELECT
+      input1.Customer, input1.email, COUNT(input1.Customer)
+    FROM
+      input1
+    GROUP BY
+      input1.Customer  input1.email) AS [T58][Customer, email, COUNT-Customer]
+WHERE
+  [T58].COUNT-Customer > 1.0
+@anonymous
+[T58].Customer | [T58].email | [T58].COUNT-Customer 
+John Smith | js@mail.com | 3.0 
+Mary King | mary@ymail.com | 2.0 
+
+[No.18]===============================
+SELECT
+  [T59].Customer,[T59].email,[T59].COUNT-email
+FROM
+  (SELECT
+      input1.Customer, input1.email, COUNT(input1.email)
+    FROM
+      input1
+    GROUP BY
+      input1.Customer  input1.email) AS [T59][Customer, email, COUNT-email]
+WHERE
+  [T59].COUNT-email > 1.0
+@anonymous
+[T59].Customer | [T59].email | [T59].COUNT-email 
+John Smith | js@mail.com | 3.0 
+Mary King | mary@ymail.com | 2.0 
+
+[No.19]===============================
+SELECT
+  [T628].Customer,[T628].email,[T628].ZIP,[T628].COUNT-Customer,[T628].Customer1,[T628].email1,[T628].ZIP1,[T628].shop
+FROM
+  (( SELECT
+        [T73].Customer,[T73].email,[T73].ZIP,[T73].COUNT-Customer
+      FROM
+        (SELECT
+            input1.Customer, input1.email, input1.ZIP, COUNT(input1.Customer)
+          FROM
+            input1
+          GROUP BY
+            input1.Customer  input1.email  input1.ZIP) AS [T73][Customer, email, ZIP, COUNT-Customer]
+      WHERE
+        [T73].COUNT-Customer > 1.0 ) JOIN (
+      SELECT
+        input1.Customer,input1.email,input1.ZIP,input1.shop
+      FROM
+        input1
+      WHERE
+        input1.shop == 1.0 )) AS [T628][Customer, email, ZIP, COUNT-Customer, Customer1, email1, ZIP1, shop]
+
+@anonymous
+[T628].Customer | [T628].email | [T628].ZIP | [T628].COUNT-Customer | [T628].Customer1 | [T628].email1 | [T628].ZIP1 | [T628].shop 
+John Smith | js@mail.com | 75016.0 | 3.0 | John Smith | js@mail.com | 75016.0 | 1.0 
+Mary King | mary@ymail.com | 97430.0 | 2.0 | John Smith | js@mail.com | 75016.0 | 1.0 
+
+[No.20]===============================
+SELECT
+  [T644].Customer,[T644].email,[T644].ZIP,[T644].COUNT-Customer,[T644].Customer1,[T644].email1,[T644].ZIP1,[T644].shop
+FROM
+  (( SELECT
+        [T73].Customer,[T73].email,[T73].ZIP,[T73].COUNT-Customer
+      FROM
+        (SELECT
+            input1.Customer, input1.email, input1.ZIP, COUNT(input1.Customer)
+          FROM
+            input1
+          GROUP BY
+            input1.Customer  input1.email  input1.ZIP) AS [T73][Customer, email, ZIP, COUNT-Customer] ) JOIN (
+      SELECT
+        input1.Customer,input1.email,input1.ZIP,input1.shop
+      FROM
+        input1
+       )) AS [T644][Customer, email, ZIP, COUNT-Customer, Customer1, email1, ZIP1, shop]
+WHERE
+  [T644].COUNT-Customer == [T644].shop
+   AND [T644].Customer == [T644].Customer1
+@anonymous
+[T644].Customer | [T644].email | [T644].ZIP | [T644].COUNT-Customer | [T644].Customer1 | [T644].email1 | [T644].ZIP1 | [T644].shop 
+John Smith | js@mail.com | 75016.0 | 3.0 | John Smith | js@mail.com | 75016.0 | 3.0 
+Mary King | mary@ymail.com | 97430.0 | 2.0 | Mary King | mary@ymail.com | 97430.0 | 2.0 
+
+[Consistent Table number] 142
+[Enumeration Finished]
+[[Synthesizer finished]] time: 00:00:01:546
+[[Synthesizer finished]] seconds: 1.546
+[avg reduction rate: syn filter / bit vector] 5.569419940312703
+[avg reduction rate: compound filter / bit vector] NaN
+[avg compound filter count] NaN
+[max compound filter count] 0
+[avg PrimitiveFilterCount] 2.0
+[max PrimitiveFilterCount] 2
+[avg LRFilterCount] 2.55
+[max LRFilterCount] 7
+[avg decompose tree count] 3.4263261296660117
+[max decomposeTreeCount] 30

@@ -1,0 +1,233 @@
+================
+[[Synthesizer start]] data/benchmarks/025
+[Enumerator Type] SymbolicTableEnumerator
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[FiltersCount format](primitiveSynFilterCount, primitiveBitVecFilterCount, totalBitVecFiltersCount)
+[Basic]: 1 [SymTableForInputs]: 1
+[Aggregation]: 7 [SymTable]: 8
+[EnumJoin] level 1 [SymTable]: 16
+ASymTable Enumeration done: 16
+Runner ups: 4
+Candidates: 
+8
+[No.1]===============================
+SELECT
+  [T3].Alerts,[T3].MAX-Alert_Date
+FROM
+  (SELECT
+      input1.Alerts, MAX(input1.Alert_Date)
+    FROM
+      input1
+    GROUP BY
+      input1.Alerts) AS [T3][Alerts, MAX-Alert_Date]
+
+@anonymous
+[T3].Alerts | [T3].MAX-Alert_Date 
+Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[No.2]===============================
+SELECT
+  [T16].Alerts,[T16].MAX-Id,[T16].Id,[T16].Alerts1,[T16].Alert_Date
+FROM
+  (( SELECT
+        [T2].Alerts,[T2].MAX-Id
+      FROM
+        (SELECT
+            input1.Alerts, MAX(input1.Id)
+          FROM
+            input1
+          GROUP BY
+            input1.Alerts) AS [T2][Alerts, MAX-Id] ) JOIN (
+      SELECT
+        input1.Id,input1.Alerts,input1.Alert_Date
+      FROM
+        input1
+       )) AS [T16][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+WHERE
+  [T16].MAX-Id == [T16].Id
+@anonymous
+[T16].Alerts | [T16].MAX-Id | [T16].Id | [T16].Alerts1 | [T16].Alert_Date 
+Alert1 | 3.0 | 3.0 | Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | 5.0 | 5.0 | Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | 6.0 | 6.0 | Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[No.3]===============================
+SELECT
+  [T18].Alerts,[T18].MAX-Id,[T18].Id,[T18].Alerts1,[T18].Alert_Date
+FROM
+  (( SELECT
+        [T2].Alerts,[T2].MAX-Id
+      FROM
+        (SELECT
+            input1.Alerts, MAX(input1.Id)
+          FROM
+            input1
+          GROUP BY
+            input1.Alerts) AS [T2][Alerts, MAX-Id] ) JOIN (
+      SELECT
+        input1.Id,input1.Alerts,input1.Alert_Date
+      FROM
+        input1
+       )) AS [T18][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+WHERE
+  [T18].MAX-Id == [T18].Id
+   AND [T18].Alerts == [T18].Alerts1
+@anonymous
+[T18].Alerts | [T18].MAX-Id | [T18].Id | [T18].Alerts1 | [T18].Alert_Date 
+Alert1 | 3.0 | 3.0 | Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | 5.0 | 5.0 | Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | 6.0 | 6.0 | Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[No.4]===============================
+SELECT
+  [T26].Alerts,[T26].MAX-Alert_Date,[T26].Id,[T26].Alerts1,[T26].Alert_Date
+FROM
+  (( SELECT
+        [T3].Alerts,[T3].MAX-Alert_Date
+      FROM
+        (SELECT
+            input1.Alerts, MAX(input1.Alert_Date)
+          FROM
+            input1
+          GROUP BY
+            input1.Alerts) AS [T3][Alerts, MAX-Alert_Date] ) JOIN (
+      SELECT
+        input1.Id,input1.Alerts,input1.Alert_Date
+      FROM
+        input1
+       )) AS [T26][Alerts, MAX-Alert_Date, Id, Alerts1, Alert_Date]
+WHERE
+  [T26].Alerts == [T26].Alerts1
+   AND [T26].MAX-Alert_Date == [T26].Alert_Date
+@anonymous
+[T26].Alerts | [T26].MAX-Alert_Date | [T26].Id | [T26].Alerts1 | [T26].Alert_Date 
+Alert1 | Tue May 12 12:12:22 PDT 2015 | 3.0 | Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | Thu May 14 12:12:22 PDT 2015 | 5.0 | Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | Thu May 14 12:12:22 PDT 2015 | 6.0 | Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[No.5]===============================
+SELECT
+  [T22].Alerts,[T22].MAX-Id,[T22].Id,[T22].Alerts1,[T22].Alert_Date
+FROM
+  (( SELECT
+        [T2].Alerts,[T2].MAX-Id
+      FROM
+        (SELECT
+            input1.Alerts, MAX(input1.Id)
+          FROM
+            input1
+          GROUP BY
+            input1.Alerts) AS [T2][Alerts, MAX-Id] ) JOIN (
+      SELECT
+        input1.Id,input1.Alerts,input1.Alert_Date
+      FROM
+        input1
+       )) AS [T22][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+WHERE
+  [T22].Alerts == [T22].Alerts1
+   AND [T22].MAX-Id <= [T22].Id
+@anonymous
+[T22].Alerts | [T22].MAX-Id | [T22].Id | [T22].Alerts1 | [T22].Alert_Date 
+Alert1 | 3.0 | 3.0 | Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | 5.0 | 5.0 | Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | 6.0 | 6.0 | Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[No.6]===============================
+SELECT
+  [T28].Alerts,[T28].MAX-Alert_Date,[T28].Id,[T28].Alerts1,[T28].Alert_Date
+FROM
+  (( SELECT
+        [T3].Alerts,[T3].MAX-Alert_Date
+      FROM
+        (SELECT
+            input1.Alerts, MAX(input1.Alert_Date)
+          FROM
+            input1
+          GROUP BY
+            input1.Alerts) AS [T3][Alerts, MAX-Alert_Date] ) JOIN (
+      SELECT
+        input1.Id,input1.Alerts,input1.Alert_Date
+      FROM
+        input1
+       )) AS [T28][Alerts, MAX-Alert_Date, Id, Alerts1, Alert_Date]
+WHERE
+  [T28].Alerts == [T28].Alerts1
+   AND [T28].MAX-Alert_Date <= [T28].Alert_Date
+@anonymous
+[T28].Alerts | [T28].MAX-Alert_Date | [T28].Id | [T28].Alerts1 | [T28].Alert_Date 
+Alert1 | Tue May 12 12:12:22 PDT 2015 | 3.0 | Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | Thu May 14 12:12:22 PDT 2015 | 5.0 | Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | Thu May 14 12:12:22 PDT 2015 | 6.0 | Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[No.7]===============================
+SELECT
+  [T20].Alerts,[T20].MAX-Id,[T20].Id,[T20].Alerts1,[T20].Alert_Date
+FROM
+  (( SELECT
+        [T2].Alerts,[T2].MAX-Id
+      FROM
+        (SELECT
+            input1.Alerts, MAX(input1.Id)
+          FROM
+            input1
+          GROUP BY
+            input1.Alerts) AS [T2][Alerts, MAX-Id] ) JOIN (
+      SELECT
+        input1.Id,input1.Alerts,input1.Alert_Date
+      FROM
+        input1
+       )) AS [T20][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+WHERE
+  [T20].MAX-Id == [T20].Id
+   AND [T20].MAX-Id <= [T20].Id
+@anonymous
+[T20].Alerts | [T20].MAX-Id | [T20].Id | [T20].Alerts1 | [T20].Alert_Date 
+Alert1 | 3.0 | 3.0 | Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | 5.0 | 5.0 | Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | 6.0 | 6.0 | Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[No.8]===============================
+SELECT
+  [T24].Alerts,[T24].MAX-Id,[T24].Id,[T24].Alerts1,[T24].Alert_Date
+FROM
+  (( SELECT
+        [T2].Alerts,[T2].MAX-Id
+      FROM
+        (SELECT
+            input1.Alerts, MAX(input1.Id)
+          FROM
+            input1
+          GROUP BY
+            input1.Alerts) AS [T2][Alerts, MAX-Id] ) JOIN (
+      SELECT
+        input1.Id,input1.Alerts,input1.Alert_Date
+      FROM
+        input1
+       )) AS [T24][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+WHERE
+  [T24].MAX-Id == [T24].Id
+   AND [T24].MAX-Id >= [T24].Id
+@anonymous
+[T24].Alerts | [T24].MAX-Id | [T24].Id | [T24].Alerts1 | [T24].Alert_Date 
+Alert1 | 3.0 | 3.0 | Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | 5.0 | 5.0 | Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | 6.0 | 6.0 | Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[Consistent Table number] 3
+[Enumeration Finished]
+[[Synthesizer finished]] time: 00:00:00:169
+[[Synthesizer finished]] seconds: 0.169
+[avg reduction rate: syn filter / bit vector] 3.2102272659540176
+[avg reduction rate: compound filter / bit vector] NaN
+[avg compound filter count] NaN
+[max compound filter count] 0
+[avg PrimitiveFilterCount] NaN
+[max PrimitiveFilterCount] 0
+[avg LRFilterCount] 1.0
+[max LRFilterCount] 1
+[avg decompose tree count] 1.8571428571428572
+[max decomposeTreeCount] 6

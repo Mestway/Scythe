@@ -1,0 +1,128 @@
+================
+[[Synthesizer start]] data/benchmarks/019
+[Enumerator Type] SymbolicTableEnumerator
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[FiltersCount format](primitiveSynFilterCount, primitiveBitVecFilterCount, totalBitVecFiltersCount)
+[Basic]: 1 [SymTableForInputs]: 1
+[Aggregation]: 58 [SymTable]: 59
+[EnumJoin] level 1 [SymTable]: 118
+ASymTable Enumeration done: 118
+Runner ups: 10
+Candidates: 
+5
+[No.1]===============================
+SELECT
+  [T38].Team,[T38].Player,[T38].COUNT-Player
+FROM
+  (SELECT
+      input1.Team, input1.Player, COUNT(input1.Player)
+    FROM
+      input1
+    GROUP BY
+      input1.Team  input1.Player) AS [T38][Team, Player, COUNT-Player]
+WHERE
+  [T38].COUNT-Player == 2.0
+@anonymous
+[T38].Team | [T38].Player | [T38].COUNT-Player 
+2.0 | Brady | 2.0 
+4.0 | Gary | 2.0 
+
+[No.2]===============================
+SELECT
+  [T37].Team,[T37].Player,[T37].COUNT-Team
+FROM
+  (SELECT
+      input1.Team, input1.Player, COUNT(input1.Team)
+    FROM
+      input1
+    GROUP BY
+      input1.Team  input1.Player) AS [T37][Team, Player, COUNT-Team]
+WHERE
+  [T37].COUNT-Team == 2.0
+@anonymous
+[T37].Team | [T37].Player | [T37].COUNT-Team 
+2.0 | Brady | 2.0 
+4.0 | Gary | 2.0 
+
+[No.3]===============================
+SELECT
+  [T121].Team,[T121].Player,[T121].COUNT-Player
+FROM
+  (SELECT
+      [T120].Team, [T120].Player, COUNT([T120].Player)
+    FROM
+      (SELECT
+          input1.Team,input1.Player
+        FROM
+          input1
+        WHERE
+          input1.Team >= 2.0) AS [T120][Team, Player]
+    GROUP BY
+      [T120].Team  [T120].Player) AS [T121][Team, Player, COUNT-Player]
+WHERE
+  [T121].COUNT-Player == 2.0
+@anonymous
+[T121].Team | [T121].Player | [T121].COUNT-Player 
+2.0 | Brady | 2.0 
+4.0 | Gary | 2.0 
+
+[No.4]===============================
+SELECT
+  [T123].Team,[T123].Player,[T123].COUNT-Team
+FROM
+  (SELECT
+      [T122].Team, [T122].Player, COUNT([T122].Team)
+    FROM
+      (SELECT
+          input1.Team,input1.Player
+        FROM
+          input1
+        WHERE
+          input1.Team >= 2.0) AS [T122][Team, Player]
+    GROUP BY
+      [T122].Team  [T122].Player) AS [T123][Team, Player, COUNT-Team]
+WHERE
+  [T123].COUNT-Team == 2.0
+@anonymous
+[T123].Team | [T123].Player | [T123].COUNT-Team 
+2.0 | Brady | 2.0 
+4.0 | Gary | 2.0 
+
+[No.5]===============================
+SELECT
+  [T119].Team,[T119].COUNT-Player
+FROM
+  (SELECT
+      [T118].Team, COUNT([T118].Player)
+    FROM
+      (SELECT
+          input1.Team,input1.Player
+        FROM
+          input1
+        WHERE
+          input1.Team >= 2.0) AS [T118][Team, Player]
+    GROUP BY
+      [T118].Team) AS [T119][Team, COUNT-Player]
+WHERE
+  [T119].COUNT-Player >= 2.0
+@anonymous
+[T119].Team | [T119].COUNT-Player 
+2.0 | 3.0 
+4.0 | 2.0 
+
+[Consistent Table number] 5
+[Enumeration Finished]
+[[Synthesizer finished]] time: 00:00:00:350
+[[Synthesizer finished]] seconds: 0.35000000000000003
+[avg reduction rate: syn filter / bit vector] 4.6468413037768865
+[avg reduction rate: compound filter / bit vector] NaN
+[avg compound filter count] NaN
+[max compound filter count] 0
+[avg PrimitiveFilterCount] 1.5
+[max PrimitiveFilterCount] 2
+[avg LRFilterCount] NaN
+[max LRFilterCount] 0
+[avg decompose tree count] 1.0
+[max decomposeTreeCount] 1

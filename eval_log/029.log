@@ -1,0 +1,157 @@
+================
+[[Synthesizer start]] data/benchmarks/029
+[Enumerator Type] SymbolicTableEnumerator
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[FiltersCount format](primitiveSynFilterCount, primitiveBitVecFilterCount, totalBitVecFiltersCount)
+[Basic]: 1 [SymTableForInputs]: 1
+[Aggregation]: 13 [SymTable]: 14
+[EnumJoin] level 1 [SymTable]: 28
+ASymTable Enumeration done: 28
+Runner ups: 1
+Candidates: 
+5
+[No.1]===============================
+SELECT
+  [T28].deal_id,[T28].MAX-timestamp,[T28].deal_id1,[T28].status_id,[T28].timestamp
+FROM
+  (( SELECT
+        [T3].deal_id,[T3].MAX-timestamp
+      FROM
+        (SELECT
+            input1.deal_id, MAX(input1.timestamp)
+          FROM
+            input1
+          GROUP BY
+            input1.deal_id) AS [T3][deal_id, MAX-timestamp] ) JOIN (
+      SELECT
+        input1.deal_id,input1.status_id,input1.timestamp
+      FROM
+        input1
+       )) AS [T28][deal_id, MAX-timestamp, deal_id1, status_id, timestamp]
+WHERE
+  [T28].MAX-timestamp == [T28].timestamp
+@anonymous
+[T28].deal_id | [T28].MAX-timestamp | [T28].deal_id1 | [T28].status_id | [T28].timestamp 
+1226.0 | Tue Aug 18 12:10:25 PDT 2009 | 1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | Mon Aug 17 14:31:25 PDT 2009 | 1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[No.2]===============================
+SELECT
+  [T30].deal_id,[T30].MAX-timestamp,[T30].deal_id1,[T30].status_id,[T30].timestamp
+FROM
+  (( SELECT
+        [T3].deal_id,[T3].MAX-timestamp
+      FROM
+        (SELECT
+            input1.deal_id, MAX(input1.timestamp)
+          FROM
+            input1
+          GROUP BY
+            input1.deal_id) AS [T3][deal_id, MAX-timestamp] ) JOIN (
+      SELECT
+        input1.deal_id,input1.status_id,input1.timestamp
+      FROM
+        input1
+       )) AS [T30][deal_id, MAX-timestamp, deal_id1, status_id, timestamp]
+WHERE
+  [T30].deal_id == [T30].deal_id1
+   AND [T30].MAX-timestamp == [T30].timestamp
+@anonymous
+[T30].deal_id | [T30].MAX-timestamp | [T30].deal_id1 | [T30].status_id | [T30].timestamp 
+1226.0 | Tue Aug 18 12:10:25 PDT 2009 | 1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | Mon Aug 17 14:31:25 PDT 2009 | 1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[No.3]===============================
+SELECT
+  [T32].deal_id,[T32].MAX-timestamp,[T32].deal_id1,[T32].status_id,[T32].timestamp
+FROM
+  (( SELECT
+        [T3].deal_id,[T3].MAX-timestamp
+      FROM
+        (SELECT
+            input1.deal_id, MAX(input1.timestamp)
+          FROM
+            input1
+          GROUP BY
+            input1.deal_id) AS [T3][deal_id, MAX-timestamp] ) JOIN (
+      SELECT
+        input1.deal_id,input1.status_id,input1.timestamp
+      FROM
+        input1
+       )) AS [T32][deal_id, MAX-timestamp, deal_id1, status_id, timestamp]
+WHERE
+  [T32].MAX-timestamp == [T32].timestamp
+   AND [T32].deal_id <= [T32].deal_id1
+@anonymous
+[T32].deal_id | [T32].MAX-timestamp | [T32].deal_id1 | [T32].status_id | [T32].timestamp 
+1226.0 | Tue Aug 18 12:10:25 PDT 2009 | 1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | Mon Aug 17 14:31:25 PDT 2009 | 1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[No.4]===============================
+SELECT
+  [T34].deal_id,[T34].MAX-timestamp,[T34].deal_id1,[T34].status_id,[T34].timestamp
+FROM
+  (( SELECT
+        [T3].deal_id,[T3].MAX-timestamp
+      FROM
+        (SELECT
+            input1.deal_id, MAX(input1.timestamp)
+          FROM
+            input1
+          GROUP BY
+            input1.deal_id) AS [T3][deal_id, MAX-timestamp] ) JOIN (
+      SELECT
+        input1.deal_id,input1.status_id,input1.timestamp
+      FROM
+        input1
+       )) AS [T34][deal_id, MAX-timestamp, deal_id1, status_id, timestamp]
+WHERE
+  [T34].deal_id >= [T34].deal_id1
+   AND [T34].MAX-timestamp == [T34].timestamp
+@anonymous
+[T34].deal_id | [T34].MAX-timestamp | [T34].deal_id1 | [T34].status_id | [T34].timestamp 
+1226.0 | Tue Aug 18 12:10:25 PDT 2009 | 1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | Mon Aug 17 14:31:25 PDT 2009 | 1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[No.5]===============================
+SELECT
+  [T36].deal_id,[T36].MAX-timestamp,[T36].deal_id1,[T36].status_id,[T36].timestamp
+FROM
+  (( SELECT
+        [T3].deal_id,[T3].MAX-timestamp
+      FROM
+        (SELECT
+            input1.deal_id, MAX(input1.timestamp)
+          FROM
+            input1
+          GROUP BY
+            input1.deal_id) AS [T3][deal_id, MAX-timestamp] ) JOIN (
+      SELECT
+        input1.deal_id,input1.status_id,input1.timestamp
+      FROM
+        input1
+       )) AS [T36][deal_id, MAX-timestamp, deal_id1, status_id, timestamp]
+WHERE
+  [T36].MAX-timestamp == [T36].timestamp
+   AND [T36].MAX-timestamp >= [T36].timestamp
+@anonymous
+[T36].deal_id | [T36].MAX-timestamp | [T36].deal_id1 | [T36].status_id | [T36].timestamp 
+1226.0 | Tue Aug 18 12:10:25 PDT 2009 | 1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | Mon Aug 17 14:31:25 PDT 2009 | 1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[Consistent Table number] 1
+[Enumeration Finished]
+[[Synthesizer finished]] time: 00:00:00:249
+[[Synthesizer finished]] seconds: 0.249
+[avg reduction rate: syn filter / bit vector] 5.532653033733368
+[avg reduction rate: compound filter / bit vector] NaN
+[avg compound filter count] NaN
+[max compound filter count] 0
+[avg PrimitiveFilterCount] NaN
+[max PrimitiveFilterCount] 0
+[avg LRFilterCount] 1.3
+[max LRFilterCount] 4
+[avg decompose tree count] 3.6666666666666665
+[max decomposeTreeCount] 9

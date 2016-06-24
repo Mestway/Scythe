@@ -1,0 +1,634 @@
+================
+[[Synthesizer start]] data/benchmarks/028
+[Enumerator Type] SymbolicTableEnumerator
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[FiltersCount format](primitiveSynFilterCount, primitiveBitVecFilterCount, totalBitVecFiltersCount)
+[Basic]: 1 [SymTableForInputs]: 1
+[Aggregation]: 221 [SymTable]: 222
+[EnumJoin] level 1 [SymTable]: 444
+ASymTable Enumeration done: 444
+Runner ups: 292
+Candidates: 
+1160
+[No.1]===============================
+SELECT
+  [T1818].productId,[T1818].rejected,[T1818].MIN-id,[T1818].id,[T1818].productId1,[T1818].orderIndex,[T1818].rejected1
+FROM
+  (( SELECT
+        [T212].productId,[T212].rejected,[T212].MIN-id
+      FROM
+        (SELECT
+            input1.productId, input1.rejected, MIN(input1.id)
+          FROM
+            input1
+          GROUP BY
+            input1.productId  input1.rejected) AS [T212][productId, rejected, MIN-id] ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.rejected == false )) AS [T1818][productId, rejected, MIN-id, id, productId1, orderIndex, rejected1]
+WHERE
+  [T1818].MIN-id == [T1818].id
+@anonymous
+[T1818].productId | [T1818].rejected | [T1818].MIN-id | [T1818].id | [T1818].productId1 | [T1818].orderIndex | [T1818].rejected1 
+1.0 | false | 2.0 | 2.0 | 1.0 | 1.0 | false 
+2.0 | false | 4.0 | 4.0 | 2.0 | 0.0 | false 
+3.0 | false | 6.0 | 6.0 | 3.0 | 0.0 | false 
+
+[No.2]===============================
+SELECT
+  [T2552].productId,[T2552].MIN-id,[T2552].id,[T2552].productId1,[T2552].orderIndex,[T2552].rejected
+FROM
+  (( SELECT
+        [T2549].productId,[T2549].MIN-id
+      FROM
+        (SELECT
+            [T2548].productId, MIN([T2548].id)
+          FROM
+            (SELECT
+                input1.id,input1.productId,input1.orderIndex,input1.rejected
+              FROM
+                input1
+              WHERE
+                input1.rejected == false) AS [T2548][id, productId, orderIndex, rejected]
+          GROUP BY
+            [T2548].productId) AS [T2549][productId, MIN-id] ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+       )) AS [T2552][productId, MIN-id, id, productId1, orderIndex, rejected]
+WHERE
+  [T2552].MIN-id == [T2552].id
+@anonymous
+[T2552].productId | [T2552].MIN-id | [T2552].id | [T2552].productId1 | [T2552].orderIndex | [T2552].rejected 
+1.0 | 2.0 | 2.0 | 1.0 | 1.0 | false 
+2.0 | 4.0 | 4.0 | 2.0 | 0.0 | false 
+3.0 | 6.0 | 6.0 | 3.0 | 0.0 | false 
+
+[No.3]===============================
+SELECT
+  [T2558].productId,[T2558].MIN-id,[T2558].id,[T2558].productId1,[T2558].orderIndex,[T2558].rejected
+FROM
+  (( SELECT
+        [T2555].productId,[T2555].MIN-id
+      FROM
+        (SELECT
+            [T2554].productId, MIN([T2554].id)
+          FROM
+            (SELECT
+                input1.id,input1.productId,input1.orderIndex,input1.rejected
+              FROM
+                input1
+              WHERE
+                input1.rejected == false) AS [T2554][id, productId, orderIndex, rejected]
+          GROUP BY
+            [T2554].productId) AS [T2555][productId, MIN-id] ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.rejected == false )) AS [T2558][productId, MIN-id, id, productId1, orderIndex, rejected]
+WHERE
+  [T2558].MIN-id == [T2558].id
+@anonymous
+[T2558].productId | [T2558].MIN-id | [T2558].id | [T2558].productId1 | [T2558].orderIndex | [T2558].rejected 
+1.0 | 2.0 | 2.0 | 1.0 | 1.0 | false 
+2.0 | 4.0 | 4.0 | 2.0 | 0.0 | false 
+3.0 | 6.0 | 6.0 | 3.0 | 0.0 | false 
+
+[No.4]===============================
+SELECT
+  [T3464].productId,[T3464].rejected,[T3464].MIN-id,[T3464].id,[T3464].productId1,[T3464].orderIndex,[T3464].rejected1
+FROM
+  (( SELECT
+        [T3461].productId,[T3461].rejected,[T3461].MIN-id
+      FROM
+        (SELECT
+            [T3460].productId, [T3460].rejected, MIN([T3460].id)
+          FROM
+            (SELECT
+                input1.id,input1.productId,input1.orderIndex,input1.rejected
+              FROM
+                input1
+              WHERE
+                input1.rejected == false) AS [T3460][id, productId, orderIndex, rejected]
+          GROUP BY
+            [T3460].productId  [T3460].rejected) AS [T3461][productId, rejected, MIN-id] ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+       )) AS [T3464][productId, rejected, MIN-id, id, productId1, orderIndex, rejected1]
+WHERE
+  [T3464].MIN-id == [T3464].id
+@anonymous
+[T3464].productId | [T3464].rejected | [T3464].MIN-id | [T3464].id | [T3464].productId1 | [T3464].orderIndex | [T3464].rejected1 
+1.0 | false | 2.0 | 2.0 | 1.0 | 1.0 | false 
+2.0 | false | 4.0 | 4.0 | 2.0 | 0.0 | false 
+3.0 | false | 6.0 | 6.0 | 3.0 | 0.0 | false 
+
+[No.5]===============================
+SELECT
+  [T3470].productId,[T3470].rejected,[T3470].MIN-id,[T3470].id,[T3470].productId1,[T3470].orderIndex,[T3470].rejected1
+FROM
+  (( SELECT
+        [T3467].productId,[T3467].rejected,[T3467].MIN-id
+      FROM
+        (SELECT
+            [T3466].productId, [T3466].rejected, MIN([T3466].id)
+          FROM
+            (SELECT
+                input1.id,input1.productId,input1.orderIndex,input1.rejected
+              FROM
+                input1
+              WHERE
+                input1.rejected == false) AS [T3466][id, productId, orderIndex, rejected]
+          GROUP BY
+            [T3466].productId  [T3466].rejected) AS [T3467][productId, rejected, MIN-id] ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.rejected == false )) AS [T3470][productId, rejected, MIN-id, id, productId1, orderIndex, rejected1]
+WHERE
+  [T3470].MIN-id == [T3470].id
+@anonymous
+[T3470].productId | [T3470].rejected | [T3470].MIN-id | [T3470].id | [T3470].productId1 | [T3470].orderIndex | [T3470].rejected1 
+1.0 | false | 2.0 | 2.0 | 1.0 | 1.0 | false 
+2.0 | false | 4.0 | 4.0 | 2.0 | 0.0 | false 
+3.0 | false | 6.0 | 6.0 | 3.0 | 0.0 | false 
+
+[No.6]===============================
+SELECT
+  [T1714].productId,[T1714].rejected,[T1714].MIN-orderIndex,[T1714].id,[T1714].productId1,[T1714].orderIndex,[T1714].rejected1
+FROM
+  (( SELECT
+        [T1711].productId,[T1711].rejected,[T1711].MIN-orderIndex
+      FROM
+        (SELECT
+            [T1710].productId, [T1710].rejected, MIN([T1710].orderIndex)
+          FROM
+            (SELECT
+                input1.id,input1.productId,input1.orderIndex,input1.rejected
+              FROM
+                input1
+              WHERE
+                input1.rejected == false) AS [T1710][id, productId, orderIndex, rejected]
+          GROUP BY
+            [T1710].productId  [T1710].rejected) AS [T1711][productId, rejected, MIN-orderIndex] ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+       )) AS [T1714][productId, rejected, MIN-orderIndex, id, productId1, orderIndex, rejected1]
+WHERE
+  [T1714].productId == [T1714].productId1
+   AND [T1714].MIN-orderIndex == [T1714].orderIndex
+@anonymous
+[T1714].productId | [T1714].rejected | [T1714].MIN-orderIndex | [T1714].id | [T1714].productId1 | [T1714].orderIndex | [T1714].rejected1 
+1.0 | false | 1.0 | 2.0 | 1.0 | 1.0 | false 
+2.0 | false | 0.0 | 4.0 | 2.0 | 0.0 | false 
+3.0 | false | 0.0 | 6.0 | 3.0 | 0.0 | false 
+
+[No.7]===============================
+SELECT
+  [T1720].productId,[T1720].rejected,[T1720].MIN-orderIndex,[T1720].id,[T1720].productId1,[T1720].orderIndex,[T1720].rejected1
+FROM
+  (( SELECT
+        [T1717].productId,[T1717].rejected,[T1717].MIN-orderIndex
+      FROM
+        (SELECT
+            [T1716].productId, [T1716].rejected, MIN([T1716].orderIndex)
+          FROM
+            (SELECT
+                input1.id,input1.productId,input1.orderIndex,input1.rejected
+              FROM
+                input1
+              WHERE
+                input1.rejected == false) AS [T1716][id, productId, orderIndex, rejected]
+          GROUP BY
+            [T1716].productId  [T1716].rejected) AS [T1717][productId, rejected, MIN-orderIndex] ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.rejected == false )) AS [T1720][productId, rejected, MIN-orderIndex, id, productId1, orderIndex, rejected1]
+WHERE
+  [T1720].productId == [T1720].productId1
+   AND [T1720].MIN-orderIndex == [T1720].orderIndex
+@anonymous
+[T1720].productId | [T1720].rejected | [T1720].MIN-orderIndex | [T1720].id | [T1720].productId1 | [T1720].orderIndex | [T1720].rejected1 
+1.0 | false | 1.0 | 2.0 | 1.0 | 1.0 | false 
+2.0 | false | 0.0 | 4.0 | 2.0 | 0.0 | false 
+3.0 | false | 0.0 | 6.0 | 3.0 | 0.0 | false 
+
+[No.8]===============================
+SELECT
+  [T1820].productId,[T1820].rejected,[T1820].MIN-id,[T1820].id,[T1820].productId1,[T1820].orderIndex,[T1820].rejected1
+FROM
+  (( SELECT
+        [T212].productId,[T212].rejected,[T212].MIN-id
+      FROM
+        (SELECT
+            input1.productId, input1.rejected, MIN(input1.id)
+          FROM
+            input1
+          GROUP BY
+            input1.productId  input1.rejected) AS [T212][productId, rejected, MIN-id] ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.rejected == false )) AS [T1820][productId, rejected, MIN-id, id, productId1, orderIndex, rejected1]
+WHERE
+  [T1820].productId == [T1820].productId1
+   AND [T1820].MIN-id == [T1820].id
+@anonymous
+[T1820].productId | [T1820].rejected | [T1820].MIN-id | [T1820].id | [T1820].productId1 | [T1820].orderIndex | [T1820].rejected1 
+1.0 | false | 2.0 | 2.0 | 1.0 | 1.0 | false 
+2.0 | false | 4.0 | 4.0 | 2.0 | 0.0 | false 
+3.0 | false | 6.0 | 6.0 | 3.0 | 0.0 | false 
+
+[No.9]===============================
+SELECT
+  [T1822].productId,[T1822].rejected,[T1822].MIN-id,[T1822].id,[T1822].productId1,[T1822].orderIndex,[T1822].rejected1
+FROM
+  (( SELECT
+        [T212].productId,[T212].rejected,[T212].MIN-id
+      FROM
+        (SELECT
+            input1.productId, input1.rejected, MIN(input1.id)
+          FROM
+            input1
+          GROUP BY
+            input1.productId  input1.rejected) AS [T212][productId, rejected, MIN-id] ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.rejected == false )) AS [T1822][productId, rejected, MIN-id, id, productId1, orderIndex, rejected1]
+WHERE
+  [T1822].rejected == [T1822].rejected1
+   AND [T1822].MIN-id == [T1822].id
+@anonymous
+[T1822].productId | [T1822].rejected | [T1822].MIN-id | [T1822].id | [T1822].productId1 | [T1822].orderIndex | [T1822].rejected1 
+1.0 | false | 2.0 | 2.0 | 1.0 | 1.0 | false 
+2.0 | false | 4.0 | 4.0 | 2.0 | 0.0 | false 
+3.0 | false | 6.0 | 6.0 | 3.0 | 0.0 | false 
+
+[No.10]===============================
+SELECT
+  [T2426].productId,[T2426].MIN-orderIndex,[T2426].id,[T2426].productId1,[T2426].orderIndex,[T2426].rejected
+FROM
+  (( SELECT
+        [T2423].productId,[T2423].MIN-orderIndex
+      FROM
+        (SELECT
+            [T2422].productId, MIN([T2422].orderIndex)
+          FROM
+            (SELECT
+                input1.id,input1.productId,input1.orderIndex,input1.rejected
+              FROM
+                input1
+              WHERE
+                input1.rejected == false) AS [T2422][id, productId, orderIndex, rejected]
+          GROUP BY
+            [T2422].productId) AS [T2423][productId, MIN-orderIndex] ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+       )) AS [T2426][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+WHERE
+  [T2426].productId == [T2426].productId1
+   AND [T2426].MIN-orderIndex == [T2426].orderIndex
+@anonymous
+[T2426].productId | [T2426].MIN-orderIndex | [T2426].id | [T2426].productId1 | [T2426].orderIndex | [T2426].rejected 
+1.0 | 1.0 | 2.0 | 1.0 | 1.0 | false 
+2.0 | 0.0 | 4.0 | 2.0 | 0.0 | false 
+3.0 | 0.0 | 6.0 | 3.0 | 0.0 | false 
+
+[No.11]===============================
+SELECT
+  [T2432].productId,[T2432].MIN-orderIndex,[T2432].id,[T2432].productId1,[T2432].orderIndex,[T2432].rejected
+FROM
+  (( SELECT
+        [T2429].productId,[T2429].MIN-orderIndex
+      FROM
+        (SELECT
+            [T2428].productId, MIN([T2428].orderIndex)
+          FROM
+            (SELECT
+                input1.id,input1.productId,input1.orderIndex,input1.rejected
+              FROM
+                input1
+              WHERE
+                input1.rejected == false) AS [T2428][id, productId, orderIndex, rejected]
+          GROUP BY
+            [T2428].productId) AS [T2429][productId, MIN-orderIndex] ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.rejected == false )) AS [T2432][productId, MIN-orderIndex, id, productId1, orderIndex, rejected]
+WHERE
+  [T2432].productId == [T2432].productId1
+   AND [T2432].MIN-orderIndex == [T2432].orderIndex
+@anonymous
+[T2432].productId | [T2432].MIN-orderIndex | [T2432].id | [T2432].productId1 | [T2432].orderIndex | [T2432].rejected 
+1.0 | 1.0 | 2.0 | 1.0 | 1.0 | false 
+2.0 | 0.0 | 4.0 | 2.0 | 0.0 | false 
+3.0 | 0.0 | 6.0 | 3.0 | 0.0 | false 
+
+[No.12]===============================
+SELECT
+  [T2564].productId,[T2564].MIN-id,[T2564].id,[T2564].productId1,[T2564].orderIndex,[T2564].rejected
+FROM
+  (( SELECT
+        [T2561].productId,[T2561].MIN-id
+      FROM
+        (SELECT
+            [T2560].productId, MIN([T2560].id)
+          FROM
+            (SELECT
+                input1.id,input1.productId,input1.orderIndex,input1.rejected
+              FROM
+                input1
+              WHERE
+                input1.rejected == false) AS [T2560][id, productId, orderIndex, rejected]
+          GROUP BY
+            [T2560].productId) AS [T2561][productId, MIN-id] ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+       )) AS [T2564][productId, MIN-id, id, productId1, orderIndex, rejected]
+WHERE
+  [T2564].productId == [T2564].productId1
+   AND [T2564].MIN-id == [T2564].id
+@anonymous
+[T2564].productId | [T2564].MIN-id | [T2564].id | [T2564].productId1 | [T2564].orderIndex | [T2564].rejected 
+1.0 | 2.0 | 2.0 | 1.0 | 1.0 | false 
+2.0 | 4.0 | 4.0 | 2.0 | 0.0 | false 
+3.0 | 6.0 | 6.0 | 3.0 | 0.0 | false 
+
+[No.13]===============================
+SELECT
+  [T2570].productId,[T2570].MIN-id,[T2570].id,[T2570].productId1,[T2570].orderIndex,[T2570].rejected
+FROM
+  (( SELECT
+        [T2567].productId,[T2567].MIN-id
+      FROM
+        (SELECT
+            [T2566].productId, MIN([T2566].id)
+          FROM
+            (SELECT
+                input1.id,input1.productId,input1.orderIndex,input1.rejected
+              FROM
+                input1
+              WHERE
+                input1.rejected == false) AS [T2566][id, productId, orderIndex, rejected]
+          GROUP BY
+            [T2566].productId) AS [T2567][productId, MIN-id] ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.rejected == false )) AS [T2570][productId, MIN-id, id, productId1, orderIndex, rejected]
+WHERE
+  [T2570].productId == [T2570].productId1
+   AND [T2570].MIN-id == [T2570].id
+@anonymous
+[T2570].productId | [T2570].MIN-id | [T2570].id | [T2570].productId1 | [T2570].orderIndex | [T2570].rejected 
+1.0 | 2.0 | 2.0 | 1.0 | 1.0 | false 
+2.0 | 4.0 | 4.0 | 2.0 | 0.0 | false 
+3.0 | 6.0 | 6.0 | 3.0 | 0.0 | false 
+
+[No.14]===============================
+SELECT
+  [T2632].productId,[T2632].rejected,[T2632].MIN-orderIndex,[T2632].id,[T2632].productId1,[T2632].orderIndex,[T2632].rejected1
+FROM
+  (( SELECT
+        [T214].productId,[T214].rejected,[T214].MIN-orderIndex
+      FROM
+        (SELECT
+            input1.productId, input1.rejected, MIN(input1.orderIndex)
+          FROM
+            input1
+          GROUP BY
+            input1.productId  input1.rejected) AS [T214][productId, rejected, MIN-orderIndex] ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.rejected == false )) AS [T2632][productId, rejected, MIN-orderIndex, id, productId1, orderIndex, rejected1]
+WHERE
+  [T2632].productId == [T2632].productId1
+   AND [T2632].MIN-orderIndex == [T2632].orderIndex
+@anonymous
+[T2632].productId | [T2632].rejected | [T2632].MIN-orderIndex | [T2632].id | [T2632].productId1 | [T2632].orderIndex | [T2632].rejected1 
+1.0 | false | 1.0 | 2.0 | 1.0 | 1.0 | false 
+2.0 | false | 0.0 | 4.0 | 2.0 | 0.0 | false 
+3.0 | false | 0.0 | 6.0 | 3.0 | 0.0 | false 
+
+[No.15]===============================
+SELECT
+  [T3476].productId,[T3476].rejected,[T3476].MIN-id,[T3476].id,[T3476].productId1,[T3476].orderIndex,[T3476].rejected1
+FROM
+  (( SELECT
+        [T3473].productId,[T3473].rejected,[T3473].MIN-id
+      FROM
+        (SELECT
+            [T3472].productId, [T3472].rejected, MIN([T3472].id)
+          FROM
+            (SELECT
+                input1.id,input1.productId,input1.orderIndex,input1.rejected
+              FROM
+                input1
+              WHERE
+                input1.rejected == false) AS [T3472][id, productId, orderIndex, rejected]
+          GROUP BY
+            [T3472].productId  [T3472].rejected) AS [T3473][productId, rejected, MIN-id] ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+       )) AS [T3476][productId, rejected, MIN-id, id, productId1, orderIndex, rejected1]
+WHERE
+  [T3476].productId == [T3476].productId1
+   AND [T3476].MIN-id == [T3476].id
+@anonymous
+[T3476].productId | [T3476].rejected | [T3476].MIN-id | [T3476].id | [T3476].productId1 | [T3476].orderIndex | [T3476].rejected1 
+1.0 | false | 2.0 | 2.0 | 1.0 | 1.0 | false 
+2.0 | false | 4.0 | 4.0 | 2.0 | 0.0 | false 
+3.0 | false | 6.0 | 6.0 | 3.0 | 0.0 | false 
+
+[No.16]===============================
+SELECT
+  [T3482].productId,[T3482].rejected,[T3482].MIN-id,[T3482].id,[T3482].productId1,[T3482].orderIndex,[T3482].rejected1
+FROM
+  (( SELECT
+        [T3479].productId,[T3479].rejected,[T3479].MIN-id
+      FROM
+        (SELECT
+            [T3478].productId, [T3478].rejected, MIN([T3478].id)
+          FROM
+            (SELECT
+                input1.id,input1.productId,input1.orderIndex,input1.rejected
+              FROM
+                input1
+              WHERE
+                input1.rejected == false) AS [T3478][id, productId, orderIndex, rejected]
+          GROUP BY
+            [T3478].productId  [T3478].rejected) AS [T3479][productId, rejected, MIN-id] ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+       )) AS [T3482][productId, rejected, MIN-id, id, productId1, orderIndex, rejected1]
+WHERE
+  [T3482].MIN-id == [T3482].id
+   AND [T3482].rejected == [T3482].rejected1
+@anonymous
+[T3482].productId | [T3482].rejected | [T3482].MIN-id | [T3482].id | [T3482].productId1 | [T3482].orderIndex | [T3482].rejected1 
+1.0 | false | 2.0 | 2.0 | 1.0 | 1.0 | false 
+2.0 | false | 4.0 | 4.0 | 2.0 | 0.0 | false 
+3.0 | false | 6.0 | 6.0 | 3.0 | 0.0 | false 
+
+[No.17]===============================
+SELECT
+  [T3488].productId,[T3488].rejected,[T3488].MIN-id,[T3488].id,[T3488].productId1,[T3488].orderIndex,[T3488].rejected1
+FROM
+  (( SELECT
+        [T3485].productId,[T3485].rejected,[T3485].MIN-id
+      FROM
+        (SELECT
+            [T3484].productId, [T3484].rejected, MIN([T3484].id)
+          FROM
+            (SELECT
+                input1.id,input1.productId,input1.orderIndex,input1.rejected
+              FROM
+                input1
+              WHERE
+                input1.rejected == false) AS [T3484][id, productId, orderIndex, rejected]
+          GROUP BY
+            [T3484].productId  [T3484].rejected) AS [T3485][productId, rejected, MIN-id] ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.rejected == false )) AS [T3488][productId, rejected, MIN-id, id, productId1, orderIndex, rejected1]
+WHERE
+  [T3488].productId == [T3488].productId1
+   AND [T3488].MIN-id == [T3488].id
+@anonymous
+[T3488].productId | [T3488].rejected | [T3488].MIN-id | [T3488].id | [T3488].productId1 | [T3488].orderIndex | [T3488].rejected1 
+1.0 | false | 2.0 | 2.0 | 1.0 | 1.0 | false 
+2.0 | false | 4.0 | 4.0 | 2.0 | 0.0 | false 
+3.0 | false | 6.0 | 6.0 | 3.0 | 0.0 | false 
+
+[No.18]===============================
+SELECT
+  [T892].rejected,[T892].id,[T892].productId,[T892].orderIndex,[T892].rejected1
+FROM
+  (( SELECT
+        [T889].rejected
+      FROM
+        (SELECT
+            [T888].rejected, FROM
+            (SELECT
+                input1.id,input1.productId,input1.orderIndex,input1.rejected
+              FROM
+                input1
+              WHERE
+                input1.rejected == false) AS [T888][id, productId, orderIndex, rejected]
+          GROUP BY
+            [T888].rejected) AS [T889][rejected] ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.productId >= input1.orderIndex
+         AND input1.rejected == false )) AS [T892][rejected, id, productId, orderIndex, rejected1]
+
+@anonymous
+[T892].rejected | [T892].id | [T892].productId | [T892].orderIndex | [T892].rejected1 
+false | 2.0 | 1.0 | 1.0 | false 
+false | 4.0 | 2.0 | 0.0 | false 
+false | 6.0 | 3.0 | 0.0 | false 
+
+[No.19]===============================
+SELECT
+  [T2040].rejected,[T2040].MIN-productId,[T2040].id,[T2040].productId,[T2040].orderIndex,[T2040].rejected1
+FROM
+  (( SELECT
+        [T2037].rejected,[T2037].MIN-productId
+      FROM
+        (SELECT
+            [T2036].rejected, MIN([T2036].productId)
+          FROM
+            (SELECT
+                input1.id,input1.productId,input1.orderIndex,input1.rejected
+              FROM
+                input1
+              WHERE
+                input1.rejected == false) AS [T2036][id, productId, orderIndex, rejected]
+          GROUP BY
+            [T2036].rejected) AS [T2037][rejected, MIN-productId] ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.productId >= input1.orderIndex
+         AND input1.rejected == false )) AS [T2040][rejected, MIN-productId, id, productId, orderIndex, rejected1]
+
+@anonymous
+[T2040].rejected | [T2040].MIN-productId | [T2040].id | [T2040].productId | [T2040].orderIndex | [T2040].rejected1 
+false | 1.0 | 2.0 | 1.0 | 1.0 | false 
+false | 1.0 | 4.0 | 2.0 | 0.0 | false 
+false | 1.0 | 6.0 | 3.0 | 0.0 | false 
+
+[No.20]===============================
+SELECT
+  input1.id,input1.productId,input1.orderIndex,input1.rejected
+FROM
+  input1
+WHERE
+  input1.productId >= input1.orderIndex
+   AND input1.rejected == false
+@anonymous
+input1.id | input1.productId | input1.orderIndex | input1.rejected 
+2.0 | 1.0 | 1.0 | false 
+4.0 | 2.0 | 0.0 | false 
+6.0 | 3.0 | 0.0 | false 
+
+[Consistent Table number] 291
+[Enumeration Finished]
+[[Synthesizer finished]] time: 00:00:06:350
+[[Synthesizer finished]] seconds: 6.35
+[avg reduction rate: syn filter / bit vector] 4.541461342089885
+[avg reduction rate: compound filter / bit vector] NaN
+[avg compound filter count] NaN
+[max compound filter count] 0
+[avg PrimitiveFilterCount] 1.9424095830453811
+[max PrimitiveFilterCount] 4
+[avg LRFilterCount] 1.4585344449319877
+[max LRFilterCount] 15
+[avg decompose tree count] 9.111874386653582
+[max decomposeTreeCount] 1401

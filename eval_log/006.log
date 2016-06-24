@@ -1,0 +1,572 @@
+================
+[[Synthesizer start]] data/benchmarks/006
+[Enumerator Type] SymbolicTableEnumerator
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[FiltersCount format](primitiveSynFilterCount, primitiveBitVecFilterCount, totalBitVecFiltersCount)
+[Basic]: 1 [SymTableForInputs]: 1
+[Aggregation]: 136 [SymTable]: 137
+[EnumJoin] level 1 [SymTable]: 274
+ASymTable Enumeration done: 274
+Runner ups: 4
+Candidates: 
+20
+[No.1]===============================
+SELECT
+  [T274].conversation_id,[T274].message,[T274].MAX-message_id,[T274].message_id,[T274].conversation_id1,[T274].from_user,[T274].timestamp,[T274].message1
+FROM
+  (( SELECT
+        [T99].conversation_id,[T99].message,[T99].MAX-message_id
+      FROM
+        (SELECT
+            input1.conversation_id, input1.message, MAX(input1.message_id)
+          FROM
+            input1
+          GROUP BY
+            input1.conversation_id  input1.message) AS [T99][conversation_id, message, MAX-message_id] ) JOIN (
+      SELECT
+        input1.message_id,input1.conversation_id,input1.from_user,input1.timestamp,input1.message
+      FROM
+        input1
+       )) AS [T274][conversation_id, message, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message1]
+WHERE
+  [T274].MAX-message_id == [T274].message_id
+@anonymous
+[T274].conversation_id | [T274].message | [T274].MAX-message_id | [T274].message_id | [T274].conversation_id1 | [T274].from_user | [T274].timestamp | [T274].message1 
+145.0 | message | 2.0 | 2.0 | 145.0 | xxx | 10000.0 | message 
+1743.0 | message | 6.0 | 6.0 | 1743.0 | yyy | 999.0 | message 
+14.0 | message | 7.0 | 7.0 | 14.0 | bbb | 899.0 | message 
+
+[No.2]===============================
+SELECT
+  [T304].conversation_id,[T304].MAX-message_id,[T304].message_id,[T304].conversation_id1,[T304].from_user,[T304].timestamp,[T304].message
+FROM
+  (( SELECT
+        [T77].conversation_id,[T77].MAX-message_id
+      FROM
+        (SELECT
+            input1.conversation_id, MAX(input1.message_id)
+          FROM
+            input1
+          GROUP BY
+            input1.conversation_id) AS [T77][conversation_id, MAX-message_id] ) JOIN (
+      SELECT
+        input1.message_id,input1.conversation_id,input1.from_user,input1.timestamp,input1.message
+      FROM
+        input1
+       )) AS [T304][conversation_id, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message]
+WHERE
+  [T304].MAX-message_id == [T304].message_id
+@anonymous
+[T304].conversation_id | [T304].MAX-message_id | [T304].message_id | [T304].conversation_id1 | [T304].from_user | [T304].timestamp | [T304].message 
+145.0 | 2.0 | 2.0 | 145.0 | xxx | 10000.0 | message 
+1743.0 | 6.0 | 6.0 | 1743.0 | yyy | 999.0 | message 
+14.0 | 7.0 | 7.0 | 14.0 | bbb | 899.0 | message 
+
+[No.3]===============================
+SELECT
+  [T276].conversation_id,[T276].message,[T276].MAX-message_id,[T276].message_id,[T276].conversation_id1,[T276].from_user,[T276].timestamp,[T276].message1
+FROM
+  (( SELECT
+        [T99].conversation_id,[T99].message,[T99].MAX-message_id
+      FROM
+        (SELECT
+            input1.conversation_id, input1.message, MAX(input1.message_id)
+          FROM
+            input1
+          GROUP BY
+            input1.conversation_id  input1.message) AS [T99][conversation_id, message, MAX-message_id] ) JOIN (
+      SELECT
+        input1.message_id,input1.conversation_id,input1.from_user,input1.timestamp,input1.message
+      FROM
+        input1
+       )) AS [T276][conversation_id, message, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message1]
+WHERE
+  [T276].MAX-message_id == [T276].message_id
+   AND [T276].conversation_id == [T276].conversation_id1
+@anonymous
+[T276].conversation_id | [T276].message | [T276].MAX-message_id | [T276].message_id | [T276].conversation_id1 | [T276].from_user | [T276].timestamp | [T276].message1 
+145.0 | message | 2.0 | 2.0 | 145.0 | xxx | 10000.0 | message 
+1743.0 | message | 6.0 | 6.0 | 1743.0 | yyy | 999.0 | message 
+14.0 | message | 7.0 | 7.0 | 14.0 | bbb | 899.0 | message 
+
+[No.4]===============================
+SELECT
+  [T306].conversation_id,[T306].MAX-message_id,[T306].message_id,[T306].conversation_id1,[T306].from_user,[T306].timestamp,[T306].message
+FROM
+  (( SELECT
+        [T77].conversation_id,[T77].MAX-message_id
+      FROM
+        (SELECT
+            input1.conversation_id, MAX(input1.message_id)
+          FROM
+            input1
+          GROUP BY
+            input1.conversation_id) AS [T77][conversation_id, MAX-message_id] ) JOIN (
+      SELECT
+        input1.message_id,input1.conversation_id,input1.from_user,input1.timestamp,input1.message
+      FROM
+        input1
+       )) AS [T306][conversation_id, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message]
+WHERE
+  [T306].MAX-message_id == [T306].message_id
+   AND [T306].conversation_id == [T306].conversation_id1
+@anonymous
+[T306].conversation_id | [T306].MAX-message_id | [T306].message_id | [T306].conversation_id1 | [T306].from_user | [T306].timestamp | [T306].message 
+145.0 | 2.0 | 2.0 | 145.0 | xxx | 10000.0 | message 
+1743.0 | 6.0 | 6.0 | 1743.0 | yyy | 999.0 | message 
+14.0 | 7.0 | 7.0 | 14.0 | bbb | 899.0 | message 
+
+[No.5]===============================
+SELECT
+  [T284].conversation_id,[T284].from_user,[T284].timestamp,[T284].MAX-message_id,[T284].message_id,[T284].conversation_id1,[T284].from_user1,[T284].timestamp1,[T284].message
+FROM
+  (( SELECT
+        [T115].conversation_id,[T115].from_user,[T115].timestamp,[T115].MAX-message_id
+      FROM
+        (SELECT
+            input1.conversation_id, input1.from_user, input1.timestamp, MAX(input1.message_id)
+          FROM
+            input1
+          GROUP BY
+            input1.conversation_id  input1.from_user  input1.timestamp) AS [T115][conversation_id, from_user, timestamp, MAX-message_id] ) JOIN (
+      SELECT
+        input1.message_id,input1.conversation_id,input1.from_user,input1.timestamp,input1.message
+      FROM
+        input1
+      WHERE
+        input1.from_user == me )) AS [T284][conversation_id, from_user, timestamp, MAX-message_id, message_id, conversation_id1, from_user1, timestamp1, message]
+WHERE
+  [T284].timestamp <> [T284].timestamp1
+@anonymous
+[T284].conversation_id | [T284].from_user | [T284].timestamp | [T284].MAX-message_id | [T284].message_id | [T284].conversation_id1 | [T284].from_user1 | [T284].timestamp1 | [T284].message 
+145.0 | xxx | 10000.0 | 2.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+1743.0 | yyy | 999.0 | 6.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+14.0 | bbb | 899.0 | 7.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+
+[No.6]===============================
+SELECT
+  [T286].conversation_id,[T286].from_user,[T286].timestamp,[T286].MAX-message_id,[T286].message_id,[T286].conversation_id1,[T286].from_user1,[T286].timestamp1,[T286].message
+FROM
+  (( SELECT
+        [T115].conversation_id,[T115].from_user,[T115].timestamp,[T115].MAX-message_id
+      FROM
+        (SELECT
+            input1.conversation_id, input1.from_user, input1.timestamp, MAX(input1.message_id)
+          FROM
+            input1
+          GROUP BY
+            input1.conversation_id  input1.from_user  input1.timestamp) AS [T115][conversation_id, from_user, timestamp, MAX-message_id] ) JOIN (
+      SELECT
+        input1.message_id,input1.conversation_id,input1.from_user,input1.timestamp,input1.message
+      FROM
+        input1
+      WHERE
+        input1.from_user == me )) AS [T286][conversation_id, from_user, timestamp, MAX-message_id, message_id, conversation_id1, from_user1, timestamp1, message]
+WHERE
+  [T286].MAX-message_id <> [T286].message_id
+@anonymous
+[T286].conversation_id | [T286].from_user | [T286].timestamp | [T286].MAX-message_id | [T286].message_id | [T286].conversation_id1 | [T286].from_user1 | [T286].timestamp1 | [T286].message 
+145.0 | xxx | 10000.0 | 2.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+1743.0 | yyy | 999.0 | 6.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+14.0 | bbb | 899.0 | 7.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+
+[No.7]===============================
+SELECT
+  [T294].conversation_id,[T294].from_user,[T294].timestamp,[T294].message,[T294].MAX-message_id,[T294].message_id,[T294].conversation_id1,[T294].from_user1,[T294].timestamp1,[T294].message1
+FROM
+  (( SELECT
+        [T131].conversation_id,[T131].from_user,[T131].timestamp,[T131].message,[T131].MAX-message_id
+      FROM
+        (SELECT
+            input1.conversation_id, input1.from_user, input1.timestamp, input1.message, MAX(input1.message_id)
+          FROM
+            input1
+          GROUP BY
+            input1.conversation_id  input1.from_user  input1.timestamp  input1.message) AS [T131][conversation_id, from_user, timestamp, message, MAX-message_id] ) JOIN (
+      SELECT
+        input1.message_id,input1.conversation_id,input1.from_user,input1.timestamp,input1.message
+      FROM
+        input1
+      WHERE
+        input1.from_user == me )) AS [T294][conversation_id, from_user, timestamp, message, MAX-message_id, message_id, conversation_id1, from_user1, timestamp1, message1]
+WHERE
+  [T294].timestamp <> [T294].timestamp1
+@anonymous
+[T294].conversation_id | [T294].from_user | [T294].timestamp | [T294].message | [T294].MAX-message_id | [T294].message_id | [T294].conversation_id1 | [T294].from_user1 | [T294].timestamp1 | [T294].message1 
+145.0 | xxx | 10000.0 | message | 2.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+1743.0 | yyy | 999.0 | message | 6.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+14.0 | bbb | 899.0 | message | 7.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+
+[No.8]===============================
+SELECT
+  [T296].conversation_id,[T296].from_user,[T296].timestamp,[T296].message,[T296].MAX-message_id,[T296].message_id,[T296].conversation_id1,[T296].from_user1,[T296].timestamp1,[T296].message1
+FROM
+  (( SELECT
+        [T131].conversation_id,[T131].from_user,[T131].timestamp,[T131].message,[T131].MAX-message_id
+      FROM
+        (SELECT
+            input1.conversation_id, input1.from_user, input1.timestamp, input1.message, MAX(input1.message_id)
+          FROM
+            input1
+          GROUP BY
+            input1.conversation_id  input1.from_user  input1.timestamp  input1.message) AS [T131][conversation_id, from_user, timestamp, message, MAX-message_id] ) JOIN (
+      SELECT
+        input1.message_id,input1.conversation_id,input1.from_user,input1.timestamp,input1.message
+      FROM
+        input1
+      WHERE
+        input1.from_user == me )) AS [T296][conversation_id, from_user, timestamp, message, MAX-message_id, message_id, conversation_id1, from_user1, timestamp1, message1]
+WHERE
+  [T296].MAX-message_id <> [T296].message_id
+@anonymous
+[T296].conversation_id | [T296].from_user | [T296].timestamp | [T296].message | [T296].MAX-message_id | [T296].message_id | [T296].conversation_id1 | [T296].from_user1 | [T296].timestamp1 | [T296].message1 
+145.0 | xxx | 10000.0 | message | 2.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+1743.0 | yyy | 999.0 | message | 6.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+14.0 | bbb | 899.0 | message | 7.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+
+[No.9]===============================
+SELECT
+  [T278].conversation_id,[T278].message,[T278].MAX-message_id,[T278].message_id,[T278].conversation_id1,[T278].from_user,[T278].timestamp,[T278].message1
+FROM
+  (( SELECT
+        [T99].conversation_id,[T99].message,[T99].MAX-message_id
+      FROM
+        (SELECT
+            input1.conversation_id, input1.message, MAX(input1.message_id)
+          FROM
+            input1
+          GROUP BY
+            input1.conversation_id  input1.message) AS [T99][conversation_id, message, MAX-message_id] ) JOIN (
+      SELECT
+        input1.message_id,input1.conversation_id,input1.from_user,input1.timestamp,input1.message
+      FROM
+        input1
+       )) AS [T278][conversation_id, message, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message1]
+WHERE
+  [T278].MAX-message_id == [T278].message_id
+   AND [T278].conversation_id >= [T278].conversation_id1
+@anonymous
+[T278].conversation_id | [T278].message | [T278].MAX-message_id | [T278].message_id | [T278].conversation_id1 | [T278].from_user | [T278].timestamp | [T278].message1 
+145.0 | message | 2.0 | 2.0 | 145.0 | xxx | 10000.0 | message 
+1743.0 | message | 6.0 | 6.0 | 1743.0 | yyy | 999.0 | message 
+14.0 | message | 7.0 | 7.0 | 14.0 | bbb | 899.0 | message 
+
+[No.10]===============================
+SELECT
+  [T280].conversation_id,[T280].message,[T280].MAX-message_id,[T280].message_id,[T280].conversation_id1,[T280].from_user,[T280].timestamp,[T280].message1
+FROM
+  (( SELECT
+        [T99].conversation_id,[T99].message,[T99].MAX-message_id
+      FROM
+        (SELECT
+            input1.conversation_id, input1.message, MAX(input1.message_id)
+          FROM
+            input1
+          GROUP BY
+            input1.conversation_id  input1.message) AS [T99][conversation_id, message, MAX-message_id] ) JOIN (
+      SELECT
+        input1.message_id,input1.conversation_id,input1.from_user,input1.timestamp,input1.message
+      FROM
+        input1
+       )) AS [T280][conversation_id, message, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message1]
+WHERE
+  [T280].conversation_id <= [T280].conversation_id1
+   AND [T280].MAX-message_id == [T280].message_id
+@anonymous
+[T280].conversation_id | [T280].message | [T280].MAX-message_id | [T280].message_id | [T280].conversation_id1 | [T280].from_user | [T280].timestamp | [T280].message1 
+145.0 | message | 2.0 | 2.0 | 145.0 | xxx | 10000.0 | message 
+1743.0 | message | 6.0 | 6.0 | 1743.0 | yyy | 999.0 | message 
+14.0 | message | 7.0 | 7.0 | 14.0 | bbb | 899.0 | message 
+
+[No.11]===============================
+SELECT
+  [T308].conversation_id,[T308].MAX-message_id,[T308].message_id,[T308].conversation_id1,[T308].from_user,[T308].timestamp,[T308].message
+FROM
+  (( SELECT
+        [T77].conversation_id,[T77].MAX-message_id
+      FROM
+        (SELECT
+            input1.conversation_id, MAX(input1.message_id)
+          FROM
+            input1
+          GROUP BY
+            input1.conversation_id) AS [T77][conversation_id, MAX-message_id] ) JOIN (
+      SELECT
+        input1.message_id,input1.conversation_id,input1.from_user,input1.timestamp,input1.message
+      FROM
+        input1
+       )) AS [T308][conversation_id, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message]
+WHERE
+  [T308].MAX-message_id == [T308].message_id
+   AND [T308].conversation_id >= [T308].conversation_id1
+@anonymous
+[T308].conversation_id | [T308].MAX-message_id | [T308].message_id | [T308].conversation_id1 | [T308].from_user | [T308].timestamp | [T308].message 
+145.0 | 2.0 | 2.0 | 145.0 | xxx | 10000.0 | message 
+1743.0 | 6.0 | 6.0 | 1743.0 | yyy | 999.0 | message 
+14.0 | 7.0 | 7.0 | 14.0 | bbb | 899.0 | message 
+
+[No.12]===============================
+SELECT
+  [T310].conversation_id,[T310].MAX-message_id,[T310].message_id,[T310].conversation_id1,[T310].from_user,[T310].timestamp,[T310].message
+FROM
+  (( SELECT
+        [T77].conversation_id,[T77].MAX-message_id
+      FROM
+        (SELECT
+            input1.conversation_id, MAX(input1.message_id)
+          FROM
+            input1
+          GROUP BY
+            input1.conversation_id) AS [T77][conversation_id, MAX-message_id] ) JOIN (
+      SELECT
+        input1.message_id,input1.conversation_id,input1.from_user,input1.timestamp,input1.message
+      FROM
+        input1
+       )) AS [T310][conversation_id, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message]
+WHERE
+  [T310].conversation_id <= [T310].conversation_id1
+   AND [T310].MAX-message_id == [T310].message_id
+@anonymous
+[T310].conversation_id | [T310].MAX-message_id | [T310].message_id | [T310].conversation_id1 | [T310].from_user | [T310].timestamp | [T310].message 
+145.0 | 2.0 | 2.0 | 145.0 | xxx | 10000.0 | message 
+1743.0 | 6.0 | 6.0 | 1743.0 | yyy | 999.0 | message 
+14.0 | 7.0 | 7.0 | 14.0 | bbb | 899.0 | message 
+
+[No.13]===============================
+SELECT
+  [T288].conversation_id,[T288].from_user,[T288].timestamp,[T288].MAX-message_id,[T288].message_id,[T288].conversation_id1,[T288].from_user1,[T288].timestamp1,[T288].message
+FROM
+  (( SELECT
+        [T115].conversation_id,[T115].from_user,[T115].timestamp,[T115].MAX-message_id
+      FROM
+        (SELECT
+            input1.conversation_id, input1.from_user, input1.timestamp, MAX(input1.message_id)
+          FROM
+            input1
+          GROUP BY
+            input1.conversation_id  input1.from_user  input1.timestamp) AS [T115][conversation_id, from_user, timestamp, MAX-message_id] ) JOIN (
+      SELECT
+        input1.message_id,input1.conversation_id,input1.from_user,input1.timestamp,input1.message
+      FROM
+        input1
+      WHERE
+        input1.from_user == me )) AS [T288][conversation_id, from_user, timestamp, MAX-message_id, message_id, conversation_id1, from_user1, timestamp1, message]
+WHERE
+  [T288].timestamp <> [T288].timestamp1
+   AND [T288].MAX-message_id <> [T288].message_id
+@anonymous
+[T288].conversation_id | [T288].from_user | [T288].timestamp | [T288].MAX-message_id | [T288].message_id | [T288].conversation_id1 | [T288].from_user1 | [T288].timestamp1 | [T288].message 
+145.0 | xxx | 10000.0 | 2.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+1743.0 | yyy | 999.0 | 6.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+14.0 | bbb | 899.0 | 7.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+
+[No.14]===============================
+SELECT
+  [T298].conversation_id,[T298].from_user,[T298].timestamp,[T298].message,[T298].MAX-message_id,[T298].message_id,[T298].conversation_id1,[T298].from_user1,[T298].timestamp1,[T298].message1
+FROM
+  (( SELECT
+        [T131].conversation_id,[T131].from_user,[T131].timestamp,[T131].message,[T131].MAX-message_id
+      FROM
+        (SELECT
+            input1.conversation_id, input1.from_user, input1.timestamp, input1.message, MAX(input1.message_id)
+          FROM
+            input1
+          GROUP BY
+            input1.conversation_id  input1.from_user  input1.timestamp  input1.message) AS [T131][conversation_id, from_user, timestamp, message, MAX-message_id] ) JOIN (
+      SELECT
+        input1.message_id,input1.conversation_id,input1.from_user,input1.timestamp,input1.message
+      FROM
+        input1
+      WHERE
+        input1.from_user == me )) AS [T298][conversation_id, from_user, timestamp, message, MAX-message_id, message_id, conversation_id1, from_user1, timestamp1, message1]
+WHERE
+  [T298].timestamp <> [T298].timestamp1
+   AND [T298].MAX-message_id <> [T298].message_id
+@anonymous
+[T298].conversation_id | [T298].from_user | [T298].timestamp | [T298].message | [T298].MAX-message_id | [T298].message_id | [T298].conversation_id1 | [T298].from_user1 | [T298].timestamp1 | [T298].message1 
+145.0 | xxx | 10000.0 | message | 2.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+1743.0 | yyy | 999.0 | message | 6.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+14.0 | bbb | 899.0 | message | 7.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+
+[No.15]===============================
+SELECT
+  [T290].conversation_id,[T290].from_user,[T290].timestamp,[T290].MAX-message_id,[T290].message_id,[T290].conversation_id1,[T290].from_user1,[T290].timestamp1,[T290].message
+FROM
+  (( SELECT
+        [T115].conversation_id,[T115].from_user,[T115].timestamp,[T115].MAX-message_id
+      FROM
+        (SELECT
+            input1.conversation_id, input1.from_user, input1.timestamp, MAX(input1.message_id)
+          FROM
+            input1
+          GROUP BY
+            input1.conversation_id  input1.from_user  input1.timestamp) AS [T115][conversation_id, from_user, timestamp, MAX-message_id] ) JOIN (
+      SELECT
+        input1.message_id,input1.conversation_id,input1.from_user,input1.timestamp,input1.message
+      FROM
+        input1
+      WHERE
+        input1.conversation_id > input1.timestamp
+         AND input1.from_user == me )) AS [T290][conversation_id, from_user, timestamp, MAX-message_id, message_id, conversation_id1, from_user1, timestamp1, message]
+WHERE
+  [T290].timestamp <> [T290].timestamp1
+@anonymous
+[T290].conversation_id | [T290].from_user | [T290].timestamp | [T290].MAX-message_id | [T290].message_id | [T290].conversation_id1 | [T290].from_user1 | [T290].timestamp1 | [T290].message 
+145.0 | xxx | 10000.0 | 2.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+1743.0 | yyy | 999.0 | 6.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+14.0 | bbb | 899.0 | 7.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+
+[No.16]===============================
+SELECT
+  [T292].conversation_id,[T292].from_user,[T292].timestamp,[T292].MAX-message_id,[T292].message_id,[T292].conversation_id1,[T292].from_user1,[T292].timestamp1,[T292].message
+FROM
+  (( SELECT
+        [T115].conversation_id,[T115].from_user,[T115].timestamp,[T115].MAX-message_id
+      FROM
+        (SELECT
+            input1.conversation_id, input1.from_user, input1.timestamp, MAX(input1.message_id)
+          FROM
+            input1
+          GROUP BY
+            input1.conversation_id  input1.from_user  input1.timestamp) AS [T115][conversation_id, from_user, timestamp, MAX-message_id] ) JOIN (
+      SELECT
+        input1.message_id,input1.conversation_id,input1.from_user,input1.timestamp,input1.message
+      FROM
+        input1
+      WHERE
+        input1.conversation_id > input1.timestamp
+         AND input1.from_user == me )) AS [T292][conversation_id, from_user, timestamp, MAX-message_id, message_id, conversation_id1, from_user1, timestamp1, message]
+WHERE
+  [T292].MAX-message_id <> [T292].message_id
+@anonymous
+[T292].conversation_id | [T292].from_user | [T292].timestamp | [T292].MAX-message_id | [T292].message_id | [T292].conversation_id1 | [T292].from_user1 | [T292].timestamp1 | [T292].message 
+145.0 | xxx | 10000.0 | 2.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+1743.0 | yyy | 999.0 | 6.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+14.0 | bbb | 899.0 | 7.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+
+[No.17]===============================
+SELECT
+  [T300].conversation_id,[T300].from_user,[T300].timestamp,[T300].message,[T300].MAX-message_id,[T300].message_id,[T300].conversation_id1,[T300].from_user1,[T300].timestamp1,[T300].message1
+FROM
+  (( SELECT
+        [T131].conversation_id,[T131].from_user,[T131].timestamp,[T131].message,[T131].MAX-message_id
+      FROM
+        (SELECT
+            input1.conversation_id, input1.from_user, input1.timestamp, input1.message, MAX(input1.message_id)
+          FROM
+            input1
+          GROUP BY
+            input1.conversation_id  input1.from_user  input1.timestamp  input1.message) AS [T131][conversation_id, from_user, timestamp, message, MAX-message_id] ) JOIN (
+      SELECT
+        input1.message_id,input1.conversation_id,input1.from_user,input1.timestamp,input1.message
+      FROM
+        input1
+      WHERE
+        input1.conversation_id > input1.timestamp
+         AND input1.from_user == me )) AS [T300][conversation_id, from_user, timestamp, message, MAX-message_id, message_id, conversation_id1, from_user1, timestamp1, message1]
+WHERE
+  [T300].timestamp <> [T300].timestamp1
+@anonymous
+[T300].conversation_id | [T300].from_user | [T300].timestamp | [T300].message | [T300].MAX-message_id | [T300].message_id | [T300].conversation_id1 | [T300].from_user1 | [T300].timestamp1 | [T300].message1 
+145.0 | xxx | 10000.0 | message | 2.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+1743.0 | yyy | 999.0 | message | 6.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+14.0 | bbb | 899.0 | message | 7.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+
+[No.18]===============================
+SELECT
+  [T302].conversation_id,[T302].from_user,[T302].timestamp,[T302].message,[T302].MAX-message_id,[T302].message_id,[T302].conversation_id1,[T302].from_user1,[T302].timestamp1,[T302].message1
+FROM
+  (( SELECT
+        [T131].conversation_id,[T131].from_user,[T131].timestamp,[T131].message,[T131].MAX-message_id
+      FROM
+        (SELECT
+            input1.conversation_id, input1.from_user, input1.timestamp, input1.message, MAX(input1.message_id)
+          FROM
+            input1
+          GROUP BY
+            input1.conversation_id  input1.from_user  input1.timestamp  input1.message) AS [T131][conversation_id, from_user, timestamp, message, MAX-message_id] ) JOIN (
+      SELECT
+        input1.message_id,input1.conversation_id,input1.from_user,input1.timestamp,input1.message
+      FROM
+        input1
+      WHERE
+        input1.conversation_id > input1.timestamp
+         AND input1.from_user == me )) AS [T302][conversation_id, from_user, timestamp, message, MAX-message_id, message_id, conversation_id1, from_user1, timestamp1, message1]
+WHERE
+  [T302].MAX-message_id <> [T302].message_id
+@anonymous
+[T302].conversation_id | [T302].from_user | [T302].timestamp | [T302].message | [T302].MAX-message_id | [T302].message_id | [T302].conversation_id1 | [T302].from_user1 | [T302].timestamp1 | [T302].message1 
+145.0 | xxx | 10000.0 | message | 2.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+1743.0 | yyy | 999.0 | message | 6.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+14.0 | bbb | 899.0 | message | 7.0 | 5.0 | 1743.0 | me | 1200.0 | message 
+
+[No.19]===============================
+SELECT
+  [T282].conversation_id,[T282].message,[T282].MAX-message_id,[T282].message_id,[T282].conversation_id1,[T282].from_user,[T282].timestamp,[T282].message1
+FROM
+  (( SELECT
+        [T99].conversation_id,[T99].message,[T99].MAX-message_id
+      FROM
+        (SELECT
+            input1.conversation_id, input1.message, MAX(input1.message_id)
+          FROM
+            input1
+          GROUP BY
+            input1.conversation_id  input1.message) AS [T99][conversation_id, message, MAX-message_id] ) JOIN (
+      SELECT
+        input1.message_id,input1.conversation_id,input1.from_user,input1.timestamp,input1.message
+      FROM
+        input1
+       )) AS [T282][conversation_id, message, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message1]
+WHERE
+  [T282].MAX-message_id == [T282].message_id
+   AND [T282].MAX-message_id <= [T282].message_id
+@anonymous
+[T282].conversation_id | [T282].message | [T282].MAX-message_id | [T282].message_id | [T282].conversation_id1 | [T282].from_user | [T282].timestamp | [T282].message1 
+145.0 | message | 2.0 | 2.0 | 145.0 | xxx | 10000.0 | message 
+1743.0 | message | 6.0 | 6.0 | 1743.0 | yyy | 999.0 | message 
+14.0 | message | 7.0 | 7.0 | 14.0 | bbb | 899.0 | message 
+
+[No.20]===============================
+SELECT
+  [T312].conversation_id,[T312].MAX-message_id,[T312].message_id,[T312].conversation_id1,[T312].from_user,[T312].timestamp,[T312].message
+FROM
+  (( SELECT
+        [T77].conversation_id,[T77].MAX-message_id
+      FROM
+        (SELECT
+            input1.conversation_id, MAX(input1.message_id)
+          FROM
+            input1
+          GROUP BY
+            input1.conversation_id) AS [T77][conversation_id, MAX-message_id] ) JOIN (
+      SELECT
+        input1.message_id,input1.conversation_id,input1.from_user,input1.timestamp,input1.message
+      FROM
+        input1
+       )) AS [T312][conversation_id, MAX-message_id, message_id, conversation_id1, from_user, timestamp, message]
+WHERE
+  [T312].MAX-message_id == [T312].message_id
+   AND [T312].MAX-message_id <= [T312].message_id
+@anonymous
+[T312].conversation_id | [T312].MAX-message_id | [T312].message_id | [T312].conversation_id1 | [T312].from_user | [T312].timestamp | [T312].message 
+145.0 | 2.0 | 2.0 | 145.0 | xxx | 10000.0 | message 
+1743.0 | 6.0 | 6.0 | 1743.0 | yyy | 999.0 | message 
+14.0 | 7.0 | 7.0 | 14.0 | bbb | 899.0 | message 
+
+[Consistent Table number] 4
+[Enumeration Finished]
+[[Synthesizer finished]] time: 00:00:01:20
+[[Synthesizer finished]] seconds: 1.02
+[avg reduction rate: syn filter / bit vector] 6.561303624271476
+[avg reduction rate: compound filter / bit vector] NaN
+[avg compound filter count] NaN
+[max compound filter count] 0
+[avg PrimitiveFilterCount] 1.8571428571428572
+[max PrimitiveFilterCount] 4
+[avg LRFilterCount] 4.425
+[max LRFilterCount] 16
+[avg decompose tree count] 3.8333333333333335
+[max decomposeTreeCount] 10

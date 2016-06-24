@@ -1,0 +1,577 @@
+================
+[[Synthesizer start]] data/benchmarks/051
+[Enumerator Type] SymbolicTableEnumerator
+[Initialize Enumeration]
+  Parameterized Table Number: 856
+[Enumeration Start]
+[FiltersCount format](primitiveSynFilterCount, primitiveBitVecFilterCount, totalBitVecFiltersCount)
+[Basic]: 1 [SymTableForInputs]: 1
+[Aggregation]: 156 [SymTable]: 157
+[EnumJoin] level 1 [SymTable]: 314
+ASymTable Enumeration done: 314
+Runner ups: 354
+Candidates: 
+1742
+[No.1]===============================
+SELECT
+  [T3301].P_Id,[T3301].room
+FROM
+  (SELECT
+      [T3300].P_Id, [T3300].room, FROM
+      (SELECT
+          input1.ID,input1.P_Id,input1.room
+        FROM
+          input1
+        WHERE
+          input1.room == B
+           AND NOT EXIST (
+            (SELECT
+                B,[T0].ID,[T0].P_Id,[T0].room
+              FROM
+                (input1) AS [T0][ID, P_Id, room]
+              WHERE
+                input1.P_Id == [T0].ID) AS [T34][anonymous, ID, P_Id, room])) AS [T3300][ID, P_Id, room]
+    GROUP BY
+      [T3300].P_Id  [T3300].room) AS [T3301][P_Id, room]
+
+@anonymous
+[T3301].P_Id | [T3301].room 
+9.0 | B 
+
+[No.2]===============================
+SELECT
+  [T7951].P_Id
+FROM
+  (SELECT
+      [T7950].P_Id, FROM
+      (SELECT
+          input1.ID,input1.P_Id,input1.room
+        FROM
+          input1
+        WHERE
+          input1.room == B
+           AND NOT EXIST (
+            (SELECT
+                B,[T0].ID,[T0].P_Id,[T0].room
+              FROM
+                (input1) AS [T0][ID, P_Id, room]
+              WHERE
+                input1.P_Id == [T0].ID) AS [T34][anonymous, ID, P_Id, room])) AS [T7950][ID, P_Id, room]
+    GROUP BY
+      [T7950].P_Id) AS [T7951][P_Id]
+
+@anonymous
+[T7951].P_Id 
+9.0 
+
+[No.3]===============================
+SELECT
+  [T6710].P_Id,[T6710].room,[T6710].ID,[T6710].P_Id1,[T6710].room1
+FROM
+  (( SELECT
+        [T6701].P_Id,[T6701].room
+      FROM
+        (SELECT
+            [T6700].P_Id, [T6700].room, FROM
+            (SELECT
+                input1.ID,input1.P_Id,input1.room
+              FROM
+                input1
+              WHERE
+                input1.room == B) AS [T6700][ID, P_Id, room]
+          GROUP BY
+            [T6700].P_Id  [T6700].room) AS [T6701][P_Id, room] ) JOIN (
+      SELECT
+        input1.ID,input1.P_Id,input1.room
+      FROM
+        input1
+      WHERE
+        input1.room == B )) AS [T6710][P_Id, room, ID, P_Id1, room1]
+WHERE
+  [T6710].P_Id > [T6710].P_Id1
+@anonymous
+[T6710].P_Id | [T6710].room | [T6710].ID | [T6710].P_Id1 | [T6710].room1 
+9.0 | B | 3.0 | 8.0 | B 
+
+[No.4]===============================
+SELECT
+  [T8210].P_Id,[T8210].ID,[T8210].P_Id1,[T8210].room
+FROM
+  (( SELECT
+        [T8201].P_Id
+      FROM
+        (SELECT
+            [T8200].P_Id, FROM
+            (SELECT
+                input1.ID,input1.P_Id,input1.room
+              FROM
+                input1
+              WHERE
+                input1.room == B) AS [T8200][ID, P_Id, room]
+          GROUP BY
+            [T8200].P_Id) AS [T8201][P_Id] ) JOIN (
+      SELECT
+        input1.ID,input1.P_Id,input1.room
+      FROM
+        input1
+      WHERE
+        input1.room == B )) AS [T8210][P_Id, ID, P_Id1, room]
+WHERE
+  [T8210].P_Id > [T8210].P_Id1
+@anonymous
+[T8210].P_Id | [T8210].ID | [T8210].P_Id1 | [T8210].room 
+9.0 | 3.0 | 8.0 | B 
+
+[No.5]===============================
+SELECT
+  input1.ID,input1.P_Id,input1.room
+FROM
+  input1
+WHERE
+  input1.room == B
+   AND NOT EXIST (
+    (SELECT
+        B,[T0].ID,[T0].P_Id,[T0].room
+      FROM
+        (input1) AS [T0][ID, P_Id, room]
+      WHERE
+        B == [T0].room
+         AND input1.ID < [T0].ID) AS [T161][anonymous, ID, P_Id, room])
+@anonymous
+input1.ID | input1.P_Id | input1.room 
+5.0 | 9.0 | B 
+
+[No.6]===============================
+SELECT
+  [T4650].ID,[T4650].P_Id,[T4650].room,[T4650].ID1,[T4650].P_Id1,[T4650].room1
+FROM
+  (( SELECT
+        input1.ID,input1.P_Id,input1.room
+      FROM
+        input1
+      WHERE
+        input1.room == B ) JOIN (
+      SELECT
+        input1.ID,input1.P_Id,input1.room
+      FROM
+        input1
+      WHERE
+        input1.room == B )) AS [T4650][ID, P_Id, room, ID1, P_Id1, room1]
+WHERE
+  [T4650].ID > [T4650].ID1
+   AND [T4650].P_Id == [T4650].P_Id1
+@anonymous
+[T4650].ID | [T4650].P_Id | [T4650].room | [T4650].ID1 | [T4650].P_Id1 | [T4650].room1 
+5.0 | 9.0 | B | 4.0 | 9.0 | B 
+
+[No.7]===============================
+SELECT
+  [T4652].ID,[T4652].P_Id,[T4652].room,[T4652].ID1,[T4652].P_Id1,[T4652].room1
+FROM
+  (( SELECT
+        input1.ID,input1.P_Id,input1.room
+      FROM
+        input1 ) JOIN (
+      SELECT
+        input1.ID,input1.P_Id,input1.room
+      FROM
+        input1
+      WHERE
+        input1.room == B )) AS [T4652][ID, P_Id, room, ID1, P_Id1, room1]
+WHERE
+  [T4652].ID > [T4652].ID1
+   AND [T4652].P_Id == [T4652].P_Id1
+@anonymous
+[T4652].ID | [T4652].P_Id | [T4652].room | [T4652].ID1 | [T4652].P_Id1 | [T4652].room1 
+5.0 | 9.0 | B | 4.0 | 9.0 | B 
+
+[No.8]===============================
+SELECT
+  [T4740].ID,[T4740].P_Id,[T4740].room,[T4740].ID1,[T4740].P_Id1,[T4740].room1
+FROM
+  (( SELECT
+        input1.ID,input1.P_Id,input1.room
+      FROM
+        input1
+      WHERE
+        input1.room == B ) JOIN (
+      SELECT
+        input1.ID,input1.P_Id,input1.room
+      FROM
+        input1
+      WHERE
+        input1.room == B )) AS [T4740][ID, P_Id, room, ID1, P_Id1, room1]
+WHERE
+  [T4740].ID < [T4740].ID1
+   AND [T4740].P_Id == [T4740].P_Id1
+@anonymous
+[T4740].ID | [T4740].P_Id | [T4740].room | [T4740].ID1 | [T4740].P_Id1 | [T4740].room1 
+4.0 | 9.0 | B | 5.0 | 9.0 | B 
+
+[No.9]===============================
+SELECT
+  [T4742].ID,[T4742].P_Id,[T4742].room,[T4742].ID1,[T4742].P_Id1,[T4742].room1
+FROM
+  (( SELECT
+        input1.ID,input1.P_Id,input1.room
+      FROM
+        input1
+      WHERE
+        input1.room == B ) JOIN (
+      SELECT
+        input1.ID,input1.P_Id,input1.room
+      FROM
+        input1
+       )) AS [T4742][ID, P_Id, room, ID1, P_Id1, room1]
+WHERE
+  [T4742].ID < [T4742].ID1
+   AND [T4742].P_Id == [T4742].P_Id1
+@anonymous
+[T4742].ID | [T4742].P_Id | [T4742].room | [T4742].ID1 | [T4742].P_Id1 | [T4742].room1 
+4.0 | 9.0 | B | 5.0 | 9.0 | B 
+
+[No.10]===============================
+SELECT
+  input1.ID,input1.P_Id,input1.room
+FROM
+  input1
+WHERE
+  input1.room == B
+   AND NOT EXIST (
+    (SELECT
+        B,[T0].ID,[T0].P_Id,[T0].room
+      FROM
+        (input1) AS [T0][ID, P_Id, room]
+      WHERE
+        input1.ID > [T0].ID
+         AND input1.P_Id == [T0].P_Id) AS [T598][anonymous, ID, P_Id, room])
+@anonymous
+input1.ID | input1.P_Id | input1.room 
+4.0 | 9.0 | B 
+
+[No.11]===============================
+SELECT
+  input1.ID,input1.P_Id,input1.room
+FROM
+  input1
+WHERE
+  input1.room == B
+   AND EXIST (
+    (SELECT
+        B,[T0].ID,[T0].P_Id,[T0].room
+      FROM
+        (input1) AS [T0][ID, P_Id, room]
+      WHERE
+        input1.ID < [T0].ID
+         AND input1.P_Id == [T0].P_Id) AS [T558][anonymous, ID, P_Id, room])
+@anonymous
+input1.ID | input1.P_Id | input1.room 
+4.0 | 9.0 | B 
+
+[No.12]===============================
+SELECT
+  input1.ID,input1.P_Id,input1.room
+FROM
+  input1
+WHERE
+  input1.room == B
+   AND NOT EXIST (
+    (SELECT
+        B,[T0].ID,[T0].P_Id,[T0].room
+      FROM
+        (input1) AS [T0][ID, P_Id, room]
+      WHERE
+        input1.ID < [T0].ID
+         AND input1.room == [T0].room) AS [T569][anonymous, ID, P_Id, room])
+@anonymous
+input1.ID | input1.P_Id | input1.room 
+5.0 | 9.0 | B 
+
+[No.13]===============================
+SELECT
+  [T6722].P_Id,[T6722].room,[T6722].ID,[T6722].P_Id1,[T6722].room1
+FROM
+  (( SELECT
+        [T6713].P_Id,[T6713].room
+      FROM
+        (SELECT
+            [T6712].P_Id, [T6712].room, FROM
+            (SELECT
+                input1.ID,input1.P_Id,input1.room
+              FROM
+                input1
+              WHERE
+                input1.room == B) AS [T6712][ID, P_Id, room]
+          GROUP BY
+            [T6712].P_Id  [T6712].room) AS [T6713][P_Id, room] ) JOIN (
+      SELECT
+        input1.ID,input1.P_Id,input1.room
+      FROM
+        input1
+       )) AS [T6722][P_Id, room, ID, P_Id1, room1]
+WHERE
+  [T6722].P_Id > [T6722].P_Id1
+   AND [T6722].room == [T6722].room1
+@anonymous
+[T6722].P_Id | [T6722].room | [T6722].ID | [T6722].P_Id1 | [T6722].room1 
+9.0 | B | 3.0 | 8.0 | B 
+
+[No.14]===============================
+SELECT
+  [T6734].P_Id,[T6734].room,[T6734].ID,[T6734].P_Id1,[T6734].room1
+FROM
+  (( SELECT
+        [T6725].P_Id,[T6725].room
+      FROM
+        (SELECT
+            [T6724].P_Id, [T6724].room, FROM
+            (SELECT
+                input1.ID,input1.P_Id,input1.room
+              FROM
+                input1
+              WHERE
+                input1.room == B) AS [T6724][ID, P_Id, room]
+          GROUP BY
+            [T6724].P_Id  [T6724].room) AS [T6725][P_Id, room] ) JOIN (
+      SELECT
+        input1.ID,input1.P_Id,input1.room
+      FROM
+        input1
+      WHERE
+        input1.room == B )) AS [T6734][P_Id, room, ID, P_Id1, room1]
+WHERE
+  [T6734].P_Id > [T6734].P_Id1
+   AND [T6734].room == [T6734].room1
+@anonymous
+[T6734].P_Id | [T6734].room | [T6734].ID | [T6734].P_Id1 | [T6734].room1 
+9.0 | B | 3.0 | 8.0 | B 
+
+[No.15]===============================
+SELECT
+  [T10390].P_Id,[T10390].room,[T10390].ID,[T10390].P_Id1,[T10390].room1
+FROM
+  (( SELECT
+        [T1012].P_Id,[T1012].room
+      FROM
+        (SELECT
+            input1.P_Id, input1.room, FROM
+            input1
+          GROUP BY
+            input1.P_Id  input1.room) AS [T1012][P_Id, room] ) JOIN (
+      SELECT
+        input1.ID,input1.P_Id,input1.room
+      FROM
+        input1
+      WHERE
+        input1.room == B )) AS [T10390][P_Id, room, ID, P_Id1, room1]
+WHERE
+  [T10390].P_Id > [T10390].P_Id1
+   AND [T10390].room == [T10390].room1
+@anonymous
+[T10390].P_Id | [T10390].room | [T10390].ID | [T10390].P_Id1 | [T10390].room1 
+9.0 | B | 3.0 | 8.0 | B 
+
+[No.16]===============================
+SELECT
+  [T10392].P_Id,[T10392].room,[T10392].ID,[T10392].P_Id1,[T10392].room1
+FROM
+  (( SELECT
+        [T1012].P_Id,[T1012].room
+      FROM
+        (SELECT
+            input1.P_Id, input1.room, FROM
+            input1
+          GROUP BY
+            input1.P_Id  input1.room) AS [T1012][P_Id, room] ) JOIN (
+      SELECT
+        input1.ID,input1.P_Id,input1.room
+      FROM
+        input1
+       )) AS [T10392][P_Id, room, ID, P_Id1, room1]
+WHERE
+  [T10392].P_Id > [T10392].P_Id1
+   AND [T10392].room == [T10392].room1
+@anonymous
+[T10392].P_Id | [T10392].room | [T10392].ID | [T10392].P_Id1 | [T10392].room1 
+9.0 | B | 3.0 | 8.0 | B 
+
+[No.17]===============================
+SELECT
+  [T1990].P_Id,[T1990].ID,[T1990].P_Id1,[T1990].room
+FROM
+  (( SELECT
+        [T1981].P_Id
+      FROM
+        (SELECT
+            [T1980].P_Id, FROM
+            (SELECT
+                input1.ID,input1.P_Id,input1.room
+              FROM
+                input1
+              WHERE
+                input1.room == B
+                 AND NOT EXIST (
+                  (SELECT
+                      B,[T0].ID,[T0].P_Id,[T0].room
+                    FROM
+                      (input1) AS [T0][ID, P_Id, room]
+                    WHERE
+                      input1.P_Id == [T0].ID) AS [T34][anonymous, ID, P_Id, room])) AS [T1980][ID, P_Id, room]
+          GROUP BY
+            [T1980].P_Id) AS [T1981][P_Id] ) JOIN (
+      SELECT
+        input1.ID,input1.P_Id,input1.room
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              B,[T0].ID,[T0].P_Id,[T0].room
+            FROM
+              (input1) AS [T0][ID, P_Id, room]
+            WHERE
+              input1.P_Id == [T0].ID) AS [T34][anonymous, ID, P_Id, room])
+         AND input1.room == B )) AS [T1990][P_Id, ID, P_Id1, room]
+
+@anonymous
+[T1990].P_Id | [T1990].ID | [T1990].P_Id1 | [T1990].room 
+9.0 | 3.0 | 8.0 | B 
+
+[No.18]===============================
+SELECT
+  [T2290].P_Id,[T2290].ID,[T2290].P_Id1,[T2290].room
+FROM
+  (( SELECT
+        [T2281].P_Id
+      FROM
+        (SELECT
+            [T2280].P_Id, FROM
+            (SELECT
+                input1.ID,input1.P_Id,input1.room
+              FROM
+                input1
+              WHERE
+                input1.room == B
+                 AND NOT EXIST (
+                  (SELECT
+                      B,[T0].ID,[T0].P_Id,[T0].room
+                    FROM
+                      (input1) AS [T0][ID, P_Id, room]
+                    WHERE
+                      input1.P_Id == [T0].ID) AS [T34][anonymous, ID, P_Id, room])) AS [T2280][ID, P_Id, room]
+          GROUP BY
+            [T2280].P_Id) AS [T2281][P_Id] ) JOIN (
+      SELECT
+        input1.ID,input1.P_Id,input1.room
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              B,[T0].ID,[T0].P_Id,[T0].room
+            FROM
+              (input1) AS [T0][ID, P_Id, room]
+            WHERE
+              input1.ID == [T0].P_Id) AS [T12][anonymous, ID, P_Id, room]) )) AS [T2290][P_Id, ID, P_Id1, room]
+
+@anonymous
+[T2290].P_Id | [T2290].ID | [T2290].P_Id1 | [T2290].room 
+9.0 | 8.0 | 10.0 | D 
+
+[No.19]===============================
+SELECT
+  [T9500].P_Id,[T9500].room,[T9500].ID,[T9500].P_Id1,[T9500].room1
+FROM
+  (( SELECT
+        [T9491].P_Id,[T9491].room
+      FROM
+        (SELECT
+            [T9490].P_Id, [T9490].room, FROM
+            (SELECT
+                input1.ID,input1.P_Id,input1.room
+              FROM
+                input1
+              WHERE
+                input1.room == B
+                 AND NOT EXIST (
+                  (SELECT
+                      B,[T0].ID,[T0].P_Id,[T0].room
+                    FROM
+                      (input1) AS [T0][ID, P_Id, room]
+                    WHERE
+                      input1.P_Id == [T0].ID) AS [T34][anonymous, ID, P_Id, room])) AS [T9490][ID, P_Id, room]
+          GROUP BY
+            [T9490].P_Id  [T9490].room) AS [T9491][P_Id, room] ) JOIN (
+      SELECT
+        input1.ID,input1.P_Id,input1.room
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              B,[T0].ID,[T0].P_Id,[T0].room
+            FROM
+              (input1) AS [T0][ID, P_Id, room]
+            WHERE
+              input1.P_Id == [T0].ID) AS [T34][anonymous, ID, P_Id, room])
+         AND input1.room == B )) AS [T9500][P_Id, room, ID, P_Id1, room1]
+
+@anonymous
+[T9500].P_Id | [T9500].room | [T9500].ID | [T9500].P_Id1 | [T9500].room1 
+9.0 | B | 3.0 | 8.0 | B 
+
+[No.20]===============================
+SELECT
+  [T9800].P_Id,[T9800].room,[T9800].ID,[T9800].P_Id1,[T9800].room1
+FROM
+  (( SELECT
+        [T9791].P_Id,[T9791].room
+      FROM
+        (SELECT
+            [T9790].P_Id, [T9790].room, FROM
+            (SELECT
+                input1.ID,input1.P_Id,input1.room
+              FROM
+                input1
+              WHERE
+                input1.room == B
+                 AND NOT EXIST (
+                  (SELECT
+                      B,[T0].ID,[T0].P_Id,[T0].room
+                    FROM
+                      (input1) AS [T0][ID, P_Id, room]
+                    WHERE
+                      input1.P_Id == [T0].ID) AS [T34][anonymous, ID, P_Id, room])) AS [T9790][ID, P_Id, room]
+          GROUP BY
+            [T9790].P_Id  [T9790].room) AS [T9791][P_Id, room] ) JOIN (
+      SELECT
+        input1.ID,input1.P_Id,input1.room
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              B,[T0].ID,[T0].P_Id,[T0].room
+            FROM
+              (input1) AS [T0][ID, P_Id, room]
+            WHERE
+              input1.ID == [T0].P_Id) AS [T12][anonymous, ID, P_Id, room]) )) AS [T9800][P_Id, room, ID, P_Id1, room1]
+
+@anonymous
+[T9800].P_Id | [T9800].room | [T9800].ID | [T9800].P_Id1 | [T9800].room1 
+9.0 | B | 8.0 | 10.0 | D 
+
+[Consistent Table number] 350
+[Enumeration Finished]
+[[Synthesizer finished]] time: 00:01:05:408
+[[Synthesizer finished]] seconds: 65.408
+[avg reduction rate: syn filter / bit vector] 6.090120051317154
+[avg reduction rate: compound filter / bit vector] NaN
+[avg compound filter count] NaN
+[max compound filter count] 0
+[avg PrimitiveFilterCount] 203.66760140210314
+[max PrimitiveFilterCount] 521
+[avg LRFilterCount] 1.822441062369442
+[max LRFilterCount] 4
+[avg decompose tree count] 83.67365269461078
+[max decomposeTreeCount] 58604
