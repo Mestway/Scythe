@@ -104,5 +104,12 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
                     break;
             }
         }
+
+        if (qc.runnerUpTable == 0) {
+            ec.setTableNodes(qc.getRepresentativeTableNodes());
+            EnumAggrTableNode.emitEnumAggregationNode(ec, qc);
+            ec.setTableNodes(qc.getRepresentativeTableNodes());
+            EnumProjection.emitEnumProjection(ec, ec.getOutputTable(), qc);
+        }
     }
 }

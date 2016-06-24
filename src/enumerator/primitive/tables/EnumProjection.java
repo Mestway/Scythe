@@ -85,7 +85,47 @@ public class EnumProjection {
 
             Table t;
             try {
-                 t = tn.eval(new Environment());
+                t = tn.eval(new Environment());
+                if (t.getContent().size() != outputTable.getContent().size())
+                    continue;
+            } catch (SQLEvalException e) {
+                continue;
+            }
+
+            List<List<ValNode>> lvns =  new ArrayList<>();
+
+            lvns = enumSelectArgs(tn, false);
+
+            if (lvns.size() > 0)
+                qc.runnerUpTable ++;
+
+            for (List<ValNode> lvn : lvns) {
+                SelectNode sn = new SelectNode(lvn, tn, new EmptyFilter());
+                try {
+                    Table tsn = sn.eval(new Environment());
+                    if (tsn.contentStrictEquals(outputTable)) {
+                        result.add(sn);
+                        qc.updateQuery(sn);
+                        qc.getEdges().insertEdge(t, tsn);
+                    }
+                } catch (SQLEvalException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    // projection enumeration only happens at the last step
+    public static void emitEnumProjectionWithMI(EnumContext ec, Table outputTable, QueryChest qc) {
+
+        List<TableNode> tableNodes = ec.getTableNodes();
+        List<TableNode> result = new ArrayList<>();
+
+        for (TableNode tn : tableNodes) {
+
+            Table t;
+            try {
+                t = tn.eval(new Environment());
                 if (t.getContent().size() != outputTable.getContent().size())
                     continue;
             } catch (SQLEvalException e) {

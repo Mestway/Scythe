@@ -16,8 +16,8 @@
 	Queries generated: 45
 	Tables generated: 21
 	Total Table by now: 24
-[Runner up Table Count] 2
-[Consistent Table number] 2
+[Runner up Table Count] 5
+[Consistent Table number] 1
 ==== [No. 0 ] ====
 SELECT
   [T75].MIN-Item_Txn,[T75].Item_Name
@@ -209,32 +209,7 @@ FROM
     WHERE
       [T70].MIN-Item_Txn == [T70].Item_Txn) AS [T75][Item_Name, MIN-Item_Txn, Item_Txn, Item_Name1]
 
-==== [No. 10 ] ====
-SELECT
-  [T115].MIN-Item_Txn,[T115].Item_Name
-FROM
-  (SELECT
-      [T114].Item_Name,[T114].MIN-Item_Txn
-    FROM
-      (SELECT
-          input1.Item_Name, MIN(input1.Item_Txn)
-        FROM
-          input1
-        GROUP BY
-          input1.Item_Name) AS [T114][Item_Name, MIN-Item_Txn]) AS [T115][Item_Name, MIN-Item_Txn]
-
-==== [No. 11 ] ====
-SELECT
-  [T114].MIN-Item_Txn,[T114].Item_Name
-FROM
-  (SELECT
-      input1.Item_Name, MIN(input1.Item_Txn)
-    FROM
-      input1
-    GROUP BY
-      input1.Item_Name) AS [T114][Item_Name, MIN-Item_Txn]
-
-Total Tree Count: 2
-Total Query Count: 34
+Total Tree Count: 1
+Total Query Count: 32
 [Enumeration Finished]
-[[Synthesizer finished]] time: 00:00:00:172
+[[Synthesizer finished]] time: 00:00:00:238

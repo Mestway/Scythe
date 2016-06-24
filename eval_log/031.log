@@ -16,269 +16,427 @@
 	Queries generated: 9912
 	Tables generated: 733
 	Total Table by now: 747
-[Runner up Table Count] 5
-[Consistent Table number] 5
+[Runner up Table Count] 69
+[Consistent Table number] 1
 ==== [No. 0 ] ====
 SELECT
-  [T11261].id,[T11261].amount1,[T11261].id1
+  [T11583].id_waiter,[T11583].MAX-amount,[T11583].id
 FROM
   (SELECT
-      [T10758].id,[T10758].amount,[T10758].id_waiter,[T10758].id1,[T10758].amount1,[T10758].id_waiter1
+      [T11559].id_waiter,[T11559].MAX-amount,[T11559].id,[T11559].amount,[T11559].id_waiter1
     FROM
-      (( input1 ) JOIN (
-          input1 )) AS [T10758][id, amount, id_waiter, id1, amount1, id_waiter1]
+      (( (SELECT
+              [T12035].id_waiter,[T12035].MAX-amount
+            FROM
+              (SELECT
+                  input1.id_waiter, MAX(input1.amount)
+                FROM
+                  input1
+                GROUP BY
+                  input1.id_waiter) AS [T12035][id_waiter, MAX-amount]) AS [T12036][id_waiter, MAX-amount] ) JOIN (
+          input1 )) AS [T11559][id_waiter, MAX-amount, id, amount, id_waiter1]
     WHERE
-      [T10758].id == [T10758].id_waiter1
-       AND [T10758].amount < [T10758].amount1) AS [T11261][id, amount, id_waiter, id1, amount1, id_waiter1]
+      [T11559].MAX-amount == [T11559].amount) AS [T11583][id_waiter, MAX-amount, id, amount, id_waiter1]
 
 ==== [No. 1 ] ====
 SELECT
-  [T11261].id_waiter,[T11261].amount1,[T11261].id1
+  [T11583].id_waiter,[T11583].MAX-amount,[T11583].id
 FROM
   (SELECT
-      [T10758].id,[T10758].amount,[T10758].id_waiter,[T10758].id1,[T10758].amount1,[T10758].id_waiter1
+      [T11559].id_waiter,[T11559].MAX-amount,[T11559].id,[T11559].amount,[T11559].id_waiter1
     FROM
-      (( input1 ) JOIN (
-          input1 )) AS [T10758][id, amount, id_waiter, id1, amount1, id_waiter1]
+      (( (SELECT
+              [T12035].id_waiter,[T12035].MAX-amount
+            FROM
+              (SELECT
+                  input1.id_waiter, MAX(input1.amount)
+                FROM
+                  input1
+                GROUP BY
+                  input1.id_waiter) AS [T12035][id_waiter, MAX-amount]
+            WHERE
+              [T12035].MAX-amount > [T12035].id_waiter) AS [T12039][id_waiter, MAX-amount] ) JOIN (
+          input1 )) AS [T11559][id_waiter, MAX-amount, id, amount, id_waiter1]
     WHERE
-      [T10758].id == [T10758].id_waiter1
-       AND [T10758].amount < [T10758].amount1) AS [T11261][id, amount, id_waiter, id1, amount1, id_waiter1]
+      [T11559].MAX-amount == [T11559].amount) AS [T11583][id_waiter, MAX-amount, id, amount, id_waiter1]
 
 ==== [No. 2 ] ====
 SELECT
-  [T11261].id_waiter1,[T11261].amount1,[T11261].id1
+  [T11583].id_waiter,[T11583].MAX-amount,[T11583].id
 FROM
   (SELECT
-      [T10758].id,[T10758].amount,[T10758].id_waiter,[T10758].id1,[T10758].amount1,[T10758].id_waiter1
+      [T11559].id_waiter,[T11559].MAX-amount,[T11559].id,[T11559].amount,[T11559].id_waiter1
     FROM
-      (( input1 ) JOIN (
-          input1 )) AS [T10758][id, amount, id_waiter, id1, amount1, id_waiter1]
+      (( (SELECT
+              [T12035].id_waiter,[T12035].MAX-amount
+            FROM
+              (SELECT
+                  input1.id_waiter, MAX(input1.amount)
+                FROM
+                  input1
+                GROUP BY
+                  input1.id_waiter) AS [T12035][id_waiter, MAX-amount]
+            WHERE
+              [T12035].MAX-amount >= [T12035].id_waiter) AS [T12041][id_waiter, MAX-amount] ) JOIN (
+          input1 )) AS [T11559][id_waiter, MAX-amount, id, amount, id_waiter1]
     WHERE
-      [T10758].id == [T10758].id_waiter1
-       AND [T10758].amount < [T10758].amount1) AS [T11261][id, amount, id_waiter, id1, amount1, id_waiter1]
+      [T11559].MAX-amount == [T11559].amount) AS [T11583][id_waiter, MAX-amount, id, amount, id_waiter1]
 
 ==== [No. 3 ] ====
 SELECT
-  [T12254].id,[T12254].amount1,[T12254].id1
+  [T11583].id_waiter,[T11583].MAX-amount,[T11583].id
 FROM
   (SELECT
-      [T11751].id,[T11751].amount,[T11751].id_waiter,[T11751].id1,[T11751].amount1,[T11751].id_waiter1
+      [T11559].id_waiter,[T11559].MAX-amount,[T11559].id,[T11559].amount,[T11559].id_waiter1
     FROM
-      (( input1 ) JOIN (
-          input1 )) AS [T11751][id, amount, id_waiter, id1, amount1, id_waiter1]
+      (( (SELECT
+              [T12035].id_waiter,[T12035].MAX-amount
+            FROM
+              (SELECT
+                  input1.id_waiter, MAX(input1.amount)
+                FROM
+                  input1
+                GROUP BY
+                  input1.id_waiter) AS [T12035][id_waiter, MAX-amount]
+            WHERE
+              
+               AND [T12035].MAX-amount > [T12035].id_waiter) AS [T12044][id_waiter, MAX-amount] ) JOIN (
+          input1 )) AS [T11559][id_waiter, MAX-amount, id, amount, id_waiter1]
     WHERE
-      [T11751].id == [T11751].id_waiter1
-       AND [T11751].amount < [T11751].amount1) AS [T12254][id, amount, id_waiter, id1, amount1, id_waiter1]
+      [T11559].MAX-amount == [T11559].amount) AS [T11583][id_waiter, MAX-amount, id, amount, id_waiter1]
 
 ==== [No. 4 ] ====
 SELECT
-  [T12254].id,[T12254].amount1,[T12254].id1
+  [T11583].id_waiter,[T11583].MAX-amount,[T11583].id
 FROM
   (SELECT
-      [T11751].id,[T11751].amount,[T11751].id_waiter,[T11751].id1,[T11751].amount1,[T11751].id_waiter1
+      [T11559].id_waiter,[T11559].MAX-amount,[T11559].id,[T11559].amount,[T11559].id_waiter1
     FROM
-      (( input1 ) JOIN (
-          input1 )) AS [T11751][id, amount, id_waiter, id1, amount1, id_waiter1]
+      (( (SELECT
+              [T12035].id_waiter,[T12035].MAX-amount
+            FROM
+              (SELECT
+                  input1.id_waiter, MAX(input1.amount)
+                FROM
+                  input1
+                GROUP BY
+                  input1.id_waiter) AS [T12035][id_waiter, MAX-amount]
+            WHERE
+              
+               AND [T12035].MAX-amount >= [T12035].id_waiter) AS [T12046][id_waiter, MAX-amount] ) JOIN (
+          input1 )) AS [T11559][id_waiter, MAX-amount, id, amount, id_waiter1]
     WHERE
-      [T11751].id == [T11751].id_waiter1
-       AND [T11751].amount < [T11751].amount1) AS [T12254][id, amount, id_waiter, id1, amount1, id_waiter1]
+      [T11559].MAX-amount == [T11559].amount) AS [T11583][id_waiter, MAX-amount, id, amount, id_waiter1]
 
 ==== [No. 5 ] ====
 SELECT
-  [T12254].id,[T12254].amount1,[T12254].id1
+  [T11583].id_waiter,[T11583].MAX-amount,[T11583].id
 FROM
   (SELECT
-      [T11751].id,[T11751].amount,[T11751].id_waiter,[T11751].id1,[T11751].amount1,[T11751].id_waiter1
+      [T11559].id_waiter,[T11559].MAX-amount,[T11559].id,[T11559].amount,[T11559].id_waiter1
     FROM
-      (( input1 ) JOIN (
-          input1 )) AS [T11751][id, amount, id_waiter, id1, amount1, id_waiter1]
+      (( (SELECT
+              input1.id_waiter, MAX(input1.amount)
+            FROM
+              input1
+            GROUP BY
+              input1.id_waiter) AS [T12035][id_waiter, MAX-amount] ) JOIN (
+          input1 )) AS [T11559][id_waiter, MAX-amount, id, amount, id_waiter1]
     WHERE
-      [T11751].id == [T11751].id_waiter1
-       AND [T11751].amount < [T11751].amount1) AS [T12254][id, amount, id_waiter, id1, amount1, id_waiter1]
+      [T11559].MAX-amount == [T11559].amount) AS [T11583][id_waiter, MAX-amount, id, amount, id_waiter1]
 
 ==== [No. 6 ] ====
 SELECT
-  [T12254].id,[T12254].amount1,[T12254].id1
+  [T11613].id_waiter,[T11613].MAX-amount,[T11613].id
 FROM
   (SELECT
-      [T11751].id,[T11751].amount,[T11751].id_waiter,[T11751].id1,[T11751].amount1,[T11751].id_waiter1
+      [T11559].id_waiter,[T11559].MAX-amount,[T11559].id,[T11559].amount,[T11559].id_waiter1
     FROM
-      (( input1 ) JOIN (
-          input1 )) AS [T11751][id, amount, id_waiter, id1, amount1, id_waiter1]
+      (( (SELECT
+              [T12035].id_waiter,[T12035].MAX-amount
+            FROM
+              (SELECT
+                  input1.id_waiter, MAX(input1.amount)
+                FROM
+                  input1
+                GROUP BY
+                  input1.id_waiter) AS [T12035][id_waiter, MAX-amount]) AS [T12036][id_waiter, MAX-amount] ) JOIN (
+          input1 )) AS [T11559][id_waiter, MAX-amount, id, amount, id_waiter1]
     WHERE
-      [T11751].id == [T11751].id_waiter1
-       AND [T11751].amount < [T11751].amount1) AS [T12254][id, amount, id_waiter, id1, amount1, id_waiter1]
+      
+       AND [T11559].MAX-amount == [T11559].amount) AS [T11613][id_waiter, MAX-amount, id, amount, id_waiter1]
 
 ==== [No. 7 ] ====
 SELECT
-  [T12254].id,[T12254].amount1,[T12254].id1
+  [T11613].id_waiter,[T11613].MAX-amount,[T11613].id
 FROM
   (SELECT
-      [T11751].id,[T11751].amount,[T11751].id_waiter,[T11751].id1,[T11751].amount1,[T11751].id_waiter1
+      [T11559].id_waiter,[T11559].MAX-amount,[T11559].id,[T11559].amount,[T11559].id_waiter1
     FROM
-      (( input1 ) JOIN (
-          input1 )) AS [T11751][id, amount, id_waiter, id1, amount1, id_waiter1]
+      (( (SELECT
+              [T12035].id_waiter,[T12035].MAX-amount
+            FROM
+              (SELECT
+                  input1.id_waiter, MAX(input1.amount)
+                FROM
+                  input1
+                GROUP BY
+                  input1.id_waiter) AS [T12035][id_waiter, MAX-amount]
+            WHERE
+              [T12035].MAX-amount > [T12035].id_waiter) AS [T12039][id_waiter, MAX-amount] ) JOIN (
+          input1 )) AS [T11559][id_waiter, MAX-amount, id, amount, id_waiter1]
     WHERE
-      [T11751].id == [T11751].id_waiter1
-       AND [T11751].amount < [T11751].amount1) AS [T12254][id, amount, id_waiter, id1, amount1, id_waiter1]
+      
+       AND [T11559].MAX-amount == [T11559].amount) AS [T11613][id_waiter, MAX-amount, id, amount, id_waiter1]
 
 ==== [No. 8 ] ====
 SELECT
-  [T12254].id,[T12254].amount1,[T12254].id1
+  [T11613].id_waiter,[T11613].MAX-amount,[T11613].id
 FROM
   (SELECT
-      [T11751].id,[T11751].amount,[T11751].id_waiter,[T11751].id1,[T11751].amount1,[T11751].id_waiter1
+      [T11559].id_waiter,[T11559].MAX-amount,[T11559].id,[T11559].amount,[T11559].id_waiter1
     FROM
-      (( input1 ) JOIN (
-          input1 )) AS [T11751][id, amount, id_waiter, id1, amount1, id_waiter1]
+      (( (SELECT
+              [T12035].id_waiter,[T12035].MAX-amount
+            FROM
+              (SELECT
+                  input1.id_waiter, MAX(input1.amount)
+                FROM
+                  input1
+                GROUP BY
+                  input1.id_waiter) AS [T12035][id_waiter, MAX-amount]
+            WHERE
+              [T12035].MAX-amount >= [T12035].id_waiter) AS [T12041][id_waiter, MAX-amount] ) JOIN (
+          input1 )) AS [T11559][id_waiter, MAX-amount, id, amount, id_waiter1]
     WHERE
-      [T11751].id == [T11751].id_waiter1
-       AND [T11751].amount < [T11751].amount1) AS [T12254][id, amount, id_waiter, id1, amount1, id_waiter1]
+      
+       AND [T11559].MAX-amount == [T11559].amount) AS [T11613][id_waiter, MAX-amount, id, amount, id_waiter1]
 
 ==== [No. 9 ] ====
 SELECT
-  [T12254].id,[T12254].amount1,[T12254].id1
+  [T11613].id_waiter,[T11613].MAX-amount,[T11613].id
 FROM
   (SELECT
-      [T11751].id,[T11751].amount,[T11751].id_waiter,[T11751].id1,[T11751].amount1,[T11751].id_waiter1
+      [T11559].id_waiter,[T11559].MAX-amount,[T11559].id,[T11559].amount,[T11559].id_waiter1
     FROM
-      (( input1 ) JOIN (
-          input1 )) AS [T11751][id, amount, id_waiter, id1, amount1, id_waiter1]
+      (( (SELECT
+              [T12035].id_waiter,[T12035].MAX-amount
+            FROM
+              (SELECT
+                  input1.id_waiter, MAX(input1.amount)
+                FROM
+                  input1
+                GROUP BY
+                  input1.id_waiter) AS [T12035][id_waiter, MAX-amount]
+            WHERE
+              
+               AND [T12035].MAX-amount > [T12035].id_waiter) AS [T12044][id_waiter, MAX-amount] ) JOIN (
+          input1 )) AS [T11559][id_waiter, MAX-amount, id, amount, id_waiter1]
     WHERE
-      [T11751].id == [T11751].id_waiter1
-       AND [T11751].amount < [T11751].amount1) AS [T12254][id, amount, id_waiter, id1, amount1, id_waiter1]
+      
+       AND [T11559].MAX-amount == [T11559].amount) AS [T11613][id_waiter, MAX-amount, id, amount, id_waiter1]
 
 ==== [No. 10 ] ====
 SELECT
-  [T12254].id,[T12254].amount1,[T12254].id1
+  [T14199].id_waiter,[T14199].MAX-amount,[T14199].id
 FROM
   (SELECT
-      [T11751].id,[T11751].amount,[T11751].id_waiter,[T11751].id1,[T11751].amount1,[T11751].id_waiter1
+      [T14175].id_waiter,[T14175].MAX-amount,[T14175].id,[T14175].amount,[T14175].id_waiter1
     FROM
-      (( input1 ) JOIN (
-          input1 )) AS [T11751][id, amount, id_waiter, id1, amount1, id_waiter1]
+      (( (SELECT
+              [T14626].id_waiter,[T14626].MAX-amount
+            FROM
+              (SELECT
+                  [T4].id_waiter, MAX([T4].amount)
+                FROM
+                  [T4]
+                GROUP BY
+                  [T4].id_waiter) AS [T14626][id_waiter, MAX-amount]) AS [T14627][id_waiter, MAX-amount] ) JOIN (
+          input1 )) AS [T14175][id_waiter, MAX-amount, id, amount, id_waiter1]
     WHERE
-      [T11751].id == [T11751].id_waiter1
-       AND [T11751].amount < [T11751].amount1) AS [T12254][id, amount, id_waiter, id1, amount1, id_waiter1]
+      [T14175].MAX-amount == [T14175].amount) AS [T14199][id_waiter, MAX-amount, id, amount, id_waiter1]
 
 ==== [No. 11 ] ====
 SELECT
-  [T12254].id,[T12254].amount1,[T12254].id1
+  [T14199].id_waiter,[T14199].MAX-amount,[T14199].id
 FROM
   (SELECT
-      [T11751].id,[T11751].amount,[T11751].id_waiter,[T11751].id1,[T11751].amount1,[T11751].id_waiter1
+      [T14175].id_waiter,[T14175].MAX-amount,[T14175].id,[T14175].amount,[T14175].id_waiter1
     FROM
-      (( input1 ) JOIN (
-          input1 )) AS [T11751][id, amount, id_waiter, id1, amount1, id_waiter1]
+      (( (SELECT
+              [T14626].id_waiter,[T14626].MAX-amount
+            FROM
+              (SELECT
+                  [T4].id_waiter, MAX([T4].amount)
+                FROM
+                  [T4]
+                GROUP BY
+                  [T4].id_waiter) AS [T14626][id_waiter, MAX-amount]) AS [T14627][id_waiter, MAX-amount] ) JOIN (
+          input1 )) AS [T14175][id_waiter, MAX-amount, id, amount, id_waiter1]
     WHERE
-      [T11751].id == [T11751].id_waiter1
-       AND [T11751].amount < [T11751].amount1) AS [T12254][id, amount, id_waiter, id1, amount1, id_waiter1]
+      [T14175].MAX-amount == [T14175].amount) AS [T14199][id_waiter, MAX-amount, id, amount, id_waiter1]
 
 ==== [No. 12 ] ====
 SELECT
-  [T12254].id,[T12254].amount1,[T12254].id1
+  [T14199].id_waiter,[T14199].MAX-amount,[T14199].id
 FROM
   (SELECT
-      [T11751].id,[T11751].amount,[T11751].id_waiter,[T11751].id1,[T11751].amount1,[T11751].id_waiter1
+      [T14175].id_waiter,[T14175].MAX-amount,[T14175].id,[T14175].amount,[T14175].id_waiter1
     FROM
-      (( input1 ) JOIN (
-          input1 )) AS [T11751][id, amount, id_waiter, id1, amount1, id_waiter1]
+      (( (SELECT
+              [T14626].id_waiter,[T14626].MAX-amount
+            FROM
+              (SELECT
+                  [T4].id_waiter, MAX([T4].amount)
+                FROM
+                  [T4]
+                GROUP BY
+                  [T4].id_waiter) AS [T14626][id_waiter, MAX-amount]) AS [T14627][id_waiter, MAX-amount] ) JOIN (
+          input1 )) AS [T14175][id_waiter, MAX-amount, id, amount, id_waiter1]
     WHERE
-      [T11751].id == [T11751].id_waiter1
-       AND [T11751].amount < [T11751].amount1) AS [T12254][id, amount, id_waiter, id1, amount1, id_waiter1]
+      [T14175].MAX-amount == [T14175].amount) AS [T14199][id_waiter, MAX-amount, id, amount, id_waiter1]
 
 ==== [No. 13 ] ====
 SELECT
-  [T15933].id_waiter,[T15933].amount,[T15933].id
+  [T14199].id_waiter,[T14199].MAX-amount,[T14199].id
 FROM
   (SELECT
-      [T15144].id,[T15144].amount,[T15144].id_waiter,[T15144].id1,[T15144].amount1,[T15144].id_waiter1
+      [T14175].id_waiter,[T14175].MAX-amount,[T14175].id,[T14175].amount,[T14175].id_waiter1
     FROM
-      (( input1 ) JOIN (
-          input1 )) AS [T15144][id, amount, id_waiter, id1, amount1, id_waiter1]
+      (( (SELECT
+              [T14626].id_waiter,[T14626].MAX-amount
+            FROM
+              (SELECT
+                  [T4].id_waiter, MAX([T4].amount)
+                FROM
+                  [T4]
+                GROUP BY
+                  [T4].id_waiter) AS [T14626][id_waiter, MAX-amount]) AS [T14627][id_waiter, MAX-amount] ) JOIN (
+          input1 )) AS [T14175][id_waiter, MAX-amount, id, amount, id_waiter1]
     WHERE
-      [T15144].amount > [T15144].amount1
-       AND [T15144].id_waiter == [T15144].id1) AS [T15933][id, amount, id_waiter, id1, amount1, id_waiter1]
+      [T14175].MAX-amount == [T14175].amount) AS [T14199][id_waiter, MAX-amount, id, amount, id_waiter1]
 
 ==== [No. 14 ] ====
 SELECT
-  [T15933].id1,[T15933].amount,[T15933].id
+  [T14199].id_waiter,[T14199].MAX-amount,[T14199].id
 FROM
   (SELECT
-      [T15144].id,[T15144].amount,[T15144].id_waiter,[T15144].id1,[T15144].amount1,[T15144].id_waiter1
+      [T14175].id_waiter,[T14175].MAX-amount,[T14175].id,[T14175].amount,[T14175].id_waiter1
     FROM
-      (( input1 ) JOIN (
-          input1 )) AS [T15144][id, amount, id_waiter, id1, amount1, id_waiter1]
+      (( (SELECT
+              [T14626].id_waiter,[T14626].MAX-amount
+            FROM
+              (SELECT
+                  [T4].id_waiter, MAX([T4].amount)
+                FROM
+                  [T4]
+                GROUP BY
+                  [T4].id_waiter) AS [T14626][id_waiter, MAX-amount]) AS [T14627][id_waiter, MAX-amount] ) JOIN (
+          input1 )) AS [T14175][id_waiter, MAX-amount, id, amount, id_waiter1]
     WHERE
-      [T15144].amount > [T15144].amount1
-       AND [T15144].id_waiter == [T15144].id1) AS [T15933][id, amount, id_waiter, id1, amount1, id_waiter1]
+      [T14175].MAX-amount == [T14175].amount) AS [T14199][id_waiter, MAX-amount, id, amount, id_waiter1]
 
 ==== [No. 15 ] ====
 SELECT
-  [T15933].id_waiter1,[T15933].amount,[T15933].id
+  [T14199].id_waiter,[T14199].MAX-amount,[T14199].id
 FROM
   (SELECT
-      [T15144].id,[T15144].amount,[T15144].id_waiter,[T15144].id1,[T15144].amount1,[T15144].id_waiter1
+      [T14175].id_waiter,[T14175].MAX-amount,[T14175].id,[T14175].amount,[T14175].id_waiter1
     FROM
-      (( input1 ) JOIN (
-          input1 )) AS [T15144][id, amount, id_waiter, id1, amount1, id_waiter1]
+      (( (SELECT
+              [T14626].id_waiter,[T14626].MAX-amount
+            FROM
+              (SELECT
+                  [T4].id_waiter, MAX([T4].amount)
+                FROM
+                  [T4]
+                GROUP BY
+                  [T4].id_waiter) AS [T14626][id_waiter, MAX-amount]) AS [T14627][id_waiter, MAX-amount] ) JOIN (
+          input1 )) AS [T14175][id_waiter, MAX-amount, id, amount, id_waiter1]
     WHERE
-      [T15144].amount > [T15144].amount1
-       AND [T15144].id_waiter == [T15144].id1) AS [T15933][id, amount, id_waiter, id1, amount1, id_waiter1]
+      [T14175].MAX-amount == [T14175].amount) AS [T14199][id_waiter, MAX-amount, id, amount, id_waiter1]
 
 ==== [No. 16 ] ====
 SELECT
-  [T16926].id_waiter,[T16926].amount,[T16926].id
+  [T14199].id_waiter,[T14199].MAX-amount,[T14199].id
 FROM
   (SELECT
-      [T16137].id,[T16137].amount,[T16137].id_waiter,[T16137].id1,[T16137].amount1,[T16137].id_waiter1
+      [T14175].id_waiter,[T14175].MAX-amount,[T14175].id,[T14175].amount,[T14175].id_waiter1
     FROM
-      (( input1 ) JOIN (
-          input1 )) AS [T16137][id, amount, id_waiter, id1, amount1, id_waiter1]
+      (( (SELECT
+              [T14626].id_waiter,[T14626].MAX-amount
+            FROM
+              (SELECT
+                  [T4].id_waiter, MAX([T4].amount)
+                FROM
+                  [T4]
+                GROUP BY
+                  [T4].id_waiter) AS [T14626][id_waiter, MAX-amount]) AS [T14627][id_waiter, MAX-amount] ) JOIN (
+          input1 )) AS [T14175][id_waiter, MAX-amount, id, amount, id_waiter1]
     WHERE
-      [T16137].amount > [T16137].amount1
-       AND [T16137].id_waiter == [T16137].id1) AS [T16926][id, amount, id_waiter, id1, amount1, id_waiter1]
+      [T14175].MAX-amount == [T14175].amount) AS [T14199][id_waiter, MAX-amount, id, amount, id_waiter1]
 
 ==== [No. 17 ] ====
 SELECT
-  [T16926].id_waiter,[T16926].amount,[T16926].id
+  [T14199].id_waiter,[T14199].MAX-amount,[T14199].id
 FROM
   (SELECT
-      [T16137].id,[T16137].amount,[T16137].id_waiter,[T16137].id1,[T16137].amount1,[T16137].id_waiter1
+      [T14175].id_waiter,[T14175].MAX-amount,[T14175].id,[T14175].amount,[T14175].id_waiter1
     FROM
-      (( input1 ) JOIN (
-          input1 )) AS [T16137][id, amount, id_waiter, id1, amount1, id_waiter1]
+      (( (SELECT
+              [T14626].id_waiter,[T14626].MAX-amount
+            FROM
+              (SELECT
+                  [T4].id_waiter, MAX([T4].amount)
+                FROM
+                  [T4]
+                GROUP BY
+                  [T4].id_waiter) AS [T14626][id_waiter, MAX-amount]) AS [T14627][id_waiter, MAX-amount] ) JOIN (
+          input1 )) AS [T14175][id_waiter, MAX-amount, id, amount, id_waiter1]
     WHERE
-      [T16137].amount > [T16137].amount1
-       AND [T16137].id_waiter == [T16137].id1) AS [T16926][id, amount, id_waiter, id1, amount1, id_waiter1]
+      [T14175].MAX-amount == [T14175].amount) AS [T14199][id_waiter, MAX-amount, id, amount, id_waiter1]
 
 ==== [No. 18 ] ====
 SELECT
-  [T16926].id_waiter,[T16926].amount,[T16926].id
+  [T14199].id_waiter,[T14199].MAX-amount,[T14199].id
 FROM
   (SELECT
-      [T16137].id,[T16137].amount,[T16137].id_waiter,[T16137].id1,[T16137].amount1,[T16137].id_waiter1
+      [T14175].id_waiter,[T14175].MAX-amount,[T14175].id,[T14175].amount,[T14175].id_waiter1
     FROM
-      (( input1 ) JOIN (
-          input1 )) AS [T16137][id, amount, id_waiter, id1, amount1, id_waiter1]
+      (( (SELECT
+              [T14626].id_waiter,[T14626].MAX-amount
+            FROM
+              (SELECT
+                  [T4].id_waiter, MAX([T4].amount)
+                FROM
+                  [T4]
+                GROUP BY
+                  [T4].id_waiter) AS [T14626][id_waiter, MAX-amount]) AS [T14627][id_waiter, MAX-amount] ) JOIN (
+          input1 )) AS [T14175][id_waiter, MAX-amount, id, amount, id_waiter1]
     WHERE
-      [T16137].amount > [T16137].amount1
-       AND [T16137].id_waiter == [T16137].id1) AS [T16926][id, amount, id_waiter, id1, amount1, id_waiter1]
+      [T14175].MAX-amount == [T14175].amount) AS [T14199][id_waiter, MAX-amount, id, amount, id_waiter1]
 
 ==== [No. 19 ] ====
 SELECT
-  [T16926].id_waiter,[T16926].amount,[T16926].id
+  [T14199].id_waiter,[T14199].MAX-amount,[T14199].id
 FROM
   (SELECT
-      [T16137].id,[T16137].amount,[T16137].id_waiter,[T16137].id1,[T16137].amount1,[T16137].id_waiter1
+      [T14175].id_waiter,[T14175].MAX-amount,[T14175].id,[T14175].amount,[T14175].id_waiter1
     FROM
-      (( input1 ) JOIN (
-          input1 )) AS [T16137][id, amount, id_waiter, id1, amount1, id_waiter1]
+      (( (SELECT
+              [T14626].id_waiter,[T14626].MAX-amount
+            FROM
+              (SELECT
+                  [T4].id_waiter, MAX([T4].amount)
+                FROM
+                  [T4]
+                GROUP BY
+                  [T4].id_waiter) AS [T14626][id_waiter, MAX-amount]) AS [T14627][id_waiter, MAX-amount] ) JOIN (
+          input1 )) AS [T14175][id_waiter, MAX-amount, id, amount, id_waiter1]
     WHERE
-      [T16137].amount > [T16137].amount1
-       AND [T16137].id_waiter == [T16137].id1) AS [T16926][id, amount, id_waiter, id1, amount1, id_waiter1]
+      [T14175].MAX-amount == [T14175].amount) AS [T14199][id_waiter, MAX-amount, id, amount, id_waiter1]
 
-Total Tree Count: 9
-Total Query Count: 17682
+Total Tree Count: 2
+Total Query Count: 16920
 [Enumeration Finished]
-[[Synthesizer finished]] time: 00:00:03:628
+[[Synthesizer finished]] time: 00:00:02:457

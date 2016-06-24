@@ -16,8 +16,8 @@
 	Queries generated: 2195
 	Tables generated: 4
 	Total Table by now: 6
-[Runner up Table Count] 4
-[Consistent Table number] 4
+[Runner up Table Count] 6
+[Consistent Table number] 2
 ==== [No. 0 ] ====
 SELECT
   [T2894].school_id,[T2894].staff_id,[T2894].wage
@@ -131,116 +131,113 @@ FROM
 
 ==== [No. 10 ] ====
 SELECT
-  [T5559].school_id,[T5559].staff_id,[T5559].wage
+  [T5914].school_id,[T5914].staff_id,[T5914].wage
 FROM
-  (( input2 ) JOIN (
-      input1 )) AS [T5559][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+  (SELECT
+      input2.staff_id,input2.forename,input2.school_id,input2.wage,input2.staff_id,input2.forename,input2.school_id,input2.wage
+    FROM
+      input2) AS [T5914][staff_id, forename, school_id, wage, staff_id1, forename1, school_id1, wage1]
 
 ==== [No. 11 ] ====
 SELECT
-  [T5560].school_id,[T5560].staff_id,[T5560].wage
+  [T4874].school_id,[T4874].staff_id,[T4874].wage
 FROM
-  (SELECT
-      [T5559].staff_id,[T5559].forename,[T5559].school_id,[T5559].wage,[T5559].school_id1,[T5559].class_id,[T5559].school_location
-    FROM
-      (( input2 ) JOIN (
-          input1 )) AS [T5559][staff_id, forename, school_id, wage, school_id1, class_id, school_location]) AS [T5560][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+  (( input2 ) JOIN (
+      input2 )) AS [T4874][staff_id, forename, school_id, wage, staff_id1, forename1, school_id1, wage1]
 
 ==== [No. 12 ] ====
 SELECT
-  [T5561].school_id,[T5561].staff_id,[T5561].wage
+  [T4875].school_id,[T4875].staff_id,[T4875].wage
 FROM
   (SELECT
-      [T5559].staff_id,[T5559].forename,[T5559].school_id,[T5559].wage,[T5559].school_id1,[T5559].class_id,[T5559].school_location
+      [T4874].staff_id,[T4874].forename,[T4874].school_id,[T4874].wage,[T4874].staff_id1,[T4874].forename1,[T4874].school_id1,[T4874].wage1
     FROM
       (( input2 ) JOIN (
-          input1 )) AS [T5559][staff_id, forename, school_id, wage, school_id1, class_id, school_location]) AS [T5561][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+          input2 )) AS [T4874][staff_id, forename, school_id, wage, staff_id1, forename1, school_id1, wage1]) AS [T4875][staff_id, forename, school_id, wage, staff_id1, forename1, school_id1, wage1]
 
 ==== [No. 13 ] ====
 SELECT
-  [T5562].school_id,[T5562].staff_id,[T5562].wage
+  [T4876].school_id,[T4876].staff_id,[T4876].wage
 FROM
   (SELECT
-      [T5559].staff_id,[T5559].forename,[T5559].school_id,[T5559].wage,[T5559].school_id1,[T5559].class_id,[T5559].school_location
+      [T4874].staff_id,[T4874].forename,[T4874].school_id,[T4874].wage,[T4874].staff_id1,[T4874].forename1,[T4874].school_id1,[T4874].wage1
     FROM
       (( input2 ) JOIN (
-          input1 )) AS [T5559][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
-    WHERE
-      [T5559].staff_id < [T5559].school_id1) AS [T5562][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+          input2 )) AS [T4874][staff_id, forename, school_id, wage, staff_id1, forename1, school_id1, wage1]) AS [T4876][staff_id, forename, school_id, wage, staff_id1, forename1, school_id1, wage1]
 
 ==== [No. 14 ] ====
 SELECT
-  [T5565].school_id,[T5565].staff_id,[T5565].wage
+  [T4878].school_id,[T4878].staff_id,[T4878].wage
 FROM
   (SELECT
-      [T5559].staff_id,[T5559].forename,[T5559].school_id,[T5559].wage,[T5559].school_id1,[T5559].class_id,[T5559].school_location
+      [T4874].staff_id,[T4874].forename,[T4874].school_id,[T4874].wage,[T4874].staff_id1,[T4874].forename1,[T4874].school_id1,[T4874].wage1
     FROM
       (( input2 ) JOIN (
-          input1 )) AS [T5559][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+          input2 )) AS [T4874][staff_id, forename, school_id, wage, staff_id1, forename1, school_id1, wage1]
     WHERE
-      [T5559].staff_id <= [T5559].school_id1) AS [T5565][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+      [T4874].staff_id == [T4874].staff_id1) AS [T4878][staff_id, forename, school_id, wage, staff_id1, forename1, school_id1, wage1]
 
 ==== [No. 15 ] ====
 SELECT
-  [T5567].school_id,[T5567].staff_id,[T5567].wage
+  [T4880].school_id,[T4880].staff_id,[T4880].wage
 FROM
   (SELECT
-      [T5559].staff_id,[T5559].forename,[T5559].school_id,[T5559].wage,[T5559].school_id1,[T5559].class_id,[T5559].school_location
+      [T4874].staff_id,[T4874].forename,[T4874].school_id,[T4874].wage,[T4874].staff_id1,[T4874].forename1,[T4874].school_id1,[T4874].wage1
     FROM
       (( input2 ) JOIN (
-          input1 )) AS [T5559][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+          input2 )) AS [T4874][staff_id, forename, school_id, wage, staff_id1, forename1, school_id1, wage1]
     WHERE
-      [T5559].staff_id < [T5559].class_id) AS [T5567][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+      [T4874].staff_id <= [T4874].staff_id1) AS [T4880][staff_id, forename, school_id, wage, staff_id1, forename1, school_id1, wage1]
 
 ==== [No. 16 ] ====
 SELECT
-  [T5570].school_id,[T5570].staff_id,[T5570].wage
+  [T4881].school_id,[T4881].staff_id,[T4881].wage
 FROM
   (SELECT
-      [T5559].staff_id,[T5559].forename,[T5559].school_id,[T5559].wage,[T5559].school_id1,[T5559].class_id,[T5559].school_location
+      [T4874].staff_id,[T4874].forename,[T4874].school_id,[T4874].wage,[T4874].staff_id1,[T4874].forename1,[T4874].school_id1,[T4874].wage1
     FROM
       (( input2 ) JOIN (
-          input1 )) AS [T5559][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+          input2 )) AS [T4874][staff_id, forename, school_id, wage, staff_id1, forename1, school_id1, wage1]
     WHERE
-      [T5559].staff_id <= [T5559].class_id) AS [T5570][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+      [T4874].staff_id >= [T4874].staff_id1) AS [T4881][staff_id, forename, school_id, wage, staff_id1, forename1, school_id1, wage1]
 
 ==== [No. 17 ] ====
 SELECT
-  [T5574].school_id,[T5574].staff_id,[T5574].wage
+  [T4882].school_id,[T4882].staff_id,[T4882].wage
 FROM
   (SELECT
-      [T5559].staff_id,[T5559].forename,[T5559].school_id,[T5559].wage,[T5559].school_id1,[T5559].class_id,[T5559].school_location
+      [T4874].staff_id,[T4874].forename,[T4874].school_id,[T4874].wage,[T4874].staff_id1,[T4874].forename1,[T4874].school_id1,[T4874].wage1
     FROM
       (( input2 ) JOIN (
-          input1 )) AS [T5559][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+          input2 )) AS [T4874][staff_id, forename, school_id, wage, staff_id1, forename1, school_id1, wage1]
     WHERE
-      [T5559].school_id == [T5559].school_id1) AS [T5574][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+      [T4874].staff_id < [T4874].school_id1) AS [T4882][staff_id, forename, school_id, wage, staff_id1, forename1, school_id1, wage1]
 
 ==== [No. 18 ] ====
 SELECT
-  [T5576].school_id,[T5576].staff_id,[T5576].wage
+  [T4885].school_id,[T4885].staff_id,[T4885].wage
 FROM
   (SELECT
-      [T5559].staff_id,[T5559].forename,[T5559].school_id,[T5559].wage,[T5559].school_id1,[T5559].class_id,[T5559].school_location
+      [T4874].staff_id,[T4874].forename,[T4874].school_id,[T4874].wage,[T4874].staff_id1,[T4874].forename1,[T4874].school_id1,[T4874].wage1
     FROM
       (( input2 ) JOIN (
-          input1 )) AS [T5559][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+          input2 )) AS [T4874][staff_id, forename, school_id, wage, staff_id1, forename1, school_id1, wage1]
     WHERE
-      [T5559].school_id <= [T5559].school_id1) AS [T5576][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+      [T4874].staff_id <= [T4874].school_id1) AS [T4885][staff_id, forename, school_id, wage, staff_id1, forename1, school_id1, wage1]
 
 ==== [No. 19 ] ====
 SELECT
-  [T5577].school_id,[T5577].staff_id,[T5577].wage
+  [T4887].school_id,[T4887].staff_id,[T4887].wage
 FROM
   (SELECT
-      [T5559].staff_id,[T5559].forename,[T5559].school_id,[T5559].wage,[T5559].school_id1,[T5559].class_id,[T5559].school_location
+      [T4874].staff_id,[T4874].forename,[T4874].school_id,[T4874].wage,[T4874].staff_id1,[T4874].forename1,[T4874].school_id1,[T4874].wage1
     FROM
       (( input2 ) JOIN (
-          input1 )) AS [T5559][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+          input2 )) AS [T4874][staff_id, forename, school_id, wage, staff_id1, forename1, school_id1, wage1]
     WHERE
-      [T5559].school_id >= [T5559].school_id1) AS [T5577][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+      [T4874].staff_id < [T4874].wage1) AS [T4887][staff_id, forename, school_id, wage, staff_id1, forename1, school_id1, wage1]
 
-Total Tree Count: 4
-Total Query Count: 2509
+Total Tree Count: 2
+Total Query Count: 2310
 [Enumeration Finished]
-[[Synthesizer finished]] time: 00:00:00:547
+[[Synthesizer finished]] time: 00:00:00:433

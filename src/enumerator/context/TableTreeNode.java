@@ -121,8 +121,7 @@ public class TableTreeNode {
                 }
             });
 
-            tns = tns.subList(0, tns.size() > 10 ? 10 : tns.size());
-
+            tns = tns.subList(0, tns.size() > 20 ? 20 : tns.size());
 
             for (List<TableNode> hs : horizontalSelections) {
                 for (TableNode tn : tns) {
