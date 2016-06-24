@@ -1,4 +1,4 @@
-# 1
+# 001
 ### [select the rows with max value on a column](http://stackoverflow.com/questions/7745609/sql-select-only-rows-with-max-value-on-a-column)
 #### description
 
@@ -22,7 +22,7 @@
     |  2   |  1   |  B   |
 
 
-# 2
+# 002
 ### [SQL query to get the “latest” value for each location](http://stackoverflow.com/questions/1783932/sql-query-to-get-the-latest-value-for-each-location)
 #### description
     I am trying to get the latest temp for each locId that has updated values within the last 20 min.
@@ -58,7 +58,7 @@
 
 
 
-# 4
+# 003
 ### [Select first row in each GROUP BY group?](http://stackoverflow.com/questions/3800551/select-first-row-in-each-group-by-group)
 #### description
 
@@ -90,7 +90,7 @@
 
 
 
-# 5
+# 004
 ### [Retrieving the last record in each group](http://stackoverflow.com/questions/1313120/retrieving-the-last-record-in-each-group)
 #### description
      
@@ -119,7 +119,7 @@
 
 
 
-# 7
+# 005
 ### [Selecting quarters within a date range](http://stackoverflow.com/questions/14995024/selecting-quarters-within-a-date-range?rq=1)
 
 #### description
@@ -143,7 +143,7 @@
     | B233 |
 
 
-# 8
+# 006
 ### [sqlite3 query by max and filter by second factor](http://stackoverflow.com/questions/32779941/sqlite3-query-by-max-and-filter-by-second-factor)
 #### description
 
@@ -173,7 +173,7 @@
     | 7  | 14   | bbb | 899   | message |
 
 
-# 11
+# 007
 ### [How can I SELECT rows with MAX(Column value), DISTINCT by another column in SQL?](http://stackoverflow.com/questions/612231/how-can-i-select-rows-with-maxcolumn-value-distinct-by-another-column-in-sql?rq=1)
 #### description
     I need to select each distinct home holding the maximum value of datetime.
@@ -205,7 +205,7 @@
     | 8  | 13  | 01/01/2009 | borat  | 700      |
 
 
-# 13
+# 008
 ### [SQL max() only returns 1 row if column has several max values](http://stackoverflow.com/questions/33027549/sql-max-only-returns-1-row-if-column-has-several-max-values)
 #### description
     What I need is to get the two rows with the maximum value (I don't know the values in advance) which means that my example above shoud give:
@@ -231,7 +231,7 @@
     | VAL |   2    |
 
 
-# 14
+# 009
 ### [Finding duplicate values in a SQL table](http://stackoverflow.com/questions/2594829/finding-duplicate-values-in-a-sql-table)
 #### description
     I want is to get duplicates with the same email and name.
@@ -257,7 +257,7 @@
     | Tom |
 
 
-# 18
+# 010
 ### [SQL exists comparison](http://stackoverflow.com/questions/11898003/sql-exists-comparison)
 #### description
 
@@ -288,7 +288,7 @@
       | 1  | SE     | TREATED      |
 
 
-# 19
+# 011
 ### [how do I query sql for a latest record date for each user](http://stackoverflow.com/questions/2411559/how-do-i-query-sql-for-a-latest-record-date-for-each-user)
 #### description
 
@@ -321,7 +321,7 @@
     | fred     | 2009-12-02  |  1.3 |
 
 
-# 20
+# 012
 ### [How to create a SQL Server function to “join” multiple rows from a subquery into a single delimited field?](http://stackoverflow.com/questions/6899/how-to-create-a-sql-server-function-to-join-multiple-rows-from-a-subquery-into)
 #### description
 
@@ -357,7 +357,7 @@
     | 2          | Larry  | Los Angeles, Houston          |
 
 
-# 22
+# 013
 ### [SQL:Count of values in one column in relation to another column](http://stackoverflow.com/questions/31165814/sqlcount-of-values-in-one-column-in-relation-to-another-column)
 #### description
 
@@ -391,7 +391,7 @@
     | 2015-06-12  | 0bdd     | 1     |
 
 
-# 23
+# 014
 ### [SQL select counts on 1 value](http://stackoverflow.com/questions/31848698/sql-select-counts-on-1-value)
 #### description
 
@@ -417,7 +417,7 @@
     | 2   |   document   |
 
 
-# 25 **
+# 015
 ### [Only joining rows where the date is less than the max date in another field](http://stackoverflow.com/questions/31941909/only-joining-rows-where-the-date-is-less-than-the-max-date-in-another-field)
 #### description
 
@@ -467,7 +467,7 @@
 
 
 
-# 27
+# 016
 ### [Joining to two tables and then using sum() and count()](http://stackoverflow.com/questions/33069068/sql-joining-to-two-tables-and-then-using-sum-and-count)
 #### description
 
@@ -498,7 +498,7 @@
     | 400       |     1         | 5000  |
 
 
-# 29
+# 017
 ### [Foreign key in same table, unable to get right query](http://stackoverflow.com/questions/33043326/foreign-key-in-same-table-unable-to-get-right-query)
 #### description
 
@@ -523,7 +523,7 @@
     | 1  |   Bob  |
 
 
-# 30
+# 018
 ### [Get the result based on column attribute value](http://stackoverflow.com/questions/33037505/get-the-result-based-on-column-attribute-value)
 #### description
 
@@ -559,7 +559,7 @@
 
 
 
-# 32
+# 019
 ### [How to select where multiple rows have the same values in two columns, respectively?](http://stackoverflow.com/questions/30575622/how-to-select-where-multiple-rows-have-the-same-values-in-two-columns-respectiv)
 #### description
 
@@ -589,7 +589,7 @@
     | 4  |
 
 
-# 33
+# 020
 ### [Select rows with same id but different value in another column](http://stackoverflow.com/questions/21162812/select-rows-with-same-id-but-different-value-in-another-column)
 #### description
 
@@ -620,7 +620,7 @@
     |2     |B     |
 
 
-# 34
+# 021
 ### [Several conditions on the same table](http://stackoverflow.com/questions/30265358/several-conditions-on-the-same-table)
 #### description
 
@@ -649,7 +649,7 @@
 
 
 
-# 35
+# 022
 ### [Matching multiple attributes](http://stackoverflow.com/questions/29442201/matching-multiple-attributes)
 #### description
 
@@ -682,7 +682,7 @@
     |  2   | 3   | lychees  |
 
 
-# 36
+# 023
 ### [Get distinct values in a table](http://stackoverflow.com/questions/30064469/get-distinct-values-in-a-table)
 #### description
 
@@ -710,7 +710,7 @@
     | Error3  | 2  |
 
 
-# 37
+# 024
 ### [SQL query to find all names where same user_id count > 3](http://stackoverflow.com/questions/27103777/sql-query-to-find-all-names-where-same-user-id-count-3)
 #### description
      I have following table and I want to display all names along with the user_id where unique user_id count>3.
@@ -742,7 +742,7 @@
     |  701      |   Name4 |
 
 
-# 38
+# 025
 ### [How to display latest inserted records?](http://stackoverflow.com/questions/30234427/how-to-display-latest-inserted-records)
 #### description
 
@@ -774,7 +774,7 @@
 
 
 
-# 40
+# 026
 ### [Select rows with max value of a column](http://stackoverflow.com/questions/20888384/select-rows-with-max-value-of-a-column)
 #### description
 
@@ -803,7 +803,7 @@
     |  12347   |  123471 | 2014-01-02 |  104        |
 
 
-# 41
+# 027
 ### [GROUP BY with MAX(DATE)](http://stackoverflow.com/questions/3491329/group-by-with-maxdate)
 #### description
   
@@ -833,7 +833,7 @@
 
 
 
-# 43
+# 028
 ### [SQL Select only rows with Minimum Value on a Column with Where Condition](http://stackoverflow.com/questions/29948321/sql-select-only-rows-with-minimum-value-on-a-column-with-where-condition)
 #### description
 
@@ -862,7 +862,7 @@
     | 6  |  3        |   0        |   0      |
 
 
-# 44
+# 029
 ### [Selecting all corresponding fields using MAX and GROUP BY](http://stackoverflow.com/questions/1305056/selecting-all-corresponding-fields-using-max-and-group-by)
 #### description
 
@@ -893,7 +893,7 @@
     | 1227  | 2  | 2009-08-17 14:31:25 |
 
 
-# 46
+# 030
 ### [Need to retrieve all records in table A and only single one in table B that is the last updated](http://stackoverflow.com/questions/29988267/need-to-retrieve-all-records-in-table-a-and-only-single-one-in-table-b-that-is-t)
 #### description
 
@@ -933,7 +933,7 @@
     | 101 | DESCRIPTION1 | 12/14/2013 |
 
 
-# 47
+# 031
 ### [SQL get id of max bill per waiter](http://stackoverflow.com/questions/32930900/sql-get-id-of-max-bill-per-waiter/32931068#32931068)
 #### description
 
@@ -964,7 +964,7 @@
     | 2      | 50        | 3    |
 
 
-# 49
+# 032
 ### [selecting max values grouped by two column](http://stackoverflow.com/questions/30361275/selecting-max-values-grouped-by-two-column)
 #### description
 
@@ -991,7 +991,7 @@
     | a         | b        | 30   |
 
 
-# 50
+# 033
 ### [SQL Query and filtering data](http://stackoverflow.com/questions/31112142/sql-query-and-filtering-data/31112305#31112305)
 #### description
 
@@ -1036,7 +1036,7 @@
     | 393 | America/Anchorage   | 1425812400   |
 
 
-# 51
+# 034
 ### [PostgreSQL - MAX value for every user](http://stackoverflow.com/questions/33063073/postgresql-max-value-for-every-user)
 
 #### description
@@ -1061,7 +1061,7 @@
     | Paul  | 456 | 7  |
 
 
-# 53
+# 035
 ### [greatest n per group needed in compound Mysql join sql](http://stackoverflow.com/questions/29080006/greatest-n-per-group-needed-in-compound-mysql-join-sql)
 
 #### description
@@ -1090,7 +1090,7 @@
     | 1006  | 500    | 5.010      |
     | 1007  | 576    | 5.460      |   
 
-# 54
+# 036
 ### [Find duplicate in column tied to another column...](http://www.sqlteam.com/forums/topic.asp?TOPIC_ID=201063)
 
 
@@ -1130,7 +1130,7 @@
 
 
 
-# 57
+# 037
 ### [group by](http://www.sqlteam.com/forums/topic.asp?TOPIC_ID=200861)
 
 #### input
@@ -1161,7 +1161,7 @@
     | 6789      | 145.xml |
     | 7890      | 234.xml |
 
-# 58
+# 038
 ### [group by]((http://www.sqlteam.com/forums/topic.asp?TOPIC_ID=200861))
 
 #### input
@@ -1192,7 +1192,7 @@
     | 7890      | 234.xml |
 
 
-＃ 61
+＃ 039
 ### [Compare avg of data in column of certain users against a another user](http://www.dbforums.com/showthread.php?1707382-Compare-avg-of-data-in-column-of-certain-users-against-a-another-user)
 
 #### description
@@ -1222,7 +1222,7 @@
     | 104      |      101   |   3   |
 
 
-# 63
+# 040
 ### [SQL - find records from one table which don't exist in another](http://stackoverflow.com/questions/367863/sql-find-records-from-one-table-which-dont-exist-in-another)
 
 #### description
@@ -1251,7 +1251,7 @@
     |--------------------------|
     | 3  | 1045 | 333333333333 |
 
-# 71
+# 041
 ###[How to return 1 row for each distinct value in a given column in Oracle? [duplicate]](http://stackoverflow.com/questions/37868704/how-to-return-1-row-for-each-distinct-value-in-a-given-column-in-oracle)
 
 #### description
@@ -1274,7 +1274,7 @@
     | 1   | 2  | 01/01/2001 |
     | 2   | 3  | 01/01/2001 |
 
-# 72
+# 042
 ###[SQL distinct multiple columns](https://stackoverflow.com/questions/37697427/sql-distinct-multiple-columns)
 
 #### description
@@ -1295,7 +1295,7 @@
     |-----------------------------------------|
     |   1    |      1      |   3      |  2015 |
 
-# 73
+# 043
 ###[Get first row per product after a certain date](http://stackoverflow.com/questions/37575793/get-first-row-per-product-after-a-certain-date)
 
 #### description
@@ -1320,7 +1320,7 @@
     | xpto1 | 1 | 1 | 2 | 2015-02-01 |
     | xpto2 | 1 | 1 | 2 | 2015-02-01 |
 
-# 74
+# 044
 ###[Delete except max records on duplicate](http://stackoverflow.com/questions/37968031/delete-except-max-records-on-duplicate)
 
 #### input
@@ -1344,7 +1344,7 @@
     | 105       |  CPU       |
     | 106       |  Monitor   |
 
-# 75
+# 045
 ###[How to query difference duplicate data](http://stackoverflow.com/questions/37958641/how-to-query-difference-duplicate-data)
 
 #### input
@@ -1366,7 +1366,7 @@
     | M      | 7882 | B      |     307 | GUC320141225 |  X   |     |  1         |100.500|
     | M      | 9772 | 01     |    1021 | GUC120150703 |  X   |     | 601        |116.488|
 
-# 76
+# 046
 ###[Fetching same rows that has multiple columns along with other rows](http://stackoverflow.com/questions/37946089/fetching-same-rows-that-has-multiple-columns-along-with-other-rows/37946292#37946292)
 
 #### input
@@ -1392,7 +1392,7 @@
     | MC   | MC-A     | 84     | 5678 |   dan   |   pitcher   |
     | MC   | MC-A     | 84     | 9843 |   james |   robin   |
 
-# 77
+# 047
 ###[How to pickup last and second last date using oracle query](http://stackoverflow.com/questions/37950756/how-to-pickup-last-and-second-last-date-using-oracle-query)
 
 #### input
@@ -1417,7 +1417,7 @@
     | 123    | 05/01/2016 |      
     | 456    | 06/01/2016 |   
 
-# 78
+# 048
 ###[SQL-Command: How do i get distinct value out of multiple lines?](http://stackoverflow.com/questions/37939003/sql-command-how-do-i-get-distinct-value-out-of-multiple-lines)
 
 #### input
@@ -1436,7 +1436,7 @@
     |  1111  |    A1 |
     |  2222  |    A2 |  
 
-# 79
+# 049
 ###[SQL:How return record by look up max assign column?](http://stackoverflow.com/questions/37934708/sqlhow-return-record-by-look-up-max-assign-column)
 
 #### input
@@ -1455,7 +1455,7 @@
     | 1     | 2  | 5     |
     | 2     | 4  | 7     |
 
-# 80
+# 050
 ###[How to join tables including rows that doesn't find a match by using a non foreign key field](http://stackoverflow.com/questions/37977325/how-to-join-tables-including-rows-that-doesnt-find-a-match-by-using-a-non-forei)
 
 #### input
@@ -1482,7 +1482,7 @@
     |---------------------------------------------|
     |    defg      | C       |    F    |     3    |
 
-# 81
+# 051
 ###[SQL - EXISTS/NOT EXISTS function](http://stackoverflow.com/questions/36662592/sql-exists-not-exists-function)
 
 #### input
@@ -1504,7 +1504,7 @@
     |----|
     |  9 |
 
-# 82
+# 052
 ###[How to exclude records with certain values in sql select](http://stackoverflow.com/questions/15389091/how-to-exclude-records-with-certain-values-in-sql-select)
 
 #### input

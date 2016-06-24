@@ -1,33 +1,33 @@
 #input
 
-|  Id  |  Plan  | Attributes  | Value  |
-|--------------------------------------|
-|  1   |   A    |   Name      |  AAA   |
-|  2   |   A    |   Class     |  P     |
-|  3   |   A    |   IsActive  |  True  |
-|  4   |   B    |   Name      |  BBB   |
-|  5   |   B    |   Class     |  Q     |
-|  6   |   B    |   IsActive  |  False |
-|  7   |   C    |   Name      |  CCC   |
-|  8   |   C    |   Class     |  R     |
-|  9   |   C    |   IsActive  |  True  |
+| ID  | DESC         |
+|--------------------|
+| 100 | DESCRIPTION0 |
+| 101 | DESCRIPTION1 |
+
+#input
+
+| ID | LINK | LAST_DATE  |
+|------------------------|
+| 1  | 100  | 12/12/2012 |
+| 2  | 100  | 12/13/2012 |
+| 3  | 100  | 12/14/2013 |
+| 4  | 101  | 12/12/2012 |
+| 5  | 101  | 12/13/2012 |
+| 6  | 101  | 12/14/2013 |
 
 #output
 
-|  Id |  Plan | Attributes  | Value  |
-|------------------------------------|
-|  1  |   A   |   Name      |  AAA   |
-|  2  |   A   |   Class     |  P     |
-|  3  |   A   |   IsActive  |  True  |
-|  7  |   C   |   Name      |  CCC   |
-|  8  |   C   |   Class     |  R     |
-|  9  |   C   |   IsActive  |  True  |
+| c1  | c2           | c3         |
+|---------------------------------|
+| 100 | DESCRIPTION0 | 12/14/2013 |
+| 101 | DESCRIPTION1 | 12/14/2013 |
 
 #constraint
 {
 	"max_depth": 2,
-	"constants": ["True"],
-	"aggregation_functions": [],
-	"parameter_number": 2,
+	"constants": [],
+	"aggregation_functions": ["max"],
+	"parameter_number": 0,
 	"max_filter_length": 2
 }

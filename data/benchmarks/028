@@ -1,0 +1,27 @@
+#input
+
+| id | productId | orderIndex | rejected |
+|----------------------------------------|
+| 1  |  1        |   0        |   true      |
+| 2  |  1        |   1        |   false      |
+| 3  |  1        |   2        |   false      |
+| 4  |  2        |   0        |   false      |
+| 5  |  2        |   1        |   true      |
+| 6  |  3        |   0        |   false      |
+
+#output
+
+| id | productId | orderIndex | rejected |
+|----------------------------------------|
+| 2  |  1        |   1        |   false      |
+| 4  |  2        |   0        |   false      |
+| 6  |  3        |   0        |   false      |
+
+#constraint
+{
+	"max_depth": 2,
+	"constants": ["false"],
+	"aggregation_functions": ["min"],
+	"parameter_number": 0,
+	"max_filter_length": 2
+}

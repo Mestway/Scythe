@@ -1,27 +1,25 @@
-# input
+#input
 
+|   Id    |    Name    | Status | Content_type |
+|----------------------------------------------|
+| 2960671 | PostJob    | Error  | general_url  |
+| 2960670 | auto_index | Done   | general_url  |
+| 2960669 | auto_index | Done   | document     |
+| 2960668 | auto_index | Error  | document     |
+| 2960667 | auto_index | Error  | document     |
 
-    |  ID |  NAME |  EMAIL       |
-    |----------------------------|
-    |  1  |  John |  asd@asd.com |
-    |  2  |  Sam  |  asd@asd.com |
-    |  3  |  Tom  |  asd@asd.com |
-    |  4  |  Bob  |  bob@asd.com |
-    |  5  |  Tom  |  asd@asd.com |
+#output
 
+| c1  | c2           |
+|--------------------|
+| 1   |  general_url |
+| 2   |   document   |
 
-# output
-
-    |  c  |
-    |-----|
-    | Tom |
-    | Tom |
-
-# constraint
+#constraint
 {
 	"max_depth": 2,
-	"constants": [],
+	"constants": ["Error"],
 	"aggregation_functions": ["count"],
-	"parameter_number": 2,
+	"parameter_number": 0,
 	"max_filter_length": 2
 }
