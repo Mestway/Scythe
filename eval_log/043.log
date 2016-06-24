@@ -9,12 +9,12 @@
 [Aggregation]: 565 [SymTable]: 566
 [EnumJoin] level 1 [SymTable]: 1132
 ASymTable Enumeration done: 1132
-Runner ups: 1153
+Runner ups: 1213
 Candidates: 
-5755
+6051
 [No.1]===============================
 SELECT
-  [T4034].MAX-stock_after,[T4034].product_code,[T4034].qty,[T4034].stock_before,[T4034].stock_after,[T4034].date
+  [T2274].MAX-stock_after,[T2274].product_code,[T2274].qty,[T2274].stock_before,[T2274].stock_after,[T2274].date
 FROM
   (( SELECT
         [T324].MAX-stock_after
@@ -27,399 +27,136 @@ FROM
         input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
       FROM
         input1
-       )) AS [T4034][MAX-stock_after, product_code, qty, stock_before, stock_after, date]
+       )) AS [T2274][MAX-stock_after, product_code, qty, stock_before, stock_after, date]
 WHERE
-  [T4034].MAX-stock_after == [T4034].stock_after
+  [T2274].MAX-stock_after == [T2274].stock_after
 @anonymous
-[T4034].MAX-stock_after | [T4034].product_code | [T4034].qty | [T4034].stock_before | [T4034].stock_after | [T4034].date 
+[T2274].MAX-stock_after | [T2274].product_code | [T2274].qty | [T2274].stock_before | [T2274].stock_after | [T2274].date 
 2.0 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
 2.0 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
 
 [No.2]===============================
 SELECT
-  [T1140].qty,[T1140].stock_before,[T1140].stock_after,[T1140].MAX-stock_before,[T1140].product_code,[T1140].qty1,[T1140].stock_before1,[T1140].stock_after1,[T1140].date
+  [T2272].MAX-stock_after,[T2272].product_code,[T2272].qty,[T2272].stock_before,[T2272].stock_after,[T2272].date
 FROM
   (( SELECT
-        [T1135].qty,[T1135].stock_before,[T1135].stock_after,[T1135].MAX-stock_before
+        [T324].MAX-stock_after
       FROM
         (SELECT
-            [T1134].qty, [T1134].stock_before, [T1134].stock_after, MAX([T1134].stock_before)
+            MAX(input1.stock_after)
           FROM
-            (SELECT
-                input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
-              FROM
-                input1
-              WHERE
-                input1.date == Thu Jan 01 00:00:00 PST 2015) AS [T1134][product_code, qty, stock_before, stock_after, date]
-          GROUP BY
-            [T1134].qty  [T1134].stock_before  [T1134].stock_after) AS [T1135][qty, stock_before, stock_after, MAX-stock_before] ) JOIN (
+            input1) AS [T324][MAX-stock_after] ) JOIN (
       SELECT
         input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
       FROM
         input1
       WHERE
-        input1.qty == input1.stock_before )) AS [T1140][qty, stock_before, stock_after, MAX-stock_before, product_code, qty1, stock_before1, stock_after1, date]
+        input1.qty == input1.stock_before )) AS [T2272][MAX-stock_after, product_code, qty, stock_before, stock_after, date]
 
 @anonymous
-[T1140].qty | [T1140].stock_before | [T1140].stock_after | [T1140].MAX-stock_before | [T1140].product_code | [T1140].qty1 | [T1140].stock_before1 | [T1140].stock_after1 | [T1140].date 
-0.0 | 1.0 | 1.0 | 1.0 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
-0.0 | 1.0 | 1.0 | 1.0 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+[T2272].MAX-stock_after | [T2272].product_code | [T2272].qty | [T2272].stock_before | [T2272].stock_after | [T2272].date 
+2.0 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+2.0 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
 
 [No.3]===============================
 SELECT
-  [T1150].qty,[T1150].stock_before,[T1150].stock_after,[T1150].MAX-stock_before,[T1150].product_code,[T1150].qty1,[T1150].stock_before1,[T1150].stock_after1,[T1150].date
+  [T10424].MAX-qty,[T10424].product_code,[T10424].qty,[T10424].stock_before,[T10424].stock_after,[T10424].date
 FROM
   (( SELECT
-        [T1145].qty,[T1145].stock_before,[T1145].stock_after,[T1145].MAX-stock_before
+        [T322].MAX-qty
       FROM
         (SELECT
-            [T1144].qty, [T1144].stock_before, [T1144].stock_after, MAX([T1144].stock_before)
+            MAX(input1.qty)
           FROM
-            (SELECT
-                input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
-              FROM
-                input1
-              WHERE
-                input1.date == Thu Jan 01 00:00:00 PST 2015) AS [T1144][product_code, qty, stock_before, stock_after, date]
-          GROUP BY
-            [T1144].qty  [T1144].stock_before  [T1144].stock_after) AS [T1145][qty, stock_before, stock_after, MAX-stock_before] ) JOIN (
+            input1) AS [T322][MAX-qty] ) JOIN (
       SELECT
         input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
       FROM
         input1
-       )) AS [T1150][qty, stock_before, stock_after, MAX-stock_before, product_code, qty1, stock_before1, stock_after1, date]
-WHERE
-  [T1150].stock_before == [T1150].qty1
+      WHERE
+        input1.qty == input1.stock_before )) AS [T10424][MAX-qty, product_code, qty, stock_before, stock_after, date]
+
 @anonymous
-[T1150].qty | [T1150].stock_before | [T1150].stock_after | [T1150].MAX-stock_before | [T1150].product_code | [T1150].qty1 | [T1150].stock_before1 | [T1150].stock_after1 | [T1150].date 
-0.0 | 1.0 | 1.0 | 1.0 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
-0.0 | 1.0 | 1.0 | 1.0 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+[T10424].MAX-qty | [T10424].product_code | [T10424].qty | [T10424].stock_before | [T10424].stock_after | [T10424].date 
+2.0 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+2.0 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
 
 [No.4]===============================
 SELECT
-  [T1190].qty,[T1190].stock_after,[T1190].date,[T1190].product_code,[T1190].qty1,[T1190].stock_before,[T1190].stock_after1,[T1190].date1
+  [T10426].MAX-qty,[T10426].product_code,[T10426].qty,[T10426].stock_before,[T10426].stock_after,[T10426].date
 FROM
   (( SELECT
-        [T1187].qty,[T1187].stock_after,[T1187].date
+        [T322].MAX-qty
       FROM
         (SELECT
-            [T1186].qty, [T1186].stock_after, [T1186].date, FROM
-            (SELECT
-                input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
-              FROM
-                input1
-              WHERE
-                input1.qty == input1.stock_before) AS [T1186][product_code, qty, stock_before, stock_after, date]
-          GROUP BY
-            [T1186].qty  [T1186].stock_after  [T1186].date) AS [T1187][qty, stock_after, date] ) JOIN (
+            MAX(input1.qty)
+          FROM
+            input1) AS [T322][MAX-qty] ) JOIN (
       SELECT
         input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
       FROM
         input1
-      WHERE
-        input1.date == Thu Jan 01 00:00:00 PST 2015 )) AS [T1190][qty, stock_after, date, product_code, qty1, stock_before, stock_after1, date1]
-
+       )) AS [T10426][MAX-qty, product_code, qty, stock_before, stock_after, date]
+WHERE
+  [T10426].MAX-qty == [T10426].stock_after
 @anonymous
-[T1190].qty | [T1190].stock_after | [T1190].date | [T1190].product_code | [T1190].qty1 | [T1190].stock_before | [T1190].stock_after1 | [T1190].date1 
-1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 | xpto1 | 0.0 | 1.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 
-1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 | xpto2 | 0.0 | 1.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 
+[T10426].MAX-qty | [T10426].product_code | [T10426].qty | [T10426].stock_before | [T10426].stock_after | [T10426].date 
+2.0 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+2.0 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
 
 [No.5]===============================
 SELECT
-  [T1340].qty,[T1340].stock_before,[T1340].stock_after,[T1340].date,[T1340].MAX-date,[T1340].product_code,[T1340].qty1,[T1340].stock_before1,[T1340].stock_after1,[T1340].date1
+  [T13638].stock_before,[T13638].MAX-date,[T13638].product_code,[T13638].qty,[T13638].stock_before1,[T13638].stock_after,[T13638].date
 FROM
   (( SELECT
-        [T1337].qty,[T1337].stock_before,[T1337].stock_after,[T1337].date,[T1337].MAX-date
+        [T248].stock_before,[T248].MAX-date
       FROM
         (SELECT
-            [T1336].qty, [T1336].stock_before, [T1336].stock_after, [T1336].date, MAX([T1336].date)
+            input1.stock_before, MAX(input1.date)
           FROM
-            (SELECT
-                input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
-              FROM
-                input1
-              WHERE
-                input1.qty == input1.stock_before) AS [T1336][product_code, qty, stock_before, stock_after, date]
+            input1
           GROUP BY
-            [T1336].qty  [T1336].stock_before  [T1336].stock_after  [T1336].date) AS [T1337][qty, stock_before, stock_after, date, MAX-date] ) JOIN (
+            input1.stock_before) AS [T248][stock_before, MAX-date] ) JOIN (
       SELECT
         input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
       FROM
         input1
-      WHERE
-        input1.date == Thu Jan 01 00:00:00 PST 2015 )) AS [T1340][qty, stock_before, stock_after, date, MAX-date, product_code, qty1, stock_before1, stock_after1, date1]
-
+       )) AS [T13638][stock_before, MAX-date, product_code, qty, stock_before1, stock_after, date]
+WHERE
+  [T13638].stock_before == [T13638].qty
 @anonymous
-[T1340].qty | [T1340].stock_before | [T1340].stock_after | [T1340].date | [T1340].MAX-date | [T1340].product_code | [T1340].qty1 | [T1340].stock_before1 | [T1340].stock_after1 | [T1340].date1 
-1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 | Sun Feb 01 00:00:00 PST 2015 | xpto1 | 0.0 | 1.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 
-1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 | Sun Feb 01 00:00:00 PST 2015 | xpto2 | 0.0 | 1.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 
+[T13638].stock_before | [T13638].MAX-date | [T13638].product_code | [T13638].qty | [T13638].stock_before1 | [T13638].stock_after | [T13638].date 
+1.0 | Sun Feb 01 00:00:00 PST 2015 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+1.0 | Sun Feb 01 00:00:00 PST 2015 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
 
 [No.6]===============================
 SELECT
-  [T1490].stock_before,[T1490].stock_after,[T1490].date,[T1490].MAX-stock_after,[T1490].product_code,[T1490].qty,[T1490].stock_before1,[T1490].stock_after1,[T1490].date1
+  [T16058].stock_before,[T16058].MAX-qty,[T16058].product_code,[T16058].qty,[T16058].stock_before1,[T16058].stock_after,[T16058].date
 FROM
   (( SELECT
-        [T1485].stock_before,[T1485].stock_after,[T1485].date,[T1485].MAX-stock_after
+        [T246].stock_before,[T246].MAX-qty
       FROM
         (SELECT
-            [T1484].stock_before, [T1484].stock_after, [T1484].date, MAX([T1484].stock_after)
+            input1.stock_before, MAX(input1.qty)
           FROM
-            (SELECT
-                input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
-              FROM
-                input1
-              WHERE
-                input1.date == Thu Jan 01 00:00:00 PST 2015) AS [T1484][product_code, qty, stock_before, stock_after, date]
+            input1
           GROUP BY
-            [T1484].stock_before  [T1484].stock_after  [T1484].date) AS [T1485][stock_before, stock_after, date, MAX-stock_after] ) JOIN (
+            input1.stock_before) AS [T246][stock_before, MAX-qty] ) JOIN (
       SELECT
         input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
       FROM
         input1
-      WHERE
-        input1.qty == input1.stock_before )) AS [T1490][stock_before, stock_after, date, MAX-stock_after, product_code, qty, stock_before1, stock_after1, date1]
-
+       )) AS [T16058][stock_before, MAX-qty, product_code, qty, stock_before1, stock_after, date]
+WHERE
+  [T16058].stock_before == [T16058].qty
 @anonymous
-[T1490].stock_before | [T1490].stock_after | [T1490].date | [T1490].MAX-stock_after | [T1490].product_code | [T1490].qty | [T1490].stock_before1 | [T1490].stock_after1 | [T1490].date1 
-1.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 | 1.0 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
-1.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 | 1.0 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+[T16058].stock_before | [T16058].MAX-qty | [T16058].product_code | [T16058].qty | [T16058].stock_before1 | [T16058].stock_after | [T16058].date 
+1.0 | 1.0 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+1.0 | 1.0 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
 
 [No.7]===============================
 SELECT
-  [T1500].stock_before,[T1500].stock_after,[T1500].date,[T1500].MAX-stock_after,[T1500].product_code,[T1500].qty,[T1500].stock_before1,[T1500].stock_after1,[T1500].date1
-FROM
-  (( SELECT
-        [T1495].stock_before,[T1495].stock_after,[T1495].date,[T1495].MAX-stock_after
-      FROM
-        (SELECT
-            [T1494].stock_before, [T1494].stock_after, [T1494].date, MAX([T1494].stock_after)
-          FROM
-            (SELECT
-                input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
-              FROM
-                input1
-              WHERE
-                input1.date == Thu Jan 01 00:00:00 PST 2015) AS [T1494][product_code, qty, stock_before, stock_after, date]
-          GROUP BY
-            [T1494].stock_before  [T1494].stock_after  [T1494].date) AS [T1495][stock_before, stock_after, date, MAX-stock_after] ) JOIN (
-      SELECT
-        input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
-      FROM
-        input1
-       )) AS [T1500][stock_before, stock_after, date, MAX-stock_after, product_code, qty, stock_before1, stock_after1, date1]
-WHERE
-  [T1500].stock_before == [T1500].qty
-@anonymous
-[T1500].stock_before | [T1500].stock_after | [T1500].date | [T1500].MAX-stock_after | [T1500].product_code | [T1500].qty | [T1500].stock_before1 | [T1500].stock_after1 | [T1500].date1 
-1.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 | 1.0 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
-1.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 | 1.0 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
-
-[No.8]===============================
-SELECT
-  [T1562].qty,[T1562].stock_before,[T1562].MAX-date,[T1562].product_code,[T1562].qty1,[T1562].stock_before1,[T1562].stock_after,[T1562].date
-FROM
-  (( SELECT
-        [T271].qty,[T271].stock_before,[T271].MAX-date
-      FROM
-        (SELECT
-            input1.qty, input1.stock_before, MAX(input1.date)
-          FROM
-            input1
-          GROUP BY
-            input1.qty  input1.stock_before) AS [T271][qty, stock_before, MAX-date]
-      WHERE
-        [T271].MAX-date == Thu Jan 01 00:00:00 PST 2015 ) JOIN (
-      SELECT
-        input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
-      FROM
-        input1
-       )) AS [T1562][qty, stock_before, MAX-date, product_code, qty1, stock_before1, stock_after, date]
-WHERE
-  [T1562].stock_before == [T1562].qty1
-@anonymous
-[T1562].qty | [T1562].stock_before | [T1562].MAX-date | [T1562].product_code | [T1562].qty1 | [T1562].stock_before1 | [T1562].stock_after | [T1562].date 
-0.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
-0.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
-
-[No.9]===============================
-SELECT
-  [T1564].qty,[T1564].stock_before,[T1564].MAX-date,[T1564].product_code,[T1564].qty1,[T1564].stock_before1,[T1564].stock_after,[T1564].date
-FROM
-  (( SELECT
-        [T271].qty,[T271].stock_before,[T271].MAX-date
-      FROM
-        (SELECT
-            input1.qty, input1.stock_before, MAX(input1.date)
-          FROM
-            input1
-          GROUP BY
-            input1.qty  input1.stock_before) AS [T271][qty, stock_before, MAX-date]
-      WHERE
-        [T271].MAX-date == Thu Jan 01 00:00:00 PST 2015 ) JOIN (
-      SELECT
-        input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
-      FROM
-        input1
-      WHERE
-        input1.qty == input1.stock_before )) AS [T1564][qty, stock_before, MAX-date, product_code, qty1, stock_before1, stock_after, date]
-
-@anonymous
-[T1564].qty | [T1564].stock_before | [T1564].MAX-date | [T1564].product_code | [T1564].qty1 | [T1564].stock_before1 | [T1564].stock_after | [T1564].date 
-0.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
-0.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
-
-[No.10]===============================
-SELECT
-  [T1600].qty,[T1600].stock_before,[T1600].MAX-stock_before,[T1600].product_code,[T1600].qty1,[T1600].stock_before1,[T1600].stock_after,[T1600].date
-FROM
-  (( SELECT
-        [T1595].qty,[T1595].stock_before,[T1595].MAX-stock_before
-      FROM
-        (SELECT
-            [T1594].qty, [T1594].stock_before, MAX([T1594].stock_before)
-          FROM
-            (SELECT
-                input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
-              FROM
-                input1
-              WHERE
-                input1.date == Thu Jan 01 00:00:00 PST 2015) AS [T1594][product_code, qty, stock_before, stock_after, date]
-          GROUP BY
-            [T1594].qty  [T1594].stock_before) AS [T1595][qty, stock_before, MAX-stock_before] ) JOIN (
-      SELECT
-        input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
-      FROM
-        input1
-      WHERE
-        input1.qty == input1.stock_before )) AS [T1600][qty, stock_before, MAX-stock_before, product_code, qty1, stock_before1, stock_after, date]
-
-@anonymous
-[T1600].qty | [T1600].stock_before | [T1600].MAX-stock_before | [T1600].product_code | [T1600].qty1 | [T1600].stock_before1 | [T1600].stock_after | [T1600].date 
-0.0 | 1.0 | 1.0 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
-0.0 | 1.0 | 1.0 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
-
-[No.11]===============================
-SELECT
-  [T1610].qty,[T1610].stock_before,[T1610].MAX-stock_before,[T1610].product_code,[T1610].qty1,[T1610].stock_before1,[T1610].stock_after,[T1610].date
-FROM
-  (( SELECT
-        [T1605].qty,[T1605].stock_before,[T1605].MAX-stock_before
-      FROM
-        (SELECT
-            [T1604].qty, [T1604].stock_before, MAX([T1604].stock_before)
-          FROM
-            (SELECT
-                input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
-              FROM
-                input1
-              WHERE
-                input1.date == Thu Jan 01 00:00:00 PST 2015) AS [T1604][product_code, qty, stock_before, stock_after, date]
-          GROUP BY
-            [T1604].qty  [T1604].stock_before) AS [T1605][qty, stock_before, MAX-stock_before] ) JOIN (
-      SELECT
-        input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
-      FROM
-        input1
-       )) AS [T1610][qty, stock_before, MAX-stock_before, product_code, qty1, stock_before1, stock_after, date]
-WHERE
-  [T1610].stock_before == [T1610].qty1
-@anonymous
-[T1610].qty | [T1610].stock_before | [T1610].MAX-stock_before | [T1610].product_code | [T1610].qty1 | [T1610].stock_before1 | [T1610].stock_after | [T1610].date 
-0.0 | 1.0 | 1.0 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
-0.0 | 1.0 | 1.0 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
-
-[No.12]===============================
-SELECT
-  [T2220].stock_before,[T2220].stock_after,[T2220].MAX-stock_before,[T2220].product_code,[T2220].qty,[T2220].stock_before1,[T2220].stock_after1,[T2220].date
-FROM
-  (( SELECT
-        [T2215].stock_before,[T2215].stock_after,[T2215].MAX-stock_before
-      FROM
-        (SELECT
-            [T2214].stock_before, [T2214].stock_after, MAX([T2214].stock_before)
-          FROM
-            (SELECT
-                input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
-              FROM
-                input1
-              WHERE
-                input1.date == Thu Jan 01 00:00:00 PST 2015) AS [T2214][product_code, qty, stock_before, stock_after, date]
-          GROUP BY
-            [T2214].stock_before  [T2214].stock_after) AS [T2215][stock_before, stock_after, MAX-stock_before] ) JOIN (
-      SELECT
-        input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
-      FROM
-        input1
-      WHERE
-        input1.qty == input1.stock_before )) AS [T2220][stock_before, stock_after, MAX-stock_before, product_code, qty, stock_before1, stock_after1, date]
-
-@anonymous
-[T2220].stock_before | [T2220].stock_after | [T2220].MAX-stock_before | [T2220].product_code | [T2220].qty | [T2220].stock_before1 | [T2220].stock_after1 | [T2220].date 
-1.0 | 1.0 | 1.0 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
-1.0 | 1.0 | 1.0 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
-
-[No.13]===============================
-SELECT
-  [T2230].stock_before,[T2230].stock_after,[T2230].MAX-stock_before,[T2230].product_code,[T2230].qty,[T2230].stock_before1,[T2230].stock_after1,[T2230].date
-FROM
-  (( SELECT
-        [T2225].stock_before,[T2225].stock_after,[T2225].MAX-stock_before
-      FROM
-        (SELECT
-            [T2224].stock_before, [T2224].stock_after, MAX([T2224].stock_before)
-          FROM
-            (SELECT
-                input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
-              FROM
-                input1
-              WHERE
-                input1.date == Thu Jan 01 00:00:00 PST 2015) AS [T2224][product_code, qty, stock_before, stock_after, date]
-          GROUP BY
-            [T2224].stock_before  [T2224].stock_after) AS [T2225][stock_before, stock_after, MAX-stock_before] ) JOIN (
-      SELECT
-        input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
-      FROM
-        input1
-       )) AS [T2230][stock_before, stock_after, MAX-stock_before, product_code, qty, stock_before1, stock_after1, date]
-WHERE
-  [T2230].stock_before == [T2230].qty
-@anonymous
-[T2230].stock_before | [T2230].stock_after | [T2230].MAX-stock_before | [T2230].product_code | [T2230].qty | [T2230].stock_before1 | [T2230].stock_after1 | [T2230].date 
-1.0 | 1.0 | 1.0 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
-1.0 | 1.0 | 1.0 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
-
-[No.14]===============================
-SELECT
-  [T2310].stock_before,[T2310].stock_after,[T2310].date,[T2310].product_code,[T2310].qty,[T2310].stock_before1,[T2310].stock_after1,[T2310].date1
-FROM
-  (( SELECT
-        [T2307].stock_before,[T2307].stock_after,[T2307].date
-      FROM
-        (SELECT
-            [T2306].stock_before, [T2306].stock_after, [T2306].date, FROM
-            (SELECT
-                input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
-              FROM
-                input1
-              WHERE
-                input1.qty == input1.stock_before) AS [T2306][product_code, qty, stock_before, stock_after, date]
-          GROUP BY
-            [T2306].stock_before  [T2306].stock_after  [T2306].date) AS [T2307][stock_before, stock_after, date] ) JOIN (
-      SELECT
-        input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
-      FROM
-        input1
-      WHERE
-        input1.date == Thu Jan 01 00:00:00 PST 2015 )) AS [T2310][stock_before, stock_after, date, product_code, qty, stock_before1, stock_after1, date1]
-
-@anonymous
-[T2310].stock_before | [T2310].stock_after | [T2310].date | [T2310].product_code | [T2310].qty | [T2310].stock_before1 | [T2310].stock_after1 | [T2310].date1 
-1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 | xpto1 | 0.0 | 1.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 
-1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 | xpto2 | 0.0 | 1.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 
-
-[No.15]===============================
-SELECT
-  [T2452].stock_before,[T2452].product_code,[T2452].qty,[T2452].stock_before1,[T2452].stock_after,[T2452].date
+  [T16188].stock_before,[T16188].product_code,[T16188].qty,[T16188].stock_before1,[T16188].stock_after,[T16188].date
 FROM
   (( SELECT
         [T245].stock_before
@@ -433,175 +170,367 @@ FROM
         input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
       FROM
         input1
-       )) AS [T2452][stock_before, product_code, qty, stock_before1, stock_after, date]
+       )) AS [T16188][stock_before, product_code, qty, stock_before1, stock_after, date]
 WHERE
-  [T2452].stock_before == [T2452].qty
+  [T16188].stock_before == [T16188].qty
 @anonymous
-[T2452].stock_before | [T2452].product_code | [T2452].qty | [T2452].stock_before1 | [T2452].stock_after | [T2452].date 
+[T16188].stock_before | [T16188].product_code | [T16188].qty | [T16188].stock_before1 | [T16188].stock_after | [T16188].date 
 1.0 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
 1.0 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
 
-[No.16]===============================
+[No.8]===============================
 SELECT
-  [T2550].qty,[T2550].stock_after,[T2550].date,[T2550].MAX-qty,[T2550].product_code,[T2550].qty1,[T2550].stock_before,[T2550].stock_after1,[T2550].date1
+  input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
+FROM
+  input1
+WHERE
+  input1.qty == input1.stock_before
+@anonymous
+input1.product_code | input1.qty | input1.stock_before | input1.stock_after | input1.date 
+xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+
+[No.9]===============================
+SELECT
+  [T19778].stock_before,[T19778].MAX-stock_after,[T19778].product_code,[T19778].qty,[T19778].stock_before1,[T19778].stock_after,[T19778].date
 FROM
   (( SELECT
-        [T2545].qty,[T2545].stock_after,[T2545].date,[T2545].MAX-qty
+        [T247].stock_before,[T247].MAX-stock_after
       FROM
         (SELECT
-            [T2544].qty, [T2544].stock_after, [T2544].date, MAX([T2544].qty)
+            input1.stock_before, MAX(input1.stock_after)
+          FROM
+            input1
+          GROUP BY
+            input1.stock_before) AS [T247][stock_before, MAX-stock_after] ) JOIN (
+      SELECT
+        input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
+      FROM
+        input1
+       )) AS [T19778][stock_before, MAX-stock_after, product_code, qty, stock_before1, stock_after, date]
+WHERE
+  [T19778].stock_before == [T19778].qty
+@anonymous
+[T19778].stock_before | [T19778].MAX-stock_after | [T19778].product_code | [T19778].qty | [T19778].stock_before1 | [T19778].stock_after | [T19778].date 
+1.0 | 2.0 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+1.0 | 2.0 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+
+[No.10]===============================
+SELECT
+  [T22638].MAX-stock_before,[T22638].product_code,[T22638].qty,[T22638].stock_before,[T22638].stock_after,[T22638].date
+FROM
+  (( SELECT
+        [T323].MAX-stock_before
+      FROM
+        (SELECT
+            MAX(input1.stock_before)
+          FROM
+            input1) AS [T323][MAX-stock_before] ) JOIN (
+      SELECT
+        input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
+      FROM
+        input1
+      WHERE
+        input1.qty == input1.stock_before )) AS [T22638][MAX-stock_before, product_code, qty, stock_before, stock_after, date]
+
+@anonymous
+[T22638].MAX-stock_before | [T22638].product_code | [T22638].qty | [T22638].stock_before | [T22638].stock_after | [T22638].date 
+1.0 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+1.0 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+
+[No.11]===============================
+SELECT
+  [T22640].MAX-stock_before,[T22640].product_code,[T22640].qty,[T22640].stock_before,[T22640].stock_after,[T22640].date
+FROM
+  (( SELECT
+        [T323].MAX-stock_before
+      FROM
+        (SELECT
+            MAX(input1.stock_before)
+          FROM
+            input1) AS [T323][MAX-stock_before] ) JOIN (
+      SELECT
+        input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
+      FROM
+        input1
+       )) AS [T22640][MAX-stock_before, product_code, qty, stock_before, stock_after, date]
+WHERE
+  [T22640].MAX-stock_before == [T22640].qty
+@anonymous
+[T22640].MAX-stock_before | [T22640].product_code | [T22640].qty | [T22640].stock_before | [T22640].stock_after | [T22640].date 
+1.0 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+1.0 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+
+[No.12]===============================
+SELECT
+  [T22938].product_code,[T22938].MAX-stock_after,[T22938].product_code1,[T22938].qty,[T22938].stock_before,[T22938].stock_after,[T22938].date
+FROM
+  (( SELECT
+        [T239].product_code,[T239].MAX-stock_after
+      FROM
+        (SELECT
+            input1.product_code, MAX(input1.stock_after)
+          FROM
+            input1
+          GROUP BY
+            input1.product_code) AS [T239][product_code, MAX-stock_after] ) JOIN (
+      SELECT
+        input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
+      FROM
+        input1
+       )) AS [T22938][product_code, MAX-stock_after, product_code1, qty, stock_before, stock_after, date]
+WHERE
+  [T22938].product_code == [T22938].product_code1
+   AND [T22938].MAX-stock_after == [T22938].stock_after
+@anonymous
+[T22938].product_code | [T22938].MAX-stock_after | [T22938].product_code1 | [T22938].qty | [T22938].stock_before | [T22938].stock_after | [T22938].date 
+xpto1 | 2.0 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+xpto2 | 2.0 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+
+[No.13]===============================
+SELECT
+  [T1140].stock_after,[T1140].date,[T1140].MAX-qty,[T1140].product_code,[T1140].qty,[T1140].stock_before,[T1140].stock_after1,[T1140].date1
+FROM
+  (( SELECT
+        [T1135].stock_after,[T1135].date,[T1135].MAX-qty
+      FROM
+        (SELECT
+            [T1134].stock_after, [T1134].date, MAX([T1134].qty)
           FROM
             (SELECT
                 input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
               FROM
                 input1
               WHERE
-                input1.date == Thu Jan 01 00:00:00 PST 2015) AS [T2544][product_code, qty, stock_before, stock_after, date]
+                input1.date == Thu Jan 01 00:00:00 PST 2015) AS [T1134][product_code, qty, stock_before, stock_after, date]
           GROUP BY
-            [T2544].qty  [T2544].stock_after  [T2544].date) AS [T2545][qty, stock_after, date, MAX-qty] ) JOIN (
+            [T1134].stock_after  [T1134].date) AS [T1135][stock_after, date, MAX-qty] ) JOIN (
       SELECT
         input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
       FROM
         input1
       WHERE
-        input1.qty == input1.stock_before )) AS [T2550][qty, stock_after, date, MAX-qty, product_code, qty1, stock_before, stock_after1, date1]
+        input1.qty == input1.stock_before )) AS [T1140][stock_after, date, MAX-qty, product_code, qty, stock_before, stock_after1, date1]
 
 @anonymous
-[T2550].qty | [T2550].stock_after | [T2550].date | [T2550].MAX-qty | [T2550].product_code | [T2550].qty1 | [T2550].stock_before | [T2550].stock_after1 | [T2550].date1 
-0.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 | 0.0 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
-0.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 | 0.0 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+[T1140].stock_after | [T1140].date | [T1140].MAX-qty | [T1140].product_code | [T1140].qty | [T1140].stock_before | [T1140].stock_after1 | [T1140].date1 
+1.0 | Thu Jan 01 00:00:00 PST 2015 | 0.0 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+1.0 | Thu Jan 01 00:00:00 PST 2015 | 0.0 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+
+[No.14]===============================
+SELECT
+  [T1150].stock_after,[T1150].date,[T1150].MAX-qty,[T1150].product_code,[T1150].qty,[T1150].stock_before,[T1150].stock_after1,[T1150].date1
+FROM
+  (( SELECT
+        [T1145].stock_after,[T1145].date,[T1145].MAX-qty
+      FROM
+        (SELECT
+            [T1144].stock_after, [T1144].date, MAX([T1144].qty)
+          FROM
+            (SELECT
+                input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
+              FROM
+                input1
+              WHERE
+                input1.date == Thu Jan 01 00:00:00 PST 2015) AS [T1144][product_code, qty, stock_before, stock_after, date]
+          GROUP BY
+            [T1144].stock_after  [T1144].date) AS [T1145][stock_after, date, MAX-qty] ) JOIN (
+      SELECT
+        input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
+      FROM
+        input1
+       )) AS [T1150][stock_after, date, MAX-qty, product_code, qty, stock_before, stock_after1, date1]
+WHERE
+  [T1150].stock_after == [T1150].qty
+@anonymous
+[T1150].stock_after | [T1150].date | [T1150].MAX-qty | [T1150].product_code | [T1150].qty | [T1150].stock_before | [T1150].stock_after1 | [T1150].date1 
+1.0 | Thu Jan 01 00:00:00 PST 2015 | 0.0 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+1.0 | Thu Jan 01 00:00:00 PST 2015 | 0.0 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+
+[No.15]===============================
+SELECT
+  [T1190].qty,[T1190].stock_before,[T1190].stock_after,[T1190].MAX-date,[T1190].product_code,[T1190].qty1,[T1190].stock_before1,[T1190].stock_after1,[T1190].date
+FROM
+  (( SELECT
+        [T1187].qty,[T1187].stock_before,[T1187].stock_after,[T1187].MAX-date
+      FROM
+        (SELECT
+            [T1186].qty, [T1186].stock_before, [T1186].stock_after, MAX([T1186].date)
+          FROM
+            (SELECT
+                input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
+              FROM
+                input1
+              WHERE
+                input1.qty == input1.stock_before) AS [T1186][product_code, qty, stock_before, stock_after, date]
+          GROUP BY
+            [T1186].qty  [T1186].stock_before  [T1186].stock_after) AS [T1187][qty, stock_before, stock_after, MAX-date] ) JOIN (
+      SELECT
+        input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
+      FROM
+        input1
+      WHERE
+        input1.date == Thu Jan 01 00:00:00 PST 2015 )) AS [T1190][qty, stock_before, stock_after, MAX-date, product_code, qty1, stock_before1, stock_after1, date]
+
+@anonymous
+[T1190].qty | [T1190].stock_before | [T1190].stock_after | [T1190].MAX-date | [T1190].product_code | [T1190].qty1 | [T1190].stock_before1 | [T1190].stock_after1 | [T1190].date 
+1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 | xpto1 | 0.0 | 1.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 
+1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 | xpto2 | 0.0 | 1.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 
+
+[No.16]===============================
+SELECT
+  [T1340].stock_before,[T1340].stock_after,[T1340].date,[T1340].MAX-stock_after,[T1340].product_code,[T1340].qty,[T1340].stock_before1,[T1340].stock_after1,[T1340].date1
+FROM
+  (( SELECT
+        [T1337].stock_before,[T1337].stock_after,[T1337].date,[T1337].MAX-stock_after
+      FROM
+        (SELECT
+            [T1336].stock_before, [T1336].stock_after, [T1336].date, MAX([T1336].stock_after)
+          FROM
+            (SELECT
+                input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
+              FROM
+                input1
+              WHERE
+                input1.qty == input1.stock_before) AS [T1336][product_code, qty, stock_before, stock_after, date]
+          GROUP BY
+            [T1336].stock_before  [T1336].stock_after  [T1336].date) AS [T1337][stock_before, stock_after, date, MAX-stock_after] ) JOIN (
+      SELECT
+        input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
+      FROM
+        input1
+      WHERE
+        input1.date == Thu Jan 01 00:00:00 PST 2015 )) AS [T1340][stock_before, stock_after, date, MAX-stock_after, product_code, qty, stock_before1, stock_after1, date1]
+
+@anonymous
+[T1340].stock_before | [T1340].stock_after | [T1340].date | [T1340].MAX-stock_after | [T1340].product_code | [T1340].qty | [T1340].stock_before1 | [T1340].stock_after1 | [T1340].date1 
+1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 | 2.0 | xpto1 | 0.0 | 1.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 
+1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 | 2.0 | xpto2 | 0.0 | 1.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 
 
 [No.17]===============================
 SELECT
-  [T2560].qty,[T2560].stock_after,[T2560].date,[T2560].MAX-qty,[T2560].product_code,[T2560].qty1,[T2560].stock_before,[T2560].stock_after1,[T2560].date1
+  [T1490].qty,[T1490].stock_after,[T1490].date,[T1490].MAX-stock_before,[T1490].product_code,[T1490].qty1,[T1490].stock_before,[T1490].stock_after1,[T1490].date1
 FROM
   (( SELECT
-        [T2555].qty,[T2555].stock_after,[T2555].date,[T2555].MAX-qty
+        [T1485].qty,[T1485].stock_after,[T1485].date,[T1485].MAX-stock_before
       FROM
         (SELECT
-            [T2554].qty, [T2554].stock_after, [T2554].date, MAX([T2554].qty)
+            [T1484].qty, [T1484].stock_after, [T1484].date, MAX([T1484].stock_before)
           FROM
             (SELECT
                 input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
               FROM
                 input1
               WHERE
-                input1.date == Thu Jan 01 00:00:00 PST 2015) AS [T2554][product_code, qty, stock_before, stock_after, date]
+                input1.date == Thu Jan 01 00:00:00 PST 2015) AS [T1484][product_code, qty, stock_before, stock_after, date]
           GROUP BY
-            [T2554].qty  [T2554].stock_after  [T2554].date) AS [T2555][qty, stock_after, date, MAX-qty] ) JOIN (
+            [T1484].qty  [T1484].stock_after  [T1484].date) AS [T1485][qty, stock_after, date, MAX-stock_before] ) JOIN (
       SELECT
         input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
       FROM
         input1
-       )) AS [T2560][qty, stock_after, date, MAX-qty, product_code, qty1, stock_before, stock_after1, date1]
-WHERE
-  [T2560].stock_after == [T2560].qty1
+      WHERE
+        input1.qty == input1.stock_before )) AS [T1490][qty, stock_after, date, MAX-stock_before, product_code, qty1, stock_before, stock_after1, date1]
+
 @anonymous
-[T2560].qty | [T2560].stock_after | [T2560].date | [T2560].MAX-qty | [T2560].product_code | [T2560].qty1 | [T2560].stock_before | [T2560].stock_after1 | [T2560].date1 
-0.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 | 0.0 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
-0.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 | 0.0 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+[T1490].qty | [T1490].stock_after | [T1490].date | [T1490].MAX-stock_before | [T1490].product_code | [T1490].qty1 | [T1490].stock_before | [T1490].stock_after1 | [T1490].date1 
+0.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 | 1.0 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+0.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 | 1.0 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
 
 [No.18]===============================
 SELECT
-  [T2600].stock_before,[T2600].MAX-stock_after,[T2600].product_code,[T2600].qty,[T2600].stock_before1,[T2600].stock_after,[T2600].date
+  [T1500].qty,[T1500].stock_after,[T1500].date,[T1500].MAX-stock_before,[T1500].product_code,[T1500].qty1,[T1500].stock_before,[T1500].stock_after1,[T1500].date1
 FROM
   (( SELECT
-        [T2595].stock_before,[T2595].MAX-stock_after
+        [T1495].qty,[T1495].stock_after,[T1495].date,[T1495].MAX-stock_before
       FROM
         (SELECT
-            [T2594].stock_before, MAX([T2594].stock_after)
+            [T1494].qty, [T1494].stock_after, [T1494].date, MAX([T1494].stock_before)
           FROM
             (SELECT
                 input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
               FROM
                 input1
               WHERE
-                input1.date == Thu Jan 01 00:00:00 PST 2015) AS [T2594][product_code, qty, stock_before, stock_after, date]
+                input1.date == Thu Jan 01 00:00:00 PST 2015) AS [T1494][product_code, qty, stock_before, stock_after, date]
           GROUP BY
-            [T2594].stock_before) AS [T2595][stock_before, MAX-stock_after] ) JOIN (
+            [T1494].qty  [T1494].stock_after  [T1494].date) AS [T1495][qty, stock_after, date, MAX-stock_before] ) JOIN (
       SELECT
         input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
       FROM
         input1
-      WHERE
-        input1.qty == input1.stock_before )) AS [T2600][stock_before, MAX-stock_after, product_code, qty, stock_before1, stock_after, date]
-
+       )) AS [T1500][qty, stock_after, date, MAX-stock_before, product_code, qty1, stock_before, stock_after1, date1]
+WHERE
+  [T1500].stock_after == [T1500].qty1
 @anonymous
-[T2600].stock_before | [T2600].MAX-stock_after | [T2600].product_code | [T2600].qty | [T2600].stock_before1 | [T2600].stock_after | [T2600].date 
-1.0 | 1.0 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
-1.0 | 1.0 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+[T1500].qty | [T1500].stock_after | [T1500].date | [T1500].MAX-stock_before | [T1500].product_code | [T1500].qty1 | [T1500].stock_before | [T1500].stock_after1 | [T1500].date1 
+0.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 | 1.0 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+0.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 | 1.0 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
 
 [No.19]===============================
 SELECT
-  [T2610].stock_before,[T2610].MAX-stock_after,[T2610].product_code,[T2610].qty,[T2610].stock_before1,[T2610].stock_after,[T2610].date
+  [T1572].qty,[T1572].stock_after,[T1572].date,[T1572].MAX-stock_before,[T1572].product_code,[T1572].qty1,[T1572].stock_before,[T1572].stock_after1,[T1572].date1
 FROM
   (( SELECT
-        [T2605].stock_before,[T2605].MAX-stock_after
+        [T309].qty,[T309].stock_after,[T309].date,[T309].MAX-stock_before
       FROM
         (SELECT
-            [T2604].stock_before, MAX([T2604].stock_after)
+            input1.qty, input1.stock_after, input1.date, MAX(input1.stock_before)
           FROM
-            (SELECT
-                input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
-              FROM
-                input1
-              WHERE
-                input1.date == Thu Jan 01 00:00:00 PST 2015) AS [T2604][product_code, qty, stock_before, stock_after, date]
+            input1
           GROUP BY
-            [T2604].stock_before) AS [T2605][stock_before, MAX-stock_after] ) JOIN (
-      SELECT
-        input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
-      FROM
-        input1
-       )) AS [T2610][stock_before, MAX-stock_after, product_code, qty, stock_before1, stock_after, date]
-WHERE
-  [T2610].stock_before == [T2610].qty
-@anonymous
-[T2610].stock_before | [T2610].MAX-stock_after | [T2610].product_code | [T2610].qty | [T2610].stock_before1 | [T2610].stock_after | [T2610].date 
-1.0 | 1.0 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
-1.0 | 1.0 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
-
-[No.20]===============================
-SELECT
-  [T2760].qty,[T2760].date,[T2760].MAX-stock_before,[T2760].product_code,[T2760].qty1,[T2760].stock_before,[T2760].stock_after,[T2760].date1
-FROM
-  (( SELECT
-        [T2755].qty,[T2755].date,[T2755].MAX-stock_before
-      FROM
-        (SELECT
-            [T2754].qty, [T2754].date, MAX([T2754].stock_before)
-          FROM
-            (SELECT
-                input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
-              FROM
-                input1
-              WHERE
-                input1.date == Thu Jan 01 00:00:00 PST 2015) AS [T2754][product_code, qty, stock_before, stock_after, date]
-          GROUP BY
-            [T2754].qty  [T2754].date) AS [T2755][qty, date, MAX-stock_before] ) JOIN (
+            input1.qty  input1.stock_after  input1.date) AS [T309][qty, stock_after, date, MAX-stock_before]
+      WHERE
+        [T309].MAX-stock_before == [T309].qty ) JOIN (
       SELECT
         input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
       FROM
         input1
       WHERE
-        input1.qty == input1.stock_before )) AS [T2760][qty, date, MAX-stock_before, product_code, qty1, stock_before, stock_after, date1]
+        input1.date == Thu Jan 01 00:00:00 PST 2015 )) AS [T1572][qty, stock_after, date, MAX-stock_before, product_code, qty1, stock_before, stock_after1, date1]
 
 @anonymous
-[T2760].qty | [T2760].date | [T2760].MAX-stock_before | [T2760].product_code | [T2760].qty1 | [T2760].stock_before | [T2760].stock_after | [T2760].date1 
-0.0 | Thu Jan 01 00:00:00 PST 2015 | 1.0 | xpto1 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
-0.0 | Thu Jan 01 00:00:00 PST 2015 | 1.0 | xpto2 | 1.0 | 1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 
+[T1572].qty | [T1572].stock_after | [T1572].date | [T1572].MAX-stock_before | [T1572].product_code | [T1572].qty1 | [T1572].stock_before | [T1572].stock_after1 | [T1572].date1 
+1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 | 1.0 | xpto1 | 0.0 | 1.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 
+1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 | 1.0 | xpto2 | 0.0 | 1.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 
 
-[Consistent Table number] 1152
+[No.20]===============================
+SELECT
+  [T1574].qty,[T1574].stock_after,[T1574].date,[T1574].MAX-stock_before,[T1574].product_code,[T1574].qty1,[T1574].stock_before,[T1574].stock_after1,[T1574].date1
+FROM
+  (( SELECT
+        [T309].qty,[T309].stock_after,[T309].date,[T309].MAX-stock_before
+      FROM
+        (SELECT
+            input1.qty, input1.stock_after, input1.date, MAX(input1.stock_before)
+          FROM
+            input1
+          GROUP BY
+            input1.qty  input1.stock_after  input1.date) AS [T309][qty, stock_after, date, MAX-stock_before] ) JOIN (
+      SELECT
+        input1.product_code,input1.qty,input1.stock_before,input1.stock_after,input1.date
+      FROM
+        input1
+      WHERE
+        input1.date == Thu Jan 01 00:00:00 PST 2015 )) AS [T1574][qty, stock_after, date, MAX-stock_before, product_code, qty1, stock_before, stock_after1, date1]
+WHERE
+  [T1574].qty == [T1574].stock_before
+@anonymous
+[T1574].qty | [T1574].stock_after | [T1574].date | [T1574].MAX-stock_before | [T1574].product_code | [T1574].qty1 | [T1574].stock_before | [T1574].stock_after1 | [T1574].date1 
+1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 | 1.0 | xpto1 | 0.0 | 1.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 
+1.0 | 2.0 | Sun Feb 01 00:00:00 PST 2015 | 1.0 | xpto2 | 0.0 | 1.0 | 1.0 | Thu Jan 01 00:00:00 PST 2015 
+
+[Consistent Table number] 1212
 [Enumeration Finished]
-[[Synthesizer finished]] time: 00:00:53:260
-[[Synthesizer finished]] seconds: 53.26
-[avg reduction rate: syn filter / bit vector] 7.696404688139265
+[[Synthesizer finished]] time: 00:00:58:879
+[[Synthesizer finished]] seconds: 58.879
+[avg reduction rate: syn filter / bit vector] 7.687158070057104
 [avg reduction rate: compound filter / bit vector] NaN
 [avg compound filter count] NaN
 [max compound filter count] 0
-[avg PrimitiveFilterCount] 4.920967457188254
+[avg PrimitiveFilterCount] 4.87936655798789
 [max PrimitiveFilterCount] 8
-[avg LRFilterCount] 3.4619312482903255
+[avg LRFilterCount] 3.3623627086396266
 [max LRFilterCount] 23
-[avg decompose tree count] 98.97553924838782
+[avg decompose tree count] 97.40931852819507
 [max decomposeTreeCount] 8848

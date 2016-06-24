@@ -16,18 +16,9 @@ Candidates:
 18
 [No.1]===============================
 SELECT
-  [T144].customer,[T144].MAX-total,[T144].total,[T144].MIN-id
+  [T144].total,[T144].MIN-id,[T144].customer,[T144].MAX-total
 FROM
   (( SELECT
-        [T4].customer,[T4].MAX-total
-      FROM
-        (SELECT
-            input1.customer, MAX(input1.total)
-          FROM
-            input1
-          GROUP BY
-            input1.customer) AS [T4][customer, MAX-total] ) JOIN (
-      SELECT
         [T8].total,[T8].MIN-id
       FROM
         (SELECT
@@ -35,14 +26,23 @@ FROM
           FROM
             input1
           GROUP BY
-            input1.total) AS [T8][total, MIN-id]
-       )) AS [T144][customer, MAX-total, total, MIN-id]
+            input1.total) AS [T8][total, MIN-id] ) JOIN (
+      SELECT
+        [T4].customer,[T4].MAX-total
+      FROM
+        (SELECT
+            input1.customer, MAX(input1.total)
+          FROM
+            input1
+          GROUP BY
+            input1.customer) AS [T4][customer, MAX-total]
+       )) AS [T144][total, MIN-id, customer, MAX-total]
 WHERE
-  [T144].MAX-total == [T144].total
+  [T144].total == [T144].MAX-total
 @anonymous
-[T144].customer | [T144].MAX-total | [T144].total | [T144].MIN-id 
-Joe | 96.0 | 96.0 | 2.0 
-Sally | 93.0 | 93.0 | 5.0 
+[T144].total | [T144].MIN-id | [T144].customer | [T144].MAX-total 
+96.0 | 2.0 | Joe | 96.0 
+93.0 | 5.0 | Sally | 93.0 
 
 [No.2]===============================
 SELECT
@@ -76,37 +76,7 @@ Sally | 93.0 | 5.0 | Sally | 93.0
 
 [No.3]===============================
 SELECT
-  [T162].total,[T162].MIN-id,[T162].customer,[T162].MAX-total
-FROM
-  (( SELECT
-        [T8].total,[T8].MIN-id
-      FROM
-        (SELECT
-            input1.total, MIN(input1.id)
-          FROM
-            input1
-          GROUP BY
-            input1.total) AS [T8][total, MIN-id] ) JOIN (
-      SELECT
-        [T4].customer,[T4].MAX-total
-      FROM
-        (SELECT
-            input1.customer, MAX(input1.total)
-          FROM
-            input1
-          GROUP BY
-            input1.customer) AS [T4][customer, MAX-total]
-       )) AS [T162][total, MIN-id, customer, MAX-total]
-WHERE
-  [T162].total == [T162].MAX-total
-@anonymous
-[T162].total | [T162].MIN-id | [T162].customer | [T162].MAX-total 
-96.0 | 2.0 | Joe | 96.0 
-93.0 | 5.0 | Sally | 93.0 
-
-[No.4]===============================
-SELECT
-  [T166].customer,[T166].MAX-total,[T166].customer1,[T166].total,[T166].MIN-id
+  [T158].customer,[T158].MAX-total,[T158].customer1,[T158].total,[T158].MIN-id
 FROM
   (( SELECT
         [T4].customer,[T4].MAX-total
@@ -126,13 +96,43 @@ FROM
             input1
           GROUP BY
             input1.customer  input1.total) AS [T11][customer, total, MIN-id]
-       )) AS [T166][customer, MAX-total, customer1, total, MIN-id]
+       )) AS [T158][customer, MAX-total, customer1, total, MIN-id]
 WHERE
-  [T166].MAX-total == [T166].total
+  [T158].MAX-total == [T158].total
 @anonymous
-[T166].customer | [T166].MAX-total | [T166].customer1 | [T166].total | [T166].MIN-id 
+[T158].customer | [T158].MAX-total | [T158].customer1 | [T158].total | [T158].MIN-id 
 Joe | 96.0 | Joe | 96.0 | 2.0 
 Sally | 93.0 | Sally | 93.0 | 5.0 
+
+[No.4]===============================
+SELECT
+  [T172].customer,[T172].MAX-total,[T172].total,[T172].MIN-id
+FROM
+  (( SELECT
+        [T4].customer,[T4].MAX-total
+      FROM
+        (SELECT
+            input1.customer, MAX(input1.total)
+          FROM
+            input1
+          GROUP BY
+            input1.customer) AS [T4][customer, MAX-total] ) JOIN (
+      SELECT
+        [T8].total,[T8].MIN-id
+      FROM
+        (SELECT
+            input1.total, MIN(input1.id)
+          FROM
+            input1
+          GROUP BY
+            input1.total) AS [T8][total, MIN-id]
+       )) AS [T172][customer, MAX-total, total, MIN-id]
+WHERE
+  [T172].MAX-total == [T172].total
+@anonymous
+[T172].customer | [T172].MAX-total | [T172].total | [T172].MIN-id 
+Joe | 96.0 | 96.0 | 2.0 
+Sally | 93.0 | 93.0 | 5.0 
 
 [No.5]===============================
 SELECT
@@ -167,7 +167,7 @@ Sally | 93.0 | 5.0 | Sally | 93.0
 
 [No.6]===============================
 SELECT
-  [T168].customer,[T168].MAX-total,[T168].customer1,[T168].total,[T168].MIN-id
+  [T160].customer,[T160].MAX-total,[T160].customer1,[T160].total,[T160].MIN-id
 FROM
   (( SELECT
         [T4].customer,[T4].MAX-total
@@ -187,12 +187,12 @@ FROM
             input1
           GROUP BY
             input1.customer  input1.total) AS [T11][customer, total, MIN-id]
-       )) AS [T168][customer, MAX-total, customer1, total, MIN-id]
+       )) AS [T160][customer, MAX-total, customer1, total, MIN-id]
 WHERE
-  [T168].MAX-total == [T168].total
-   AND [T168].customer == [T168].customer1
+  [T160].MAX-total == [T160].total
+   AND [T160].customer == [T160].customer1
 @anonymous
-[T168].customer | [T168].MAX-total | [T168].customer1 | [T168].total | [T168].MIN-id 
+[T160].customer | [T160].MAX-total | [T160].customer1 | [T160].total | [T160].MIN-id 
 Joe | 96.0 | Joe | 96.0 | 2.0 
 Sally | 93.0 | Sally | 93.0 | 5.0 
 
@@ -229,7 +229,7 @@ Sally | 93.0 | 5.0 | Sally | 93.0
 
 [No.8]===============================
 SELECT
-  [T170].customer,[T170].MAX-total,[T170].customer1,[T170].total,[T170].MIN-id
+  [T162].customer,[T162].MAX-total,[T162].customer1,[T162].total,[T162].MIN-id
 FROM
   (( SELECT
         [T4].customer,[T4].MAX-total
@@ -249,29 +249,20 @@ FROM
             input1
           GROUP BY
             input1.customer  input1.total) AS [T11][customer, total, MIN-id]
-       )) AS [T170][customer, MAX-total, customer1, total, MIN-id]
+       )) AS [T162][customer, MAX-total, customer1, total, MIN-id]
 WHERE
-  [T170].MAX-total <= [T170].total
-   AND [T170].customer == [T170].customer1
+  [T162].MAX-total <= [T162].total
+   AND [T162].customer == [T162].customer1
 @anonymous
-[T170].customer | [T170].MAX-total | [T170].customer1 | [T170].total | [T170].MIN-id 
+[T162].customer | [T162].MAX-total | [T162].customer1 | [T162].total | [T162].MIN-id 
 Joe | 96.0 | Joe | 96.0 | 2.0 
 Sally | 93.0 | Sally | 93.0 | 5.0 
 
 [No.9]===============================
 SELECT
-  [T140].customer,[T140].MAX-total,[T140].total,[T140].MIN-id
+  [T140].total,[T140].MIN-id,[T140].customer,[T140].MAX-total
 FROM
   (( SELECT
-        [T4].customer,[T4].MAX-total
-      FROM
-        (SELECT
-            input1.customer, MAX(input1.total)
-          FROM
-            input1
-          GROUP BY
-            input1.customer) AS [T4][customer, MAX-total] ) JOIN (
-      SELECT
         [T8].total,[T8].MIN-id
       FROM
         (SELECT
@@ -279,30 +270,30 @@ FROM
           FROM
             input1
           GROUP BY
-            input1.total) AS [T8][total, MIN-id]
-       )) AS [T140][customer, MAX-total, total, MIN-id]
+            input1.total) AS [T8][total, MIN-id] ) JOIN (
+      SELECT
+        [T4].customer,[T4].MAX-total
+      FROM
+        (SELECT
+            input1.customer, MAX(input1.total)
+          FROM
+            input1
+          GROUP BY
+            input1.customer) AS [T4][customer, MAX-total]
+       )) AS [T140][total, MIN-id, customer, MAX-total]
 WHERE
-  [T140].MAX-total == [T140].total
-   AND [T140].MAX-total >= [T140].total
+  [T140].total == [T140].MAX-total
+   AND [T140].total >= [T140].MAX-total
 @anonymous
-[T140].customer | [T140].MAX-total | [T140].total | [T140].MIN-id 
-Joe | 96.0 | 96.0 | 2.0 
-Sally | 93.0 | 93.0 | 5.0 
+[T140].total | [T140].MIN-id | [T140].customer | [T140].MAX-total 
+96.0 | 2.0 | Joe | 96.0 
+93.0 | 5.0 | Sally | 93.0 
 
 [No.10]===============================
 SELECT
-  [T146].customer,[T146].MAX-total,[T146].total,[T146].MIN-id
+  [T142].total,[T142].MIN-id,[T142].customer,[T142].MAX-total
 FROM
   (( SELECT
-        [T4].customer,[T4].MAX-total
-      FROM
-        (SELECT
-            input1.customer, MAX(input1.total)
-          FROM
-            input1
-          GROUP BY
-            input1.customer) AS [T4][customer, MAX-total] ) JOIN (
-      SELECT
         [T8].total,[T8].MIN-id
       FROM
         (SELECT
@@ -310,15 +301,24 @@ FROM
           FROM
             input1
           GROUP BY
-            input1.total) AS [T8][total, MIN-id]
-       )) AS [T146][customer, MAX-total, total, MIN-id]
+            input1.total) AS [T8][total, MIN-id] ) JOIN (
+      SELECT
+        [T4].customer,[T4].MAX-total
+      FROM
+        (SELECT
+            input1.customer, MAX(input1.total)
+          FROM
+            input1
+          GROUP BY
+            input1.customer) AS [T4][customer, MAX-total]
+       )) AS [T142][total, MIN-id, customer, MAX-total]
 WHERE
-  [T146].MAX-total == [T146].total
-   AND [T146].MAX-total <= [T146].total
+  [T142].total == [T142].MAX-total
+   AND [T142].total <= [T142].MAX-total
 @anonymous
-[T146].customer | [T146].MAX-total | [T146].total | [T146].MIN-id 
-Joe | 96.0 | 96.0 | 2.0 
-Sally | 93.0 | 93.0 | 5.0 
+[T142].total | [T142].MIN-id | [T142].customer | [T142].MAX-total 
+96.0 | 2.0 | Joe | 96.0 
+93.0 | 5.0 | Sally | 93.0 
 
 [No.11]===============================
 SELECT
@@ -384,18 +384,9 @@ Sally | 93.0 | 5.0 | Sally | 93.0
 
 [No.13]===============================
 SELECT
-  [T158].total,[T158].MIN-id,[T158].customer,[T158].MAX-total
+  [T164].customer,[T164].MAX-total,[T164].customer1,[T164].total,[T164].MIN-id
 FROM
   (( SELECT
-        [T8].total,[T8].MIN-id
-      FROM
-        (SELECT
-            input1.total, MIN(input1.id)
-          FROM
-            input1
-          GROUP BY
-            input1.total) AS [T8][total, MIN-id] ) JOIN (
-      SELECT
         [T4].customer,[T4].MAX-total
       FROM
         (SELECT
@@ -403,30 +394,30 @@ FROM
           FROM
             input1
           GROUP BY
-            input1.customer) AS [T4][customer, MAX-total]
-       )) AS [T158][total, MIN-id, customer, MAX-total]
+            input1.customer) AS [T4][customer, MAX-total] ) JOIN (
+      SELECT
+        [T11].customer,[T11].total,[T11].MIN-id
+      FROM
+        (SELECT
+            input1.customer, input1.total, MIN(input1.id)
+          FROM
+            input1
+          GROUP BY
+            input1.customer  input1.total) AS [T11][customer, total, MIN-id]
+       )) AS [T164][customer, MAX-total, customer1, total, MIN-id]
 WHERE
-  [T158].total == [T158].MAX-total
-   AND [T158].total >= [T158].MAX-total
+  [T164].MAX-total == [T164].total
+   AND [T164].MAX-total >= [T164].total
 @anonymous
-[T158].total | [T158].MIN-id | [T158].customer | [T158].MAX-total 
-96.0 | 2.0 | Joe | 96.0 
-93.0 | 5.0 | Sally | 93.0 
+[T164].customer | [T164].MAX-total | [T164].customer1 | [T164].total | [T164].MIN-id 
+Joe | 96.0 | Joe | 96.0 | 2.0 
+Sally | 93.0 | Sally | 93.0 | 5.0 
 
 [No.14]===============================
 SELECT
-  [T160].total,[T160].MIN-id,[T160].customer,[T160].MAX-total
+  [T166].customer,[T166].MAX-total,[T166].customer1,[T166].total,[T166].MIN-id
 FROM
   (( SELECT
-        [T8].total,[T8].MIN-id
-      FROM
-        (SELECT
-            input1.total, MIN(input1.id)
-          FROM
-            input1
-          GROUP BY
-            input1.total) AS [T8][total, MIN-id] ) JOIN (
-      SELECT
         [T4].customer,[T4].MAX-total
       FROM
         (SELECT
@@ -434,81 +425,28 @@ FROM
           FROM
             input1
           GROUP BY
-            input1.customer) AS [T4][customer, MAX-total]
-       )) AS [T160][total, MIN-id, customer, MAX-total]
+            input1.customer) AS [T4][customer, MAX-total] ) JOIN (
+      SELECT
+        [T11].customer,[T11].total,[T11].MIN-id
+      FROM
+        (SELECT
+            input1.customer, input1.total, MIN(input1.id)
+          FROM
+            input1
+          GROUP BY
+            input1.customer  input1.total) AS [T11][customer, total, MIN-id]
+       )) AS [T166][customer, MAX-total, customer1, total, MIN-id]
 WHERE
-  [T160].total == [T160].MAX-total
-   AND [T160].total <= [T160].MAX-total
+  [T166].MAX-total == [T166].total
+   AND [T166].MAX-total <= [T166].total
 @anonymous
-[T160].total | [T160].MIN-id | [T160].customer | [T160].MAX-total 
-96.0 | 2.0 | Joe | 96.0 
-93.0 | 5.0 | Sally | 93.0 
+[T166].customer | [T166].MAX-total | [T166].customer1 | [T166].total | [T166].MIN-id 
+Joe | 96.0 | Joe | 96.0 | 2.0 
+Sally | 93.0 | Sally | 93.0 | 5.0 
 
 [No.15]===============================
 SELECT
-  [T172].customer,[T172].MAX-total,[T172].customer1,[T172].total,[T172].MIN-id
-FROM
-  (( SELECT
-        [T4].customer,[T4].MAX-total
-      FROM
-        (SELECT
-            input1.customer, MAX(input1.total)
-          FROM
-            input1
-          GROUP BY
-            input1.customer) AS [T4][customer, MAX-total] ) JOIN (
-      SELECT
-        [T11].customer,[T11].total,[T11].MIN-id
-      FROM
-        (SELECT
-            input1.customer, input1.total, MIN(input1.id)
-          FROM
-            input1
-          GROUP BY
-            input1.customer  input1.total) AS [T11][customer, total, MIN-id]
-       )) AS [T172][customer, MAX-total, customer1, total, MIN-id]
-WHERE
-  [T172].MAX-total == [T172].total
-   AND [T172].MAX-total >= [T172].total
-@anonymous
-[T172].customer | [T172].MAX-total | [T172].customer1 | [T172].total | [T172].MIN-id 
-Joe | 96.0 | Joe | 96.0 | 2.0 
-Sally | 93.0 | Sally | 93.0 | 5.0 
-
-[No.16]===============================
-SELECT
-  [T174].customer,[T174].MAX-total,[T174].customer1,[T174].total,[T174].MIN-id
-FROM
-  (( SELECT
-        [T4].customer,[T4].MAX-total
-      FROM
-        (SELECT
-            input1.customer, MAX(input1.total)
-          FROM
-            input1
-          GROUP BY
-            input1.customer) AS [T4][customer, MAX-total] ) JOIN (
-      SELECT
-        [T11].customer,[T11].total,[T11].MIN-id
-      FROM
-        (SELECT
-            input1.customer, input1.total, MIN(input1.id)
-          FROM
-            input1
-          GROUP BY
-            input1.customer  input1.total) AS [T11][customer, total, MIN-id]
-       )) AS [T174][customer, MAX-total, customer1, total, MIN-id]
-WHERE
-  [T174].MAX-total == [T174].total
-   AND [T174].MAX-total <= [T174].total
-@anonymous
-[T174].customer | [T174].MAX-total | [T174].customer1 | [T174].total | [T174].MIN-id 
-Joe | 96.0 | Joe | 96.0 | 2.0 
-Sally | 93.0 | Sally | 93.0 | 5.0 
-
-[No.17]===============================
-SELECT
-  [T142].customer,[T142].MAX-total,[T142].total,[T142].MIN-id
+  [T168].customer,[T168].MAX-total,[T168].total,[T168].MIN-id
 FROM
   (( SELECT
         [T4].customer,[T4].MAX-total
@@ -528,18 +466,49 @@ FROM
             input1
           GROUP BY
             input1.total) AS [T8][total, MIN-id]
-       )) AS [T142][customer, MAX-total, total, MIN-id]
+       )) AS [T168][customer, MAX-total, total, MIN-id]
 WHERE
-  [T142].MAX-total <= [T142].total
-   AND [T142].MAX-total >= [T142].total
+  [T168].MAX-total == [T168].total
+   AND [T168].MAX-total >= [T168].total
 @anonymous
-[T142].customer | [T142].MAX-total | [T142].total | [T142].MIN-id 
+[T168].customer | [T168].MAX-total | [T168].total | [T168].MIN-id 
 Joe | 96.0 | 96.0 | 2.0 
 Sally | 93.0 | 93.0 | 5.0 
 
-[No.18]===============================
+[No.16]===============================
 SELECT
-  [T164].total,[T164].MIN-id,[T164].customer,[T164].MAX-total
+  [T174].customer,[T174].MAX-total,[T174].total,[T174].MIN-id
+FROM
+  (( SELECT
+        [T4].customer,[T4].MAX-total
+      FROM
+        (SELECT
+            input1.customer, MAX(input1.total)
+          FROM
+            input1
+          GROUP BY
+            input1.customer) AS [T4][customer, MAX-total] ) JOIN (
+      SELECT
+        [T8].total,[T8].MIN-id
+      FROM
+        (SELECT
+            input1.total, MIN(input1.id)
+          FROM
+            input1
+          GROUP BY
+            input1.total) AS [T8][total, MIN-id]
+       )) AS [T174][customer, MAX-total, total, MIN-id]
+WHERE
+  [T174].MAX-total == [T174].total
+   AND [T174].MAX-total <= [T174].total
+@anonymous
+[T174].customer | [T174].MAX-total | [T174].total | [T174].MIN-id 
+Joe | 96.0 | 96.0 | 2.0 
+Sally | 93.0 | 93.0 | 5.0 
+
+[No.17]===============================
+SELECT
+  [T146].total,[T146].MIN-id,[T146].customer,[T146].MAX-total
 FROM
   (( SELECT
         [T8].total,[T8].MIN-id
@@ -559,23 +528,54 @@ FROM
             input1
           GROUP BY
             input1.customer) AS [T4][customer, MAX-total]
-       )) AS [T164][total, MIN-id, customer, MAX-total]
+       )) AS [T146][total, MIN-id, customer, MAX-total]
 WHERE
-  [T164].total >= [T164].MAX-total
-   AND [T164].total <= [T164].MAX-total
+  [T146].total >= [T146].MAX-total
+   AND [T146].total <= [T146].MAX-total
 @anonymous
-[T164].total | [T164].MIN-id | [T164].customer | [T164].MAX-total 
+[T146].total | [T146].MIN-id | [T146].customer | [T146].MAX-total 
 96.0 | 2.0 | Joe | 96.0 
 93.0 | 5.0 | Sally | 93.0 
 
+[No.18]===============================
+SELECT
+  [T170].customer,[T170].MAX-total,[T170].total,[T170].MIN-id
+FROM
+  (( SELECT
+        [T4].customer,[T4].MAX-total
+      FROM
+        (SELECT
+            input1.customer, MAX(input1.total)
+          FROM
+            input1
+          GROUP BY
+            input1.customer) AS [T4][customer, MAX-total] ) JOIN (
+      SELECT
+        [T8].total,[T8].MIN-id
+      FROM
+        (SELECT
+            input1.total, MIN(input1.id)
+          FROM
+            input1
+          GROUP BY
+            input1.total) AS [T8][total, MIN-id]
+       )) AS [T170][customer, MAX-total, total, MIN-id]
+WHERE
+  [T170].MAX-total <= [T170].total
+   AND [T170].MAX-total >= [T170].total
+@anonymous
+[T170].customer | [T170].MAX-total | [T170].total | [T170].MIN-id 
+Joe | 96.0 | 96.0 | 2.0 
+Sally | 93.0 | 93.0 | 5.0 
+
 [Consistent Table number] 4
 [Enumeration Finished]
-[[Synthesizer finished]] time: 00:00:02:406
-[[Synthesizer finished]] seconds: 2.406
-[avg reduction rate: syn filter / bit vector] 2.537836965967397
-[avg reduction rate: compound filter / bit vector] 2.7407407429483204
-[avg compound filter count] 55.111111111111114
-[max compound filter count] 184
+[[Synthesizer finished]] time: 00:00:02:285
+[[Synthesizer finished]] seconds: 2.285
+[avg reduction rate: syn filter / bit vector] 2.4971645650316456
+[avg reduction rate: compound filter / bit vector] 2.7777777777777777
+[avg compound filter count] 59.888888888888886
+[max compound filter count] 196
 [avg PrimitiveFilterCount] NaN
 [max PrimitiveFilterCount] 0
 [avg LRFilterCount] 1.3333333333333333

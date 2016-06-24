@@ -1,0 +1,837 @@
+================
+[[Synthesizer start]] data/benchmarks/054
+[Enumerator Type] SymbolicTableEnumerator
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[FiltersCount format](primitiveSynFilterCount, primitiveBitVecFilterCount, totalBitVecFiltersCount)
+[Basic]: 1 [SymTableForInputs]: 1
+[Aggregation]: 26 [SymTable]: 27
+[EnumJoin] level 1 [SymTable]: 54
+[EnumJoin] level 2 [SymTable]: 81
+[EnumJoinOnAggr] level 1 [SymTable]: 810
+[EnumJoinOnAggr] level 2 [SymTable]: 20493
+stored cnt / visited compound cnt 52 / 1000(1472) = 0.052
+stored cnt / visited compound cnt 52 / 1000(1472) = 0.052
+ASymTable Enumeration done: 20493
+Runner ups: 12
+Candidates: 
+60
+[No.1]===============================
+SELECT
+  [T492].Person,[T492].SUM-Time,[T492].Person1,[T492].MAX-Value,[T492].Uniq,[T492].Value,[T492].Time,[T492].Person2
+FROM
+  (( SELECT
+        [T490].Person,[T490].SUM-Time,[T490].Person1,[T490].MAX-Value
+      FROM
+        (( SELECT
+              [T20].Person,[T20].SUM-Time
+            FROM
+              (SELECT
+                  input1.Person, SUM(input1.Time)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T20][Person, SUM-Time] ) JOIN (
+            SELECT
+              [T17].Person,[T17].MAX-Value
+            FROM
+              (SELECT
+                  input1.Person, MAX(input1.Value)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T17][Person, MAX-Value]
+             )) AS [T490][Person, SUM-Time, Person1, MAX-Value] ) JOIN (
+      SELECT
+        input1.Uniq,input1.Value,input1.Time,input1.Person
+      FROM
+        input1
+       )) AS [T492][Person, SUM-Time, Person1, MAX-Value, Uniq, Value, Time, Person2]
+WHERE
+  [T492].MAX-Value == [T492].Value
+   AND [T492].Person == [T492].Person2
+@anonymous
+[T492].Person | [T492].SUM-Time | [T492].Person1 | [T492].MAX-Value | [T492].Uniq | [T492].Value | [T492].Time | [T492].Person2 
+Bob | 350.0 | Bob | 999.0 | 5.0 | 999.0 | 0.0 | Bob 
+Claire | 135.0 | Claire | 994.0 | 3.0 | 994.0 | 45.0 | Claire 
+
+[No.2]===============================
+SELECT
+  [T496].Person,[T496].SUM-Time,[T496].Person1,[T496].MAX-Value,[T496].Uniq,[T496].Value,[T496].Time,[T496].Person2
+FROM
+  (( SELECT
+        [T494].Person,[T494].SUM-Time,[T494].Person1,[T494].MAX-Value
+      FROM
+        (( SELECT
+              [T20].Person,[T20].SUM-Time
+            FROM
+              (SELECT
+                  input1.Person, SUM(input1.Time)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T20][Person, SUM-Time] ) JOIN (
+            SELECT
+              [T17].Person,[T17].MAX-Value
+            FROM
+              (SELECT
+                  input1.Person, MAX(input1.Value)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T17][Person, MAX-Value]
+             )) AS [T494][Person, SUM-Time, Person1, MAX-Value]
+      WHERE
+        [T494].Person == [T494].Person1 ) JOIN (
+      SELECT
+        input1.Uniq,input1.Value,input1.Time,input1.Person
+      FROM
+        input1
+       )) AS [T496][Person, SUM-Time, Person1, MAX-Value, Uniq, Value, Time, Person2]
+WHERE
+  [T496].MAX-Value == [T496].Value
+@anonymous
+[T496].Person | [T496].SUM-Time | [T496].Person1 | [T496].MAX-Value | [T496].Uniq | [T496].Value | [T496].Time | [T496].Person2 
+Bob | 350.0 | Bob | 999.0 | 5.0 | 999.0 | 0.0 | Bob 
+Claire | 135.0 | Claire | 994.0 | 3.0 | 994.0 | 45.0 | Claire 
+
+[No.3]===============================
+SELECT
+  [T542].Person,[T542].MAX-Value,[T542].Uniq,[T542].Value,[T542].Time,[T542].Person1,[T542].Person2,[T542].SUM-Time
+FROM
+  (( SELECT
+        [T540].Person,[T540].MAX-Value,[T540].Uniq,[T540].Value,[T540].Time,[T540].Person1
+      FROM
+        (( SELECT
+              [T17].Person,[T17].MAX-Value
+            FROM
+              (SELECT
+                  input1.Person, MAX(input1.Value)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T17][Person, MAX-Value] ) JOIN (
+            SELECT
+              input1.Uniq,input1.Value,input1.Time,input1.Person
+            FROM
+              input1
+             )) AS [T540][Person, MAX-Value, Uniq, Value, Time, Person1]
+      WHERE
+        [T540].MAX-Value == [T540].Value ) JOIN (
+      SELECT
+        [T20].Person,[T20].SUM-Time
+      FROM
+        (SELECT
+            input1.Person, SUM(input1.Time)
+          FROM
+            input1
+          GROUP BY
+            input1.Person) AS [T20][Person, SUM-Time]
+       )) AS [T542][Person, MAX-Value, Uniq, Value, Time, Person1, Person2, SUM-Time]
+WHERE
+  [T542].Person1 == [T542].Person2
+@anonymous
+[T542].Person | [T542].MAX-Value | [T542].Uniq | [T542].Value | [T542].Time | [T542].Person1 | [T542].Person2 | [T542].SUM-Time 
+Bob | 999.0 | 5.0 | 999.0 | 0.0 | Bob | Bob | 350.0 
+Claire | 994.0 | 3.0 | 994.0 | 45.0 | Claire | Claire | 135.0 
+
+[No.4]===============================
+SELECT
+  [T546].Person,[T546].MAX-Value,[T546].Uniq,[T546].Value,[T546].Time,[T546].Person1,[T546].Person2,[T546].SUM-Time
+FROM
+  (( SELECT
+        [T544].Person,[T544].MAX-Value,[T544].Uniq,[T544].Value,[T544].Time,[T544].Person1
+      FROM
+        (( SELECT
+              [T17].Person,[T17].MAX-Value
+            FROM
+              (SELECT
+                  input1.Person, MAX(input1.Value)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T17][Person, MAX-Value] ) JOIN (
+            SELECT
+              input1.Uniq,input1.Value,input1.Time,input1.Person
+            FROM
+              input1
+             )) AS [T544][Person, MAX-Value, Uniq, Value, Time, Person1]
+      WHERE
+        [T544].MAX-Value == [T544].Value ) JOIN (
+      SELECT
+        [T20].Person,[T20].SUM-Time
+      FROM
+        (SELECT
+            input1.Person, SUM(input1.Time)
+          FROM
+            input1
+          GROUP BY
+            input1.Person) AS [T20][Person, SUM-Time]
+       )) AS [T546][Person, MAX-Value, Uniq, Value, Time, Person1, Person2, SUM-Time]
+WHERE
+  [T546].Person == [T546].Person2
+@anonymous
+[T546].Person | [T546].MAX-Value | [T546].Uniq | [T546].Value | [T546].Time | [T546].Person1 | [T546].Person2 | [T546].SUM-Time 
+Bob | 999.0 | 5.0 | 999.0 | 0.0 | Bob | Bob | 350.0 
+Claire | 994.0 | 3.0 | 994.0 | 45.0 | Claire | Claire | 135.0 
+
+[No.5]===============================
+SELECT
+  [T592].Person,[T592].MAX-Value,[T592].Person1,[T592].SUM-Time,[T592].Uniq,[T592].Value,[T592].Time,[T592].Person2
+FROM
+  (( SELECT
+        [T590].Person,[T590].MAX-Value,[T590].Person1,[T590].SUM-Time
+      FROM
+        (( SELECT
+              [T17].Person,[T17].MAX-Value
+            FROM
+              (SELECT
+                  input1.Person, MAX(input1.Value)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T17][Person, MAX-Value] ) JOIN (
+            SELECT
+              [T20].Person,[T20].SUM-Time
+            FROM
+              (SELECT
+                  input1.Person, SUM(input1.Time)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T20][Person, SUM-Time]
+             )) AS [T590][Person, MAX-Value, Person1, SUM-Time] ) JOIN (
+      SELECT
+        input1.Uniq,input1.Value,input1.Time,input1.Person
+      FROM
+        input1
+       )) AS [T592][Person, MAX-Value, Person1, SUM-Time, Uniq, Value, Time, Person2]
+WHERE
+  [T592].MAX-Value == [T592].Value
+   AND [T592].Person1 == [T592].Person2
+@anonymous
+[T592].Person | [T592].MAX-Value | [T592].Person1 | [T592].SUM-Time | [T592].Uniq | [T592].Value | [T592].Time | [T592].Person2 
+Bob | 999.0 | Bob | 350.0 | 5.0 | 999.0 | 0.0 | Bob 
+Claire | 994.0 | Claire | 135.0 | 3.0 | 994.0 | 45.0 | Claire 
+
+[No.6]===============================
+SELECT
+  [T596].Person,[T596].MAX-Value,[T596].Person1,[T596].SUM-Time,[T596].Uniq,[T596].Value,[T596].Time,[T596].Person2
+FROM
+  (( SELECT
+        [T594].Person,[T594].MAX-Value,[T594].Person1,[T594].SUM-Time
+      FROM
+        (( SELECT
+              [T17].Person,[T17].MAX-Value
+            FROM
+              (SELECT
+                  input1.Person, MAX(input1.Value)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T17][Person, MAX-Value] ) JOIN (
+            SELECT
+              [T20].Person,[T20].SUM-Time
+            FROM
+              (SELECT
+                  input1.Person, SUM(input1.Time)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T20][Person, SUM-Time]
+             )) AS [T594][Person, MAX-Value, Person1, SUM-Time]
+      WHERE
+        [T594].Person == [T594].Person1 ) JOIN (
+      SELECT
+        input1.Uniq,input1.Value,input1.Time,input1.Person
+      FROM
+        input1
+       )) AS [T596][Person, MAX-Value, Person1, SUM-Time, Uniq, Value, Time, Person2]
+WHERE
+  [T596].MAX-Value == [T596].Value
+@anonymous
+[T596].Person | [T596].MAX-Value | [T596].Person1 | [T596].SUM-Time | [T596].Uniq | [T596].Value | [T596].Time | [T596].Person2 
+Bob | 999.0 | Bob | 350.0 | 5.0 | 999.0 | 0.0 | Bob 
+Claire | 994.0 | Claire | 135.0 | 3.0 | 994.0 | 45.0 | Claire 
+
+[No.7]===============================
+SELECT
+  [T732].Uniq,[T732].Value,[T732].Time,[T732].Person,[T732].Person1,[T732].SUM-Time,[T732].Person2,[T732].MAX-Value
+FROM
+  (( SELECT
+        [T730].Uniq,[T730].Value,[T730].Time,[T730].Person,[T730].Person1,[T730].SUM-Time
+      FROM
+        (( SELECT
+              input1.Uniq,input1.Value,input1.Time,input1.Person
+            FROM
+              input1 ) JOIN (
+            SELECT
+              [T20].Person,[T20].SUM-Time
+            FROM
+              (SELECT
+                  input1.Person, SUM(input1.Time)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T20][Person, SUM-Time]
+             )) AS [T730][Uniq, Value, Time, Person, Person1, SUM-Time]
+      WHERE
+        [T730].Person == [T730].Person1 ) JOIN (
+      SELECT
+        [T17].Person,[T17].MAX-Value
+      FROM
+        (SELECT
+            input1.Person, MAX(input1.Value)
+          FROM
+            input1
+          GROUP BY
+            input1.Person) AS [T17][Person, MAX-Value]
+       )) AS [T732][Uniq, Value, Time, Person, Person1, SUM-Time, Person2, MAX-Value]
+WHERE
+  [T732].Value == [T732].MAX-Value
+@anonymous
+[T732].Uniq | [T732].Value | [T732].Time | [T732].Person | [T732].Person1 | [T732].SUM-Time | [T732].Person2 | [T732].MAX-Value 
+5.0 | 999.0 | 0.0 | Bob | Bob | 350.0 | Bob | 999.0 
+3.0 | 994.0 | 45.0 | Claire | Claire | 135.0 | Claire | 994.0 
+
+[No.8]===============================
+SELECT
+  [T736].Uniq,[T736].Value,[T736].Time,[T736].Person,[T736].Person1,[T736].SUM-Time,[T736].Person2,[T736].MAX-Value
+FROM
+  (( SELECT
+        [T734].Uniq,[T734].Value,[T734].Time,[T734].Person,[T734].Person1,[T734].SUM-Time
+      FROM
+        (( SELECT
+              input1.Uniq,input1.Value,input1.Time,input1.Person
+            FROM
+              input1 ) JOIN (
+            SELECT
+              [T20].Person,[T20].SUM-Time
+            FROM
+              (SELECT
+                  input1.Person, SUM(input1.Time)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T20][Person, SUM-Time]
+             )) AS [T734][Uniq, Value, Time, Person, Person1, SUM-Time] ) JOIN (
+      SELECT
+        [T17].Person,[T17].MAX-Value
+      FROM
+        (SELECT
+            input1.Person, MAX(input1.Value)
+          FROM
+            input1
+          GROUP BY
+            input1.Person) AS [T17][Person, MAX-Value]
+       )) AS [T736][Uniq, Value, Time, Person, Person1, SUM-Time, Person2, MAX-Value]
+WHERE
+  [T736].Person1 == [T736].Person2
+   AND [T736].Value == [T736].MAX-Value
+@anonymous
+[T736].Uniq | [T736].Value | [T736].Time | [T736].Person | [T736].Person1 | [T736].SUM-Time | [T736].Person2 | [T736].MAX-Value 
+5.0 | 999.0 | 0.0 | Bob | Bob | 350.0 | Bob | 999.0 
+3.0 | 994.0 | 45.0 | Claire | Claire | 135.0 | Claire | 994.0 
+
+[No.9]===============================
+SELECT
+  [T752].Uniq,[T752].Value,[T752].Time,[T752].Person,[T752].Person1,[T752].MAX-Value,[T752].Person2,[T752].SUM-Time
+FROM
+  (( SELECT
+        [T750].Uniq,[T750].Value,[T750].Time,[T750].Person,[T750].Person1,[T750].MAX-Value
+      FROM
+        (( SELECT
+              input1.Uniq,input1.Value,input1.Time,input1.Person
+            FROM
+              input1 ) JOIN (
+            SELECT
+              [T17].Person,[T17].MAX-Value
+            FROM
+              (SELECT
+                  input1.Person, MAX(input1.Value)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T17][Person, MAX-Value]
+             )) AS [T750][Uniq, Value, Time, Person, Person1, MAX-Value]
+      WHERE
+        [T750].Value == [T750].MAX-Value ) JOIN (
+      SELECT
+        [T20].Person,[T20].SUM-Time
+      FROM
+        (SELECT
+            input1.Person, SUM(input1.Time)
+          FROM
+            input1
+          GROUP BY
+            input1.Person) AS [T20][Person, SUM-Time]
+       )) AS [T752][Uniq, Value, Time, Person, Person1, MAX-Value, Person2, SUM-Time]
+WHERE
+  [T752].Person1 == [T752].Person2
+@anonymous
+[T752].Uniq | [T752].Value | [T752].Time | [T752].Person | [T752].Person1 | [T752].MAX-Value | [T752].Person2 | [T752].SUM-Time 
+5.0 | 999.0 | 0.0 | Bob | Bob | 999.0 | Bob | 350.0 
+3.0 | 994.0 | 45.0 | Claire | Claire | 994.0 | Claire | 135.0 
+
+[No.10]===============================
+SELECT
+  [T756].Uniq,[T756].Value,[T756].Time,[T756].Person,[T756].Person1,[T756].MAX-Value,[T756].Person2,[T756].SUM-Time
+FROM
+  (( SELECT
+        [T754].Uniq,[T754].Value,[T754].Time,[T754].Person,[T754].Person1,[T754].MAX-Value
+      FROM
+        (( SELECT
+              input1.Uniq,input1.Value,input1.Time,input1.Person
+            FROM
+              input1 ) JOIN (
+            SELECT
+              [T17].Person,[T17].MAX-Value
+            FROM
+              (SELECT
+                  input1.Person, MAX(input1.Value)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T17][Person, MAX-Value]
+             )) AS [T754][Uniq, Value, Time, Person, Person1, MAX-Value]
+      WHERE
+        [T754].Value == [T754].MAX-Value ) JOIN (
+      SELECT
+        [T20].Person,[T20].SUM-Time
+      FROM
+        (SELECT
+            input1.Person, SUM(input1.Time)
+          FROM
+            input1
+          GROUP BY
+            input1.Person) AS [T20][Person, SUM-Time]
+       )) AS [T756][Uniq, Value, Time, Person, Person1, MAX-Value, Person2, SUM-Time]
+WHERE
+  [T756].Person == [T756].Person2
+@anonymous
+[T756].Uniq | [T756].Value | [T756].Time | [T756].Person | [T756].Person1 | [T756].MAX-Value | [T756].Person2 | [T756].SUM-Time 
+5.0 | 999.0 | 0.0 | Bob | Bob | 999.0 | Bob | 350.0 
+3.0 | 994.0 | 45.0 | Claire | Claire | 994.0 | Claire | 135.0 
+
+[No.11]===============================
+SELECT
+  [T772].Person,[T772].SUM-Time,[T772].Uniq,[T772].Value,[T772].Time,[T772].Person1,[T772].Person2,[T772].MAX-Value
+FROM
+  (( SELECT
+        [T770].Person,[T770].SUM-Time,[T770].Uniq,[T770].Value,[T770].Time,[T770].Person1
+      FROM
+        (( SELECT
+              [T20].Person,[T20].SUM-Time
+            FROM
+              (SELECT
+                  input1.Person, SUM(input1.Time)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T20][Person, SUM-Time] ) JOIN (
+            SELECT
+              input1.Uniq,input1.Value,input1.Time,input1.Person
+            FROM
+              input1
+             )) AS [T770][Person, SUM-Time, Uniq, Value, Time, Person1]
+      WHERE
+        [T770].Person == [T770].Person1 ) JOIN (
+      SELECT
+        [T17].Person,[T17].MAX-Value
+      FROM
+        (SELECT
+            input1.Person, MAX(input1.Value)
+          FROM
+            input1
+          GROUP BY
+            input1.Person) AS [T17][Person, MAX-Value]
+       )) AS [T772][Person, SUM-Time, Uniq, Value, Time, Person1, Person2, MAX-Value]
+WHERE
+  [T772].Value == [T772].MAX-Value
+@anonymous
+[T772].Person | [T772].SUM-Time | [T772].Uniq | [T772].Value | [T772].Time | [T772].Person1 | [T772].Person2 | [T772].MAX-Value 
+Bob | 350.0 | 5.0 | 999.0 | 0.0 | Bob | Bob | 999.0 
+Claire | 135.0 | 3.0 | 994.0 | 45.0 | Claire | Claire | 994.0 
+
+[No.12]===============================
+SELECT
+  [T776].Person,[T776].SUM-Time,[T776].Uniq,[T776].Value,[T776].Time,[T776].Person1,[T776].Person2,[T776].MAX-Value
+FROM
+  (( SELECT
+        [T774].Person,[T774].SUM-Time,[T774].Uniq,[T774].Value,[T774].Time,[T774].Person1
+      FROM
+        (( SELECT
+              [T20].Person,[T20].SUM-Time
+            FROM
+              (SELECT
+                  input1.Person, SUM(input1.Time)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T20][Person, SUM-Time] ) JOIN (
+            SELECT
+              input1.Uniq,input1.Value,input1.Time,input1.Person
+            FROM
+              input1
+             )) AS [T774][Person, SUM-Time, Uniq, Value, Time, Person1] ) JOIN (
+      SELECT
+        [T17].Person,[T17].MAX-Value
+      FROM
+        (SELECT
+            input1.Person, MAX(input1.Value)
+          FROM
+            input1
+          GROUP BY
+            input1.Person) AS [T17][Person, MAX-Value]
+       )) AS [T776][Person, SUM-Time, Uniq, Value, Time, Person1, Person2, MAX-Value]
+WHERE
+  [T776].Value == [T776].MAX-Value
+   AND [T776].Person == [T776].Person2
+@anonymous
+[T776].Person | [T776].SUM-Time | [T776].Uniq | [T776].Value | [T776].Time | [T776].Person1 | [T776].Person2 | [T776].MAX-Value 
+Bob | 350.0 | 5.0 | 999.0 | 0.0 | Bob | Bob | 999.0 
+Claire | 135.0 | 3.0 | 994.0 | 45.0 | Claire | Claire | 994.0 
+
+[No.13]===============================
+SELECT
+  [T500].Person,[T500].SUM-Time,[T500].Person1,[T500].MAX-Value,[T500].Uniq,[T500].Value,[T500].Time,[T500].Person2
+FROM
+  (( SELECT
+        [T498].Person,[T498].SUM-Time,[T498].Person1,[T498].MAX-Value
+      FROM
+        (( SELECT
+              [T20].Person,[T20].SUM-Time
+            FROM
+              (SELECT
+                  input1.Person, SUM(input1.Time)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T20][Person, SUM-Time] ) JOIN (
+            SELECT
+              [T17].Person,[T17].MAX-Value
+            FROM
+              (SELECT
+                  input1.Person, MAX(input1.Value)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T17][Person, MAX-Value]
+             )) AS [T498][Person, SUM-Time, Person1, MAX-Value]
+      WHERE
+        [T498].Person == [T498].Person1 ) JOIN (
+      SELECT
+        input1.Uniq,input1.Value,input1.Time,input1.Person
+      FROM
+        input1
+       )) AS [T500][Person, SUM-Time, Person1, MAX-Value, Uniq, Value, Time, Person2]
+WHERE
+  [T500].MAX-Value == [T500].Value
+   AND [T500].Person == [T500].Person2
+@anonymous
+[T500].Person | [T500].SUM-Time | [T500].Person1 | [T500].MAX-Value | [T500].Uniq | [T500].Value | [T500].Time | [T500].Person2 
+Bob | 350.0 | Bob | 999.0 | 5.0 | 999.0 | 0.0 | Bob 
+Claire | 135.0 | Claire | 994.0 | 3.0 | 994.0 | 45.0 | Claire 
+
+[No.14]===============================
+SELECT
+  [T504].Person,[T504].SUM-Time,[T504].Person1,[T504].MAX-Value,[T504].Uniq,[T504].Value,[T504].Time,[T504].Person2
+FROM
+  (( SELECT
+        [T502].Person,[T502].SUM-Time,[T502].Person1,[T502].MAX-Value
+      FROM
+        (( SELECT
+              [T20].Person,[T20].SUM-Time
+            FROM
+              (SELECT
+                  input1.Person, SUM(input1.Time)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T20][Person, SUM-Time] ) JOIN (
+            SELECT
+              [T17].Person,[T17].MAX-Value
+            FROM
+              (SELECT
+                  input1.Person, MAX(input1.Value)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T17][Person, MAX-Value]
+             )) AS [T502][Person, SUM-Time, Person1, MAX-Value]
+      WHERE
+        [T502].Person == [T502].Person1 ) JOIN (
+      SELECT
+        input1.Uniq,input1.Value,input1.Time,input1.Person
+      FROM
+        input1
+       )) AS [T504][Person, SUM-Time, Person1, MAX-Value, Uniq, Value, Time, Person2]
+WHERE
+  [T504].MAX-Value == [T504].Value
+   AND [T504].Person1 == [T504].Person2
+@anonymous
+[T504].Person | [T504].SUM-Time | [T504].Person1 | [T504].MAX-Value | [T504].Uniq | [T504].Value | [T504].Time | [T504].Person2 
+Bob | 350.0 | Bob | 999.0 | 5.0 | 999.0 | 0.0 | Bob 
+Claire | 135.0 | Claire | 994.0 | 3.0 | 994.0 | 45.0 | Claire 
+
+[No.15]===============================
+SELECT
+  [T550].Person,[T550].MAX-Value,[T550].Uniq,[T550].Value,[T550].Time,[T550].Person1,[T550].Person2,[T550].SUM-Time
+FROM
+  (( SELECT
+        [T548].Person,[T548].MAX-Value,[T548].Uniq,[T548].Value,[T548].Time,[T548].Person1
+      FROM
+        (( SELECT
+              [T17].Person,[T17].MAX-Value
+            FROM
+              (SELECT
+                  input1.Person, MAX(input1.Value)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T17][Person, MAX-Value] ) JOIN (
+            SELECT
+              input1.Uniq,input1.Value,input1.Time,input1.Person
+            FROM
+              input1
+             )) AS [T548][Person, MAX-Value, Uniq, Value, Time, Person1]
+      WHERE
+        [T548].MAX-Value == [T548].Value
+         AND [T548].Person == [T548].Person1 ) JOIN (
+      SELECT
+        [T20].Person,[T20].SUM-Time
+      FROM
+        (SELECT
+            input1.Person, SUM(input1.Time)
+          FROM
+            input1
+          GROUP BY
+            input1.Person) AS [T20][Person, SUM-Time]
+       )) AS [T550][Person, MAX-Value, Uniq, Value, Time, Person1, Person2, SUM-Time]
+WHERE
+  [T550].Person1 == [T550].Person2
+@anonymous
+[T550].Person | [T550].MAX-Value | [T550].Uniq | [T550].Value | [T550].Time | [T550].Person1 | [T550].Person2 | [T550].SUM-Time 
+Bob | 999.0 | 5.0 | 999.0 | 0.0 | Bob | Bob | 350.0 
+Claire | 994.0 | 3.0 | 994.0 | 45.0 | Claire | Claire | 135.0 
+
+[No.16]===============================
+SELECT
+  [T554].Person,[T554].MAX-Value,[T554].Uniq,[T554].Value,[T554].Time,[T554].Person1,[T554].Person2,[T554].SUM-Time
+FROM
+  (( SELECT
+        [T552].Person,[T552].MAX-Value,[T552].Uniq,[T552].Value,[T552].Time,[T552].Person1
+      FROM
+        (( SELECT
+              [T17].Person,[T17].MAX-Value
+            FROM
+              (SELECT
+                  input1.Person, MAX(input1.Value)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T17][Person, MAX-Value] ) JOIN (
+            SELECT
+              input1.Uniq,input1.Value,input1.Time,input1.Person
+            FROM
+              input1
+             )) AS [T552][Person, MAX-Value, Uniq, Value, Time, Person1]
+      WHERE
+        [T552].MAX-Value == [T552].Value
+         AND [T552].Person == [T552].Person1 ) JOIN (
+      SELECT
+        [T20].Person,[T20].SUM-Time
+      FROM
+        (SELECT
+            input1.Person, SUM(input1.Time)
+          FROM
+            input1
+          GROUP BY
+            input1.Person) AS [T20][Person, SUM-Time]
+       )) AS [T554][Person, MAX-Value, Uniq, Value, Time, Person1, Person2, SUM-Time]
+WHERE
+  [T554].Person == [T554].Person2
+@anonymous
+[T554].Person | [T554].MAX-Value | [T554].Uniq | [T554].Value | [T554].Time | [T554].Person1 | [T554].Person2 | [T554].SUM-Time 
+Bob | 999.0 | 5.0 | 999.0 | 0.0 | Bob | Bob | 350.0 
+Claire | 994.0 | 3.0 | 994.0 | 45.0 | Claire | Claire | 135.0 
+
+[No.17]===============================
+SELECT
+  [T558].Person,[T558].MAX-Value,[T558].Uniq,[T558].Value,[T558].Time,[T558].Person1,[T558].Person2,[T558].SUM-Time
+FROM
+  (( SELECT
+        [T556].Person,[T556].MAX-Value,[T556].Uniq,[T556].Value,[T556].Time,[T556].Person1
+      FROM
+        (( SELECT
+              [T17].Person,[T17].MAX-Value
+            FROM
+              (SELECT
+                  input1.Person, MAX(input1.Value)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T17][Person, MAX-Value] ) JOIN (
+            SELECT
+              input1.Uniq,input1.Value,input1.Time,input1.Person
+            FROM
+              input1
+             )) AS [T556][Person, MAX-Value, Uniq, Value, Time, Person1]
+      WHERE
+        [T556].MAX-Value == [T556].Value ) JOIN (
+      SELECT
+        [T20].Person,[T20].SUM-Time
+      FROM
+        (SELECT
+            input1.Person, SUM(input1.Time)
+          FROM
+            input1
+          GROUP BY
+            input1.Person) AS [T20][Person, SUM-Time]
+       )) AS [T558][Person, MAX-Value, Uniq, Value, Time, Person1, Person2, SUM-Time]
+WHERE
+  [T558].Person == [T558].Person2
+   AND [T558].Person1 == [T558].Person2
+@anonymous
+[T558].Person | [T558].MAX-Value | [T558].Uniq | [T558].Value | [T558].Time | [T558].Person1 | [T558].Person2 | [T558].SUM-Time 
+Bob | 999.0 | 5.0 | 999.0 | 0.0 | Bob | Bob | 350.0 
+Claire | 994.0 | 3.0 | 994.0 | 45.0 | Claire | Claire | 135.0 
+
+[No.18]===============================
+SELECT
+  [T600].Person,[T600].MAX-Value,[T600].Person1,[T600].SUM-Time,[T600].Uniq,[T600].Value,[T600].Time,[T600].Person2
+FROM
+  (( SELECT
+        [T598].Person,[T598].MAX-Value,[T598].Person1,[T598].SUM-Time
+      FROM
+        (( SELECT
+              [T17].Person,[T17].MAX-Value
+            FROM
+              (SELECT
+                  input1.Person, MAX(input1.Value)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T17][Person, MAX-Value] ) JOIN (
+            SELECT
+              [T20].Person,[T20].SUM-Time
+            FROM
+              (SELECT
+                  input1.Person, SUM(input1.Time)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T20][Person, SUM-Time]
+             )) AS [T598][Person, MAX-Value, Person1, SUM-Time]
+      WHERE
+        [T598].Person == [T598].Person1 ) JOIN (
+      SELECT
+        input1.Uniq,input1.Value,input1.Time,input1.Person
+      FROM
+        input1
+       )) AS [T600][Person, MAX-Value, Person1, SUM-Time, Uniq, Value, Time, Person2]
+WHERE
+  [T600].MAX-Value == [T600].Value
+   AND [T600].Person1 == [T600].Person2
+@anonymous
+[T600].Person | [T600].MAX-Value | [T600].Person1 | [T600].SUM-Time | [T600].Uniq | [T600].Value | [T600].Time | [T600].Person2 
+Bob | 999.0 | Bob | 350.0 | 5.0 | 999.0 | 0.0 | Bob 
+Claire | 994.0 | Claire | 135.0 | 3.0 | 994.0 | 45.0 | Claire 
+
+[No.19]===============================
+SELECT
+  [T604].Person,[T604].MAX-Value,[T604].Person1,[T604].SUM-Time,[T604].Uniq,[T604].Value,[T604].Time,[T604].Person2
+FROM
+  (( SELECT
+        [T602].Person,[T602].MAX-Value,[T602].Person1,[T602].SUM-Time
+      FROM
+        (( SELECT
+              [T17].Person,[T17].MAX-Value
+            FROM
+              (SELECT
+                  input1.Person, MAX(input1.Value)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T17][Person, MAX-Value] ) JOIN (
+            SELECT
+              [T20].Person,[T20].SUM-Time
+            FROM
+              (SELECT
+                  input1.Person, SUM(input1.Time)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T20][Person, SUM-Time]
+             )) AS [T602][Person, MAX-Value, Person1, SUM-Time]
+      WHERE
+        [T602].Person == [T602].Person1 ) JOIN (
+      SELECT
+        input1.Uniq,input1.Value,input1.Time,input1.Person
+      FROM
+        input1
+       )) AS [T604][Person, MAX-Value, Person1, SUM-Time, Uniq, Value, Time, Person2]
+WHERE
+  [T604].MAX-Value == [T604].Value
+   AND [T604].Person == [T604].Person2
+@anonymous
+[T604].Person | [T604].MAX-Value | [T604].Person1 | [T604].SUM-Time | [T604].Uniq | [T604].Value | [T604].Time | [T604].Person2 
+Bob | 999.0 | Bob | 350.0 | 5.0 | 999.0 | 0.0 | Bob 
+Claire | 994.0 | Claire | 135.0 | 3.0 | 994.0 | 45.0 | Claire 
+
+[No.20]===============================
+SELECT
+  [T740].Uniq,[T740].Value,[T740].Time,[T740].Person,[T740].Person1,[T740].SUM-Time,[T740].Person2,[T740].MAX-Value
+FROM
+  (( SELECT
+        [T738].Uniq,[T738].Value,[T738].Time,[T738].Person,[T738].Person1,[T738].SUM-Time
+      FROM
+        (( SELECT
+              input1.Uniq,input1.Value,input1.Time,input1.Person
+            FROM
+              input1 ) JOIN (
+            SELECT
+              [T20].Person,[T20].SUM-Time
+            FROM
+              (SELECT
+                  input1.Person, SUM(input1.Time)
+                FROM
+                  input1
+                GROUP BY
+                  input1.Person) AS [T20][Person, SUM-Time]
+             )) AS [T738][Uniq, Value, Time, Person, Person1, SUM-Time]
+      WHERE
+        [T738].Person == [T738].Person1 ) JOIN (
+      SELECT
+        [T17].Person,[T17].MAX-Value
+      FROM
+        (SELECT
+            input1.Person, MAX(input1.Value)
+          FROM
+            input1
+          GROUP BY
+            input1.Person) AS [T17][Person, MAX-Value]
+       )) AS [T740][Uniq, Value, Time, Person, Person1, SUM-Time, Person2, MAX-Value]
+WHERE
+  [T740].Person == [T740].Person2
+   AND [T740].Value == [T740].MAX-Value
+@anonymous
+[T740].Uniq | [T740].Value | [T740].Time | [T740].Person | [T740].Person1 | [T740].SUM-Time | [T740].Person2 | [T740].MAX-Value 
+5.0 | 999.0 | 0.0 | Bob | Bob | 350.0 | Bob | 999.0 
+3.0 | 994.0 | 45.0 | Claire | Claire | 135.0 | Claire | 994.0 
+
+[Consistent Table number] 12
+[Enumeration Finished]
+[[Synthesizer finished]] time: 00:00:01:786
+[[Synthesizer finished]] seconds: 1.786
+[avg reduction rate: syn filter / bit vector] 4.006383106981446
+[avg reduction rate: compound filter / bit vector] 1.9310487680137158
+[avg compound filter count] 30.55
+[max compound filter count] 1472
+[avg PrimitiveFilterCount] 4.0
+[max PrimitiveFilterCount] 4
+[avg LRFilterCount] 3.310344827586207
+[max LRFilterCount] 14
+[avg decompose tree count] 3.150943396226415
+[max decomposeTreeCount] 26

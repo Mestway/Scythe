@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
 
         if (args.length < 3) {
-            System.out.println("Not enough arguments provided.");
+            System.out.println("Not enough arguments provided?");
             System.exit(-1);
         }
 

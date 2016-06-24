@@ -219,6 +219,37 @@ WHERE
 
 [No.8]===============================
 SELECT
+  [T218].PRO_ID,[T218].MAX-PRO_Price,[T218].PRO_ID1,[T218].PRO_Date,[T218].PRO_Price
+FROM
+  (( SELECT
+        [T217].PRO_ID,[T217].MAX-PRO_Price
+      FROM
+        (SELECT
+            [T216].PRO_ID, MAX([T216].PRO_Price)
+          FROM
+            (SELECT
+                input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+              FROM
+                input1
+              WHERE
+                input1.PRO_Date <= Wed Jun 01 00:00:00 PDT 2016) AS [T216][PRO_ID, PRO_Date, PRO_Price]
+          GROUP BY
+            [T216].PRO_ID) AS [T217][PRO_ID, MAX-PRO_Price] ) JOIN (
+      SELECT
+        input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+      FROM
+        input1
+       )) AS [T218][PRO_ID, MAX-PRO_Price, PRO_ID1, PRO_Date, PRO_Price]
+WHERE
+  [T218].MAX-PRO_Price == [T218].PRO_Price
+   AND [T218].PRO_ID >= [T218].PRO_ID1
+@anonymous
+[T218].PRO_ID | [T218].MAX-PRO_Price | [T218].PRO_ID1 | [T218].PRO_Date | [T218].PRO_Price 
+123.0 | 3000.0 | 123.0 | Sun May 01 00:00:00 PDT 2016 | 3000.0 
+456.0 | 3500.0 | 456.0 | Wed Jun 01 00:00:00 PDT 2016 | 3500.0 
+
+[No.9]===============================
+SELECT
   [T174].PRO_ID,[T174].MAX-PRO_Date,[T174].PRO_ID1,[T174].PRO_Date,[T174].PRO_Price
 FROM
   (( SELECT
@@ -248,37 +279,6 @@ WHERE
 [T174].PRO_ID | [T174].MAX-PRO_Date | [T174].PRO_ID1 | [T174].PRO_Date | [T174].PRO_Price 
 123.0 | Sun May 01 00:00:00 PDT 2016 | 123.0 | Sun May 01 00:00:00 PDT 2016 | 3000.0 
 456.0 | Wed Jun 01 00:00:00 PDT 2016 | 456.0 | Wed Jun 01 00:00:00 PDT 2016 | 3500.0 
-
-[No.9]===============================
-SELECT
-  [T218].PRO_ID,[T218].MAX-PRO_Price,[T218].PRO_ID1,[T218].PRO_Date,[T218].PRO_Price
-FROM
-  (( SELECT
-        [T217].PRO_ID,[T217].MAX-PRO_Price
-      FROM
-        (SELECT
-            [T216].PRO_ID, MAX([T216].PRO_Price)
-          FROM
-            (SELECT
-                input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
-              FROM
-                input1
-              WHERE
-                input1.PRO_Date <= Wed Jun 01 00:00:00 PDT 2016) AS [T216][PRO_ID, PRO_Date, PRO_Price]
-          GROUP BY
-            [T216].PRO_ID) AS [T217][PRO_ID, MAX-PRO_Price] ) JOIN (
-      SELECT
-        input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
-      FROM
-        input1
-       )) AS [T218][PRO_ID, MAX-PRO_Price, PRO_ID1, PRO_Date, PRO_Price]
-WHERE
-  [T218].MAX-PRO_Price == [T218].PRO_Price
-   AND [T218].PRO_ID >= [T218].PRO_ID1
-@anonymous
-[T218].PRO_ID | [T218].MAX-PRO_Price | [T218].PRO_ID1 | [T218].PRO_Date | [T218].PRO_Price 
-123.0 | 3000.0 | 123.0 | Sun May 01 00:00:00 PDT 2016 | 3000.0 
-456.0 | 3500.0 | 456.0 | Wed Jun 01 00:00:00 PDT 2016 | 3500.0 
 
 [No.10]===============================
 SELECT
@@ -627,8 +627,8 @@ WHERE
 
 [Consistent Table number] 6
 [Enumeration Finished]
-[[Synthesizer finished]] time: 00:00:00:725
-[[Synthesizer finished]] seconds: 0.725
+[[Synthesizer finished]] time: 00:00:00:770
+[[Synthesizer finished]] seconds: 0.77
 [avg reduction rate: syn filter / bit vector] 5.10916609327558
 [avg reduction rate: compound filter / bit vector] NaN
 [avg compound filter count] NaN

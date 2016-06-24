@@ -6,60 +6,60 @@
 [Enumeration Start]
 [FiltersCount format](primitiveSynFilterCount, primitiveBitVecFilterCount, totalBitVecFiltersCount)
 [Basic]: 1 [SymTableForInputs]: 1
-[Aggregation]: 7 [SymTable]: 8
-[EnumJoin] level 1 [SymTable]: 16
-ASymTable Enumeration done: 16
+[Aggregation]: 14 [SymTable]: 15
+[EnumJoin] level 1 [SymTable]: 30
+ASymTable Enumeration done: 30
 Runner ups: 3
 Candidates: 
 2
 [No.1]===============================
 SELECT
-  [T6].firstname,[T6].lastname,[T6].SUM-nb_payments
+  [T13].firstname,[T13].lastname,[T13].SUM-nb_payments
 FROM
   (SELECT
       input1.firstname, input1.lastname, SUM(input1.nb_payments)
     FROM
       input1
     GROUP BY
-      input1.firstname  input1.lastname) AS [T6][firstname, lastname, SUM-nb_payments]
+      input1.firstname  input1.lastname) AS [T13][firstname, lastname, SUM-nb_payments]
 
 @anonymous
-[T6].firstname | [T6].lastname | [T6].SUM-nb_payments 
+[T13].firstname | [T13].lastname | [T13].SUM-nb_payments 
 a | b | 30.0 
 b | a | 70.0 
 b | b | 50.0 
 
 [No.2]===============================
 SELECT
-  [T9].firstname,[T9].lastname,[T9].SUM-nb_payments,[T9].firstname1,[T9].lastname1,[T9].nb_payments
+  [T16].firstname,[T16].lastname,[T16].SUM-nb_payments,[T16].firstname1,[T16].lastname1,[T16].nb_payments
 FROM
   (( SELECT
-        [T6].firstname,[T6].lastname,[T6].SUM-nb_payments
+        [T13].firstname,[T13].lastname,[T13].SUM-nb_payments
       FROM
         (SELECT
             input1.firstname, input1.lastname, SUM(input1.nb_payments)
           FROM
             input1
           GROUP BY
-            input1.firstname  input1.lastname) AS [T6][firstname, lastname, SUM-nb_payments] ) JOIN (
+            input1.firstname  input1.lastname) AS [T13][firstname, lastname, SUM-nb_payments] ) JOIN (
       SELECT
         input1.firstname,input1.lastname,input1.nb_payments
       FROM
         input1
       WHERE
-        input1.firstname == input1.lastname )) AS [T9][firstname, lastname, SUM-nb_payments, firstname1, lastname1, nb_payments]
+        input1.firstname == input1.lastname )) AS [T16][firstname, lastname, SUM-nb_payments, firstname1, lastname1, nb_payments]
 
 @anonymous
-[T9].firstname | [T9].lastname | [T9].SUM-nb_payments | [T9].firstname1 | [T9].lastname1 | [T9].nb_payments 
+[T16].firstname | [T16].lastname | [T16].SUM-nb_payments | [T16].firstname1 | [T16].lastname1 | [T16].nb_payments 
 a | b | 30.0 | b | b | 50.0 
 b | a | 70.0 | b | b | 50.0 
 b | b | 50.0 | b | b | 50.0 
 
 [Consistent Table number] 2
 [Enumeration Finished]
-[[Synthesizer finished]] time: 00:00:00:111
-[[Synthesizer finished]] seconds: 0.111
-[avg reduction rate: syn filter / bit vector] 5.5
+[[Synthesizer finished]] time: 00:00:00:130
+[[Synthesizer finished]] seconds: 0.13
+[avg reduction rate: syn filter / bit vector] 5.666666626930237
 [avg reduction rate: compound filter / bit vector] NaN
 [avg compound filter count] NaN
 [max compound filter count] 0

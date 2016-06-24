@@ -11,10 +11,10 @@
 ASymTable Enumeration done: 270
 Runner ups: 116
 Candidates: 
-526
+538
 [No.1]===============================
 SELECT
-  [T3810].ID,[T3810].NAME,[T3810].EMAIL,[T3810].ID1,[T3810].NAME1,[T3810].EMAIL1
+  [T3880].ID,[T3880].NAME,[T3880].EMAIL,[T3880].ID1,[T3880].NAME1,[T3880].EMAIL1
 FROM
   (( SELECT
         input1.ID,input1.NAME,input1.EMAIL
@@ -24,12 +24,12 @@ FROM
         input1.ID,input1.NAME,input1.EMAIL
       FROM
         input1
-       )) AS [T3810][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+       )) AS [T3880][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
 WHERE
-  [T3810].ID <> [T3810].ID1
-   AND [T3810].NAME == [T3810].NAME1
+  [T3880].ID <> [T3880].ID1
+   AND [T3880].NAME == [T3880].NAME1
 @anonymous
-[T3810].ID | [T3810].NAME | [T3810].EMAIL | [T3810].ID1 | [T3810].NAME1 | [T3810].EMAIL1 
+[T3880].ID | [T3880].NAME | [T3880].EMAIL | [T3880].ID1 | [T3880].NAME1 | [T3880].EMAIL1 
 3.0 | Tom | asd@asd.com | 5.0 | Tom | asd@asd.com 
 5.0 | Tom | asd@asd.com | 3.0 | Tom | asd@asd.com 
 
@@ -54,7 +54,7 @@ input1.ID | input1.NAME | input1.EMAIL
 
 [No.3]===============================
 SELECT
-  [T3880].ID,[T3880].NAME,[T3880].EMAIL,[T3880].ID1,[T3880].NAME1,[T3880].EMAIL1
+  [T3950].ID,[T3950].NAME,[T3950].EMAIL,[T3950].ID1,[T3950].NAME1,[T3950].EMAIL1
 FROM
   (( SELECT
         input1.ID,input1.NAME,input1.EMAIL
@@ -72,17 +72,17 @@ FROM
         input1.ID,input1.NAME,input1.EMAIL
       FROM
         input1
-       )) AS [T3880][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+       )) AS [T3950][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
 WHERE
-  [T3880].NAME == [T3880].NAME1
+  [T3950].NAME == [T3950].NAME1
 @anonymous
-[T3880].ID | [T3880].NAME | [T3880].EMAIL | [T3880].ID1 | [T3880].NAME1 | [T3880].EMAIL1 
+[T3950].ID | [T3950].NAME | [T3950].EMAIL | [T3950].ID1 | [T3950].NAME1 | [T3950].EMAIL1 
 5.0 | Tom | asd@asd.com | 3.0 | Tom | asd@asd.com 
 5.0 | Tom | asd@asd.com | 5.0 | Tom | asd@asd.com 
 
 [No.4]===============================
 SELECT
-  [T3890].ID,[T3890].NAME,[T3890].EMAIL,[T3890].ID1,[T3890].NAME1,[T3890].EMAIL1
+  [T3960].ID,[T3960].NAME,[T3960].EMAIL,[T3960].ID1,[T3960].NAME1,[T3960].EMAIL1
 FROM
   (( SELECT
         input1.ID,input1.NAME,input1.EMAIL
@@ -99,11 +99,11 @@ FROM
             FROM
               (input1) AS [T0][ID, NAME, EMAIL]
             WHERE
-              input1.ID < [T0].ID) AS [T7][ID, NAME, EMAIL]) )) AS [T3890][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+              input1.ID < [T0].ID) AS [T7][ID, NAME, EMAIL]) )) AS [T3960][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
 WHERE
-  [T3890].NAME == [T3890].NAME1
+  [T3960].NAME == [T3960].NAME1
 @anonymous
-[T3890].ID | [T3890].NAME | [T3890].EMAIL | [T3890].ID1 | [T3890].NAME1 | [T3890].EMAIL1 
+[T3960].ID | [T3960].NAME | [T3960].EMAIL | [T3960].ID1 | [T3960].NAME1 | [T3960].EMAIL1 
 3.0 | Tom | asd@asd.com | 5.0 | Tom | asd@asd.com 
 5.0 | Tom | asd@asd.com | 5.0 | Tom | asd@asd.com 
 
@@ -523,13 +523,13 @@ Tom | 2.0 | 5.0 | Tom | asd@asd.com
 
 [No.17]===============================
 SELECT
-  [T3512].NAME,[T3512].ID,[T3512].NAME1,[T3512].EMAIL
+  [T3582].NAME,[T3582].ID,[T3582].NAME1,[T3582].EMAIL
 FROM
   (( SELECT
-        [T3505].NAME
+        [T3575].NAME
       FROM
         (SELECT
-            [T3504].NAME, FROM
+            [T3574].NAME, FROM
             (SELECT
                 input1.ID,input1.NAME,input1.EMAIL
               FROM
@@ -542,24 +542,24 @@ FROM
                       (input1) AS [T0][ID, NAME, EMAIL]
                     WHERE
                       input1.ID <> [T0].ID
-                       AND input1.NAME == [T0].NAME) AS [T179][ID, NAME, EMAIL])) AS [T3504][ID, NAME, EMAIL]
+                       AND input1.NAME == [T0].NAME) AS [T179][ID, NAME, EMAIL])) AS [T3574][ID, NAME, EMAIL]
           GROUP BY
-            [T3504].NAME) AS [T3505][NAME] ) JOIN (
+            [T3574].NAME) AS [T3575][NAME] ) JOIN (
       SELECT
         input1.ID,input1.NAME,input1.EMAIL
       FROM
         input1
-       )) AS [T3512][NAME, ID, NAME1, EMAIL]
+       )) AS [T3582][NAME, ID, NAME1, EMAIL]
 WHERE
-  [T3512].NAME == [T3512].NAME1
+  [T3582].NAME == [T3582].NAME1
 @anonymous
-[T3512].NAME | [T3512].ID | [T3512].NAME1 | [T3512].EMAIL 
+[T3582].NAME | [T3582].ID | [T3582].NAME1 | [T3582].EMAIL 
 Tom | 3.0 | Tom | asd@asd.com 
 Tom | 5.0 | Tom | asd@asd.com 
 
 [No.18]===============================
 SELECT
-  [T3740].ID,[T3740].NAME,[T3740].EMAIL,[T3740].ID1,[T3740].NAME1,[T3740].EMAIL1
+  [T3810].ID,[T3810].NAME,[T3810].EMAIL,[T3810].ID1,[T3810].NAME1,[T3810].EMAIL1
 FROM
   (( SELECT
         input1.ID,input1.NAME,input1.EMAIL
@@ -578,43 +578,15 @@ FROM
         input1.ID,input1.NAME,input1.EMAIL
       FROM
         input1
-       )) AS [T3740][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+       )) AS [T3810][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
 WHERE
-  [T3740].NAME == [T3740].NAME1
+  [T3810].NAME == [T3810].NAME1
 @anonymous
-[T3740].ID | [T3740].NAME | [T3740].EMAIL | [T3740].ID1 | [T3740].NAME1 | [T3740].EMAIL1 
+[T3810].ID | [T3810].NAME | [T3810].EMAIL | [T3810].ID1 | [T3810].NAME1 | [T3810].EMAIL1 
 3.0 | Tom | asd@asd.com | 3.0 | Tom | asd@asd.com 
 3.0 | Tom | asd@asd.com | 5.0 | Tom | asd@asd.com 
 
 [No.19]===============================
-SELECT
-  [T3790].ID,[T3790].NAME,[T3790].EMAIL,[T3790].ID1,[T3790].NAME1,[T3790].EMAIL1
-FROM
-  (( SELECT
-        input1.ID,input1.NAME,input1.EMAIL
-      FROM
-        input1 ) JOIN (
-      SELECT
-        input1.ID,input1.NAME,input1.EMAIL
-      FROM
-        input1
-      WHERE
-        EXIST (
-          (SELECT
-              [T0].ID,[T0].NAME,[T0].EMAIL
-            FROM
-              (input1) AS [T0][ID, NAME, EMAIL]
-            WHERE
-              input1.ID < [T0].ID
-               AND input1.NAME == [T0].NAME) AS [T119][ID, NAME, EMAIL]) )) AS [T3790][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
-WHERE
-  [T3790].NAME == [T3790].NAME1
-@anonymous
-[T3790].ID | [T3790].NAME | [T3790].EMAIL | [T3790].ID1 | [T3790].NAME1 | [T3790].EMAIL1 
-3.0 | Tom | asd@asd.com | 3.0 | Tom | asd@asd.com 
-5.0 | Tom | asd@asd.com | 3.0 | Tom | asd@asd.com 
-
-[No.20]===============================
 SELECT
   [T3860].ID,[T3860].NAME,[T3860].EMAIL,[T3860].ID1,[T3860].NAME1,[T3860].EMAIL1
 FROM
@@ -633,26 +605,54 @@ FROM
             FROM
               (input1) AS [T0][ID, NAME, EMAIL]
             WHERE
-              input1.ID <> [T0].ID
-               AND input1.NAME == [T0].NAME) AS [T179][ID, NAME, EMAIL]) )) AS [T3860][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+              input1.ID < [T0].ID
+               AND input1.NAME == [T0].NAME) AS [T119][ID, NAME, EMAIL]) )) AS [T3860][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
 WHERE
-  [T3860].ID == [T3860].ID1
+  [T3860].NAME == [T3860].NAME1
 @anonymous
 [T3860].ID | [T3860].NAME | [T3860].EMAIL | [T3860].ID1 | [T3860].NAME1 | [T3860].EMAIL1 
+3.0 | Tom | asd@asd.com | 3.0 | Tom | asd@asd.com 
+5.0 | Tom | asd@asd.com | 3.0 | Tom | asd@asd.com 
+
+[No.20]===============================
+SELECT
+  [T3930].ID,[T3930].NAME,[T3930].EMAIL,[T3930].ID1,[T3930].NAME1,[T3930].EMAIL1
+FROM
+  (( SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1 ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              [T0].ID,[T0].NAME,[T0].EMAIL
+            FROM
+              (input1) AS [T0][ID, NAME, EMAIL]
+            WHERE
+              input1.ID <> [T0].ID
+               AND input1.NAME == [T0].NAME) AS [T179][ID, NAME, EMAIL]) )) AS [T3930][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+  [T3930].ID == [T3930].ID1
+@anonymous
+[T3930].ID | [T3930].NAME | [T3930].EMAIL | [T3930].ID1 | [T3930].NAME1 | [T3930].EMAIL1 
 3.0 | Tom | asd@asd.com | 3.0 | Tom | asd@asd.com 
 5.0 | Tom | asd@asd.com | 5.0 | Tom | asd@asd.com 
 
 [Consistent Table number] 115
 [Enumeration Finished]
-[[Synthesizer finished]] time: 00:00:03:293
-[[Synthesizer finished]] seconds: 3.293
-[avg reduction rate: syn filter / bit vector] 4.002129632455332
+[[Synthesizer finished]] time: 00:00:03:687
+[[Synthesizer finished]] seconds: 3.6870000000000003
+[avg reduction rate: syn filter / bit vector] 4.098981488192523
 [avg reduction rate: compound filter / bit vector] NaN
 [avg compound filter count] NaN
 [max compound filter count] 0
-[avg PrimitiveFilterCount] 14.433453828458758
+[avg PrimitiveFilterCount] 14.457004830917874
 [max PrimitiveFilterCount] 61
-[avg LRFilterCount] 1.0
-[max LRFilterCount] 1
-[avg decompose tree count] 12.243661971830987
-[max decomposeTreeCount] 635
+[avg LRFilterCount] 1.6705020920502092
+[max LRFilterCount] 3
+[avg decompose tree count] 14.76986301369863
+[max decomposeTreeCount] 965

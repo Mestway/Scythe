@@ -14,6 +14,28 @@ Candidates:
 51
 [No.1]===============================
 SELECT
+  [T307].zone_id,[T307].zone_name,[T307].MAX-time_start
+FROM
+  (SELECT
+      [T306].zone_id, [T306].zone_name, MAX([T306].time_start)
+    FROM
+      (SELECT
+          input1.zone_id,input1.zone_name,input1.time_start
+        FROM
+          input1
+        WHERE
+          input1.time_start <= 1.4258124E9) AS [T306][zone_id, zone_name, time_start]
+    GROUP BY
+      [T306].zone_id  [T306].zone_name) AS [T307][zone_id, zone_name, MAX-time_start]
+
+@anonymous
+[T307].zone_id | [T307].zone_name | [T307].MAX-time_start 
+391.0 | America/Los_Angeles | 1.4258088E9 
+392.0 | America/Metlakatla | 4.363524E8 
+393.0 | America/Anchorage | 1.4258124E9 
+
+[No.2]===============================
+SELECT
   [T228].zone_id,[T228].zone_name,[T228].MAX-time_start,[T228].zone_id1,[T228].zone_name1,[T228].time_start
 FROM
   (( SELECT
@@ -42,28 +64,6 @@ FROM
 391.0 | America/Los_Angeles | 1.4258088E9 | 393.0 | America/Anchorage | 1.4258124E9 
 392.0 | America/Metlakatla | 4.363524E8 | 393.0 | America/Anchorage | 1.4258124E9 
 393.0 | America/Anchorage | 1.4258124E9 | 393.0 | America/Anchorage | 1.4258124E9 
-
-[No.2]===============================
-SELECT
-  [T307].zone_id,[T307].zone_name,[T307].MAX-time_start
-FROM
-  (SELECT
-      [T306].zone_id, [T306].zone_name, MAX([T306].time_start)
-    FROM
-      (SELECT
-          input1.zone_id,input1.zone_name,input1.time_start
-        FROM
-          input1
-        WHERE
-          input1.time_start <= 1.4258124E9) AS [T306][zone_id, zone_name, time_start]
-    GROUP BY
-      [T306].zone_id  [T306].zone_name) AS [T307][zone_id, zone_name, MAX-time_start]
-
-@anonymous
-[T307].zone_id | [T307].zone_name | [T307].MAX-time_start 
-391.0 | America/Los_Angeles | 1.4258088E9 
-392.0 | America/Metlakatla | 4.363524E8 
-393.0 | America/Anchorage | 1.4258124E9 
 
 [No.3]===============================
 SELECT
@@ -256,6 +256,38 @@ America/Anchorage | 1.4258124E9 | 393.0 | America/Anchorage | 1.4258124E9
 
 [No.9]===============================
 SELECT
+  [T240].zone_id,[T240].zone_name,[T240].MAX-time_start,[T240].zone_id1,[T240].zone_name1,[T240].time_start
+FROM
+  (( SELECT
+        [T239].zone_id,[T239].zone_name,[T239].MAX-time_start
+      FROM
+        (SELECT
+            [T238].zone_id, [T238].zone_name, MAX([T238].time_start)
+          FROM
+            (SELECT
+                input1.zone_id,input1.zone_name,input1.time_start
+              FROM
+                input1
+              WHERE
+                input1.time_start <= 1.4258124E9) AS [T238][zone_id, zone_name, time_start]
+          GROUP BY
+            [T238].zone_id  [T238].zone_name) AS [T239][zone_id, zone_name, MAX-time_start] ) JOIN (
+      SELECT
+        input1.zone_id,input1.zone_name,input1.time_start
+      FROM
+        input1
+      WHERE
+        input1.time_start == 1.4258124E9 )) AS [T240][zone_id, zone_name, MAX-time_start, zone_id1, zone_name1, time_start]
+WHERE
+  [T240].zone_id <= [T240].zone_id1
+@anonymous
+[T240].zone_id | [T240].zone_name | [T240].MAX-time_start | [T240].zone_id1 | [T240].zone_name1 | [T240].time_start 
+391.0 | America/Los_Angeles | 1.4258088E9 | 393.0 | America/Anchorage | 1.4258124E9 
+392.0 | America/Metlakatla | 4.363524E8 | 393.0 | America/Anchorage | 1.4258124E9 
+393.0 | America/Anchorage | 1.4258124E9 | 393.0 | America/Anchorage | 1.4258124E9 
+
+[No.10]===============================
+SELECT
   [T176].zone_id,[T176].MAX-time_start,[T176].zone_id1,[T176].zone_name,[T176].time_start
 FROM
   (( SELECT
@@ -286,7 +318,7 @@ WHERE
 392.0 | 4.363524E8 | 392.0 | America/Metlakatla | 4.363524E8 
 393.0 | 1.4258124E9 | 393.0 | America/Anchorage | 1.4258124E9 
 
-[No.10]===============================
+[No.11]===============================
 SELECT
   [T216].zone_id,[T216].zone_name,[T216].MAX-time_start,[T216].zone_id1,[T216].zone_name1,[T216].time_start
 FROM
@@ -316,38 +348,6 @@ WHERE
 [T216].zone_id | [T216].zone_name | [T216].MAX-time_start | [T216].zone_id1 | [T216].zone_name1 | [T216].time_start 
 391.0 | America/Los_Angeles | 1.4258088E9 | 391.0 | America/Los_Angeles | 1.4258088E9 
 392.0 | America/Metlakatla | 4.363524E8 | 392.0 | America/Metlakatla | 4.363524E8 
-393.0 | America/Anchorage | 1.4258124E9 | 393.0 | America/Anchorage | 1.4258124E9 
-
-[No.11]===============================
-SELECT
-  [T240].zone_id,[T240].zone_name,[T240].MAX-time_start,[T240].zone_id1,[T240].zone_name1,[T240].time_start
-FROM
-  (( SELECT
-        [T239].zone_id,[T239].zone_name,[T239].MAX-time_start
-      FROM
-        (SELECT
-            [T238].zone_id, [T238].zone_name, MAX([T238].time_start)
-          FROM
-            (SELECT
-                input1.zone_id,input1.zone_name,input1.time_start
-              FROM
-                input1
-              WHERE
-                input1.time_start <= 1.4258124E9) AS [T238][zone_id, zone_name, time_start]
-          GROUP BY
-            [T238].zone_id  [T238].zone_name) AS [T239][zone_id, zone_name, MAX-time_start] ) JOIN (
-      SELECT
-        input1.zone_id,input1.zone_name,input1.time_start
-      FROM
-        input1
-      WHERE
-        input1.time_start == 1.4258124E9 )) AS [T240][zone_id, zone_name, MAX-time_start, zone_id1, zone_name1, time_start]
-WHERE
-  [T240].zone_id <= [T240].zone_id1
-@anonymous
-[T240].zone_id | [T240].zone_name | [T240].MAX-time_start | [T240].zone_id1 | [T240].zone_name1 | [T240].time_start 
-391.0 | America/Los_Angeles | 1.4258088E9 | 393.0 | America/Anchorage | 1.4258124E9 
-392.0 | America/Metlakatla | 4.363524E8 | 393.0 | America/Anchorage | 1.4258124E9 
 393.0 | America/Anchorage | 1.4258124E9 | 393.0 | America/Anchorage | 1.4258124E9 
 
 [No.12]===============================
@@ -559,6 +559,38 @@ WHERE
 
 [No.19]===============================
 SELECT
+  [T310].time_start,[T310].MAX-zone_id,[T310].zone_id,[T310].zone_name,[T310].time_start1
+FROM
+  (( SELECT
+        [T309].time_start,[T309].MAX-zone_id
+      FROM
+        (SELECT
+            [T308].time_start, MAX([T308].zone_id)
+          FROM
+            (SELECT
+                input1.zone_id,input1.zone_name,input1.time_start
+              FROM
+                input1
+              WHERE
+                input1.time_start <= 1.4258124E9) AS [T308][zone_id, zone_name, time_start]
+          GROUP BY
+            [T308].time_start) AS [T309][time_start, MAX-zone_id] ) JOIN (
+      SELECT
+        input1.zone_id,input1.zone_name,input1.time_start
+      FROM
+        input1
+       )) AS [T310][time_start, MAX-zone_id, zone_id, zone_name, time_start1]
+WHERE
+  [T310].time_start > [T310].time_start1
+   AND [T310].MAX-zone_id == [T310].zone_id
+@anonymous
+[T310].time_start | [T310].MAX-zone_id | [T310].zone_id | [T310].zone_name | [T310].time_start1 
+1.4258088E9 | 391.0 | 391.0 | America/Los_Angeles | 9972000.0 
+4.363524E8 | 392.0 | 392.0 | America/Metlakatla | 9972000.0 
+1.4258124E9 | 393.0 | 393.0 | America/Anchorage | 9979200.0 
+
+[No.20]===============================
+SELECT
   [T280].zone_name,[T280].MAX-time_start,[T280].zone_id,[T280].zone_name1,[T280].time_start
 FROM
   (( SELECT
@@ -590,43 +622,11 @@ America/Los_Angeles | 1.4258088E9 | 391.0 | America/Los_Angeles | 1.4258088E9
 America/Metlakatla | 4.363524E8 | 392.0 | America/Metlakatla | 4.363524E8 
 America/Anchorage | 1.4258124E9 | 393.0 | America/Anchorage | 1.4258124E9 
 
-[No.20]===============================
-SELECT
-  [T310].time_start,[T310].MAX-zone_id,[T310].zone_id,[T310].zone_name,[T310].time_start1
-FROM
-  (( SELECT
-        [T309].time_start,[T309].MAX-zone_id
-      FROM
-        (SELECT
-            [T308].time_start, MAX([T308].zone_id)
-          FROM
-            (SELECT
-                input1.zone_id,input1.zone_name,input1.time_start
-              FROM
-                input1
-              WHERE
-                input1.time_start <= 1.4258124E9) AS [T308][zone_id, zone_name, time_start]
-          GROUP BY
-            [T308].time_start) AS [T309][time_start, MAX-zone_id] ) JOIN (
-      SELECT
-        input1.zone_id,input1.zone_name,input1.time_start
-      FROM
-        input1
-       )) AS [T310][time_start, MAX-zone_id, zone_id, zone_name, time_start1]
-WHERE
-  [T310].time_start > [T310].time_start1
-   AND [T310].MAX-zone_id == [T310].zone_id
-@anonymous
-[T310].time_start | [T310].MAX-zone_id | [T310].zone_id | [T310].zone_name | [T310].time_start1 
-1.4258088E9 | 391.0 | 391.0 | America/Los_Angeles | 9972000.0 
-4.363524E8 | 392.0 | 392.0 | America/Metlakatla | 9972000.0 
-1.4258124E9 | 393.0 | 393.0 | America/Anchorage | 9979200.0 
-
 [Consistent Table number] 11
 [Enumeration Finished]
-[[Synthesizer finished]] time: 00:00:01:131
-[[Synthesizer finished]] seconds: 1.131
-[avg reduction rate: syn filter / bit vector] 6.687578810404425
+[[Synthesizer finished]] time: 00:00:01:91
+[[Synthesizer finished]] seconds: 1.091
+[avg reduction rate: syn filter / bit vector] 6.708855188056214
 [avg reduction rate: compound filter / bit vector] NaN
 [avg compound filter count] NaN
 [max compound filter count] 0

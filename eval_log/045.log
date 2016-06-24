@@ -14,33 +14,7 @@ Candidates:
 114
 [No.1]===============================
 SELECT
-  [T2034].BOMcat,[T2034].AltBOM,[T2034].MAX-Counter,[T2034].BOMcat1,[T2034].BOM,[T2034].AltBOM1,[T2034].Counter,[T2034].ChangeNo,[T2034].DeID,[T2034].DID,[T2034].PreCounter,[T2034].Baseqty
-FROM
-  (( SELECT
-        [T608].BOMcat,[T608].AltBOM,[T608].MAX-Counter
-      FROM
-        (SELECT
-            input1.BOMcat, input1.AltBOM, MAX(input1.Counter)
-          FROM
-            input1
-          GROUP BY
-            input1.BOMcat  input1.AltBOM) AS [T608][BOMcat, AltBOM, MAX-Counter] ) JOIN (
-      SELECT
-        input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
-      FROM
-        input1
-       )) AS [T2034][BOMcat, AltBOM, MAX-Counter, BOMcat1, BOM, AltBOM1, Counter, ChangeNo, DeID, DID, PreCounter, Baseqty]
-WHERE
-  [T2034].MAX-Counter == [T2034].Counter
-@anonymous
-[T2034].BOMcat | [T2034].AltBOM | [T2034].MAX-Counter | [T2034].BOMcat1 | [T2034].BOM | [T2034].AltBOM1 | [T2034].Counter | [T2034].ChangeNo | [T2034].DeID | [T2034].DID | [T2034].PreCounter | [T2034].Baseqty 
-M | A | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
-M | B | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
-M | 1.0 | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
-
-[No.2]===============================
-SELECT
-  [T2084].BOM,[T2084].AltBOM,[T2084].DeID,[T2084].MAX-Counter,[T2084].BOMcat,[T2084].BOM1,[T2084].AltBOM1,[T2084].Counter,[T2084].ChangeNo,[T2084].DeID1,[T2084].DID,[T2084].PreCounter,[T2084].Baseqty
+  [T2050].BOM,[T2050].AltBOM,[T2050].DeID,[T2050].MAX-Counter,[T2050].BOMcat,[T2050].BOM1,[T2050].AltBOM1,[T2050].Counter,[T2050].ChangeNo,[T2050].DeID1,[T2050].DID,[T2050].PreCounter,[T2050].Baseqty
 FROM
   (( SELECT
         [T768].BOM,[T768].AltBOM,[T768].DeID,[T768].MAX-Counter
@@ -55,96 +29,18 @@ FROM
         input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
       FROM
         input1
-       )) AS [T2084][BOM, AltBOM, DeID, MAX-Counter, BOMcat, BOM1, AltBOM1, Counter, ChangeNo, DeID1, DID, PreCounter, Baseqty]
+       )) AS [T2050][BOM, AltBOM, DeID, MAX-Counter, BOMcat, BOM1, AltBOM1, Counter, ChangeNo, DeID1, DID, PreCounter, Baseqty]
 WHERE
-  [T2084].MAX-Counter == [T2084].Counter
+  [T2050].MAX-Counter == [T2050].Counter
 @anonymous
-[T2084].BOM | [T2084].AltBOM | [T2084].DeID | [T2084].MAX-Counter | [T2084].BOMcat | [T2084].BOM1 | [T2084].AltBOM1 | [T2084].Counter | [T2084].ChangeNo | [T2084].DeID1 | [T2084].DID | [T2084].PreCounter | [T2084].Baseqty 
+[T2050].BOM | [T2050].AltBOM | [T2050].DeID | [T2050].MAX-Counter | [T2050].BOMcat | [T2050].BOM1 | [T2050].AltBOM1 | [T2050].Counter | [T2050].ChangeNo | [T2050].DeID1 | [T2050].DID | [T2050].PreCounter | [T2050].Baseqty 
 7882.0 | A | X | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
 7882.0 | B | X | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
 9772.0 | 1.0 | X | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
 
-[No.3]===============================
+[No.2]===============================
 SELECT
-  [T2102].AltBOM,[T2102].DeID,[T2102].MAX-Counter,[T2102].BOMcat,[T2102].BOM,[T2102].AltBOM1,[T2102].Counter,[T2102].ChangeNo,[T2102].DeID1,[T2102].DID,[T2102].PreCounter,[T2102].Baseqty
-FROM
-  (( SELECT
-        [T656].AltBOM,[T656].DeID,[T656].MAX-Counter
-      FROM
-        (SELECT
-            input1.AltBOM, input1.DeID, MAX(input1.Counter)
-          FROM
-            input1
-          GROUP BY
-            input1.AltBOM  input1.DeID) AS [T656][AltBOM, DeID, MAX-Counter] ) JOIN (
-      SELECT
-        input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
-      FROM
-        input1
-       )) AS [T2102][AltBOM, DeID, MAX-Counter, BOMcat, BOM, AltBOM1, Counter, ChangeNo, DeID1, DID, PreCounter, Baseqty]
-WHERE
-  [T2102].MAX-Counter == [T2102].Counter
-@anonymous
-[T2102].AltBOM | [T2102].DeID | [T2102].MAX-Counter | [T2102].BOMcat | [T2102].BOM | [T2102].AltBOM1 | [T2102].Counter | [T2102].ChangeNo | [T2102].DeID1 | [T2102].DID | [T2102].PreCounter | [T2102].Baseqty 
-A | X | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
-B | X | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
-1.0 | X | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
-
-[No.4]===============================
-SELECT
-  [T2112].BOMcat,[T2112].AltBOM,[T2112].DeID,[T2112].DID,[T2112].MAX-Counter,[T2112].BOMcat1,[T2112].BOM,[T2112].AltBOM1,[T2112].Counter,[T2112].ChangeNo,[T2112].DeID1,[T2112].DID1,[T2112].PreCounter,[T2112].Baseqty
-FROM
-  (( SELECT
-        [T888].BOMcat,[T888].AltBOM,[T888].DeID,[T888].DID,[T888].MAX-Counter
-      FROM
-        (SELECT
-            input1.BOMcat, input1.AltBOM, input1.DeID, input1.DID, MAX(input1.Counter)
-          FROM
-            input1
-          GROUP BY
-            input1.BOMcat  input1.AltBOM  input1.DeID  input1.DID) AS [T888][BOMcat, AltBOM, DeID, DID, MAX-Counter] ) JOIN (
-      SELECT
-        input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
-      FROM
-        input1
-       )) AS [T2112][BOMcat, AltBOM, DeID, DID, MAX-Counter, BOMcat1, BOM, AltBOM1, Counter, ChangeNo, DeID1, DID1, PreCounter, Baseqty]
-WHERE
-  [T2112].MAX-Counter == [T2112].Counter
-@anonymous
-[T2112].BOMcat | [T2112].AltBOM | [T2112].DeID | [T2112].DID | [T2112].MAX-Counter | [T2112].BOMcat1 | [T2112].BOM | [T2112].AltBOM1 | [T2112].Counter | [T2112].ChangeNo | [T2112].DeID1 | [T2112].DID1 | [T2112].PreCounter | [T2112].Baseqty 
-M | A | X |  | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
-M | B | X |  | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
-M | 1.0 | X |  | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
-
-[No.5]===============================
-SELECT
-  [T2122].BOMcat,[T2122].AltBOM,[T2122].DeID,[T2122].MAX-Counter,[T2122].BOMcat1,[T2122].BOM,[T2122].AltBOM1,[T2122].Counter,[T2122].ChangeNo,[T2122].DeID1,[T2122].DID,[T2122].PreCounter,[T2122].Baseqty
-FROM
-  (( SELECT
-        [T724].BOMcat,[T724].AltBOM,[T724].DeID,[T724].MAX-Counter
-      FROM
-        (SELECT
-            input1.BOMcat, input1.AltBOM, input1.DeID, MAX(input1.Counter)
-          FROM
-            input1
-          GROUP BY
-            input1.BOMcat  input1.AltBOM  input1.DeID) AS [T724][BOMcat, AltBOM, DeID, MAX-Counter] ) JOIN (
-      SELECT
-        input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
-      FROM
-        input1
-       )) AS [T2122][BOMcat, AltBOM, DeID, MAX-Counter, BOMcat1, BOM, AltBOM1, Counter, ChangeNo, DeID1, DID, PreCounter, Baseqty]
-WHERE
-  [T2122].MAX-Counter == [T2122].Counter
-@anonymous
-[T2122].BOMcat | [T2122].AltBOM | [T2122].DeID | [T2122].MAX-Counter | [T2122].BOMcat1 | [T2122].BOM | [T2122].AltBOM1 | [T2122].Counter | [T2122].ChangeNo | [T2122].DeID1 | [T2122].DID | [T2122].PreCounter | [T2122].Baseqty 
-M | A | X | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
-M | B | X | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
-M | 1.0 | X | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
-
-[No.6]===============================
-SELECT
-  [T2132].BOM,[T2132].AltBOM,[T2132].DeID,[T2132].DID,[T2132].MAX-Counter,[T2132].BOMcat,[T2132].BOM1,[T2132].AltBOM1,[T2132].Counter,[T2132].ChangeNo,[T2132].DeID1,[T2132].DID1,[T2132].PreCounter,[T2132].Baseqty
+  [T2060].BOM,[T2060].AltBOM,[T2060].DeID,[T2060].DID,[T2060].MAX-Counter,[T2060].BOMcat,[T2060].BOM1,[T2060].AltBOM1,[T2060].Counter,[T2060].ChangeNo,[T2060].DeID1,[T2060].DID1,[T2060].PreCounter,[T2060].Baseqty
 FROM
   (( SELECT
         [T920].BOM,[T920].AltBOM,[T920].DeID,[T920].DID,[T920].MAX-Counter
@@ -159,44 +55,70 @@ FROM
         input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
       FROM
         input1
-       )) AS [T2132][BOM, AltBOM, DeID, DID, MAX-Counter, BOMcat, BOM1, AltBOM1, Counter, ChangeNo, DeID1, DID1, PreCounter, Baseqty]
+       )) AS [T2060][BOM, AltBOM, DeID, DID, MAX-Counter, BOMcat, BOM1, AltBOM1, Counter, ChangeNo, DeID1, DID1, PreCounter, Baseqty]
 WHERE
-  [T2132].MAX-Counter == [T2132].Counter
+  [T2060].MAX-Counter == [T2060].Counter
 @anonymous
-[T2132].BOM | [T2132].AltBOM | [T2132].DeID | [T2132].DID | [T2132].MAX-Counter | [T2132].BOMcat | [T2132].BOM1 | [T2132].AltBOM1 | [T2132].Counter | [T2132].ChangeNo | [T2132].DeID1 | [T2132].DID1 | [T2132].PreCounter | [T2132].Baseqty 
+[T2060].BOM | [T2060].AltBOM | [T2060].DeID | [T2060].DID | [T2060].MAX-Counter | [T2060].BOMcat | [T2060].BOM1 | [T2060].AltBOM1 | [T2060].Counter | [T2060].ChangeNo | [T2060].DeID1 | [T2060].DID1 | [T2060].PreCounter | [T2060].Baseqty 
 7882.0 | A | X |  | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
 7882.0 | B | X |  | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
 9772.0 | 1.0 | X |  | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
 
-[No.7]===============================
+[No.3]===============================
 SELECT
-  [T2142].BOMcat,[T2142].BOM,[T2142].AltBOM,[T2142].DID,[T2142].MAX-Counter,[T2142].BOMcat1,[T2142].BOM1,[T2142].AltBOM1,[T2142].Counter,[T2142].ChangeNo,[T2142].DeID,[T2142].DID1,[T2142].PreCounter,[T2142].Baseqty
+  [T2070].BOMcat,[T2070].AltBOM,[T2070].DID,[T2070].MAX-Counter,[T2070].BOMcat1,[T2070].BOM,[T2070].AltBOM1,[T2070].Counter,[T2070].ChangeNo,[T2070].DeID,[T2070].DID1,[T2070].PreCounter,[T2070].Baseqty
 FROM
   (( SELECT
-        [T848].BOMcat,[T848].BOM,[T848].AltBOM,[T848].DID,[T848].MAX-Counter
+        [T728].BOMcat,[T728].AltBOM,[T728].DID,[T728].MAX-Counter
       FROM
         (SELECT
-            input1.BOMcat, input1.BOM, input1.AltBOM, input1.DID, MAX(input1.Counter)
+            input1.BOMcat, input1.AltBOM, input1.DID, MAX(input1.Counter)
           FROM
             input1
           GROUP BY
-            input1.BOMcat  input1.BOM  input1.AltBOM  input1.DID) AS [T848][BOMcat, BOM, AltBOM, DID, MAX-Counter] ) JOIN (
+            input1.BOMcat  input1.AltBOM  input1.DID) AS [T728][BOMcat, AltBOM, DID, MAX-Counter] ) JOIN (
       SELECT
         input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
       FROM
         input1
-       )) AS [T2142][BOMcat, BOM, AltBOM, DID, MAX-Counter, BOMcat1, BOM1, AltBOM1, Counter, ChangeNo, DeID, DID1, PreCounter, Baseqty]
+       )) AS [T2070][BOMcat, AltBOM, DID, MAX-Counter, BOMcat1, BOM, AltBOM1, Counter, ChangeNo, DeID, DID1, PreCounter, Baseqty]
 WHERE
-  [T2142].MAX-Counter == [T2142].Counter
+  [T2070].MAX-Counter == [T2070].Counter
 @anonymous
-[T2142].BOMcat | [T2142].BOM | [T2142].AltBOM | [T2142].DID | [T2142].MAX-Counter | [T2142].BOMcat1 | [T2142].BOM1 | [T2142].AltBOM1 | [T2142].Counter | [T2142].ChangeNo | [T2142].DeID | [T2142].DID1 | [T2142].PreCounter | [T2142].Baseqty 
-M | 7882.0 | A |  | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
-M | 7882.0 | B |  | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
-M | 9772.0 | 1.0 |  | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
+[T2070].BOMcat | [T2070].AltBOM | [T2070].DID | [T2070].MAX-Counter | [T2070].BOMcat1 | [T2070].BOM | [T2070].AltBOM1 | [T2070].Counter | [T2070].ChangeNo | [T2070].DeID | [T2070].DID1 | [T2070].PreCounter | [T2070].Baseqty 
+M | A |  | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
+M | B |  | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
+M | 1.0 |  | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
 
-[No.8]===============================
+[No.4]===============================
 SELECT
-  [T2160].BOMcat,[T2160].BOM,[T2160].AltBOM,[T2160].MAX-Counter,[T2160].BOMcat1,[T2160].BOM1,[T2160].AltBOM1,[T2160].Counter,[T2160].ChangeNo,[T2160].DeID,[T2160].DID,[T2160].PreCounter,[T2160].Baseqty
+  [T2104].BOMcat,[T2104].AltBOM,[T2104].DeID,[T2104].MAX-Counter,[T2104].BOMcat1,[T2104].BOM,[T2104].AltBOM1,[T2104].Counter,[T2104].ChangeNo,[T2104].DeID1,[T2104].DID,[T2104].PreCounter,[T2104].Baseqty
+FROM
+  (( SELECT
+        [T724].BOMcat,[T724].AltBOM,[T724].DeID,[T724].MAX-Counter
+      FROM
+        (SELECT
+            input1.BOMcat, input1.AltBOM, input1.DeID, MAX(input1.Counter)
+          FROM
+            input1
+          GROUP BY
+            input1.BOMcat  input1.AltBOM  input1.DeID) AS [T724][BOMcat, AltBOM, DeID, MAX-Counter] ) JOIN (
+      SELECT
+        input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
+      FROM
+        input1
+       )) AS [T2104][BOMcat, AltBOM, DeID, MAX-Counter, BOMcat1, BOM, AltBOM1, Counter, ChangeNo, DeID1, DID, PreCounter, Baseqty]
+WHERE
+  [T2104].MAX-Counter == [T2104].Counter
+@anonymous
+[T2104].BOMcat | [T2104].AltBOM | [T2104].DeID | [T2104].MAX-Counter | [T2104].BOMcat1 | [T2104].BOM | [T2104].AltBOM1 | [T2104].Counter | [T2104].ChangeNo | [T2104].DeID1 | [T2104].DID | [T2104].PreCounter | [T2104].Baseqty 
+M | A | X | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
+M | B | X | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
+M | 1.0 | X | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
+
+[No.5]===============================
+SELECT
+  [T2122].BOMcat,[T2122].BOM,[T2122].AltBOM,[T2122].MAX-Counter,[T2122].BOMcat1,[T2122].BOM1,[T2122].AltBOM1,[T2122].Counter,[T2122].ChangeNo,[T2122].DeID,[T2122].DID,[T2122].PreCounter,[T2122].Baseqty
 FROM
   (( SELECT
         [T700].BOMcat,[T700].BOM,[T700].AltBOM,[T700].MAX-Counter
@@ -211,70 +133,18 @@ FROM
         input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
       FROM
         input1
-       )) AS [T2160][BOMcat, BOM, AltBOM, MAX-Counter, BOMcat1, BOM1, AltBOM1, Counter, ChangeNo, DeID, DID, PreCounter, Baseqty]
+       )) AS [T2122][BOMcat, BOM, AltBOM, MAX-Counter, BOMcat1, BOM1, AltBOM1, Counter, ChangeNo, DeID, DID, PreCounter, Baseqty]
 WHERE
-  [T2160].MAX-Counter == [T2160].Counter
+  [T2122].MAX-Counter == [T2122].Counter
 @anonymous
-[T2160].BOMcat | [T2160].BOM | [T2160].AltBOM | [T2160].MAX-Counter | [T2160].BOMcat1 | [T2160].BOM1 | [T2160].AltBOM1 | [T2160].Counter | [T2160].ChangeNo | [T2160].DeID | [T2160].DID | [T2160].PreCounter | [T2160].Baseqty 
+[T2122].BOMcat | [T2122].BOM | [T2122].AltBOM | [T2122].MAX-Counter | [T2122].BOMcat1 | [T2122].BOM1 | [T2122].AltBOM1 | [T2122].Counter | [T2122].ChangeNo | [T2122].DeID | [T2122].DID | [T2122].PreCounter | [T2122].Baseqty 
 M | 7882.0 | A | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
 M | 7882.0 | B | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
 M | 9772.0 | 1.0 | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
 
-[No.9]===============================
+[No.6]===============================
 SELECT
-  [T2182].AltBOM,[T2182].DID,[T2182].MAX-Counter,[T2182].BOMcat,[T2182].BOM,[T2182].AltBOM1,[T2182].Counter,[T2182].ChangeNo,[T2182].DeID,[T2182].DID1,[T2182].PreCounter,[T2182].Baseqty
-FROM
-  (( SELECT
-        [T660].AltBOM,[T660].DID,[T660].MAX-Counter
-      FROM
-        (SELECT
-            input1.AltBOM, input1.DID, MAX(input1.Counter)
-          FROM
-            input1
-          GROUP BY
-            input1.AltBOM  input1.DID) AS [T660][AltBOM, DID, MAX-Counter] ) JOIN (
-      SELECT
-        input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
-      FROM
-        input1
-       )) AS [T2182][AltBOM, DID, MAX-Counter, BOMcat, BOM, AltBOM1, Counter, ChangeNo, DeID, DID1, PreCounter, Baseqty]
-WHERE
-  [T2182].MAX-Counter == [T2182].Counter
-@anonymous
-[T2182].AltBOM | [T2182].DID | [T2182].MAX-Counter | [T2182].BOMcat | [T2182].BOM | [T2182].AltBOM1 | [T2182].Counter | [T2182].ChangeNo | [T2182].DeID | [T2182].DID1 | [T2182].PreCounter | [T2182].Baseqty 
-A |  | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
-B |  | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
-1.0 |  | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
-
-[No.10]===============================
-SELECT
-  [T2208].AltBOM,[T2208].MAX-Counter,[T2208].BOMcat,[T2208].BOM,[T2208].AltBOM1,[T2208].Counter,[T2208].ChangeNo,[T2208].DeID,[T2208].DID,[T2208].PreCounter,[T2208].Baseqty
-FROM
-  (( SELECT
-        [T581].AltBOM,[T581].MAX-Counter
-      FROM
-        (SELECT
-            input1.AltBOM, MAX(input1.Counter)
-          FROM
-            input1
-          GROUP BY
-            input1.AltBOM) AS [T581][AltBOM, MAX-Counter] ) JOIN (
-      SELECT
-        input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
-      FROM
-        input1
-       )) AS [T2208][AltBOM, MAX-Counter, BOMcat, BOM, AltBOM1, Counter, ChangeNo, DeID, DID, PreCounter, Baseqty]
-WHERE
-  [T2208].MAX-Counter == [T2208].Counter
-@anonymous
-[T2208].AltBOM | [T2208].MAX-Counter | [T2208].BOMcat | [T2208].BOM | [T2208].AltBOM1 | [T2208].Counter | [T2208].ChangeNo | [T2208].DeID | [T2208].DID | [T2208].PreCounter | [T2208].Baseqty 
-A | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
-B | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
-1.0 | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
-
-[No.11]===============================
-SELECT
-  [T2242].BOM,[T2242].AltBOM,[T2242].MAX-Counter,[T2242].BOMcat,[T2242].BOM1,[T2242].AltBOM1,[T2242].Counter,[T2242].ChangeNo,[T2242].DeID,[T2242].DID,[T2242].PreCounter,[T2242].Baseqty
+  [T2132].BOM,[T2132].AltBOM,[T2132].MAX-Counter,[T2132].BOMcat,[T2132].BOM1,[T2132].AltBOM1,[T2132].Counter,[T2132].ChangeNo,[T2132].DeID,[T2132].DID,[T2132].PreCounter,[T2132].Baseqty
 FROM
   (( SELECT
         [T632].BOM,[T632].AltBOM,[T632].MAX-Counter
@@ -289,44 +159,148 @@ FROM
         input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
       FROM
         input1
-       )) AS [T2242][BOM, AltBOM, MAX-Counter, BOMcat, BOM1, AltBOM1, Counter, ChangeNo, DeID, DID, PreCounter, Baseqty]
+       )) AS [T2132][BOM, AltBOM, MAX-Counter, BOMcat, BOM1, AltBOM1, Counter, ChangeNo, DeID, DID, PreCounter, Baseqty]
 WHERE
-  [T2242].MAX-Counter == [T2242].Counter
+  [T2132].MAX-Counter == [T2132].Counter
 @anonymous
-[T2242].BOM | [T2242].AltBOM | [T2242].MAX-Counter | [T2242].BOMcat | [T2242].BOM1 | [T2242].AltBOM1 | [T2242].Counter | [T2242].ChangeNo | [T2242].DeID | [T2242].DID | [T2242].PreCounter | [T2242].Baseqty 
+[T2132].BOM | [T2132].AltBOM | [T2132].MAX-Counter | [T2132].BOMcat | [T2132].BOM1 | [T2132].AltBOM1 | [T2132].Counter | [T2132].ChangeNo | [T2132].DeID | [T2132].DID | [T2132].PreCounter | [T2132].Baseqty 
 7882.0 | A | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
 7882.0 | B | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
 9772.0 | 1.0 | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
 
-[No.12]===============================
+[No.7]===============================
 SELECT
-  [T2252].BOM,[T2252].AltBOM,[T2252].DID,[T2252].MAX-Counter,[T2252].BOMcat,[T2252].BOM1,[T2252].AltBOM1,[T2252].Counter,[T2252].ChangeNo,[T2252].DeID,[T2252].DID1,[T2252].PreCounter,[T2252].Baseqty
+  [T2150].BOMcat,[T2150].AltBOM,[T2150].MAX-Counter,[T2150].BOMcat1,[T2150].BOM,[T2150].AltBOM1,[T2150].Counter,[T2150].ChangeNo,[T2150].DeID,[T2150].DID,[T2150].PreCounter,[T2150].Baseqty
 FROM
   (( SELECT
-        [T772].BOM,[T772].AltBOM,[T772].DID,[T772].MAX-Counter
+        [T608].BOMcat,[T608].AltBOM,[T608].MAX-Counter
       FROM
         (SELECT
-            input1.BOM, input1.AltBOM, input1.DID, MAX(input1.Counter)
+            input1.BOMcat, input1.AltBOM, MAX(input1.Counter)
           FROM
             input1
           GROUP BY
-            input1.BOM  input1.AltBOM  input1.DID) AS [T772][BOM, AltBOM, DID, MAX-Counter] ) JOIN (
+            input1.BOMcat  input1.AltBOM) AS [T608][BOMcat, AltBOM, MAX-Counter] ) JOIN (
       SELECT
         input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
       FROM
         input1
-       )) AS [T2252][BOM, AltBOM, DID, MAX-Counter, BOMcat, BOM1, AltBOM1, Counter, ChangeNo, DeID, DID1, PreCounter, Baseqty]
+       )) AS [T2150][BOMcat, AltBOM, MAX-Counter, BOMcat1, BOM, AltBOM1, Counter, ChangeNo, DeID, DID, PreCounter, Baseqty]
 WHERE
-  [T2252].MAX-Counter == [T2252].Counter
+  [T2150].MAX-Counter == [T2150].Counter
 @anonymous
-[T2252].BOM | [T2252].AltBOM | [T2252].DID | [T2252].MAX-Counter | [T2252].BOMcat | [T2252].BOM1 | [T2252].AltBOM1 | [T2252].Counter | [T2252].ChangeNo | [T2252].DeID | [T2252].DID1 | [T2252].PreCounter | [T2252].Baseqty 
-7882.0 | A |  | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
-7882.0 | B |  | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
-9772.0 | 1.0 |  | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
+[T2150].BOMcat | [T2150].AltBOM | [T2150].MAX-Counter | [T2150].BOMcat1 | [T2150].BOM | [T2150].AltBOM1 | [T2150].Counter | [T2150].ChangeNo | [T2150].DeID | [T2150].DID | [T2150].PreCounter | [T2150].Baseqty 
+M | A | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
+M | B | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
+M | 1.0 | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
 
-[No.13]===============================
+[No.8]===============================
 SELECT
-  [T2262].BOMcat,[T2262].BOM,[T2262].AltBOM,[T2262].DeID,[T2262].MAX-Counter,[T2262].BOMcat1,[T2262].BOM1,[T2262].AltBOM1,[T2262].Counter,[T2262].ChangeNo,[T2262].DeID1,[T2262].DID,[T2262].PreCounter,[T2262].Baseqty
+  [T2168].BOMcat,[T2168].BOM,[T2168].AltBOM,[T2168].DID,[T2168].MAX-Counter,[T2168].BOMcat1,[T2168].BOM1,[T2168].AltBOM1,[T2168].Counter,[T2168].ChangeNo,[T2168].DeID,[T2168].DID1,[T2168].PreCounter,[T2168].Baseqty
+FROM
+  (( SELECT
+        [T848].BOMcat,[T848].BOM,[T848].AltBOM,[T848].DID,[T848].MAX-Counter
+      FROM
+        (SELECT
+            input1.BOMcat, input1.BOM, input1.AltBOM, input1.DID, MAX(input1.Counter)
+          FROM
+            input1
+          GROUP BY
+            input1.BOMcat  input1.BOM  input1.AltBOM  input1.DID) AS [T848][BOMcat, BOM, AltBOM, DID, MAX-Counter] ) JOIN (
+      SELECT
+        input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
+      FROM
+        input1
+       )) AS [T2168][BOMcat, BOM, AltBOM, DID, MAX-Counter, BOMcat1, BOM1, AltBOM1, Counter, ChangeNo, DeID, DID1, PreCounter, Baseqty]
+WHERE
+  [T2168].MAX-Counter == [T2168].Counter
+@anonymous
+[T2168].BOMcat | [T2168].BOM | [T2168].AltBOM | [T2168].DID | [T2168].MAX-Counter | [T2168].BOMcat1 | [T2168].BOM1 | [T2168].AltBOM1 | [T2168].Counter | [T2168].ChangeNo | [T2168].DeID | [T2168].DID1 | [T2168].PreCounter | [T2168].Baseqty 
+M | 7882.0 | A |  | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
+M | 7882.0 | B |  | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
+M | 9772.0 | 1.0 |  | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
+
+[No.9]===============================
+SELECT
+  [T2178].AltBOM,[T2178].DID,[T2178].MAX-Counter,[T2178].BOMcat,[T2178].BOM,[T2178].AltBOM1,[T2178].Counter,[T2178].ChangeNo,[T2178].DeID,[T2178].DID1,[T2178].PreCounter,[T2178].Baseqty
+FROM
+  (( SELECT
+        [T660].AltBOM,[T660].DID,[T660].MAX-Counter
+      FROM
+        (SELECT
+            input1.AltBOM, input1.DID, MAX(input1.Counter)
+          FROM
+            input1
+          GROUP BY
+            input1.AltBOM  input1.DID) AS [T660][AltBOM, DID, MAX-Counter] ) JOIN (
+      SELECT
+        input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
+      FROM
+        input1
+       )) AS [T2178][AltBOM, DID, MAX-Counter, BOMcat, BOM, AltBOM1, Counter, ChangeNo, DeID, DID1, PreCounter, Baseqty]
+WHERE
+  [T2178].MAX-Counter == [T2178].Counter
+@anonymous
+[T2178].AltBOM | [T2178].DID | [T2178].MAX-Counter | [T2178].BOMcat | [T2178].BOM | [T2178].AltBOM1 | [T2178].Counter | [T2178].ChangeNo | [T2178].DeID | [T2178].DID1 | [T2178].PreCounter | [T2178].Baseqty 
+A |  | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
+B |  | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
+1.0 |  | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
+
+[No.10]===============================
+SELECT
+  [T2196].AltBOM,[T2196].DeID,[T2196].DID,[T2196].MAX-Counter,[T2196].BOMcat,[T2196].BOM,[T2196].AltBOM1,[T2196].Counter,[T2196].ChangeNo,[T2196].DeID1,[T2196].DID1,[T2196].PreCounter,[T2196].Baseqty
+FROM
+  (( SELECT
+        [T812].AltBOM,[T812].DeID,[T812].DID,[T812].MAX-Counter
+      FROM
+        (SELECT
+            input1.AltBOM, input1.DeID, input1.DID, MAX(input1.Counter)
+          FROM
+            input1
+          GROUP BY
+            input1.AltBOM  input1.DeID  input1.DID) AS [T812][AltBOM, DeID, DID, MAX-Counter] ) JOIN (
+      SELECT
+        input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
+      FROM
+        input1
+       )) AS [T2196][AltBOM, DeID, DID, MAX-Counter, BOMcat, BOM, AltBOM1, Counter, ChangeNo, DeID1, DID1, PreCounter, Baseqty]
+WHERE
+  [T2196].MAX-Counter == [T2196].Counter
+@anonymous
+[T2196].AltBOM | [T2196].DeID | [T2196].DID | [T2196].MAX-Counter | [T2196].BOMcat | [T2196].BOM | [T2196].AltBOM1 | [T2196].Counter | [T2196].ChangeNo | [T2196].DeID1 | [T2196].DID1 | [T2196].PreCounter | [T2196].Baseqty 
+A | X |  | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
+B | X |  | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
+1.0 | X |  | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
+
+[No.11]===============================
+SELECT
+  [T2218].AltBOM,[T2218].MAX-Counter,[T2218].BOMcat,[T2218].BOM,[T2218].AltBOM1,[T2218].Counter,[T2218].ChangeNo,[T2218].DeID,[T2218].DID,[T2218].PreCounter,[T2218].Baseqty
+FROM
+  (( SELECT
+        [T581].AltBOM,[T581].MAX-Counter
+      FROM
+        (SELECT
+            input1.AltBOM, MAX(input1.Counter)
+          FROM
+            input1
+          GROUP BY
+            input1.AltBOM) AS [T581][AltBOM, MAX-Counter] ) JOIN (
+      SELECT
+        input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
+      FROM
+        input1
+       )) AS [T2218][AltBOM, MAX-Counter, BOMcat, BOM, AltBOM1, Counter, ChangeNo, DeID, DID, PreCounter, Baseqty]
+WHERE
+  [T2218].MAX-Counter == [T2218].Counter
+@anonymous
+[T2218].AltBOM | [T2218].MAX-Counter | [T2218].BOMcat | [T2218].BOM | [T2218].AltBOM1 | [T2218].Counter | [T2218].ChangeNo | [T2218].DeID | [T2218].DID | [T2218].PreCounter | [T2218].Baseqty 
+A | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
+B | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
+1.0 | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
+
+[No.12]===============================
+SELECT
+  [T2236].BOMcat,[T2236].BOM,[T2236].AltBOM,[T2236].DeID,[T2236].MAX-Counter,[T2236].BOMcat1,[T2236].BOM1,[T2236].AltBOM1,[T2236].Counter,[T2236].ChangeNo,[T2236].DeID1,[T2236].DID,[T2236].PreCounter,[T2236].Baseqty
 FROM
   (( SELECT
         [T844].BOMcat,[T844].BOM,[T844].AltBOM,[T844].DeID,[T844].MAX-Counter
@@ -341,14 +315,40 @@ FROM
         input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
       FROM
         input1
-       )) AS [T2262][BOMcat, BOM, AltBOM, DeID, MAX-Counter, BOMcat1, BOM1, AltBOM1, Counter, ChangeNo, DeID1, DID, PreCounter, Baseqty]
+       )) AS [T2236][BOMcat, BOM, AltBOM, DeID, MAX-Counter, BOMcat1, BOM1, AltBOM1, Counter, ChangeNo, DeID1, DID, PreCounter, Baseqty]
 WHERE
-  [T2262].MAX-Counter == [T2262].Counter
+  [T2236].MAX-Counter == [T2236].Counter
 @anonymous
-[T2262].BOMcat | [T2262].BOM | [T2262].AltBOM | [T2262].DeID | [T2262].MAX-Counter | [T2262].BOMcat1 | [T2262].BOM1 | [T2262].AltBOM1 | [T2262].Counter | [T2262].ChangeNo | [T2262].DeID1 | [T2262].DID | [T2262].PreCounter | [T2262].Baseqty 
+[T2236].BOMcat | [T2236].BOM | [T2236].AltBOM | [T2236].DeID | [T2236].MAX-Counter | [T2236].BOMcat1 | [T2236].BOM1 | [T2236].AltBOM1 | [T2236].Counter | [T2236].ChangeNo | [T2236].DeID1 | [T2236].DID | [T2236].PreCounter | [T2236].Baseqty 
 M | 7882.0 | A | X | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
 M | 7882.0 | B | X | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
 M | 9772.0 | 1.0 | X | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
+
+[No.13]===============================
+SELECT
+  [T2246].BOMcat,[T2246].AltBOM,[T2246].DeID,[T2246].DID,[T2246].MAX-Counter,[T2246].BOMcat1,[T2246].BOM,[T2246].AltBOM1,[T2246].Counter,[T2246].ChangeNo,[T2246].DeID1,[T2246].DID1,[T2246].PreCounter,[T2246].Baseqty
+FROM
+  (( SELECT
+        [T888].BOMcat,[T888].AltBOM,[T888].DeID,[T888].DID,[T888].MAX-Counter
+      FROM
+        (SELECT
+            input1.BOMcat, input1.AltBOM, input1.DeID, input1.DID, MAX(input1.Counter)
+          FROM
+            input1
+          GROUP BY
+            input1.BOMcat  input1.AltBOM  input1.DeID  input1.DID) AS [T888][BOMcat, AltBOM, DeID, DID, MAX-Counter] ) JOIN (
+      SELECT
+        input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
+      FROM
+        input1
+       )) AS [T2246][BOMcat, AltBOM, DeID, DID, MAX-Counter, BOMcat1, BOM, AltBOM1, Counter, ChangeNo, DeID1, DID1, PreCounter, Baseqty]
+WHERE
+  [T2246].MAX-Counter == [T2246].Counter
+@anonymous
+[T2246].BOMcat | [T2246].AltBOM | [T2246].DeID | [T2246].DID | [T2246].MAX-Counter | [T2246].BOMcat1 | [T2246].BOM | [T2246].AltBOM1 | [T2246].Counter | [T2246].ChangeNo | [T2246].DeID1 | [T2246].DID1 | [T2246].PreCounter | [T2246].Baseqty 
+M | A | X |  | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
+M | B | X |  | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
+M | 1.0 | X |  | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
 
 [No.14]===============================
 SELECT
@@ -378,140 +378,33 @@ M | 9772.0 | 1.0 | X |  | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X 
 
 [No.15]===============================
 SELECT
-  [T2298].AltBOM,[T2298].DeID,[T2298].DID,[T2298].MAX-Counter,[T2298].BOMcat,[T2298].BOM,[T2298].AltBOM1,[T2298].Counter,[T2298].ChangeNo,[T2298].DeID1,[T2298].DID1,[T2298].PreCounter,[T2298].Baseqty
+  [T2282].BOM,[T2282].AltBOM,[T2282].DID,[T2282].MAX-Counter,[T2282].BOMcat,[T2282].BOM1,[T2282].AltBOM1,[T2282].Counter,[T2282].ChangeNo,[T2282].DeID,[T2282].DID1,[T2282].PreCounter,[T2282].Baseqty
 FROM
   (( SELECT
-        [T812].AltBOM,[T812].DeID,[T812].DID,[T812].MAX-Counter
+        [T772].BOM,[T772].AltBOM,[T772].DID,[T772].MAX-Counter
       FROM
         (SELECT
-            input1.AltBOM, input1.DeID, input1.DID, MAX(input1.Counter)
+            input1.BOM, input1.AltBOM, input1.DID, MAX(input1.Counter)
           FROM
             input1
           GROUP BY
-            input1.AltBOM  input1.DeID  input1.DID) AS [T812][AltBOM, DeID, DID, MAX-Counter] ) JOIN (
+            input1.BOM  input1.AltBOM  input1.DID) AS [T772][BOM, AltBOM, DID, MAX-Counter] ) JOIN (
       SELECT
         input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
       FROM
         input1
-       )) AS [T2298][AltBOM, DeID, DID, MAX-Counter, BOMcat, BOM, AltBOM1, Counter, ChangeNo, DeID1, DID1, PreCounter, Baseqty]
+       )) AS [T2282][BOM, AltBOM, DID, MAX-Counter, BOMcat, BOM1, AltBOM1, Counter, ChangeNo, DeID, DID1, PreCounter, Baseqty]
 WHERE
-  [T2298].MAX-Counter == [T2298].Counter
+  [T2282].MAX-Counter == [T2282].Counter
 @anonymous
-[T2298].AltBOM | [T2298].DeID | [T2298].DID | [T2298].MAX-Counter | [T2298].BOMcat | [T2298].BOM | [T2298].AltBOM1 | [T2298].Counter | [T2298].ChangeNo | [T2298].DeID1 | [T2298].DID1 | [T2298].PreCounter | [T2298].Baseqty 
-A | X |  | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
-B | X |  | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
-1.0 | X |  | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
+[T2282].BOM | [T2282].AltBOM | [T2282].DID | [T2282].MAX-Counter | [T2282].BOMcat | [T2282].BOM1 | [T2282].AltBOM1 | [T2282].Counter | [T2282].ChangeNo | [T2282].DeID | [T2282].DID1 | [T2282].PreCounter | [T2282].Baseqty 
+7882.0 | A |  | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
+7882.0 | B |  | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
+9772.0 | 1.0 |  | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
 
 [No.16]===============================
 SELECT
-  [T2316].BOMcat,[T2316].AltBOM,[T2316].DID,[T2316].MAX-Counter,[T2316].BOMcat1,[T2316].BOM,[T2316].AltBOM1,[T2316].Counter,[T2316].ChangeNo,[T2316].DeID,[T2316].DID1,[T2316].PreCounter,[T2316].Baseqty
-FROM
-  (( SELECT
-        [T728].BOMcat,[T728].AltBOM,[T728].DID,[T728].MAX-Counter
-      FROM
-        (SELECT
-            input1.BOMcat, input1.AltBOM, input1.DID, MAX(input1.Counter)
-          FROM
-            input1
-          GROUP BY
-            input1.BOMcat  input1.AltBOM  input1.DID) AS [T728][BOMcat, AltBOM, DID, MAX-Counter] ) JOIN (
-      SELECT
-        input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
-      FROM
-        input1
-       )) AS [T2316][BOMcat, AltBOM, DID, MAX-Counter, BOMcat1, BOM, AltBOM1, Counter, ChangeNo, DeID, DID1, PreCounter, Baseqty]
-WHERE
-  [T2316].MAX-Counter == [T2316].Counter
-@anonymous
-[T2316].BOMcat | [T2316].AltBOM | [T2316].DID | [T2316].MAX-Counter | [T2316].BOMcat1 | [T2316].BOM | [T2316].AltBOM1 | [T2316].Counter | [T2316].ChangeNo | [T2316].DeID | [T2316].DID1 | [T2316].PreCounter | [T2316].Baseqty 
-M | A |  | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
-M | B |  | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
-M | 1.0 |  | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
-
-[No.17]===============================
-SELECT
-  [T2036].BOMcat,[T2036].AltBOM,[T2036].MAX-Counter,[T2036].BOMcat1,[T2036].BOM,[T2036].AltBOM1,[T2036].Counter,[T2036].ChangeNo,[T2036].DeID,[T2036].DID,[T2036].PreCounter,[T2036].Baseqty
-FROM
-  (( SELECT
-        [T608].BOMcat,[T608].AltBOM,[T608].MAX-Counter
-      FROM
-        (SELECT
-            input1.BOMcat, input1.AltBOM, MAX(input1.Counter)
-          FROM
-            input1
-          GROUP BY
-            input1.BOMcat  input1.AltBOM) AS [T608][BOMcat, AltBOM, MAX-Counter] ) JOIN (
-      SELECT
-        input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
-      FROM
-        input1
-       )) AS [T2036][BOMcat, AltBOM, MAX-Counter, BOMcat1, BOM, AltBOM1, Counter, ChangeNo, DeID, DID, PreCounter, Baseqty]
-WHERE
-  [T2036].MAX-Counter == [T2036].Counter
-   AND [T2036].AltBOM == [T2036].AltBOM1
-@anonymous
-[T2036].BOMcat | [T2036].AltBOM | [T2036].MAX-Counter | [T2036].BOMcat1 | [T2036].BOM | [T2036].AltBOM1 | [T2036].Counter | [T2036].ChangeNo | [T2036].DeID | [T2036].DID | [T2036].PreCounter | [T2036].Baseqty 
-M | A | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
-M | B | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
-M | 1.0 | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
-
-[No.18]===============================
-SELECT
-  [T2086].BOM,[T2086].AltBOM,[T2086].DeID,[T2086].MAX-Counter,[T2086].BOMcat,[T2086].BOM1,[T2086].AltBOM1,[T2086].Counter,[T2086].ChangeNo,[T2086].DeID1,[T2086].DID,[T2086].PreCounter,[T2086].Baseqty
-FROM
-  (( SELECT
-        [T768].BOM,[T768].AltBOM,[T768].DeID,[T768].MAX-Counter
-      FROM
-        (SELECT
-            input1.BOM, input1.AltBOM, input1.DeID, MAX(input1.Counter)
-          FROM
-            input1
-          GROUP BY
-            input1.BOM  input1.AltBOM  input1.DeID) AS [T768][BOM, AltBOM, DeID, MAX-Counter] ) JOIN (
-      SELECT
-        input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
-      FROM
-        input1
-       )) AS [T2086][BOM, AltBOM, DeID, MAX-Counter, BOMcat, BOM1, AltBOM1, Counter, ChangeNo, DeID1, DID, PreCounter, Baseqty]
-WHERE
-  [T2086].MAX-Counter == [T2086].Counter
-   AND [T2086].BOM == [T2086].BOM1
-@anonymous
-[T2086].BOM | [T2086].AltBOM | [T2086].DeID | [T2086].MAX-Counter | [T2086].BOMcat | [T2086].BOM1 | [T2086].AltBOM1 | [T2086].Counter | [T2086].ChangeNo | [T2086].DeID1 | [T2086].DID | [T2086].PreCounter | [T2086].Baseqty 
-7882.0 | A | X | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
-7882.0 | B | X | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
-9772.0 | 1.0 | X | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
-
-[No.19]===============================
-SELECT
-  [T2088].BOM,[T2088].AltBOM,[T2088].DeID,[T2088].MAX-Counter,[T2088].BOMcat,[T2088].BOM1,[T2088].AltBOM1,[T2088].Counter,[T2088].ChangeNo,[T2088].DeID1,[T2088].DID,[T2088].PreCounter,[T2088].Baseqty
-FROM
-  (( SELECT
-        [T768].BOM,[T768].AltBOM,[T768].DeID,[T768].MAX-Counter
-      FROM
-        (SELECT
-            input1.BOM, input1.AltBOM, input1.DeID, MAX(input1.Counter)
-          FROM
-            input1
-          GROUP BY
-            input1.BOM  input1.AltBOM  input1.DeID) AS [T768][BOM, AltBOM, DeID, MAX-Counter] ) JOIN (
-      SELECT
-        input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
-      FROM
-        input1
-       )) AS [T2088][BOM, AltBOM, DeID, MAX-Counter, BOMcat, BOM1, AltBOM1, Counter, ChangeNo, DeID1, DID, PreCounter, Baseqty]
-WHERE
-  [T2088].MAX-Counter == [T2088].Counter
-   AND [T2088].AltBOM == [T2088].AltBOM1
-@anonymous
-[T2088].BOM | [T2088].AltBOM | [T2088].DeID | [T2088].MAX-Counter | [T2088].BOMcat | [T2088].BOM1 | [T2088].AltBOM1 | [T2088].Counter | [T2088].ChangeNo | [T2088].DeID1 | [T2088].DID | [T2088].PreCounter | [T2088].Baseqty 
-7882.0 | A | X | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
-7882.0 | B | X | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
-9772.0 | 1.0 | X | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
-
-[No.20]===============================
-SELECT
-  [T2104].AltBOM,[T2104].DeID,[T2104].MAX-Counter,[T2104].BOMcat,[T2104].BOM,[T2104].AltBOM1,[T2104].Counter,[T2104].ChangeNo,[T2104].DeID1,[T2104].DID,[T2104].PreCounter,[T2104].Baseqty
+  [T2292].AltBOM,[T2292].DeID,[T2292].MAX-Counter,[T2292].BOMcat,[T2292].BOM,[T2292].AltBOM1,[T2292].Counter,[T2292].ChangeNo,[T2292].DeID1,[T2292].DID,[T2292].PreCounter,[T2292].Baseqty
 FROM
   (( SELECT
         [T656].AltBOM,[T656].DeID,[T656].MAX-Counter
@@ -526,27 +419,134 @@ FROM
         input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
       FROM
         input1
-       )) AS [T2104][AltBOM, DeID, MAX-Counter, BOMcat, BOM, AltBOM1, Counter, ChangeNo, DeID1, DID, PreCounter, Baseqty]
+       )) AS [T2292][AltBOM, DeID, MAX-Counter, BOMcat, BOM, AltBOM1, Counter, ChangeNo, DeID1, DID, PreCounter, Baseqty]
 WHERE
-  [T2104].MAX-Counter == [T2104].Counter
-   AND [T2104].AltBOM == [T2104].AltBOM1
+  [T2292].MAX-Counter == [T2292].Counter
 @anonymous
-[T2104].AltBOM | [T2104].DeID | [T2104].MAX-Counter | [T2104].BOMcat | [T2104].BOM | [T2104].AltBOM1 | [T2104].Counter | [T2104].ChangeNo | [T2104].DeID1 | [T2104].DID | [T2104].PreCounter | [T2104].Baseqty 
+[T2292].AltBOM | [T2292].DeID | [T2292].MAX-Counter | [T2292].BOMcat | [T2292].BOM | [T2292].AltBOM1 | [T2292].Counter | [T2292].ChangeNo | [T2292].DeID1 | [T2292].DID | [T2292].PreCounter | [T2292].Baseqty 
 A | X | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
 B | X | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
 1.0 | X | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
 
+[No.17]===============================
+SELECT
+  [T2052].BOM,[T2052].AltBOM,[T2052].DeID,[T2052].MAX-Counter,[T2052].BOMcat,[T2052].BOM1,[T2052].AltBOM1,[T2052].Counter,[T2052].ChangeNo,[T2052].DeID1,[T2052].DID,[T2052].PreCounter,[T2052].Baseqty
+FROM
+  (( SELECT
+        [T768].BOM,[T768].AltBOM,[T768].DeID,[T768].MAX-Counter
+      FROM
+        (SELECT
+            input1.BOM, input1.AltBOM, input1.DeID, MAX(input1.Counter)
+          FROM
+            input1
+          GROUP BY
+            input1.BOM  input1.AltBOM  input1.DeID) AS [T768][BOM, AltBOM, DeID, MAX-Counter] ) JOIN (
+      SELECT
+        input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
+      FROM
+        input1
+       )) AS [T2052][BOM, AltBOM, DeID, MAX-Counter, BOMcat, BOM1, AltBOM1, Counter, ChangeNo, DeID1, DID, PreCounter, Baseqty]
+WHERE
+  [T2052].MAX-Counter == [T2052].Counter
+   AND [T2052].BOM == [T2052].BOM1
+@anonymous
+[T2052].BOM | [T2052].AltBOM | [T2052].DeID | [T2052].MAX-Counter | [T2052].BOMcat | [T2052].BOM1 | [T2052].AltBOM1 | [T2052].Counter | [T2052].ChangeNo | [T2052].DeID1 | [T2052].DID | [T2052].PreCounter | [T2052].Baseqty 
+7882.0 | A | X | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
+7882.0 | B | X | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
+9772.0 | 1.0 | X | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
+
+[No.18]===============================
+SELECT
+  [T2054].BOM,[T2054].AltBOM,[T2054].DeID,[T2054].MAX-Counter,[T2054].BOMcat,[T2054].BOM1,[T2054].AltBOM1,[T2054].Counter,[T2054].ChangeNo,[T2054].DeID1,[T2054].DID,[T2054].PreCounter,[T2054].Baseqty
+FROM
+  (( SELECT
+        [T768].BOM,[T768].AltBOM,[T768].DeID,[T768].MAX-Counter
+      FROM
+        (SELECT
+            input1.BOM, input1.AltBOM, input1.DeID, MAX(input1.Counter)
+          FROM
+            input1
+          GROUP BY
+            input1.BOM  input1.AltBOM  input1.DeID) AS [T768][BOM, AltBOM, DeID, MAX-Counter] ) JOIN (
+      SELECT
+        input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
+      FROM
+        input1
+       )) AS [T2054][BOM, AltBOM, DeID, MAX-Counter, BOMcat, BOM1, AltBOM1, Counter, ChangeNo, DeID1, DID, PreCounter, Baseqty]
+WHERE
+  [T2054].MAX-Counter == [T2054].Counter
+   AND [T2054].AltBOM == [T2054].AltBOM1
+@anonymous
+[T2054].BOM | [T2054].AltBOM | [T2054].DeID | [T2054].MAX-Counter | [T2054].BOMcat | [T2054].BOM1 | [T2054].AltBOM1 | [T2054].Counter | [T2054].ChangeNo | [T2054].DeID1 | [T2054].DID | [T2054].PreCounter | [T2054].Baseqty 
+7882.0 | A | X | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
+7882.0 | B | X | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
+9772.0 | 1.0 | X | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
+
+[No.19]===============================
+SELECT
+  [T2062].BOM,[T2062].AltBOM,[T2062].DeID,[T2062].DID,[T2062].MAX-Counter,[T2062].BOMcat,[T2062].BOM1,[T2062].AltBOM1,[T2062].Counter,[T2062].ChangeNo,[T2062].DeID1,[T2062].DID1,[T2062].PreCounter,[T2062].Baseqty
+FROM
+  (( SELECT
+        [T920].BOM,[T920].AltBOM,[T920].DeID,[T920].DID,[T920].MAX-Counter
+      FROM
+        (SELECT
+            input1.BOM, input1.AltBOM, input1.DeID, input1.DID, MAX(input1.Counter)
+          FROM
+            input1
+          GROUP BY
+            input1.BOM  input1.AltBOM  input1.DeID  input1.DID) AS [T920][BOM, AltBOM, DeID, DID, MAX-Counter] ) JOIN (
+      SELECT
+        input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
+      FROM
+        input1
+       )) AS [T2062][BOM, AltBOM, DeID, DID, MAX-Counter, BOMcat, BOM1, AltBOM1, Counter, ChangeNo, DeID1, DID1, PreCounter, Baseqty]
+WHERE
+  [T2062].MAX-Counter == [T2062].Counter
+   AND [T2062].BOM == [T2062].BOM1
+@anonymous
+[T2062].BOM | [T2062].AltBOM | [T2062].DeID | [T2062].DID | [T2062].MAX-Counter | [T2062].BOMcat | [T2062].BOM1 | [T2062].AltBOM1 | [T2062].Counter | [T2062].ChangeNo | [T2062].DeID1 | [T2062].DID1 | [T2062].PreCounter | [T2062].Baseqty 
+7882.0 | A | X |  | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
+7882.0 | B | X |  | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
+9772.0 | 1.0 | X |  | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
+
+[No.20]===============================
+SELECT
+  [T2064].BOM,[T2064].AltBOM,[T2064].DeID,[T2064].DID,[T2064].MAX-Counter,[T2064].BOMcat,[T2064].BOM1,[T2064].AltBOM1,[T2064].Counter,[T2064].ChangeNo,[T2064].DeID1,[T2064].DID1,[T2064].PreCounter,[T2064].Baseqty
+FROM
+  (( SELECT
+        [T920].BOM,[T920].AltBOM,[T920].DeID,[T920].DID,[T920].MAX-Counter
+      FROM
+        (SELECT
+            input1.BOM, input1.AltBOM, input1.DeID, input1.DID, MAX(input1.Counter)
+          FROM
+            input1
+          GROUP BY
+            input1.BOM  input1.AltBOM  input1.DeID  input1.DID) AS [T920][BOM, AltBOM, DeID, DID, MAX-Counter] ) JOIN (
+      SELECT
+        input1.BOMcat,input1.BOM,input1.AltBOM,input1.Counter,input1.ChangeNo,input1.DeID,input1.DID,input1.PreCounter,input1.Baseqty
+      FROM
+        input1
+       )) AS [T2064][BOM, AltBOM, DeID, DID, MAX-Counter, BOMcat, BOM1, AltBOM1, Counter, ChangeNo, DeID1, DID1, PreCounter, Baseqty]
+WHERE
+  [T2064].MAX-Counter == [T2064].Counter
+   AND [T2064].AltBOM == [T2064].AltBOM1
+@anonymous
+[T2064].BOM | [T2064].AltBOM | [T2064].DeID | [T2064].DID | [T2064].MAX-Counter | [T2064].BOMcat | [T2064].BOM1 | [T2064].AltBOM1 | [T2064].Counter | [T2064].ChangeNo | [T2064].DeID1 | [T2064].DID1 | [T2064].PreCounter | [T2064].Baseqty 
+7882.0 | A | X |  | 26.0 | M | 7882.0 | A | 26.0 | GUC320140101 | X |  |  | 100.0 
+7882.0 | B | X |  | 307.0 | M | 7882.0 | B | 307.0 | GUC320141225 | X |  | 1.0 | 100.5 
+9772.0 | 1.0 | X |  | 1021.0 | M | 9772.0 | 1.0 | 1021.0 | GUC120150703 | X |  | 601.0 | 116.488 
+
 [Consistent Table number] 34
 [Enumeration Finished]
-[[Synthesizer finished]] time: 00:00:09:214
-[[Synthesizer finished]] seconds: 9.214
-[avg reduction rate: syn filter / bit vector] 7.568148829826797
+[[Synthesizer finished]] time: 00:00:11:226
+[[Synthesizer finished]] seconds: 11.226
+[avg reduction rate: syn filter / bit vector] 8.479195112206826
 [avg reduction rate: compound filter / bit vector] NaN
 [avg compound filter count] NaN
 [max compound filter count] 0
-[avg PrimitiveFilterCount] 4.0
-[max PrimitiveFilterCount] 4
-[avg LRFilterCount] 1.5964912280701755
-[max LRFilterCount] 14
-[avg decompose tree count] 1.9090909090909092
-[max decomposeTreeCount] 9
+[avg PrimitiveFilterCount] 6.0
+[max PrimitiveFilterCount] 6
+[avg LRFilterCount] 2.3684210526315788
+[max LRFilterCount] 32
+[avg decompose tree count] 2.0303030303030303
+[max decomposeTreeCount] 10

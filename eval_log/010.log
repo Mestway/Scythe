@@ -14,6 +14,17 @@ Candidates:
 37
 [No.1]===============================
 SELECT
+  input1.id,input1.country,input1.status
+FROM
+  input1
+WHERE
+  input1.status == TREATED
+@anonymous
+input1.id | input1.country | input1.status 
+1.0 | SE | TREATED 
+
+[No.2]===============================
+SELECT
   [T770].id,[T770].country,[T770].status,[T770].id1,[T770].country1,[T770].status1
 FROM
   (( SELECT
@@ -32,17 +43,6 @@ FROM
 @anonymous
 [T770].id | [T770].country | [T770].status | [T770].id1 | [T770].country1 | [T770].status1 
 1.0 | SE | TREATED | 1.0 | SE | TREATED 
-
-[No.2]===============================
-SELECT
-  input1.id,input1.country,input1.status
-FROM
-  input1
-WHERE
-  input1.status == TREATED
-@anonymous
-input1.id | input1.country | input1.status 
-1.0 | SE | TREATED 
 
 [No.3]===============================
 SELECT
@@ -167,10 +167,9 @@ FROM
         input1.id,input1.country,input1.status
       FROM
         input1
-      WHERE
-        input1.status == TREATED )) AS [T778][id, country, status, id1, country1, status1]
+       )) AS [T778][id, country, status, id1, country1, status1]
 WHERE
-  [T778].country == [T778].country1
+  [T778].status == [T778].status1
 @anonymous
 [T778].id | [T778].country | [T778].status | [T778].id1 | [T778].country1 | [T778].status1 
 1.0 | SE | TREATED | 1.0 | SE | TREATED 
@@ -241,100 +240,13 @@ FROM
               (input1) AS [T0][id, country, status]
             WHERE
               TREATED == [T0].status
-               AND input1.country == [T0].country) AS [T253][anonymous, anonymous1, id, country, status])
-         AND input1.status == UNTREATED )) AS [T780][id, country, status, id1, country1, status1]
+               AND input1.country == [T0].country) AS [T253][anonymous, anonymous1, id, country, status]) )) AS [T780][id, country, status, id1, country1, status1]
 
 @anonymous
 [T780].id | [T780].country | [T780].status | [T780].id1 | [T780].country1 | [T780].status1 
 1.0 | SE | TREATED | 2.0 | DK | UNTREATED 
 
 [No.12]===============================
-SELECT
-  [T782].id,[T782].country,[T782].status,[T782].id1,[T782].country1,[T782].status1
-FROM
-  (( SELECT
-        input1.id,input1.country,input1.status
-      FROM
-        input1
-      WHERE
-        input1.status == TREATED ) JOIN (
-      SELECT
-        input1.id,input1.country,input1.status
-      FROM
-        input1
-      WHERE
-        NOT EXIST (
-          (SELECT
-              TREATED,UNTREATED,[T0].id,[T0].country,[T0].status
-            FROM
-              (input1) AS [T0][id, country, status]
-            WHERE
-              TREATED == [T0].status
-               AND input1.country == [T0].country) AS [T253][anonymous, anonymous1, id, country, status]) )) AS [T782][id, country, status, id1, country1, status1]
-
-@anonymous
-[T782].id | [T782].country | [T782].status | [T782].id1 | [T782].country1 | [T782].status1 
-1.0 | SE | TREATED | 2.0 | DK | UNTREATED 
-
-[No.13]===============================
-SELECT
-  [T792].id,[T792].country,[T792].status,[T792].id1,[T792].country1,[T792].status1
-FROM
-  (( SELECT
-        input1.id,input1.country,input1.status
-      FROM
-        input1
-      WHERE
-        input1.status == TREATED ) JOIN (
-      SELECT
-        input1.id,input1.country,input1.status
-      FROM
-        input1
-      WHERE
-        input1.status == UNTREATED
-         AND EXIST (
-          (SELECT
-              TREATED,UNTREATED,[T0].id,[T0].country,[T0].status
-            FROM
-              (input1) AS [T0][id, country, status]
-            WHERE
-              TREATED == [T0].status
-               AND input1.country == [T0].country) AS [T253][anonymous, anonymous1, id, country, status]) )) AS [T792][id, country, status, id1, country1, status1]
-
-@anonymous
-[T792].id | [T792].country | [T792].status | [T792].id1 | [T792].country1 | [T792].status1 
-1.0 | SE | TREATED | 3.0 | SE | UNTREATED 
-
-[No.14]===============================
-SELECT
-  [T802].id,[T802].country,[T802].status,[T802].id1,[T802].country1,[T802].status1
-FROM
-  (( SELECT
-        input1.id,input1.country,input1.status
-      FROM
-        input1
-      WHERE
-        input1.status == UNTREATED
-         AND EXIST (
-          (SELECT
-              TREATED,UNTREATED,[T0].id,[T0].country,[T0].status
-            FROM
-              (input1) AS [T0][id, country, status]
-            WHERE
-              TREATED == [T0].status
-               AND input1.country == [T0].country) AS [T253][anonymous, anonymous1, id, country, status]) ) JOIN (
-      SELECT
-        input1.id,input1.country,input1.status
-      FROM
-        input1
-      WHERE
-        input1.status == TREATED )) AS [T802][id, country, status, id1, country1, status1]
-
-@anonymous
-[T802].id | [T802].country | [T802].status | [T802].id1 | [T802].country1 | [T802].status1 
-3.0 | SE | UNTREATED | 1.0 | SE | TREATED 
-
-[No.15]===============================
 SELECT
   [T812].country,[T812].id,[T812].country1,[T812].status
 FROM
@@ -369,7 +281,7 @@ FROM
 [T812].country | [T812].id | [T812].country1 | [T812].status 
 SE | 1.0 | SE | TREATED 
 
-[No.16]===============================
+[No.13]===============================
 SELECT
   input1.id,input1.country,input1.status
 FROM
@@ -387,6 +299,93 @@ WHERE
 @anonymous
 input1.id | input1.country | input1.status 
 1.0 | SE | TREATED 
+
+[No.14]===============================
+SELECT
+  [T782].id,[T782].country,[T782].status,[T782].id1,[T782].country1,[T782].status1
+FROM
+  (( SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              TREATED,UNTREATED,[T0].id,[T0].country,[T0].status
+            FROM
+              (input1) AS [T0][id, country, status]
+            WHERE
+              TREATED == [T0].status
+               AND input1.country == [T0].country) AS [T253][anonymous, anonymous1, id, country, status])
+         AND input1.status == UNTREATED )) AS [T782][id, country, status, id1, country1, status1]
+
+@anonymous
+[T782].id | [T782].country | [T782].status | [T782].id1 | [T782].country1 | [T782].status1 
+1.0 | SE | TREATED | 2.0 | DK | UNTREATED 
+
+[No.15]===============================
+SELECT
+  [T792].id,[T792].country,[T792].status,[T792].id1,[T792].country1,[T792].status1
+FROM
+  (( SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == UNTREATED
+         AND EXIST (
+          (SELECT
+              TREATED,UNTREATED,[T0].id,[T0].country,[T0].status
+            FROM
+              (input1) AS [T0][id, country, status]
+            WHERE
+              TREATED == [T0].status
+               AND input1.country == [T0].country) AS [T253][anonymous, anonymous1, id, country, status]) )) AS [T792][id, country, status, id1, country1, status1]
+
+@anonymous
+[T792].id | [T792].country | [T792].status | [T792].id1 | [T792].country1 | [T792].status1 
+1.0 | SE | TREATED | 3.0 | SE | UNTREATED 
+
+[No.16]===============================
+SELECT
+  [T802].id,[T802].country,[T802].status,[T802].id1,[T802].country1,[T802].status1
+FROM
+  (( SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == UNTREATED
+         AND EXIST (
+          (SELECT
+              TREATED,UNTREATED,[T0].id,[T0].country,[T0].status
+            FROM
+              (input1) AS [T0][id, country, status]
+            WHERE
+              TREATED == [T0].status
+               AND input1.country == [T0].country) AS [T253][anonymous, anonymous1, id, country, status]) ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED )) AS [T802][id, country, status, id1, country1, status1]
+
+@anonymous
+[T802].id | [T802].country | [T802].status | [T802].id1 | [T802].country1 | [T802].status1 
+3.0 | SE | UNTREATED | 1.0 | SE | TREATED 
 
 [No.17]===============================
 SELECT
@@ -454,37 +453,43 @@ TREATED | 1.0 | SE | TREATED
 
 [No.19]===============================
 SELECT
-  [T794].id,[T794].country,[T794].status,[T794].id1,[T794].country1,[T794].status1
+  [T816].country,[T816].id,[T816].country1,[T816].status
 FROM
   (( SELECT
-        input1.id,input1.country,input1.status
+        [T815].country
       FROM
-        input1
-      WHERE
-        input1.status == TREATED
-         AND EXIST (
-          (SELECT
-              TREATED,UNTREATED,[T0].id,[T0].country,[T0].status
-            FROM
-              (input1) AS [T0][id, country, status]
-            WHERE
-              TREATED == [T0].status
-               AND input1.country == [T0].country) AS [T253][anonymous, anonymous1, id, country, status]) ) JOIN (
+        (SELECT
+            [T814].country, FROM
+            (SELECT
+                input1.id,input1.country,input1.status
+              FROM
+                input1
+              WHERE
+                EXIST (
+                  (SELECT
+                      TREATED,UNTREATED,[T0].id,[T0].country,[T0].status
+                    FROM
+                      (input1) AS [T0][id, country, status]
+                    WHERE
+                      TREATED == [T0].status
+                       AND input1.country == [T0].country) AS [T253][anonymous, anonymous1, id, country, status])) AS [T814][id, country, status]
+          GROUP BY
+            [T814].country) AS [T815][country] ) JOIN (
       SELECT
         input1.id,input1.country,input1.status
       FROM
         input1
       WHERE
-        input1.status == UNTREATED )) AS [T794][id, country, status, id1, country1, status1]
+        input1.status == TREATED )) AS [T816][country, id, country1, status]
 WHERE
-  [T794].country == [T794].country1
+  [T816].country == [T816].country1
 @anonymous
-[T794].id | [T794].country | [T794].status | [T794].id1 | [T794].country1 | [T794].status1 
-1.0 | SE | TREATED | 3.0 | SE | UNTREATED 
+[T816].country | [T816].id | [T816].country1 | [T816].status 
+SE | 1.0 | SE | TREATED 
 
 [No.20]===============================
 SELECT
-  [T796].id,[T796].country,[T796].status,[T796].id1,[T796].country1,[T796].status1
+  [T794].id,[T794].country,[T794].status,[T794].id1,[T794].country1,[T794].status1
 FROM
   (( SELECT
         input1.id,input1.country,input1.status
@@ -505,24 +510,24 @@ FROM
               (input1) AS [T0][id, country, status]
             WHERE
               TREATED == [T0].status
-               AND input1.country == [T0].country) AS [T253][anonymous, anonymous1, id, country, status]) )) AS [T796][id, country, status, id1, country1, status1]
+               AND input1.country == [T0].country) AS [T253][anonymous, anonymous1, id, country, status]) )) AS [T794][id, country, status, id1, country1, status1]
 WHERE
-  [T796].country == [T796].country1
+  [T794].country == [T794].country1
 @anonymous
-[T796].id | [T796].country | [T796].status | [T796].id1 | [T796].country1 | [T796].status1 
+[T794].id | [T794].country | [T794].status | [T794].id1 | [T794].country1 | [T794].status1 
 1.0 | SE | TREATED | 3.0 | SE | UNTREATED 
 
 [Consistent Table number] 8
 [Enumeration Finished]
-[[Synthesizer finished]] time: 00:00:03:704
-[[Synthesizer finished]] seconds: 3.7039999999999997
-[avg reduction rate: syn filter / bit vector] 410.39500000476835
+[[Synthesizer finished]] time: 00:00:03:854
+[[Synthesizer finished]] seconds: 3.854
+[avg reduction rate: syn filter / bit vector] 410.775
 [avg reduction rate: compound filter / bit vector] NaN
 [avg compound filter count] NaN
 [max compound filter count] 0
-[avg PrimitiveFilterCount] 943.7142857142857
-[max PrimitiveFilterCount] 1538
-[avg LRFilterCount] 1.0
-[max LRFilterCount] 1
-[avg decompose tree count] 43.75757575757576
+[avg PrimitiveFilterCount] 945.6623376623377
+[max PrimitiveFilterCount] 1539
+[avg LRFilterCount] 1.9636363636363636
+[max LRFilterCount] 3
+[avg decompose tree count] 64.6969696969697
 [max decomposeTreeCount] 578

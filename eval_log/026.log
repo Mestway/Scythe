@@ -6,335 +6,204 @@
 [Enumeration Start]
 [FiltersCount format](primitiveSynFilterCount, primitiveBitVecFilterCount, totalBitVecFiltersCount)
 [Basic]: 1 [SymTableForInputs]: 1
-[Aggregation]: 17 [SymTable]: 18
-[EnumJoin] level 1 [SymTable]: 36
-ASymTable Enumeration done: 36
-Runner ups: 4
+[Aggregation]: 45 [SymTable]: 46
+[EnumJoin] level 1 [SymTable]: 92
+ASymTable Enumeration done: 92
+Runner ups: 2
 Candidates: 
-20
+8
 [No.1]===============================
 SELECT
-  [T36].acct_id,[T36].Bill_dt,[T36].MAX-Bill_Id,[T36].acct_id1,[T36].Bill_Id,[T36].Bill_dt1,[T36].alt_bill_id
+  [T96].acct_id,[T96].Bill_dt,[T96].MAX-alt_bill_id,[T96].acct_id1,[T96].Bill_Id,[T96].Bill_dt1,[T96].alt_bill_id
 FROM
   (( SELECT
-        [T11].acct_id,[T11].Bill_dt,[T11].MAX-Bill_Id
+        [T26].acct_id,[T26].Bill_dt,[T26].MAX-alt_bill_id
       FROM
         (SELECT
-            input1.acct_id, input1.Bill_dt, MAX(input1.Bill_Id)
+            input1.acct_id, input1.Bill_dt, MAX(input1.alt_bill_id)
           FROM
             input1
           GROUP BY
-            input1.acct_id  input1.Bill_dt) AS [T11][acct_id, Bill_dt, MAX-Bill_Id] ) JOIN (
+            input1.acct_id  input1.Bill_dt) AS [T26][acct_id, Bill_dt, MAX-alt_bill_id] ) JOIN (
       SELECT
         input1.acct_id,input1.Bill_Id,input1.Bill_dt,input1.alt_bill_id
       FROM
         input1
-       )) AS [T36][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
+       )) AS [T96][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
 WHERE
-  [T36].MAX-Bill_Id == [T36].Bill_Id
+  [T96].acct_id == [T96].acct_id1
+   AND [T96].MAX-alt_bill_id == [T96].alt_bill_id
 @anonymous
-[T36].acct_id | [T36].Bill_dt | [T36].MAX-Bill_Id | [T36].acct_id1 | [T36].Bill_Id | [T36].Bill_dt1 | [T36].alt_bill_id 
-12345.0 | Thu Jan 02 00:00:00 PST 2014 | 123452.0 | 12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
-12346.0 | Thu Jan 02 00:00:00 PST 2014 | 123461.0 | 12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
-12347.0 | Thu Jan 02 00:00:00 PST 2014 | 123471.0 | 12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+[T96].acct_id | [T96].Bill_dt | [T96].MAX-alt_bill_id | [T96].acct_id1 | [T96].Bill_Id | [T96].Bill_dt1 | [T96].alt_bill_id 
+12345.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 | 12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 | 12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 | 12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
 
 [No.2]===============================
 SELECT
-  [T46].acct_id,[T46].Bill_dt,[T46].MAX-alt_bill_id,[T46].acct_id1,[T46].Bill_Id,[T46].Bill_dt1,[T46].alt_bill_id
+  [T104].acct_id,[T104].MAX-alt_bill_id,[T104].acct_id1,[T104].Bill_Id,[T104].Bill_dt,[T104].alt_bill_id
 FROM
   (( SELECT
-        [T13].acct_id,[T13].Bill_dt,[T13].MAX-alt_bill_id
+        [T4].acct_id,[T4].MAX-alt_bill_id
       FROM
         (SELECT
-            input1.acct_id, input1.Bill_dt, MAX(input1.alt_bill_id)
+            input1.acct_id, MAX(input1.alt_bill_id)
           FROM
             input1
           GROUP BY
-            input1.acct_id  input1.Bill_dt) AS [T13][acct_id, Bill_dt, MAX-alt_bill_id] ) JOIN (
+            input1.acct_id) AS [T4][acct_id, MAX-alt_bill_id] ) JOIN (
       SELECT
         input1.acct_id,input1.Bill_Id,input1.Bill_dt,input1.alt_bill_id
       FROM
         input1
-       )) AS [T46][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
+       )) AS [T104][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
 WHERE
-  [T46].MAX-alt_bill_id == [T46].alt_bill_id
+  [T104].acct_id == [T104].acct_id1
+   AND [T104].MAX-alt_bill_id == [T104].alt_bill_id
 @anonymous
-[T46].acct_id | [T46].Bill_dt | [T46].MAX-alt_bill_id | [T46].acct_id1 | [T46].Bill_Id | [T46].Bill_dt1 | [T46].alt_bill_id 
-12345.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 | 12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
-12346.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 | 12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
-12347.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 | 12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+[T104].acct_id | [T104].MAX-alt_bill_id | [T104].acct_id1 | [T104].Bill_Id | [T104].Bill_dt | [T104].alt_bill_id 
+12345.0 | 102.0 | 12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 103.0 | 12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 104.0 | 12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
 
 [No.3]===============================
 SELECT
-  [T56].acct_id,[T56].MAX-alt_bill_id,[T56].acct_id1,[T56].Bill_Id,[T56].Bill_dt,[T56].alt_bill_id
+  [T92].acct_id,[T92].Bill_dt,[T92].MAX-alt_bill_id,[T92].acct_id1,[T92].Bill_Id,[T92].Bill_dt1,[T92].alt_bill_id
 FROM
   (( SELECT
-        [T4].acct_id,[T4].MAX-alt_bill_id
+        [T26].acct_id,[T26].Bill_dt,[T26].MAX-alt_bill_id
       FROM
         (SELECT
-            input1.acct_id, MAX(input1.alt_bill_id)
+            input1.acct_id, input1.Bill_dt, MAX(input1.alt_bill_id)
           FROM
             input1
           GROUP BY
-            input1.acct_id) AS [T4][acct_id, MAX-alt_bill_id] ) JOIN (
+            input1.acct_id  input1.Bill_dt) AS [T26][acct_id, Bill_dt, MAX-alt_bill_id] ) JOIN (
       SELECT
         input1.acct_id,input1.Bill_Id,input1.Bill_dt,input1.alt_bill_id
       FROM
         input1
-       )) AS [T56][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+       )) AS [T92][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
 WHERE
-  [T56].MAX-alt_bill_id == [T56].alt_bill_id
+  [T92].acct_id >= [T92].acct_id1
+   AND [T92].MAX-alt_bill_id == [T92].alt_bill_id
 @anonymous
-[T56].acct_id | [T56].MAX-alt_bill_id | [T56].acct_id1 | [T56].Bill_Id | [T56].Bill_dt | [T56].alt_bill_id 
-12345.0 | 102.0 | 12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
-12346.0 | 103.0 | 12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
-12347.0 | 104.0 | 12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+[T92].acct_id | [T92].Bill_dt | [T92].MAX-alt_bill_id | [T92].acct_id1 | [T92].Bill_Id | [T92].Bill_dt1 | [T92].alt_bill_id 
+12345.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 | 12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 | 12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 | 12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
 
 [No.4]===============================
 SELECT
-  [T66].acct_id,[T66].MAX-Bill_Id,[T66].acct_id1,[T66].Bill_Id,[T66].Bill_dt,[T66].alt_bill_id
+  [T100].acct_id,[T100].MAX-alt_bill_id,[T100].acct_id1,[T100].Bill_Id,[T100].Bill_dt,[T100].alt_bill_id
 FROM
   (( SELECT
-        [T2].acct_id,[T2].MAX-Bill_Id
+        [T4].acct_id,[T4].MAX-alt_bill_id
       FROM
         (SELECT
-            input1.acct_id, MAX(input1.Bill_Id)
+            input1.acct_id, MAX(input1.alt_bill_id)
           FROM
             input1
           GROUP BY
-            input1.acct_id) AS [T2][acct_id, MAX-Bill_Id] ) JOIN (
+            input1.acct_id) AS [T4][acct_id, MAX-alt_bill_id] ) JOIN (
       SELECT
         input1.acct_id,input1.Bill_Id,input1.Bill_dt,input1.alt_bill_id
       FROM
         input1
-       )) AS [T66][acct_id, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+       )) AS [T100][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
 WHERE
-  [T66].MAX-Bill_Id == [T66].Bill_Id
+  [T100].acct_id >= [T100].acct_id1
+   AND [T100].MAX-alt_bill_id == [T100].alt_bill_id
 @anonymous
-[T66].acct_id | [T66].MAX-Bill_Id | [T66].acct_id1 | [T66].Bill_Id | [T66].Bill_dt | [T66].alt_bill_id 
-12345.0 | 123452.0 | 12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
-12346.0 | 123461.0 | 12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
-12347.0 | 123471.0 | 12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+[T100].acct_id | [T100].MAX-alt_bill_id | [T100].acct_id1 | [T100].Bill_Id | [T100].Bill_dt | [T100].alt_bill_id 
+12345.0 | 102.0 | 12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 103.0 | 12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 104.0 | 12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
 
 [No.5]===============================
 SELECT
-  [T38].acct_id,[T38].Bill_dt,[T38].MAX-Bill_Id,[T38].acct_id1,[T38].Bill_Id,[T38].Bill_dt1,[T38].alt_bill_id
+  [T98].acct_id,[T98].Bill_dt,[T98].MAX-alt_bill_id,[T98].acct_id1,[T98].Bill_Id,[T98].Bill_dt1,[T98].alt_bill_id
 FROM
   (( SELECT
-        [T11].acct_id,[T11].Bill_dt,[T11].MAX-Bill_Id
+        [T26].acct_id,[T26].Bill_dt,[T26].MAX-alt_bill_id
       FROM
         (SELECT
-            input1.acct_id, input1.Bill_dt, MAX(input1.Bill_Id)
+            input1.acct_id, input1.Bill_dt, MAX(input1.alt_bill_id)
           FROM
             input1
           GROUP BY
-            input1.acct_id  input1.Bill_dt) AS [T11][acct_id, Bill_dt, MAX-Bill_Id] ) JOIN (
+            input1.acct_id  input1.Bill_dt) AS [T26][acct_id, Bill_dt, MAX-alt_bill_id] ) JOIN (
       SELECT
         input1.acct_id,input1.Bill_Id,input1.Bill_dt,input1.alt_bill_id
       FROM
         input1
-       )) AS [T38][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
+       )) AS [T98][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
 WHERE
-  [T38].acct_id == [T38].acct_id1
-   AND [T38].MAX-Bill_Id == [T38].Bill_Id
+  [T98].MAX-alt_bill_id <= [T98].alt_bill_id
+   AND [T98].acct_id == [T98].acct_id1
 @anonymous
-[T38].acct_id | [T38].Bill_dt | [T38].MAX-Bill_Id | [T38].acct_id1 | [T38].Bill_Id | [T38].Bill_dt1 | [T38].alt_bill_id 
-12345.0 | Thu Jan 02 00:00:00 PST 2014 | 123452.0 | 12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
-12346.0 | Thu Jan 02 00:00:00 PST 2014 | 123461.0 | 12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
-12347.0 | Thu Jan 02 00:00:00 PST 2014 | 123471.0 | 12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+[T98].acct_id | [T98].Bill_dt | [T98].MAX-alt_bill_id | [T98].acct_id1 | [T98].Bill_Id | [T98].Bill_dt1 | [T98].alt_bill_id 
+12345.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 | 12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 | 12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 | 12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
 
 [No.6]===============================
 SELECT
-  [T48].acct_id,[T48].Bill_dt,[T48].MAX-alt_bill_id,[T48].acct_id1,[T48].Bill_Id,[T48].Bill_dt1,[T48].alt_bill_id
+  [T106].acct_id,[T106].MAX-alt_bill_id,[T106].acct_id1,[T106].Bill_Id,[T106].Bill_dt,[T106].alt_bill_id
 FROM
   (( SELECT
-        [T13].acct_id,[T13].Bill_dt,[T13].MAX-alt_bill_id
+        [T4].acct_id,[T4].MAX-alt_bill_id
       FROM
         (SELECT
-            input1.acct_id, input1.Bill_dt, MAX(input1.alt_bill_id)
+            input1.acct_id, MAX(input1.alt_bill_id)
           FROM
             input1
           GROUP BY
-            input1.acct_id  input1.Bill_dt) AS [T13][acct_id, Bill_dt, MAX-alt_bill_id] ) JOIN (
+            input1.acct_id) AS [T4][acct_id, MAX-alt_bill_id] ) JOIN (
       SELECT
         input1.acct_id,input1.Bill_Id,input1.Bill_dt,input1.alt_bill_id
       FROM
         input1
-       )) AS [T48][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
+       )) AS [T106][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
 WHERE
-  [T48].acct_id == [T48].acct_id1
-   AND [T48].MAX-alt_bill_id == [T48].alt_bill_id
+  [T106].MAX-alt_bill_id <= [T106].alt_bill_id
+   AND [T106].acct_id == [T106].acct_id1
 @anonymous
-[T48].acct_id | [T48].Bill_dt | [T48].MAX-alt_bill_id | [T48].acct_id1 | [T48].Bill_Id | [T48].Bill_dt1 | [T48].alt_bill_id 
-12345.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 | 12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
-12346.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 | 12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
-12347.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 | 12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+[T106].acct_id | [T106].MAX-alt_bill_id | [T106].acct_id1 | [T106].Bill_Id | [T106].Bill_dt | [T106].alt_bill_id 
+12345.0 | 102.0 | 12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 103.0 | 12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 104.0 | 12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
 
 [No.7]===============================
 SELECT
-  [T58].acct_id,[T58].MAX-alt_bill_id,[T58].acct_id1,[T58].Bill_Id,[T58].Bill_dt,[T58].alt_bill_id
+  [T94].acct_id,[T94].Bill_dt,[T94].MAX-alt_bill_id,[T94].acct_id1,[T94].Bill_Id,[T94].Bill_dt1,[T94].alt_bill_id
 FROM
   (( SELECT
-        [T4].acct_id,[T4].MAX-alt_bill_id
+        [T26].acct_id,[T26].Bill_dt,[T26].MAX-alt_bill_id
       FROM
         (SELECT
-            input1.acct_id, MAX(input1.alt_bill_id)
+            input1.acct_id, input1.Bill_dt, MAX(input1.alt_bill_id)
           FROM
             input1
           GROUP BY
-            input1.acct_id) AS [T4][acct_id, MAX-alt_bill_id] ) JOIN (
+            input1.acct_id  input1.Bill_dt) AS [T26][acct_id, Bill_dt, MAX-alt_bill_id] ) JOIN (
       SELECT
         input1.acct_id,input1.Bill_Id,input1.Bill_dt,input1.alt_bill_id
       FROM
         input1
-       )) AS [T58][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+       )) AS [T94][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
 WHERE
-  [T58].acct_id == [T58].acct_id1
-   AND [T58].MAX-alt_bill_id == [T58].alt_bill_id
+  [T94].acct_id >= [T94].acct_id1
+   AND [T94].MAX-alt_bill_id <= [T94].alt_bill_id
 @anonymous
-[T58].acct_id | [T58].MAX-alt_bill_id | [T58].acct_id1 | [T58].Bill_Id | [T58].Bill_dt | [T58].alt_bill_id 
-12345.0 | 102.0 | 12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
-12346.0 | 103.0 | 12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
-12347.0 | 104.0 | 12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+[T94].acct_id | [T94].Bill_dt | [T94].MAX-alt_bill_id | [T94].acct_id1 | [T94].Bill_Id | [T94].Bill_dt1 | [T94].alt_bill_id 
+12345.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 | 12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 | 12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 | 12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
 
 [No.8]===============================
 SELECT
-  [T68].acct_id,[T68].MAX-Bill_Id,[T68].acct_id1,[T68].Bill_Id,[T68].Bill_dt,[T68].alt_bill_id
-FROM
-  (( SELECT
-        [T2].acct_id,[T2].MAX-Bill_Id
-      FROM
-        (SELECT
-            input1.acct_id, MAX(input1.Bill_Id)
-          FROM
-            input1
-          GROUP BY
-            input1.acct_id) AS [T2][acct_id, MAX-Bill_Id] ) JOIN (
-      SELECT
-        input1.acct_id,input1.Bill_Id,input1.Bill_dt,input1.alt_bill_id
-      FROM
-        input1
-       )) AS [T68][acct_id, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
-WHERE
-  [T68].acct_id == [T68].acct_id1
-   AND [T68].MAX-Bill_Id == [T68].Bill_Id
-@anonymous
-[T68].acct_id | [T68].MAX-Bill_Id | [T68].acct_id1 | [T68].Bill_Id | [T68].Bill_dt | [T68].alt_bill_id 
-12345.0 | 123452.0 | 12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
-12346.0 | 123461.0 | 12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
-12347.0 | 123471.0 | 12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
-
-[No.9]===============================
-SELECT
-  [T40].acct_id,[T40].Bill_dt,[T40].MAX-Bill_Id,[T40].acct_id1,[T40].Bill_Id,[T40].Bill_dt1,[T40].alt_bill_id
-FROM
-  (( SELECT
-        [T11].acct_id,[T11].Bill_dt,[T11].MAX-Bill_Id
-      FROM
-        (SELECT
-            input1.acct_id, input1.Bill_dt, MAX(input1.Bill_Id)
-          FROM
-            input1
-          GROUP BY
-            input1.acct_id  input1.Bill_dt) AS [T11][acct_id, Bill_dt, MAX-Bill_Id] ) JOIN (
-      SELECT
-        input1.acct_id,input1.Bill_Id,input1.Bill_dt,input1.alt_bill_id
-      FROM
-        input1
-       )) AS [T40][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
-WHERE
-  [T40].MAX-Bill_Id == [T40].Bill_Id
-   AND [T40].acct_id >= [T40].acct_id1
-@anonymous
-[T40].acct_id | [T40].Bill_dt | [T40].MAX-Bill_Id | [T40].acct_id1 | [T40].Bill_Id | [T40].Bill_dt1 | [T40].alt_bill_id 
-12345.0 | Thu Jan 02 00:00:00 PST 2014 | 123452.0 | 12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
-12346.0 | Thu Jan 02 00:00:00 PST 2014 | 123461.0 | 12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
-12347.0 | Thu Jan 02 00:00:00 PST 2014 | 123471.0 | 12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
-
-[No.10]===============================
-SELECT
-  [T42].acct_id,[T42].Bill_dt,[T42].MAX-Bill_Id,[T42].acct_id1,[T42].Bill_Id,[T42].Bill_dt1,[T42].alt_bill_id
-FROM
-  (( SELECT
-        [T11].acct_id,[T11].Bill_dt,[T11].MAX-Bill_Id
-      FROM
-        (SELECT
-            input1.acct_id, input1.Bill_dt, MAX(input1.Bill_Id)
-          FROM
-            input1
-          GROUP BY
-            input1.acct_id  input1.Bill_dt) AS [T11][acct_id, Bill_dt, MAX-Bill_Id] ) JOIN (
-      SELECT
-        input1.acct_id,input1.Bill_Id,input1.Bill_dt,input1.alt_bill_id
-      FROM
-        input1
-       )) AS [T42][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
-WHERE
-  [T42].acct_id <= [T42].acct_id1
-   AND [T42].MAX-Bill_Id == [T42].Bill_Id
-@anonymous
-[T42].acct_id | [T42].Bill_dt | [T42].MAX-Bill_Id | [T42].acct_id1 | [T42].Bill_Id | [T42].Bill_dt1 | [T42].alt_bill_id 
-12345.0 | Thu Jan 02 00:00:00 PST 2014 | 123452.0 | 12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
-12346.0 | Thu Jan 02 00:00:00 PST 2014 | 123461.0 | 12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
-12347.0 | Thu Jan 02 00:00:00 PST 2014 | 123471.0 | 12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
-
-[No.11]===============================
-SELECT
-  [T50].acct_id,[T50].Bill_dt,[T50].MAX-alt_bill_id,[T50].acct_id1,[T50].Bill_Id,[T50].Bill_dt1,[T50].alt_bill_id
-FROM
-  (( SELECT
-        [T13].acct_id,[T13].Bill_dt,[T13].MAX-alt_bill_id
-      FROM
-        (SELECT
-            input1.acct_id, input1.Bill_dt, MAX(input1.alt_bill_id)
-          FROM
-            input1
-          GROUP BY
-            input1.acct_id  input1.Bill_dt) AS [T13][acct_id, Bill_dt, MAX-alt_bill_id] ) JOIN (
-      SELECT
-        input1.acct_id,input1.Bill_Id,input1.Bill_dt,input1.alt_bill_id
-      FROM
-        input1
-       )) AS [T50][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
-WHERE
-  [T50].MAX-alt_bill_id == [T50].alt_bill_id
-   AND [T50].acct_id >= [T50].acct_id1
-@anonymous
-[T50].acct_id | [T50].Bill_dt | [T50].MAX-alt_bill_id | [T50].acct_id1 | [T50].Bill_Id | [T50].Bill_dt1 | [T50].alt_bill_id 
-12345.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 | 12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
-12346.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 | 12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
-12347.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 | 12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
-
-[No.12]===============================
-SELECT
-  [T52].acct_id,[T52].Bill_dt,[T52].MAX-alt_bill_id,[T52].acct_id1,[T52].Bill_Id,[T52].Bill_dt1,[T52].alt_bill_id
-FROM
-  (( SELECT
-        [T13].acct_id,[T13].Bill_dt,[T13].MAX-alt_bill_id
-      FROM
-        (SELECT
-            input1.acct_id, input1.Bill_dt, MAX(input1.alt_bill_id)
-          FROM
-            input1
-          GROUP BY
-            input1.acct_id  input1.Bill_dt) AS [T13][acct_id, Bill_dt, MAX-alt_bill_id] ) JOIN (
-      SELECT
-        input1.acct_id,input1.Bill_Id,input1.Bill_dt,input1.alt_bill_id
-      FROM
-        input1
-       )) AS [T52][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
-WHERE
-  [T52].acct_id <= [T52].acct_id1
-   AND [T52].MAX-alt_bill_id == [T52].alt_bill_id
-@anonymous
-[T52].acct_id | [T52].Bill_dt | [T52].MAX-alt_bill_id | [T52].acct_id1 | [T52].Bill_Id | [T52].Bill_dt1 | [T52].alt_bill_id 
-12345.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 | 12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
-12346.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 | 12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
-12347.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 | 12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
-
-[No.13]===============================
-SELECT
-  [T60].acct_id,[T60].MAX-alt_bill_id,[T60].acct_id1,[T60].Bill_Id,[T60].Bill_dt,[T60].alt_bill_id
+  [T102].acct_id,[T102].MAX-alt_bill_id,[T102].acct_id1,[T102].Bill_Id,[T102].Bill_dt,[T102].alt_bill_id
 FROM
   (( SELECT
         [T4].acct_id,[T4].MAX-alt_bill_id
@@ -349,216 +218,27 @@ FROM
         input1.acct_id,input1.Bill_Id,input1.Bill_dt,input1.alt_bill_id
       FROM
         input1
-       )) AS [T60][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+       )) AS [T102][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
 WHERE
-  [T60].MAX-alt_bill_id == [T60].alt_bill_id
-   AND [T60].acct_id >= [T60].acct_id1
+  [T102].acct_id >= [T102].acct_id1
+   AND [T102].MAX-alt_bill_id <= [T102].alt_bill_id
 @anonymous
-[T60].acct_id | [T60].MAX-alt_bill_id | [T60].acct_id1 | [T60].Bill_Id | [T60].Bill_dt | [T60].alt_bill_id 
+[T102].acct_id | [T102].MAX-alt_bill_id | [T102].acct_id1 | [T102].Bill_Id | [T102].Bill_dt | [T102].alt_bill_id 
 12345.0 | 102.0 | 12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
 12346.0 | 103.0 | 12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
 12347.0 | 104.0 | 12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
 
-[No.14]===============================
-SELECT
-  [T62].acct_id,[T62].MAX-alt_bill_id,[T62].acct_id1,[T62].Bill_Id,[T62].Bill_dt,[T62].alt_bill_id
-FROM
-  (( SELECT
-        [T4].acct_id,[T4].MAX-alt_bill_id
-      FROM
-        (SELECT
-            input1.acct_id, MAX(input1.alt_bill_id)
-          FROM
-            input1
-          GROUP BY
-            input1.acct_id) AS [T4][acct_id, MAX-alt_bill_id] ) JOIN (
-      SELECT
-        input1.acct_id,input1.Bill_Id,input1.Bill_dt,input1.alt_bill_id
-      FROM
-        input1
-       )) AS [T62][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
-WHERE
-  [T62].acct_id <= [T62].acct_id1
-   AND [T62].MAX-alt_bill_id == [T62].alt_bill_id
-@anonymous
-[T62].acct_id | [T62].MAX-alt_bill_id | [T62].acct_id1 | [T62].Bill_Id | [T62].Bill_dt | [T62].alt_bill_id 
-12345.0 | 102.0 | 12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
-12346.0 | 103.0 | 12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
-12347.0 | 104.0 | 12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
-
-[No.15]===============================
-SELECT
-  [T70].acct_id,[T70].MAX-Bill_Id,[T70].acct_id1,[T70].Bill_Id,[T70].Bill_dt,[T70].alt_bill_id
-FROM
-  (( SELECT
-        [T2].acct_id,[T2].MAX-Bill_Id
-      FROM
-        (SELECT
-            input1.acct_id, MAX(input1.Bill_Id)
-          FROM
-            input1
-          GROUP BY
-            input1.acct_id) AS [T2][acct_id, MAX-Bill_Id] ) JOIN (
-      SELECT
-        input1.acct_id,input1.Bill_Id,input1.Bill_dt,input1.alt_bill_id
-      FROM
-        input1
-       )) AS [T70][acct_id, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
-WHERE
-  [T70].MAX-Bill_Id == [T70].Bill_Id
-   AND [T70].acct_id >= [T70].acct_id1
-@anonymous
-[T70].acct_id | [T70].MAX-Bill_Id | [T70].acct_id1 | [T70].Bill_Id | [T70].Bill_dt | [T70].alt_bill_id 
-12345.0 | 123452.0 | 12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
-12346.0 | 123461.0 | 12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
-12347.0 | 123471.0 | 12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
-
-[No.16]===============================
-SELECT
-  [T72].acct_id,[T72].MAX-Bill_Id,[T72].acct_id1,[T72].Bill_Id,[T72].Bill_dt,[T72].alt_bill_id
-FROM
-  (( SELECT
-        [T2].acct_id,[T2].MAX-Bill_Id
-      FROM
-        (SELECT
-            input1.acct_id, MAX(input1.Bill_Id)
-          FROM
-            input1
-          GROUP BY
-            input1.acct_id) AS [T2][acct_id, MAX-Bill_Id] ) JOIN (
-      SELECT
-        input1.acct_id,input1.Bill_Id,input1.Bill_dt,input1.alt_bill_id
-      FROM
-        input1
-       )) AS [T72][acct_id, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
-WHERE
-  [T72].acct_id <= [T72].acct_id1
-   AND [T72].MAX-Bill_Id == [T72].Bill_Id
-@anonymous
-[T72].acct_id | [T72].MAX-Bill_Id | [T72].acct_id1 | [T72].Bill_Id | [T72].Bill_dt | [T72].alt_bill_id 
-12345.0 | 123452.0 | 12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
-12346.0 | 123461.0 | 12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
-12347.0 | 123471.0 | 12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
-
-[No.17]===============================
-SELECT
-  [T44].acct_id,[T44].Bill_dt,[T44].MAX-Bill_Id,[T44].acct_id1,[T44].Bill_Id,[T44].Bill_dt1,[T44].alt_bill_id
-FROM
-  (( SELECT
-        [T11].acct_id,[T11].Bill_dt,[T11].MAX-Bill_Id
-      FROM
-        (SELECT
-            input1.acct_id, input1.Bill_dt, MAX(input1.Bill_Id)
-          FROM
-            input1
-          GROUP BY
-            input1.acct_id  input1.Bill_dt) AS [T11][acct_id, Bill_dt, MAX-Bill_Id] ) JOIN (
-      SELECT
-        input1.acct_id,input1.Bill_Id,input1.Bill_dt,input1.alt_bill_id
-      FROM
-        input1
-       )) AS [T44][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
-WHERE
-  [T44].MAX-Bill_Id <= [T44].Bill_Id
-   AND [T44].acct_id == [T44].acct_id1
-@anonymous
-[T44].acct_id | [T44].Bill_dt | [T44].MAX-Bill_Id | [T44].acct_id1 | [T44].Bill_Id | [T44].Bill_dt1 | [T44].alt_bill_id 
-12345.0 | Thu Jan 02 00:00:00 PST 2014 | 123452.0 | 12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
-12346.0 | Thu Jan 02 00:00:00 PST 2014 | 123461.0 | 12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
-12347.0 | Thu Jan 02 00:00:00 PST 2014 | 123471.0 | 12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
-
-[No.18]===============================
-SELECT
-  [T54].acct_id,[T54].Bill_dt,[T54].MAX-alt_bill_id,[T54].acct_id1,[T54].Bill_Id,[T54].Bill_dt1,[T54].alt_bill_id
-FROM
-  (( SELECT
-        [T13].acct_id,[T13].Bill_dt,[T13].MAX-alt_bill_id
-      FROM
-        (SELECT
-            input1.acct_id, input1.Bill_dt, MAX(input1.alt_bill_id)
-          FROM
-            input1
-          GROUP BY
-            input1.acct_id  input1.Bill_dt) AS [T13][acct_id, Bill_dt, MAX-alt_bill_id] ) JOIN (
-      SELECT
-        input1.acct_id,input1.Bill_Id,input1.Bill_dt,input1.alt_bill_id
-      FROM
-        input1
-       )) AS [T54][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
-WHERE
-  [T54].MAX-alt_bill_id <= [T54].alt_bill_id
-   AND [T54].acct_id == [T54].acct_id1
-@anonymous
-[T54].acct_id | [T54].Bill_dt | [T54].MAX-alt_bill_id | [T54].acct_id1 | [T54].Bill_Id | [T54].Bill_dt1 | [T54].alt_bill_id 
-12345.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 | 12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
-12346.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 | 12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
-12347.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 | 12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
-
-[No.19]===============================
-SELECT
-  [T64].acct_id,[T64].MAX-alt_bill_id,[T64].acct_id1,[T64].Bill_Id,[T64].Bill_dt,[T64].alt_bill_id
-FROM
-  (( SELECT
-        [T4].acct_id,[T4].MAX-alt_bill_id
-      FROM
-        (SELECT
-            input1.acct_id, MAX(input1.alt_bill_id)
-          FROM
-            input1
-          GROUP BY
-            input1.acct_id) AS [T4][acct_id, MAX-alt_bill_id] ) JOIN (
-      SELECT
-        input1.acct_id,input1.Bill_Id,input1.Bill_dt,input1.alt_bill_id
-      FROM
-        input1
-       )) AS [T64][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
-WHERE
-  [T64].MAX-alt_bill_id <= [T64].alt_bill_id
-   AND [T64].acct_id == [T64].acct_id1
-@anonymous
-[T64].acct_id | [T64].MAX-alt_bill_id | [T64].acct_id1 | [T64].Bill_Id | [T64].Bill_dt | [T64].alt_bill_id 
-12345.0 | 102.0 | 12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
-12346.0 | 103.0 | 12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
-12347.0 | 104.0 | 12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
-
-[No.20]===============================
-SELECT
-  [T74].acct_id,[T74].MAX-Bill_Id,[T74].acct_id1,[T74].Bill_Id,[T74].Bill_dt,[T74].alt_bill_id
-FROM
-  (( SELECT
-        [T2].acct_id,[T2].MAX-Bill_Id
-      FROM
-        (SELECT
-            input1.acct_id, MAX(input1.Bill_Id)
-          FROM
-            input1
-          GROUP BY
-            input1.acct_id) AS [T2][acct_id, MAX-Bill_Id] ) JOIN (
-      SELECT
-        input1.acct_id,input1.Bill_Id,input1.Bill_dt,input1.alt_bill_id
-      FROM
-        input1
-       )) AS [T74][acct_id, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
-WHERE
-  [T74].MAX-Bill_Id <= [T74].Bill_Id
-   AND [T74].acct_id == [T74].acct_id1
-@anonymous
-[T74].acct_id | [T74].MAX-Bill_Id | [T74].acct_id1 | [T74].Bill_Id | [T74].Bill_dt | [T74].alt_bill_id 
-12345.0 | 123452.0 | 12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
-12346.0 | 123461.0 | 12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
-12347.0 | 123471.0 | 12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
-
-[Consistent Table number] 4
+[Consistent Table number] 2
 [Enumeration Finished]
-[[Synthesizer finished]] time: 00:00:00:308
-[[Synthesizer finished]] seconds: 0.308
-[avg reduction rate: syn filter / bit vector] 8.003637552261353
+[[Synthesizer finished]] time: 00:00:00:555
+[[Synthesizer finished]] seconds: 0.555
+[avg reduction rate: syn filter / bit vector] 7.75152689995973
 [avg reduction rate: compound filter / bit vector] NaN
 [avg compound filter count] NaN
 [max compound filter count] 0
 [avg PrimitiveFilterCount] NaN
 [max PrimitiveFilterCount] 0
-[avg LRFilterCount] 2.45
-[max LRFilterCount] 16
-[avg decompose tree count] 3.0
-[max decomposeTreeCount] 7
+[avg LRFilterCount] 1.0
+[max LRFilterCount] 1
+[avg decompose tree count] 2.0
+[max decomposeTreeCount] 4
