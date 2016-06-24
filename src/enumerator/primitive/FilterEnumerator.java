@@ -158,6 +158,8 @@ public class FilterEnumerator {
                         }
                     } else {
                         atomics.add(new VVComparator(Arrays.asList(l, r), VVComparator.eq));
+                        atomics.add(new VVComparator(Arrays.asList(l, r), VVComparator.neq));
+
                     }
                 }
             }

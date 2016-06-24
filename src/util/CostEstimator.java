@@ -26,7 +26,7 @@ public class CostEstimator {
             float score = 0;
             List<ValNode> args = ((VVComparator) f).getArgs();
 
-            if (args.get(0) instanceof ConstantVal || args.get(0) instanceof ConstantVal) {
+            if (args.get(0) instanceof ConstantVal || args.get(1) instanceof ConstantVal) {
                 score += 0.2;
             } else if (args.get(0) instanceof NamedVal && args.get(1) instanceof NamedVal) {
 
