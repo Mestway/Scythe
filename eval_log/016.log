@@ -1,0 +1,246 @@
+================
+[[Synthesizer start]] data/benchmarks/016
+[Enumerator Type] CanonicalTableEnumeratorOnTheFly
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Queries generated: 483
+	Tables generated: 2
+	Total Table by now: 2
+[Stage 2] EnumAggregationNode: 
+	Queries generated: 0
+	Tables generated: 0
+	Total Table by now: 2
+[Stage 3] EnumJoin1 
+	Queries generated: 2195
+	Tables generated: 4
+	Total Table by now: 6
+[Runner up Table Count] 4
+[Consistent Table number] 4
+==== [No. 0 ] ====
+SELECT
+  [T2894].school_id,[T2894].staff_id,[T2894].wage
+FROM
+  (( input1 ) JOIN (
+      input2 )) AS [T2894][school_id, class_id, school_location, staff_id, forename, school_id1, wage]
+
+==== [No. 1 ] ====
+SELECT
+  [T2895].school_id,[T2895].staff_id,[T2895].wage
+FROM
+  (SELECT
+      [T2894].school_id,[T2894].class_id,[T2894].school_location,[T2894].staff_id,[T2894].forename,[T2894].school_id1,[T2894].wage
+    FROM
+      (( input1 ) JOIN (
+          input2 )) AS [T2894][school_id, class_id, school_location, staff_id, forename, school_id1, wage]) AS [T2895][school_id, class_id, school_location, staff_id, forename, school_id1, wage]
+
+==== [No. 2 ] ====
+SELECT
+  [T2896].school_id,[T2896].staff_id,[T2896].wage
+FROM
+  (SELECT
+      [T2894].school_id,[T2894].class_id,[T2894].school_location,[T2894].staff_id,[T2894].forename,[T2894].school_id1,[T2894].wage
+    FROM
+      (( input1 ) JOIN (
+          input2 )) AS [T2894][school_id, class_id, school_location, staff_id, forename, school_id1, wage]) AS [T2896][school_id, class_id, school_location, staff_id, forename, school_id1, wage]
+
+==== [No. 3 ] ====
+SELECT
+  [T2899].school_id,[T2899].staff_id,[T2899].wage
+FROM
+  (SELECT
+      [T2894].school_id,[T2894].class_id,[T2894].school_location,[T2894].staff_id,[T2894].forename,[T2894].school_id1,[T2894].wage
+    FROM
+      (( input1 ) JOIN (
+          input2 )) AS [T2894][school_id, class_id, school_location, staff_id, forename, school_id1, wage]
+    WHERE
+      [T2894].school_id > [T2894].staff_id) AS [T2899][school_id, class_id, school_location, staff_id, forename, school_id1, wage]
+
+==== [No. 4 ] ====
+SELECT
+  [T2901].school_id,[T2901].staff_id,[T2901].wage
+FROM
+  (SELECT
+      [T2894].school_id,[T2894].class_id,[T2894].school_location,[T2894].staff_id,[T2894].forename,[T2894].school_id1,[T2894].wage
+    FROM
+      (( input1 ) JOIN (
+          input2 )) AS [T2894][school_id, class_id, school_location, staff_id, forename, school_id1, wage]
+    WHERE
+      [T2894].school_id >= [T2894].staff_id) AS [T2901][school_id, class_id, school_location, staff_id, forename, school_id1, wage]
+
+==== [No. 5 ] ====
+SELECT
+  [T2903].school_id,[T2903].staff_id,[T2903].wage
+FROM
+  (SELECT
+      [T2894].school_id,[T2894].class_id,[T2894].school_location,[T2894].staff_id,[T2894].forename,[T2894].school_id1,[T2894].wage
+    FROM
+      (( input1 ) JOIN (
+          input2 )) AS [T2894][school_id, class_id, school_location, staff_id, forename, school_id1, wage]
+    WHERE
+      [T2894].school_id == [T2894].school_id1) AS [T2903][school_id, class_id, school_location, staff_id, forename, school_id1, wage]
+
+==== [No. 6 ] ====
+SELECT
+  [T2905].school_id,[T2905].staff_id,[T2905].wage
+FROM
+  (SELECT
+      [T2894].school_id,[T2894].class_id,[T2894].school_location,[T2894].staff_id,[T2894].forename,[T2894].school_id1,[T2894].wage
+    FROM
+      (( input1 ) JOIN (
+          input2 )) AS [T2894][school_id, class_id, school_location, staff_id, forename, school_id1, wage]
+    WHERE
+      [T2894].school_id <= [T2894].school_id1) AS [T2905][school_id, class_id, school_location, staff_id, forename, school_id1, wage]
+
+==== [No. 7 ] ====
+SELECT
+  [T2906].school_id,[T2906].staff_id,[T2906].wage
+FROM
+  (SELECT
+      [T2894].school_id,[T2894].class_id,[T2894].school_location,[T2894].staff_id,[T2894].forename,[T2894].school_id1,[T2894].wage
+    FROM
+      (( input1 ) JOIN (
+          input2 )) AS [T2894][school_id, class_id, school_location, staff_id, forename, school_id1, wage]
+    WHERE
+      [T2894].school_id >= [T2894].school_id1) AS [T2906][school_id, class_id, school_location, staff_id, forename, school_id1, wage]
+
+==== [No. 8 ] ====
+SELECT
+  [T2907].school_id,[T2907].staff_id,[T2907].wage
+FROM
+  (SELECT
+      [T2894].school_id,[T2894].class_id,[T2894].school_location,[T2894].staff_id,[T2894].forename,[T2894].school_id1,[T2894].wage
+    FROM
+      (( input1 ) JOIN (
+          input2 )) AS [T2894][school_id, class_id, school_location, staff_id, forename, school_id1, wage]
+    WHERE
+      [T2894].school_id < [T2894].wage) AS [T2907][school_id, class_id, school_location, staff_id, forename, school_id1, wage]
+
+==== [No. 9 ] ====
+SELECT
+  [T2910].school_id,[T2910].staff_id,[T2910].wage
+FROM
+  (SELECT
+      [T2894].school_id,[T2894].class_id,[T2894].school_location,[T2894].staff_id,[T2894].forename,[T2894].school_id1,[T2894].wage
+    FROM
+      (( input1 ) JOIN (
+          input2 )) AS [T2894][school_id, class_id, school_location, staff_id, forename, school_id1, wage]
+    WHERE
+      [T2894].school_id <= [T2894].wage) AS [T2910][school_id, class_id, school_location, staff_id, forename, school_id1, wage]
+
+==== [No. 10 ] ====
+SELECT
+  [T5559].school_id,[T5559].staff_id,[T5559].wage
+FROM
+  (( input2 ) JOIN (
+      input1 )) AS [T5559][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+
+==== [No. 11 ] ====
+SELECT
+  [T5560].school_id,[T5560].staff_id,[T5560].wage
+FROM
+  (SELECT
+      [T5559].staff_id,[T5559].forename,[T5559].school_id,[T5559].wage,[T5559].school_id1,[T5559].class_id,[T5559].school_location
+    FROM
+      (( input2 ) JOIN (
+          input1 )) AS [T5559][staff_id, forename, school_id, wage, school_id1, class_id, school_location]) AS [T5560][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+
+==== [No. 12 ] ====
+SELECT
+  [T5561].school_id,[T5561].staff_id,[T5561].wage
+FROM
+  (SELECT
+      [T5559].staff_id,[T5559].forename,[T5559].school_id,[T5559].wage,[T5559].school_id1,[T5559].class_id,[T5559].school_location
+    FROM
+      (( input2 ) JOIN (
+          input1 )) AS [T5559][staff_id, forename, school_id, wage, school_id1, class_id, school_location]) AS [T5561][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+
+==== [No. 13 ] ====
+SELECT
+  [T5562].school_id,[T5562].staff_id,[T5562].wage
+FROM
+  (SELECT
+      [T5559].staff_id,[T5559].forename,[T5559].school_id,[T5559].wage,[T5559].school_id1,[T5559].class_id,[T5559].school_location
+    FROM
+      (( input2 ) JOIN (
+          input1 )) AS [T5559][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+    WHERE
+      [T5559].staff_id < [T5559].school_id1) AS [T5562][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+
+==== [No. 14 ] ====
+SELECT
+  [T5565].school_id,[T5565].staff_id,[T5565].wage
+FROM
+  (SELECT
+      [T5559].staff_id,[T5559].forename,[T5559].school_id,[T5559].wage,[T5559].school_id1,[T5559].class_id,[T5559].school_location
+    FROM
+      (( input2 ) JOIN (
+          input1 )) AS [T5559][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+    WHERE
+      [T5559].staff_id <= [T5559].school_id1) AS [T5565][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+
+==== [No. 15 ] ====
+SELECT
+  [T5567].school_id,[T5567].staff_id,[T5567].wage
+FROM
+  (SELECT
+      [T5559].staff_id,[T5559].forename,[T5559].school_id,[T5559].wage,[T5559].school_id1,[T5559].class_id,[T5559].school_location
+    FROM
+      (( input2 ) JOIN (
+          input1 )) AS [T5559][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+    WHERE
+      [T5559].staff_id < [T5559].class_id) AS [T5567][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+
+==== [No. 16 ] ====
+SELECT
+  [T5570].school_id,[T5570].staff_id,[T5570].wage
+FROM
+  (SELECT
+      [T5559].staff_id,[T5559].forename,[T5559].school_id,[T5559].wage,[T5559].school_id1,[T5559].class_id,[T5559].school_location
+    FROM
+      (( input2 ) JOIN (
+          input1 )) AS [T5559][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+    WHERE
+      [T5559].staff_id <= [T5559].class_id) AS [T5570][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+
+==== [No. 17 ] ====
+SELECT
+  [T5574].school_id,[T5574].staff_id,[T5574].wage
+FROM
+  (SELECT
+      [T5559].staff_id,[T5559].forename,[T5559].school_id,[T5559].wage,[T5559].school_id1,[T5559].class_id,[T5559].school_location
+    FROM
+      (( input2 ) JOIN (
+          input1 )) AS [T5559][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+    WHERE
+      [T5559].school_id == [T5559].school_id1) AS [T5574][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+
+==== [No. 18 ] ====
+SELECT
+  [T5576].school_id,[T5576].staff_id,[T5576].wage
+FROM
+  (SELECT
+      [T5559].staff_id,[T5559].forename,[T5559].school_id,[T5559].wage,[T5559].school_id1,[T5559].class_id,[T5559].school_location
+    FROM
+      (( input2 ) JOIN (
+          input1 )) AS [T5559][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+    WHERE
+      [T5559].school_id <= [T5559].school_id1) AS [T5576][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+
+==== [No. 19 ] ====
+SELECT
+  [T5577].school_id,[T5577].staff_id,[T5577].wage
+FROM
+  (SELECT
+      [T5559].staff_id,[T5559].forename,[T5559].school_id,[T5559].wage,[T5559].school_id1,[T5559].class_id,[T5559].school_location
+    FROM
+      (( input2 ) JOIN (
+          input1 )) AS [T5559][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+    WHERE
+      [T5559].school_id >= [T5559].school_id1) AS [T5577][staff_id, forename, school_id, wage, school_id1, class_id, school_location]
+
+Total Tree Count: 4
+Total Query Count: 2509
+[Enumeration Finished]
+[[Synthesizer finished]] time: 00:00:00:547

@@ -1,0 +1,326 @@
+================
+[[Synthesizer start]] data/benchmarks/023
+[Enumerator Type] CanonicalTableEnumeratorOnTheFly
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Queries generated: 2
+	Tables generated: 1
+	Total Table by now: 1
+[Stage 2] EnumAggregationNode: 
+	Queries generated: 4
+	Tables generated: 3
+	Total Table by now: 4
+[Stage 3] EnumJoin1 
+	Queries generated: 58
+	Tables generated: 29
+	Total Table by now: 33
+[Runner up Table Count] 1
+[Consistent Table number] 2
+==== [No. 0 ] ====
+(SELECT
+    [T65].ErrorName,[T65].SUM-Value
+  FROM
+    (SELECT
+        input1.ErrorName, SUM(input1.Value)
+      FROM
+        input1
+      GROUP BY
+        input1.ErrorName) AS [T65][ErrorName, SUM-Value]) AS [T66][ErrorName, SUM-Value]
+==== [No. 1 ] ====
+(SELECT
+    input1.ErrorName, SUM(input1.Value)
+  FROM
+    input1
+  GROUP BY
+    input1.ErrorName) AS [T65][ErrorName, SUM-Value]
+==== [No. 2 ] ====
+SELECT
+  [T90].ErrorName,[T90].SUM-Value
+FROM
+  (SELECT
+      [T89].ErrorName,[T89].SUM-Value
+    FROM
+      (SELECT
+          input1.ErrorName, SUM(input1.Value)
+        FROM
+          input1
+        GROUP BY
+          input1.ErrorName) AS [T89][ErrorName, SUM-Value]) AS [T90][ErrorName, SUM-Value]
+
+==== [No. 3 ] ====
+SELECT
+  [T89].ErrorName,[T89].SUM-Value
+FROM
+  (SELECT
+      input1.ErrorName, SUM(input1.Value)
+    FROM
+      input1
+    GROUP BY
+      input1.ErrorName) AS [T89][ErrorName, SUM-Value]
+
+==== [No. 4 ] ====
+SELECT
+  [T90].ErrorName,[T90].SUM-Value
+FROM
+  (SELECT
+      [T89].ErrorName,[T89].SUM-Value
+    FROM
+      (SELECT
+          input1.ErrorName, SUM(input1.Value)
+        FROM
+          input1
+        GROUP BY
+          input1.ErrorName) AS [T89][ErrorName, SUM-Value]) AS [T90][ErrorName, SUM-Value]
+
+==== [No. 5 ] ====
+SELECT
+  [T89].ErrorName,[T89].SUM-Value
+FROM
+  (SELECT
+      input1.ErrorName, SUM(input1.Value)
+    FROM
+      input1
+    GROUP BY
+      input1.ErrorName) AS [T89][ErrorName, SUM-Value]
+
+==== [No. 6 ] ====
+SELECT
+  [T136].ErrorName,[T136].SUM-Value
+FROM
+  (SELECT
+      [T114].ErrorName,[T114].SUM-Value
+    FROM
+      (SELECT
+          [T113].ErrorName,[T113].SUM-Value
+        FROM
+          (SELECT
+              input1.ErrorName, SUM(input1.Value)
+            FROM
+              input1
+            GROUP BY
+              input1.ErrorName) AS [T113][ErrorName, SUM-Value]) AS [T114][ErrorName, SUM-Value]) AS [T136][ErrorName, SUM-Value]
+
+==== [No. 7 ] ====
+SELECT
+  [T137].ErrorName,[T137].SUM-Value
+FROM
+  (SELECT
+      [T113].ErrorName,[T113].SUM-Value
+    FROM
+      (SELECT
+          input1.ErrorName, SUM(input1.Value)
+        FROM
+          input1
+        GROUP BY
+          input1.ErrorName) AS [T113][ErrorName, SUM-Value]) AS [T137][ErrorName, SUM-Value]
+
+==== [No. 8 ] ====
+SELECT
+  [T138].ErrorName,[T138].SUM-Value
+FROM
+  (SELECT
+      [T114].ErrorName,[T114].SUM-Value
+    FROM
+      (SELECT
+          [T113].ErrorName,[T113].SUM-Value
+        FROM
+          (SELECT
+              input1.ErrorName, SUM(input1.Value)
+            FROM
+              input1
+            GROUP BY
+              input1.ErrorName) AS [T113][ErrorName, SUM-Value]) AS [T114][ErrorName, SUM-Value]) AS [T138][ErrorName, SUM-Value]
+
+==== [No. 9 ] ====
+SELECT
+  [T139].ErrorName,[T139].SUM-Value
+FROM
+  (SELECT
+      [T113].ErrorName,[T113].SUM-Value
+    FROM
+      (SELECT
+          input1.ErrorName, SUM(input1.Value)
+        FROM
+          input1
+        GROUP BY
+          input1.ErrorName) AS [T113][ErrorName, SUM-Value]) AS [T139][ErrorName, SUM-Value]
+
+==== [No. 10 ] ====
+SELECT
+  [T140].ErrorName,[T140].SUM-Value
+FROM
+  (SELECT
+      [T114].ErrorName,[T114].SUM-Value
+    FROM
+      (SELECT
+          [T113].ErrorName,[T113].SUM-Value
+        FROM
+          (SELECT
+              input1.ErrorName, SUM(input1.Value)
+            FROM
+              input1
+            GROUP BY
+              input1.ErrorName) AS [T113][ErrorName, SUM-Value]) AS [T114][ErrorName, SUM-Value]) AS [T140][ErrorName, SUM-Value]
+
+==== [No. 11 ] ====
+SELECT
+  [T141].ErrorName,[T141].SUM-Value
+FROM
+  (SELECT
+      [T113].ErrorName,[T113].SUM-Value
+    FROM
+      (SELECT
+          input1.ErrorName, SUM(input1.Value)
+        FROM
+          input1
+        GROUP BY
+          input1.ErrorName) AS [T113][ErrorName, SUM-Value]) AS [T141][ErrorName, SUM-Value]
+
+==== [No. 12 ] ====
+SELECT
+  [T142].ErrorName,[T142].SUM-Value
+FROM
+  (SELECT
+      [T114].ErrorName,[T114].SUM-Value
+    FROM
+      (SELECT
+          [T113].ErrorName,[T113].SUM-Value
+        FROM
+          (SELECT
+              input1.ErrorName, SUM(input1.Value)
+            FROM
+              input1
+            GROUP BY
+              input1.ErrorName) AS [T113][ErrorName, SUM-Value]) AS [T114][ErrorName, SUM-Value]) AS [T142][ErrorName, SUM-Value]
+
+==== [No. 13 ] ====
+SELECT
+  [T143].ErrorName,[T143].SUM-Value
+FROM
+  (SELECT
+      [T113].ErrorName,[T113].SUM-Value
+    FROM
+      (SELECT
+          input1.ErrorName, SUM(input1.Value)
+        FROM
+          input1
+        GROUP BY
+          input1.ErrorName) AS [T113][ErrorName, SUM-Value]) AS [T143][ErrorName, SUM-Value]
+
+==== [No. 14 ] ====
+SELECT
+  [T176].ErrorName,[T176].SUM-Value
+FROM
+  (SELECT
+      [T168].ErrorName,[T168].SUM-Value
+    FROM
+      (SELECT
+          [T146].ErrorName,[T146].SUM-Value
+        FROM
+          (SELECT
+              [T145].ErrorName,[T145].SUM-Value
+            FROM
+              (SELECT
+                  input1.ErrorName, SUM(input1.Value)
+                FROM
+                  input1
+                GROUP BY
+                  input1.ErrorName) AS [T145][ErrorName, SUM-Value]) AS [T146][ErrorName, SUM-Value]) AS [T168][ErrorName, SUM-Value]) AS [T176][ErrorName, SUM-Value]
+
+==== [No. 15 ] ====
+SELECT
+  [T177].ErrorName,[T177].SUM-Value
+FROM
+  (SELECT
+      [T169].ErrorName,[T169].SUM-Value
+    FROM
+      (SELECT
+          [T145].ErrorName,[T145].SUM-Value
+        FROM
+          (SELECT
+              input1.ErrorName, SUM(input1.Value)
+            FROM
+              input1
+            GROUP BY
+              input1.ErrorName) AS [T145][ErrorName, SUM-Value]) AS [T169][ErrorName, SUM-Value]) AS [T177][ErrorName, SUM-Value]
+
+==== [No. 16 ] ====
+SELECT
+  [T178].ErrorName,[T178].SUM-Value
+FROM
+  (SELECT
+      [T170].ErrorName,[T170].SUM-Value
+    FROM
+      (SELECT
+          [T146].ErrorName,[T146].SUM-Value
+        FROM
+          (SELECT
+              [T145].ErrorName,[T145].SUM-Value
+            FROM
+              (SELECT
+                  input1.ErrorName, SUM(input1.Value)
+                FROM
+                  input1
+                GROUP BY
+                  input1.ErrorName) AS [T145][ErrorName, SUM-Value]) AS [T146][ErrorName, SUM-Value]) AS [T170][ErrorName, SUM-Value]) AS [T178][ErrorName, SUM-Value]
+
+==== [No. 17 ] ====
+SELECT
+  [T179].ErrorName,[T179].SUM-Value
+FROM
+  (SELECT
+      [T171].ErrorName,[T171].SUM-Value
+    FROM
+      (SELECT
+          [T145].ErrorName,[T145].SUM-Value
+        FROM
+          (SELECT
+              input1.ErrorName, SUM(input1.Value)
+            FROM
+              input1
+            GROUP BY
+              input1.ErrorName) AS [T145][ErrorName, SUM-Value]) AS [T171][ErrorName, SUM-Value]) AS [T179][ErrorName, SUM-Value]
+
+==== [No. 18 ] ====
+SELECT
+  [T180].ErrorName,[T180].SUM-Value
+FROM
+  (SELECT
+      [T172].ErrorName,[T172].SUM-Value
+    FROM
+      (SELECT
+          [T146].ErrorName,[T146].SUM-Value
+        FROM
+          (SELECT
+              [T145].ErrorName,[T145].SUM-Value
+            FROM
+              (SELECT
+                  input1.ErrorName, SUM(input1.Value)
+                FROM
+                  input1
+                GROUP BY
+                  input1.ErrorName) AS [T145][ErrorName, SUM-Value]) AS [T146][ErrorName, SUM-Value]) AS [T172][ErrorName, SUM-Value]) AS [T180][ErrorName, SUM-Value]
+
+==== [No. 19 ] ====
+SELECT
+  [T181].ErrorName,[T181].SUM-Value
+FROM
+  (SELECT
+      [T173].ErrorName,[T173].SUM-Value
+    FROM
+      (SELECT
+          [T145].ErrorName,[T145].SUM-Value
+        FROM
+          (SELECT
+              input1.ErrorName, SUM(input1.Value)
+            FROM
+              input1
+            GROUP BY
+              input1.ErrorName) AS [T145][ErrorName, SUM-Value]) AS [T173][ErrorName, SUM-Value]) AS [T181][ErrorName, SUM-Value]
+
+Total Tree Count: 4
+Total Query Count: 30
+[Enumeration Finished]
+[[Synthesizer finished]] time: 00:00:00:137

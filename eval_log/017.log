@@ -1,0 +1,191 @@
+================
+[[Synthesizer start]] data/benchmarks/017
+[Enumerator Type] CanonicalTableEnumeratorOnTheFly
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Queries generated: 437
+	Tables generated: 1
+	Total Table by now: 1
+[Stage 2] EnumAggregationNode: 
+	Queries generated: 1
+	Tables generated: 1
+	Total Table by now: 2
+[Stage 3] EnumJoin1 
+	Queries generated: 1148
+	Tables generated: 21
+	Total Table by now: 23
+[Runner up Table Count] 1
+[Consistent Table number] 1
+==== [No. 0 ] ====
+SELECT
+  [T1590].Parent,[T1590].Name
+FROM
+  (SELECT
+      [T1586].Parent,[T1586].ID,[T1586].Name,[T1586].Age,[T1586].Parent1
+    FROM
+      (( (SELECT
+              input1.Parent, FROM
+              input1
+            GROUP BY
+              input1.Parent) AS [T2734][Parent] ) JOIN (
+          input1 )) AS [T1586][Parent, ID, Name, Age, Parent1]
+    WHERE
+      [T1586].Parent == [T1586].ID) AS [T1590][Parent, ID, Name, Age, Parent1]
+
+==== [No. 1 ] ====
+SELECT
+  [T1593].Parent,[T1593].Name
+FROM
+  (SELECT
+      [T1586].Parent,[T1586].ID,[T1586].Name,[T1586].Age,[T1586].Parent1
+    FROM
+      (( (SELECT
+              input1.Parent, FROM
+              input1
+            GROUP BY
+              input1.Parent) AS [T2734][Parent] ) JOIN (
+          input1 )) AS [T1586][Parent, ID, Name, Age, Parent1]
+    WHERE
+      [T1586].Parent >= [T1586].ID) AS [T1593][Parent, ID, Name, Age, Parent1]
+
+==== [No. 2 ] ====
+SELECT
+  [T1601].Parent,[T1601].Name
+FROM
+  (SELECT
+      [T1586].Parent,[T1586].ID,[T1586].Name,[T1586].Age,[T1586].Parent1
+    FROM
+      (( (SELECT
+              input1.Parent, FROM
+              input1
+            GROUP BY
+              input1.Parent) AS [T2734][Parent] ) JOIN (
+          input1 )) AS [T1586][Parent, ID, Name, Age, Parent1]
+    WHERE
+      [T1586].Parent > [T1586].Parent1) AS [T1601][Parent, ID, Name, Age, Parent1]
+
+==== [No. 3 ] ====
+SELECT
+  [T1605].Parent,[T1605].Name
+FROM
+  (SELECT
+      [T1586].Parent,[T1586].ID,[T1586].Name,[T1586].Age,[T1586].Parent1
+    FROM
+      (( (SELECT
+              input1.Parent, FROM
+              input1
+            GROUP BY
+              input1.Parent) AS [T2734][Parent] ) JOIN (
+          input1 )) AS [T1586][Parent, ID, Name, Age, Parent1]
+    WHERE
+      
+       AND [T1586].Parent == [T1586].ID) AS [T1605][Parent, ID, Name, Age, Parent1]
+
+==== [No. 4 ] ====
+SELECT
+  [T1608].Parent,[T1608].Name
+FROM
+  (SELECT
+      [T1586].Parent,[T1586].ID,[T1586].Name,[T1586].Age,[T1586].Parent1
+    FROM
+      (( (SELECT
+              input1.Parent, FROM
+              input1
+            GROUP BY
+              input1.Parent) AS [T2734][Parent] ) JOIN (
+          input1 )) AS [T1586][Parent, ID, Name, Age, Parent1]
+    WHERE
+      
+       AND [T1586].Parent >= [T1586].ID) AS [T1608][Parent, ID, Name, Age, Parent1]
+
+==== [No. 5 ] ====
+SELECT
+  [T1616].Parent,[T1616].Name
+FROM
+  (SELECT
+      [T1586].Parent,[T1586].ID,[T1586].Name,[T1586].Age,[T1586].Parent1
+    FROM
+      (( (SELECT
+              input1.Parent, FROM
+              input1
+            GROUP BY
+              input1.Parent) AS [T2734][Parent] ) JOIN (
+          input1 )) AS [T1586][Parent, ID, Name, Age, Parent1]
+    WHERE
+      
+       AND [T1586].Parent > [T1586].Parent1) AS [T1616][Parent, ID, Name, Age, Parent1]
+
+==== [No. 6 ] ====
+SELECT
+  [T1629].Parent,[T1629].Name
+FROM
+  (SELECT
+      [T1586].Parent,[T1586].ID,[T1586].Name,[T1586].Age,[T1586].Parent1
+    FROM
+      (( (SELECT
+              input1.Parent, FROM
+              input1
+            GROUP BY
+              input1.Parent) AS [T2734][Parent] ) JOIN (
+          input1 )) AS [T1586][Parent, ID, Name, Age, Parent1]
+    WHERE
+      [T1586].Parent == [T1586].ID
+       AND [T1586].Parent < [T1586].Age) AS [T1629][Parent, ID, Name, Age, Parent1]
+
+==== [No. 7 ] ====
+SELECT
+  [T1632].Parent,[T1632].Name
+FROM
+  (SELECT
+      [T1586].Parent,[T1586].ID,[T1586].Name,[T1586].Age,[T1586].Parent1
+    FROM
+      (( (SELECT
+              input1.Parent, FROM
+              input1
+            GROUP BY
+              input1.Parent) AS [T2734][Parent] ) JOIN (
+          input1 )) AS [T1586][Parent, ID, Name, Age, Parent1]
+    WHERE
+      [T1586].Parent == [T1586].ID
+       AND [T1586].Parent <= [T1586].Age) AS [T1632][Parent, ID, Name, Age, Parent1]
+
+==== [No. 8 ] ====
+SELECT
+  [T1636].Parent,[T1636].Name
+FROM
+  (SELECT
+      [T1586].Parent,[T1586].ID,[T1586].Name,[T1586].Age,[T1586].Parent1
+    FROM
+      (( (SELECT
+              input1.Parent, FROM
+              input1
+            GROUP BY
+              input1.Parent) AS [T2734][Parent] ) JOIN (
+          input1 )) AS [T1586][Parent, ID, Name, Age, Parent1]
+    WHERE
+      [T1586].Parent == [T1586].ID
+       AND [T1586].Parent > [T1586].Parent1) AS [T1636][Parent, ID, Name, Age, Parent1]
+
+==== [No. 9 ] ====
+SELECT
+  [T1638].Parent,[T1638].Name
+FROM
+  (SELECT
+      [T1586].Parent,[T1586].ID,[T1586].Name,[T1586].Age,[T1586].Parent1
+    FROM
+      (( (SELECT
+              input1.Parent, FROM
+              input1
+            GROUP BY
+              input1.Parent) AS [T2734][Parent] ) JOIN (
+          input1 )) AS [T1586][Parent, ID, Name, Age, Parent1]
+    WHERE
+      [T1586].Parent == [T1586].ID
+       AND [T1586].Parent >= [T1586].Parent1) AS [T1638][Parent, ID, Name, Age, Parent1]
+
+Total Tree Count: 1
+Total Query Count: 34
+[Enumeration Finished]
+[[Synthesizer finished]] time: 00:00:00:424

@@ -1,0 +1,358 @@
+================
+[[Synthesizer start]] data/benchmarks/032
+[Enumerator Type] CanonicalTableEnumeratorOnTheFly
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Queries generated: 7
+	Tables generated: 2
+	Total Table by now: 2
+[Stage 2] EnumAggregationNode: 
+	Queries generated: 9
+	Tables generated: 5
+	Total Table by now: 7
+[Stage 3] EnumJoin1 
+	Queries generated: 222
+	Tables generated: 93
+	Total Table by now: 100
+[Runner up Table Count] 1
+[Consistent Table number] 2
+==== [No. 0 ] ====
+SELECT
+  [T320].firstname,[T320].lastname,[T320].SUM-nb_payments
+FROM
+  (SELECT
+      [T312].firstname,[T312].lastname,[T312].SUM-nb_payments
+    FROM
+      (SELECT
+          [T264].firstname,[T264].lastname,[T264].SUM-nb_payments
+        FROM
+          (SELECT
+              [T263].firstname,[T263].lastname,[T263].SUM-nb_payments
+            FROM
+              (SELECT
+                  input1.firstname, input1.lastname, SUM(input1.nb_payments)
+                FROM
+                  input1
+                GROUP BY
+                  input1.firstname  input1.lastname) AS [T263][firstname, lastname, SUM-nb_payments]) AS [T264][firstname, lastname, SUM-nb_payments]) AS [T312][firstname, lastname, SUM-nb_payments]) AS [T320][firstname, lastname, SUM-nb_payments]
+
+==== [No. 1 ] ====
+SELECT
+  [T321].firstname,[T321].lastname,[T321].SUM-nb_payments
+FROM
+  (SELECT
+      [T313].firstname,[T313].lastname,[T313].SUM-nb_payments
+    FROM
+      (SELECT
+          [T263].firstname,[T263].lastname,[T263].SUM-nb_payments
+        FROM
+          (SELECT
+              input1.firstname, input1.lastname, SUM(input1.nb_payments)
+            FROM
+              input1
+            GROUP BY
+              input1.firstname  input1.lastname) AS [T263][firstname, lastname, SUM-nb_payments]) AS [T313][firstname, lastname, SUM-nb_payments]) AS [T321][firstname, lastname, SUM-nb_payments]
+
+==== [No. 2 ] ====
+SELECT
+  [T322].firstname,[T322].lastname,[T322].SUM-nb_payments
+FROM
+  (SELECT
+      [T314].firstname,[T314].lastname,[T314].SUM-nb_payments
+    FROM
+      (SELECT
+          [T264].firstname,[T264].lastname,[T264].SUM-nb_payments
+        FROM
+          (SELECT
+              [T263].firstname,[T263].lastname,[T263].SUM-nb_payments
+            FROM
+              (SELECT
+                  input1.firstname, input1.lastname, SUM(input1.nb_payments)
+                FROM
+                  input1
+                GROUP BY
+                  input1.firstname  input1.lastname) AS [T263][firstname, lastname, SUM-nb_payments]) AS [T264][firstname, lastname, SUM-nb_payments]) AS [T314][firstname, lastname, SUM-nb_payments]) AS [T322][firstname, lastname, SUM-nb_payments]
+
+==== [No. 3 ] ====
+SELECT
+  [T323].firstname,[T323].lastname,[T323].SUM-nb_payments
+FROM
+  (SELECT
+      [T315].firstname,[T315].lastname,[T315].SUM-nb_payments
+    FROM
+      (SELECT
+          [T263].firstname,[T263].lastname,[T263].SUM-nb_payments
+        FROM
+          (SELECT
+              input1.firstname, input1.lastname, SUM(input1.nb_payments)
+            FROM
+              input1
+            GROUP BY
+              input1.firstname  input1.lastname) AS [T263][firstname, lastname, SUM-nb_payments]) AS [T315][firstname, lastname, SUM-nb_payments]) AS [T323][firstname, lastname, SUM-nb_payments]
+
+==== [No. 4 ] ====
+SELECT
+  [T324].firstname,[T324].lastname,[T324].SUM-nb_payments
+FROM
+  (SELECT
+      [T316].firstname,[T316].lastname,[T316].SUM-nb_payments
+    FROM
+      (SELECT
+          [T264].firstname,[T264].lastname,[T264].SUM-nb_payments
+        FROM
+          (SELECT
+              [T263].firstname,[T263].lastname,[T263].SUM-nb_payments
+            FROM
+              (SELECT
+                  input1.firstname, input1.lastname, SUM(input1.nb_payments)
+                FROM
+                  input1
+                GROUP BY
+                  input1.firstname  input1.lastname) AS [T263][firstname, lastname, SUM-nb_payments]) AS [T264][firstname, lastname, SUM-nb_payments]) AS [T316][firstname, lastname, SUM-nb_payments]) AS [T324][firstname, lastname, SUM-nb_payments]
+
+==== [No. 5 ] ====
+SELECT
+  [T325].firstname,[T325].lastname,[T325].SUM-nb_payments
+FROM
+  (SELECT
+      [T317].firstname,[T317].lastname,[T317].SUM-nb_payments
+    FROM
+      (SELECT
+          [T263].firstname,[T263].lastname,[T263].SUM-nb_payments
+        FROM
+          (SELECT
+              input1.firstname, input1.lastname, SUM(input1.nb_payments)
+            FROM
+              input1
+            GROUP BY
+              input1.firstname  input1.lastname) AS [T263][firstname, lastname, SUM-nb_payments]) AS [T317][firstname, lastname, SUM-nb_payments]) AS [T325][firstname, lastname, SUM-nb_payments]
+
+==== [No. 6 ] ====
+SELECT
+  [T326].firstname,[T326].lastname,[T326].SUM-nb_payments
+FROM
+  (SELECT
+      [T318].firstname,[T318].lastname,[T318].SUM-nb_payments
+    FROM
+      (SELECT
+          [T264].firstname,[T264].lastname,[T264].SUM-nb_payments
+        FROM
+          (SELECT
+              [T263].firstname,[T263].lastname,[T263].SUM-nb_payments
+            FROM
+              (SELECT
+                  input1.firstname, input1.lastname, SUM(input1.nb_payments)
+                FROM
+                  input1
+                GROUP BY
+                  input1.firstname  input1.lastname) AS [T263][firstname, lastname, SUM-nb_payments]) AS [T264][firstname, lastname, SUM-nb_payments]) AS [T318][firstname, lastname, SUM-nb_payments]) AS [T326][firstname, lastname, SUM-nb_payments]
+
+==== [No. 7 ] ====
+SELECT
+  [T327].firstname,[T327].lastname,[T327].SUM-nb_payments
+FROM
+  (SELECT
+      [T319].firstname,[T319].lastname,[T319].SUM-nb_payments
+    FROM
+      (SELECT
+          [T263].firstname,[T263].lastname,[T263].SUM-nb_payments
+        FROM
+          (SELECT
+              input1.firstname, input1.lastname, SUM(input1.nb_payments)
+            FROM
+              input1
+            GROUP BY
+              input1.firstname  input1.lastname) AS [T263][firstname, lastname, SUM-nb_payments]) AS [T319][firstname, lastname, SUM-nb_payments]) AS [T327][firstname, lastname, SUM-nb_payments]
+
+==== [No. 8 ] ====
+SELECT
+  [T328].firstname,[T328].lastname,[T328].SUM-nb_payments
+FROM
+  (SELECT
+      [T312].firstname,[T312].lastname,[T312].SUM-nb_payments
+    FROM
+      (SELECT
+          [T264].firstname,[T264].lastname,[T264].SUM-nb_payments
+        FROM
+          (SELECT
+              [T263].firstname,[T263].lastname,[T263].SUM-nb_payments
+            FROM
+              (SELECT
+                  input1.firstname, input1.lastname, SUM(input1.nb_payments)
+                FROM
+                  input1
+                GROUP BY
+                  input1.firstname  input1.lastname) AS [T263][firstname, lastname, SUM-nb_payments]) AS [T264][firstname, lastname, SUM-nb_payments]) AS [T312][firstname, lastname, SUM-nb_payments]) AS [T328][firstname, lastname, SUM-nb_payments]
+
+==== [No. 9 ] ====
+SELECT
+  [T329].firstname,[T329].lastname,[T329].SUM-nb_payments
+FROM
+  (SELECT
+      [T313].firstname,[T313].lastname,[T313].SUM-nb_payments
+    FROM
+      (SELECT
+          [T263].firstname,[T263].lastname,[T263].SUM-nb_payments
+        FROM
+          (SELECT
+              input1.firstname, input1.lastname, SUM(input1.nb_payments)
+            FROM
+              input1
+            GROUP BY
+              input1.firstname  input1.lastname) AS [T263][firstname, lastname, SUM-nb_payments]) AS [T313][firstname, lastname, SUM-nb_payments]) AS [T329][firstname, lastname, SUM-nb_payments]
+
+==== [No. 10 ] ====
+SELECT
+  [T404].firstname,[T404].lastname,[T404].SUM-nb_payments
+FROM
+  (SELECT
+      [T356].firstname,[T356].lastname,[T356].SUM-nb_payments
+    FROM
+      (SELECT
+          [T355].firstname,[T355].lastname,[T355].SUM-nb_payments
+        FROM
+          (SELECT
+              input1.firstname, input1.lastname, SUM(input1.nb_payments)
+            FROM
+              input1
+            GROUP BY
+              input1.firstname  input1.lastname) AS [T355][firstname, lastname, SUM-nb_payments]) AS [T356][firstname, lastname, SUM-nb_payments]) AS [T404][firstname, lastname, SUM-nb_payments]
+
+==== [No. 11 ] ====
+SELECT
+  [T405].firstname,[T405].lastname,[T405].SUM-nb_payments
+FROM
+  (SELECT
+      [T355].firstname,[T355].lastname,[T355].SUM-nb_payments
+    FROM
+      (SELECT
+          input1.firstname, input1.lastname, SUM(input1.nb_payments)
+        FROM
+          input1
+        GROUP BY
+          input1.firstname  input1.lastname) AS [T355][firstname, lastname, SUM-nb_payments]) AS [T405][firstname, lastname, SUM-nb_payments]
+
+==== [No. 12 ] ====
+SELECT
+  [T406].firstname,[T406].lastname,[T406].SUM-nb_payments
+FROM
+  (SELECT
+      [T356].firstname,[T356].lastname,[T356].SUM-nb_payments
+    FROM
+      (SELECT
+          [T355].firstname,[T355].lastname,[T355].SUM-nb_payments
+        FROM
+          (SELECT
+              input1.firstname, input1.lastname, SUM(input1.nb_payments)
+            FROM
+              input1
+            GROUP BY
+              input1.firstname  input1.lastname) AS [T355][firstname, lastname, SUM-nb_payments]) AS [T356][firstname, lastname, SUM-nb_payments]) AS [T406][firstname, lastname, SUM-nb_payments]
+
+==== [No. 13 ] ====
+SELECT
+  [T407].firstname,[T407].lastname,[T407].SUM-nb_payments
+FROM
+  (SELECT
+      [T355].firstname,[T355].lastname,[T355].SUM-nb_payments
+    FROM
+      (SELECT
+          input1.firstname, input1.lastname, SUM(input1.nb_payments)
+        FROM
+          input1
+        GROUP BY
+          input1.firstname  input1.lastname) AS [T355][firstname, lastname, SUM-nb_payments]) AS [T407][firstname, lastname, SUM-nb_payments]
+
+==== [No. 14 ] ====
+SELECT
+  [T408].firstname,[T408].lastname,[T408].SUM-nb_payments
+FROM
+  (SELECT
+      [T356].firstname,[T356].lastname,[T356].SUM-nb_payments
+    FROM
+      (SELECT
+          [T355].firstname,[T355].lastname,[T355].SUM-nb_payments
+        FROM
+          (SELECT
+              input1.firstname, input1.lastname, SUM(input1.nb_payments)
+            FROM
+              input1
+            GROUP BY
+              input1.firstname  input1.lastname) AS [T355][firstname, lastname, SUM-nb_payments]) AS [T356][firstname, lastname, SUM-nb_payments]) AS [T408][firstname, lastname, SUM-nb_payments]
+
+==== [No. 15 ] ====
+SELECT
+  [T409].firstname,[T409].lastname,[T409].SUM-nb_payments
+FROM
+  (SELECT
+      [T355].firstname,[T355].lastname,[T355].SUM-nb_payments
+    FROM
+      (SELECT
+          input1.firstname, input1.lastname, SUM(input1.nb_payments)
+        FROM
+          input1
+        GROUP BY
+          input1.firstname  input1.lastname) AS [T355][firstname, lastname, SUM-nb_payments]) AS [T409][firstname, lastname, SUM-nb_payments]
+
+==== [No. 16 ] ====
+SELECT
+  [T410].firstname,[T410].lastname,[T410].SUM-nb_payments
+FROM
+  (SELECT
+      [T356].firstname,[T356].lastname,[T356].SUM-nb_payments
+    FROM
+      (SELECT
+          [T355].firstname,[T355].lastname,[T355].SUM-nb_payments
+        FROM
+          (SELECT
+              input1.firstname, input1.lastname, SUM(input1.nb_payments)
+            FROM
+              input1
+            GROUP BY
+              input1.firstname  input1.lastname) AS [T355][firstname, lastname, SUM-nb_payments]) AS [T356][firstname, lastname, SUM-nb_payments]) AS [T410][firstname, lastname, SUM-nb_payments]
+
+==== [No. 17 ] ====
+SELECT
+  [T411].firstname,[T411].lastname,[T411].SUM-nb_payments
+FROM
+  (SELECT
+      [T355].firstname,[T355].lastname,[T355].SUM-nb_payments
+    FROM
+      (SELECT
+          input1.firstname, input1.lastname, SUM(input1.nb_payments)
+        FROM
+          input1
+        GROUP BY
+          input1.firstname  input1.lastname) AS [T355][firstname, lastname, SUM-nb_payments]) AS [T411][firstname, lastname, SUM-nb_payments]
+
+==== [No. 18 ] ====
+SELECT
+  [T426].firstname,[T426].lastname,[T426].SUM-nb_payments
+FROM
+  (SELECT
+      [T425].firstname,[T425].lastname,[T425].SUM-nb_payments
+    FROM
+      (SELECT
+          input1.firstname, input1.lastname, SUM(input1.nb_payments)
+        FROM
+          input1
+        GROUP BY
+          input1.firstname  input1.lastname) AS [T425][firstname, lastname, SUM-nb_payments]) AS [T426][firstname, lastname, SUM-nb_payments]
+
+==== [No. 19 ] ====
+SELECT
+  [T425].firstname,[T425].lastname,[T425].SUM-nb_payments
+FROM
+  (SELECT
+      input1.firstname, input1.lastname, SUM(input1.nb_payments)
+    FROM
+      input1
+    GROUP BY
+      input1.firstname  input1.lastname) AS [T425][firstname, lastname, SUM-nb_payments]
+
+Total Tree Count: 4
+Total Query Count: 30
+[Enumeration Finished]
+[[Synthesizer finished]] time: 00:00:00:214

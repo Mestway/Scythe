@@ -15,6 +15,8 @@ public class Main {
             System.exit(-1);
         }
 
+        System.setErr(System.out);
+
         String filename = args[0];
         String enumerator = args[1];
         int maxDepth = Integer.parseInt(args[2]);
