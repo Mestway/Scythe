@@ -123,6 +123,12 @@ public class FilterEnumerator {
                     .filter(t -> t.getAllHoles().size() == 0)
                     .map(tn -> new ExistComparator(tn))
                     .collect(Collectors.toList()));
+            // Also enumerate not exists
+            atomicFilters.addAll(
+                    ec.getParameterizedTables().stream().map(tn -> tn.instantiate(ie))
+                            .filter(t -> t.getAllHoles().size() == 0)
+                            .map(tn -> new ExistComparator(tn, true))
+                            .collect(Collectors.toList()));
         }
 
         List<Filter> resultFilter = new ArrayList<>();
@@ -153,6 +159,8 @@ public class FilterEnumerator {
                         }
                     } else {
                         atomics.add(new VVComparator(Arrays.asList(l, r), VVComparator.eq));
+                        atomics.add(new VVComparator(Arrays.asList(l, r), VVComparator.neq));
+
                     }
                 }
             }
@@ -172,6 +180,12 @@ public class FilterEnumerator {
                     ec.getParameterizedTables().stream().map(tn -> tn.instantiate(ie))
                             .filter(t -> t.getAllHoles().size() == 0)
                             .map(tn -> new ExistComparator(tn))
+                            .collect(Collectors.toList()));
+            // Also enumerate not exists
+            atomics.addAll(
+                    ec.getParameterizedTables().stream().map(tn -> tn.instantiate(ie))
+                            .filter(t -> t.getAllHoles().size() == 0)
+                            .map(tn -> new ExistComparator(tn, true))
                             .collect(Collectors.toList()));
         }
         return atomics;

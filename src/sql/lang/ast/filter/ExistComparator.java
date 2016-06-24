@@ -15,7 +15,12 @@ import java.util.List;
  * Created by clwang on 12/23/15.
  */
 public class ExistComparator implements Filter {
+
+    // When this flag is true, this existComparator is NOT EXISTS
+    private boolean notExists = false;
     TableNode tableNode;
+
+    public ExistComparator(TableNode tn, boolean notExists) { this.tableNode = tn; this.notExists = notExists; }
 
     public ExistComparator(TableNode tn) {
         this.tableNode = tn;
@@ -25,6 +30,12 @@ public class ExistComparator implements Filter {
     public boolean filter(Environment env) throws SQLEvalException {
         Table table = tableNode.eval(env);
         if (table.getContent().isEmpty()) {
+            if (notExists == true) {
+                return true;
+            }
+            return false;
+        }
+        if (notExists == true) {
             return false;
         }
         return true;
@@ -42,6 +53,12 @@ public class ExistComparator implements Filter {
 
     @Override
     public String prettyPrint(int indentLv) {
+        if (notExists == true) {
+            return IndentionManagement.addIndention(
+                    "NOT EXIST (\r\n" + tableNode.prettyPrint(1) + ")",
+                    indentLv
+            );
+        }
         return IndentionManagement.addIndention(
                 "EXIST (\r\n" + tableNode.prettyPrint(1) + ")",
                 indentLv
@@ -60,7 +77,7 @@ public class ExistComparator implements Filter {
 
     @Override
     public Filter instantiate(InstantiateEnv env) {
-        return new ExistComparator(this.tableNode.instantiate(env));
+        return new ExistComparator(this.tableNode.instantiate(env), this.notExists);
     }
 
     @Override
