@@ -61,7 +61,7 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
 
             ec.setTableNodes(qc.getRepresentativeTableNodes());
 
-            EnumJoinTableNodes.emitEnumJoinWithFilter(ec, qc);
+            EnumJoinTableNodes.emitEnumJoinWithFilter(ec, qc, false);
             //System.out.println("There are " + tns.size() + " queries in the enumeration of this level");
             //List<TableNode> renamed = tns.parallelStream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList());
             // System.out.println("After renamed: " + renamed.size());
@@ -78,16 +78,16 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
             ec.setTableNodes(qc.getRepresentativeTableNodes());
             EnumProjection.emitEnumProjection(ec, ec.getOutputTable(), qc);
 
-            if (qc.runnerUpTable > 0)
+            if (! (qc.lookup(ec.getOutputTable()) == null))
                 break;
         }
 
-        if (qc.runnerUpTable == 0) {
+        if (qc.lookup(ec.getOutputTable()) == null) {
             for (int i = 1; i <= depth; i ++) {
 
                 ec.setTableNodes(qc.getRepresentativeTableNodes());
 
-                EnumJoinTableNodes.emitEnumJoinWithFilter(ec, qc);
+                EnumJoinTableNodes.emitEnumJoinWithFilter(ec, qc, true);
 
                 //System.out.println("after enumJoinWithFilter: " + qc.getRepresentativeTableNodes().size() + " tables");
                 System.out.println("[Stage " + (4 + i) + "] EnumJoin" + i + " \n\t"
@@ -100,7 +100,7 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
                 ec.setTableNodes(qc.getRepresentativeTableNodes());
                 EnumProjection.emitEnumProjection(ec, ec.getOutputTable(), qc);
 
-                if (qc.runnerUpTable > 0)
+                if (! (qc.lookup(ec.getOutputTable()) == null))
                     break;
             }
         }

@@ -1605,3 +1605,188 @@
     |----|
     | 2  |
     | 3  |
+
+# 56
+### [How to group following rows by not unique value](http://stackoverflow.com/questions/30877926/how-to-group-following-rows-by-not-unique-value?rq=1)
+#### description
+
+    I would like to know in which time interval I was on which way.
+    Is there a possibility to do the partition according to the order, means grouping only following attributes, that are equal?
+
+#### input
+
+    @table1
+
+    | id | way | time  |
+    |------------------|
+    | 1  | 1   | 00:01 |
+    | 2  | 1   | 00:02 |
+    | 3  | 2   | 00:03 |
+    | 4  | 2   | 00:04 |
+    | 5  | 2   | 00:05 |
+    | 6  | 3   | 00:06 |
+    | 7  | 3   | 00:07 |
+    | 8  | 1   | 00:08 |
+    | 9  | 1   | 00:09 |
+
+
+#### output
+
+
+    | id | way | from  | to    |
+    |--------------------------|
+    | 1  | 1   | 00:01 | 00:02 |
+    | 3  | 2   | 00:03 | 00:05 |
+    | 6  | 3   | 00:06 | 00:07 |
+    | 8  | 1   | 00:08 | 00:09 |
+
+# 57
+### [How to compute proportion of a particular field in SQL?](http://stackoverflow.com/questions/33046398/how-to-compute-proportion-of-a-particular-field-in-sql)
+#### description
+    in a single query, given a particular ID, I want to compute the proportion of entries that has action Foo. For example, given A, there are 2 Foos out of 3 actions. So it'd be 66%.
+
+
+#### input
+
+    | ID  |     Date      | Action   | Params|
+    |----------------------------------------|
+    |  A  |  2015-10-01   |   Foo    |     1 |
+    |  A  |  2015-10-02   |   Foo    |     2 |
+    |  A  |  2015-10-01   |   Bar    |    10 |
+    |  B  |  2015-10-01   |   Foo    |     0 |
+    |  B  |  2015-10-02   |   Foo    |     0 |
+    |  B  |  2015-10-03   |   Bar    |     1 |
+
+
+#### output
+
+
+    | c1 | c2  |
+    |----------|
+    | A  | 66% |
+    | B  | 66% |
+
+# 58
+### [How to return the row with the highest sum of two columns?](http://stackoverflow.com/questions/32773790/how-to-return-the-row-with-the-highest-sum-of-two-columns)
+#### description
+
+  I'm looking for the SQL query that returns the name of the player with the highest GoalsScored + GoalsSaved, as long is that player is not listed in the table of taken players.
+
+
+#### input
+
+
+    @table1
+
+    |     Name      | GoalsScored  | GoalsSaved  |
+    |--------------------------------------------|
+    | John Smith    |           15 |          12 |
+    | John Doe      |           12 |          20 |
+    | Bob John      |            7 |           6 |
+    | John Bob      |           10 |          30 |
+    | Bobby Johnson |           25 |          30 |
+
+    @taken_players
+    
+        And a temporary table to store the names of already chosen players (taken_players), which looks something like this:
+    
+    | takenplayername |
+    |-----------------|
+    | Bob John        |
+    | Bobby Johnson   |
+
+
+#### output
+
+    | name     |
+    |----------|
+    | John Bob |
+
+# 59
+### [Not Sure If this is a grouping question]( )
+
+#### input
+
+    | ID|  X | Y |
+    |------------|
+    | 1 | 25 | 24|
+    | 2 | 24 | 25|
+    | 3 | 75 | 1 |
+    | 4 | 9  | 10|
+    | 5 | 10 | 9 | 
+
+
+#### output
+
+    | ID | X | Y  |
+    |-------------|
+    | 2  |24 | 25 |
+    | 3  |75 | 1  |
+    | 5  |10 | 9  | 
+
+#### description
+
+    When values for X and Y exists, it will always show the higher ID value.
+
+# 60
+### [SELECT / GROUP BY - segments of time (10 seconds, 30 seconds, etc)](http://stackoverflow.com/questions/3086386/select-group-by-segments-of-time-10-seconds-30-seconds-etc)
+#### description
+
+    What I would like to do, is get sums and averages of the count column over a range of times. For instance, I have samples every 2 seconds recorded, but I would like the sum of the count column for all the samples in a 10 second or 30 second window for all samples.
+
+    # This is the sum for the 00 - 30 seconds range
+    # This is the sum for the 30 - 60 seconds range
+    # This is the sum for the 30 - 60 seconds range
+
+#### input
+
+
+     | time_stamp          | count           |
+     |---------------------------------------|
+     | 2010-06-15 23:35:28 |               1 |
+     | 2010-06-15 23:35:30 |               1 |
+     | 2010-06-15 23:35:30 |               1 |
+     | 2010-06-15 23:35:30 |             942 |
+     | 2010-06-15 23:35:30 |             180 |
+     | 2010-06-15 23:35:30 |               4 |
+     | 2010-06-15 23:35:30 |              52 |
+     | 2010-06-15 23:35:30 |              12 |
+     | 2010-06-15 23:35:30 |               1 |
+     | 2010-06-15 23:35:30 |               1 |
+     | 2010-06-15 23:35:33 |            1468 |
+     | 2010-06-15 23:35:33 |             247 |
+     | 2010-06-15 23:35:33 |               1 |
+     | 2010-06-15 23:35:33 |              81 |
+     | 2010-06-15 23:35:33 |              16 |
+     | 2010-06-15 23:35:35 |            1828 |
+     | 2010-06-15 23:35:35 |             214 |
+     | 2010-06-15 23:35:35 |              75 |
+     | 2010-06-15 23:35:35 |               8 |
+     | 2010-06-15 23:35:37 |            1799 |
+     | 2010-06-15 23:35:37 |              24 |
+     | 2010-06-15 23:35:37 |              11 |
+     | 2010-06-15 23:35:37 |               2 |
+     | 2010-06-15 23:35:40 |             575 |
+     | 2010-06-15 23:35:40 |               1 |
+     | 2010-06-17 10:39:35 |               2 |
+     | 2010-06-17 10:39:35 |               2 |
+     | 2010-06-17 10:39:35 |               1 |
+     | 2010-06-17 10:39:35 |               2 |
+     | 2010-06-17 10:39:35 |               1 |
+     | 2010-06-17 10:39:40 |              35 |
+     | 2010-06-17 10:39:40 |              19 |
+     | 2010-06-17 10:39:40 |              37 |
+     | 2010-06-17 10:39:42 |              64 |
+     | 2010-06-17 10:39:42 |               3 |
+     | 2010-06-17 10:39:42 |              31 |
+     | 2010-06-17 10:39:42 |               7 |
+     | 2010-06-17 10:39:42 |             246 |
+
+
+#### output
+
+     |          c1         |  c2  |
+     |----------------------------|
+     | 2010-06-15 23:35:00 |    1 |  
+     | 2010-06-15 23:35:30 | 7544 |  
+     | 2010-06-17 10:39:35 |  450 |  

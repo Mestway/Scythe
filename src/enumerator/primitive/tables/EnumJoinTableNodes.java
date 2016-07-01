@@ -132,8 +132,12 @@ public class EnumJoinTableNodes {
         EnumJoinTableNodes.generalEmitEnumJoin(2, ec, qc, atMostOneNoneInput, false);
     }
 
-    public static void emitEnumJoinWithFilter(EnumContext ec, QueryChest qc) {
-        EnumJoinTableNodes.generalEmitEnumJoin(2, ec, qc, atMostOneNoneInput, true);
+    public static void emitEnumJoinWithFilter(EnumContext ec, QueryChest qc, boolean allowAnyJoin) {
+        if (! allowAnyJoin)
+            EnumJoinTableNodes.generalEmitEnumJoin(2, ec, qc, atMostOneNoneInput, true);
+        else
+            EnumJoinTableNodes.generalEmitEnumJoin(2, ec, qc, anyJoin, true);
+
     }
 
     // This is a simpler version of joining considering no filters at this stage,
@@ -155,6 +159,10 @@ public class EnumJoinTableNodes {
                 return false;
         }
         //if (lst.get(0) == lst.get(1)) return false;
+        return true;
+    };
+
+    public static final BiFunction<EnumContext, List<TableNode>, Boolean> anyJoin = (ec, lst) -> {
         return true;
     };
 

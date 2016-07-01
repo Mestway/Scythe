@@ -1,9 +1,6 @@
 package main;
 
-import enumerator.tableenumerator.AbstractTableEnumerator;
-import enumerator.tableenumerator.CanonicalTableEnumeratorOnTheFly;
-import enumerator.tableenumerator.CanonicalWithoutExistsEnumerator;
-import enumerator.tableenumerator.SymbolicTableEnumerator;
+import enumerator.tableenumerator.*;
 
 public class Main {
 
@@ -28,6 +25,8 @@ public class Main {
             return new SymbolicTableEnumerator();
         else if (name.equals("CanonicalEnumeratorOnTheFly"))
             return new CanonicalTableEnumeratorOnTheFly();
+        else if (name.equals("CanonicalEnumerator"))
+            return new CanonicalTableEnumerator();
         else {
             System.out.println("The enumerator ["+ name + "] is currently not supported.");
             System.exit(-1);

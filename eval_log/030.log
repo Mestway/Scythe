@@ -16,6 +16,495 @@
 	Queries generated: 1107
 	Tables generated: 160
 	Total Table by now: 168
-[Runner up Table Count] 13
-[Enumeration Finished] Does not find a query in the search space.
-[[Synthesizer finished]] time: 00:00:00:342
+[Stage 4] EnumJoin2 
+	Queries generated: 148861
+	Tables generated: 12259
+	Total Table by now: 12267
+[Runner up Table Count] 236
+[Consistent Table number] 4
+==== [No. 0 ] ====
+SELECT
+  [T155924].ID,[T155924].DESC,[T155924].MAX-LAST_DATE
+FROM
+  (SELECT
+      [T155740].LINK,[T155740].MAX-LAST_DATE,[T155740].ID,[T155740].DESC,[T155740].ID1,[T155740].LINK1,[T155740].LAST_DATE
+    FROM
+      (( (( (SELECT
+                  [T156399].LINK,[T156399].MAX-LAST_DATE
+                FROM
+                  (SELECT
+                      input2.LINK, MAX(input2.LAST_DATE)
+                    FROM
+                      input2
+                    GROUP BY
+                      input2.LINK) AS [T156399][LINK, MAX-LAST_DATE]) AS [T156400][LINK, MAX-LAST_DATE] ) JOIN (
+              input1 )) AS [T156346][LINK, MAX-LAST_DATE, ID, DESC] ) JOIN (
+          input2 )) AS [T155740][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+    WHERE
+      [T155740].LINK > [T155740].LINK1
+       AND [T155740].MAX-LAST_DATE == [T155740].LAST_DATE) AS [T155924][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+
+==== [No. 1 ] ====
+SELECT
+  [T155924].ID,[T155924].DESC,[T155924].MAX-LAST_DATE
+FROM
+  (SELECT
+      [T155740].LINK,[T155740].MAX-LAST_DATE,[T155740].ID,[T155740].DESC,[T155740].ID1,[T155740].LINK1,[T155740].LAST_DATE
+    FROM
+      (( (( (SELECT
+                  input2.LINK, MAX(input2.LAST_DATE)
+                FROM
+                  input2
+                GROUP BY
+                  input2.LINK) AS [T156399][LINK, MAX-LAST_DATE] ) JOIN (
+              input1 )) AS [T156346][LINK, MAX-LAST_DATE, ID, DESC] ) JOIN (
+          input2 )) AS [T155740][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+    WHERE
+      [T155740].LINK > [T155740].LINK1
+       AND [T155740].MAX-LAST_DATE == [T155740].LAST_DATE) AS [T155924][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+
+==== [No. 2 ] ====
+SELECT
+  [T155924].ID,[T155924].DESC,[T155924].MAX-LAST_DATE
+FROM
+  (SELECT
+      [T155740].LINK,[T155740].MAX-LAST_DATE,[T155740].ID,[T155740].DESC,[T155740].ID1,[T155740].LINK1,[T155740].LAST_DATE
+    FROM
+      (( (SELECT
+              [T156346].LINK,[T156346].MAX-LAST_DATE,[T156346].ID,[T156346].DESC
+            FROM
+              (( (SELECT
+                      [T156399].LINK,[T156399].MAX-LAST_DATE
+                    FROM
+                      (SELECT
+                          input2.LINK, MAX(input2.LAST_DATE)
+                        FROM
+                          input2
+                        GROUP BY
+                          input2.LINK) AS [T156399][LINK, MAX-LAST_DATE]) AS [T156400][LINK, MAX-LAST_DATE] ) JOIN (
+                  input1 )) AS [T156346][LINK, MAX-LAST_DATE, ID, DESC]) AS [T156347][LINK, MAX-LAST_DATE, ID, DESC] ) JOIN (
+          input2 )) AS [T155740][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+    WHERE
+      [T155740].LINK > [T155740].LINK1
+       AND [T155740].MAX-LAST_DATE == [T155740].LAST_DATE) AS [T155924][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+
+==== [No. 3 ] ====
+SELECT
+  [T155924].ID,[T155924].DESC,[T155924].MAX-LAST_DATE
+FROM
+  (SELECT
+      [T155740].LINK,[T155740].MAX-LAST_DATE,[T155740].ID,[T155740].DESC,[T155740].ID1,[T155740].LINK1,[T155740].LAST_DATE
+    FROM
+      (( (SELECT
+              [T156346].LINK,[T156346].MAX-LAST_DATE,[T156346].ID,[T156346].DESC
+            FROM
+              (( (SELECT
+                      input2.LINK, MAX(input2.LAST_DATE)
+                    FROM
+                      input2
+                    GROUP BY
+                      input2.LINK) AS [T156399][LINK, MAX-LAST_DATE] ) JOIN (
+                  input1 )) AS [T156346][LINK, MAX-LAST_DATE, ID, DESC]) AS [T156347][LINK, MAX-LAST_DATE, ID, DESC] ) JOIN (
+          input2 )) AS [T155740][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+    WHERE
+      [T155740].LINK > [T155740].LINK1
+       AND [T155740].MAX-LAST_DATE == [T155740].LAST_DATE) AS [T155924][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+
+==== [No. 4 ] ====
+SELECT
+  [T155924].ID,[T155924].DESC,[T155924].MAX-LAST_DATE
+FROM
+  (SELECT
+      [T155740].LINK,[T155740].MAX-LAST_DATE,[T155740].ID,[T155740].DESC,[T155740].ID1,[T155740].LINK1,[T155740].LAST_DATE
+    FROM
+      (( (SELECT
+              [T156346].LINK,[T156346].MAX-LAST_DATE,[T156346].ID,[T156346].DESC
+            FROM
+              (( (SELECT
+                      [T156399].LINK,[T156399].MAX-LAST_DATE
+                    FROM
+                      (SELECT
+                          input2.LINK, MAX(input2.LAST_DATE)
+                        FROM
+                          input2
+                        GROUP BY
+                          input2.LINK) AS [T156399][LINK, MAX-LAST_DATE]) AS [T156400][LINK, MAX-LAST_DATE] ) JOIN (
+                  input1 )) AS [T156346][LINK, MAX-LAST_DATE, ID, DESC]) AS [T156348][LINK, MAX-LAST_DATE, ID, DESC] ) JOIN (
+          input2 )) AS [T155740][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+    WHERE
+      [T155740].LINK > [T155740].LINK1
+       AND [T155740].MAX-LAST_DATE == [T155740].LAST_DATE) AS [T155924][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+
+==== [No. 5 ] ====
+SELECT
+  [T155924].ID,[T155924].DESC,[T155924].MAX-LAST_DATE
+FROM
+  (SELECT
+      [T155740].LINK,[T155740].MAX-LAST_DATE,[T155740].ID,[T155740].DESC,[T155740].ID1,[T155740].LINK1,[T155740].LAST_DATE
+    FROM
+      (( (SELECT
+              [T156346].LINK,[T156346].MAX-LAST_DATE,[T156346].ID,[T156346].DESC
+            FROM
+              (( (SELECT
+                      input2.LINK, MAX(input2.LAST_DATE)
+                    FROM
+                      input2
+                    GROUP BY
+                      input2.LINK) AS [T156399][LINK, MAX-LAST_DATE] ) JOIN (
+                  input1 )) AS [T156346][LINK, MAX-LAST_DATE, ID, DESC]) AS [T156348][LINK, MAX-LAST_DATE, ID, DESC] ) JOIN (
+          input2 )) AS [T155740][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+    WHERE
+      [T155740].LINK > [T155740].LINK1
+       AND [T155740].MAX-LAST_DATE == [T155740].LAST_DATE) AS [T155924][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+
+==== [No. 6 ] ====
+SELECT
+  [T155926].ID,[T155926].DESC,[T155926].MAX-LAST_DATE
+FROM
+  (SELECT
+      [T155740].LINK,[T155740].MAX-LAST_DATE,[T155740].ID,[T155740].DESC,[T155740].ID1,[T155740].LINK1,[T155740].LAST_DATE
+    FROM
+      (( (( (SELECT
+                  [T156399].LINK,[T156399].MAX-LAST_DATE
+                FROM
+                  (SELECT
+                      input2.LINK, MAX(input2.LAST_DATE)
+                    FROM
+                      input2
+                    GROUP BY
+                      input2.LINK) AS [T156399][LINK, MAX-LAST_DATE]) AS [T156400][LINK, MAX-LAST_DATE] ) JOIN (
+              input1 )) AS [T156346][LINK, MAX-LAST_DATE, ID, DESC] ) JOIN (
+          input2 )) AS [T155740][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+    WHERE
+      [T155740].LINK > [T155740].LINK1
+       AND [T155740].MAX-LAST_DATE <= [T155740].LAST_DATE) AS [T155926][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+
+==== [No. 7 ] ====
+SELECT
+  [T155926].ID,[T155926].DESC,[T155926].MAX-LAST_DATE
+FROM
+  (SELECT
+      [T155740].LINK,[T155740].MAX-LAST_DATE,[T155740].ID,[T155740].DESC,[T155740].ID1,[T155740].LINK1,[T155740].LAST_DATE
+    FROM
+      (( (( (SELECT
+                  input2.LINK, MAX(input2.LAST_DATE)
+                FROM
+                  input2
+                GROUP BY
+                  input2.LINK) AS [T156399][LINK, MAX-LAST_DATE] ) JOIN (
+              input1 )) AS [T156346][LINK, MAX-LAST_DATE, ID, DESC] ) JOIN (
+          input2 )) AS [T155740][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+    WHERE
+      [T155740].LINK > [T155740].LINK1
+       AND [T155740].MAX-LAST_DATE <= [T155740].LAST_DATE) AS [T155926][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+
+==== [No. 8 ] ====
+SELECT
+  [T155926].ID,[T155926].DESC,[T155926].MAX-LAST_DATE
+FROM
+  (SELECT
+      [T155740].LINK,[T155740].MAX-LAST_DATE,[T155740].ID,[T155740].DESC,[T155740].ID1,[T155740].LINK1,[T155740].LAST_DATE
+    FROM
+      (( (SELECT
+              [T156346].LINK,[T156346].MAX-LAST_DATE,[T156346].ID,[T156346].DESC
+            FROM
+              (( (SELECT
+                      [T156399].LINK,[T156399].MAX-LAST_DATE
+                    FROM
+                      (SELECT
+                          input2.LINK, MAX(input2.LAST_DATE)
+                        FROM
+                          input2
+                        GROUP BY
+                          input2.LINK) AS [T156399][LINK, MAX-LAST_DATE]) AS [T156400][LINK, MAX-LAST_DATE] ) JOIN (
+                  input1 )) AS [T156346][LINK, MAX-LAST_DATE, ID, DESC]) AS [T156347][LINK, MAX-LAST_DATE, ID, DESC] ) JOIN (
+          input2 )) AS [T155740][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+    WHERE
+      [T155740].LINK > [T155740].LINK1
+       AND [T155740].MAX-LAST_DATE <= [T155740].LAST_DATE) AS [T155926][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+
+==== [No. 9 ] ====
+SELECT
+  [T155926].ID,[T155926].DESC,[T155926].MAX-LAST_DATE
+FROM
+  (SELECT
+      [T155740].LINK,[T155740].MAX-LAST_DATE,[T155740].ID,[T155740].DESC,[T155740].ID1,[T155740].LINK1,[T155740].LAST_DATE
+    FROM
+      (( (SELECT
+              [T156346].LINK,[T156346].MAX-LAST_DATE,[T156346].ID,[T156346].DESC
+            FROM
+              (( (SELECT
+                      input2.LINK, MAX(input2.LAST_DATE)
+                    FROM
+                      input2
+                    GROUP BY
+                      input2.LINK) AS [T156399][LINK, MAX-LAST_DATE] ) JOIN (
+                  input1 )) AS [T156346][LINK, MAX-LAST_DATE, ID, DESC]) AS [T156347][LINK, MAX-LAST_DATE, ID, DESC] ) JOIN (
+          input2 )) AS [T155740][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+    WHERE
+      [T155740].LINK > [T155740].LINK1
+       AND [T155740].MAX-LAST_DATE <= [T155740].LAST_DATE) AS [T155926][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+
+==== [No. 10 ] ====
+SELECT
+  [T162596].ID,[T162596].DESC,[T162596].MAX-LAST_DATE
+FROM
+  (SELECT
+      [T162412].LINK,[T162412].MAX-LAST_DATE,[T162412].ID,[T162412].DESC,[T162412].ID1,[T162412].LINK1,[T162412].LAST_DATE
+    FROM
+      (( (SELECT
+              [T163018].LINK,[T163018].MAX-LAST_DATE,[T163018].ID,[T163018].DESC
+            FROM
+              (( (SELECT
+                      [T163071].LINK,[T163071].MAX-LAST_DATE
+                    FROM
+                      (SELECT
+                          input2.LINK, MAX(input2.LAST_DATE)
+                        FROM
+                          input2
+                        GROUP BY
+                          input2.LINK) AS [T163071][LINK, MAX-LAST_DATE]) AS [T163072][LINK, MAX-LAST_DATE] ) JOIN (
+                  input1 )) AS [T163018][LINK, MAX-LAST_DATE, ID, DESC]
+            WHERE
+              [T163018].LINK >= [T163018].ID) AS [T163025][LINK, MAX-LAST_DATE, ID, DESC] ) JOIN (
+          input2 )) AS [T162412][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+    WHERE
+      [T162412].LINK > [T162412].LINK1
+       AND [T162412].MAX-LAST_DATE == [T162412].LAST_DATE) AS [T162596][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+
+==== [No. 11 ] ====
+SELECT
+  [T162596].ID,[T162596].DESC,[T162596].MAX-LAST_DATE
+FROM
+  (SELECT
+      [T162412].LINK,[T162412].MAX-LAST_DATE,[T162412].ID,[T162412].DESC,[T162412].ID1,[T162412].LINK1,[T162412].LAST_DATE
+    FROM
+      (( (SELECT
+              [T163018].LINK,[T163018].MAX-LAST_DATE,[T163018].ID,[T163018].DESC
+            FROM
+              (( (SELECT
+                      input2.LINK, MAX(input2.LAST_DATE)
+                    FROM
+                      input2
+                    GROUP BY
+                      input2.LINK) AS [T163071][LINK, MAX-LAST_DATE] ) JOIN (
+                  input1 )) AS [T163018][LINK, MAX-LAST_DATE, ID, DESC]
+            WHERE
+              [T163018].LINK >= [T163018].ID) AS [T163025][LINK, MAX-LAST_DATE, ID, DESC] ) JOIN (
+          input2 )) AS [T162412][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+    WHERE
+      [T162412].LINK > [T162412].LINK1
+       AND [T162412].MAX-LAST_DATE == [T162412].LAST_DATE) AS [T162596][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+
+==== [No. 12 ] ====
+SELECT
+  [T162596].ID,[T162596].DESC,[T162596].MAX-LAST_DATE
+FROM
+  (SELECT
+      [T162412].LINK,[T162412].MAX-LAST_DATE,[T162412].ID,[T162412].DESC,[T162412].ID1,[T162412].LINK1,[T162412].LAST_DATE
+    FROM
+      (( (SELECT
+              [T163018].LINK,[T163018].MAX-LAST_DATE,[T163018].ID,[T163018].DESC
+            FROM
+              (( (SELECT
+                      [T163071].LINK,[T163071].MAX-LAST_DATE
+                    FROM
+                      (SELECT
+                          input2.LINK, MAX(input2.LAST_DATE)
+                        FROM
+                          input2
+                        GROUP BY
+                          input2.LINK) AS [T163071][LINK, MAX-LAST_DATE]) AS [T163072][LINK, MAX-LAST_DATE] ) JOIN (
+                  input1 )) AS [T163018][LINK, MAX-LAST_DATE, ID, DESC]
+            WHERE
+              
+               AND [T163018].LINK >= [T163018].ID) AS [T163030][LINK, MAX-LAST_DATE, ID, DESC] ) JOIN (
+          input2 )) AS [T162412][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+    WHERE
+      [T162412].LINK > [T162412].LINK1
+       AND [T162412].MAX-LAST_DATE == [T162412].LAST_DATE) AS [T162596][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+
+==== [No. 13 ] ====
+SELECT
+  [T162596].ID,[T162596].DESC,[T162596].MAX-LAST_DATE
+FROM
+  (SELECT
+      [T162412].LINK,[T162412].MAX-LAST_DATE,[T162412].ID,[T162412].DESC,[T162412].ID1,[T162412].LINK1,[T162412].LAST_DATE
+    FROM
+      (( (SELECT
+              [T163018].LINK,[T163018].MAX-LAST_DATE,[T163018].ID,[T163018].DESC
+            FROM
+              (( (SELECT
+                      input2.LINK, MAX(input2.LAST_DATE)
+                    FROM
+                      input2
+                    GROUP BY
+                      input2.LINK) AS [T163071][LINK, MAX-LAST_DATE] ) JOIN (
+                  input1 )) AS [T163018][LINK, MAX-LAST_DATE, ID, DESC]
+            WHERE
+              
+               AND [T163018].LINK >= [T163018].ID) AS [T163030][LINK, MAX-LAST_DATE, ID, DESC] ) JOIN (
+          input2 )) AS [T162412][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+    WHERE
+      [T162412].LINK > [T162412].LINK1
+       AND [T162412].MAX-LAST_DATE == [T162412].LAST_DATE) AS [T162596][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+
+==== [No. 14 ] ====
+SELECT
+  [T162598].ID,[T162598].DESC,[T162598].MAX-LAST_DATE
+FROM
+  (SELECT
+      [T162412].LINK,[T162412].MAX-LAST_DATE,[T162412].ID,[T162412].DESC,[T162412].ID1,[T162412].LINK1,[T162412].LAST_DATE
+    FROM
+      (( (SELECT
+              [T163018].LINK,[T163018].MAX-LAST_DATE,[T163018].ID,[T163018].DESC
+            FROM
+              (( (SELECT
+                      [T163071].LINK,[T163071].MAX-LAST_DATE
+                    FROM
+                      (SELECT
+                          input2.LINK, MAX(input2.LAST_DATE)
+                        FROM
+                          input2
+                        GROUP BY
+                          input2.LINK) AS [T163071][LINK, MAX-LAST_DATE]) AS [T163072][LINK, MAX-LAST_DATE] ) JOIN (
+                  input1 )) AS [T163018][LINK, MAX-LAST_DATE, ID, DESC]
+            WHERE
+              [T163018].LINK >= [T163018].ID) AS [T163025][LINK, MAX-LAST_DATE, ID, DESC] ) JOIN (
+          input2 )) AS [T162412][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+    WHERE
+      [T162412].LINK > [T162412].LINK1
+       AND [T162412].MAX-LAST_DATE <= [T162412].LAST_DATE) AS [T162598][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+
+==== [No. 15 ] ====
+SELECT
+  [T162598].ID,[T162598].DESC,[T162598].MAX-LAST_DATE
+FROM
+  (SELECT
+      [T162412].LINK,[T162412].MAX-LAST_DATE,[T162412].ID,[T162412].DESC,[T162412].ID1,[T162412].LINK1,[T162412].LAST_DATE
+    FROM
+      (( (SELECT
+              [T163018].LINK,[T163018].MAX-LAST_DATE,[T163018].ID,[T163018].DESC
+            FROM
+              (( (SELECT
+                      input2.LINK, MAX(input2.LAST_DATE)
+                    FROM
+                      input2
+                    GROUP BY
+                      input2.LINK) AS [T163071][LINK, MAX-LAST_DATE] ) JOIN (
+                  input1 )) AS [T163018][LINK, MAX-LAST_DATE, ID, DESC]
+            WHERE
+              [T163018].LINK >= [T163018].ID) AS [T163025][LINK, MAX-LAST_DATE, ID, DESC] ) JOIN (
+          input2 )) AS [T162412][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+    WHERE
+      [T162412].LINK > [T162412].LINK1
+       AND [T162412].MAX-LAST_DATE <= [T162412].LAST_DATE) AS [T162598][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+
+==== [No. 16 ] ====
+SELECT
+  [T162598].ID,[T162598].DESC,[T162598].MAX-LAST_DATE
+FROM
+  (SELECT
+      [T162412].LINK,[T162412].MAX-LAST_DATE,[T162412].ID,[T162412].DESC,[T162412].ID1,[T162412].LINK1,[T162412].LAST_DATE
+    FROM
+      (( (SELECT
+              [T163018].LINK,[T163018].MAX-LAST_DATE,[T163018].ID,[T163018].DESC
+            FROM
+              (( (SELECT
+                      [T163071].LINK,[T163071].MAX-LAST_DATE
+                    FROM
+                      (SELECT
+                          input2.LINK, MAX(input2.LAST_DATE)
+                        FROM
+                          input2
+                        GROUP BY
+                          input2.LINK) AS [T163071][LINK, MAX-LAST_DATE]) AS [T163072][LINK, MAX-LAST_DATE] ) JOIN (
+                  input1 )) AS [T163018][LINK, MAX-LAST_DATE, ID, DESC]
+            WHERE
+              
+               AND [T163018].LINK >= [T163018].ID) AS [T163030][LINK, MAX-LAST_DATE, ID, DESC] ) JOIN (
+          input2 )) AS [T162412][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+    WHERE
+      [T162412].LINK > [T162412].LINK1
+       AND [T162412].MAX-LAST_DATE <= [T162412].LAST_DATE) AS [T162598][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+
+==== [No. 17 ] ====
+SELECT
+  [T162598].ID,[T162598].DESC,[T162598].MAX-LAST_DATE
+FROM
+  (SELECT
+      [T162412].LINK,[T162412].MAX-LAST_DATE,[T162412].ID,[T162412].DESC,[T162412].ID1,[T162412].LINK1,[T162412].LAST_DATE
+    FROM
+      (( (SELECT
+              [T163018].LINK,[T163018].MAX-LAST_DATE,[T163018].ID,[T163018].DESC
+            FROM
+              (( (SELECT
+                      input2.LINK, MAX(input2.LAST_DATE)
+                    FROM
+                      input2
+                    GROUP BY
+                      input2.LINK) AS [T163071][LINK, MAX-LAST_DATE] ) JOIN (
+                  input1 )) AS [T163018][LINK, MAX-LAST_DATE, ID, DESC]
+            WHERE
+              
+               AND [T163018].LINK >= [T163018].ID) AS [T163030][LINK, MAX-LAST_DATE, ID, DESC] ) JOIN (
+          input2 )) AS [T162412][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+    WHERE
+      [T162412].LINK > [T162412].LINK1
+       AND [T162412].MAX-LAST_DATE <= [T162412].LAST_DATE) AS [T162598][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+
+==== [No. 18 ] ====
+SELECT
+  [T162596].ID,[T162596].DESC,[T162596].LAST_DATE
+FROM
+  (SELECT
+      [T162412].LINK,[T162412].MAX-LAST_DATE,[T162412].ID,[T162412].DESC,[T162412].ID1,[T162412].LINK1,[T162412].LAST_DATE
+    FROM
+      (( (SELECT
+              [T163018].LINK,[T163018].MAX-LAST_DATE,[T163018].ID,[T163018].DESC
+            FROM
+              (( (SELECT
+                      [T163071].LINK,[T163071].MAX-LAST_DATE
+                    FROM
+                      (SELECT
+                          input2.LINK, MAX(input2.LAST_DATE)
+                        FROM
+                          input2
+                        GROUP BY
+                          input2.LINK) AS [T163071][LINK, MAX-LAST_DATE]) AS [T163072][LINK, MAX-LAST_DATE] ) JOIN (
+                  input1 )) AS [T163018][LINK, MAX-LAST_DATE, ID, DESC]
+            WHERE
+              [T163018].LINK >= [T163018].ID) AS [T163025][LINK, MAX-LAST_DATE, ID, DESC] ) JOIN (
+          input2 )) AS [T162412][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+    WHERE
+      [T162412].LINK > [T162412].LINK1
+       AND [T162412].MAX-LAST_DATE == [T162412].LAST_DATE) AS [T162596][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+
+==== [No. 19 ] ====
+SELECT
+  [T162596].ID,[T162596].DESC,[T162596].LAST_DATE
+FROM
+  (SELECT
+      [T162412].LINK,[T162412].MAX-LAST_DATE,[T162412].ID,[T162412].DESC,[T162412].ID1,[T162412].LINK1,[T162412].LAST_DATE
+    FROM
+      (( (SELECT
+              [T163018].LINK,[T163018].MAX-LAST_DATE,[T163018].ID,[T163018].DESC
+            FROM
+              (( (SELECT
+                      input2.LINK, MAX(input2.LAST_DATE)
+                    FROM
+                      input2
+                    GROUP BY
+                      input2.LINK) AS [T163071][LINK, MAX-LAST_DATE] ) JOIN (
+                  input1 )) AS [T163018][LINK, MAX-LAST_DATE, ID, DESC]
+            WHERE
+              [T163018].LINK >= [T163018].ID) AS [T163025][LINK, MAX-LAST_DATE, ID, DESC] ) JOIN (
+          input2 )) AS [T162412][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+    WHERE
+      [T162412].LINK > [T162412].LINK1
+       AND [T162412].MAX-LAST_DATE == [T162412].LAST_DATE) AS [T162596][LINK, MAX-LAST_DATE, ID, DESC, ID1, LINK1, LAST_DATE]
+
+Total Tree Count: 9
+Total Query Count: 2030
+[Enumeration Finished]
+[[Synthesizer finished]] time: 00:00:48:538

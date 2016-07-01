@@ -16,6 +16,12 @@
 	Queries generated: 293913
 	Tables generated: 24080
 	Total Table by now: 24501
-[Runner up Table Count] 1823
-[Enumeration Finished] Does not find a query in the search space.
-[[Synthesizer finished]] time: 00:00:31:561
+Exception in thread "main" java.lang.OutOfMemoryError: GC overhead limit exceeded
+	at util.CombinationGenerator.genMultPermutation(CombinationGenerator.java:74)
+	at enumerator.primitive.tables.EnumJoinTableNodes.generalEmitEnumJoin(EnumJoinTableNodes.java:42)
+	at enumerator.primitive.tables.EnumJoinTableNodes.emitEnumJoinWithFilter(EnumJoinTableNodes.java:137)
+	at enumerator.tableenumerator.CanonicalTableEnumeratorOnTheFly.enumTableWithoutProj(CanonicalTableEnumeratorOnTheFly.java:64)
+	at enumerator.tableenumerator.CanonicalTableEnumeratorOnTheFly.enumTable(CanonicalTableEnumeratorOnTheFly.java:28)
+	at enumerator.tableenumerator.AbstractTableEnumerator.enumProgramWithIO(AbstractTableEnumerator.java:48)
+	at main.Synthesizer.Synthesize(Synthesizer.java:25)
+	at main.Main.main(Main.java:23)
