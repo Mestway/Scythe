@@ -246,8 +246,11 @@ public class MappingInference {
             for (int k = 0; k < inRange.size(); k ++) {
                 flag = flag && inRange.get(k);
             }
-            if (! flag)
+
+            // if the size is not 1, we can easily fix it
+            if (target.size() > 1 && ! flag)
                 continue;
+
             CoordInstMap instance = new CoordInstMap();
             instance.initialize(maxR, maxC);
             dfsMappingSearchWithFixedColumns(0, 0, maxR, maxC, instance, resultCollector, this.map, target);
