@@ -1,5 +1,6 @@
 package enumerator.tableenumerator;
 
+import com.sun.org.apache.bcel.internal.generic.Select;
 import enumerator.Constraint;
 import enumerator.primitive.tables.EnumAggrTableNode;
 import enumerator.primitive.tables.EnumProjection;
@@ -10,7 +11,9 @@ import jdk.nashorn.internal.ir.Symbol;
 import mapping.MappingInference;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
+import sql.lang.ast.filter.EmptyFilter;
 import sql.lang.ast.table.*;
+import sql.lang.ast.val.NamedVal;
 import sql.lang.exception.SQLEvalException;
 import symbolic.*;
 import util.Pair;
@@ -277,14 +280,35 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
         int count = 0;
         for (TableNode tn : unrankedResult) {
             if( count >= 20) break;
-            System.out.println("[No." + (count + 1) + "]===============================");
-            count ++;
-            System.out.println(tn.prettyPrint(0));
             try {
-                System.out.println(tn.eval(new Environment()));
+                Table t = tn.eval(new Environment());
+                List<Integer> projectionIndexes = Table.inferProjection(t, ec.getOutputTable());
+
+                // with projection result printed
+                SelectNode stn;
+
+                if ((tn instanceof SelectNode)) {
+                    stn = new SelectNode(
+                            projectionIndexes.stream().map(x -> ((SelectNode) tn).getColumns().get(x)).collect(Collectors.toList()),
+                            ((SelectNode) tn).getTableNode(),
+                            ((SelectNode) tn).getFilter());
+                } else {
+                    stn = new SelectNode(
+                            projectionIndexes.stream().map(x -> new NamedVal(tn.getSchema().get(x))).collect(Collectors.toList()),
+                            tn,
+                            new EmptyFilter());
+                }
+
+                Table st = stn.eval(new Environment());
+                System.out.println("[No." + (count + 1) + "]===============================");
+                count ++;
+                System.out.println(stn.prettyPrint(0));
+                System.out.println(st);
+
             } catch (SQLEvalException e) {
                 e.printStackTrace();
             }
+
         }
     }
 

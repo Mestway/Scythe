@@ -1,9 +1,11 @@
 package sql.lang;
 
+import mapping.MappingInference;
 import sql.lang.DataType.ValType;
 import sql.lang.DataType.Value;
 import sql.lang.ast.filter.VVComparator;
 import sql.lang.exception.SQLEvalException;
+import util.DebugHelper;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -328,4 +330,13 @@ public class Table {
 
         return resultTable;
     }
+
+    // Infer projection columns from src to table
+    public static List<Integer> inferProjection(Table src, Table tgt) {
+        MappingInference mi = MappingInference.buildMapping(src, tgt);
+        List<Integer> columns = mi.genColumnMappingInstances().stream()
+                .map(s -> s.stream().findFirst().get()).collect(Collectors.toList());
+        return columns;
+    }
+
 }
