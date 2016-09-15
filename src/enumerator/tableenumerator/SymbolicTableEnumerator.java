@@ -1,13 +1,10 @@
 package enumerator.tableenumerator;
 
-import com.sun.org.apache.bcel.internal.generic.Select;
-import enumerator.Constraint;
 import enumerator.primitive.tables.EnumAggrTableNode;
 import enumerator.primitive.tables.EnumProjection;
 import enumerator.context.EnumContext;
 import enumerator.context.QueryChest;
 import global.GlobalConfig;
-import jdk.nashorn.internal.ir.Symbol;
 import mapping.MappingInference;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
@@ -17,7 +14,6 @@ import sql.lang.ast.val.NamedVal;
 import sql.lang.exception.SQLEvalException;
 import symbolic.*;
 import util.Pair;
-import util.TableInstanceParser;
 
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -25,6 +21,7 @@ import java.util.stream.Collectors;
 
 /**
  * Created by clwang on 3/28/16.
+ * The enumeration algorithm with abstract table representation.
  */
 public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
