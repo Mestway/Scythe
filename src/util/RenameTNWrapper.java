@@ -20,8 +20,8 @@ public class RenameTNWrapper {
      used later enumeration process
      ****************************************************/
 
-    public static TableNode tryRename(TableNode tn) {
-        if (tn.getTableName().equals("anonymous")) {
+    private static TableNode genRenamedTable(TableNode tn, boolean forceRename) {
+        if (forceRename || tn.getTableName().equals("anonymous")) {
             String newName = "[T" + renamingIndex + "]";
             renamingIndex ++;
             List<String> newSchema = new ArrayList<String>();
@@ -45,22 +45,11 @@ public class RenameTNWrapper {
             return tn;
     }
 
+    public static TableNode tryRename(TableNode tn) {
+        return genRenamedTable(tn, false);
+    }
+
     public static TableNode forceRename(TableNode tn) {
-        String newName = "[T" + renamingIndex + "]";
-        renamingIndex ++;
-        List<String> newSchema = new ArrayList<String>();
-        for (String s : tn.getSchema()) {
-            String shortName = s.substring(s.lastIndexOf(".") + 1);
-            if (newSchema.contains(shortName)) {
-                int i = 1;
-                while(newSchema.contains(shortName + i)) {
-                    i ++;
-                }
-                newSchema.add(shortName + i);
-            } else {
-                newSchema.add(shortName);
-            }
-        }
-        return new RenameTableNode(newName, newSchema, tn);
+        return genRenamedTable(tn, true);
     }
 }

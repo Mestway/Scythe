@@ -4,12 +4,21 @@ import sql.lang.Table;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 /**
  * Created by clwang on 12/11/15.
  */
 public class TableInstanceParser {
+
+    // Try to dispatch a parser to parse the table, the format we are able to support are only markdown style or csv table
+    public static Table tryParseTable(String tableName, List<String> input) {
+        if (input.get(0).contains("\\|"))
+            return parseMarkdownTable(tableName, input);
+        else
+            return parseCVS(tableName, input);
+    }
 
     /**
      * Parse a table from a list of strings representing rows of the table
@@ -20,7 +29,12 @@ public class TableInstanceParser {
     public static Table parseMarkdownTable(String tableName, List<String> input) {
         List<List<String>> content = new ArrayList<List<String>>();
         List<String> metadata = splitLineToList(input.get(0));
-        for (int i = 2; i < input.size(); i ++) {
+
+        int startRow = 1;
+        if (Pattern.matches("\\|-*\\|", input.get(startRow)))
+            startRow = 2;
+
+        for (int i = startRow; i < input.size(); i ++) {
             content.add(splitLineToList(input.get(i)));
         }
         return new Table(tableName, metadata, content);

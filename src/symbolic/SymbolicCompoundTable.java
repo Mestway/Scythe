@@ -36,8 +36,6 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
     // this tableNode represent the tablenode used in evaluating the filters
     RenameTableNode representitiveTableNode = null;
 
-    private SymbolicCompoundTable() {}
-
     public SymbolicCompoundTable(AbstractSymbolicTable st1,  AbstractSymbolicTable st2) {
         this.st1 = st1;
         this.st2 = st2;
@@ -130,11 +128,13 @@ public class SymbolicCompoundTable extends AbstractSymbolicTable {
             if (fullyContainedAnElement(promotedf1, targetFilters))
                 promotedFilters1.put(f1, promotedf1);
         }
+
         for (SymbolicFilter f2 : st2FiltersLinks.getKey()) {
             SymbolicFilter promotedf2 = this.promoteRightFilter(f2);
             if (fullyContainedAnElement(promotedf2, targetFilters))
                 promotedFilters2.put(f2, promotedf2);
         }
+
         Set<SymbolicFilter> validLRFilters = new HashSet<>();
         for (SymbolicFilter sf : lrFiltersLinks.getKey()) {
             if (fullyContainedAnElement(sf, targetFilters))

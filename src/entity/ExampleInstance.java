@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The data structrue to store a raw example instance
+ * The data structrue to store a raw example instance (early version of examples collected)
  * Created by clwang on 11/6/15.
  */
 public class ExampleInstance {

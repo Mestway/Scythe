@@ -32,6 +32,13 @@ public class ExampleDS {
 
         int i = 0;
         while (i < fileContent.size()) {
+
+            // ignore comments
+            if (fileContent.get(i).startsWith("//")) {
+                i ++;
+                continue;
+            }
+
             if (fileContent.get(i).startsWith("#")) {
                 String segName = fileContent.get(i).substring(1).trim();
                 i ++;
@@ -42,12 +49,14 @@ public class ExampleDS {
                     i ++;
                 }
                 if (segName.equals("input")) {
-                    example.inputs.add(TableInstanceParser.parseMarkdownTable("input" + (example.inputs.size() + 1), segContent));
+                    example.inputs.add(TableInstanceParser.tryParseTable("input" + (example.inputs.size() + 1), segContent));
                 } else if (segName.equals("output")) {
-                    example.output = TableInstanceParser.parseMarkdownTable("output", segContent);
+                    example.output = TableInstanceParser.tryParseTable("output", segContent);
                 } else if (segName.equals("constraint")) {
                     example.enumConstraint = new Constraint(segContent.stream().reduce(String::concat).get());
                 }
+            } else {
+                i ++;
             }
         }
 

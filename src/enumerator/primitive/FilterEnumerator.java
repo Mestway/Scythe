@@ -170,6 +170,7 @@ public class FilterEnumerator {
             List<ValNode> allValues = new ArrayList<>();
             allValues.addAll(L);
             allValues.addAll(R);
+            allValues.addAll(ec.getValNodes());
 
             List<List<ValNode>> llvns = CombinationGenerator.genCombination(
                     allValues, EnumParamTN.numberOfParams);

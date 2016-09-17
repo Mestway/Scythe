@@ -14,7 +14,6 @@ import sql.lang.ast.val.NamedVal;
 import sql.lang.exception.SQLEvalException;
 import symbolic.*;
 import util.Pair;
-import util.TableInstanceParser;
 
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -138,26 +137,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
                 //System.out.println("\t" + st.getBaseTable().getMetadata().stream().reduce("", (x,y)-> x+ ", " + y).substring(1));
 
-                Table t = TableInstanceParser.parseMarkDownTable("temp",
-                "| [T3].Name | [T3].MAX-QTY | input1.Name | input1.Price | input1.QTY | input1.CODE | \r\n" +
-                        "| ------------------------------------------ | \r\n" +
-                        "| Bottle | 41.0 | Rope | 3.6 | 35.0 | 236.0  |\r\n" +
-                        "| Bottle | 41.0 | Chain | 2.8 | 15.0 | 237.0  |\r\n" +
-                        "| Bottle | 41.0 | Paper | 1.6 | 45.0 | 124.0  |\r\n" +
-                        "| Bottle | 41.0 | Bottle | 4.5 | 41.0 | 478.0  |\r\n" +
-                        "| Bottle | 41.0 | Bottle | 1.8 | 12.0 | 123.0  |\r\n" +
-                        "| Bottle | 41.0 | Computer | 1450.75 | 71.0 |  784.0 |\r\n" +
-                        "| Bottle | 41.0 | Spoon | 0.7 | 10.0 | 412.0  |\r\n" +
-                        "| Bottle | 41.0 | Bottle | 1.3 | 15.0 | 781.0  |\r\n" +
-                        "| Bottle | 41.0 | Rope | 0.9 | 14.0 | 965.0  |\r\n");
-
-
-                if (st.getBaseTable().contentEquals(t))
-                    System.out.println("aha..");
-
                 tryEvalToOutput(st, ec, qc);
-
-                System.out.println(st.getBaseTable());
 
                 if (! countPrinted.contains(st)  && st.allfiltersEnumerated) {
                     System.out.println("[FiltersCount][" + "r"

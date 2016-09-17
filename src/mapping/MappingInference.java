@@ -247,16 +247,15 @@ public class MappingInference {
                 flag = flag && inRange.get(k);
             }
 
-            // if the size is not 1, we can easily fix it
-            if (target.size() > 1 && ! flag)
-                continue;
+            // if the size is not 1, we can easily solve it even without push down
+            //if (target.size() > 1 && ! flag)
+            if (! flag)
+                    continue;
 
             CoordInstMap instance = new CoordInstMap();
             instance.initialize(maxR, maxC);
             dfsMappingSearchWithFixedColumns(0, 0, maxR, maxC, instance, resultCollector, this.map, target);
         }
-
-
 
         return resultCollector;
     }
