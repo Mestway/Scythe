@@ -13,3 +13,7 @@ Here are the steps to run the tool on an input / output example.
 java -jar SimpleSynthesizer.jar path/to/the/example/file SymbolicEnumerator 2
 ```
 In this command, "path/to/the/example/file" refers to your example file, option "SymbolicEnuemrator" referes to the synthesizer used in synthesis, and the last argument "2" presents the maxinum level of join should a query consider is 2. (Though the query may terminates earlier if a feasible SQL query is found for the given example.) 
+
+### Technical note:
+
+The technical note of the project can be find at [scythe-tr.pdf](https://github.com/Mestway/Scythe/blob/symbolic-cleaned/scythe-tr.pdf).
