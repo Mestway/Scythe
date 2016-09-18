@@ -1679,8 +1679,6 @@
 #### input
 
 
-    @table1
-
     |     Name      | GoalsScored  | GoalsSaved  |
     |--------------------------------------------|
     | John Smith    |           15 |          12 |
@@ -1689,10 +1687,18 @@
     | John Bob      |           10 |          30 |
     | Bobby Johnson |           25 |          30 |
 
-    @taken_players
-    
-        And a temporary table to store the names of already chosen players (taken_players), which looks something like this:
 
+    | takenplayername |
+    |-----------------|
+    | Bob John        |
+    | Bobby Johnson   |
+
+
+#### output
+
+    | name     |
+    |----------|
+    | John Bob |
 
 # 058
 ### [Finding all children for multiple parents in single SQL query](http://stackoverflow.com/questions/1563148/one-to-many-query-selecting-all-parents-and-single-top-child-for-each-parent)
@@ -1784,18 +1790,3 @@
     | 2  |24 | 25 |
     | 3  |75 | 1  |
     | 5  |10 | 9  | 
-
-#### description
-
-    When values for X and Y exists, it will always show the higher ID value.
-    | takenplayername |
-    |-----------------|
-    | Bob John        |
-    | Bobby Johnson   |
-
-
-#### output
-
-    | name     |
-    |----------|
-    | John Bob |
