@@ -1,26 +1,35 @@
 #input
 
-|  ErrorName | Value |
-|--------------------|
-|  Error1    | 3     |
-|  Error2    | 2     |
-|  Error3    | 2     |
-|  Error1    | 1     |
-|  Error2    | 1     |
+| GUID  | PID  |
+|--------------| 
+| GUID1 | PID1 |
+| GUID1 | PID1 |
+| GUID1 | PID1 |
+| GUID2 | PID1 |
+| GUID3 | PID2 |
+| GUID3 | PID2 |
+| GUID3 | PID2 |
+
+#input
+
+| GUID  | LastName | FirstName |
+|------------------------------|
+| GUID1 | Mulder   |  Fox      |
+| GUID2 | Scully   |  Dana     |    
+| GUID3 | Skinner  |  Walter   |    
 
 #output
 
-| c1      | c2 |
-|--------------|
-| Error1  | 4  |
-| Error2  | 3  |
-| Error3  | 2  |
+| c1   |   c2   |  c3   |  c4  |
+|------------------------------|
+| PID1 | GUID1 | Mulder | Fox  |
+| PID1 | GUID2 | Scully | Dana |
 
 #constraint
 {
 	"max_depth": 2,
-	"constants": [],
-	"aggregation_functions": ["sum"],
-	"parameter_number": 0,
+	"constants": ["2"],
+	"aggregation_functions": ["count"],
+	"parameter_number": 2,
 	"max_filter_length": 2
 }

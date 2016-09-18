@@ -1,35 +1,25 @@
 #input
 
-| GUID  | PID  |
-|--------------| 
-| GUID1 | PID1 |
-| GUID1 | PID1 |
-| GUID1 | PID1 |
-| GUID2 | PID1 |
-| GUID3 | PID2 |
-| GUID3 | PID2 |
-| GUID3 | PID2 |
-
-#input
-
-| GUID  | LastName | FirstName |
-|------------------------------|
-| GUID1 | Mulder   |  Fox      |
-| GUID2 | Scully   |  Dana     |    
-| GUID3 | Skinner  |  Walter   |    
+| Uniq |  Value | Time | Person |
+|-------------------------------|
+|   1  |  996     | 180  | Bob    |
+|   5  |  999     | 0    | Bob    |
+|   2  |  998     | 170  | Bob    |
+|   3  |  994     | 45   | Claire |
+|   4  |  993     | 90   | Claire |
 
 #output
 
-| c1   |   c2   |  c3   |  c4  |
-|------------------------------|
-| PID1 | GUID1 | Mulder | Fox  |
-| PID1 | GUID2 | Scully | Dana |
+| Person | Duration | Value | Uniq |
+|----------------------------------|
+| Bob    | 350      | 999     | 5    |
+| Claire | 135      | 994     | 3    |
 
 #constraint
 {
 	"max_depth": 2,
-	"constants": ["2"],
-	"aggregation_functions": ["count"],
-	"parameter_number": 2,
+	"constants": [],
+	"aggregation_functions": ["max", "sum"],
+	"parameter_number": 0,
 	"max_filter_length": 2
 }

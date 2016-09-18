@@ -1,0 +1,26 @@
+#input
+
+    | message_id | conversation_id   | from_user  | timestamp    |   message    |
+    |-----------------------------------|
+    | 2  | 145  | xxx | 10000 | message |
+    | 6  | 1743 | yyy | 999   | message |
+    | 7  | 14   | bbb | 899   | message |
+    | 1  | 145  | xxx | 10000 | message |
+    | 5  | 1743 | me  | 1200  | message |
+
+#output
+
+    | c1 | c2   |  c3 | c4    |  c5     |
+    |-----------------------------------|
+    | 2  | 145  | xxx | 10000 | message |
+    | 6  | 1743 | yyy | 999   | message |
+    | 7  | 14   | bbb | 899   | message |
+
+#constraint
+{
+    "max_depth": 2,
+    "constants": ["me"],
+    "aggregation_functions": ["max"],
+    "parameter_number": 0,
+    "max_filter_length": 2
+}
