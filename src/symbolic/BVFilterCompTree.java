@@ -18,8 +18,9 @@ import java.util.stream.Collectors;
 
 /**
  * Created by clwang on 5/19/16.
+ * The class representing how a BVFilter can be composed with different filters
  */
-public class SymFilterCompTree {
+public class BVFilterCompTree {
 
     // the symtable for this node
     AbstractSummaryTable symTable;
@@ -31,18 +32,18 @@ public class SymFilterCompTree {
     Set<BVFilter> primitiveFilters;
 
     // child comp tree nodes, sub-symbolic tables that composed to this sym table
-    List<SymFilterCompTree> children = new ArrayList<>();
+    List<BVFilterCompTree> children = new ArrayList<>();
 
-    public SymFilterCompTree(AbstractSummaryTable st, Set<BVFilter> primitiveFilters) {
+    public BVFilterCompTree(AbstractSummaryTable st, Set<BVFilter> primitiveFilters) {
         this.symTable = st;
         this.primitiveFilters = primitiveFilters;
     }
 
-    public void addChildren(SymFilterCompTree sct) {
+    public void addChildren(BVFilterCompTree sct) {
         this.children.add(sct);
     }
 
-    public List<SymFilterCompTree> getChildren() { return this.children; }
+    public List<BVFilterCompTree> getChildren() { return this.children; }
     public AbstractSummaryTable getSymTable() { return this.symTable; }
     public Set<BVFilter> getPrimitiveFilters() { return this.primitiveFilters; }
 
@@ -66,7 +67,7 @@ public class SymFilterCompTree {
         filterString = filterString.substring(0, filterString.length()-2) + "}";
         s += indent + filterString + "\n";
 
-        for (SymFilterCompTree sfct : this.children) {
+        for (BVFilterCompTree sfct : this.children) {
             s += sfct.prettyString(indentLevel + 1);
         }
 
@@ -164,7 +165,7 @@ public class SymFilterCompTree {
             // the subquery list contains two lists, the first lists are queries that are generated from st1
             // the second list contains queries generated from st2.
             List<List<TableNode>> subQueryLists = new ArrayList<>();
-            for (SymFilterCompTree sfct : this.children) {
+            for (BVFilterCompTree sfct : this.children) {
                 subQueryLists.add(sfct.translateToTopSQL(ec));
             }
 

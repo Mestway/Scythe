@@ -390,9 +390,9 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
     }
 
     @Override
-    public Map<BVFilter, List<SymFilterCompTree>> batchGenDecomposition(Set<BVFilter> targets) {
+    public Map<BVFilter, List<BVFilterCompTree>> batchGenDecomposition(Set<BVFilter> targets) {
 
-        Map<BVFilter, List<SymFilterCompTree>> result = new HashMap<>();
+        Map<BVFilter, List<BVFilterCompTree>> result = new HashMap<>();
         for (BVFilter sf : targets) {
             result.put(sf, new ArrayList<>());
         }
@@ -410,7 +410,7 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
                 if (targets.contains(mergedij)) {
                     Set<BVFilter> s = new HashSet<>();
                     s.add(pi); s.add(pj);
-                    SymFilterCompTree sct = new SymFilterCompTree(this, s);
+                    BVFilterCompTree sct = new BVFilterCompTree(this, s);
 
                     result.get(mergedij).add(sct);
                 }
@@ -421,26 +421,26 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
         if (targets.contains(emptyFilter)) {
             Set<BVFilter> s = new HashSet<>();
             s.add(emptyFilter);
-            SymFilterCompTree sct = new SymFilterCompTree(this, s);
+            BVFilterCompTree sct = new BVFilterCompTree(this, s);
 
             result.get(emptyFilter).add(sct);
         }
 
 
-        Map<BVFilter, List<SymFilterCompTree>> postProcessed = new HashMap<>();
+        Map<BVFilter, List<BVFilterCompTree>> postProcessed = new HashMap<>();
 
         // limit the number of trees generated from one single source, sort by their score
-        for (Map.Entry<BVFilter, List<SymFilterCompTree>> i : result.entrySet()) {
-            List<SymFilterCompTree> trees = i.getValue();
+        for (Map.Entry<BVFilter, List<BVFilterCompTree>> i : result.entrySet()) {
+            List<BVFilterCompTree> trees = i.getValue();
 
             Statistics.cntDecomposeTreeCount ++;
             Statistics.sumDecomposeTreeCount += trees.size();
             Statistics.maxDecomposeTreeCount = Statistics.maxDecomposeTreeCount > trees.size()? Statistics.maxDecomposeTreeCount : trees.size();
 
             if (trees.size() > 5) {
-                trees.sort(new Comparator<SymFilterCompTree>() {
+                trees.sort(new Comparator<BVFilterCompTree>() {
                     @Override
-                    public int compare(SymFilterCompTree o1, SymFilterCompTree o2) {
+                    public int compare(BVFilterCompTree o1, BVFilterCompTree o2) {
                         double cost1 = o1.estimateTreeCost();
                         double cost2 = o2.estimateTreeCost();
                         return cost1 < cost2 ?  -1 : (cost1 == cost2 ? 0 : 1);
@@ -467,9 +467,9 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
 
         Set<BVFilter> sfSet = new HashSet<>();
         sfSet.add(sf);
-        List<SymFilterCompTree> trees = symTable.batchGenDecomposition(sfSet).get(sf);
+        List<BVFilterCompTree> trees = symTable.batchGenDecomposition(sfSet).get(sf);
         List<TableNode> cores = new ArrayList<>();
-        for (SymFilterCompTree tr : trees) {
+        for (BVFilterCompTree tr : trees) {
             cores.addAll(tr.translateToTopSQL(ec));
         }
 

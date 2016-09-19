@@ -21,12 +21,10 @@ public class TableRow {
         TableRow newRow = new TableRow();
         newRow.tableName = tableName;
 
-        for (String s : names) {
+        for (String s : names)
             newRow.fieldNames.add(s);
-        }
-        for (String s : rowContent) {
+        for (String s : rowContent)
             newRow.values.add(Value.parse(s));
-        }
 
         return newRow;
     }

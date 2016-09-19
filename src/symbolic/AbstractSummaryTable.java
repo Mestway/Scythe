@@ -39,7 +39,7 @@ public abstract class AbstractSummaryTable {
 
     // Given a list of target symbolic filters to decompose, we will generate what are their decompositions
     // For each one, a tree will be generated and the tree represent how the symbolic is built from ground.
-    abstract public Map<BVFilter, List<SymFilterCompTree>> batchGenDecomposition(Set<BVFilter> targets);
+    abstract public Map<BVFilter, List<BVFilterCompTree>> batchGenDecomposition(Set<BVFilter> targets);
 
     // abstract public Pair<Set<SymbolicFilter>, FilterLinks> lastStageInstantiateAllFilters(Set<SymbolicFilter> targetFilters);
 

@@ -507,7 +507,7 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
     }
 
     @Override
-    public Map<BVFilter, List<SymFilterCompTree>> batchGenDecomposition(Set<BVFilter> targets) {
+    public Map<BVFilter, List<BVFilterCompTree>> batchGenDecomposition(Set<BVFilter> targets) {
 
         Set<BVFilter> st1FiltersLinks = st1.instantiateAllFilters();
         Set<BVFilter> st2FiltersLinks = st2.instantiateAllFilters();
@@ -583,8 +583,8 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
             }
         }
 
-        Map<BVFilter, List<SymFilterCompTree>> st1Trees = st1.batchGenDecomposition(st1FiltersToDecode);
-        Map<BVFilter, List<SymFilterCompTree>> st2Trees = st2.batchGenDecomposition(st2FiltersToDecode);
+        Map<BVFilter, List<BVFilterCompTree>> st1Trees = st1.batchGenDecomposition(st1FiltersToDecode);
+        Map<BVFilter, List<BVFilterCompTree>> st2Trees = st2.batchGenDecomposition(st2FiltersToDecode);
 
         // The decoding result for each compound lr filter
         List<BVFilter> usefulPrimitive = this.filtersLR.stream()
@@ -615,7 +615,7 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
         if (decomposedLR.values().stream().map(x -> x.isEmpty()).reduce(false, (x, y)->(x || y)))
             System.err.println("[FATAL ERROER][SymbolicCompoundTable 707] exists filters that cannot be decomposed.");
 
-        Map<BVFilter, List<SymFilterCompTree>> result = new HashMap<>();
+        Map<BVFilter, List<BVFilterCompTree>> result = new HashMap<>();
         for (BVFilter t : targets) {
             result.put(t, new ArrayList<>());
         }
@@ -623,11 +623,11 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
         for (Map.Entry<BVFilter, Set<Triple<BVFilter, BVFilter, BVFilter>>>
                 e : resultToProcess.entrySet()) {
             for (Triple<BVFilter, BVFilter, BVFilter> triple : e.getValue()) {
-                for (SymFilterCompTree st1SubTree : st1Trees.get(triple.second())) {
-                    for (SymFilterCompTree st2SubTree :  st2Trees.get(triple.third())) {
+                for (BVFilterCompTree st1SubTree : st1Trees.get(triple.second())) {
+                    for (BVFilterCompTree st2SubTree :  st2Trees.get(triple.third())) {
                         for (Set<BVFilter> lrDecomposition : decomposedLR.get(triple.first())) {
 
-                            SymFilterCompTree sfct = new SymFilterCompTree(this, lrDecomposition);
+                            BVFilterCompTree sfct = new BVFilterCompTree(this, lrDecomposition);
                             sfct.addChildren(st1SubTree);
                             sfct.addChildren(st2SubTree);
 
@@ -641,20 +641,20 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
         if (resultToProcess.values().stream().map(x -> x.isEmpty()).reduce(false, (x, y)->(x || y)))
             System.err.println("[FATAL ERROR][SymbolicCompoundTable 707] exists filters that cannot be decomposed.");
 
-        Map<BVFilter, List<SymFilterCompTree>> postProcessed = new HashMap<>();
+        Map<BVFilter, List<BVFilterCompTree>> postProcessed = new HashMap<>();
 
         // limit the number of trees generated from one single source, sort by their score
-        for (Map.Entry<BVFilter, List<SymFilterCompTree>> i : result.entrySet()) {
-            List<SymFilterCompTree> trees = i.getValue();
+        for (Map.Entry<BVFilter, List<BVFilterCompTree>> i : result.entrySet()) {
+            List<BVFilterCompTree> trees = i.getValue();
 
             Statistics.cntDecomposeTreeCount ++;
             Statistics.sumDecomposeTreeCount += trees.size();
             Statistics.maxDecomposeTreeCount = Statistics.maxDecomposeTreeCount > trees.size()? Statistics.maxDecomposeTreeCount : trees.size();
 
             if (trees.size() > 5) {
-                trees.sort(new Comparator<SymFilterCompTree>() {
+                trees.sort(new Comparator<BVFilterCompTree>() {
                     @Override
-                    public int compare(SymFilterCompTree o1, SymFilterCompTree o2) {
+                    public int compare(BVFilterCompTree o1, BVFilterCompTree o2) {
                         double cost1 = o1.estimateTreeCost();
                         double cost2 = o2.estimateTreeCost();
                         return cost1 <= cost2 ?  (cost1 < cost2 ? -1 : 0) : 1;

@@ -255,10 +255,10 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
         }
 
         // generate candidate symFilterTrees for each candidate
-        List<SymFilterCompTree> candidateTrees = new ArrayList<>();
+        List<BVFilterCompTree> candidateTrees = new ArrayList<>();
         for (Map.Entry<AbstractSummaryTable, Set<BVFilter>> c : filtersToDecode.entrySet()) {
-            Map<BVFilter, List<SymFilterCompTree>> cQuery = c.getKey().batchGenDecomposition(c.getValue());
-            for (Map.Entry<BVFilter, List<SymFilterCompTree>> i : cQuery.entrySet()) {
+            Map<BVFilter, List<BVFilterCompTree>> cQuery = c.getKey().batchGenDecomposition(c.getValue());
+            for (Map.Entry<BVFilter, List<BVFilterCompTree>> i : cQuery.entrySet()) {
                 candidateTrees.addAll(i.getValue());
             }
         }
@@ -266,7 +266,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
         List<TableNode> unrankedResult = new ArrayList<>();
         System.out.println(candidateTrees.size());
 
-        for (SymFilterCompTree t : candidateTrees) {
+        for (BVFilterCompTree t : candidateTrees) {
             List<TableNode> temp = t.translateToTopSQL(ec);
             unrankedResult.addAll(temp);
         }
