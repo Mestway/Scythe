@@ -6,14 +6,10 @@ import enumerator.tableenumerator.hueristics.TableNaturalJoinWithAggr;
 import org.junit.Test;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
-import sql.lang.ast.filter.Filter;
 import sql.lang.ast.table.*;
-import symbolic.SymbolicTable;
-import util.DebugHelper;
 import util.TableInstanceParser;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Created by clwang on 2/17/16.

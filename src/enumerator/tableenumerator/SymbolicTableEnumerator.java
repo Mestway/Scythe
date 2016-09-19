@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
     // this is a helper to print SQL queries
-    Set<AbstractSymbolicTable> countPrinted = new HashSet<>();
+    Set<AbstractSummaryTable> countPrinted = new HashSet<>();
 
     @Override
     public QueryChest enumTable(EnumContext ec, int maxDepth) {
@@ -34,27 +34,27 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
         System.out.println("[FiltersCount format](primitiveSynFilterCount, primitiveBitVecFilterCount, totalBitVecFiltersCount)");
 
         // this is the list to store all symbolic tables used in enumeration
-        List<AbstractSymbolicTable> symTables = new ArrayList<>();
+        List<AbstractSummaryTable> symTables = new ArrayList<>();
 
         // construct symbolic table for each named table.
         QueryChest qc = QueryChest.initWithInputTables(ec.getInputs());
 
         // build symbolic table for each input table, and store them in SymTables
-        List<SymbolicTable> symTablesForInputs = qc.getMemoizedTables().keySet()
-                .stream().map(t -> new SymbolicTable(t, new NamedTable(t)))
+        List<PrimitiveSummaryTable> symTablesForInputs = qc.getMemoizedTables().keySet()
+                .stream().map(t -> new PrimitiveSummaryTable(t, new NamedTable(t)))
                 .collect(Collectors.toList());
         symTables.addAll(symTablesForInputs);
 
         System.out.println("[Basic]: " + qc.getMemoizedTables().size() + " [SymTableForInputs]: " + symTablesForInputs.size());
 
         int aggrNodeCount = 0;
-        List<AbstractSymbolicTable> symTableForAggr = new ArrayList<>();
+        List<AbstractSummaryTable> symTableForAggr = new ArrayList<>();
 
-        for (SymbolicTable st : symTablesForInputs) {
+        for (PrimitiveSummaryTable st : symTablesForInputs) {
             // core tables to be used in enumerate aggregation
-            List<Pair<Table, SymbolicFilter>> instantiated = st.instantiatedAllTablesWithSymFilters(ec);
+            List<Pair<Table, BVFilter>> instantiated = st.instantiatedAllTablesWithSymFilters(ec);
 
-            for (Pair<Table, SymbolicFilter> p : instantiated) {
+            for (Pair<Table, BVFilter> p : instantiated) {
                 // enumerating aggregation queries,
                 // the core of each query is built atop a filtering clause on an input table
                 ec.setTableNodes(Arrays.asList(new NamedTable(p.getKey())));
@@ -62,11 +62,11 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
                 for (TableNode an : ans) {
                     try {
                         // build symbolic tables out of aggregation table nodes, and store them for next stage enumeration
-                        SymbolicTable aggrSt;
+                        PrimitiveSummaryTable aggrSt;
                         if (p.getValue().isEmptyFilter()) {
-                            aggrSt = new SymbolicTable(an.eval(new Environment()), an);
+                            aggrSt = new PrimitiveSummaryTable(an.eval(new Environment()), an);
                         } else {
-                            aggrSt = new SymbolicTable(an.eval(new Environment()), an, new Pair<>(st, p.getValue()));
+                            aggrSt = new PrimitiveSummaryTable(an.eval(new Environment()), an, new Pair<>(st, p.getValue()));
                         }
                         aggrNodeCount ++;
                         symTableForAggr.add(aggrSt);
@@ -81,15 +81,15 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
         System.out.println("[Aggregation]: " + aggrNodeCount + " [SymTable]: " + symTables.size());
 
-        List<AbstractSymbolicTable> basicAndAggr = new ArrayList<>();
+        List<AbstractSummaryTable> basicAndAggr = new ArrayList<>();
         basicAndAggr.addAll(symTables);
 
         // only contains symbolic table generated from last stage
         //  (here includes those from aggr and input)
 
-        List<AbstractSymbolicTable> stFromLastStage = symTables;
+        List<AbstractSummaryTable> stFromLastStage = symTables;
 
-        for (AbstractSymbolicTable st : stFromLastStage) {
+        for (AbstractSummaryTable st : stFromLastStage) {
 
             tryEvalToOutput(st, ec, qc);
 
@@ -108,22 +108,22 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
         for (int i = 1; i <= maxDepth; i ++) {
 
             // used to collect queries generated in the most recent stage
-            List<AbstractSymbolicTable> collector = new ArrayList<>();
+            List<AbstractSummaryTable> collector = new ArrayList<>();
             for (int k = 0; k < stFromLastStage.size(); k ++) {
                 for (int l = 0; l < basicAndAggr.size(); l ++) {
 
-                    AbstractSymbolicTable st1 = stFromLastStage.get(k);
-                    AbstractSymbolicTable st2 = basicAndAggr.get(l);
+                    AbstractSummaryTable st1 = stFromLastStage.get(k);
+                    AbstractSummaryTable st2 = basicAndAggr.get(l);
 
                     // only allow joining between an input table and a compound table
                     //if (!GlobalConfig.ALLOW_JOIN_NONE_INPUT_TABLE && ! ec.getInputs().contains(st2.getBaseTable()))
                     if (! ec.getInputs().contains(st2.getBaseTable()))
                             continue;
 
-                    if (st2 instanceof SymbolicCompoundTable)
+                    if (st2 instanceof CompoundSummaryTable)
                         continue;
 
-                    SymbolicCompoundTable sct = new SymbolicCompoundTable(st1, st2);
+                    CompoundSummaryTable sct = new CompoundSummaryTable(st1, st2);
                     collector.add(sct);
                 }
             }
@@ -133,7 +133,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
             System.out.println("[EnumJoin] level " + i + " [SymTable]: " + symTables.size());
 
-            for (AbstractSymbolicTable st : symTables) {
+            for (AbstractSummaryTable st : symTables) {
 
                 //System.out.println("\t" + st.getBaseTable().getMetadata().stream().reduce("", (x,y)-> x+ ", " + y).substring(1));
 
@@ -160,18 +160,18 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
             for (int i = 1; i <= maxDepth; i ++) {
                 // used to collect queries generated in the most recent stage
-                List<AbstractSymbolicTable> collector = new ArrayList<>();
+                List<AbstractSummaryTable> collector = new ArrayList<>();
                 for (int k = 0; k < stFromLastStage.size(); k ++) {
                     for (int l = 0; l < basicAndAggr.size(); l ++) {
 
-                        AbstractSymbolicTable st1 = stFromLastStage.get(k);
-                        AbstractSymbolicTable st2 = basicAndAggr.get(l);
+                        AbstractSummaryTable st1 = stFromLastStage.get(k);
+                        AbstractSummaryTable st2 = basicAndAggr.get(l);
 
                         // Does not allow joining between an input table and a compound table
-                        if (st2 instanceof SymbolicCompoundTable)
+                        if (st2 instanceof CompoundSummaryTable)
                             continue;
 
-                        SymbolicCompoundTable sct = new SymbolicCompoundTable(st1, st2);
+                        CompoundSummaryTable sct = new CompoundSummaryTable(st1, st2);
                         collector.add(sct);
                     }
                 }
@@ -181,7 +181,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
                 System.out.println("[EnumJoinOnAggr] level " + i + " [SymTable]: " + symTables.size());
 
-                for (AbstractSymbolicTable st : stFromLastStage) {
+                for (AbstractSummaryTable st : stFromLastStage) {
                     //System.out.println("\t" + st.getBaseTable().getMetadata().stream().reduce("", (x,y)-> x+ ", " + y).substring(1));
                     tryEvalToOutput(st, ec, qc);
                 }
@@ -194,19 +194,19 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
         // Enumerate aggregation on joined tables
         if (qc.getAllCandidates().size() == 0) {
 
-            List<AbstractSymbolicTable> basicSymTables = ec.getInputs()
-                    .stream().map(t -> new SymbolicTable(t, new NamedTable(t)))
+            List<AbstractSummaryTable> basicSymTables = ec.getInputs()
+                    .stream().map(t -> new PrimitiveSummaryTable(t, new NamedTable(t)))
                     .collect(Collectors.toList());
 
             for (int i = 0; i < basicSymTables.size(); i ++) {
                 for (int j = i; j < basicSymTables.size(); j ++) {
-                    AbstractSymbolicTable st1 = basicSymTables.get(i);
-                    AbstractSymbolicTable st2 = basicSymTables.get(j);
+                    AbstractSummaryTable st1 = basicSymTables.get(i);
+                    AbstractSummaryTable st2 = basicSymTables.get(j);
 
-                    SymbolicCompoundTable sct = new SymbolicCompoundTable(st1, st2);
+                    CompoundSummaryTable sct = new CompoundSummaryTable(st1, st2);
 
-                    List<Pair<Table, SymbolicFilter>> tablesWFilters = sct.instantiatedAllTablesWithSymFilters(ec);
-                    for (Pair<Table, SymbolicFilter> p : tablesWFilters) {
+                    List<Pair<Table, BVFilter>> tablesWFilters = sct.instantiatedAllTablesWithSymFilters(ec);
+                    for (Pair<Table, BVFilter> p : tablesWFilters) {
                         // core tables to be used in enumerate aggregation
                         List<TableNode> joinedNodes = new ArrayList<>();
                         joinedNodes.add(new NamedTable(p.getKey()));
@@ -215,17 +215,17 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
                         ec.setTableNodes(joinedNodes);
                         List<TableNode> aggregationOnJoinInputs = EnumAggrTableNode.enumAggregationNodeFlag(ec, EnumAggrTableNode.SIMPLIFY, false);
 
-                        List<SymbolicTable> enumHaving = new ArrayList<>();
+                        List<PrimitiveSummaryTable> enumHaving = new ArrayList<>();
 
                         for (TableNode an : aggregationOnJoinInputs) {
                             try {
-                                enumHaving.add(new SymbolicTable(an.eval(new Environment()), an, new Pair<>(sct, p.getValue())));
+                                enumHaving.add(new PrimitiveSummaryTable(an.eval(new Environment()), an, new Pair<>(sct, p.getValue())));
                             } catch (SQLEvalException e) {
                                 e.printStackTrace();
                             }
                         }
 
-                        for (AbstractSymbolicTable st : enumHaving) {
+                        for (AbstractSummaryTable st : enumHaving) {
                             //System.out.println("\t" + st.getBaseTable().getMetadata().stream().reduce("", (x,y)-> x+ ", " + y).substring(1));
                             tryEvalToOutput(st, ec, qc);
                         }
@@ -246,8 +246,8 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
         System.out.println("Candidates: ");
 
         // Extract the filters to be decoded for each AbstractSymbolicTable from qc
-        Map<AbstractSymbolicTable, Set<SymbolicFilter>> filtersToDecode = new HashMap<>();
-        for (Pair<AbstractSymbolicTable, SymbolicFilter> c : qc.getAllCandidates()) {
+        Map<AbstractSummaryTable, Set<BVFilter>> filtersToDecode = new HashMap<>();
+        for (Pair<AbstractSummaryTable, BVFilter> c : qc.getAllCandidates()) {
             if (! filtersToDecode.containsKey(c.getKey())) {
                 filtersToDecode.put(c.getKey(), new HashSet<>());
             }
@@ -256,9 +256,9 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
         // generate candidate symFilterTrees for each candidate
         List<SymFilterCompTree> candidateTrees = new ArrayList<>();
-        for (Map.Entry<AbstractSymbolicTable, Set<SymbolicFilter>> c : filtersToDecode.entrySet()) {
-            Map<SymbolicFilter, List<SymFilterCompTree>> cQuery = c.getKey().batchGenDecomposition(c.getValue());
-            for (Map.Entry<SymbolicFilter, List<SymFilterCompTree>> i : cQuery.entrySet()) {
+        for (Map.Entry<AbstractSummaryTable, Set<BVFilter>> c : filtersToDecode.entrySet()) {
+            Map<BVFilter, List<SymFilterCompTree>> cQuery = c.getKey().batchGenDecomposition(c.getValue());
+            for (Map.Entry<BVFilter, List<SymFilterCompTree>> i : cQuery.entrySet()) {
                 candidateTrees.addAll(i.getValue());
             }
         }
@@ -310,9 +310,9 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
     }
 
     // Try to evaluate whether the output table can be derived from symbolic table st.
-    private void tryEvalToOutput(AbstractSymbolicTable st, EnumContext ec, QueryChest qc) {
+    private void tryEvalToOutput(AbstractSummaryTable st, EnumContext ec, QueryChest qc) {
 
-        BiConsumer<AbstractSymbolicTable, SymbolicFilter> f = (symTable, symFilter) -> {
+        BiConsumer<AbstractSummaryTable, BVFilter> f = (symTable, symFilter) -> {
 
             if (symFilter.getFilterRep().isEmpty())
                 return;

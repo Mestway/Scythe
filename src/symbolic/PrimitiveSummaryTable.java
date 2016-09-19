@@ -25,28 +25,28 @@ import java.util.stream.Collectors;
  * SymbolicTable
  * Created by clwang on 3/26/16.
  */
-public class SymbolicTable extends AbstractSymbolicTable {
+public class PrimitiveSummaryTable extends AbstractSummaryTable {
 
     // this field records what is the query to construct the base table
     private TableNode baseTableSrc;
 
     // This field only presence when the baseTableSrc is an aggregation node,
     // the aggregation core identifies the core used in enumerating aggregation.
-    private Optional<Pair<AbstractSymbolicTable, SymbolicFilter>> coreSymTableNFilter;
+    private Optional<Pair<AbstractSummaryTable, BVFilter>> coreSymTableNFilter;
 
     private Table baseTable;
 
-    private Set<SymbolicFilter> symbolicPrimitiveFilters = new HashSet<>();
+    private Set<BVFilter> symbolicPrimitiveFilters = new HashSet<>();
     // mapping each symbolic filter to its cost and concrete form
-    private Map<SymbolicFilter, Pair<Double, List<Filter>>> decodedPrimitives = new HashMap<>();
+    private Map<BVFilter, Pair<Double, List<Filter>>> decodedPrimitives = new HashMap<>();
 
     // after primitveFiltersEvaluated is done, the list will be ready to be used.
-    private List<SymbolicFilter> primitives = new ArrayList<>();
+    private List<BVFilter> primitives = new ArrayList<>();
     private boolean primitiveFiltersEvaluated = false;
 
     public TableNode getBaseTableSrc() { return this.baseTableSrc; }
 
-    public SymbolicTable(Table baseTable, TableNode baseTableSrc) {
+    public PrimitiveSummaryTable(Table baseTable, TableNode baseTableSrc) {
         this.baseTable = baseTable;
         this.baseTableSrc = baseTableSrc;
         // the symbolic primitive filters are not evaluated here because we want to keep them lazy
@@ -54,7 +54,7 @@ public class SymbolicTable extends AbstractSymbolicTable {
         this.coreSymTableNFilter = Optional.ofNullable(null);
     }
 
-    public SymbolicTable(Table baseTable, TableNode baseTableSrc, Pair<AbstractSymbolicTable, SymbolicFilter> p) {
+    public PrimitiveSummaryTable(Table baseTable, TableNode baseTableSrc, Pair<AbstractSummaryTable, BVFilter> p) {
         this.baseTable = baseTable;
         this.baseTableSrc = baseTableSrc;
         // the symbolic primitive filters are not evaluated here because we want to keep them lazy
@@ -62,7 +62,7 @@ public class SymbolicTable extends AbstractSymbolicTable {
         this.coreSymTableNFilter = Optional.of(p);
     }
 
-    public SymbolicTable(Table baseTable, TableNode baseTableSrc, EnumContext ec) {
+    public PrimitiveSummaryTable(Table baseTable, TableNode baseTableSrc, EnumContext ec) {
         this.baseTable = baseTable;
         this.baseTableSrc = baseTableSrc;
         this.symbolicPrimitiveFilters = new HashSet<>();
@@ -83,9 +83,9 @@ public class SymbolicTable extends AbstractSymbolicTable {
         // the empty filter is added here to make it complete.
         filters.add(new EmptyFilter());
 
-        Set<symbolic.SymbolicFilter> symfilters = new HashSet<>();
+        Set<BVFilter> symfilters = new HashSet<>();
         for (Filter f : filters) {
-            symfilters.add(symbolic.SymbolicFilter.genSymbolicFilter(this.baseTable, f));
+            symfilters.add(BVFilter.genSymbolicFilter(this.baseTable, f));
         }
         this.symbolicPrimitiveFilters = symfilters;
         this.primitiveFiltersEvaluated = true;
@@ -108,32 +108,32 @@ public class SymbolicTable extends AbstractSymbolicTable {
 
     public void setBaseTable(Table baseTable) { this.baseTable = baseTable; }
 
-    public Set<SymbolicFilter> getSymbolicFilters() { return this.symbolicPrimitiveFilters; }
+    public Set<BVFilter> getSymbolicFilters() { return this.symbolicPrimitiveFilters; }
 
-    public void setSymbolicFilters(Set<SymbolicFilter> filters) {
+    public void setSymbolicFilters(Set<BVFilter> filters) {
         this.symbolicPrimitiveFilters = filters;
-        this.symbolicPrimitiveFilters.add(SymbolicFilter.genSymbolicFilter(this.baseTable, new EmptyFilter()));
+        this.symbolicPrimitiveFilters.add(BVFilter.genSymbolicFilter(this.baseTable, new EmptyFilter()));
     }
 
-    public Set<Pair<SymbolicFilter, SymbolicFilter>> visitDemotedSpace(
-            EnumContext ec, Set<SymbolicFilter> demotedExtFilters) {
+    public Set<Pair<BVFilter, BVFilter>> visitDemotedSpace(
+            EnumContext ec, Set<BVFilter> demotedExtFilters) {
 
         MappingInference mi = MappingInference.buildMapping(this.getBaseTable(), ec.getOutputTable());
         List<CoordInstMap> map = mi.genMappingInstances();
 
         // evaluate the set of all target filters that we learnt from output
-        Set<SymbolicFilter> targetFilters = new HashSet<>();
+        Set<BVFilter> targetFilters = new HashSet<>();
         for (CoordInstMap cim : map) {
-            SymbolicFilter sf = new SymbolicFilter(cim.rowsInvolved(), this.getBaseTable().getContent().size());
+            BVFilter sf = new BVFilter(cim.rowsInvolved(), this.getBaseTable().getContent().size());
             targetFilters.add(sf);
         }
 
         // this is the traditional way, invoking the mergeAndLink function to get it.
-        Pair<Set<SymbolicFilter>, FilterLinks> allFiltersLinks = AbstractSymbolicTable.mergeAndLinkFilters(this,
+        Set<BVFilter> allFiltersLinks = AbstractSummaryTable.mergeAndLinkFilters(this,
                 this.symbolicPrimitiveFilters.stream().collect(Collectors.toList()));
 
-        List<SymbolicFilter> validFilter = new ArrayList<>();
-        for (SymbolicFilter sf : allFiltersLinks.getKey()) {
+        List<BVFilter> validFilter = new ArrayList<>();
+        for (BVFilter sf : allFiltersLinks) {
             if (! fullyContainedAnElement(sf, targetFilters))
                 continue;
             validFilter.add(sf);
@@ -142,11 +142,11 @@ public class SymbolicTable extends AbstractSymbolicTable {
         // TODO: we assume that all filters send in are those already checked,
         // TODO: i.e. all of them should contain at least one element in the target filter set
 
-        Set<Pair<SymbolicFilter, SymbolicFilter>> validPairs = new HashSet<>();
+        Set<Pair<BVFilter, BVFilter>> validPairs = new HashSet<>();
 
-        for (SymbolicFilter vf : validFilter) {
-            for (SymbolicFilter ef : demotedExtFilters) {
-                SymbolicFilter merged = SymbolicFilter.mergeFilter(vf, ef, AbstractSymbolicTable.mergeFunction);
+        for (BVFilter vf : validFilter) {
+            for (BVFilter ef : demotedExtFilters) {
+                BVFilter merged = BVFilter.mergeFilter(vf, ef, AbstractSummaryTable.mergeFunction);
                 if (targetFilters.contains(merged)) {
                     validPairs.add(new Pair<>(vf, ef));
                 }
@@ -160,14 +160,14 @@ public class SymbolicTable extends AbstractSymbolicTable {
     public void emitFinalVisitAllTables(
             MappingInference mi,
             EnumContext ec,
-            BiConsumer<AbstractSymbolicTable, SymbolicFilter> f) {
+            BiConsumer<AbstractSummaryTable, BVFilter> f) {
 
         List<CoordInstMap> map = mi.genMappingInstances();
 
         // evaluate the set of all target filters that we learnt from output
-        Set<SymbolicFilter> targetFilters = new HashSet<>();
+        Set<BVFilter> targetFilters = new HashSet<>();
         for (CoordInstMap cim : map) {
-            SymbolicFilter sf = new SymbolicFilter(cim.rowsInvolved(), this.getBaseTable().getContent().size());
+            BVFilter sf = new BVFilter(cim.rowsInvolved(), this.getBaseTable().getContent().size());
             targetFilters.add(sf);
         }
 
@@ -176,16 +176,14 @@ public class SymbolicTable extends AbstractSymbolicTable {
         assert primitiveFiltersEvaluated;
 
         // this is the traditional way, invoking the mergeAndLink function to get it.
-        Pair<Set<SymbolicFilter>, FilterLinks> allFilters = AbstractSymbolicTable.mergeAndLinkFilters(this,
+        Set<BVFilter> allFilters = AbstractSummaryTable.mergeAndLinkFilters(this,
                 this.symbolicPrimitiveFilters.stream().collect(Collectors.toList()));
 
         int noneBogusFilterCount = 0;
 
-        for (SymbolicFilter sf : allFilters.getKey()) {
+        for (BVFilter sf : allFilters) {
             if (targetFilters.contains(sf)) {
                 noneBogusFilterCount ++;
-                FilterLinks fl = new FilterLinks();
-                fl.setLinkSource(allFilters.getValue().retrieveSource(new Pair<>(this, sf)), new Pair<>(this, sf));
                 f.accept(this, sf);
             }
         }
@@ -198,12 +196,12 @@ public class SymbolicTable extends AbstractSymbolicTable {
     // instantiate all possible tables that can be generated from filtering the current table.
     // Currently the max-length is fixed as 2
     @Override
-    public Pair<Set<SymbolicFilter>, FilterLinks> instantiateAllFilters() {
+    public Set<BVFilter> instantiateAllFilters() {
         // make sure that primitive filters are already evaluated
         assert primitiveFiltersEvaluated;
 
         // this is the traditional way, invoking the mergeAndLink function to get it.
-        return AbstractSymbolicTable.mergeAndLinkFilters(this,
+        return AbstractSummaryTable.mergeAndLinkFilters(this,
                 this.symbolicPrimitiveFilters.stream().collect(Collectors.toList()));
 
         // This is an alternative way, invoking the lazy enumerator
@@ -230,37 +228,34 @@ public class SymbolicTable extends AbstractSymbolicTable {
 
     // A lazy version of instantiating all filters
     @Override
-    public Optional<Pair<SymbolicFilter, FilterLinks>> lazyFilterEval(Integer index) {
+    public Optional<BVFilter> lazyFilterEval(Integer index) {
 
         assert primitiveFiltersEvaluated;
 
         if (index == 0)
-            return Optional.of(new Pair<>(SymbolicFilter.genSymbolicFilter(this.getBaseTable(), new EmptyFilter()), new FilterLinks()));
+            return Optional.of(BVFilter.genSymbolicFilter(this.getBaseTable(), new EmptyFilter()));
 
         index --;
 
-        FilterLinks filterLinks = new FilterLinks();
         Pair<Integer, Integer> p = this.inverseFilterIndex(this.getPrimitiveFilterNum(), index);
 
         if ((p.getKey() == -1) && (p.getValue() == -1))
             return Optional.empty();
 
-        SymbolicFilter mergedFilter = SymbolicFilter.mergeFilter(
+        BVFilter mergedFilter = BVFilter.mergeFilter(
                 primitives.get(p.getKey()),
                 primitives.get(p.getValue()),
-                AbstractSymbolicTable.mergeFunction);
+                AbstractSummaryTable.mergeFunction);
 
         // add the link from two source filter to the merged filter itself
-        Set<Pair<AbstractSymbolicTable, SymbolicFilter>> srcs = new HashSet<>();
+        Set<Pair<AbstractSummaryTable, BVFilter>> srcs = new HashSet<>();
         srcs.add(new Pair<>(this, primitives.get(p.getKey())));
         srcs.add(new Pair<>(this, primitives.get(p.getValue())));
 
-        filterLinks.addLink(srcs, new Pair<>(this, mergedFilter));
-
-        return Optional.of(new Pair<>(mergedFilter, filterLinks));
+        return Optional.of(mergedFilter);
     }
 
-    public List<Filter> decodePrimitiveFilter(SymbolicFilter sf, TableNode tn, EnumContext ec) {
+    public List<Filter> decodePrimitiveFilter(BVFilter sf, TableNode tn, EnumContext ec) {
         // the table can either be a named table or a renamed table from an aggregation table.
 
         try {
@@ -319,11 +314,11 @@ public class SymbolicTable extends AbstractSymbolicTable {
         // the empty filter is added here to make it complete.
         filters.add(new EmptyFilter());
 
-        decodedPrimitives.put(SymbolicFilter.genSymbolicFilter(baseTable, new EmptyFilter()), new Pair<>(0., new ArrayList<>()));
+        decodedPrimitives.put(BVFilter.genSymbolicFilter(baseTable, new EmptyFilter()), new Pair<>(0., new ArrayList<>()));
 
-        Set<symbolic.SymbolicFilter> symfilters = new HashSet<>();
+        Set<BVFilter> symfilters = new HashSet<>();
         for (Filter f : filters) {
-            SymbolicFilter symFilter = SymbolicFilter.genSymbolicFilter(baseTable, f);
+            BVFilter symFilter = BVFilter.genSymbolicFilter(baseTable, f);
             symfilters.add(symFilter);
             if (! decodedPrimitives.containsKey(symFilter)) {
                 decodedPrimitives.put(symFilter, new Pair<>(99999., new ArrayList<>()));
@@ -341,7 +336,7 @@ public class SymbolicTable extends AbstractSymbolicTable {
             }
         }
 
-        for (Map.Entry<SymbolicFilter, Pair<Double, List<Filter>>> e : decodedPrimitives.entrySet()) {
+        for (Map.Entry<BVFilter, Pair<Double, List<Filter>>> e : decodedPrimitives.entrySet()) {
             e.getValue().getValue().sort(new Comparator<Filter>() {
                 @Override
                 public int compare(Filter o1, Filter o2) {
@@ -395,25 +390,25 @@ public class SymbolicTable extends AbstractSymbolicTable {
     }
 
     @Override
-    public Map<SymbolicFilter, List<SymFilterCompTree>> batchGenDecomposition(Set<SymbolicFilter> targets) {
+    public Map<BVFilter, List<SymFilterCompTree>> batchGenDecomposition(Set<BVFilter> targets) {
 
-        Map<SymbolicFilter, List<SymFilterCompTree>> result = new HashMap<>();
-        for (SymbolicFilter sf : targets) {
+        Map<BVFilter, List<SymFilterCompTree>> result = new HashMap<>();
+        for (BVFilter sf : targets) {
             result.put(sf, new ArrayList<>());
         }
-        List<SymbolicFilter> validFilters = this.primitives.stream()
+        List<BVFilter> validFilters = this.primitives.stream()
                 .filter(x -> fullyContainedAnElement(x, targets))
                 .collect(Collectors.toList());
 
         // this part deals only with none-empty filters
         for (int i = 0; i < validFilters.size(); i ++) {
-            SymbolicFilter pi = validFilters.get(i);
+            BVFilter pi = validFilters.get(i);
             for (int j = i + 1; j < validFilters.size(); j ++) {
-                SymbolicFilter pj = validFilters.get(j);
-                SymbolicFilter mergedij = SymbolicFilter.mergeFilter(pi, pj, AbstractSymbolicTable.mergeFunction);
+                BVFilter pj = validFilters.get(j);
+                BVFilter mergedij = BVFilter.mergeFilter(pi, pj, AbstractSummaryTable.mergeFunction);
 
                 if (targets.contains(mergedij)) {
-                    Set<SymbolicFilter> s = new HashSet<>();
+                    Set<BVFilter> s = new HashSet<>();
                     s.add(pi); s.add(pj);
                     SymFilterCompTree sct = new SymFilterCompTree(this, s);
 
@@ -422,9 +417,9 @@ public class SymbolicTable extends AbstractSymbolicTable {
             }
         }
 
-        SymbolicFilter emptyFilter = SymbolicFilter.genSymbolicFilter(this.baseTable, new EmptyFilter());
+        BVFilter emptyFilter = BVFilter.genSymbolicFilter(this.baseTable, new EmptyFilter());
         if (targets.contains(emptyFilter)) {
-            Set<SymbolicFilter> s = new HashSet<>();
+            Set<BVFilter> s = new HashSet<>();
             s.add(emptyFilter);
             SymFilterCompTree sct = new SymFilterCompTree(this, s);
 
@@ -432,10 +427,10 @@ public class SymbolicTable extends AbstractSymbolicTable {
         }
 
 
-        Map<SymbolicFilter, List<SymFilterCompTree>> postProcessed = new HashMap<>();
+        Map<BVFilter, List<SymFilterCompTree>> postProcessed = new HashMap<>();
 
         // limit the number of trees generated from one single source, sort by their score
-        for (Map.Entry<SymbolicFilter, List<SymFilterCompTree>> i : result.entrySet()) {
+        for (Map.Entry<BVFilter, List<SymFilterCompTree>> i : result.entrySet()) {
             List<SymFilterCompTree> trees = i.getValue();
 
             Statistics.cntDecomposeTreeCount ++;
@@ -466,11 +461,11 @@ public class SymbolicTable extends AbstractSymbolicTable {
         if (! this.coreSymTableNFilter.isPresent())
             return Arrays.asList(this.baseTableSrc);
 
-        AbstractSymbolicTable symTable = coreSymTableNFilter.get().getKey();
-        SymbolicFilter sf = coreSymTableNFilter.get().getValue();
+        AbstractSummaryTable symTable = coreSymTableNFilter.get().getKey();
+        BVFilter sf = coreSymTableNFilter.get().getValue();
 
 
-        Set<SymbolicFilter> sfSet = new HashSet<>();
+        Set<BVFilter> sfSet = new HashSet<>();
         sfSet.add(sf);
         List<SymFilterCompTree> trees = symTable.batchGenDecomposition(sfSet).get(sf);
         List<TableNode> cores = new ArrayList<>();
@@ -487,7 +482,7 @@ public class SymbolicTable extends AbstractSymbolicTable {
     }
 
     @Override
-    public double estimatePrimitiveSymFilterCost(SymbolicFilter sf) {
+    public double estimatePrimitiveSymFilterCost(BVFilter sf) {
         return this.decodedPrimitives.get(sf).getKey();
     }
 

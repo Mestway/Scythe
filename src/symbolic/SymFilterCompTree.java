@@ -22,18 +22,18 @@ import java.util.stream.Collectors;
 public class SymFilterCompTree {
 
     // the symtable for this node
-    AbstractSymbolicTable symTable;
+    AbstractSummaryTable symTable;
 
     // all primitive filters at this level used to generate the outer most level
     // each symbolic filter here is a primitive filter at the level of symTable,
     // i.e. for SymbolicCompoundTable, it is a LR filter
     //      for SymbolicTable, it is a primitive select predicate
-    Set<SymbolicFilter> primitiveFilters;
+    Set<BVFilter> primitiveFilters;
 
     // child comp tree nodes, sub-symbolic tables that composed to this sym table
     List<SymFilterCompTree> children = new ArrayList<>();
 
-    public SymFilterCompTree(AbstractSymbolicTable st, Set<SymbolicFilter> primitiveFilters) {
+    public SymFilterCompTree(AbstractSummaryTable st, Set<BVFilter> primitiveFilters) {
         this.symTable = st;
         this.primitiveFilters = primitiveFilters;
     }
@@ -43,8 +43,8 @@ public class SymFilterCompTree {
     }
 
     public List<SymFilterCompTree> getChildren() { return this.children; }
-    public AbstractSymbolicTable getSymTable() { return this.symTable; }
-    public Set<SymbolicFilter> getPrimitiveFilters() { return this.primitiveFilters; }
+    public AbstractSummaryTable getSymTable() { return this.symTable; }
+    public Set<BVFilter> getPrimitiveFilters() { return this.primitiveFilters; }
 
     public double estimateTreeCost() {
         double childCost = children.stream().map(t -> t.estimateTreeCost()).reduce(0., (x,y) -> x + y);
@@ -61,7 +61,7 @@ public class SymFilterCompTree {
         String s = "";
         s += indent + symTable.getBaseTable().getMetadata().stream().reduce("", (x,y)->(x+", "+y)).substring(2) + "\n";
         String filterString = "{";
-        for (SymbolicFilter sf : this.primitiveFilters)
+        for (BVFilter sf : this.primitiveFilters)
             filterString += sf.toString() + ", ";
         filterString = filterString.substring(0, filterString.length()-2) + "}";
         s += indent + filterString + "\n";
@@ -75,11 +75,11 @@ public class SymFilterCompTree {
 
     public List<TableNode> translateToTopSQL(EnumContext ec) {
 
-        if (symTable instanceof SymbolicTable) {
+        if (symTable instanceof PrimitiveSummaryTable) {
 
             List<TableNode> result = new ArrayList<>();
 
-            List<TableNode> cores = ((SymbolicTable) symTable).genTableSrc(ec);
+            List<TableNode> cores = ((PrimitiveSummaryTable) symTable).genTableSrc(ec);
             cores.sort(new Comparator<TableNode>() {
                 @Override
                 public int compare(TableNode o1, TableNode o2) {
@@ -97,8 +97,8 @@ public class SymFilterCompTree {
 
                 //TableNode tn = cores.get(0);
                 List<List<Filter>> unRotated = new ArrayList<>();
-                for (SymbolicFilter sf : this.primitiveFilters) {
-                    List<Filter> decoded = ((SymbolicTable) symTable)
+                for (BVFilter sf : this.primitiveFilters) {
+                    List<Filter> decoded = ((PrimitiveSummaryTable) symTable)
                             .decodePrimitiveFilter(sf, tn, ec);
 
                     decoded.sort(new Comparator<Filter>() {
@@ -155,7 +155,7 @@ public class SymFilterCompTree {
             }
             return result;
 
-        } else if (symTable instanceof SymbolicCompoundTable) {
+        } else if (symTable instanceof CompoundSummaryTable) {
 
             List<TableNode> result = new ArrayList<>();
 
@@ -177,21 +177,21 @@ public class SymFilterCompTree {
 
                 // Then we concrete the LR filter on this table
 
-                Table st1Table = ((SymbolicCompoundTable) symTable).st1.getBaseTable();
-                Table st2Table = ((SymbolicCompoundTable) symTable).st2.getBaseTable();
+                Table st1Table = ((CompoundSummaryTable) symTable).st1.getBaseTable();
+                Table st2Table = ((CompoundSummaryTable) symTable).st2.getBaseTable();
                 JoinNode fakeJN = new JoinNode(Arrays.asList(new NamedTable(st1Table), new NamedTable(st2Table)));
                 RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(fakeJN);
 
                 List<Filter> filters = new ArrayList<>();
 
-                for (SymbolicFilter sf : this.primitiveFilters) {
+                for (BVFilter sf : this.primitiveFilters) {
                     double minCost = 999; Filter candidate = null;
 
-                    Statistics.sumLRFilterCount += ((SymbolicCompoundTable) symTable).decodeLR(sf).size();
+                    Statistics.sumLRFilterCount += ((CompoundSummaryTable) symTable).decodeLR(sf).size();
                     Statistics.cntLRFilterCount ++;
-                    Statistics.maxLRFilterCount = Statistics.maxLRFilterCount > ((SymbolicCompoundTable) symTable).decodeLR(sf).size() ?  Statistics.maxLRFilterCount : ((SymbolicCompoundTable) symTable).decodeLR(sf).size();
+                    Statistics.maxLRFilterCount = Statistics.maxLRFilterCount > ((CompoundSummaryTable) symTable).decodeLR(sf).size() ?  Statistics.maxLRFilterCount : ((CompoundSummaryTable) symTable).decodeLR(sf).size();
 
-                    for (Filter f : ((SymbolicCompoundTable) symTable).decodeLR(sf)) {
+                    for (Filter f : ((CompoundSummaryTable) symTable).decodeLR(sf)) {
                         double cost = CostEstimator.estimateFilterCost(f, TableNode.nameToOriginMap(rt.getSchema(), rt.originalColumnName()));
                         if (cost < minCost) {
                             candidate = f;
@@ -211,7 +211,7 @@ public class SymFilterCompTree {
                 ValNodeSubstBinding vsb = new ValNodeSubstBinding();
                 for (int i = 0; i < coreTableNode.getSchema().size(); i ++) {
                     vsb.addBinding(new Pair<>(
-                            new NamedVal(((SymbolicCompoundTable) symTable).representitiveTableNode.getSchema().get(i)),
+                            new NamedVal(((CompoundSummaryTable) symTable).representitiveTableNode.getSchema().get(i)),
                             new NamedVal(coreTableNode.getSchema().get(i))));
                 }
 

@@ -14,7 +14,7 @@ public class TableInstanceParser {
 
     // Try to dispatch a parser to parse the table, the format we are able to support are only markdown style or csv table
     public static Table tryParseTable(String tableName, List<String> input) {
-        if (input.get(0).contains("\\|"))
+        if (input.get(0).contains("|"))
             return parseMarkdownTable(tableName, input);
         else
             return parseCVS(tableName, input);
@@ -31,7 +31,7 @@ public class TableInstanceParser {
         List<String> metadata = splitLineToList(input.get(0));
 
         int startRow = 1;
-        if (Pattern.matches("\\|-*\\|", input.get(startRow)))
+        if (Pattern.matches("\\|-*\\|", input.get(startRow).trim()))
             startRow = 2;
 
         for (int i = startRow; i < input.size(); i ++) {

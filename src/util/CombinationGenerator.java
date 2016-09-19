@@ -12,7 +12,7 @@ import java.util.concurrent.ArrayBlockingQueue;
  */
 public class CombinationGenerator {
 
-    // Given a list of objects, return lists of all permutations of the object
+    // Given a list of objects, return a list containing all permutations of the object
     public static <T> List<List<T>> genCombination(List<T> list) {
         List<List<T>> result = new ArrayList<List<T>>();
         for (int sz = 1; sz <= list.size(); sz ++) {

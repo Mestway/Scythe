@@ -1,13 +1,12 @@
 package enumerator.context;
 
-import symbolic.AbstractSymbolicTable;
-import symbolic.SymbolicFilter;
+import symbolic.AbstractSummaryTable;
+import symbolic.BVFilter;
 import util.Pair;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.table.NamedTable;
 import sql.lang.ast.table.TableNode;
-import util.HierarchicalMap;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -19,7 +18,7 @@ import java.util.stream.Collectors;
 public class QueryChest {
 
     // this set store all candidate constructs, applying projection on candidates
-    private Set<Pair<AbstractSymbolicTable, SymbolicFilter>> candidates = new HashSet<>();
+    private Set<Pair<AbstractSummaryTable, BVFilter>> candidates = new HashSet<>();
 
     // these two fields are used for evaluating enumeration
     @Deprecated
@@ -97,11 +96,11 @@ public class QueryChest {
         return mirror.get(t);
     }
 
-    public void insertCandidate(Pair<AbstractSymbolicTable, SymbolicFilter> p) {
+    public void insertCandidate(Pair<AbstractSummaryTable, BVFilter> p) {
         this.candidates.add(p);
     }
 
-    public Set<Pair<AbstractSymbolicTable, SymbolicFilter>> getAllCandidates() {
+    public Set<Pair<AbstractSummaryTable, BVFilter>> getAllCandidates() {
         return this.candidates;
     }
 

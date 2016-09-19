@@ -15,16 +15,17 @@ import java.util.stream.Collectors;
 
 /**
  * Created by clwang on 3/26/16.
- * This represent a primitive filter of a table,
- * indicating that the filter is positive to the rows stored in filterRep
+ * Bit-vector encoded filters for tables (filterRep),
+ * Positive bits indicate rows are passed the filter condition.
+ *
  */
-public class SymbolicFilter {
+public class BVFilter {
 
     // refer to the table, not sure if it is necessary
     int rowNumber = -1;
     Set<Integer> filterRep = new HashSet<>();
 
-    public SymbolicFilter(Set<Integer> filterRep, int rowNumber) {
+    public BVFilter(Set<Integer> filterRep, int rowNumber) {
         this.filterRep = filterRep;
         this.rowNumber = rowNumber;
     }
@@ -33,7 +34,7 @@ public class SymbolicFilter {
         return this.filterRep;
     }
 
-    public static SymbolicFilter genSymbolicFilterFromTableNode(TableNode tn, Filter f) {
+    public static BVFilter genSymbolicFilterFromTableNode(TableNode tn, Filter f) {
         try {
             return genSymbolicFilter(tn.eval(new Environment()), f);
         } catch (SQLEvalException e) {
@@ -42,7 +43,7 @@ public class SymbolicFilter {
         return null;
     }
 
-    public static SymbolicFilter genSymbolicFilter(Table table, Filter filter) {
+    public static BVFilter genSymbolicFilter(Table table, Filter filter) {
 
         Set<Integer> filteredRows = new HashSet<>();
 
@@ -72,16 +73,16 @@ public class SymbolicFilter {
             }
         }
 
-        return new SymbolicFilter(filteredRows, table.getContent().size());
+        return new BVFilter(filteredRows, table.getContent().size());
     }
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof SymbolicFilter) {
-            if (this.rowNumber != ((SymbolicFilter) o).rowNumber) return false;
-            if (this.filterRep.size() == ((SymbolicFilter) o).filterRep.size()) {
+        if (o instanceof BVFilter) {
+            if (this.rowNumber != ((BVFilter) o).rowNumber) return false;
+            if (this.filterRep.size() == ((BVFilter) o).filterRep.size()) {
                 for (Integer containedRow : filterRep) {
-                    if (! ((SymbolicFilter) o).filterRep.contains(containedRow))
+                    if (! ((BVFilter) o).filterRep.contains(containedRow))
                         return false;
                 }
                 return true;
@@ -102,9 +103,9 @@ public class SymbolicFilter {
     }
 
     // This should be performed on
-    public static SymbolicFilter mergeFilter(
-            SymbolicFilter f1,
-            SymbolicFilter f2,
+    public static BVFilter mergeFilter(
+            BVFilter f1,
+            BVFilter f2,
             BiFunction<Boolean, Boolean, Boolean> mergeFunction) {
         if (! (f1.rowNumber == f2.rowNumber))
             System.err.println("[SymbolicPrimitiveFilter 99] Merging two incompatible filters.");
@@ -117,12 +118,12 @@ public class SymbolicFilter {
                 mergedFilterRep.add(i);
             }
         }
-        return new SymbolicFilter(mergedFilterRep, f1.rowNumber);
+        return new BVFilter(mergedFilterRep, f1.rowNumber);
     }
 
     // this is used to determine whether sf2 is fully contained in sf1,
     // i.e. whether all elements in sf2 are contained in sf1
-    public boolean fullyContained(SymbolicFilter sf2) {
+    public boolean fullyContained(BVFilter sf2) {
         assert this.rowNumber == sf2.rowNumber;
         return this.getFilterRep().containsAll(sf2.filterRep);
     }
