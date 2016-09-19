@@ -1,14 +1,12 @@
 package sql.lang.ast.filter;
 
-import enumerator.context.EnumContext;
-import enumerator.parameterized.InstantiateEnv;
+import forward_enumeration.parameterized.InstantiateEnv;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
 import sql.lang.trans.ValNodeSubstBinding;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by clwang on 12/14/15.

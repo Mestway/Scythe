@@ -1,7 +1,7 @@
 package main;
 
 import entity.ExampleDS;
-import enumerator.tableenumerator.AbstractTableEnumerator;
+import forward_enumeration.table_enumerator.AbstractTableEnumerator;
 import sql.lang.ast.table.TableNode;
 
 import java.util.List;

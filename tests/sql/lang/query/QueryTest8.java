@@ -2,8 +2,7 @@ package sql.lang.query;
 
 import util.Pair;
 import org.junit.Test;
-import sql.lang.DataType.StringVal;
-import sql.lang.DataType.Value;
+import sql.lang.datatype.StringVal;
 import sql.lang.SQLQuery;
 import sql.lang.Table;
 import sql.lang.ast.filter.LogicAndFilter;
@@ -15,8 +14,6 @@ import sql.lang.ast.val.NamedVal;
 import util.TableInstanceParser;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.function.Function;
 
 import static org.testng.AssertJUnit.assertTrue;
 

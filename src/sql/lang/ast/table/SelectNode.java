@@ -1,13 +1,12 @@
 package sql.lang.ast.table;
 
-import enumerator.context.EnumContext;
-import enumerator.parameterized.InstantiateEnv;
+import forward_enumeration.context.EnumContext;
+import forward_enumeration.parameterized.InstantiateEnv;
 import sql.lang.ast.filter.EmptyFilter;
-import sun.invoke.empty.Empty;
 import util.CostEstimator;
 import util.Pair;
-import sql.lang.DataType.ValType;
-import sql.lang.DataType.Value;
+import sql.lang.datatype.ValType;
+import sql.lang.datatype.Value;
 import sql.lang.Table;
 import sql.lang.TableRow;
 import sql.lang.ast.Environment;
@@ -48,9 +47,9 @@ public class SelectNode implements TableNode {
         Table resultTable = table.duplicate();
 
         // initialize result table data
-        resultTable.getMetadata().clear();
+        resultTable.getSchema().clear();
         for (ValNode vn : columns) {
-            resultTable.getMetadata().add(vn.getName());
+            resultTable.getSchema().add(vn.getName());
         }
 
         // initialize result table content
@@ -63,13 +62,13 @@ public class SelectNode implements TableNode {
 
             // extend the evaluation environment for this column
             if (table.getName().equals("anonymous")) {
-                for (int i = 0; i < table.getMetadata().size(); i ++) {
-                    rowBinding.put(table.getMetadata().get(i), row.getValue(i));
+                for (int i = 0; i < table.getSchema().size(); i ++) {
+                    rowBinding.put(table.getSchema().get(i), row.getValue(i));
                 }
             } else {
-                for (int i = 0; i < table.getMetadata().size(); i ++) {
+                for (int i = 0; i < table.getSchema().size(); i ++) {
                     rowBinding.put(
-                            table.getName() + "." + table.getMetadata().get(i),
+                            table.getName() + "." + table.getSchema().get(i),
                             row.getValue(i));
                 }
             }
@@ -84,7 +83,7 @@ public class SelectNode implements TableNode {
                 }
                 TableRow newRow = TableRow.TableRowFromContent(
                         resultTable.getName(),
-                        resultTable.getMetadata(),
+                        resultTable.getSchema(),
                         rowContent);
 
                 resultTable.getContent().add(newRow);

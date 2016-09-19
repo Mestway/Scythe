@@ -1,9 +1,8 @@
 package sql.lang.ast;
 
-import sql.lang.DataType.Value;
+import sql.lang.datatype.Value;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**

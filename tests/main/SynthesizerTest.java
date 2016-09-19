@@ -1,21 +1,17 @@
 package main;
 
-import enumerator.tableenumerator.AbstractTableEnumerator;
-import enumerator.tableenumerator.AggrHueristicTableEnumerator;
-import enumerator.tableenumerator.CanonicalTableEnumerator;
-import enumerator.tableenumerator.PlainTableEnumerator;
+import forward_enumeration.table_enumerator.AbstractTableEnumerator;
+import forward_enumeration.table_enumerator.AggrHueristicTableEnumerator;
+import forward_enumeration.table_enumerator.CanonicalTableEnumerator;
+import forward_enumeration.table_enumerator.PlainTableEnumerator;
 import org.junit.Test;
 import sql.lang.ast.table.TableNode;
 
 import java.io.File;
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by clwang on 3/22/16.

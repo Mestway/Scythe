@@ -1,9 +1,9 @@
 package sql.lang.ast.filter;
 
-import enumerator.parameterized.InstantiateEnv;
-import sql.lang.DataType.DateVal;
-import sql.lang.DataType.NumberVal;
-import sql.lang.DataType.Value;
+import forward_enumeration.parameterized.InstantiateEnv;
+import sql.lang.datatype.DateVal;
+import sql.lang.datatype.NumberVal;
+import sql.lang.datatype.Value;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 /**
  * Created by clwang on 12/14/15.
- * A comparator between two columns
+ * A comparator between values
  */
 public class VVComparator implements Filter {
 

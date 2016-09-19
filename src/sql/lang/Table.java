@@ -1,11 +1,9 @@
 package sql.lang;
 
-import mapping.MappingInference;
-import sql.lang.DataType.ValType;
-import sql.lang.DataType.Value;
-import sql.lang.ast.filter.VVComparator;
+import backward_inference.MappingInference;
+import sql.lang.datatype.ValType;
+import sql.lang.datatype.Value;
 import sql.lang.exception.SQLEvalException;
-import util.DebugHelper;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -23,7 +21,7 @@ public class Table {
     }
 
     String name = "";
-    List<String> metadata = new ArrayList<String>();
+    List<String> schema = new ArrayList<String>();
     List<TableRow> rows = new ArrayList<TableRow>();
 
     public Table() {}
@@ -31,24 +29,24 @@ public class Table {
     /**
      * Initializer of a table, the content here is only strings
      * @param tableName the name of the table
-     * @param metadata the meta data of the table
+     * @param schema the meta data of the table
      * @param rawContent all contents in the form of string
      */
-    public Table(String tableName, List<String> metadata, List<List<String>> rawContent) {
+    public Table(String tableName, List<String> schema, List<List<String>> rawContent) {
         List<TableRow> rows = new ArrayList<TableRow>();
         for (List<String> sList : rawContent) {
-            rows.add(TableRow.TableRowFromString(tableName, metadata, sList));
+            rows.add(TableRow.TableRowFromString(tableName, schema, sList));
         }
-        this.initialize(tableName, metadata, rows);
+        this.initialize(tableName, schema, rows);
     }
 
-    public void initialize(String tableName, List<String> metadata, List<TableRow> rows) {
+    public void initialize(String tableName, List<String> schema, List<TableRow> rows) {
         this.name = tableName;
-        this.metadata = metadata;
+        this.schema = schema;
         this.rows = rows;
     }
 
-    public List<String> getMetadata() { return this.metadata; }
+    public List<String> getSchema() { return this.schema; }
     public String getName() { return this.name; }
     public List<TableRow> getContent() { return this.rows; }
 
@@ -61,20 +59,20 @@ public class Table {
         }
     }
 
-    public void updateMetadata(List<String> md) {
-        if (this.metadata.size() != md.size()) {
+    public void updateMetadata(List<String> schema) {
+        if (this.schema.size() != schema.size()) {
             System.err.println("[Error@Table61] the new metadata size does not equal to the original one.");
         }
-        this.metadata = md;
+        this.schema = schema;
         for (TableRow tr : this.rows) {
-            tr.updateMetadata(md);
+            tr.updateMetadata(schema);
         }
     }
 
     @Override
     public String toString() {
         String str = "@" + name + "\r\n";
-        for (String i : metadata) {
+        for (String i : schema) {
             str += i + " | ";
         }
         str = str.substring(0, str.length() - 2) + "\r\n";
@@ -88,7 +86,7 @@ public class Table {
         String str = indent + "@" + name + "\r\n";
 
         str += indent;
-        for (String i : metadata) {
+        for (String i : schema) {
             str += i + " | ";
         }
         str = str.substring(0, str.length() - 2) + "\r\n";
@@ -106,8 +104,8 @@ public class Table {
     public Table duplicate() {
         Table table = new Table();
         table.name = this.name;
-        for (String i : this.metadata) {
-            table.metadata.add(i);
+        for (String i : this.schema) {
+            table.schema.add(i);
         }
         for (TableRow valList : this.rows) {
             table.rows.add(valList.duplicate());
@@ -116,8 +114,8 @@ public class Table {
     }
 
     public boolean tableEquals(Table table) {
-        for (int i = 0; i < this.metadata.size(); i ++) {
-            if (!this.metadata.get(i).equals(table.metadata.get(i)))
+        for (int i = 0; i < this.schema.size(); i ++) {
+            if (!this.schema.get(i).equals(table.schema.get(i)))
                 return false;
         }
         for (int i = 0; i < this.rows.size(); i ++) {
@@ -178,8 +176,8 @@ public class Table {
         else
             fieldName = name.substring(name.indexOf(".") + 1);
 
-        for (int i = 0; i < this.metadata.size(); i ++) {
-            if (this.metadata.get(i).equals(fieldName))
+        for (int i = 0; i < this.schema.size(); i ++) {
+            if (this.schema.get(i).equals(fieldName))
                 return i;
         }
         System.err.println("[Error@Table152]Metadata retrieval fail.");
@@ -188,10 +186,10 @@ public class Table {
 
     public List<String> getQualifiedMetadata() {
         if (this.name.equals("anonymous"))
-            return this.metadata;
+            return this.schema;
         else {
             // add the qualifier
-            return this.metadata.stream().map(s -> this.name + "." + s).collect(Collectors.toList());
+            return this.schema.stream().map(s -> this.name + "." + s).collect(Collectors.toList());
         }
     }
 
@@ -271,7 +269,7 @@ public class Table {
         Set<String> alreadyUsedName = new HashSet<>();
 
         // collect metadata
-        for (String md : t1.getMetadata()) {
+        for (String md : t1.getSchema()) {
             String name;
             if (t1.getName().equals("anonymous")) {
                 name = md;
@@ -287,7 +285,8 @@ public class Table {
             alreadyUsedName.add(name);
             resultTableMetadata.add(name);
         }
-        for (String md : t2.getMetadata()) {
+
+        for (String md : t2.getSchema()) {
             String name;
             if (t2.getName().equals("anonymous")) {
                 name = md;

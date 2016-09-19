@@ -2,7 +2,7 @@ package sql.lang.query;
 
 import util.Pair;
 import org.junit.Test;
-import sql.lang.DataType.NumberVal;
+import sql.lang.datatype.NumberVal;
 import sql.lang.SQLQuery;
 import sql.lang.Table;
 import sql.lang.ast.Environment;

@@ -1,13 +1,12 @@
 package util;
 
-import enumerator.context.EnumContext;
+import forward_enumeration.context.EnumContext;
 import sql.lang.ast.filter.*;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.ConstantVal;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -19,8 +18,8 @@ public class CostEstimator {
     public static double estimateFilterCost(Filter f, Map<String, String> originNameMap) {
         if (f instanceof EmptyFilter) {
             return 0;
-        } else if (f instanceof ExistComparator) {
-            double cost = 0.5 + 4. * (((ExistComparator) f).getTableNode().estimateAllFilterCost() / 5);
+        } else if (f instanceof ExistsFilter) {
+            double cost = 0.5 + 4. * (((ExistsFilter) f).getTableNode().estimateAllFilterCost() / 5);
             return cost;
         } else if (f instanceof VVComparator) {
             float score = 0;
@@ -97,7 +96,7 @@ public class CostEstimator {
     }
 
     private static double compatibilityRate(Filter f1, Filter f2) {
-        if (f1 instanceof ExistComparator && f2 instanceof ExistComparator) {
+        if (f1 instanceof ExistsFilter && f2 instanceof ExistsFilter) {
             return 3;
         } else if (f1 instanceof VVComparator && f2 instanceof VVComparator) {
             List<ValNode> f1Args = ((VVComparator) f1).getArgs();
@@ -118,7 +117,7 @@ public class CostEstimator {
         return 0;
     }
 
-    public static double estimateExistsFilterCost(ExistComparator efilter) {
+    public static double estimateExistsFilterCost(ExistsFilter efilter) {
         return efilter.getTableNode().estimateAllFilterCost();
     }
 

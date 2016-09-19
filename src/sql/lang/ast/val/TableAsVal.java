@@ -1,10 +1,10 @@
 package sql.lang.ast.val;
 
-import enumerator.context.EnumContext;
-import enumerator.parameterized.InstantiateEnv;
-import sql.lang.DataType.StringVal;
-import sql.lang.DataType.ValType;
-import sql.lang.DataType.Value;
+import forward_enumeration.context.EnumContext;
+import forward_enumeration.parameterized.InstantiateEnv;
+import sql.lang.datatype.StringVal;
+import sql.lang.datatype.ValType;
+import sql.lang.datatype.Value;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
@@ -40,7 +40,6 @@ public class TableAsVal implements ValNode {
         try {
             val = table.tableToValue();
         } catch (Exception e) {
-            //System.err.println("[Error@TableAsVal23] Table not a single value table: " + table.toString());
             throw new SQLEvalException("Table to val exception");
         }
 

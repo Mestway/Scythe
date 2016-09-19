@@ -1,6 +1,6 @@
 package entity;
 
-import enumerator.Constraint;
+import forward_enumeration.Constraint;
 import sql.lang.Table;
 import util.TableInstanceParser;
 

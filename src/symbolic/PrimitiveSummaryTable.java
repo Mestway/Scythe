@@ -1,10 +1,10 @@
 package symbolic;
 
-import enumerator.primitive.EnumCanonicalFilters;
-import enumerator.context.EnumContext;
+import forward_enumeration.primitive.EnumCanonicalFilters;
+import forward_enumeration.context.EnumContext;
 import global.Statistics;
-import mapping.CoordInstMap;
-import mapping.MappingInference;
+import backward_inference.CoordInstMap;
+import backward_inference.MappingInference;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.filter.EmptyFilter;
@@ -385,7 +385,7 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
     @Override
     public List<Integer> getTableRightIndexBoundries() {
         List<Integer> result = new ArrayList<>();
-        result.add(this.getBaseTable().getMetadata().size());
+        result.add(this.getBaseTable().getSchema().size());
         return result;
     }
 

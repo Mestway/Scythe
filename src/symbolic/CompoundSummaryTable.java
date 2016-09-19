@@ -1,10 +1,10 @@
 package symbolic;
 
-import enumerator.context.EnumContext;
-import enumerator.primitive.EnumCanonicalFilters;
+import forward_enumeration.context.EnumContext;
+import forward_enumeration.primitive.EnumCanonicalFilters;
 import global.Statistics;
-import mapping.CoordInstMap;
-import mapping.MappingInference;
+import backward_inference.CoordInstMap;
+import backward_inference.MappingInference;
 import sql.lang.Table;
 import sql.lang.ast.filter.EmptyFilter;
 import sql.lang.ast.filter.Filter;
@@ -500,7 +500,7 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
         List<Integer> result = new ArrayList<>();
         List<Integer> leftBoundary = st1.getTableRightIndexBoundries();
         List<Integer> rightBoundary = st2.getTableRightIndexBoundries()
-                .stream().map(x -> x + st1.getBaseTable().getMetadata().size()).collect(Collectors.toList());
+                .stream().map(x -> x + st1.getBaseTable().getSchema().size()).collect(Collectors.toList());
         result.addAll(leftBoundary);
         result.addAll(rightBoundary);
         return result;

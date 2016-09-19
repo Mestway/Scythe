@@ -1,6 +1,6 @@
 package symbolic;
 
-import enumerator.context.EnumContext;
+import forward_enumeration.context.EnumContext;
 import global.Statistics;
 import sql.lang.Table;
 import sql.lang.ast.filter.Filter;
@@ -60,7 +60,7 @@ public class BVFilterCompTree {
             indent += "\t";
 
         String s = "";
-        s += indent + symTable.getBaseTable().getMetadata().stream().reduce("", (x,y)->(x+", "+y)).substring(2) + "\n";
+        s += indent + symTable.getBaseTable().getSchema().stream().reduce("", (x,y)->(x+", "+y)).substring(2) + "\n";
         String filterString = "{";
         for (BVFilter sf : this.primitiveFilters)
             filterString += sf.toString() + ", ";

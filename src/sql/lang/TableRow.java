@@ -1,10 +1,11 @@
 package sql.lang;
 
 import util.Pair;
-import sql.lang.DataType.Value;
+import sql.lang.datatype.Value;
 import util.DebugHelper;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by clwang on 12/14/15.
@@ -30,7 +31,7 @@ public class TableRow {
     }
 
     public int retrieveIndex(String columnName) {
-        String fieldName = columnName;
+        String fieldName;
         if (this.tableName.equals("anonymous"))
             fieldName = columnName;
         else
@@ -47,13 +48,8 @@ public class TableRow {
     public static TableRow TableRowFromContent(String tableName, List<String> names, List<Value> rowContent) {
         TableRow newRow = new TableRow();
         newRow.tableName = tableName;
-
-        for (String s : names) {
-            newRow.fieldNames.add(s);
-        }
-        for (Value v : rowContent) {
-            newRow.values.add(v);
-        }
+        newRow.fieldNames.addAll(names);
+        newRow.values.addAll(rowContent);
         return newRow;
     }
 
@@ -61,12 +57,8 @@ public class TableRow {
     public TableRow duplicate() {
         TableRow tr = new TableRow();
         tr.tableName = this.tableName;
-        for (String s : fieldNames) {
-            tr.fieldNames.add(s);
-        }
-        for (Value v : values) {
-            tr.values.add(v.duplicate());
-        }
+        tr.fieldNames.addAll(fieldNames);
+        tr.values.addAll(values.stream().map(Value::duplicate).collect(Collectors.toList()));
         return tr;
     }
 
@@ -178,11 +170,11 @@ public class TableRow {
 
     public static Pair<String, String> ColumnNameParser(String quantifiedName) {
         if (quantifiedName.indexOf('.') == -1) {
-            return new Pair<String, String>("", quantifiedName);
+            return new Pair<>("", quantifiedName);
         }
         String tableName = quantifiedName.substring(0, quantifiedName.indexOf("."));
         String columnName = quantifiedName.substring(quantifiedName.indexOf(".") + 1);
-        return new Pair<String, String>(tableName, columnName);
+        return new Pair<>(tableName, columnName);
     }
 
     public void updateTableName(String tableName) {
@@ -196,7 +188,7 @@ public class TableRow {
     }
 
     public List<Value> retrieveValuesByIndices(List<Integer> indices) {
-        List<Value> result = new ArrayList<Value>();
+        List<Value> result = new ArrayList<>();
         for (Integer i : indices) {
             result.add(this.getValue(i));
         }

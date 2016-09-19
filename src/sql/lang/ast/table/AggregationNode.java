@@ -1,11 +1,8 @@
 package sql.lang.ast.table;
 
-import enumerator.context.EnumContext;
-import enumerator.parameterized.InstantiateEnv;
-import sql.lang.ast.val.NamedVal;
-import sql.lang.ast.val.ValNode;
+import forward_enumeration.parameterized.InstantiateEnv;
 import util.Pair;
-import sql.lang.DataType.*;
+import sql.lang.datatype.*;
 import sql.lang.Table;
 import sql.lang.TableRow;
 import sql.lang.ast.Environment;
@@ -27,7 +24,7 @@ public class AggregationNode implements TableNode {
 
     public static String magicSeparatorSymbol = "-_-";
 
-    List<String> groupbyFields = new ArrayList<String>();
+    List<String> groupbyColumns = new ArrayList<String>();
     List<Pair<String, Function<List<Value>, Value>>> targets = new ArrayList<>();
     TableNode tn;
 
@@ -35,7 +32,7 @@ public class AggregationNode implements TableNode {
                            List<String> fields,
                            List<Pair<String, Function<List<Value>,Value>>> targets) {
         this.tn = tn;
-        this.groupbyFields = fields;
+        this.groupbyColumns = fields;
         this.targets = targets;
     }
 
@@ -46,7 +43,7 @@ public class AggregationNode implements TableNode {
         Table resultTable = new Table();
         resultTable.updateName("anonymous");
         List<String> resultMeta = new ArrayList<String>();
-        for (String s : this.groupbyFields)
+        for (String s : this.groupbyColumns)
             resultMeta.add(s);
         for (Pair<String, Function<List<Value>, Value>> t : targets) {
             resultMeta.add("aggr-" + t.getKey());
@@ -58,7 +55,7 @@ public class AggregationNode implements TableNode {
 
         // indices for aggregation fields
         List<Integer> indices = new ArrayList<Integer>();
-        for (String s : groupbyFields) {
+        for (String s : groupbyColumns) {
             indices.add(tbl.retrieveIndex(s));
         }
         // indices for aggregation targets
@@ -120,7 +117,7 @@ public class AggregationNode implements TableNode {
     @Override
     public List<String> getSchema() {
         List<String> schema = new ArrayList<String>();
-        schema.addAll(this.groupbyFields);
+        schema.addAll(this.groupbyColumns);
         for (Pair<String, Function<List<Value>,Value>> t : targets) {
             schema.add(FuncName(t.getValue()) + magicSeparatorSymbol + t.getKey());
         }
@@ -128,7 +125,7 @@ public class AggregationNode implements TableNode {
     }
 
     public List<String> getFields() {
-        return this.groupbyFields;
+        return this.groupbyColumns;
     }
 
     @Override
@@ -142,7 +139,7 @@ public class AggregationNode implements TableNode {
         List<ValType> tableSchemaType = this.tn.getSchemaType();
 
         List<String> nameToRetrieve = new ArrayList<>();
-        nameToRetrieve.addAll(this.groupbyFields);
+        nameToRetrieve.addAll(this.groupbyColumns);
         for (Pair<String, Function<List<Value>, Value>> t : targets) {
             nameToRetrieve.add(t.getKey());
         }
@@ -151,7 +148,7 @@ public class AggregationNode implements TableNode {
 
         // TODO: think about naming stuff
         if (tn.getTableName().equals("anonymous")) {
-            for (String n : this.groupbyFields) {
+            for (String n : this.groupbyColumns) {
                 for (int i = 0; i < tableSchema.size(); i ++) {
                     if (tableSchema.get(i).equals(n)) {
                         schemaTypes.add(tableSchemaType.get(i));
@@ -174,7 +171,7 @@ public class AggregationNode implements TableNode {
                 }
             }
         } else {
-            for (String n : this.groupbyFields) {
+            for (String n : this.groupbyColumns) {
                 for (int i = 0; i < tableSchema.size(); i ++) {
                     if (tableSchema.get(i).equals(n)) {
                         schemaTypes.add(tableSchemaType.get(i));
@@ -202,7 +199,7 @@ public class AggregationNode implements TableNode {
     }
 
     public int getAggrFieldSize() {
-        return this.groupbyFields.size();
+        return this.groupbyColumns.size();
     }
 
     @Override
@@ -213,7 +210,7 @@ public class AggregationNode implements TableNode {
     @Override
     public String prettyPrint(int indentLv) {
         String result = "SELECT\r\n" + IndentionManagement.basicIndent();
-        for (String f : groupbyFields) {
+        for (String f : groupbyColumns) {
             result += f + ", ";
         }
         for (int i = 0; i < targets.size(); i ++) {
@@ -228,10 +225,10 @@ public class AggregationNode implements TableNode {
         result += "FROM\r\n";
         result += this.tn.prettyPrint(1);
 
-        if (! groupbyFields.isEmpty()) {
+        if (! groupbyColumns.isEmpty()) {
             result += "\r\nGROUP BY\r\n";
             boolean flag = true;
-            for (String f : groupbyFields) {
+            for (String f : groupbyColumns) {
                 if (flag == true)
                     result += IndentionManagement.basicIndent() + f;
                 else result += ", " + f;
@@ -474,13 +471,13 @@ public class AggregationNode implements TableNode {
     public TableNode instantiate(InstantiateEnv env) {
         return new AggregationNode(
                 tn.instantiate(env),
-                this.groupbyFields,
+                this.groupbyColumns,
                 this.targets);
     }
 
     @Override
     public TableNode substNamedVal(ValNodeSubstBinding vnsb) {
-        return new AggregationNode(tn.substNamedVal(vnsb), this.groupbyFields, this.targets);
+        return new AggregationNode(tn.substNamedVal(vnsb), this.groupbyColumns, this.targets);
     }
 
     @Override
@@ -508,7 +505,7 @@ public class AggregationNode implements TableNode {
         List<String> newGroupByFields = new ArrayList<>();
         List<Pair<String, Function<List<Value>, Value>>> newTargets = new ArrayList<>();
 
-        for (String s : groupbyFields) {
+        for (String s : groupbyColumns) {
             for (Pair<String, String> p : stringNameBinding) {
                 if (p.getKey().equals(s)) {
                     newGroupByFields.add(p.getValue());
@@ -526,7 +523,7 @@ public class AggregationNode implements TableNode {
             }
         }
 
-        if (newGroupByFields.size() != groupbyFields.size() || newTargets.size() != targets.size()) {
+        if (newGroupByFields.size() != groupbyColumns.size() || newTargets.size() != targets.size()) {
             System.out.println("[Fatal Error @ AggregationNode] failure to subsitute the core.");
         }
 
@@ -539,7 +536,7 @@ public class AggregationNode implements TableNode {
 
         List<String> innerQueryOriginalColName = this.tn.originalColumnName();
         List<String> result = new ArrayList<>();
-        for (String s : this.groupbyFields)
+        for (String s : this.groupbyColumns)
             result.add(innerQueryOriginalColName.get(this.tn.getSchema().indexOf(s)));
 
         for (Pair<String, Function<List<Value>, Value>> p : this.targets) {

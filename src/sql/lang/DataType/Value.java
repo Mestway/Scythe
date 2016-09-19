@@ -1,4 +1,4 @@
-package sql.lang.DataType;
+package sql.lang.datatype;
 
 import java.sql.Time;
 import java.text.SimpleDateFormat;

@@ -1,10 +1,10 @@
 package sql.lang.ast.val;
 
-import enumerator.context.EnumContext;
-import enumerator.parameterized.InstantiateEnv;
-import sql.lang.DataType.NumberVal;
-import sql.lang.DataType.ValType;
-import sql.lang.DataType.Value;
+import forward_enumeration.context.EnumContext;
+import forward_enumeration.parameterized.InstantiateEnv;
+import sql.lang.datatype.NumberVal;
+import sql.lang.datatype.ValType;
+import sql.lang.datatype.Value;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;

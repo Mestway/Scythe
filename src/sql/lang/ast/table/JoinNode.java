@@ -1,11 +1,9 @@
 package sql.lang.ast.table;
 
-import enumerator.parameterized.InstantiateEnv;
+import forward_enumeration.parameterized.InstantiateEnv;
 import util.Pair;
-import sql.lang.DataType.ValType;
-import sql.lang.DataType.Value;
+import sql.lang.datatype.ValType;
 import sql.lang.Table;
-import sql.lang.TableRow;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
@@ -14,7 +12,6 @@ import util.IndentionManagement;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**

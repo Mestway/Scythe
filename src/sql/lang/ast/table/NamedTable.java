@@ -1,12 +1,11 @@
 package sql.lang.ast.table;
 
-import enumerator.parameterized.InstantiateEnv;
+import forward_enumeration.parameterized.InstantiateEnv;
 import util.Pair;
-import sql.lang.DataType.ValType;
+import sql.lang.datatype.ValType;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
-import sql.lang.ast.filter.Filter;
 import sql.lang.exception.SQLEvalException;
 import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;

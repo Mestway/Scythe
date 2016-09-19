@@ -5,19 +5,9 @@ package sql.lang.exception;
  */
 public class SQLEvalException extends Exception {
     String message = "";
-    ExceptionType type;
-
-    enum ExceptionType {
-        TableToValFailure,
-        UninstantedHole
-    }
 
     public SQLEvalException(String message) {
         this.message = message;
-    }
-
-    public SQLEvalException(ExceptionType type) {
-        this.type = type;
     }
 
     public String getMessage() {

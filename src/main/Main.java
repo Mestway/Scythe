@@ -1,8 +1,8 @@
 package main;
 
-import enumerator.tableenumerator.AbstractTableEnumerator;
-import enumerator.tableenumerator.CanonicalTableEnumeratorOnTheFly;
-import enumerator.tableenumerator.SymbolicTableEnumerator;
+import forward_enumeration.table_enumerator.AbstractTableEnumerator;
+import forward_enumeration.table_enumerator.CanonicalTableEnumeratorOnTheFly;
+import forward_enumeration.table_enumerator.SymbolicTableEnumerator;
 import global.Statistics;
 
 public class Main {

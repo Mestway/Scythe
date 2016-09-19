@@ -2,13 +2,10 @@ package sql.lang;
 
 import org.junit.Assert;
 import org.junit.Test;
-import sql.lang.DataType.DateVal;
-import sql.lang.DataType.Value;
+import sql.lang.datatype.Value;
 
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by clwang on 2/8/16.

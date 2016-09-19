@@ -1,6 +1,6 @@
 package symbolic;
 
-import sql.lang.DataType.Value;
+import sql.lang.datatype.Value;
 import sql.lang.Table;
 import sql.lang.TableRow;
 import sql.lang.ast.Environment;
@@ -54,9 +54,9 @@ public class BVFilter {
             Map<String, Value> rowBinding = new HashMap<String, Value>();
 
             // extend the evaluation environment for this column
-            for (int i = 0; i < table.getMetadata().size(); i ++) {
+            for (int i = 0; i < table.getSchema().size(); i ++) {
                 String valName = (table.getName().equals("anonymous") ? "" : table.getName() + ".")
-                         + table.getMetadata().get(i);
+                         + table.getSchema().get(i);
                 Value val = row.getValue(i);
                 //System.out.println(valName + " : " + val.toString());
                 rowBinding.put(valName, val);

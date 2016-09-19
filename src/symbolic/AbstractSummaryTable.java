@@ -1,7 +1,7 @@
 package symbolic;
 
-import enumerator.context.EnumContext;
-import mapping.MappingInference;
+import forward_enumeration.context.EnumContext;
+import backward_inference.MappingInference;
 import sql.lang.Table;
 import sql.lang.ast.filter.EmptyFilter;
 import sql.lang.ast.table.TableNode;

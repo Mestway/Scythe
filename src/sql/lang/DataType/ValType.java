@@ -1,4 +1,4 @@
-package sql.lang.DataType;
+package sql.lang.datatype;
 
 /**
  * Created by clwang on 1/4/16.
