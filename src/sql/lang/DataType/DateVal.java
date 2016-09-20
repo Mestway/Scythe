@@ -18,8 +18,16 @@ public class DateVal implements Value {
     public Date getVal() { return this.val; }
 
     @Override
-    public boolean equals(Value v) {
-        return this.getVal().equals(v.getVal());
+    public int hashCode() {
+        return this.getVal().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object v) {
+        if(v instanceof DateVal)
+            return this.getVal().equals(((DateVal) v).getVal());
+        else
+            return false;
     }
 
     @Override

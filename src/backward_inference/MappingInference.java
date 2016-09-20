@@ -22,9 +22,9 @@ public class MappingInference {
     Table input, output;
     int maxR, maxC;
     // the mapping between variables
-    QuickCoordMap map = new QuickCoordMap();
+    CellToCellSetMap map = new CellToCellSetMap();
 
-    private MappingInference() {};
+    private MappingInference() {}
 
     public static MappingInference buildMapping(Table in, Table out) {
 
@@ -37,33 +37,41 @@ public class MappingInference {
         mi.maxR = out.getContent().size();
         mi.maxC = out.getContent().get(0).getValues().size();
         mi.map.initialize(mi.maxR, mi.maxC);
-
         mi.input = in; mi.output = out;
+
+        Map<Value, Set<CellIndex>> inverseInputTable = inverseTable(mi.input);
+
         for (int i = 0; i < mi.output.getContent().size(); i ++) {
             for (int j = 0; j < mi.output.getContent().get(i).getValues().size(); j ++) {
                 Value v = mi.output.getContent().get(i).getValue(j);
-                for (int k = 0; k < mi.input.getContent().size(); k ++) {
-                    for (int l = 0; l < mi.input.getContent().get(k).getValues().size(); l ++) {
-                        Value v2 = mi.input.getContent().get(k).getValue(l);
-                        if (v.equals(v2)) {
-                            mi.map.addPair(new Coordinate(i,j), new Coordinate(k,l));
-                        }
+
+                if (inverseInputTable.containsKey(v)) {
+                    for (CellIndex ci : inverseInputTable.get(v)) {
+                        mi.map.addPair(new CellIndex(i,j), ci);
                     }
                 }
             }
         }
+
         mi.refineMapping();
         return mi;
     }
 
-    // get the image of a key from a map
-    private static <T> List<T> getMappingImg (Map<T, List<T>> map, T u) {
-        for (Map.Entry<T, List<T>> entry : map.entrySet()) {
-            if (entry.getKey().equals(u)) {
-                return entry.getValue();
+    // generate a map that maps values to cell indexes, where values of these cells have the same value as the key
+    private static Map<Value, Set<CellIndex>> inverseTable(Table t) {
+        Map<Value, Set<CellIndex>> inverseTableMap = new HashMap<>();
+        for (int i = 0; i < t.getContent().size(); i ++) {
+            for (int j = 0; j < t.getContent().get(i).getValues().size(); j ++) {
+
+                Value cellVal = t.getContent().get(i).getValue(j);
+
+                if (! inverseTableMap.containsKey(cellVal))
+                    inverseTableMap.put(cellVal, new HashSet<>());
+
+                inverseTableMap.get(cellVal).add(new CellIndex(i, j));
             }
         }
-        return null;
+        return inverseTableMap;
     }
 
     // think carefully, we can either refine them into an approximate
@@ -78,15 +86,15 @@ public class MappingInference {
             stable = true;
             for (int i = 0; i < map.maxR(); i ++) {
                 for (int j = 0; j < map.maxC(); j ++) {
-                    Coordinate src = new Coordinate(i, j);
-                    List<Coordinate> toRemove = new ArrayList<>();
-                    for (Coordinate coord : map.getImage(src)) {
-                        if (!validCheck(src, coord)) {
+                    CellIndex src = new CellIndex(i, j);
+                    List<CellIndex> toRemove = new ArrayList<>();
+                    for (CellIndex coord : map.getImage(src)) {
+                        if (!consistencyCheck(src, coord)) {
                             toRemove.add(coord);
                             stable = false;
                         }
                     }
-                    for (Coordinate rm : toRemove) {
+                    for (CellIndex rm : toRemove) {
                         map.removePair(src, rm);
                     }
                 }
@@ -99,14 +107,14 @@ public class MappingInference {
        forall u in [0,...,outputR], exists u', s.t. (u',c') in Img((u,c))
        if the condition above is satisfied, we will not touch the code,
        otherwise we will remove the entry from the image. */
-    private boolean validCheck(Coordinate src, Coordinate dst) {
+    private boolean consistencyCheck(CellIndex src, CellIndex dst) {
         int r = src.r(), c = src.c();
         int rPrim = dst.r(), cPrim = dst.c();
 
         // corresponding to check 1
         for (int v = 0; v < map.maxC(); v ++) {
             boolean exists = false;
-            for (Coordinate coord : map.getImage(new Coordinate(r, v))) {
+            for (CellIndex coord : map.getImage(new CellIndex(r, v))) {
                 if (coord.r() == rPrim)
                     exists = true;
             }
@@ -117,7 +125,7 @@ public class MappingInference {
         // corresponding to check 2
         for (int u = 0; u < map.maxR(); u ++) {
             boolean exists = false;
-            for (Coordinate coord : map.getImage(new Coordinate(u, c))) {
+            for (CellIndex coord : map.getImage(new CellIndex(u, c))) {
                 if (coord.c() == cPrim)
                     exists = true;
             }
@@ -133,11 +141,7 @@ public class MappingInference {
     public List<Set<Integer>> genColumnMappingInstances() {
         List<Set<Integer>> columnMapping = new ArrayList<>();
         for (int c = 0; c < maxC; c ++) {
-            Set<Integer> destination = new HashSet<>();
-            for (int i = 0; i < map.getImage(0, c).size(); i ++) {
-                destination.add(map.getImage(0, c).get(i).c());
-            }
-            columnMapping.add(destination);
+            columnMapping.add(map.getImage(0, c).stream().map(x -> x.c()).collect(Collectors.toSet()));
         }
         return columnMapping;
     }
@@ -149,11 +153,7 @@ public class MappingInference {
     public List<Set<Integer>> genRowMappingInstances() {
         List<Set<Integer>> rowMapping = new ArrayList<>();
         for (int r = 0; r < maxR; r ++) {
-            Set<Integer> destination = new HashSet<>();
-            for (int i = 0; i < map.getImage(r, 0).size(); i ++) {
-                destination.add(map.getImage(r, 0).get(i).r());
-            }
-            rowMapping.add(destination);
+            rowMapping.add(map.getImage(r, 0).stream().map(x -> x.r()).collect(Collectors.toSet()));
         }
         return rowMapping;
     }
@@ -161,10 +161,10 @@ public class MappingInference {
     // a mapping instance will map each coordinate in output table to a coordinate in input table
     // the mapping instance is generated through the refined map
     // in the result table, each list in quick coord table should have length 1.
-    public List<CoordInstMap> genMappingInstances() {
-        CoordInstMap instance = new CoordInstMap();
+    public List<CellToCellMap> genMappingInstances() {
+        CellToCellMap instance = new CellToCellMap();
         instance.initialize(maxR, maxC);
-        List<CoordInstMap> resultCollector = new ArrayList<>();
+        List<CellToCellMap> resultCollector = new ArrayList<>();
         dfsMappingSearch(0, 0, maxR, maxC, instance, resultCollector, this.map);
 
         //System.out.println("[MappingInfernce] mapping size " + resultCollector.size());
@@ -174,9 +174,9 @@ public class MappingInference {
     private void dfsMappingSearch(
             int i, int j,
             int maxI, int maxJ,
-            CoordInstMap currentMap,
-            List<CoordInstMap> resultCollector,
-            QuickCoordMap candidatePool) {
+            CellToCellMap currentMap,
+            List<CellToCellMap> resultCollector,
+            CellToCellSetMap candidatePool) {
 
         // when dfs reaches its goal
         if (i >= maxI || j >= maxJ) {
@@ -184,10 +184,10 @@ public class MappingInference {
             return;
         }
 
-        for (Coordinate coord : candidatePool.getImage(i,j)) {
-            if (currentMap.validCheck(new Coordinate(i,j), coord)) {
-                CoordInstMap nextMap = currentMap.deepCopy();
-                nextMap.addMap(new Coordinate(i,j), coord);
+        for (CellIndex coord : candidatePool.getImage(i,j)) {
+            if (currentMap.consistencyCheck(new CellIndex(i,j), coord)) {
+                CellToCellMap nextMap = currentMap.deepCopy();
+                nextMap.addMap(new CellIndex(i,j), coord);
                 int nextI = i, nextJ = j + 1;
                 if (nextJ >= maxJ) {
                     nextJ = nextJ % maxJ;
@@ -209,7 +209,7 @@ public class MappingInference {
      *          e.g. [1 3 5] is asking to find mappings such that [0-1) [1-3) [3-5) have columns inside
      * @return
      */
-    public List<CoordInstMap> genMappingInstancesWColumnBarrier(List<Integer> columnRightBoundaries) {
+    public List<CellToCellMap> genMappingInstancesWColumnBarrier(List<Integer> columnRightBoundaries) {
 
         List<Set<Integer>> columnMapping = this.genColumnMappingInstances();
         List<List<Integer>> listRepColMapping = new ArrayList<>();
@@ -219,7 +219,7 @@ public class MappingInference {
 
         List<List<Integer>> targetsToSearch = CombinationGenerator.rotateList(listRepColMapping);
 
-        List<CoordInstMap> resultCollector = new ArrayList<>();
+        List<CellToCellMap> resultCollector = new ArrayList<>();
         for (List<Integer> target : targetsToSearch) {
 
             List<Boolean> inRange = columnRightBoundaries.stream().map(x -> false).collect(Collectors.toList());
@@ -241,9 +241,9 @@ public class MappingInference {
             // if the size is not 1, we can easily solve it even without push down
             //if (target.size() > 1 && ! flag)
             if (! flag)
-                    continue;
+                continue;
 
-            CoordInstMap instance = new CoordInstMap();
+            CellToCellMap instance = new CellToCellMap();
             instance.initialize(maxR, maxC);
             dfsMappingSearchWithFixedColumns(0, 0, maxR, maxC, instance, resultCollector, this.map, target);
         }
@@ -255,9 +255,9 @@ public class MappingInference {
     private void dfsMappingSearchWithFixedColumns(
             int i, int j,
             int maxI, int maxJ,
-            CoordInstMap currentMap,
-            List<CoordInstMap> resultCollector,
-            QuickCoordMap candidatePool,
+            CellToCellMap currentMap,
+            List<CellToCellMap> resultCollector,
+            CellToCellSetMap candidatePool,
             List<Integer> columnRestriction) {
 
         // when dfs reaches its goal
@@ -266,13 +266,13 @@ public class MappingInference {
             return;
         }
 
-        for (Coordinate coord : candidatePool.getImage(i,j)) {
+        for (CellIndex coord : candidatePool.getImage(i,j)) {
             if (coord.c() != columnRestriction.get(j))
                 continue;
 
-            if (currentMap.validCheck(new Coordinate(i,j), coord)) {
-                CoordInstMap nextMap = currentMap.deepCopy();
-                nextMap.addMap(new Coordinate(i,j), coord);
+            if (currentMap.consistencyCheck(new CellIndex(i,j), coord)) {
+                CellToCellMap nextMap = currentMap.deepCopy();
+                nextMap.addMap(new CellIndex(i,j), coord);
                 int nextI = i, nextJ = j + 1;
                 if (nextJ >= maxJ) {
                     nextJ = nextJ % maxJ;
@@ -289,7 +289,7 @@ public class MappingInference {
 
     // key: a row number in the output table
     // value: a row number in the input table
-    public static Map<Integer, Integer> rowMappingInference(CoordInstMap cim) {
+    public static Map<Integer, Integer> rowMappingInference(CellToCellMap cim) {
         Map<Integer, Integer> rowMap = new HashMap<>();
         for (int i = 0; i < cim.maxR(); i ++) {
             rowMap.put(i, cim.getMap().get(i).get(0).r());
@@ -297,7 +297,7 @@ public class MappingInference {
         return rowMap;
     }
 
-    public static Map<Integer, Integer> columnMappingInference(CoordInstMap cim) {
+    public static Map<Integer, Integer> columnMappingInference(CellToCellMap cim) {
         Map<Integer, Integer> columnMap = new HashMap<>();
         for (int j = 0; j < cim.maxC(); j ++) {
             columnMap.put(j, cim.getMap().get(0).get(j).c());
@@ -314,7 +314,6 @@ public class MappingInference {
             encodingList.add(new BitSet(table.getContent().size()));
             filterIndex.put(filters.get(i), i);
         }
-
 
         for (int i = 0; i < table.getContent().size(); i ++)
             table.getContent().get(i).index = i;
@@ -423,7 +422,7 @@ public class MappingInference {
     @Override
     public String toString() {
         String s = "";
-        for (Map.Entry<Coordinate, List<Coordinate>> t : map.toMap().entrySet()) {
+        for (Map.Entry<CellIndex, Set<CellIndex>> t : map.toMap().entrySet()) {
             String listString = t.getValue().stream()
                     .map(u -> u.toString())
                     .reduce("", (x, y)-> x.toString() + ","+ y.toString()).trim();
@@ -434,8 +433,19 @@ public class MappingInference {
         return s;
     }
 
-    // TODO: PLEASE DOUBlE CHECK
-    public boolean isValidMapping() {
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof MappingInference) {
+            return this.input.equals(((MappingInference) obj).input)
+                    && this.output.equals(((MappingInference) obj).output)
+                    && this.maxC == ((MappingInference) obj).maxC
+                    && this.maxR == ((MappingInference) obj).maxR
+                    && this.map.equals(((MappingInference) obj).map);
+        }
+        return false;
+    }
+
+    public boolean everyCellHasImage() {
         for (int i = 0; i < map.maxR(); i ++)
             for (int j = 0; j < map.maxC(); j++)
                 if (map.getImage(i,j).isEmpty())

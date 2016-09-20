@@ -3,7 +3,7 @@ package symbolic;
 import forward_enumeration.primitive.EnumCanonicalFilters;
 import forward_enumeration.context.EnumContext;
 import global.Statistics;
-import backward_inference.CoordInstMap;
+import backward_inference.CellToCellMap;
 import backward_inference.MappingInference;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
@@ -119,11 +119,11 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
             EnumContext ec, Set<BVFilter> demotedExtFilters) {
 
         MappingInference mi = MappingInference.buildMapping(this.getBaseTable(), ec.getOutputTable());
-        List<CoordInstMap> map = mi.genMappingInstances();
+        List<CellToCellMap> map = mi.genMappingInstances();
 
         // evaluate the set of all target filters that we learnt from output
         Set<BVFilter> targetFilters = new HashSet<>();
-        for (CoordInstMap cim : map) {
+        for (CellToCellMap cim : map) {
             BVFilter sf = new BVFilter(cim.rowsInvolved(), this.getBaseTable().getContent().size());
             targetFilters.add(sf);
         }
@@ -162,11 +162,11 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
             EnumContext ec,
             BiConsumer<AbstractSummaryTable, BVFilter> f) {
 
-        List<CoordInstMap> map = mi.genMappingInstances();
+        List<CellToCellMap> map = mi.genMappingInstances();
 
         // evaluate the set of all target filters that we learnt from output
         Set<BVFilter> targetFilters = new HashSet<>();
-        for (CoordInstMap cim : map) {
+        for (CellToCellMap cim : map) {
             BVFilter sf = new BVFilter(cim.rowsInvolved(), this.getBaseTable().getContent().size());
             targetFilters.add(sf);
         }

@@ -16,9 +16,14 @@ public class TimeVal implements Value {
     public Time getVal() { return this.val; }
 
     @Override
-    public boolean equals(Value v) {
+    public int hashCode() {
+        return this.getVal().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object v) {
         if (v instanceof TimeVal) {
-            return this.val.equals(v.getVal());
+            return this.val.equals(((TimeVal) v).getVal());
         }
         return false;
     }

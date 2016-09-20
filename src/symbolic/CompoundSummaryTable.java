@@ -3,7 +3,7 @@ package symbolic;
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.primitive.EnumCanonicalFilters;
 import global.Statistics;
-import backward_inference.CoordInstMap;
+import backward_inference.CellToCellMap;
 import backward_inference.MappingInference;
 import sql.lang.Table;
 import sql.lang.ast.filter.EmptyFilter;
@@ -83,10 +83,10 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
         Set<BVFilter> targetFilters = new HashSet<>();
 
         // construct the target filters backwardly
-        List<CoordInstMap> map = mi.genMappingInstancesWColumnBarrier(this.getTableRightIndexBoundries());
+        List<CellToCellMap> map = mi.genMappingInstancesWColumnBarrier(this.getTableRightIndexBoundries());
 
         //System.out.println("[CrossTableMapping Instances] " + map.size());
-        for (CoordInstMap cim : map) {
+        for (CellToCellMap cim : map) {
             BVFilter sf = new BVFilter(cim.rowsInvolved(), this.getBaseTable().getContent().size());
             targetFilters.add(sf);
         }
@@ -152,16 +152,16 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
         }
 
         MappingInference st1Mi = MappingInference.buildMapping(this.st1.getBaseTable(), ec.getOutputTable());
-        boolean furtherDemotionToSt1 = st1Mi.isValidMapping();
+        boolean furtherDemotionToSt1 = st1Mi.everyCellHasImage();
 
         // If we cannot perform further demotion
         if (! furtherDemotionToSt1) return resultPairs;
 
         Set<BVFilter> st1TargetFilters = new HashSet<>();
-        List<CoordInstMap> st1Map = st1Mi.genMappingInstances();
+        List<CellToCellMap> st1Map = st1Mi.genMappingInstances();
         //System.out.println("[demotedFilter Mapping Instances] " + st1Map.size());
 
-        for (CoordInstMap cim : st1Map) {
+        for (CellToCellMap cim : st1Map) {
             BVFilter sf = new BVFilter(cim.rowsInvolved(), st1.getBaseTable().getContent().size());
             st1TargetFilters.add(sf);
         }

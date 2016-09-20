@@ -334,7 +334,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
         };
 
         MappingInference mi = MappingInference.buildMapping(st.getBaseTable(), ec.getOutputTable());
-        if (! mi.isValidMapping())
+        if (! mi.everyCellHasImage())
             return;
 
         if (GlobalConfig.SPECIAL_TREAT_LAST_STAGE) {

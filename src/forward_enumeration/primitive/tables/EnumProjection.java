@@ -2,7 +2,7 @@ package forward_enumeration.primitive.tables;
 
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.context.QueryChest;
-import backward_inference.CoordInstMap;
+import backward_inference.CellToCellMap;
 import backward_inference.MappingInference;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
@@ -44,10 +44,10 @@ public class EnumProjection {
             }
 
             MappingInference mi = MappingInference.buildMapping(t, outputTable);
-            List<CoordInstMap> maps = mi.genMappingInstances();
+            List<CellToCellMap> maps = mi.genMappingInstances();
 
             List<List<ValNode>> lvns =  new ArrayList<>();
-            for (CoordInstMap m : maps) {
+            for (CellToCellMap m : maps) {
                 List<ValNode> selectNodes = new ArrayList<>();
                 for (int j = 0; j < m.getMap().get(0).size(); j ++) {
                     selectNodes.add(new NamedVal(tn.getSchema().get(m.getMap().get(0).get(j).c())));
@@ -93,10 +93,10 @@ public class EnumProjection {
 
             // Using coordinate map based inference to efficiently maintain result.
             MappingInference mi = MappingInference.buildMapping(t, outputTable);
-            List<CoordInstMap> maps = mi.genMappingInstances();
+            List<CellToCellMap> maps = mi.genMappingInstances();
 
             List<List<ValNode>> lvns =  new ArrayList<>();
-            for (CoordInstMap m : maps) {
+            for (CellToCellMap m : maps) {
                 List<ValNode> selectNodes = new ArrayList<>();
                 for (int j = 0; j < m.getMap().get(0).size(); j ++)
                     selectNodes.add(new NamedVal(tn.getSchema().get(m.getMap().get(0).get(j).c())));

@@ -11,7 +11,6 @@ import java.util.Date;
 public interface Value {
 
     Object getVal();
-    boolean equals(Value v);
     Value duplicate();
     ValType getValType();
 

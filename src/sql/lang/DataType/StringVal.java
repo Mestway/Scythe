@@ -13,8 +13,15 @@ public class StringVal implements Value {
     @Override
     public String getVal() { return this.val; }
     @Override
-    public boolean equals(Value v) {
-        return this.val.equals(v.getVal());
+    public int hashCode() {
+        return this.getVal().hashCode();
+    }
+    @Override
+    public boolean equals(Object v) {
+        if (v instanceof StringVal)
+            return this.val.equals(((StringVal) v).getVal());
+        else
+            return false;
     }
     @Override
     public String toString() {

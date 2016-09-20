@@ -16,8 +16,57 @@ import java.util.*;
  */
 public class MappingInferenceTest {
 
-
     @Test
+    public void testTableInverse() throws Exception {
+        String inputSrc =
+                "| T1.User   |  T1.Phone   |  T1.Value  | T2.User | T2.MaxVal |" + "\r\n" +
+                        "|---------------------------------------------|" + "\r\n" +
+                        "| Peter    |  0       |  1        | Peter | 3 |" + "\r\n" +
+                        "| Peter    |  0       |  1        | Paul  | 7 |" + "\r\n" +
+                        "| Peter    |  456     |  2        | Peter | 3 |" + "\r\n" +
+                        "| Peter    |  456     |  2        | Paul  | 7 |" + "\r\n" +
+                        "| Peter    |  456     |  3        | Peter | 3 |" + "\r\n" +
+                        "| Peter    |  456     |  3        | Paul  | 7 |" + "\r\n" +
+                        "| Paul     |  456     |  7        | Peter | 3 |" + "\r\n" +
+                        "| Paul     |  456     |  7        | Paul  | 7 |" + "\r\n" +
+                        "| Paul     |  789     |  10        | Peter | 3 |" + "\r\n" +
+                        "| Paul     |  789     |  10        | Paul  | 7 |";
+
+        String outputSrc =
+                "| col1 | col2 | col3 |" + "\r\n" +
+                        "|--------------------|" + "\r\n" +
+                        "|  Peter   |  456  |  3   |" + "\r\n" +
+                        "|  Paul    |  456  |  7   |";
+
+        Table input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
+        Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
+
+        //assert MappingInference.fastBuildMapping(input, output).equals(MappingInference.buildMapping(input, output));
+
+        inputSrc =
+                "| Id |  Name |  Other_Columns | \r\n" +
+                        "|-----------------------------| \r\n" +
+                        "| 1  |  A    |   A_data_1     | \r\n" +
+                        "| 2  |  A    |   A_data_2     | \r\n" +
+                        "| 3  |  A    |   A_data_3     | \r\n" +
+                        "| 4  |  B    |   B_data_1     | \r\n" +
+                        "| 5  |  B    |   B_data_2     | \r\n" +
+                        "| 6  |  C    |   C_data_1     |";
+
+        outputSrc =
+                "| col1 | col2 | col3     | \r\n" +
+                        "|------------------------| \r\n" +
+                        "| 3    | A    | A_data_3 | \r\n" +
+                        "| 5    | B    | B_data_2 | \r\n" +
+                        "| 6    | C    | C_data_1 |";
+
+        input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
+        output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
+
+        //assert MappingInference.fastBuildMapping(input, output).equals(MappingInference.buildMapping(input, output));
+
+    }
+
     public void testBuildMapping0() throws Exception {
         String inputSrc =
                 "| T1.User   |  T1.Phone   |  T1.Value  | T2.User | T2.MaxVal |" + "\r\n" +
@@ -45,8 +94,8 @@ public class MappingInferenceTest {
         MappingInference mi = MappingInference.buildMapping(input, output);
         System.out.println("-----");
         System.out.println(mi.toString());
-        List<CoordInstMap> instances = mi.genMappingInstancesWColumnBarrier(Arrays.asList(3, 3 + 2));
-        for (CoordInstMap cim : instances) {
+        List<CellToCellMap> instances = mi.genMappingInstancesWColumnBarrier(Arrays.asList(3, 3 + 2));
+        for (CellToCellMap cim : instances) {
            // System.out.println("---");
            // System.out.println(cim.toString());
         }
@@ -56,9 +105,9 @@ public class MappingInferenceTest {
         MappingInference.printColumnMapping(mi.genColumnMappingInstances());
         MappingInference.printColumnMapping(mi.genRowMappingInstances());
 
-        List<CoordInstMap> is = mi.genMappingInstances();
+        List<CellToCellMap> is = mi.genMappingInstances();
         System.out.println(is.size());
-        for (CoordInstMap cim : is) {
+        for (CellToCellMap cim : is) {
             //System.out.println("---");
             //System.out.println(cim.toString());
         }
@@ -96,8 +145,8 @@ public class MappingInferenceTest {
         MappingInference mi = MappingInference.buildMapping(input, output);
         System.out.println("-----");
         System.out.println(mi.toString());
-        List<CoordInstMap> instances = mi.genMappingInstancesWColumnBarrier(Arrays.asList(3, 3 + 2));
-        for (CoordInstMap cim : instances) {
+        List<CellToCellMap> instances = mi.genMappingInstancesWColumnBarrier(Arrays.asList(3, 3 + 2));
+        for (CellToCellMap cim : instances) {
             System.out.println("---");
             System.out.println(cim.toString());
         }
@@ -158,9 +207,9 @@ public class MappingInferenceTest {
         System.out.println("[Refine Mapping Done]");
         System.out.println(mi.toString());
 
-        List<CoordInstMap> instances = mi.genMappingInstances();
+        List<CellToCellMap> instances = mi.genMappingInstances();
         System.out.println("[Gen MappingInstance Done] size: " + instances.size());
-        for (CoordInstMap cim : instances) {
+        for (CellToCellMap cim : instances) {
             System.out.println("---");
             System.out.println(cim.toString());
             Map<Integer, Integer> lineMap = MappingInference.columnMappingInference(cim);

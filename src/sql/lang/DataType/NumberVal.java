@@ -17,8 +17,15 @@ public class NumberVal implements Value {
     @Override
     public Double getVal() { return this.val; }
     @Override
-    public boolean equals(Value v) {
-        return this.val.equals(v.getVal());
+    public int hashCode() {
+        return this.getVal().hashCode();
+    }
+    @Override
+    public boolean equals(Object v) {
+        if (v instanceof NumberVal)
+            return this.val.equals(((NumberVal) v).getVal());
+        else
+            return false;
     }
     @Override
     public String toString() { return this.val.toString(); }
