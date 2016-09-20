@@ -1,4 +1,4 @@
-package main;
+package scythe_interface;
 
 import forward_enumeration.table_enumerator.AbstractTableEnumerator;
 import forward_enumeration.table_enumerator.CanonicalTableEnumeratorOnTheFly;

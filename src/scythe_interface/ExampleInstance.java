@@ -1,4 +1,4 @@
-package entity;
+package scythe_interface;
 
 import sql.lang.Table;
 import util.TableInstanceParser;

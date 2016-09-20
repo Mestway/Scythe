@@ -1,6 +1,6 @@
 package forward_enumeration.table_enumerator;
 
-import main.Synthesizer;
+import scythe_interface.Synthesizer;
 import org.junit.Test;
 
 /**

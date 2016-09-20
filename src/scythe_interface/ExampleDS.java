@@ -1,4 +1,4 @@
-package entity;
+package scythe_interface;
 
 import forward_enumeration.Constraint;
 import sql.lang.Table;

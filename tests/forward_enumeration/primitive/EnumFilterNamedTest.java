@@ -1,6 +1,6 @@
 package forward_enumeration.primitive;
 
-import entity.ExampleDS;
+import scythe_interface.ExampleDS;
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.context.QueryChest;
 import forward_enumeration.primitive.tables.EnumJoinTableNodes;

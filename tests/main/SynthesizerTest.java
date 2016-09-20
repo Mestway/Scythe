@@ -5,6 +5,7 @@ import forward_enumeration.table_enumerator.AggrHueristicTableEnumerator;
 import forward_enumeration.table_enumerator.CanonicalTableEnumerator;
 import forward_enumeration.table_enumerator.PlainTableEnumerator;
 import org.junit.Test;
+import scythe_interface.Synthesizer;
 import sql.lang.ast.table.TableNode;
 
 import java.io.File;

@@ -1,6 +1,5 @@
-package main;
+package scythe_interface;
 
-import entity.ExampleDS;
 import forward_enumeration.table_enumerator.AbstractTableEnumerator;
 import sql.lang.ast.table.TableNode;
 
