@@ -1,7 +1,6 @@
-package forward_enumeration.parameterized;
+package forward_enumeration.primitive.parameterized;
 
 import forward_enumeration.context.EnumContext;
-import forward_enumeration.primitive.tables.EnumSelTableNode;
 import sql.lang.datatype.ValType;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.ValHole;
@@ -41,13 +40,13 @@ public class EnumParamTN {
         ec.setValNodes(constants);
         ec.setMaxFilterLength(maxParamFilterLength);
 
-        List<TableNode> tns = new ArrayList<>();
-        tns.addAll(EnumSelTableNode.enumSelectNode(ec, true));
-
-        List<TableNode> paramterizedTables = tns.stream()
-                .filter(tn -> !tn.getAllHoles().isEmpty())
-                .map(tn -> RenameTNWrapper.tryRename(tn))
-                .collect(Collectors.toList());
+        // get all parameterized table nodes by enumerating select nodes with ec
+        //      and filter away nodes that contains no holes
+        List<TableNode> paramterizedTables =
+                EnumSelectTableNode.enumSelectNode(ec, true).stream()
+                    .filter(tn -> !tn.getAllHoles().isEmpty())
+                    .map(tn -> RenameTNWrapper.tryRename(tn))
+                    .collect(Collectors.toList());
 
         return paramterizedTables;
     }

@@ -1,7 +1,6 @@
 package forward_enumeration.table_enumerator;
 
-import forward_enumeration.primitive.tables.EnumAggrTableNode;
-import forward_enumeration.primitive.tables.EnumProjection;
+import forward_enumeration.primitive.EnumAggrTableNode;
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.context.QueryChest;
 import global.GlobalConfig;
@@ -12,7 +11,7 @@ import sql.lang.ast.filter.EmptyFilter;
 import sql.lang.ast.table.*;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.exception.SQLEvalException;
-import symbolic.*;
+import summarytable.*;
 import util.Pair;
 
 import java.util.*;
@@ -40,7 +39,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
         QueryChest qc = QueryChest.initWithInputTables(ec.getInputs());
 
         // build symbolic table for each input table, and store them in SymTables
-        List<PrimitiveSummaryTable> symTablesForInputs = qc.getMemoizedTables().keySet()
+        List<PrimitiveSummaryTable> symTablesForInputs = qc.getMemoizedTables()
                 .stream().map(t -> new PrimitiveSummaryTable(t, new NamedTable(t)))
                 .collect(Collectors.toList());
         symTables.addAll(symTablesForInputs);
@@ -51,8 +50,9 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
         List<AbstractSummaryTable> symTableForAggr = new ArrayList<>();
 
         for (PrimitiveSummaryTable st : symTablesForInputs) {
+
             // core tables to be used in enumerate aggregation
-            List<Pair<Table, BVFilter>> instantiated = st.instantiatedAllTablesWithSymFilters(ec);
+            List<Pair<Table, BVFilter>> instantiated = st.instantiatedAllTablesWithBVFilters(ec);
 
             for (Pair<Table, BVFilter> p : instantiated) {
                 // enumerating aggregation queries,
@@ -116,9 +116,8 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
                     AbstractSummaryTable st2 = basicAndAggr.get(l);
 
                     // only allow joining between an input table and a compound table
-                    //if (!GlobalConfig.ALLOW_JOIN_NONE_INPUT_TABLE && ! ec.getInputs().contains(st2.getBaseTable()))
                     if (! ec.getInputs().contains(st2.getBaseTable()))
-                            continue;
+                        continue;
 
                     if (st2 instanceof CompoundSummaryTable)
                         continue;
@@ -205,7 +204,7 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
                     CompoundSummaryTable sct = new CompoundSummaryTable(st1, st2);
 
-                    List<Pair<Table, BVFilter>> tablesWFilters = sct.instantiatedAllTablesWithSymFilters(ec);
+                    List<Pair<Table, BVFilter>> tablesWFilters = sct.instantiatedAllTablesWithBVFilters(ec);
                     for (Pair<Table, BVFilter> p : tablesWFilters) {
                         // core tables to be used in enumerate aggregation
                         List<TableNode> joinedNodes = new ArrayList<>();
@@ -235,7 +234,6 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
         }
 
         System.out.println("ASymTable Enumeration done: " + (symTables.size()));
-        System.out.println("Runner ups: " + qc.runnerUpTable);
 
         handleEnumerationResult(qc, ec);
         return qc;
@@ -323,14 +321,12 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
                 t.getContent().add(symTable.getBaseTable().getContent().get(i).duplicate());
             }
 
-            ec.setTableNodes(Arrays.asList(new NamedTable(t)));
-
-            boolean isRunnerUp = EnumProjection.emitEnumProjection(ec, ec.getOutputTable(), qc);
-            if (isRunnerUp) {
+            // add the target to qc if the evaluation result can be projection to be output table
+            //    1) size equal
+            //    2) can generate a trace
+            if( t.getContent().size() == ec.getOutputTable().getContent().size()
+                    && !MappingInference.buildMapping(t, ec.getOutputTable()).genColumnMappingInstances().isEmpty())
                 qc.insertCandidate(new Pair<>(symTable, symFilter));
-                //System.out.println("Find one here!");
-                //printTopQueries(st, p, ec, fl);
-            }
         };
 
         MappingInference mi = MappingInference.buildMapping(st.getBaseTable(), ec.getOutputTable());

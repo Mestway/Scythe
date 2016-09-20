@@ -1,4 +1,4 @@
-package forward_enumeration.parameterized;
+package forward_enumeration.primitive.parameterized;
 
 import forward_enumeration.context.EnumContext;
 import sql.lang.ast.val.ValHole;
@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  * Created by clwang on 1/10/16.
+ * The environment for subsituting holes with real values
  */
 public class InstantiateEnv {
 

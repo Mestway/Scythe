@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 
 /**
  * Given an renamed tablenode, enumerate canonical filters of these nodes
+ * (this enumerator will automatically figure out which filter to be enumerated based on table type)
  * Created by clwang on 3/29/16.
  */
 public class EnumCanonicalFilters {
@@ -35,7 +36,7 @@ public class EnumCanonicalFilters {
         }
 
         // enum filters
-        EnumContext ec2 = EnumContext.extendTypeMap(ec, typeMap);
+        EnumContext ec2 = EnumContext.extendValueBinding(ec, typeMap);
 
         // For enumeration of named table, allow exists is always set to true.
         boolean allowExists = true;
@@ -61,7 +62,7 @@ public class EnumCanonicalFilters {
         for (int i = 0; i < rt.getSchema().size(); i ++) {
             typeMap.put(rt.getSchema().get(i), rt.getSchemaType().get(i));
         }
-        ec = EnumContext.extendTypeMap(ec, typeMap);
+        ec = EnumContext.extendValueBinding(ec, typeMap);
 
         List<Filter> filters = new ArrayList<>();
 
@@ -87,7 +88,7 @@ public class EnumCanonicalFilters {
     public static List<Filter> enumCanonicalFilterAggrNode(RenameTableNode rt, EnumContext ec) {
 
         if (! (rt.getTableNode() instanceof AggregationNode))
-            System.out.println("[ERROR EnumCanonicalFilters 44] " + rt.getTableNode().getClass());
+            System.out.println("[ERROR@EnumCanonicalFilters 44] " + rt.getTableNode().getClass());
 
         AggregationNode an =(AggregationNode) rt.getTableNode();
 
@@ -96,11 +97,11 @@ public class EnumCanonicalFilters {
         // extend the type information to contain values inside enumcontext
         Map<String, ValType> typeMap = new HashMap<>();
         if (rt.getSchema().size() != rt.getSchemaType().size())
-            System.out.println(rt.getSchema().size() + " ~ " + rt.getSchemaType().size());
+            System.out.println("[ERROR@EnumCanonicalFilters 61] " + rt.getSchema().size() + " ~ " + rt.getSchemaType().size());
         for (int i = 0; i < rt.getSchema().size(); i ++) {
             typeMap.put(rt.getSchema().get(i), rt.getSchemaType().get(i));
         }
-        ec = EnumContext.extendTypeMap(ec, typeMap);
+        ec = EnumContext.extendValueBinding(ec, typeMap);
 
         // Left value can only be an aggregation target
         List<ValNode> L = new ArrayList<>();

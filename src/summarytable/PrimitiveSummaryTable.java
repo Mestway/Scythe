@@ -1,4 +1,4 @@
-package symbolic;
+package summarytable;
 
 import forward_enumeration.primitive.EnumCanonicalFilters;
 import forward_enumeration.context.EnumContext;

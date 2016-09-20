@@ -1,4 +1,4 @@
-package forward_enumeration;
+package forward_enumeration.context;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -14,20 +14,23 @@ import java.util.stream.Collectors;
 
 /**
  * Created by clwang on 1/7/16.
+ * Configuration used in enumeration
  */
-public class Constraint {
+public class EnumConfig {
+
     int maxDepth = 2;
     List<ValNode> constValNodes = new ArrayList<>();
     List<Function<List<Value>, Value>> aggrFuns = new ArrayList<>();
+
+    // the maximum number of parameters allowed in Exists clause, if the number is 0, Exists will not be allowed
     int numberOfParam = 2;
     int maxFilterLength = 2;
-
 
     public void setMaxDepth(int maxDepth) {
         this.maxDepth = maxDepth;
     }
 
-    public Constraint(int maxDepth,
+    public EnumConfig(int maxDepth,
                       List<Value> constants,
                       List<Function<List<Value>, Value>> aggrFuns,
                       int numberOfParam) {
@@ -38,7 +41,7 @@ public class Constraint {
         this.numberOfParam = numberOfParam;
     }
 
-    public Constraint(int maxDepth,
+    public EnumConfig(int maxDepth,
                       List<Value> constants,
                       List<Function<List<Value>, Value>> aggrFuns,
                       int numberOfParam,
@@ -92,7 +95,7 @@ public class Constraint {
         }
     }
 
-    public Constraint(String fileContent) {
+    public EnumConfig(String fileContent) {
         JsonConstraint p = new JsonConstraint(fileContent);
         this.maxDepth = p.max_depth;
         this.constValNodes = p.constants.stream()

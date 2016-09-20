@@ -1,7 +1,7 @@
 package sql.lang.ast.val;
 
 import forward_enumeration.context.EnumContext;
-import forward_enumeration.parameterized.InstantiateEnv;
+import forward_enumeration.primitive.parameterized.InstantiateEnv;
 import sql.lang.datatype.StringVal;
 import sql.lang.datatype.ValType;
 import sql.lang.datatype.Value;

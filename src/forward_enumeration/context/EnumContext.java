@@ -1,6 +1,5 @@
 package forward_enumeration.context;
 
-import forward_enumeration.Constraint;
 import sql.lang.datatype.ValType;
 import sql.lang.datatype.Value;
 import sql.lang.Table;
@@ -29,7 +28,7 @@ public class EnumContext {
     // The following fields will not mutate as they are meta-enumeration information
     private List<Table> inputs = new ArrayList<>();
     private Table outputTable = null;
-    private List<TableNode> parameterizedTables = new ArrayList<>();
+    private List<TableNode> parameterizedTableNodes = new ArrayList<>();
     List<Function<List<Value>, Value>> aggrfuns = new ArrayList<>();
     private int maxFilterLength = 2;
 
@@ -37,15 +36,15 @@ public class EnumContext {
     private List<TableNode> tableNodes = new ArrayList<>();
     private List<ValNode> valNodes = new ArrayList<>();
 
-    //mapping a column name to its corresponding type
-    private Map<String, ValType> typeMap = new HashMap<>();
+    //mapping a column name to its type
+    private Map<String, ValType> colNameToType = new HashMap<>();
 
     public EnumContext() {}
-    // initializing an EnumContext using tables and constraint
-    public EnumContext(List<Table> tbs, Constraint c) {
-        inputs = tbs;
+    // initializing an EnumContext using tables and EnumConfig
+    public EnumContext(List<Table> tbs, EnumConfig c) {
+        this.inputs = tbs;
         this.tableNodes = tbs.stream().map(t -> new NamedTable(t)).collect(Collectors.toList());
-        valNodes = c.constValNodes();
+        this.valNodes = c.constValNodes();
         this.aggrfuns = c.getAggrFuns();
     }
 
@@ -55,30 +54,33 @@ public class EnumContext {
     public void setMaxFilterLength(int maxLength) { this.maxFilterLength = maxLength; }
     public int getMaxFilterLength() { return this.maxFilterLength; }
 
-    public void setParameterizedTables(List<TableNode> tbs) { this.parameterizedTables = tbs; }
-    public List<TableNode> getParameterizedTables() { return this.parameterizedTables; }
+    public void setParameterizedTables(List<TableNode> tbs) { this.parameterizedTableNodes = tbs; }
+    public List<TableNode> getParameterizedTables() { return this.parameterizedTableNodes; }
 
     // set and get input, output table for this enumeration context, this method is not used in most situations
+    // the output tables are only able to be used in some cases
     public List<Table> getInputs() { return this.inputs; }
     public void setOutputTable(Table outputTable) { this.outputTable = outputTable; }
     public Table getOutputTable() { return this.outputTable; }
 
-    public List<TableNode> getTableNodes() { return this.tableNodes;}
+    public List<TableNode> getTableNodes() { return this.tableNodes; }
     public void setTableNodes(List<TableNode> tableNodes) { this.tableNodes = tableNodes; }
 
-    // Extend the atomic values in the context
-    public static EnumContext extendTypeMap(
+    // Extend the atomic value bindings (with their types) in the context,
+    // a new deep-copy version of EnumContext will be generated.
+    public static EnumContext extendValueBinding(
             EnumContext ec, Map<String, ValType> map) {
         EnumContext newEC = EnumContext.deepCopy(ec);
         for (Map.Entry<String, ValType> i : map.entrySet()) {
             newEC.valNodes.add(new NamedVal(i.getKey()));
         }
-        newEC.typeMap.putAll(ec.typeMap);
-        newEC.typeMap.putAll(map);
+        newEC.colNameToType.putAll(ec.colNameToType);
+        newEC.colNameToType.putAll(map);
         return newEC;
     }
 
     public List<ValNode> getValNodes() {
+        // this implementation use deep copy to avoid messing up value nodes in the context
         List<ValNode> allValNodes = new ArrayList<ValNode>();
         allValNodes.addAll(this.valNodes);
         return allValNodes;
@@ -91,7 +93,7 @@ public class EnumContext {
     }
 
     public ValType getValType(String name) {
-        return typeMap.get(name);
+        return colNameToType.get(name);
     }
 
     public static EnumContext deepCopy(EnumContext ec) {
@@ -99,13 +101,13 @@ public class EnumContext {
         // these value will not be shared due to
         // the fact the the enumerator in different stage have different value bindings
         newEC.valNodes.addAll(ec.valNodes);
-        newEC.typeMap.putAll(ec.typeMap);
+        newEC.colNameToType.putAll(ec.colNameToType);
 
         // these fields are shared
         newEC.tableNodes = ec.tableNodes;
         newEC.aggrfuns = ec.aggrfuns;
         newEC.maxFilterLength = ec.maxFilterLength;
-        newEC.parameterizedTables = ec.parameterizedTables;
+        newEC.parameterizedTableNodes = ec.parameterizedTableNodes;
         newEC.outputTable = ec.outputTable;
         newEC.inputs = ec.inputs;
         return newEC;

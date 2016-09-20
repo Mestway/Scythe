@@ -1,4 +1,4 @@
-package forward_enumeration.primitive.tables;
+package forward_enumeration.enumerative_search.components;
 
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.context.QueryChest;
@@ -105,7 +105,6 @@ public class EnumProjection {
 
             if (lvns.size() > 0) {
                 findone = true;
-                qc.runnerUpTable ++;
             }
 
             for (List<ValNode> lvn : lvns) {
@@ -114,10 +113,10 @@ public class EnumProjection {
                     Table tsn = sn.eval(new Environment());
                     if (tsn.contentStrictEquals(outputTable)) {
                         result.add(sn);
-                        qc.updateQuery(sn);
-                        qc.getEdges().insertEdge(
-                                qc.representative(t),
-                                qc.representative(tsn));
+                        qc.insertQuery(sn);
+                        qc.getTableLinks().insertEdge(
+                                qc.getRepresentative(t),
+                                qc.getRepresentative(tsn));
                     }
                 } catch (SQLEvalException e) {
                     e.printStackTrace();

@@ -1,4 +1,4 @@
-package forward_enumeration.context;
+package forward_enumeration.enumerative_search.datastructure;
 
 import sql.lang.Table;
 
@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
  * The data structure recording the connection between tables in the value (table) net
  * Created by clwang on 4/6/16.
  */
-public class TableEdgeSet {
+public class TableLinks {
 
     // storing the edges backwardly, the key represents the destination
     // while the value set contains source nodes that can lead to the table.

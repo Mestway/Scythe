@@ -1,6 +1,6 @@
 package scythe_interface;
 
-import forward_enumeration.Constraint;
+import forward_enumeration.context.EnumConfig;
 import sql.lang.Table;
 import util.TableInstanceParser;
 
@@ -16,7 +16,7 @@ import java.util.List;
 public class ExampleDS {
     public List<Table> inputs = new ArrayList<>();
     public Table output;
-    public Constraint enumConstraint;
+    public EnumConfig enumConstraint;
 
     private ExampleDS() {}
     public static ExampleDS readFromFile(String path) {
@@ -53,7 +53,7 @@ public class ExampleDS {
                 } else if (segName.equals("output")) {
                     example.output = TableInstanceParser.tryParseTable("output", segContent);
                 } else if (segName.equals("constraint")) {
-                    example.enumConstraint = new Constraint(segContent.stream().reduce(String::concat).get());
+                    example.enumConstraint = new EnumConfig(segContent.stream().reduce(String::concat).get());
                 }
             } else {
                 i ++;

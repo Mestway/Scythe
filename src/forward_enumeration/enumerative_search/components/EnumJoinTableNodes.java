@@ -1,4 +1,4 @@
-package forward_enumeration.primitive.tables;
+package forward_enumeration.enumerative_search.components;
 
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.context.QueryChest;
@@ -24,14 +24,12 @@ public class EnumJoinTableNodes {
 
     /**
      * The general emit join node function, other emit function are supposed to be implemented around this one.
-     * @param tableNum the number of tables should appear in the join table body
      * @param ec the enumeration context
      * @param qc the query chest for emission
      * @param checker the checker to check whether a table list is valid or not
      * @param withFilter whether filter should be included
      */
     public static void generalEmitEnumJoin(
-            int tableNum,
             EnumContext ec,
             QueryChest qc,
             BiFunction<EnumContext, List<TableNode>, Boolean> checker,
@@ -51,24 +49,24 @@ public class EnumJoinTableNodes {
                 JoinNode jn = new JoinNode(tns);
 
                 if (withFilter == false) {
-                    qc.updateQuery(jn);
+                    qc.insertQuery(jn);
                     try {
-                        qc.getEdges().insertEdge(
-                                qc.representative(tns.get(0).eval(new Environment())),
-                                qc.representative(tns.get(1).eval(new Environment())),
-                                qc.representative(jn.eval(new Environment())));
+                        qc.getTableLinks().insertEdge(
+                                qc.getRepresentative(tns.get(0).eval(new Environment())),
+                                qc.getRepresentative(tns.get(1).eval(new Environment())),
+                                qc.getRepresentative(jn.eval(new Environment())));
                     } catch (SQLEvalException e) {
                         e.printStackTrace();
                     }
                 } else {
                     RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(jn);
                     // add the query without join
-                    qc.updateQuery(rt);
+                    qc.insertQuery(rt);
                     try {
-                        qc.getEdges().insertEdge(
-                                qc.representative(tns.get(0).eval(new Environment())),
-                                qc.representative(tns.get(1).eval(new Environment())),
-                                qc.representative(rt.eval(new Environment())));
+                        qc.getTableLinks().insertEdge(
+                                qc.getRepresentative(tns.get(0).eval(new Environment())),
+                                qc.getRepresentative(tns.get(1).eval(new Environment())),
+                                qc.getRepresentative(rt.eval(new Environment())));
                     } catch (SQLEvalException e) {
                         e.printStackTrace();
                     }
@@ -80,12 +78,12 @@ public class EnumJoinTableNodes {
                                 .map(s -> new NamedVal(s))
                                 .collect(Collectors.toList());
                         TableNode resultTn = new SelectNode(vals, rt, f);
-                        qc.updateQuery(RenameTNWrapper.tryRename(resultTn));
+                        qc.insertQuery(RenameTNWrapper.tryRename(resultTn));
                         try {
-                            qc.getEdges().insertEdge(
-                                    qc.representative(tns.get(0).eval(new Environment())),
-                                    qc.representative(tns.get(1).eval(new Environment())),
-                                    qc.representative(resultTn.eval(new Environment())));
+                            qc.getTableLinks().insertEdge(
+                                    qc.getRepresentative(tns.get(0).eval(new Environment())),
+                                    qc.getRepresentative(tns.get(1).eval(new Environment())),
+                                    qc.getRepresentative(resultTn.eval(new Environment())));
                         } catch (SQLEvalException e) {
                             e.printStackTrace();
                         }
@@ -141,11 +139,11 @@ public class EnumJoinTableNodes {
      *****************************************************/
 
     public static void emitEnumJoinWithoutFilter(EnumContext ec, QueryChest qc) {
-        EnumJoinTableNodes.generalEmitEnumJoin(2, ec, qc, atMostOneNoneInput, false);
+        EnumJoinTableNodes.generalEmitEnumJoin(ec, qc, atMostOneNoneInput, false);
     }
 
     public static void emitEnumJoinWithFilter(EnumContext ec, QueryChest qc) {
-        EnumJoinTableNodes.generalEmitEnumJoin(2, ec, qc, atMostOneNoneInput, true);
+        EnumJoinTableNodes.generalEmitEnumJoin(ec, qc, atMostOneNoneInput, true);
     }
 
     // This is a simpler version of joining considering no filters at this stage,
@@ -166,7 +164,6 @@ public class EnumJoinTableNodes {
             if (! ec.isInputTableNode(lst.get(i)))
                 return false;
         }
-        //if (lst.get(0) == lst.get(1)) return false;
         return true;
     };
 

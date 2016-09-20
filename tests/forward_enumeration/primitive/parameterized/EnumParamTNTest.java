@@ -1,6 +1,6 @@
-package forward_enumeration.parameterized;
+package forward_enumeration.primitive.parameterized;
 
-import forward_enumeration.Constraint;
+import forward_enumeration.context.EnumConfig;
 import forward_enumeration.context.EnumContext;
 import org.junit.Test;
 import sql.lang.datatype.NumberVal;
@@ -37,7 +37,7 @@ public class EnumParamTNTest {
 
     Table input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
     Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
-    Constraint c = new Constraint(1, new ArrayList<>(), Arrays.asList(AggregationNode.AggrMax, AggregationNode.AggrMin),2);
+    EnumConfig c = new EnumConfig(1, new ArrayList<>(), Arrays.asList(AggregationNode.AggrMax, AggregationNode.AggrMin),2);
 
     @Test
     public void test() {

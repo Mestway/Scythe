@@ -1,6 +1,6 @@
 package forward_enumeration.hueristics;
 
-import forward_enumeration.Constraint;
+import forward_enumeration.context.EnumConfig;
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.table_enumerator.hueristics.TableNaturalJoinWithAggr;
 import org.junit.Test;
@@ -44,7 +44,7 @@ public class NaturalTableExtensionTest {
 
         Table input = TableInstanceParser.parseMarkDownTable("table1", tableSrc2);
 
-        Constraint c = new Constraint(3, new ArrayList<>(), Arrays.asList(AggregationNode.AggrCount), 1);
+        EnumConfig c = new EnumConfig(3, new ArrayList<>(), Arrays.asList(AggregationNode.AggrCount), 1);
 
         List<TableNode> tns = TableNaturalJoinWithAggr.naturalJoinWithAggregation(new EnumContext(Arrays.asList(input), c));
 

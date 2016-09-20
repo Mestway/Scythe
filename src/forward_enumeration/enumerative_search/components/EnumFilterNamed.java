@@ -1,4 +1,4 @@
-package forward_enumeration.primitive.tables;
+package forward_enumeration.enumerative_search.components;
 
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.context.QueryChest;
@@ -50,7 +50,7 @@ public class EnumFilterNamed {
             }
 
             // enum filters
-            EnumContext ec2 = EnumContext.extendTypeMap(ec, typeMap);
+            EnumContext ec2 = EnumContext.extendValueBinding(ec, typeMap);
 
             // we allow using exists when enumerating filters for a named table.
             boolean allowExists = true;
@@ -82,7 +82,7 @@ public class EnumFilterNamed {
             }
 
             // enum filters
-            EnumContext ec2 = EnumContext.extendTypeMap(ec, typeMap);
+            EnumContext ec2 = EnumContext.extendValueBinding(ec, typeMap);
 
             boolean allowExists = true;
             List<Filter> filters = FilterEnumerator.enumFiltersLR(vals, ec2.getValNodes(), ec2, allowExists);
@@ -90,14 +90,18 @@ public class EnumFilterNamed {
             for (Filter f : filters) {
                 TableNode sn = new SelectNode(vals, tn, f);
                 // when a table is generated, emit it to the query chest
-                qc.updateQuery(RenameTNWrapper.tryRename(sn));
+                qc.insertQuery(RenameTNWrapper.tryRename(sn));
                 // inserting an edge from eval(tn) --> eval(sn)
-                try {
-                    qc.getEdges().insertEdge(
-                            qc.representative(tn.eval(new Environment())),
-                            qc.representative(sn.eval(new Environment())));
-                } catch (SQLEvalException e) {
-                    e.printStackTrace();
+
+                if (qc.useTableLinks()) {
+                    // if qc use filter links, we can put filter links into qc
+                    try {
+                        qc.getTableLinks().insertEdge(
+                                qc.getRepresentative(tn.eval(new Environment())),
+                                qc.getRepresentative(sn.eval(new Environment())));
+                    } catch (SQLEvalException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

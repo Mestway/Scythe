@@ -1,6 +1,6 @@
 package backward_inference;
 
-import forward_enumeration.Constraint;
+import forward_enumeration.context.EnumConfig;
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.table_enumerator.hueristics.TableNaturalJoinWithAggr;
 import org.junit.Test;
@@ -174,7 +174,7 @@ public class MappingInferenceTest {
         Table input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
         Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
 
-        Constraint c = new Constraint(
+        EnumConfig c = new EnumConfig(
                 2,
                 new ArrayList<>(),
                 Arrays.asList(

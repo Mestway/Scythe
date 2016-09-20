@@ -1,7 +1,7 @@
 package forward_enumeration.table_enumerator.hueristics;
 
 import com.sun.tools.javac.util.Pair;
-import forward_enumeration.primitive.tables.EnumAggrTableNode;
+import forward_enumeration.primitive.EnumAggrTableNode;
 import forward_enumeration.context.EnumContext;
 import sql.lang.ast.filter.Filter;
 import sql.lang.ast.filter.LogicAndFilter;

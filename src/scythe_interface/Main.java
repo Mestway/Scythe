@@ -11,10 +11,12 @@ public class Main {
     public static void main(String[] args) {
 
         if (args.length < 3) {
-            System.out.println("Not enough arguments provided?");
+            System.out.println("[ERROR] Not enough arguments provided");
+            System.out.println("  Usage: java -jar path/to/example_file enumerator_name maximum_depth");
             System.exit(-1);
         }
 
+        // for logging purpose
         System.setErr(System.out);
 
         String filename = args[0];

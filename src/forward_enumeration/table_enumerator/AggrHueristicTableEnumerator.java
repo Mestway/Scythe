@@ -1,7 +1,7 @@
 package forward_enumeration.table_enumerator;
 
 import forward_enumeration.context.EnumContext;
-import forward_enumeration.primitive.tables.EnumSelTableNode;
+import forward_enumeration.primitive.parameterized.EnumSelectTableNode;
 import forward_enumeration.context.QueryChest;
 import forward_enumeration.table_enumerator.hueristics.TableNaturalJoinWithAggr;
 import sql.lang.ast.table.TableNode;
@@ -21,13 +21,13 @@ public class AggrHueristicTableEnumerator extends  AbstractTableEnumerator {
         QueryChest qc = QueryChest.initWithInputTables(ec.getInputs());
         ec.setTableNodes(qc.getRepresentativeTableNodes());
         List<TableNode> agrTables = TableNaturalJoinWithAggr.naturalJoinWithAggregation(ec);
-        qc.updateQueries(agrTables.stream()
+        qc.insertQueries(agrTables.stream()
                         .map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
 
         for (int i = 0; i < depth; i ++) {
             ec.setTableNodes(qc.getRepresentativeTableNodes());
-            List<TableNode> tableNodes = EnumSelTableNode.enumSelectNode(ec);
-            qc.updateQueries(tableNodes);
+            List<TableNode> tableNodes = EnumSelectTableNode.enumSelectNode(ec);
+            qc.insertQueries(tableNodes);
             /*tableNodes = EnumJoinTableNodes.enumJoinWithFilter(ec);
             ec = EnumContext.extendTable(ec,
                     tableNodes.stream()

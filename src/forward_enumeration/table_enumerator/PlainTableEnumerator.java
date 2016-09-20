@@ -1,9 +1,9 @@
 package forward_enumeration.table_enumerator;
 
-import forward_enumeration.primitive.tables.EnumAggrTableNode;
+import forward_enumeration.primitive.EnumAggrTableNode;
 import forward_enumeration.context.EnumContext;
-import forward_enumeration.primitive.tables.EnumJoinTableNodes;
-import forward_enumeration.primitive.tables.EnumSelTableNode;
+import forward_enumeration.enumerative_search.components.EnumJoinTableNodes;
+import forward_enumeration.primitive.parameterized.EnumSelectTableNode;
 import forward_enumeration.context.QueryChest;
 import sql.lang.ast.table.TableNode;
 import util.RenameTNWrapper;
@@ -20,17 +20,17 @@ public class PlainTableEnumerator extends AbstractTableEnumerator {
 
         QueryChest qc = QueryChest.initWithInputTables(ec.getInputs());
         List<TableNode> agrTables = EnumAggrTableNode.enumAggregationNode(ec);
-        qc.updateQueries(agrTables.stream()
+        qc.insertQueries(agrTables.stream()
                         .map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
 
         for (int i = 0; i < depth; i ++) {
             ec.setTableNodes(qc.getRepresentativeTableNodes());
             List<TableNode> tableNodes = EnumJoinTableNodes.enumJoinWithoutFilter(ec).stream()
                     .map(jn -> (TableNode) jn).collect(Collectors.toList());
-            qc.updateQueries(tableNodes.stream()
+            qc.insertQueries(tableNodes.stream()
                         .map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
-            tableNodes = EnumSelTableNode.enumSelectNode(ec);
-            qc.updateQueries(tableNodes);
+            tableNodes = EnumSelectTableNode.enumSelectNode(ec);
+            qc.insertQueries(tableNodes);
         }
 
         return qc;

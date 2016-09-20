@@ -1,6 +1,7 @@
-package forward_enumeration.context;
+package forward_enumeration.enumerative_search.datastructure;
 
-import forward_enumeration.primitive.OneStepQueryInference;
+import forward_enumeration.context.EnumContext;
+import forward_enumeration.enumerative_search.components.OneStepQueryInference;
 import sql.lang.Table;
 import sql.lang.ast.table.NamedTable;
 import sql.lang.ast.table.TableNode;

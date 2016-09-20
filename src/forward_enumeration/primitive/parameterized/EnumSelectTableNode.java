@@ -1,4 +1,4 @@
-package forward_enumeration.primitive.tables;
+package forward_enumeration.primitive.parameterized;
 
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.primitive.FilterEnumerator;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * Enum a classical Select...From...Where query with given ec
  * Created by clwang on 1/7/16.
  */
-public class EnumSelTableNode {
+public class EnumSelectTableNode {
 
     /********************************************************************************
      Enum table by select
@@ -45,7 +45,7 @@ public class EnumSelTableNode {
             }
 
             // enum filters
-            EnumContext ec2 = EnumContext.extendTypeMap(ec, typeMap);
+            EnumContext ec2 = EnumContext.extendValueBinding(ec, typeMap);
 
             List<Filter> filters = FilterEnumerator.enumFiltersAll(ec2, true);
 

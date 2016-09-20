@@ -2,10 +2,10 @@ package forward_enumeration.table_enumerator;
 
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.context.QueryChest;
-import forward_enumeration.primitive.tables.EnumAggrTableNode;
-import forward_enumeration.primitive.tables.EnumFilterNamed;
-import forward_enumeration.primitive.tables.EnumJoinTableNodes;
-import forward_enumeration.primitive.tables.EnumProjection;
+import forward_enumeration.primitive.EnumAggrTableNode;
+import forward_enumeration.enumerative_search.components.EnumFilterNamed;
+import forward_enumeration.enumerative_search.components.EnumJoinTableNodes;
+import forward_enumeration.enumerative_search.components.EnumProjection;
 import sql.lang.Table;
 import sql.lang.ast.table.TableNode;
 import util.RenameTNWrapper;
@@ -30,7 +30,7 @@ public class CanonicalWithoutExistsEnumerator extends AbstractTableEnumerator {
 
         ec.setTableNodes(qc.getRepresentativeTableNodes());
         List<TableNode> tns = EnumProjection.enumProjection(ec, ec.getOutputTable());
-        qc.updateQueries(tns);
+        qc.insertQueries(tns);
         return qc;
     }
 
@@ -39,7 +39,7 @@ public class CanonicalWithoutExistsEnumerator extends AbstractTableEnumerator {
         ec.setTableNodes(qc.getRepresentativeTableNodes());
         List<TableNode> tns = EnumFilterNamed.enumFilterNamed(ec)
                 .stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList());
-        qc.updateQueries(tns);
+        qc.insertQueries(tns);
 
         System.out.println("After enumFilterNamed: " + qc.getRepresentativeTableNodes().size()+ " tables");
 
@@ -48,10 +48,10 @@ public class CanonicalWithoutExistsEnumerator extends AbstractTableEnumerator {
         tns = EnumAggrTableNode.enumAggregationNode(ec)
                 .stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList());
 
-        qc.updateQueries(tns);
+        qc.insertQueries(tns);
 
         System.out.println("After enumAggregationNode: " + ec.getTableNodes().size() + " tables");
-        for (Table t: qc.getMemoizedTables().keySet())
+        for (Table t: qc.getMemoizedTables())
             System.out.println(t);
 
         for (int i = 1; i <= depth; i ++) {
@@ -63,14 +63,14 @@ public class CanonicalWithoutExistsEnumerator extends AbstractTableEnumerator {
 
             System.out.println("[Level] " + i);
             System.out.println("There are " + tns.size() + " queries in the enumeration of this level");
-            qc.updateQueries(tns.stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
+            qc.insertQueries(tns.stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
             System.out.println("after enumJoinWithFilter: " + qc.getRepresentativeTableNodes().size() + " tables");
 
 
             Path file = Paths.get("log" + i);
             try {
                 List<String> lines = new ArrayList<>();
-                for (Table t : qc.getMemoizedTables().keySet()) {
+                for (Table t : qc.getMemoizedTables()) {
                     lines.add(t.toString());
                     lines.add(" ########################################### ");
                 }
@@ -89,14 +89,14 @@ public class CanonicalWithoutExistsEnumerator extends AbstractTableEnumerator {
         ec.setTableNodes(qc.getRepresentativeTableNodes());
         List<TableNode> tns = EnumFilterNamed.enumFilterNamed(ec)
                 .stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList());
-        qc.updateQueries(tns);
+        qc.insertQueries(tns);
 
         System.out.println("after enumFilterNamed: " + qc.getRepresentativeTableNodes().size()+ " tables");
 
         ec.setTableNodes(qc.getRepresentativeTableNodes());
         tns = EnumAggrTableNode.enumAggregationNode(ec)
                 .stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList());
-        qc.updateQueries(tns);
+        qc.insertQueries(tns);
 
         System.out.println("after enumAggregationNode: " + qc.getRepresentativeTableNodes().size() + " tables");
 
@@ -113,7 +113,7 @@ public class CanonicalWithoutExistsEnumerator extends AbstractTableEnumerator {
 
             System.out.println("After renamed: " + renamed.size());
 
-            qc.updateQueries(renamed);
+            qc.insertQueries(renamed);
 
             System.out.println("after enumJoinWithFilter: " + qc.getRepresentativeTableNodes().size() + " tables");
         }

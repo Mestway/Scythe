@@ -1,8 +1,8 @@
 package forward_enumeration.primitive;
 
 import forward_enumeration.context.EnumContext;
-import forward_enumeration.parameterized.EnumParamTN;
-import forward_enumeration.parameterized.InstantiateEnv;
+import forward_enumeration.primitive.parameterized.EnumParamTN;
+import forward_enumeration.primitive.parameterized.InstantiateEnv;
 import sql.lang.datatype.ValType;
 import sql.lang.datatype.Value;
 import sql.lang.ast.filter.*;
@@ -84,7 +84,7 @@ public class FilterEnumerator {
     public static List<Filter> enumAtomicFilter(EnumContext ec, boolean allowExists) {
         List<Filter> atomicFilters = new ArrayList<Filter>();
 
-        List<ValNode> valNodes = ValueEnumerator.enumValNodes(ec);
+        List<ValNode> valNodes = ec.getValNodes();
 
         // Enumerate VVComparators
         for (int i = 0; i < valNodes.size(); i ++) {

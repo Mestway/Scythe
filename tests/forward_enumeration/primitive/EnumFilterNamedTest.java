@@ -3,7 +3,7 @@ package forward_enumeration.primitive;
 import scythe_interface.ExampleDS;
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.context.QueryChest;
-import forward_enumeration.primitive.tables.EnumJoinTableNodes;
+import forward_enumeration.enumerative_search.components.EnumJoinTableNodes;
 import org.testng.annotations.Test;
 import sql.lang.Table;
 import sql.lang.ast.table.NamedTable;
@@ -33,7 +33,7 @@ public class EnumFilterNamedTest {
         ec.setTableNodes(tns);
         EnumJoinTableNodes.emitEnumJoinWithFilter(ec, qc);
         System.out.println(qc.getRepresentativeTableNodes().size());
-        for (Table t : qc.getMemoizedTables().keySet()) {
+        for (Table t : qc.getMemoizedTables()) {
             System.out.println(t);
         }
 

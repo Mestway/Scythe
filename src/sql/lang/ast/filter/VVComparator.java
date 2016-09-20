@@ -1,6 +1,6 @@
 package sql.lang.ast.filter;
 
-import forward_enumeration.parameterized.InstantiateEnv;
+import forward_enumeration.primitive.parameterized.InstantiateEnv;
 import sql.lang.datatype.DateVal;
 import sql.lang.datatype.NumberVal;
 import sql.lang.datatype.Value;

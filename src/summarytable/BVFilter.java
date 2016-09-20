@@ -1,4 +1,4 @@
-package symbolic;
+package summarytable;
 
 import sql.lang.datatype.Value;
 import sql.lang.Table;

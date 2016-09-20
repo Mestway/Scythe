@@ -1,4 +1,4 @@
-package symbolic;
+package summarytable;
 
 import forward_enumeration.context.EnumContext;
 import global.Statistics;

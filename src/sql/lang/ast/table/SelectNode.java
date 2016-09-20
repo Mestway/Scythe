@@ -1,7 +1,7 @@
 package sql.lang.ast.table;
 
 import forward_enumeration.context.EnumContext;
-import forward_enumeration.parameterized.InstantiateEnv;
+import forward_enumeration.primitive.parameterized.InstantiateEnv;
 import sql.lang.ast.filter.EmptyFilter;
 import util.CostEstimator;
 import util.Pair;

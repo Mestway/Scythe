@@ -1,4 +1,4 @@
-package symbolic;
+package summarytable;
 
 import forward_enumeration.context.EnumContext;
 import backward_inference.MappingInference;
@@ -98,7 +98,7 @@ public abstract class AbstractSummaryTable {
         return instantiatedTables.stream().filter(t -> t.getContent().size() > 0).collect(Collectors.toList());
     }
 
-    public List<Pair<Table, BVFilter>> instantiatedAllTablesWithSymFilters(EnumContext ec) {
+    public List<Pair<Table, BVFilter>> instantiatedAllTablesWithBVFilters(EnumContext ec) {
 
         this.evalPrimitive(ec);
 

@@ -1,9 +1,7 @@
-package forward_enumeration.primitive.tables;
+package forward_enumeration.primitive;
 
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.context.QueryChest;
-import forward_enumeration.primitive.EnumCanonicalFilters;
-import forward_enumeration.primitive.FilterEnumerator;
 import sql.lang.ast.filter.Filter;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
@@ -57,11 +55,10 @@ public class EnumAggrTableNode {
 
 
     // the following two are functions for emit enumerating the tables.
-
     public static void emitEnumAggregationNode(EnumContext ec, QueryChest qc) {
         List<TableNode> coreTableNodes = ec.getTableNodes();
         for (TableNode coreTable : coreTableNodes) {
-            emitEnumAggrPerTableWithFilter(ec, coreTable, SIMPLIFY, qc);
+            generalEnumAggrPerTable(ec, coreTable, SIMPLIFY, Optional.of(qc), true);
         }
     }
 
@@ -71,14 +68,6 @@ public class EnumAggrTableNode {
             boolean simplify,
             boolean withFilter) {
         return generalEnumAggrPerTable(ec, tn, simplify, Optional.ofNullable(null), withFilter);
-    }
-
-    /**
-     * @param tn the table to perform aggregation on
-     */
-    private static void emitEnumAggrPerTableWithFilter(
-            EnumContext ec, TableNode tn, boolean simplify, QueryChest qc) {
-        generalEnumAggrPerTable(ec, tn, simplify, Optional.of(qc), true);
     }
 
     /**
@@ -111,7 +100,6 @@ public class EnumAggrTableNode {
             }
 
             // Part I: add the group by query without aggregation into the group by fields
-
             if (! groupByFields.isEmpty()) {
                 RenameTableNode query = (RenameTableNode) RenameTNWrapper
                         .tryRename(new AggregationNode(tn,
@@ -128,7 +116,6 @@ public class EnumAggrTableNode {
                // continue;
 
             // Part II: find queries with a target field.
-
             List<Pair<String, Function<List<Value>, Value>>> targetFuncList = new ArrayList<>();
 
             // Then enum the target fields
@@ -171,7 +158,8 @@ public class EnumAggrTableNode {
                         typeMap.put(renamedAggrNode.getSchema().get(i),
                                 renamedAggrNode.getSchemaType().get(i));
                     }
-                    EnumContext ec2 = EnumContext.extendTypeMap(ec, typeMap);
+
+                    EnumContext ec2 = EnumContext.extendValueBinding(ec, typeMap);
 
                     List<ValNode> L = new ArrayList<>();
                     for (int i = 0; i < targetFuncList.size(); i ++) {
@@ -236,12 +224,12 @@ public class EnumAggrTableNode {
     }
 
     private static void emitToQueryChest(TableNode result, TableNode original, QueryChest qc) {
-        qc.updateQuery(result);
+        qc.insertQuery(result);
         try {
             // updating the link between tables, an edge eval(tn) --> eval(rt) is inserted
-            qc.getEdges().insertEdge(
-                    qc.representative(original.eval(new Environment())),
-                    qc.representative(result.eval(new Environment())));
+            qc.getTableLinks().insertEdge(
+                    qc.getRepresentative(original.eval(new Environment())),
+                    qc.getRepresentative(result.eval(new Environment())));
         } catch (SQLEvalException e) {
             e.printStackTrace();
         }

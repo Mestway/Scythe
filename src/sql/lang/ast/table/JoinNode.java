@@ -1,6 +1,6 @@
 package sql.lang.ast.table;
 
-import forward_enumeration.parameterized.InstantiateEnv;
+import forward_enumeration.primitive.parameterized.InstantiateEnv;
 import util.Pair;
 import sql.lang.datatype.ValType;
 import sql.lang.Table;
