@@ -7,7 +7,7 @@ Scythe is a program synthesis tool that takes in input tables, an output table a
 Here are the steps to run the tool on an input / output example.
 
 1. Download the jar file [SimpleSynthesizer.jar](https://github.com/Mestway/SimpleSynthesizer/tree/symbolic-cleaned/out/artifacts/SimpleSynthesizer_jar). (Its corresponding source code is in the branch symoblic-cleaned branch.)
-2. Prepare an example file containing input tables, an output table, and a constraint with constant information. An example file should look like these ones in the [/data/StackOverflow folder](https://github.com/Mestway/SimpleSynthesizer/tree/symbolic-cleaned/data/StackOverflow).
+2. Prepare an example file containing input tables, an output table, and a constraint with constant information. An example file should look like these ones in the folder  [/data](https://github.com/Mestway/Scythe/tree/symbolic-cleaned/data).
 3. Run in command line with command:
 ```
 java -jar SimpleSynthesizer.jar path/to/the/example/file SymbolicEnumerator 2
