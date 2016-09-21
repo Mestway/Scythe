@@ -1,7 +1,6 @@
 package forward_enumeration.enumerative_search.components;
 
 import forward_enumeration.context.EnumContext;
-import forward_enumeration.primitive.EnumAggrTableNode;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.table.TableNode;

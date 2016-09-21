@@ -2,7 +2,7 @@ package forward_enumeration;
 
 import forward_enumeration.context.EnumConfig;
 import forward_enumeration.context.EnumContext;
-import forward_enumeration.primitive.EnumAggrTableNode;
+import forward_enumeration.enumerative_search.components.EnumAggrTableNode;
 import org.junit.Test;
 import sql.lang.Table;
 import sql.lang.ast.table.AggregationNode;

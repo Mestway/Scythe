@@ -2,7 +2,7 @@ package forward_enumeration.table_enumerator;
 
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.context.QueryChest;
-import forward_enumeration.primitive.EnumAggrTableNode;
+import forward_enumeration.enumerative_search.components.EnumAggrTableNode;
 import forward_enumeration.enumerative_search.components.EnumFilterNamed;
 import forward_enumeration.enumerative_search.components.EnumJoinTableNodes;
 import forward_enumeration.enumerative_search.components.EnumProjection;

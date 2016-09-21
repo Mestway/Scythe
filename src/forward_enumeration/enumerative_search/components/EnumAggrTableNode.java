@@ -1,7 +1,9 @@
-package forward_enumeration.primitive;
+package forward_enumeration.enumerative_search.components;
 
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.context.QueryChest;
+import forward_enumeration.primitive.EnumCanonicalFilters;
+import forward_enumeration.primitive.FilterEnumerator;
 import sql.lang.ast.filter.Filter;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
