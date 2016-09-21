@@ -1,6 +1,6 @@
 package forward_enumeration.hueristics;
 
-import forward_enumeration.table_enumerator.hueristics.NaturalJoinInference;
+import forward_enumeration.table_enumerator.hueristics.HeuristicNatJoin;
 import org.junit.Test;
 import sql.lang.ast.table.TableNode;
 import util.DebugHelper;
@@ -31,7 +31,7 @@ public class TableJoinInferenceTest {
 
     @Test
     public void testNaturalJoinAll() throws Exception {
-        List<TableNode> tryJoinResult = NaturalJoinInference.naturalJoinAll(
+        List<TableNode> tryJoinResult = HeuristicNatJoin.naturalJoinAll(
                 Arrays.asList(TableInstanceParser.parseMarkDownTable("t1", t1),
                         TableInstanceParser.parseMarkDownTable("t2",t2)));
 

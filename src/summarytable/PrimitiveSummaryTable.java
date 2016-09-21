@@ -1,7 +1,7 @@
 package summarytable;
 
-import forward_enumeration.primitive.EnumCanonicalFilters;
 import forward_enumeration.context.EnumContext;
+import forward_enumeration.primitive.FilterEnumerator;
 import global.Statistics;
 import backward_inference.CellToCellMap;
 import backward_inference.MappingInference;
@@ -74,9 +74,9 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
         List<Filter>  filters;
         if (this.baseTableSrc instanceof RenameTableNode
                 && ((RenameTableNode) this.baseTableSrc).getTableNode() instanceof AggregationNode)
-            filters = EnumCanonicalFilters.enumCanonicalFilterAggrNode((RenameTableNode) baseTableSrc, ec);
+            filters = FilterEnumerator.enumCanonicalFilterAggrNode((RenameTableNode) baseTableSrc, ec);
         else
-            filters = EnumCanonicalFilters.enumCanonicalFilterNamedTable(new NamedTable(this.baseTable), ec);
+            filters = FilterEnumerator.enumCanonicalFilterNamedTable(new NamedTable(this.baseTable), ec);
 
         ec.setMaxFilterLength(backUpMaxFilterLength);
 
@@ -305,9 +305,9 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
         if (this.baseTableSrc instanceof RenameTableNode
                 && ((RenameTableNode) this.baseTableSrc).getTableNode() instanceof AggregationNode) {
             // filters = EnumCanonicalFilters.enumCanonicalFilterNamedTable(new NamedTable(this.baseTable), ec);
-            filters = EnumCanonicalFilters.enumCanonicalFilterAggrNode((RenameTableNode) this.baseTableSrc, ec);
+            filters = FilterEnumerator.enumCanonicalFilterAggrNode((RenameTableNode) this.baseTableSrc, ec);
         } else {
-            filters = EnumCanonicalFilters.enumCanonicalFilterNamedTable(new NamedTable(this.baseTable), ec);
+            filters = FilterEnumerator.enumCanonicalFilterNamedTable(new NamedTable(this.baseTable), ec);
         }
         ec.setMaxFilterLength(backUpMaxFilterLength);
 

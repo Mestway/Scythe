@@ -1,7 +1,7 @@
 package summarytable;
 
 import forward_enumeration.context.EnumContext;
-import forward_enumeration.primitive.EnumCanonicalFilters;
+import forward_enumeration.primitive.FilterEnumerator;
 import global.Statistics;
 import backward_inference.CellToCellMap;
 import backward_inference.MappingInference;
@@ -386,7 +386,7 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
         // the maximum filter length for filtersLR should be 1
         int backUpMaxFilterLength = ec.getMaxFilterLength();
         ec.setMaxFilterLength(1);
-        List<Filter> filters = EnumCanonicalFilters.enumCanonicalFilterJoinNode(rt, ec);
+        List<Filter> filters = FilterEnumerator.enumCanonicalFilterJoinNode(rt, ec);
         ec.setMaxFilterLength(backUpMaxFilterLength);
 
         // make sure that the empty filter is added

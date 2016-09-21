@@ -3,6 +3,11 @@ package forward_enumeration.primitive;
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.primitive.parameterized.EnumParamTN;
 import forward_enumeration.primitive.parameterized.InstantiateEnv;
+import sql.lang.ast.table.AggregationNode;
+import sql.lang.ast.table.JoinNode;
+import sql.lang.ast.table.NamedTable;
+import sql.lang.ast.table.RenameTableNode;
+import sql.lang.ast.val.NamedVal;
 import sql.lang.datatype.ValType;
 import sql.lang.datatype.Value;
 import sql.lang.ast.filter.*;
@@ -187,6 +192,105 @@ public class FilterEnumerator {
             }
         }
         return atomics;
+    }
+
+    /***************************************************************************
+     * Three special filter enumeration functions:
+     *    Given a tableNode of some type and then enumerate canonical filters for the node (based on the type)
+     *    -- Given an renamed tablenode, enumerate canonical filters of these nodes
+     *   (this enumerator will automatically figure out which filter to be enumerated based on table type)
+     *************************************************************************** */
+
+
+    // Generated filters are used for filtering the renamed table rt
+    public static List<Filter> enumCanonicalFilterNamedTable(NamedTable tn, EnumContext ec) {
+        // the selection args are complete
+        List<ValNode> vals = tn.getSchema().stream()
+                .map(s -> new NamedVal(s))
+                .collect(Collectors.toList());
+
+        Map<String, ValType> typeMap = new HashMap<>();
+        for (int i = 0; i < tn.getSchema().size(); i ++) {
+            typeMap.put(tn.getSchema().get(i), tn.getSchemaType().get(i));
+        }
+
+        // enum filters
+        EnumContext ec2 = EnumContext.extendValueBinding(ec, typeMap);
+
+        // For enumeration of named table, allow exists is always set to true.
+        boolean allowExists = true;
+        return FilterEnumerator.enumFiltersLR(vals, ec2.getValNodes(), ec2, allowExists);
+    }
+
+    // Generated filters are used for filtering the renamed table rt
+    public static List<Filter> enumCanonicalFilterJoinNode(RenameTableNode rt, EnumContext ec) {
+
+        if (! (rt.getTableNode() instanceof JoinNode))
+            System.out.println("[ERROR EnumCanonicalFilters 44] " + rt.getTableNode().getClass());
+
+        JoinNode jn = (JoinNode) rt.getTableNode();
+        List<Integer> tableBoundaryIndex = new ArrayList<>();
+
+        tableBoundaryIndex.add(0); // the boundary of the first table is 0
+        for (int i = 0; i < jn.getTableNodes().size(); i ++) {
+            // the boundary of the next table = the boundary of the this table + this table size
+            tableBoundaryIndex.add(tableBoundaryIndex.get(i) + jn.getTableNodes().get(i).getSchema().size());
+        }
+
+        Map<String, ValType> typeMap = new HashMap<>();
+        for (int i = 0; i < rt.getSchema().size(); i ++) {
+            typeMap.put(rt.getSchema().get(i), rt.getSchemaType().get(i));
+        }
+        ec = EnumContext.extendValueBinding(ec, typeMap);
+
+        List<Filter> filters = new ArrayList<>();
+
+        for (int i = 0; i < tableBoundaryIndex.size() - 1; i ++) {
+            List<ValNode> L = new ArrayList<>();
+            for (int k = tableBoundaryIndex.get(i); k < tableBoundaryIndex.get(i + 1); k ++) {
+                L.add(new NamedVal(rt.getSchema().get(k)));
+            }
+            for (int j = i + 1; j < tableBoundaryIndex.size() - 1; j ++) {
+                List<ValNode> R = new ArrayList<>();
+                for (int k = tableBoundaryIndex.get(j); k < tableBoundaryIndex.get(j+1); k ++) {
+                    R.add(new NamedVal(rt.getSchema().get(k)));
+                }
+
+                boolean allowExists = false;
+                filters.addAll(FilterEnumerator.enumFiltersLR(L, R, ec, allowExists));
+            }
+        }
+        return filters;
+    }
+
+    // Generated filters are used for filtering the renamed table rt
+    public static List<Filter> enumCanonicalFilterAggrNode(RenameTableNode rt, EnumContext ec) {
+
+        if (! (rt.getTableNode() instanceof AggregationNode))
+            System.out.println("[ERROR@EnumCanonicalFilters 44] " + rt.getTableNode().getClass());
+
+        AggregationNode an =(AggregationNode) rt.getTableNode();
+
+        int indexBoundary = an.getAggrFieldSize();
+
+        // extend the type information to contain values inside enumcontext
+        Map<String, ValType> typeMap = new HashMap<>();
+        if (rt.getSchema().size() != rt.getSchemaType().size())
+            System.out.println("[ERROR@EnumCanonicalFilters 61] " + rt.getSchema().size() + " ~ " + rt.getSchemaType().size());
+        for (int i = 0; i < rt.getSchema().size(); i ++) {
+            typeMap.put(rt.getSchema().get(i), rt.getSchemaType().get(i));
+        }
+        ec = EnumContext.extendValueBinding(ec, typeMap);
+
+        // Left value can only be an aggregation target
+        List<ValNode> L = new ArrayList<>();
+        for (int i = indexBoundary; i < rt.getSchema().size(); i ++) {
+            L.add(new NamedVal(rt.getSchema().get(i)));
+        }
+
+        // do not allow exists in aggregation result
+        boolean allowExists = false;
+        return FilterEnumerator.enumFiltersLR(L, ec.getValNodes(), ec, allowExists);
     }
 
 }

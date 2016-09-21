@@ -1,8 +1,8 @@
 package forward_enumeration.table_enumerator;
 
-import forward_enumeration.enumerative_search.components.EnumAggrTableNode;
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.context.QueryChest;
+import forward_enumeration.primitive.AggrEnumerator;
 import global.GlobalConfig;
 import backward_inference.MappingInference;
 import sql.lang.Table;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  * Created by clwang on 3/28/16.
  * The enumeration algorithm with abstract table representation.
  */
-public class SymbolicTableEnumerator extends AbstractTableEnumerator {
+public class StagedEnumerator extends AbstractTableEnumerator {
 
     // this is a helper to print SQL queries
     Set<AbstractSummaryTable> countPrinted = new HashSet<>();
@@ -58,7 +58,9 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
                 // enumerating aggregation queries,
                 // the core of each query is built atop a filtering clause on an input table
                 ec.setTableNodes(Arrays.asList(new NamedTable(p.getKey())));
-                List<TableNode> ans = EnumAggrTableNode.enumAggregationNodeFlag(ec, EnumAggrTableNode.SIMPLIFY, false);
+
+                List<TableNode> ans = AggrEnumerator.enumAggrFromEC(ec, GlobalConfig.SIMPLIFY_AGGR_FIELD);
+
                 for (TableNode an : ans) {
                     try {
                         // build symbolic tables out of aggregation table nodes, and store them for next stage enumeration
@@ -212,10 +214,11 @@ public class SymbolicTableEnumerator extends AbstractTableEnumerator {
 
                         // enumerating aggregation tables, the aggregation nodes are based on these primitive filters
                         ec.setTableNodes(joinedNodes);
-                        List<TableNode> aggregationOnJoinInputs = EnumAggrTableNode.enumAggregationNodeFlag(ec, EnumAggrTableNode.SIMPLIFY, false);
+
+                        // enumerate aggregations
+                        List<TableNode> aggregationOnJoinInputs = AggrEnumerator.enumAggrFromEC(ec, GlobalConfig.SIMPLIFY_AGGR_FIELD);
 
                         List<PrimitiveSummaryTable> enumHaving = new ArrayList<>();
-
                         for (TableNode an : aggregationOnJoinInputs) {
                             try {
                                 enumHaving.add(new PrimitiveSummaryTable(an.eval(new Environment()), an, new Pair<>(sct, p.getValue())));

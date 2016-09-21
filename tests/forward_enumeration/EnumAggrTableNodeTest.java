@@ -46,7 +46,7 @@ public class EnumAggrTableNodeTest {
     @Test
     public void testEnumAggregationNode() throws Exception {
         EnumContext ec = new EnumContext(Arrays.asList(input), c);
-        List<TableNode> tns = EnumAggrTableNode.enumAggregationNode(ec);
+        List<TableNode> tns = EnumAggrTableNode.enumAggrNodeWFilter(ec);
         DebugHelper.printTableNodes(tns.stream().map(tn -> (TableNode) tn).collect(Collectors.toList()));
     }
 }

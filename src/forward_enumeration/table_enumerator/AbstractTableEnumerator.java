@@ -52,7 +52,7 @@ public abstract class AbstractTableEnumerator {
 
             if (this instanceof CanonicalTableEnumerator)
                 System.out.println("[Consistent Table number] " + qc.getTableLinks().getDirectLinkCount(ec.getOutputTable()));
-            else if (this instanceof SymbolicTableEnumerator)
+            else if (this instanceof StagedEnumerator)
                 System.out.println("[Consistent Table number] " + qc.getAllCandidates().size());
 
             System.out.println("[Enumeration Finished]");
@@ -68,7 +68,7 @@ public abstract class AbstractTableEnumerator {
         return enumProgramWithIO(newIOPair.getKey(), newIOPair.getValue(), c);
     }
 
-    // the enumeration result will be stored in EC
+    // the enumeration result will be stored in QC
     abstract public QueryChest enumTable(EnumContext ec, int depth);
 
 }

@@ -15,7 +15,7 @@ public class Synthesizer {
         // read file
         ExampleDS exampleDS = ExampleDS.readFromFile(path);
         System.out.println("================\n[[Synthesizer start]] " + path);
-        System.out.println("[Enumerator Type] " + enumerator.getClass().getSimpleName());
+        System.out.println("[Enumerator Used] " + enumerator.getClass().getSimpleName());
         long timeStart = System.currentTimeMillis();
 
         exampleDS.enumConstraint.setMaxDepth(maxDepth);

@@ -20,13 +20,11 @@ import java.util.stream.Collectors;
  */
 public class TableNaturalJoinWithAggr {
 
-    public final static boolean connectAll = true;
-
     public static TableNode naturalTableExtensionWithAggr(EnumContext ec) {
         assert (ec.getTableNodes().size() == 1);
 
         TableNode tb = ec.getTableNodes().get(0);
-        List<TableNode> aggrTableNodes = EnumAggrTableNode.enumAggregationNodeFlag(ec, true, true);
+        List<TableNode> aggrTableNodes = EnumAggrTableNode.enumAggrNodeWFilter(ec);
 
         TableNode currentTb = tb;
 
@@ -69,7 +67,6 @@ public class TableNaturalJoinWithAggr {
             currentTb = tn;
         }
 
-        //System.out.println(currentTb.prettyPrint(0));
         return currentTb;
 
     }
@@ -84,7 +81,7 @@ public class TableNaturalJoinWithAggr {
 
         // for each named table in the list
         for (TableNode tb : namedTables) {
-            List<TableNode> aggrTableNodes = EnumAggrTableNode.enumAggregationNodeFlag(ec, true, true);
+            List<TableNode> aggrTableNodes = EnumAggrTableNode.enumAggrNodeWFilter(ec);
 
             for (TableNode agrt : aggrTableNodes) {
                 // the length of fields

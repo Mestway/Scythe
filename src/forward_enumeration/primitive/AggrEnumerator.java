@@ -1,16 +1,11 @@
 package forward_enumeration.primitive;
 
 import forward_enumeration.context.EnumContext;
-import forward_enumeration.context.QueryChest;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
-import sql.lang.ast.filter.Filter;
 import sql.lang.ast.table.AggregationNode;
 import sql.lang.ast.table.RenameTableNode;
-import sql.lang.ast.table.SelectNode;
 import sql.lang.ast.table.TableNode;
-import sql.lang.ast.val.NamedVal;
-import sql.lang.ast.val.ValNode;
 import sql.lang.datatype.ValType;
 import sql.lang.datatype.Value;
 import sql.lang.exception.SQLEvalException;
@@ -20,19 +15,34 @@ import util.RenameTNWrapper;
 
 import java.util.*;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * Created by clwang on 9/20/16.
  * An utility funciton for enumeration of aggregation table nodes.
  */
 public class AggrEnumerator {
+
+    /**
+     * Given an enumeration context, foreach tableNode in the context,
+     * enumerate all possible aggregation tablenodes from these queries
+     * @param ec Enumeration context containing core tableNodes as well as aggregators to be used.
+     * @param simplify Whether allowing multiple aggregation targets in different columns of the same tables.
+     * @return The list of aggregation nodes enumerated from ec.
+     */
+    public static List<TableNode> enumAggrFromEC(EnumContext ec, boolean simplify) {
+        List<TableNode> result = new ArrayList<>();
+        for (TableNode core : ec.getTableNodes()) {
+            result.addAll(enumerateAggregation(ec, core, simplify));
+        }
+        return result;
+    }
+
     /**
      * Filters are not considered here, enumerating aggregation with filters require a stand alone pipeline.
      * @param tn the table to perform aggregation on
      * @return the list of enumerated table based on the given tablenode
      */
-    private static List<RenameTableNode> enumerateAggregation(
+    public static List<RenameTableNode> enumerateAggregation(
             EnumContext ec,
             TableNode tn,
             boolean simplify) {

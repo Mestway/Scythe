@@ -192,7 +192,7 @@ public class MappingInferenceTest {
 
         // traditional approach:
         /*
-        List<TableNode> tns = EnumAggrTableNode.enumAggregationNode(ec);
+        List<TableNode> tns = EnumAggrTableNode.enumAggrNodeWFilter(ec);
         tns.add(new NamedTable(input));
         TableNode jn = new JoinNode(tns);
         Table ot = jn.eval(new Environment());

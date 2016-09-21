@@ -45,12 +45,12 @@ public class CanonicalWithoutExistsEnumerator extends AbstractTableEnumerator {
 
         // prepare ec for next enumeration iteration
         ec.setTableNodes(qc.getRepresentativeTableNodes());
-        tns = EnumAggrTableNode.enumAggregationNode(ec)
+        tns = EnumAggrTableNode.enumAggrNodeWFilter(ec)
                 .stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList());
 
         qc.insertQueries(tns);
 
-        System.out.println("After enumAggregationNode: " + ec.getTableNodes().size() + " tables");
+        System.out.println("After enumAggrNodeWFilter: " + ec.getTableNodes().size() + " tables");
         for (Table t: qc.getMemoizedTables())
             System.out.println(t);
 
@@ -94,11 +94,11 @@ public class CanonicalWithoutExistsEnumerator extends AbstractTableEnumerator {
         System.out.println("after enumFilterNamed: " + qc.getRepresentativeTableNodes().size()+ " tables");
 
         ec.setTableNodes(qc.getRepresentativeTableNodes());
-        tns = EnumAggrTableNode.enumAggregationNode(ec)
+        tns = EnumAggrTableNode.enumAggrNodeWFilter(ec)
                 .stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList());
         qc.insertQueries(tns);
 
-        System.out.println("after enumAggregationNode: " + qc.getRepresentativeTableNodes().size() + " tables");
+        System.out.println("after enumAggrNodeWFilter: " + qc.getRepresentativeTableNodes().size() + " tables");
 
         for (int i = 1; i <= depth; i ++) {
             System.out.println("[Level] " + i);

@@ -2,7 +2,7 @@ package scythe_interface;
 
 import forward_enumeration.table_enumerator.AbstractTableEnumerator;
 import forward_enumeration.table_enumerator.CanonicalTableEnumeratorOnTheFly;
-import forward_enumeration.table_enumerator.SymbolicTableEnumerator;
+import forward_enumeration.table_enumerator.StagedEnumerator;
 import global.Statistics;
 
 public class Main {
@@ -28,8 +28,8 @@ public class Main {
     }
 
     public static AbstractTableEnumerator enumeratorSwitch(String name) {
-        if (name.equals("SymbolicEnumerator"))
-            return new SymbolicTableEnumerator();
+        if (name.equals("StagedEnumerator"))
+            return new StagedEnumerator();
         else if (name.equals("CanonicalEnumeratorOnTheFly"))
             return new CanonicalTableEnumeratorOnTheFly();
         else {

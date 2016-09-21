@@ -27,7 +27,7 @@ public class OneStepQueryInference {
             List<TableNode> tns = new ArrayList<>();
             ec.setTableNodes(inputTableNodes);
 
-            tns.addAll(EnumAggrTableNode.enumAggregationNode(ec).stream()
+            tns.addAll(EnumAggrTableNode.enumAggrNodeWFilter(ec).stream()
                     .filter(tn -> {
                         try {
                             return tn.eval(new Environment()).equals(output);

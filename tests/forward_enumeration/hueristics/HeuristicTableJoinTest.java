@@ -1,6 +1,6 @@
 package forward_enumeration.hueristics;
 
-import forward_enumeration.table_enumerator.hueristics.HeuristicTableJoin;
+import forward_enumeration.table_enumerator.hueristics.HeuristicNatJoin;
 import org.junit.Test;
 import sql.lang.Table;
 import sql.lang.ast.table.NamedTable;
@@ -10,8 +10,6 @@ import util.TableInstanceParser;
  * Created by clwang on 2/20/16.
  */
 public class HeuristicTableJoinTest {
-
-
 
 
     String t1src =
@@ -44,6 +42,6 @@ public class HeuristicTableJoinTest {
         Table t1 = TableInstanceParser.parseMarkDownTable("table1", t1src);
         Table t2 = TableInstanceParser.parseMarkDownTable("table2", t2src);
 
-        System.out.print(HeuristicTableJoin.equiJoinTwo(new NamedTable(t1), new NamedTable(t2)).snd.prettyPrint(0));
+        System.out.print(HeuristicNatJoin.heuristicEquiJoinTwo(new NamedTable(t1), new NamedTable(t2)).snd.prettyPrint(0));
     }
 }

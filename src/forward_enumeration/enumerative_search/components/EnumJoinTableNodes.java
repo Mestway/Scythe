@@ -2,7 +2,7 @@ package forward_enumeration.enumerative_search.components;
 
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.context.QueryChest;
-import forward_enumeration.primitive.EnumCanonicalFilters;
+import forward_enumeration.primitive.FilterEnumerator;
 import sql.lang.ast.Environment;
 import sql.lang.ast.filter.Filter;
 import sql.lang.ast.table.*;
@@ -71,7 +71,7 @@ public class EnumJoinTableNodes {
                         e.printStackTrace();
                     }
 
-                    List<Filter> filters = EnumCanonicalFilters.enumCanonicalFilterJoinNode(rt, ec);
+                    List<Filter> filters = FilterEnumerator.enumCanonicalFilterJoinNode(rt, ec);
                     for (Filter f : filters) {
                         // the selection args are complete
                         List<ValNode> vals = rt.getSchema().stream()
@@ -119,7 +119,7 @@ public class EnumJoinTableNodes {
                 // add the query without join
                 result.add(rt);
 
-                List<Filter> filters = EnumCanonicalFilters.enumCanonicalFilterJoinNode(rt, ec);
+                List<Filter> filters = FilterEnumerator.enumCanonicalFilterJoinNode(rt, ec);
                 for (Filter f : filters) {
                     // the selection args are complete
                     List<ValNode> vals = rt.getSchema().stream()

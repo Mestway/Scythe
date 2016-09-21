@@ -62,7 +62,7 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
                 + "Total Table by now: " + qc.getRepresentativeTableNodes().size());
 
         ec.setTableNodes(qc.getRepresentativeTableNodes());
-        EnumAggrTableNode.emitEnumAggregationNode(ec, qc);
+        EnumAggrTableNode.emitEnumAggrNodeWFilter(ec, qc);
 
         System.out.println("[Stage 2] EnumAggregationNode: \n\t"
                 + "Total Table by now: " + qc.getRepresentativeTableNodes().size());

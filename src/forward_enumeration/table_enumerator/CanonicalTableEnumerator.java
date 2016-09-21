@@ -37,7 +37,7 @@ public class CanonicalTableEnumerator extends AbstractTableEnumerator {
         qc.insertQueries(tns);
 
         ec.setTableNodes(qc.getRepresentativeTableNodes());
-        tns = EnumAggrTableNode.enumAggregationNode(ec)
+        tns = EnumAggrTableNode.enumAggrNodeWFilter(ec)
                 .stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList());
         qc.insertQueries(tns);
 
