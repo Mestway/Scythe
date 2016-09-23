@@ -10,9 +10,9 @@ public class Main {
     // the interface for running the tool in
     public static void main(String[] args) {
 
-        if (args.length < 3) {
+        if (args.length < 2) {
             System.out.println("[ERROR] Not enough arguments provided.");
-            System.out.println("  Usage: java -jar path/to/example_file enumerator_name maximum_depth");
+            System.out.println(" usage: java -jar path enumerator_name");
             System.exit(-1);
         }
 

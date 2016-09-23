@@ -1,9 +1,12 @@
+# folder name
 date=`date +%Y%m%d%H%M%S`
 folder="log_"$date"/"
 
 mkdir $folder
 
-for i in $(ls ../data/benchmarks/);do
+# get all benchmark files in the dir
+for i in $(find ../data/benchmarks -type f);do
 	echo Running $i;
-	java -Xmx4096m -jar ../out/artifacts/Scythe_jar/Scythe.jar "../data/benchmarks/"$i StagedEnumerator 2 > $folder$i".log";  
+    bname=$(basename $i);
+    java -Xmx4096m -jar ../out/artifacts/Scythe_jar/Scythe.jar $i StagedEnumerator > $folder$bname".log";  
 done 
