@@ -1,0 +1,46 @@
+================
+[[Synthesizer start]] ../data/benchmarks/022
+[Enumerator Used] StagedEnumerator
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 1 [SymTableForInputs]: 1
+[Aggregation]: 6 [SymTable]: 7
+[EnumJoin] level 1 [SymTable]: 14
+ASymTable Enumeration done: 14
+Candidate Tree Number: 2
+[Enumeration Finished]
+[No.1]===============================
+SELECT
+  [T11].ID1,[T11].ID,[T11].Fruit
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T11][ID, Fruit, ID1, Fruit1]
+WHERE
+  [T11].Fruit == [T11].Fruit1
+   AND [T11].ID > [T11].ID1
+@anonymous
+[T11].ID1 | [T11].ID | [T11].Fruit 
+1.0 | 2.0 | apples 
+1.0 | 3.0 | bananas 
+2.0 | 3.0 | cherries 
+2.0 | 3.0 | lychees 
+
+[No.2]===============================
+SELECT
+  [T13].ID,[T13].ID1,[T13].Fruit
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T13][ID, Fruit, ID1, Fruit1]
+WHERE
+  [T13].Fruit == [T13].Fruit1
+   AND [T13].ID < [T13].ID1
+@anonymous
+[T13].ID | [T13].ID1 | [T13].Fruit 
+1.0 | 2.0 | apples 
+1.0 | 3.0 | bananas 
+2.0 | 3.0 | cherries 
+2.0 | 3.0 | lychees 
+
+[[Synthesizer finished]] time: 00:00:00:207
+[[Synthesizer finished]] seconds: 0.20700

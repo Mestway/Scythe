@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 public class SymbolicTableEnumeratorTest {
     @Test
     public void test1() {
-        Synthesizer.Synthesize("data//StackOverflow//002", 2, new StagedEnumerator());
+        Synthesizer.Synthesize("data//StackOverflow//002", new StagedEnumerator());
     }
 
 }

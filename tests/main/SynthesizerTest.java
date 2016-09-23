@@ -42,7 +42,7 @@ public class SynthesizerTest {
                         final Future<List<TableNode>> handler = executor.submit(new Callable<List<TableNode>>() {
                             @Override
                             public List<TableNode> call() throws Exception {
-                                return Synthesizer.Synthesize(f.getPath(), 2, enumerator);
+                                return Synthesizer.Synthesize(f.getPath(), enumerator);
                             }
                         });
 

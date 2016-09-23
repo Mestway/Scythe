@@ -1,0 +1,113 @@
+================
+[[Synthesizer start]] ../data/benchmarks/011
+[Enumerator Used] StagedEnumerator
+[Initialize Enumeration]
+  Parameterized Table Number: 14
+[Enumeration Start]
+[Basic]: 1 [SymTableForInputs]: 1
+[Aggregation]: 32 [SymTable]: 33
+[EnumJoin] level 1 [SymTable]: 66
+ASymTable Enumeration done: 66
+Candidate Tree Number: 5
+[Enumeration Finished]
+[No.1]===============================
+SELECT
+  [T80].username,[T80].MAX-date,[T80].value
+FROM
+  (( (SELECT
+          input1.username, MAX(input1.date)
+        FROM
+          input1
+        GROUP BY
+          input1.username) AS [T43][username, MAX-date] ) JOIN (
+      input1 )) AS [T80][username, MAX-date, username1, date, value]
+WHERE
+  [T80].MAX-date == [T80].date
+@anonymous
+[T80].username | [T80].MAX-date | [T80].value 
+brad | Tue Feb 02 00:00:00 PST 2010 | 1.2 
+fred | Sun Jan 03 00:00:00 PST 2010 | 1.0 
+bob | Tue Aug 04 00:00:00 PDT 2009 | 1.5 
+
+[No.2]===============================
+SELECT
+  [T82].username,[T82].MAX-date,[T82].value
+FROM
+  (( (SELECT
+          input1.username, MAX(input1.date)
+        FROM
+          input1
+        GROUP BY
+          input1.username) AS [T43][username, MAX-date] ) JOIN (
+      input1 )) AS [T82][username, MAX-date, username1, date, value]
+WHERE
+  [T82].MAX-date == [T82].date
+   AND [T82].username == [T82].username1
+@anonymous
+[T82].username | [T82].MAX-date | [T82].value 
+brad | Tue Feb 02 00:00:00 PST 2010 | 1.2 
+fred | Sun Jan 03 00:00:00 PST 2010 | 1.0 
+bob | Tue Aug 04 00:00:00 PDT 2009 | 1.5 
+
+[No.3]===============================
+SELECT
+  [T86].username,[T86].MAX-date,[T86].value
+FROM
+  (( (SELECT
+          input1.username, MAX(input1.date)
+        FROM
+          input1
+        GROUP BY
+          input1.username) AS [T43][username, MAX-date] ) JOIN (
+      input1 )) AS [T86][username, MAX-date, username1, date, value]
+WHERE
+  [T86].MAX-date <= [T86].date
+   AND [T86].username == [T86].username1
+@anonymous
+[T86].username | [T86].MAX-date | [T86].value 
+brad | Tue Feb 02 00:00:00 PST 2010 | 1.2 
+fred | Sun Jan 03 00:00:00 PST 2010 | 1.0 
+bob | Tue Aug 04 00:00:00 PDT 2009 | 1.5 
+
+[No.4]===============================
+SELECT
+  [T84].username,[T84].MAX-date,[T84].value
+FROM
+  (( (SELECT
+          input1.username, MAX(input1.date)
+        FROM
+          input1
+        GROUP BY
+          input1.username) AS [T43][username, MAX-date] ) JOIN (
+      input1 )) AS [T84][username, MAX-date, username1, date, value]
+WHERE
+  [T84].MAX-date == [T84].date
+   AND [T84].MAX-date >= [T84].date
+@anonymous
+[T84].username | [T84].MAX-date | [T84].value 
+brad | Tue Feb 02 00:00:00 PST 2010 | 1.2 
+fred | Sun Jan 03 00:00:00 PST 2010 | 1.0 
+bob | Tue Aug 04 00:00:00 PDT 2009 | 1.5 
+
+[No.5]===============================
+SELECT
+  [T88].username,[T88].MAX-date,[T88].value
+FROM
+  (( (SELECT
+          input1.username, MAX(input1.date)
+        FROM
+          input1
+        GROUP BY
+          input1.username) AS [T43][username, MAX-date] ) JOIN (
+      input1 )) AS [T88][username, MAX-date, username1, date, value]
+WHERE
+  [T88].MAX-date <= [T88].date
+   AND [T88].MAX-date == [T88].date
+@anonymous
+[T88].username | [T88].MAX-date | [T88].value 
+brad | Tue Feb 02 00:00:00 PST 2010 | 1.2 
+fred | Sun Jan 03 00:00:00 PST 2010 | 1.0 
+bob | Tue Aug 04 00:00:00 PDT 2009 | 1.5 
+
+[[Synthesizer finished]] time: 00:00:00:263
+[[Synthesizer finished]] seconds: 0.26300

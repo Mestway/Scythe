@@ -1,0 +1,548 @@
+================
+[[Synthesizer start]] ../data/benchmarks/055
+[Enumerator Used] StagedEnumerator
+[Initialize Enumeration]
+  Parameterized Table Number: 1554
+[Enumeration Start]
+[Basic]: 1 [SymTableForInputs]: 1
+[Aggregation]: 9 [SymTable]: 10
+[EnumJoin] level 1 [SymTable]: 20
+ASymTable Enumeration done: 20
+Candidate Tree Number: 52
+[Enumeration Finished]
+[No.1]===============================
+SELECT
+  input1.Product_ID
+FROM
+  input1
+WHERE
+  EXIST (
+    (SELECT
+        2.0,[T0].Product_ID,[T0].Client_ID
+      FROM
+        (input1) AS [T0][Product_ID, Client_ID]
+      WHERE
+        input1.Product_ID > [T0].Product_ID) AS [T21][anonymous, Product_ID, Client_ID])
+@anonymous
+input1.Product_ID 
+22.0 
+23.0 
+
+[No.2]===============================
+SELECT
+  input1.Product_ID
+FROM
+  input1
+WHERE
+  input1.Client_ID == 2.0
+   AND EXIST (
+    (SELECT
+        2.0,[T0].Product_ID,[T0].Client_ID
+      FROM
+        (input1) AS [T0][Product_ID, Client_ID]
+      WHERE
+        input1.Product_ID > [T0].Product_ID) AS [T21][anonymous, Product_ID, Client_ID])
+@anonymous
+input1.Product_ID 
+22.0 
+23.0 
+
+[No.3]===============================
+SELECT
+  [T1600].Product_ID
+FROM
+  (( (SELECT
+          input1.Product_ID, FROM
+          input1
+        GROUP BY
+          input1.Product_ID) AS [T1562][Product_ID] ) JOIN (
+      SELECT
+        input1.Product_ID,input1.Client_ID
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              2.0,[T0].Product_ID,[T0].Client_ID
+            FROM
+              (input1) AS [T0][Product_ID, Client_ID]
+            WHERE
+              input1.Product_ID > [T0].Product_ID) AS [T21][anonymous, Product_ID, Client_ID]) )) AS [T1600][Product_ID, Product_ID1, Client_ID]
+WHERE
+  [T1600].Product_ID == [T1600].Product_ID1
+@anonymous
+[T1600].Product_ID 
+22.0 
+23.0 
+
+[No.4]===============================
+SELECT
+  [T1660].Product_ID
+FROM
+  (( SELECT
+        input1.Product_ID,input1.Client_ID
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              2.0,[T0].Product_ID,[T0].Client_ID
+            FROM
+              (input1) AS [T0][Product_ID, Client_ID]
+            WHERE
+              input1.Product_ID > [T0].Product_ID) AS [T21][anonymous, Product_ID, Client_ID]) ) JOIN (
+      input1 )) AS [T1660][Product_ID, Client_ID, Product_ID1, Client_ID1]
+WHERE
+  [T1660].Product_ID == [T1660].Product_ID1
+@anonymous
+[T1660].Product_ID 
+22.0 
+23.0 
+
+[No.5]===============================
+SELECT
+  [T1662].Product_ID
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.Product_ID,input1.Client_ID
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              2.0,[T0].Product_ID,[T0].Client_ID
+            FROM
+              (input1) AS [T0][Product_ID, Client_ID]
+            WHERE
+              input1.Product_ID > [T0].Product_ID) AS [T21][anonymous, Product_ID, Client_ID]) )) AS [T1662][Product_ID, Client_ID, Product_ID1, Client_ID1]
+WHERE
+  [T1662].Product_ID == [T1662].Product_ID1
+@anonymous
+[T1662].Product_ID 
+22.0 
+23.0 
+
+[No.6]===============================
+SELECT
+  [T1584].Product_ID
+FROM
+  (( (SELECT
+          input1.Product_ID, FROM
+          input1
+        GROUP BY
+          input1.Product_ID) AS [T1562][Product_ID] ) JOIN (
+      SELECT
+        input1.Product_ID,input1.Client_ID
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              2.0,[T0].Product_ID,[T0].Client_ID
+            FROM
+              (input1) AS [T0][Product_ID, Client_ID]
+            WHERE
+              2.0 == input1.Client_ID) AS [T8][anonymous, Product_ID, Client_ID]) )) AS [T1584][Product_ID, Product_ID1, Client_ID]
+WHERE
+  [T1584].Product_ID <> [T1584].Product_ID1
+@anonymous
+[T1584].Product_ID 
+22.0 
+23.0 
+
+[No.7]===============================
+SELECT
+  [T1586].Product_ID
+FROM
+  (( (SELECT
+          input1.Product_ID, FROM
+          input1
+        GROUP BY
+          input1.Product_ID) AS [T1562][Product_ID] ) JOIN (
+      SELECT
+        input1.Product_ID,input1.Client_ID
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              2.0,[T0].Product_ID,[T0].Client_ID
+            FROM
+              (input1) AS [T0][Product_ID, Client_ID]
+            WHERE
+              2.0 == input1.Client_ID) AS [T8][anonymous, Product_ID, Client_ID]) )) AS [T1586][Product_ID, Product_ID1, Client_ID]
+WHERE
+  [T1586].Product_ID > [T1586].Product_ID1
+@anonymous
+[T1586].Product_ID 
+22.0 
+23.0 
+
+[No.8]===============================
+SELECT
+  [T1620].Product_ID
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.Product_ID,input1.Client_ID
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              2.0,[T0].Product_ID,[T0].Client_ID
+            FROM
+              (input1) AS [T0][Product_ID, Client_ID]
+            WHERE
+              2.0 == input1.Client_ID) AS [T8][anonymous, Product_ID, Client_ID]) )) AS [T1620][Product_ID, Client_ID, Product_ID1, Client_ID1]
+WHERE
+  [T1620].Product_ID > [T1620].Product_ID1
+@anonymous
+[T1620].Product_ID 
+22.0 
+23.0 
+
+[No.9]===============================
+SELECT
+  [T1622].Product_ID
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.Product_ID,input1.Client_ID
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              2.0,[T0].Product_ID,[T0].Client_ID
+            FROM
+              (input1) AS [T0][Product_ID, Client_ID]
+            WHERE
+              2.0 == input1.Client_ID) AS [T8][anonymous, Product_ID, Client_ID]) )) AS [T1622][Product_ID, Client_ID, Product_ID1, Client_ID1]
+WHERE
+  [T1622].Product_ID <> [T1622].Product_ID1
+@anonymous
+[T1622].Product_ID 
+22.0 
+23.0 
+
+[No.10]===============================
+SELECT
+  input1.Product_ID
+FROM
+  input1
+WHERE
+  input1.Client_ID == 2.0
+   AND NOT EXIST (
+    (SELECT
+        2.0,[T0].Product_ID,[T0].Client_ID
+      FROM
+        (input1) AS [T0][Product_ID, Client_ID]
+      WHERE
+        input1.Product_ID == [T0].Product_ID
+         AND input1.Client_ID < [T0].Client_ID) AS [T1231][anonymous, Product_ID, Client_ID])
+@anonymous
+input1.Product_ID 
+22.0 
+23.0 
+
+[No.11]===============================
+SELECT
+  [T1624].Product_ID
+FROM
+  (( SELECT
+        input1.Product_ID,input1.Client_ID
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              2.0,[T0].Product_ID,[T0].Client_ID
+            FROM
+              (input1) AS [T0][Product_ID, Client_ID]
+            WHERE
+              input1.Product_ID > [T0].Product_ID) AS [T21][anonymous, Product_ID, Client_ID]) ) JOIN (
+      SELECT
+        input1.Product_ID,input1.Client_ID
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              2.0,[T0].Product_ID,[T0].Client_ID
+            FROM
+              (input1) AS [T0][Product_ID, Client_ID]
+            WHERE
+              2.0 == input1.Client_ID) AS [T8][anonymous, Product_ID, Client_ID]) )) AS [T1624][Product_ID, Client_ID, Product_ID1, Client_ID1]
+
+@anonymous
+[T1624].Product_ID 
+22.0 
+23.0 
+
+[No.12]===============================
+SELECT
+  [T1602].Product_ID
+FROM
+  (( (SELECT
+          input1.Product_ID, FROM
+          input1
+        GROUP BY
+          input1.Product_ID) AS [T1562][Product_ID] ) JOIN (
+      SELECT
+        input1.Product_ID,input1.Client_ID
+      FROM
+        input1
+      WHERE
+        input1.Client_ID == 2.0
+         AND EXIST (
+          (SELECT
+              2.0,[T0].Product_ID,[T0].Client_ID
+            FROM
+              (input1) AS [T0][Product_ID, Client_ID]
+            WHERE
+              input1.Product_ID > [T0].Product_ID) AS [T21][anonymous, Product_ID, Client_ID]) )) AS [T1602][Product_ID, Product_ID1, Client_ID]
+WHERE
+  [T1602].Product_ID == [T1602].Product_ID1
+@anonymous
+[T1602].Product_ID 
+22.0 
+23.0 
+
+[No.13]===============================
+SELECT
+  [T1664].Product_ID
+FROM
+  (( SELECT
+        input1.Product_ID,input1.Client_ID
+      FROM
+        input1
+      WHERE
+        input1.Client_ID == 2.0 ) JOIN (
+      SELECT
+        input1.Product_ID,input1.Client_ID
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              2.0,[T0].Product_ID,[T0].Client_ID
+            FROM
+              (input1) AS [T0][Product_ID, Client_ID]
+            WHERE
+              input1.Product_ID > [T0].Product_ID) AS [T21][anonymous, Product_ID, Client_ID]) )) AS [T1664][Product_ID, Client_ID, Product_ID1, Client_ID1]
+WHERE
+  [T1664].Product_ID == [T1664].Product_ID1
+@anonymous
+[T1664].Product_ID 
+22.0 
+23.0 
+
+[No.14]===============================
+SELECT
+  [T1666].Product_ID
+FROM
+  (( SELECT
+        input1.Product_ID,input1.Client_ID
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              2.0,[T0].Product_ID,[T0].Client_ID
+            FROM
+              (input1) AS [T0][Product_ID, Client_ID]
+            WHERE
+              input1.Product_ID > [T0].Product_ID) AS [T21][anonymous, Product_ID, Client_ID]) ) JOIN (
+      SELECT
+        input1.Product_ID,input1.Client_ID
+      FROM
+        input1
+      WHERE
+        input1.Client_ID == 2.0 )) AS [T1666][Product_ID, Client_ID, Product_ID1, Client_ID1]
+WHERE
+  [T1666].Product_ID == [T1666].Product_ID1
+@anonymous
+[T1666].Product_ID 
+22.0 
+23.0 
+
+[No.15]===============================
+SELECT
+  [T1668].Product_ID
+FROM
+  (( SELECT
+        input1.Product_ID,input1.Client_ID
+      FROM
+        input1
+      WHERE
+        input1.Client_ID == 2.0
+         AND EXIST (
+          (SELECT
+              2.0,[T0].Product_ID,[T0].Client_ID
+            FROM
+              (input1) AS [T0][Product_ID, Client_ID]
+            WHERE
+              input1.Product_ID > [T0].Product_ID) AS [T21][anonymous, Product_ID, Client_ID]) ) JOIN (
+      input1 )) AS [T1668][Product_ID, Client_ID, Product_ID1, Client_ID1]
+WHERE
+  [T1668].Product_ID == [T1668].Product_ID1
+@anonymous
+[T1668].Product_ID 
+22.0 
+23.0 
+
+[No.16]===============================
+SELECT
+  [T1626].Product_ID
+FROM
+  (( SELECT
+        input1.Product_ID,input1.Client_ID
+      FROM
+        input1
+      WHERE
+        input1.Client_ID == 2.0 ) JOIN (
+      SELECT
+        input1.Product_ID,input1.Client_ID
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              2.0,[T0].Product_ID,[T0].Client_ID
+            FROM
+              (input1) AS [T0][Product_ID, Client_ID]
+            WHERE
+              2.0 == input1.Client_ID) AS [T8][anonymous, Product_ID, Client_ID]) )) AS [T1626][Product_ID, Client_ID, Product_ID1, Client_ID1]
+WHERE
+  [T1626].Product_ID > [T1626].Product_ID1
+@anonymous
+[T1626].Product_ID 
+22.0 
+23.0 
+
+[No.17]===============================
+SELECT
+  [T1628].Product_ID
+FROM
+  (( SELECT
+        input1.Product_ID,input1.Client_ID
+      FROM
+        input1
+      WHERE
+        input1.Client_ID == 2.0 ) JOIN (
+      SELECT
+        input1.Product_ID,input1.Client_ID
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              2.0,[T0].Product_ID,[T0].Client_ID
+            FROM
+              (input1) AS [T0][Product_ID, Client_ID]
+            WHERE
+              2.0 == input1.Client_ID) AS [T8][anonymous, Product_ID, Client_ID]) )) AS [T1628][Product_ID, Client_ID, Product_ID1, Client_ID1]
+WHERE
+  [T1628].Product_ID <> [T1628].Product_ID1
+@anonymous
+[T1628].Product_ID 
+22.0 
+23.0 
+
+[No.18]===============================
+SELECT
+  [T1604].Product_ID
+FROM
+  (( (SELECT
+          input1.Product_ID, FROM
+          input1
+        GROUP BY
+          input1.Product_ID) AS [T1562][Product_ID] ) JOIN (
+      SELECT
+        input1.Product_ID,input1.Client_ID
+      FROM
+        input1
+      WHERE
+        input1.Client_ID == 2.0
+         AND NOT EXIST (
+          (SELECT
+              2.0,[T0].Product_ID,[T0].Client_ID
+            FROM
+              (input1) AS [T0][Product_ID, Client_ID]
+            WHERE
+              input1.Product_ID == [T0].Product_ID
+               AND input1.Client_ID < [T0].Client_ID) AS [T1231][anonymous, Product_ID, Client_ID]) )) AS [T1604][Product_ID, Product_ID1, Client_ID]
+WHERE
+  [T1604].Product_ID == [T1604].Product_ID1
+@anonymous
+[T1604].Product_ID 
+22.0 
+23.0 
+
+[No.19]===============================
+SELECT
+  [T1650].Product_ID
+FROM
+  (( SELECT
+        input1.Product_ID,input1.Client_ID
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              2.0,[T0].Product_ID,[T0].Client_ID
+            FROM
+              (input1) AS [T0][Product_ID, Client_ID]
+            WHERE
+              input1.Product_ID > [T0].Product_ID) AS [T21][anonymous, Product_ID, Client_ID]) ) JOIN (
+      SELECT
+        input1.Product_ID,input1.Client_ID
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              2.0,[T0].Product_ID,[T0].Client_ID
+            FROM
+              (input1) AS [T0][Product_ID, Client_ID]
+            WHERE
+              input1.Product_ID < [T0].Product_ID) AS [T19][anonymous, Product_ID, Client_ID]) )) AS [T1650][Product_ID, Client_ID, Product_ID1, Client_ID1]
+
+@anonymous
+[T1650].Product_ID 
+22.0 
+23.0 
+
+[No.20]===============================
+SELECT
+  [T1588].Product_ID
+FROM
+  (( (SELECT
+          input1.Product_ID, FROM
+          input1
+        GROUP BY
+          input1.Product_ID) AS [T1562][Product_ID] ) JOIN (
+      SELECT
+        input1.Product_ID,input1.Client_ID
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              2.0,[T0].Product_ID,[T0].Client_ID
+            FROM
+              (input1) AS [T0][Product_ID, Client_ID]
+            WHERE
+              2.0 == input1.Client_ID
+               AND input1.Product_ID < [T0].Product_ID) AS [T433][anonymous, Product_ID, Client_ID]) )) AS [T1588][Product_ID, Product_ID1, Client_ID]
+WHERE
+  [T1588].Product_ID > [T1588].Product_ID1
+@anonymous
+[T1588].Product_ID 
+22.0 
+23.0 
+
+[[Synthesizer finished]] time: 00:00:10:69
+[[Synthesizer finished]] seconds: 10.06900

@@ -6,6 +6,7 @@ import sql.lang.ast.Environment;
 import sql.lang.ast.table.TableNode;
 import sql.lang.exception.SQLEvalException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,18 +14,31 @@ import java.util.List;
  */
 public class Synthesizer {
 
-    public static List<TableNode> Synthesize(String path, int maxDepth, AbstractTableEnumerator enumerator) {
+    public static long TimeOut = 600000;
+
+    public static List<TableNode> Synthesize(String exampleFilePath, AbstractTableEnumerator enumerator) {
 
         // read file
-        ExampleDS exampleDS = ExampleDS.readFromFile(path);
-        System.out.println("================\n[[Synthesizer start]] " + path);
-        System.out.println("[Enumerator Used] " + enumerator.getClass().getSimpleName());
+        ExampleDS exampleDS = ExampleDS.readFromFile(exampleFilePath);
+        System.out.println("[[Synthesis start]]");
+        System.out.println("\tFile: " + exampleFilePath);
+        System.out.println("\tMaximum Depth: " + exampleFilePath);
+        System.out.println("\tEnumerator: " + enumerator.getClass().getSimpleName());
+
+        long timeUsed = 0;
         long timeStart = System.currentTimeMillis();
 
-        exampleDS.enumConstraint.setMaxDepth(maxDepth);
+        List<TableNode> candidates = new ArrayList<>();
 
-        // synthesize
-        List<TableNode> candidates = enumerator.enumProgramWithIO(exampleDS.inputs, exampleDS.output, exampleDS.enumConstraint);
+        int maxDepth = 2;
+        while (candidates.isEmpty() && timeUsed < Synthesizer.TimeOut) {
+            exampleDS.enumConstraint.setMaxDepth(maxDepth);
+            // synthesize
+            candidates.addAll(enumerator.enumProgramWithIO(exampleDS.inputs, exampleDS.output, exampleDS.enumConstraint));
+
+            timeUsed = System.currentTimeMillis() - timeStart;
+            maxDepth ++;
+        }
 
         int count = 0;
         for (TableNode tn : candidates) {
@@ -41,14 +55,14 @@ public class Synthesizer {
         }
 
         // formatting time
-        long timeUsed = System.currentTimeMillis() - timeStart;
+        timeUsed = System.currentTimeMillis() - timeStart;
         long second = (timeUsed / 1000) % 60;
         long minute = (timeUsed / (1000 * 60)) % 60;
         long hour = (timeUsed / (1000 * 60 * 60)) % 24;
         String time = String.format("%02d:%02d:%02d:%d", hour, minute, second, timeUsed % 1000);
 
         System.out.println("[[Synthesizer finished]] time: " + time);
-        System.out.printf("[[Synthesizer finished]] seconds: %.5f", (minute*60. + second + 0.001 * (timeUsed % 1000)));
+        System.out.printf("[[Synthesizer finished]] seconds: %.5f\n", (minute*60. + second + 0.001 * (timeUsed % 1000)));
 
         return candidates;
     }

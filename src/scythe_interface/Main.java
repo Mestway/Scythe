@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
 
         if (args.length < 3) {
-            System.out.println("[ERROR] Not enough arguments provided");
+            System.out.println("[ERROR] Not enough arguments provided.");
             System.out.println("  Usage: java -jar path/to/example_file enumerator_name maximum_depth");
             System.exit(-1);
         }
@@ -21,8 +21,7 @@ public class Main {
 
         String filename = args[0];
         String enumerator = args[1];
-        int maxDepth = Integer.parseInt(args[2]);
-        Synthesizer.Synthesize(filename, maxDepth, enumeratorSwitch(enumerator));
+        Synthesizer.Synthesize(filename, enumeratorSwitch(enumerator));
 
         // Statistics.printAllStatistics();
     }

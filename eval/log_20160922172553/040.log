@@ -1,0 +1,618 @@
+================
+[[Synthesizer start]] ../data/benchmarks/040
+[Enumerator Used] StagedEnumerator
+[Initialize Enumeration]
+  Parameterized Table Number: 2264
+[Enumeration Start]
+[Basic]: 2 [SymTableForInputs]: 2
+[Aggregation]: 0 [SymTable]: 2
+[EnumJoin] level 1 [SymTable]: 6
+ASymTable Enumeration done: 6
+Candidate Tree Number: 27
+[Enumeration Finished]
+[No.1]===============================
+SELECT
+  input2.id,input2.date,input2.phone_number
+FROM
+  input2
+WHERE
+  NOT EXIST (
+    (SELECT
+        [T0].id,[T0].name,[T0].phone_number
+      FROM
+        (input1) AS [T0][id, name, phone_number]
+      WHERE
+        input2.id == [T0].id) AS [T15][id, name, phone_number])
+@anonymous
+input2.id | input2.date | input2.phone_number 
+3.0 | 1045.0 | 3.33333333333E11 
+
+[No.2]===============================
+SELECT
+  [T2289].id,[T2289].date,[T2289].phone_number
+FROM
+  (( SELECT
+        input2.id,input2.date,input2.phone_number
+      FROM
+        input2
+      WHERE
+        NOT EXIST (
+          (SELECT
+              [T0].id,[T0].name,[T0].phone_number
+            FROM
+              (input1) AS [T0][id, name, phone_number]
+            WHERE
+              input2.id == [T0].id) AS [T15][id, name, phone_number]) ) JOIN (
+      input2 )) AS [T2289][id, date, phone_number, id1, date1, phone_number1]
+WHERE
+  [T2289].id == [T2289].id1
+@anonymous
+[T2289].id | [T2289].date | [T2289].phone_number 
+3.0 | 1045.0 | 3.33333333333E11 
+
+[No.3]===============================
+SELECT
+  [T2291].id,[T2291].date,[T2291].phone_number
+FROM
+  (( input2 ) JOIN (
+      SELECT
+        input2.id,input2.date,input2.phone_number
+      FROM
+        input2
+      WHERE
+        NOT EXIST (
+          (SELECT
+              [T0].id,[T0].name,[T0].phone_number
+            FROM
+              (input1) AS [T0][id, name, phone_number]
+            WHERE
+              input2.id == [T0].id) AS [T15][id, name, phone_number]) )) AS [T2291][id, date, phone_number, id1, date1, phone_number1]
+WHERE
+  [T2291].id == [T2291].id1
+@anonymous
+[T2291].id | [T2291].date | [T2291].phone_number 
+3.0 | 1045.0 | 3.33333333333E11 
+
+[No.4]===============================
+SELECT
+  [T2293].id,[T2293].date,[T2293].phone_number
+FROM
+  (( SELECT
+        input2.id,input2.date,input2.phone_number
+      FROM
+        input2
+      WHERE
+        NOT EXIST (
+          (SELECT
+              [T0].id,[T0].name,[T0].phone_number
+            FROM
+              (input1) AS [T0][id, name, phone_number]
+            WHERE
+              input2.id == [T0].id) AS [T15][id, name, phone_number]) ) JOIN (
+      SELECT
+        input2.id,input2.date,input2.phone_number
+      FROM
+        input2
+      WHERE
+        NOT EXIST (
+          (SELECT
+              [T0].id,[T0].name,[T0].phone_number
+            FROM
+              (input1) AS [T0][id, name, phone_number]
+            WHERE
+              input2.id == [T0].id) AS [T15][id, name, phone_number]) )) AS [T2293][id, date, phone_number, id1, date1, phone_number1]
+
+@anonymous
+[T2293].id | [T2293].date | [T2293].phone_number 
+3.0 | 1045.0 | 3.33333333333E11 
+
+[No.5]===============================
+SELECT
+  [T2295].id,[T2295].date,[T2295].phone_number
+FROM
+  (( SELECT
+        input2.id,input2.date,input2.phone_number
+      FROM
+        input2
+      WHERE
+        NOT EXIST (
+          (SELECT
+              [T0].id,[T0].name,[T0].phone_number
+            FROM
+              (input1) AS [T0][id, name, phone_number]
+            WHERE
+              input2.id == [T0].id) AS [T15][id, name, phone_number]) ) JOIN (
+      SELECT
+        input2.id,input2.date,input2.phone_number
+      FROM
+        input2
+      WHERE
+        NOT EXIST (
+          (SELECT
+              [T0].id,[T0].name,[T0].phone_number
+            FROM
+              (input1) AS [T0][id, name, phone_number]
+            WHERE
+              input2.id == [T0].id) AS [T15][id, name, phone_number]) )) AS [T2295][id, date, phone_number, id1, date1, phone_number1]
+WHERE
+  [T2295].id == [T2295].id1
+@anonymous
+[T2295].id | [T2295].date | [T2295].phone_number 
+3.0 | 1045.0 | 3.33333333333E11 
+
+[No.6]===============================
+SELECT
+  [T2297].id,[T2297].date,[T2297].phone_number
+FROM
+  (( SELECT
+        input2.id,input2.date,input2.phone_number
+      FROM
+        input2
+      WHERE
+        NOT EXIST (
+          (SELECT
+              [T0].id,[T0].name,[T0].phone_number
+            FROM
+              (input1) AS [T0][id, name, phone_number]
+            WHERE
+              input2.id == [T0].id) AS [T15][id, name, phone_number]) ) JOIN (
+      input2 )) AS [T2297][id, date, phone_number, id1, date1, phone_number1]
+WHERE
+  [T2297].id <= [T2297].id1
+@anonymous
+[T2297].id | [T2297].date | [T2297].phone_number 
+3.0 | 1045.0 | 3.33333333333E11 
+
+[No.7]===============================
+SELECT
+  [T2269].id,[T2269].date,[T2269].phone_number
+FROM
+  (( SELECT
+        input2.id,input2.date,input2.phone_number
+      FROM
+        input2
+      WHERE
+        NOT EXIST (
+          (SELECT
+              [T0].id,[T0].name,[T0].phone_number
+            FROM
+              (input1) AS [T0][id, name, phone_number]
+            WHERE
+              input2.id == [T0].id) AS [T15][id, name, phone_number]) ) JOIN (
+      SELECT
+        input2.id,input2.date,input2.phone_number
+      FROM
+        input2
+      WHERE
+        NOT EXIST (
+          (SELECT
+              [T1].id,[T1].date,[T1].phone_number
+            FROM
+              (input2) AS [T1][id, date, phone_number]
+            WHERE
+              input2.id > [T1].id) AS [T694][id, date, phone_number]) )) AS [T2269][id, date, phone_number, id1, date1, phone_number1]
+
+@anonymous
+[T2269].id | [T2269].date | [T2269].phone_number 
+3.0 | 1045.0 | 3.33333333333E11 
+
+[No.8]===============================
+SELECT
+  [T2299].id,[T2299].date,[T2299].phone_number
+FROM
+  (( SELECT
+        input2.id,input2.date,input2.phone_number
+      FROM
+        input2
+      WHERE
+        NOT EXIST (
+          (SELECT
+              [T0].id,[T0].name,[T0].phone_number
+            FROM
+              (input1) AS [T0][id, name, phone_number]
+            WHERE
+              input2.id == [T0].id) AS [T15][id, name, phone_number]) ) JOIN (
+      SELECT
+        input1.id,input1.name,input1.phone_number
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              [T0].id,[T0].name,[T0].phone_number
+            FROM
+              (input1) AS [T0][id, name, phone_number]
+            WHERE
+              input1.id < [T0].id) AS [T14][id, name, phone_number]) )) AS [T2299][id, date, phone_number, id1, name, phone_number1]
+
+@anonymous
+[T2299].id | [T2299].date | [T2299].phone_number 
+3.0 | 1045.0 | 3.33333333333E11 
+
+[No.9]===============================
+SELECT
+  [T2309].id,[T2309].date,[T2309].phone_number
+FROM
+  (( SELECT
+        input2.id,input2.date,input2.phone_number
+      FROM
+        input2
+      WHERE
+        NOT EXIST (
+          (SELECT
+              [T0].id,[T0].name,[T0].phone_number
+            FROM
+              (input1) AS [T0][id, name, phone_number]
+            WHERE
+              input2.id == [T0].id) AS [T15][id, name, phone_number]) ) JOIN (
+      SELECT
+        input1.id,input1.name,input1.phone_number
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              [T0].id,[T0].name,[T0].phone_number
+            FROM
+              (input1) AS [T0][id, name, phone_number]
+            WHERE
+              input1.id > [T0].id) AS [T16][id, name, phone_number]) )) AS [T2309][id, date, phone_number, id1, name, phone_number1]
+
+@anonymous
+[T2309].id | [T2309].date | [T2309].phone_number 
+3.0 | 1045.0 | 3.33333333333E11 
+
+[No.10]===============================
+SELECT
+  [T2279].id,[T2279].date,[T2279].phone_number
+FROM
+  (( input2 ) JOIN (
+      SELECT
+        input2.id,input2.date,input2.phone_number
+      FROM
+        input2
+      WHERE
+        EXIST (
+          (SELECT
+              [T1].id,[T1].date,[T1].phone_number
+            FROM
+              (input2) AS [T1][id, date, phone_number]
+            WHERE
+              input2.id > [T1].id) AS [T694][id, date, phone_number]) )) AS [T2279][id, date, phone_number, id1, date1, phone_number1]
+WHERE
+  [T2279].id > [T2279].id1
+@anonymous
+[T2279].id | [T2279].date | [T2279].phone_number 
+3.0 | 1045.0 | 3.33333333333E11 
+
+[No.11]===============================
+SELECT
+  [T2311].id,[T2311].date,[T2311].phone_number
+FROM
+  (( input2 ) JOIN (
+      SELECT
+        input1.id,input1.name,input1.phone_number
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              [T0].id,[T0].name,[T0].phone_number
+            FROM
+              (input1) AS [T0][id, name, phone_number]
+            WHERE
+              input1.id > [T0].id) AS [T16][id, name, phone_number]) )) AS [T2311][id, date, phone_number, id1, name, phone_number1]
+WHERE
+  [T2311].id > [T2311].id1
+@anonymous
+[T2311].id | [T2311].date | [T2311].phone_number 
+3.0 | 1045.0 | 3.33333333333E11 
+
+[No.12]===============================
+SELECT
+  [T2273].id,[T2273].date,[T2273].phone_number
+FROM
+  (( SELECT
+        input2.id,input2.date,input2.phone_number
+      FROM
+        input2
+      WHERE
+        NOT EXIST (
+          (SELECT
+              [T0].id,[T0].name,[T0].phone_number
+            FROM
+              (input1) AS [T0][id, name, phone_number]
+            WHERE
+              input2.id == [T0].id) AS [T15][id, name, phone_number]) ) JOIN (
+      SELECT
+        input2.id,input2.date,input2.phone_number
+      FROM
+        input2
+      WHERE
+        NOT EXIST (
+          (SELECT
+              [T1].id,[T1].date,[T1].phone_number
+            FROM
+              (input2) AS [T1][id, date, phone_number]
+            WHERE
+              input2.id > [T1].id) AS [T694][id, date, phone_number]) )) AS [T2273][id, date, phone_number, id1, date1, phone_number1]
+WHERE
+  [T2273].id <> [T2273].id1
+@anonymous
+[T2273].id | [T2273].date | [T2273].phone_number 
+3.0 | 1045.0 | 3.33333333333E11 
+
+[No.13]===============================
+SELECT
+  [T2275].id,[T2275].date,[T2275].phone_number
+FROM
+  (( SELECT
+        input2.id,input2.date,input2.phone_number
+      FROM
+        input2
+      WHERE
+        NOT EXIST (
+          (SELECT
+              [T0].id,[T0].name,[T0].phone_number
+            FROM
+              (input1) AS [T0][id, name, phone_number]
+            WHERE
+              input2.id == [T0].id) AS [T15][id, name, phone_number]) ) JOIN (
+      SELECT
+        input2.id,input2.date,input2.phone_number
+      FROM
+        input2
+      WHERE
+        NOT EXIST (
+          (SELECT
+              [T1].id,[T1].date,[T1].phone_number
+            FROM
+              (input2) AS [T1][id, date, phone_number]
+            WHERE
+              input2.id > [T1].id) AS [T694][id, date, phone_number]) )) AS [T2275][id, date, phone_number, id1, date1, phone_number1]
+WHERE
+  [T2275].id > [T2275].id1
+@anonymous
+[T2275].id | [T2275].date | [T2275].phone_number 
+3.0 | 1045.0 | 3.33333333333E11 
+
+[No.14]===============================
+SELECT
+  [T2277].id,[T2277].date,[T2277].phone_number
+FROM
+  (( SELECT
+        input2.id,input2.date,input2.phone_number
+      FROM
+        input2
+      WHERE
+        NOT EXIST (
+          (SELECT
+              [T0].id,[T0].name,[T0].phone_number
+            FROM
+              (input1) AS [T0][id, name, phone_number]
+            WHERE
+              input2.id == [T0].id) AS [T15][id, name, phone_number]) ) JOIN (
+      SELECT
+        input2.id,input2.date,input2.phone_number
+      FROM
+        input2
+      WHERE
+        NOT EXIST (
+          (SELECT
+              [T1].id,[T1].date,[T1].phone_number
+            FROM
+              (input2) AS [T1][id, date, phone_number]
+            WHERE
+              input2.id > [T1].id) AS [T694][id, date, phone_number]) )) AS [T2277][id, date, phone_number, id1, date1, phone_number1]
+WHERE
+  [T2277].id >= [T2277].id1
+@anonymous
+[T2277].id | [T2277].date | [T2277].phone_number 
+3.0 | 1045.0 | 3.33333333333E11 
+
+[No.15]===============================
+SELECT
+  [T2283].id,[T2283].date,[T2283].phone_number
+FROM
+  (( SELECT
+        input2.id,input2.date,input2.phone_number
+      FROM
+        input2
+      WHERE
+        NOT EXIST (
+          (SELECT
+              [T0].id,[T0].name,[T0].phone_number
+            FROM
+              (input1) AS [T0][id, name, phone_number]
+            WHERE
+              input2.id == [T0].id) AS [T15][id, name, phone_number]) ) JOIN (
+      SELECT
+        input2.id,input2.date,input2.phone_number
+      FROM
+        input2
+      WHERE
+        EXIST (
+          (SELECT
+              [T1].id,[T1].date,[T1].phone_number
+            FROM
+              (input2) AS [T1][id, date, phone_number]
+            WHERE
+              input2.id > [T1].id) AS [T694][id, date, phone_number]) )) AS [T2283][id, date, phone_number, id1, date1, phone_number1]
+WHERE
+  [T2283].id <> [T2283].id1
+@anonymous
+[T2283].id | [T2283].date | [T2283].phone_number 
+3.0 | 1045.0 | 3.33333333333E11 
+
+[No.16]===============================
+SELECT
+  [T2287].id,[T2287].date,[T2287].phone_number
+FROM
+  (( SELECT
+        input2.id,input2.date,input2.phone_number
+      FROM
+        input2
+      WHERE
+        NOT EXIST (
+          (SELECT
+              [T0].id,[T0].name,[T0].phone_number
+            FROM
+              (input1) AS [T0][id, name, phone_number]
+            WHERE
+              input2.id == [T0].id) AS [T15][id, name, phone_number]) ) JOIN (
+      SELECT
+        input2.id,input2.date,input2.phone_number
+      FROM
+        input2
+      WHERE
+        EXIST (
+          (SELECT
+              [T1].id,[T1].date,[T1].phone_number
+            FROM
+              (input2) AS [T1][id, date, phone_number]
+            WHERE
+              input2.id > [T1].id) AS [T694][id, date, phone_number]) )) AS [T2287][id, date, phone_number, id1, date1, phone_number1]
+WHERE
+  [T2287].id > [T2287].id1
+@anonymous
+[T2287].id | [T2287].date | [T2287].phone_number 
+3.0 | 1045.0 | 3.33333333333E11 
+
+[No.17]===============================
+SELECT
+  [T2303].id,[T2303].date,[T2303].phone_number
+FROM
+  (( SELECT
+        input2.id,input2.date,input2.phone_number
+      FROM
+        input2
+      WHERE
+        NOT EXIST (
+          (SELECT
+              [T0].id,[T0].name,[T0].phone_number
+            FROM
+              (input1) AS [T0][id, name, phone_number]
+            WHERE
+              input2.id == [T0].id) AS [T15][id, name, phone_number]) ) JOIN (
+      SELECT
+        input1.id,input1.name,input1.phone_number
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              [T0].id,[T0].name,[T0].phone_number
+            FROM
+              (input1) AS [T0][id, name, phone_number]
+            WHERE
+              input1.id < [T0].id) AS [T14][id, name, phone_number]) )) AS [T2303][id, date, phone_number, id1, name, phone_number1]
+WHERE
+  [T2303].id >= [T2303].id1
+@anonymous
+[T2303].id | [T2303].date | [T2303].phone_number 
+3.0 | 1045.0 | 3.33333333333E11 
+
+[No.18]===============================
+SELECT
+  [T2305].id,[T2305].date,[T2305].phone_number
+FROM
+  (( SELECT
+        input2.id,input2.date,input2.phone_number
+      FROM
+        input2
+      WHERE
+        NOT EXIST (
+          (SELECT
+              [T0].id,[T0].name,[T0].phone_number
+            FROM
+              (input1) AS [T0][id, name, phone_number]
+            WHERE
+              input2.id == [T0].id) AS [T15][id, name, phone_number]) ) JOIN (
+      SELECT
+        input1.id,input1.name,input1.phone_number
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              [T0].id,[T0].name,[T0].phone_number
+            FROM
+              (input1) AS [T0][id, name, phone_number]
+            WHERE
+              input1.id < [T0].id) AS [T14][id, name, phone_number]) )) AS [T2305][id, date, phone_number, id1, name, phone_number1]
+WHERE
+  [T2305].id > [T2305].id1
+@anonymous
+[T2305].id | [T2305].date | [T2305].phone_number 
+3.0 | 1045.0 | 3.33333333333E11 
+
+[No.19]===============================
+SELECT
+  [T2307].id,[T2307].date,[T2307].phone_number
+FROM
+  (( SELECT
+        input2.id,input2.date,input2.phone_number
+      FROM
+        input2
+      WHERE
+        NOT EXIST (
+          (SELECT
+              [T0].id,[T0].name,[T0].phone_number
+            FROM
+              (input1) AS [T0][id, name, phone_number]
+            WHERE
+              input2.id == [T0].id) AS [T15][id, name, phone_number]) ) JOIN (
+      SELECT
+        input1.id,input1.name,input1.phone_number
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              [T0].id,[T0].name,[T0].phone_number
+            FROM
+              (input1) AS [T0][id, name, phone_number]
+            WHERE
+              input1.id < [T0].id) AS [T14][id, name, phone_number]) )) AS [T2307][id, date, phone_number, id1, name, phone_number1]
+WHERE
+  [T2307].id <> [T2307].id1
+@anonymous
+[T2307].id | [T2307].date | [T2307].phone_number 
+3.0 | 1045.0 | 3.33333333333E11 
+
+[No.20]===============================
+SELECT
+  [T2315].id,[T2315].date,[T2315].phone_number
+FROM
+  (( SELECT
+        input2.id,input2.date,input2.phone_number
+      FROM
+        input2
+      WHERE
+        NOT EXIST (
+          (SELECT
+              [T0].id,[T0].name,[T0].phone_number
+            FROM
+              (input1) AS [T0][id, name, phone_number]
+            WHERE
+              input2.id == [T0].id) AS [T15][id, name, phone_number]) ) JOIN (
+      SELECT
+        input1.id,input1.name,input1.phone_number
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              [T0].id,[T0].name,[T0].phone_number
+            FROM
+              (input1) AS [T0][id, name, phone_number]
+            WHERE
+              input1.id > [T0].id) AS [T16][id, name, phone_number]) )) AS [T2315][id, date, phone_number, id1, name, phone_number1]
+WHERE
+  [T2315].id >= [T2315].id1
+@anonymous
+[T2315].id | [T2315].date | [T2315].phone_number 
+3.0 | 1045.0 | 3.33333333333E11 
+
+[[Synthesizer finished]] time: 00:00:19:573
+[[Synthesizer finished]] seconds: 19.57300

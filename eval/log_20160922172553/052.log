@@ -1,0 +1,578 @@
+================
+[[Synthesizer start]] ../data/benchmarks/052
+[Enumerator Used] StagedEnumerator
+[Initialize Enumeration]
+  Parameterized Table Number: 1554
+[Enumeration Start]
+[Basic]: 1 [SymTableForInputs]: 1
+[Aggregation]: 35 [SymTable]: 36
+[EnumJoin] level 1 [SymTable]: 72
+ASymTable Enumeration done: 72
+Candidate Tree Number: 245
+[Enumeration Finished]
+[No.1]===============================
+SELECT
+  input1.StoreId
+FROM
+  input1
+WHERE
+  NOT EXIST (
+    (SELECT
+        5.0,[T0].StoreId,[T0].ClientId
+      FROM
+        (input1) AS [T0][StoreId, ClientId]
+      WHERE
+        5.0 == [T0].ClientId
+         AND input1.StoreId == [T0].StoreId) AS [T872][anonymous, StoreId, ClientId])
+@anonymous
+input1.StoreId 
+3.0 
+
+[No.2]===============================
+SELECT
+  [T2216].StoreId
+FROM
+  (( SELECT
+        input1.StoreId,input1.ClientId
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              5.0,[T0].StoreId,[T0].ClientId
+            FROM
+              (input1) AS [T0][StoreId, ClientId]
+            WHERE
+              5.0 == [T0].ClientId
+               AND input1.StoreId == [T0].StoreId) AS [T872][anonymous, StoreId, ClientId]) ) JOIN (
+      input1 )) AS [T2216][StoreId, ClientId, StoreId1, ClientId1]
+WHERE
+  [T2216].ClientId == [T2216].ClientId1
+@anonymous
+[T2216].StoreId 
+3.0 
+
+[No.3]===============================
+SELECT
+  [T2218].StoreId
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.StoreId,input1.ClientId
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              5.0,[T0].StoreId,[T0].ClientId
+            FROM
+              (input1) AS [T0][StoreId, ClientId]
+            WHERE
+              5.0 == [T0].ClientId
+               AND input1.StoreId == [T0].StoreId) AS [T872][anonymous, StoreId, ClientId]) )) AS [T2218][StoreId, ClientId, StoreId1, ClientId1]
+WHERE
+  [T2218].StoreId == [T2218].StoreId1
+@anonymous
+[T2218].StoreId 
+3.0 
+
+[No.4]===============================
+SELECT
+  [T2220].StoreId
+FROM
+  (( SELECT
+        input1.StoreId,input1.ClientId
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              5.0,[T0].StoreId,[T0].ClientId
+            FROM
+              (input1) AS [T0][StoreId, ClientId]
+            WHERE
+              5.0 == [T0].ClientId
+               AND input1.StoreId == [T0].StoreId) AS [T872][anonymous, StoreId, ClientId]) ) JOIN (
+      input1 )) AS [T2220][StoreId, ClientId, StoreId1, ClientId1]
+WHERE
+  [T2220].StoreId == [T2220].StoreId1
+@anonymous
+[T2220].StoreId 
+3.0 
+
+[No.5]===============================
+SELECT
+  [T2222].StoreId
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.StoreId,input1.ClientId
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              5.0,[T0].StoreId,[T0].ClientId
+            FROM
+              (input1) AS [T0][StoreId, ClientId]
+            WHERE
+              5.0 == [T0].ClientId
+               AND input1.StoreId == [T0].StoreId) AS [T872][anonymous, StoreId, ClientId]) )) AS [T2222][StoreId, ClientId, StoreId1, ClientId1]
+WHERE
+  [T2222].ClientId == [T2222].ClientId1
+@anonymous
+[T2222].StoreId 
+3.0 
+
+[No.6]===============================
+SELECT
+  [T2616].StoreId
+FROM
+  (( (SELECT
+          input1.StoreId, FROM
+          input1
+        GROUP BY
+          input1.StoreId) AS [T1573][StoreId] ) JOIN (
+      SELECT
+        input1.StoreId,input1.ClientId
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              5.0,[T0].StoreId,[T0].ClientId
+            FROM
+              (input1) AS [T0][StoreId, ClientId]
+            WHERE
+              5.0 == [T0].ClientId
+               AND input1.StoreId == [T0].StoreId) AS [T872][anonymous, StoreId, ClientId]) )) AS [T2616][StoreId, StoreId1, ClientId]
+WHERE
+  [T2616].StoreId == [T2616].StoreId1
+@anonymous
+[T2616].StoreId 
+3.0 
+
+[No.7]===============================
+SELECT
+  [T2224].StoreId
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.StoreId,input1.ClientId
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              5.0,[T0].StoreId,[T0].ClientId
+            FROM
+              (input1) AS [T0][StoreId, ClientId]
+            WHERE
+              5.0 == [T0].ClientId
+               AND input1.StoreId == [T0].StoreId) AS [T872][anonymous, StoreId, ClientId]) )) AS [T2224][StoreId, ClientId, StoreId1, ClientId1]
+WHERE
+  [T2224].ClientId == [T2224].ClientId1
+   AND [T2224].StoreId == [T2224].StoreId1
+@anonymous
+[T2224].StoreId 
+3.0 
+
+[No.8]===============================
+SELECT
+  [T2044].StoreId
+FROM
+  (( (SELECT
+          [T2042].StoreId, FROM
+          (SELECT
+              input1.StoreId,input1.ClientId
+            FROM
+              input1
+            WHERE
+              NOT EXIST (
+                (SELECT
+                    5.0,[T0].StoreId,[T0].ClientId
+                  FROM
+                    (input1) AS [T0][StoreId, ClientId]
+                  WHERE
+                    5.0 == input1.ClientId) AS [T8][anonymous, StoreId, ClientId])) AS [T2042][StoreId, ClientId]
+        GROUP BY
+          [T2042].StoreId) AS [T2043][StoreId] ) JOIN (
+      SELECT
+        input1.StoreId,input1.ClientId
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              5.0,[T0].StoreId,[T0].ClientId
+            FROM
+              (input1) AS [T0][StoreId, ClientId]
+            WHERE
+              5.0 == [T0].ClientId
+               AND input1.StoreId == [T0].StoreId) AS [T872][anonymous, StoreId, ClientId]) )) AS [T2044][StoreId, StoreId1, ClientId]
+WHERE
+  [T2044].StoreId == [T2044].StoreId1
+@anonymous
+[T2044].StoreId 
+3.0 
+
+[No.9]===============================
+SELECT
+  input1.StoreId
+FROM
+  input1
+WHERE
+  input1.ClientId > 5.0
+   AND NOT EXIST (
+    (SELECT
+        5.0,[T0].StoreId,[T0].ClientId
+      FROM
+        (input1) AS [T0][StoreId, ClientId]
+      WHERE
+        5.0 == [T0].ClientId
+         AND input1.StoreId == [T0].StoreId) AS [T872][anonymous, StoreId, ClientId])
+@anonymous
+input1.StoreId 
+3.0 
+
+[No.10]===============================
+SELECT
+  input1.StoreId
+FROM
+  input1
+WHERE
+  input1.ClientId >= 5.0
+   AND NOT EXIST (
+    (SELECT
+        5.0,[T0].StoreId,[T0].ClientId
+      FROM
+        (input1) AS [T0][StoreId, ClientId]
+      WHERE
+        5.0 == [T0].ClientId
+         AND input1.StoreId == [T0].StoreId) AS [T872][anonymous, StoreId, ClientId])
+@anonymous
+input1.StoreId 
+3.0 
+
+[No.11]===============================
+SELECT
+  [T2226].StoreId
+FROM
+  (( SELECT
+        input1.StoreId,input1.ClientId
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              5.0,[T0].StoreId,[T0].ClientId
+            FROM
+              (input1) AS [T0][StoreId, ClientId]
+            WHERE
+              5.0 == [T0].ClientId
+               AND input1.StoreId == [T0].StoreId) AS [T872][anonymous, StoreId, ClientId]) ) JOIN (
+      SELECT
+        input1.StoreId,input1.ClientId
+      FROM
+        input1
+      WHERE
+        input1.ClientId < 5.0 )) AS [T2226][StoreId, ClientId, StoreId1, ClientId1]
+
+@anonymous
+[T2226].StoreId 
+3.0 
+
+[No.12]===============================
+SELECT
+  [T2620].StoreId
+FROM
+  (( (SELECT
+          input1.StoreId, FROM
+          input1
+        GROUP BY
+          input1.StoreId) AS [T1573][StoreId] ) JOIN (
+      SELECT
+        input1.StoreId,input1.ClientId
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              5.0,[T0].StoreId,[T0].ClientId
+            FROM
+              (input1) AS [T0][StoreId, ClientId]
+            WHERE
+              5.0 == [T0].ClientId
+               AND input1.StoreId == [T0].StoreId) AS [T872][anonymous, StoreId, ClientId]) )) AS [T2620][StoreId, StoreId1, ClientId]
+WHERE
+  [T2620].StoreId >= [T2620].StoreId1
+@anonymous
+[T2620].StoreId 
+3.0 
+
+[No.13]===============================
+SELECT
+  [T2436].StoreId
+FROM
+  (( (SELECT
+          [T2426].StoreId, FROM
+          (SELECT
+              input1.StoreId,input1.ClientId
+            FROM
+              input1
+            WHERE
+              input1.ClientId > 5.0) AS [T2426][StoreId, ClientId]
+        GROUP BY
+          [T2426].StoreId) AS [T2427][StoreId] ) JOIN (
+      SELECT
+        input1.StoreId,input1.ClientId
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              5.0,[T0].StoreId,[T0].ClientId
+            FROM
+              (input1) AS [T0][StoreId, ClientId]
+            WHERE
+              5.0 == [T0].ClientId
+               AND input1.StoreId == [T0].StoreId) AS [T872][anonymous, StoreId, ClientId]) )) AS [T2436][StoreId, StoreId1, ClientId]
+WHERE
+  [T2436].StoreId == [T2436].StoreId1
+@anonymous
+[T2436].StoreId 
+3.0 
+
+[No.14]===============================
+SELECT
+  [T2622].StoreId
+FROM
+  (( (SELECT
+          input1.StoreId, FROM
+          input1
+        GROUP BY
+          input1.StoreId) AS [T1573][StoreId] ) JOIN (
+      SELECT
+        input1.StoreId,input1.ClientId
+      FROM
+        input1
+      WHERE
+        input1.ClientId > 5.0
+         AND NOT EXIST (
+          (SELECT
+              5.0,[T0].StoreId,[T0].ClientId
+            FROM
+              (input1) AS [T0][StoreId, ClientId]
+            WHERE
+              5.0 == [T0].ClientId
+               AND input1.StoreId == [T0].StoreId) AS [T872][anonymous, StoreId, ClientId]) )) AS [T2622][StoreId, StoreId1, ClientId]
+WHERE
+  [T2622].StoreId == [T2622].StoreId1
+@anonymous
+[T2622].StoreId 
+3.0 
+
+[No.15]===============================
+SELECT
+  [T2624].StoreId
+FROM
+  (( (SELECT
+          input1.StoreId, FROM
+          input1
+        GROUP BY
+          input1.StoreId) AS [T1573][StoreId] ) JOIN (
+      SELECT
+        input1.StoreId,input1.ClientId
+      FROM
+        input1
+      WHERE
+        input1.ClientId >= 5.0
+         AND NOT EXIST (
+          (SELECT
+              5.0,[T0].StoreId,[T0].ClientId
+            FROM
+              (input1) AS [T0][StoreId, ClientId]
+            WHERE
+              5.0 == [T0].ClientId
+               AND input1.StoreId == [T0].StoreId) AS [T872][anonymous, StoreId, ClientId]) )) AS [T2624][StoreId, StoreId1, ClientId]
+WHERE
+  [T2624].StoreId == [T2624].StoreId1
+@anonymous
+[T2624].StoreId 
+3.0 
+
+[No.16]===============================
+SELECT
+  [T2828].StoreId
+FROM
+  (( (SELECT
+          [T2826].StoreId, FROM
+          (SELECT
+              input1.StoreId,input1.ClientId
+            FROM
+              input1
+            WHERE
+              input1.ClientId >= 5.0) AS [T2826][StoreId, ClientId]
+        GROUP BY
+          [T2826].StoreId) AS [T2827][StoreId] ) JOIN (
+      SELECT
+        input1.StoreId,input1.ClientId
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              5.0,[T0].StoreId,[T0].ClientId
+            FROM
+              (input1) AS [T0][StoreId, ClientId]
+            WHERE
+              5.0 == [T0].ClientId
+               AND input1.StoreId == [T0].StoreId) AS [T872][anonymous, StoreId, ClientId]) )) AS [T2828][StoreId, StoreId1, ClientId]
+WHERE
+  [T2828].StoreId == [T2828].StoreId1
+@anonymous
+[T2828].StoreId 
+3.0 
+
+[No.17]===============================
+SELECT
+  [T2186].StoreId
+FROM
+  (( SELECT
+        input1.StoreId,input1.ClientId
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              5.0,[T0].StoreId,[T0].ClientId
+            FROM
+              (input1) AS [T0][StoreId, ClientId]
+            WHERE
+              5.0 == [T0].ClientId
+               AND input1.StoreId == [T0].StoreId) AS [T872][anonymous, StoreId, ClientId]) ) JOIN (
+      SELECT
+        input1.StoreId,input1.ClientId
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              5.0,[T0].StoreId,[T0].ClientId
+            FROM
+              (input1) AS [T0][StoreId, ClientId]
+            WHERE
+              5.0 == input1.ClientId
+               AND input1.StoreId > [T0].StoreId) AS [T435][anonymous, StoreId, ClientId]) )) AS [T2186][StoreId, ClientId, StoreId1, ClientId1]
+
+@anonymous
+[T2186].StoreId 
+3.0 
+
+[No.18]===============================
+SELECT
+  [T2188].StoreId
+FROM
+  (( SELECT
+        input1.StoreId,input1.ClientId
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              5.0,[T0].StoreId,[T0].ClientId
+            FROM
+              (input1) AS [T0][StoreId, ClientId]
+            WHERE
+              5.0 == [T0].ClientId
+               AND input1.StoreId == [T0].StoreId) AS [T872][anonymous, StoreId, ClientId]) ) JOIN (
+      SELECT
+        input1.StoreId,input1.ClientId
+      FROM
+        input1
+      WHERE
+        input1.ClientId == 5.0
+         AND EXIST (
+          (SELECT
+              5.0,[T0].StoreId,[T0].ClientId
+            FROM
+              (input1) AS [T0][StoreId, ClientId]
+            WHERE
+              input1.StoreId > [T0].StoreId) AS [T21][anonymous, StoreId, ClientId]) )) AS [T2188][StoreId, ClientId, StoreId1, ClientId1]
+
+@anonymous
+[T2188].StoreId 
+3.0 
+
+[No.19]===============================
+SELECT
+  [T2236].StoreId
+FROM
+  (( SELECT
+        input1.StoreId,input1.ClientId
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              5.0,[T0].StoreId,[T0].ClientId
+            FROM
+              (input1) AS [T0][StoreId, ClientId]
+            WHERE
+              5.0 == [T0].ClientId
+               AND input1.StoreId == [T0].StoreId) AS [T872][anonymous, StoreId, ClientId]) ) JOIN (
+      SELECT
+        input1.StoreId,input1.ClientId
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              5.0,[T0].StoreId,[T0].ClientId
+            FROM
+              (input1) AS [T0][StoreId, ClientId]
+            WHERE
+              input1.StoreId > [T0].StoreId) AS [T21][anonymous, StoreId, ClientId])
+         AND input1.ClientId == 5.0 )) AS [T2236][StoreId, ClientId, StoreId1, ClientId1]
+
+@anonymous
+[T2236].StoreId 
+3.0 
+
+[No.20]===============================
+SELECT
+  [T2228].StoreId
+FROM
+  (( SELECT
+        input1.StoreId,input1.ClientId
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              5.0,[T0].StoreId,[T0].ClientId
+            FROM
+              (input1) AS [T0][StoreId, ClientId]
+            WHERE
+              5.0 == [T0].ClientId
+               AND input1.StoreId == [T0].StoreId) AS [T872][anonymous, StoreId, ClientId]) ) JOIN (
+      SELECT
+        input1.StoreId,input1.ClientId
+      FROM
+        input1
+      WHERE
+        input1.ClientId < 5.0
+         AND NOT EXIST (
+          (SELECT
+              5.0,[T0].StoreId,[T0].ClientId
+            FROM
+              (input1) AS [T0][StoreId, ClientId]
+            WHERE
+              5.0 == input1.ClientId) AS [T8][anonymous, StoreId, ClientId]) )) AS [T2228][StoreId, ClientId, StoreId1, ClientId1]
+
+@anonymous
+[T2228].StoreId 
+3.0 
+
+[[Synthesizer finished]] time: 00:00:20:568
+[[Synthesizer finished]] seconds: 20.56800

@@ -30,7 +30,7 @@ public class StagedEnumerator extends AbstractTableEnumerator {
     @Override
     public List<TableNode> enumTable(EnumContext ec, int maxDepth) {
 
-        System.out.println("[FiltersCount format](primitiveSynFilterCount, primitiveBitVecFilterCount, totalBitVecFiltersCount)");
+        // System.out.println("[FiltersCount format](primitiveSynFilterCount, primitiveBitVecFilterCount, totalBitVecFiltersCount)");
 
         // this is the list to store all symbolic tables used in enumeration
         List<AbstractSummaryTable> symTables = new ArrayList<>();
