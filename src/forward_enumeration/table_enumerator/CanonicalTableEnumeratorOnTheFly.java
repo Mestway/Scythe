@@ -1,14 +1,16 @@
 package forward_enumeration.table_enumerator;
 
 import forward_enumeration.context.EnumContext;
-import forward_enumeration.context.QueryChest;
+import forward_enumeration.container.QueryContainer;
 import forward_enumeration.enumerative_search.datastructure.TableTreeNode;
 import forward_enumeration.enumerative_search.components.EnumAggrTableNode;
 import forward_enumeration.enumerative_search.components.EnumFilterNamed;
 import forward_enumeration.enumerative_search.components.EnumJoinTableNodes;
 import forward_enumeration.enumerative_search.components.EnumProjection;
 import sql.lang.Table;
+import sql.lang.ast.table.TableNode;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,9 +22,11 @@ import java.util.Set;
 public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
 
     @Override
-    public QueryChest enumTable(EnumContext ec, int depth) {
+    public List<TableNode> enumTable(EnumContext ec, int depth) {
 
-        QueryChest qc = QueryChest.initWithInputTables(ec.getInputs());
+        List<TableNode> result = new ArrayList<>();
+
+        QueryContainer qc = QueryContainer.initWithInputTables(ec.getInputs());
         qc.setUseTableLinks();
 
         enumTableWithoutProj(ec, qc, depth); // all intermediate result are stored in qc
@@ -39,7 +43,7 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
             int totalQueryCount = 0;
             for (TableTreeNode t : trees) {
                 t.inferQuery(ec);
-                //List<TableNode> tns = t.treeToQuery();
+                result.addAll(t.treeToQuery());
 
                 int count = t.countQueryNum();
                 //System.out.println("Queries corresponds to this tree: " + count);
@@ -50,10 +54,10 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
             System.out.println("Total Query Count: " + totalQueryCount);
         }
 
-        return qc;
+        return result;
     }
 
-    public static void enumTableWithoutProj(EnumContext ec, QueryChest qc, int depth) {
+    public static void enumTableWithoutProj(EnumContext ec, QueryContainer qc, int depth) {
 
         ec.setTableNodes(qc.getRepresentativeTableNodes());
         EnumFilterNamed.emitEnumFilterNamed(ec, qc);

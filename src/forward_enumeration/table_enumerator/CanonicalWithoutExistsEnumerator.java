@@ -1,7 +1,7 @@
 package forward_enumeration.table_enumerator;
 
 import forward_enumeration.context.EnumContext;
-import forward_enumeration.context.QueryChest;
+import forward_enumeration.container.QueryContainer;
 import forward_enumeration.enumerative_search.components.EnumAggrTableNode;
 import forward_enumeration.enumerative_search.components.EnumFilterNamed;
 import forward_enumeration.enumerative_search.components.EnumJoinTableNodes;
@@ -23,18 +23,19 @@ import java.util.stream.Collectors;
  * Created by clwang on 3/24/16.
  */
 public class CanonicalWithoutExistsEnumerator extends AbstractTableEnumerator {
+
     @Override
-    public QueryChest enumTable(EnumContext ec, int depth) {
-        QueryChest qc = QueryChest.initWithInputTables(ec.getInputs());
+    public List<TableNode> enumTable(EnumContext ec, int depth) {
+        QueryContainer qc = QueryContainer.initWithInputTables(ec.getInputs());
         qc = enumTableWithoutProjStrategy2(ec, qc, depth); // all intermediate result in qc is stored
 
         ec.setTableNodes(qc.getRepresentativeTableNodes());
         List<TableNode> tns = EnumProjection.enumProjection(ec, ec.getOutputTable());
         qc.insertQueries(tns);
-        return qc;
+        return tns;
     }
 
-    public static QueryChest enumTableWithoutProj(EnumContext ec, QueryChest qc, int depth) {
+    public static QueryContainer enumTableWithoutProj(EnumContext ec, QueryContainer qc, int depth) {
 
         ec.setTableNodes(qc.getRepresentativeTableNodes());
         List<TableNode> tns = EnumFilterNamed.enumFilterNamed(ec)
@@ -84,7 +85,7 @@ public class CanonicalWithoutExistsEnumerator extends AbstractTableEnumerator {
         return qc;
     }
 
-    public static QueryChest enumTableWithoutProjStrategy2(EnumContext ec, QueryChest qc, int depth) {
+    public static QueryContainer enumTableWithoutProjStrategy2(EnumContext ec, QueryContainer qc, int depth) {
 
         ec.setTableNodes(qc.getRepresentativeTableNodes());
         List<TableNode> tns = EnumFilterNamed.enumFilterNamed(ec)

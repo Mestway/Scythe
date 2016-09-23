@@ -1,7 +1,7 @@
 package forward_enumeration.table_enumerator;
 
 import forward_enumeration.context.EnumContext;
-import forward_enumeration.context.QueryChest;
+import forward_enumeration.container.QueryContainer;
 import forward_enumeration.primitive.AggrEnumerator;
 import global.GlobalConfig;
 import backward_inference.MappingInference;
@@ -28,7 +28,7 @@ public class StagedEnumerator extends AbstractTableEnumerator {
     Set<AbstractSummaryTable> countPrinted = new HashSet<>();
 
     @Override
-    public QueryChest enumTable(EnumContext ec, int maxDepth) {
+    public List<TableNode> enumTable(EnumContext ec, int maxDepth) {
 
         System.out.println("[FiltersCount format](primitiveSynFilterCount, primitiveBitVecFilterCount, totalBitVecFiltersCount)");
 
@@ -36,7 +36,7 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         List<AbstractSummaryTable> symTables = new ArrayList<>();
 
         // construct symbolic table for each named table.
-        QueryChest qc = QueryChest.initWithInputTables(ec.getInputs());
+        QueryContainer qc = QueryContainer.initWithInputTables(ec.getInputs());
 
         // build symbolic table for each input table, and store them in SymTables
         List<PrimitiveSummaryTable> symTablesForInputs = qc.getMemoizedTables()
@@ -238,13 +238,12 @@ public class StagedEnumerator extends AbstractTableEnumerator {
 
         System.out.println("ASymTable Enumeration done: " + (symTables.size()));
 
-        handleEnumerationResult(qc, ec);
-        return qc;
+        return decodingToQueries(qc, ec);
     }
 
-    public void handleEnumerationResult(QueryChest qc, EnumContext ec) {
+    public List<TableNode> decodingToQueries(QueryContainer qc, EnumContext ec) {
 
-        System.out.println("Candidates: ");
+        List<TableNode> decodeResult = new ArrayList<>();
 
         // Extract the filters to be decoded for each AbstractSymbolicTable from qc
         Map<AbstractSummaryTable, Set<BVFilter>> filtersToDecode = new HashMap<>();
@@ -264,20 +263,18 @@ public class StagedEnumerator extends AbstractTableEnumerator {
             }
         }
 
-        List<TableNode> unrankedResult = new ArrayList<>();
-        System.out.println(candidateTrees.size());
+        List<TableNode> treeDecodeResult = new ArrayList<>();
+        System.out.println("Candidate Tree Number: " + candidateTrees.size());
 
         for (BVFilterCompTree t : candidateTrees) {
             List<TableNode> temp = t.translateToTopSQL(ec);
-            unrankedResult.addAll(temp);
+            treeDecodeResult.addAll(temp);
         }
 
-        unrankedResult.sort((x,y) -> (x.estimateAllFilterCost() <= y.estimateAllFilterCost() ?
+        treeDecodeResult.sort((x,y) -> (x.estimateAllFilterCost() <= y.estimateAllFilterCost() ?
                 (x.estimateAllFilterCost() < y.estimateAllFilterCost() ? -1 : 0) : 1));
 
-        int count = 0;
-        for (TableNode tn : unrankedResult) {
-            if( count >= 20) break;
+        for (TableNode tn : treeDecodeResult) {
             try {
                 Table t = tn.eval(new Environment());
                 List<Integer> projectionIndexes = Table.inferProjection(t, ec.getOutputTable());
@@ -297,21 +294,17 @@ public class StagedEnumerator extends AbstractTableEnumerator {
                             new EmptyFilter());
                 }
 
-                Table st = stn.eval(new Environment());
-                System.out.println("[No." + (count + 1) + "]===============================");
-                count ++;
-                System.out.println(stn.prettyPrint(0));
-                System.out.println(st);
-
+                decodeResult.add(stn);
             } catch (SQLEvalException e) {
                 e.printStackTrace();
             }
-
         }
+
+        return decodeResult;
     }
 
     // Try to evaluate whether the output table can be derived from symbolic table st.
-    private void tryEvalToOutput(AbstractSummaryTable st, EnumContext ec, QueryChest qc) {
+    private void tryEvalToOutput(AbstractSummaryTable st, EnumContext ec, QueryContainer qc) {
 
         BiConsumer<AbstractSummaryTable, BVFilter> f = (symTable, symFilter) -> {
 

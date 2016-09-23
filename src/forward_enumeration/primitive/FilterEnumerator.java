@@ -201,7 +201,6 @@ public class FilterEnumerator {
      *   (this enumerator will automatically figure out which filter to be enumerated based on table type)
      *************************************************************************** */
 
-
     // Generated filters are used for filtering the renamed table rt
     public static List<Filter> enumCanonicalFilterNamedTable(NamedTable tn, EnumContext ec) {
         // the selection args are complete

@@ -1,7 +1,7 @@
 package forward_enumeration.enumerative_search.components;
 
 import forward_enumeration.context.EnumContext;
-import forward_enumeration.context.QueryChest;
+import forward_enumeration.container.QueryContainer;
 import forward_enumeration.primitive.FilterEnumerator;
 import global.GlobalConfig;
 import sql.lang.ast.filter.Filter;
@@ -50,7 +50,7 @@ public class EnumAggrTableNode {
     }
 
     // the following two are functions for emit enumerating the tables.
-    public static void emitEnumAggrNodeWFilter(EnumContext ec, QueryChest qc) {
+    public static void emitEnumAggrNodeWFilter(EnumContext ec, QueryContainer qc) {
 
         boolean simplify = SIMPLIFY;
         boolean withFilter = true;
@@ -70,7 +70,7 @@ public class EnumAggrTableNode {
             EnumContext ec,
             TableNode tn,
             boolean simplify,
-            Optional<QueryChest> optionalQC,
+            Optional<QueryContainer> optionalQC,
             boolean withFilter) {
 
         List<TableNode> result = new ArrayList<>();
@@ -105,7 +105,7 @@ public class EnumAggrTableNode {
         return result;
     }
 
-    private static void emitToQueryChest(TableNode result, TableNode original, QueryChest qc) {
+    private static void emitToQueryChest(TableNode result, TableNode original, QueryContainer qc) {
         qc.insertQuery(result);
         try {
             // updating the link between tables, an edge eval(tn) --> eval(rt) is inserted

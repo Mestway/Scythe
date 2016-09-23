@@ -1,7 +1,10 @@
 package scythe_interface;
 
 import forward_enumeration.table_enumerator.AbstractTableEnumerator;
+import sql.lang.Table;
+import sql.lang.ast.Environment;
 import sql.lang.ast.table.TableNode;
+import sql.lang.exception.SQLEvalException;
 
 import java.util.List;
 
@@ -23,6 +26,20 @@ public class Synthesizer {
         // synthesize
         List<TableNode> candidates = enumerator.enumProgramWithIO(exampleDS.inputs, exampleDS.output, exampleDS.enumConstraint);
 
+        int count = 0;
+        for (TableNode tn : candidates) {
+            try {
+                Table t = tn.eval(new Environment());
+                if( count >= 20) break;
+                System.out.println("[No." + (count + 1) + "]===============================");
+                count ++;
+                System.out.println(tn.prettyPrint(0));
+                System.out.println(t);
+            } catch (SQLEvalException e) {
+                e.printStackTrace();
+            }
+        }
+
         // formatting time
         long timeUsed = System.currentTimeMillis() - timeStart;
         long second = (timeUsed / 1000) % 60;
@@ -31,7 +48,8 @@ public class Synthesizer {
         String time = String.format("%02d:%02d:%02d:%d", hour, minute, second, timeUsed % 1000);
 
         System.out.println("[[Synthesizer finished]] time: " + time);
-        System.out.println("[[Synthesizer finished]] seconds: " + (minute*60. + second + 0.001 * (timeUsed % 1000)));
+        System.out.printf("[[Synthesizer finished]] seconds: %.5f", (minute*60. + second + 0.001 * (timeUsed % 1000)));
+
         return candidates;
     }
 }

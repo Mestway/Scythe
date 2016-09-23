@@ -1,7 +1,7 @@
 package forward_enumeration.enumerative_search.components;
 
 import forward_enumeration.context.EnumContext;
-import forward_enumeration.context.QueryChest;
+import forward_enumeration.container.QueryContainer;
 import backward_inference.CellToCellMap;
 import backward_inference.MappingInference;
 import sql.lang.Table;
@@ -73,7 +73,7 @@ public class EnumProjection {
 
     // projection enumeration only happens at the last step
     // the return value identifies whether the table is a runner-up
-    public static boolean emitEnumProjection(EnumContext ec, Table outputTable, QueryChest qc) {
+    public static boolean emitEnumProjection(EnumContext ec, Table outputTable, QueryContainer qc) {
 
         boolean findone = false;
 

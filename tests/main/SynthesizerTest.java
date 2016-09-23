@@ -1,7 +1,6 @@
 package main;
 
 import forward_enumeration.table_enumerator.AbstractTableEnumerator;
-import forward_enumeration.table_enumerator.AggrHueristicTableEnumerator;
 import forward_enumeration.table_enumerator.CanonicalTableEnumerator;
 import forward_enumeration.table_enumerator.PlainTableEnumerator;
 import org.junit.Test;
@@ -19,17 +18,12 @@ import java.util.concurrent.*;
  */
 public class SynthesizerTest {
 
-    public void test() {
-        Synthesizer.Synthesize("data//StackOverflow//001", 2, new AggrHueristicTableEnumerator());
-    }
-
     @Test
     public void synthesize() throws Exception {
 
         List<AbstractTableEnumerator> enumerators = new ArrayList<>();
         enumerators.add(new PlainTableEnumerator());
         enumerators.add(new CanonicalTableEnumerator());
-        enumerators.add(new AggrHueristicTableEnumerator());
 
         // testing with time limit
         File dir = new File("data//StackOverflow");

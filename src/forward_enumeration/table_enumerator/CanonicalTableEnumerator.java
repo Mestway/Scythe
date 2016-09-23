@@ -1,7 +1,7 @@
 package forward_enumeration.table_enumerator;
 
 import forward_enumeration.context.EnumContext;
-import forward_enumeration.context.QueryChest;
+import forward_enumeration.container.QueryContainer;
 import forward_enumeration.enumerative_search.components.EnumAggrTableNode;
 import forward_enumeration.enumerative_search.components.EnumFilterNamed;
 import forward_enumeration.enumerative_search.components.EnumJoinTableNodes;
@@ -18,18 +18,18 @@ import java.util.stream.Collectors;
 public class CanonicalTableEnumerator extends AbstractTableEnumerator {
 
     @Override
-    public QueryChest enumTable(EnumContext ec, int depth) {
-        QueryChest qc = QueryChest.initWithInputTables(ec.getInputs());
+    public List<TableNode> enumTable(EnumContext ec, int depth) {
+        QueryContainer qc = QueryContainer.initWithInputTables(ec.getInputs());
         enumTableWithoutProj(ec, qc, depth); // ec will memoize these intermediate results, since the result pool is shared
 
         ec.setTableNodes(qc.getRepresentativeTableNodes());
         List<TableNode> tns = EnumProjection.enumProjection(ec, ec.getOutputTable());
         qc.insertQueries(tns);
 
-        return qc;
+        return tns;
     }
 
-    public static QueryChest enumTableWithoutProj(EnumContext ec, QueryChest qc, int depth) {
+    public static QueryContainer enumTableWithoutProj(EnumContext ec, QueryContainer qc, int depth) {
 
         ec.setTableNodes(qc.getRepresentativeTableNodes());
         List<TableNode> tns = EnumFilterNamed.enumFilterNamed(ec)

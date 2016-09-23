@@ -144,6 +144,20 @@ public class SelectNode implements TableNode {
     @Override
     public String prettyPrint(int indentLv) {
 
+
+        if (tableNode.getSchema().size() == columns.size() && (this.filter instanceof EmptyFilter)) {
+            boolean allSame = true;
+            for (int i = 0; i < tableNode.getSchema().size(); i ++) {
+                if (! tableNode.getSchema().get(i).equals(columns.get(i).prettyPrint(0))) {
+                    allSame = false;
+                    break;
+                }
+            }
+
+            if (allSame)
+                return IndentionManagement.addIndention(tableNode.prettyPrint(0), indentLv);
+        }
+
         String result = "";
 
         result += "SELECT\r\n";

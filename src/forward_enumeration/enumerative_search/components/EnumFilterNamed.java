@@ -1,7 +1,7 @@
 package forward_enumeration.enumerative_search.components;
 
 import forward_enumeration.context.EnumContext;
-import forward_enumeration.context.QueryChest;
+import forward_enumeration.container.QueryContainer;
 import forward_enumeration.primitive.FilterEnumerator;
 import sql.lang.datatype.ValType;
 import sql.lang.ast.Environment;
@@ -65,7 +65,7 @@ public class EnumFilterNamed {
     }
 
     // Emit enumerated query on the fly, whether to store them or not is determined by qc
-    public static void emitEnumFilterNamed(EnumContext ec, QueryChest qc) {
+    public static void emitEnumFilterNamed(EnumContext ec, QueryContainer qc) {
 
         List<TableNode> targets = ec.getTableNodes();
 

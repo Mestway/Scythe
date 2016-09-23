@@ -1,7 +1,7 @@
 package forward_enumeration.enumerative_search.components;
 
 import forward_enumeration.context.EnumContext;
-import forward_enumeration.context.QueryChest;
+import forward_enumeration.container.QueryContainer;
 import forward_enumeration.primitive.FilterEnumerator;
 import sql.lang.ast.Environment;
 import sql.lang.ast.filter.Filter;
@@ -31,7 +31,7 @@ public class EnumJoinTableNodes {
      */
     public static void generalEmitEnumJoin(
             EnumContext ec,
-            QueryChest qc,
+            QueryContainer qc,
             BiFunction<EnumContext, List<TableNode>, Boolean> checker,
             boolean withFilter) {
 
@@ -138,11 +138,11 @@ public class EnumJoinTableNodes {
      1. Enumerate atomic tables and then do join
      *****************************************************/
 
-    public static void emitEnumJoinWithoutFilter(EnumContext ec, QueryChest qc) {
+    public static void emitEnumJoinWithoutFilter(EnumContext ec, QueryContainer qc) {
         EnumJoinTableNodes.generalEmitEnumJoin(ec, qc, atMostOneNoneInput, false);
     }
 
-    public static void emitEnumJoinWithFilter(EnumContext ec, QueryChest qc) {
+    public static void emitEnumJoinWithFilter(EnumContext ec, QueryContainer qc) {
         EnumJoinTableNodes.generalEmitEnumJoin(ec, qc, atMostOneNoneInput, true);
     }
 

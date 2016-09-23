@@ -24,7 +24,7 @@ public class Main {
         int maxDepth = Integer.parseInt(args[2]);
         Synthesizer.Synthesize(filename, maxDepth, enumeratorSwitch(enumerator));
 
-        Statistics.printAllStatistics();
+        // Statistics.printAllStatistics();
     }
 
     public static AbstractTableEnumerator enumeratorSwitch(String name) {

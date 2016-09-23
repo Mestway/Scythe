@@ -4,10 +4,11 @@ import forward_enumeration.enumerative_search.components.EnumAggrTableNode;
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.enumerative_search.components.EnumJoinTableNodes;
 import forward_enumeration.primitive.parameterized.EnumSelectTableNode;
-import forward_enumeration.context.QueryChest;
+import forward_enumeration.container.QueryContainer;
 import sql.lang.ast.table.TableNode;
 import util.RenameTNWrapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,9 +17,11 @@ import java.util.stream.Collectors;
  */
 public class PlainTableEnumerator extends AbstractTableEnumerator {
     @Override
-    public QueryChest enumTable(EnumContext ec, int depth) {
+    public List<TableNode> enumTable(EnumContext ec, int depth) {
 
-        QueryChest qc = QueryChest.initWithInputTables(ec.getInputs());
+        List<TableNode> result = new ArrayList<>();
+
+        QueryContainer qc = QueryContainer.initWithInputTables(ec.getInputs());
         List<TableNode> agrTables = EnumAggrTableNode.enumAggrNodeWFilter(ec);
         qc.insertQueries(agrTables.stream()
                         .map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
@@ -31,8 +34,9 @@ public class PlainTableEnumerator extends AbstractTableEnumerator {
                         .map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
             tableNodes = EnumSelectTableNode.enumSelectNode(ec);
             qc.insertQueries(tableNodes);
+            result.addAll(tableNodes);
         }
 
-        return qc;
+        return result;
     }
 }

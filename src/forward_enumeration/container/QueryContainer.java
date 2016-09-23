@@ -1,4 +1,4 @@
-package forward_enumeration.context;
+package forward_enumeration.container;
 
 import forward_enumeration.enumerative_search.datastructure.TableLinks;
 import summarytable.AbstractSummaryTable;
@@ -14,9 +14,9 @@ import java.util.stream.Collectors;
 
 /**
  * Created by clwang on 3/26/16.
- * This class is used to store enumerated queries
+ * The container for storing queries
  */
-public class QueryChest {
+public class QueryContainer {
 
     // this set store all candidate constructs, applying projection on candidates
     private Set<Pair<AbstractSummaryTable, BVFilter>> candidates = new HashSet<>();
@@ -28,10 +28,10 @@ public class QueryChest {
     private Map<Table, Table> mirror = new HashMap<>();
     public Set<Table> getMemoizedTables() { return this.memory; }
 
-    private QueryChest() {}
+    private QueryContainer() {}
 
-    public static QueryChest initWithInputTables(List<Table> input) {
-        QueryChest qc = new QueryChest();
+    public static QueryContainer initWithInputTables(List<Table> input) {
+        QueryContainer qc = new QueryContainer();
         qc.insertQueries(input.stream().map(t -> new NamedTable(t)).collect(Collectors.toList()));
         return qc;
     }
@@ -58,10 +58,6 @@ public class QueryChest {
                 e.printStackTrace();
             }
         }
-    }
-
-    public boolean tableVisited(Table t) {
-        return memory.contains(t);
     }
 
     public List<TableNode> getRepresentativeTableNodes() {

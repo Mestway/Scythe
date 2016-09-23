@@ -2,7 +2,7 @@ package forward_enumeration.primitive;
 
 import scythe_interface.ExampleDS;
 import forward_enumeration.context.EnumContext;
-import forward_enumeration.context.QueryChest;
+import forward_enumeration.container.QueryContainer;
 import forward_enumeration.enumerative_search.components.EnumJoinTableNodes;
 import org.testng.annotations.Test;
 import sql.lang.Table;
@@ -21,7 +21,7 @@ public class EnumFilterNamedTest {
     public void test() {
         ExampleDS exampleDS = ExampleDS.readFromFile("data//StackOverflow//001");
 
-        QueryChest qc = QueryChest.initWithInputTables(exampleDS.inputs);
+        QueryContainer qc = QueryContainer.initWithInputTables(exampleDS.inputs);
         EnumContext ec = new EnumContext(exampleDS.inputs, exampleDS.enumConstraint);
         ec.setParameterizedTables(new ArrayList<>());
         ec.setOutputTable(exampleDS.output);

@@ -50,10 +50,5 @@ public class PlainTableEnumeratorTest {
         List<TableNode> tn = new CanonicalTableEnumerator().enumProgramWithIO(Arrays.asList(input), output, c);
         //DebugHelper.printTableNodes(tn);
     }
-    @Test
-    public void test3() {
-        c.setMaxFilterLength(4);
-        List<TableNode> tn = new AggrHueristicTableEnumerator().enumProgramWithIO(Arrays.asList(input), output, c);
-        //DebugHelper.printTableNodes(tn);
-    }
+
 }
