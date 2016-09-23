@@ -10,7 +10,7 @@ Here are the steps to run the tool on an input-output example.
 2. Prepare an example file containing input tables, an output table, and a constraint with constant information. An example file should look like these ones in the folder  [/data](https://github.com/Mestway/Scythe/tree/refined/data).
 3. Run in command line with command:
 ```
-java -jar SimpleSynthesizer.jar path/to/the/example/file StagedEnumerator
+java -jar Scythe.jar path/to/the/example/file StagedEnumerator
 ```
 In this command, "path/to/the/example/file" refers to your example file, option "StagedEnumerator" referes to the synthesizer used in synthesis.
 
