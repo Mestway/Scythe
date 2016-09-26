@@ -22,7 +22,6 @@ public class Synthesizer {
         ExampleDS exampleDS = ExampleDS.readFromFile(exampleFilePath);
         System.out.println("[[Synthesis start]]");
         System.out.println("\tFile: " + exampleFilePath);
-        System.out.println("\tMaximum Depth: " + exampleFilePath);
         System.out.println("\tEnumerator: " + enumerator.getClass().getSimpleName());
 
         long timeUsed = 0;
@@ -32,9 +31,11 @@ public class Synthesizer {
 
         int maxDepth = 2;
         while (candidates.isEmpty() && timeUsed < Synthesizer.TimeOut) {
-            exampleDS.enumConstraint.setMaxDepth(maxDepth);
+            System.out.println("[Retry] Maximum Depth: " + maxDepth);
+
+            exampleDS.enumConfig.setMaxDepth(maxDepth);
             // synthesize
-            candidates.addAll(enumerator.enumProgramWithIO(exampleDS.inputs, exampleDS.output, exampleDS.enumConstraint));
+            candidates.addAll(enumerator.enumProgramWithIO(exampleDS.inputs, exampleDS.output, exampleDS.enumConfig));
 
             timeUsed = System.currentTimeMillis() - timeStart;
             maxDepth ++;

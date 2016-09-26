@@ -36,7 +36,7 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         List<AbstractSummaryTable> symTables = new ArrayList<>();
 
         // construct symbolic table for each named table.
-        QueryContainer qc = QueryContainer.initWithInputTables(ec.getInputs());
+        QueryContainer qc = QueryContainer.initWithInputTables(ec.getInputs(), QueryContainer.ContainerType.SummaryTableWBV);
 
         // build symbolic table for each input table, and store them in SymTables
         List<PrimitiveSummaryTable> symTablesForInputs = qc.getMemoizedTables()

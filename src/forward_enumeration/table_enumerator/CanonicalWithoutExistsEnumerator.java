@@ -2,10 +2,10 @@ package forward_enumeration.table_enumerator;
 
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.container.QueryContainer;
-import forward_enumeration.enumerative_search.components.EnumAggrTableNode;
-import forward_enumeration.enumerative_search.components.EnumFilterNamed;
-import forward_enumeration.enumerative_search.components.EnumJoinTableNodes;
-import forward_enumeration.enumerative_search.components.EnumProjection;
+import forward_enumeration.canonical_enum.components.EnumAggrTableNode;
+import forward_enumeration.canonical_enum.components.EnumFilterNamed;
+import forward_enumeration.canonical_enum.components.EnumJoinTableNodes;
+import forward_enumeration.canonical_enum.components.EnumProjection;
 import sql.lang.Table;
 import sql.lang.ast.table.TableNode;
 import util.RenameTNWrapper;
@@ -26,7 +26,7 @@ public class CanonicalWithoutExistsEnumerator extends AbstractTableEnumerator {
 
     @Override
     public List<TableNode> enumTable(EnumContext ec, int depth) {
-        QueryContainer qc = QueryContainer.initWithInputTables(ec.getInputs());
+        QueryContainer qc = QueryContainer.initWithInputTables(ec.getInputs(), QueryContainer.ContainerType.TableLinks);
         qc = enumTableWithoutProjStrategy2(ec, qc, depth); // all intermediate result in qc is stored
 
         ec.setTableNodes(qc.getRepresentativeTableNodes());

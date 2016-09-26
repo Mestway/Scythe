@@ -12,7 +12,7 @@ public class Main {
 
         if (args.length < 2) {
             System.out.println("[ERROR] Not enough arguments provided.");
-            System.out.println(" usage: java -jar path enumerator_name");
+            System.out.println("  usage: java -jar path enumerator_name");
             System.exit(-1);
         }
 

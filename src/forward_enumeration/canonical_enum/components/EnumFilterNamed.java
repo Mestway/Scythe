@@ -1,8 +1,9 @@
-package forward_enumeration.enumerative_search.components;
+package forward_enumeration.canonical_enum.components;
 
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.container.QueryContainer;
 import forward_enumeration.primitive.FilterEnumerator;
+import sql.lang.Table;
 import sql.lang.datatype.ValType;
 import sql.lang.ast.Environment;
 import sql.lang.ast.filter.Filter;
@@ -93,12 +94,19 @@ public class EnumFilterNamed {
                 qc.insertQuery(RenameTNWrapper.tryRename(sn));
                 // inserting an edge from eval(tn) --> eval(sn)
 
-                if (qc.useTableLinks()) {
+                if (qc.getContainerType() == QueryContainer.ContainerType.TableLinks) {
+
                     // if qc use filter links, we can put filter links into qc
                     try {
+                        Table src = tn.eval(new Environment());
+                        Table dst = sn.eval(new Environment());
+
+                        if (src.getContent().size() == 0 || dst.getContent().size() == 0)
+                            continue;
+
                         qc.getTableLinks().insertEdge(
-                                qc.getRepresentative(tn.eval(new Environment())),
-                                qc.getRepresentative(sn.eval(new Environment())));
+                                qc.getRepresentative(src),
+                                qc.getRepresentative(dst));
                     } catch (SQLEvalException e) {
                         e.printStackTrace();
                     }

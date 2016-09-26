@@ -2,11 +2,11 @@ package forward_enumeration.table_enumerator;
 
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.container.QueryContainer;
-import forward_enumeration.enumerative_search.datastructure.TableTreeNode;
-import forward_enumeration.enumerative_search.components.EnumAggrTableNode;
-import forward_enumeration.enumerative_search.components.EnumFilterNamed;
-import forward_enumeration.enumerative_search.components.EnumJoinTableNodes;
-import forward_enumeration.enumerative_search.components.EnumProjection;
+import forward_enumeration.canonical_enum.datastructure.TableTreeNode;
+import forward_enumeration.canonical_enum.components.EnumAggrTableNode;
+import forward_enumeration.canonical_enum.components.EnumFilterNamed;
+import forward_enumeration.canonical_enum.components.EnumJoinTableNodes;
+import forward_enumeration.canonical_enum.components.EnumProjection;
 import sql.lang.Table;
 import sql.lang.ast.table.TableNode;
 
@@ -26,8 +26,7 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
 
         List<TableNode> result = new ArrayList<>();
 
-        QueryContainer qc = QueryContainer.initWithInputTables(ec.getInputs());
-        qc.setUseTableLinks();
+        QueryContainer qc = QueryContainer.initWithInputTables(ec.getInputs(), QueryContainer.ContainerType.TableLinks);
 
         enumTableWithoutProj(ec, qc, depth); // all intermediate result are stored in qc
 
@@ -35,7 +34,8 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
         EnumProjection.emitEnumProjection(ec, ec.getOutputTable(), qc);
 
         // this is not always enabled, as this export algorithm is only designed for canonical SQL enumerator
-        if (qc.useTableLinks()) {
+        if (qc.getContainerType() == QueryContainer.ContainerType.TableLinks) {
+
             Set<Table> leafNodes = new HashSet<>();
             leafNodes.addAll(ec.getInputs());
             List<TableTreeNode> trees = qc.getTableLinks().findTableTrees(ec.getOutputTable(), leafNodes, 4);
@@ -75,6 +75,11 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
             //System.out.println("[Level] " + i);
 
             ec.setTableNodes(qc.getRepresentativeTableNodes());
+
+            // check whether a result can be obtained by projection
+            List<TableNode> tns = EnumProjection.enumProjection(ec, ec.getOutputTable());
+            if (! tns.isEmpty())
+                break;
 
             EnumJoinTableNodes.emitEnumJoinWithFilter(ec, qc);
             //System.out.println("There are " + tns.size() + " queries in the enumeration of this level");

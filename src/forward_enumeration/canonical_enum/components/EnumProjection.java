@@ -1,4 +1,4 @@
-package forward_enumeration.enumerative_search.components;
+package forward_enumeration.canonical_enum.components;
 
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.container.QueryContainer;
@@ -84,7 +84,7 @@ public class EnumProjection {
 
             Table t;
             try {
-                 t = tn.eval(new Environment());
+                t = tn.eval(new Environment());
                 if (t.getContent().size() != outputTable.getContent().size())
                     continue;
             } catch (SQLEvalException e) {

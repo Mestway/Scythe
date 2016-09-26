@@ -1,6 +1,6 @@
 package forward_enumeration.container;
 
-import forward_enumeration.enumerative_search.datastructure.TableLinks;
+import forward_enumeration.canonical_enum.datastructure.TableLinks;
 import summarytable.AbstractSummaryTable;
 import summarytable.BVFilter;
 import util.Pair;
@@ -18,20 +18,20 @@ import java.util.stream.Collectors;
  */
 public class QueryContainer {
 
-    // this set store all candidate constructs, applying projection on candidates
-    private Set<Pair<AbstractSummaryTable, BVFilter>> candidates = new HashSet<>();
+    public enum ContainerType { SummaryTableWBV, TableLinks, None }
 
-    // tabled that is memoized
-    private Set<Table> memory = new HashSet<>();
+    ContainerType containerType = ContainerType.None;
+    public ContainerType getContainerType() { return this.containerType; }
 
     // store the getRepresentative table of tables with the same content, to ensure that hash lookup will not mess it up
     private Map<Table, Table> mirror = new HashMap<>();
-    public Set<Table> getMemoizedTables() { return this.memory; }
+    public Set<Table> getMemoizedTables() { return this.mirror.keySet(); }
 
     private QueryContainer() {}
 
-    public static QueryContainer initWithInputTables(List<Table> input) {
+    public static QueryContainer initWithInputTables(List<Table> input, ContainerType containerType) {
         QueryContainer qc = new QueryContainer();
+        qc.containerType = containerType;
         qc.insertQueries(input.stream().map(t -> new NamedTable(t)).collect(Collectors.toList()));
         return qc;
     }
@@ -50,8 +50,7 @@ public class QueryContainer {
                 if (t.getContent().size() == 0)
                     continue;
 
-                if (! memory.contains(t)) {
-                    memory.add(t);
+                if (! mirror.containsKey(t)) {
                     mirror.put(t, t);
                 }
             } catch (Exception e) {
@@ -71,13 +70,11 @@ public class QueryContainer {
     // the data structure to store what are the ways to generate one table from other tables.
     // this data structure is updated during each enumeration module
     private TableLinks tableLinks = new TableLinks();
-    private boolean useTableLinks = false;
-    public boolean useTableLinks() { return this.useTableLinks; }
-    public void setUseTableLinks() { this.useTableLinks = true; }
     public TableLinks getTableLinks() { return this.tableLinks; }
 
-
     // the following two are data structure and functions used in SymbolicTableEnumerator storing candidate summary tables with their corresponding BV filters
+    // this set store all candidate constructs, applying projection on candidates
+    private Set<Pair<AbstractSummaryTable, BVFilter>> candidates = new HashSet<>();
     public void insertCandidate(Pair<AbstractSummaryTable, BVFilter> p) {
         this.candidates.add(p);
     }

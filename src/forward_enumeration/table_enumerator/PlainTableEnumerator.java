@@ -1,8 +1,8 @@
 package forward_enumeration.table_enumerator;
 
-import forward_enumeration.enumerative_search.components.EnumAggrTableNode;
+import forward_enumeration.canonical_enum.components.EnumAggrTableNode;
 import forward_enumeration.context.EnumContext;
-import forward_enumeration.enumerative_search.components.EnumJoinTableNodes;
+import forward_enumeration.canonical_enum.components.EnumJoinTableNodes;
 import forward_enumeration.primitive.parameterized.EnumSelectTableNode;
 import forward_enumeration.container.QueryContainer;
 import sql.lang.ast.table.TableNode;
@@ -21,7 +21,7 @@ public class PlainTableEnumerator extends AbstractTableEnumerator {
 
         List<TableNode> result = new ArrayList<>();
 
-        QueryContainer qc = QueryContainer.initWithInputTables(ec.getInputs());
+        QueryContainer qc = QueryContainer.initWithInputTables(ec.getInputs(), QueryContainer.ContainerType.None);
         List<TableNode> agrTables = EnumAggrTableNode.enumAggrNodeWFilter(ec);
         qc.insertQueries(agrTables.stream()
                         .map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));

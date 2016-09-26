@@ -1,4 +1,4 @@
-package forward_enumeration.enumerative_search.datastructure;
+package forward_enumeration.canonical_enum.datastructure;
 
 import sql.lang.Table;
 
@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
  */
 public class TableLinks {
 
+    public static final int CAPACITY = 20;
+
     // storing the edges backwardly, the key represents the destination
     // while the value set contains source nodes that can lead to the table.
     // The source nodes of the edges
@@ -18,38 +20,36 @@ public class TableLinks {
 
     // insert an edge with one source node
     public void insertEdge(Table src, Table dst) {
-        // the node contains one table
         Set<Table> node = new HashSet<>();
         node.add(src);
-        if (edges.containsKey(dst)) {
-            edges.get(dst).add(node);
-        } else {
-            edges.put(dst, new HashSet<>());
-            edges.get(dst).add(node);
-        }
+        insertEdge(node, dst);
     }
 
     // insert an edge with two leading source nodes
     public void insertEdge(Table src1, Table src2, Table dst) {
+        Set<Table> nodes = new HashSet<>();
+        nodes.add(src1);
+        nodes.add(src2);
+        insertEdge(nodes, dst);
+    }
 
-        // the node contain two tables
-        Set<Table> node = new HashSet<>();
-        node.add(src1);
-        node.add(src2);
+    // the internal insertion method: insert a set of edges linked to dst
+    private void insertEdge(Set<Table> src, Table dst) {
+
+        if (dst == null)
+            System.out.println("Oh no");
 
         if (edges.containsKey(dst)) {
-            edges.get(dst).add(node);
+            // insert only if capacity
+            if (edges.get(dst).size() < CAPACITY)
+                edges.get(dst).add(src);
         } else {
             edges.put(dst, new HashSet<>());
-            edges.get(dst).add(node);
+            edges.get(dst).add(src);
         }
     }
 
     public Map<Table, Set<Set<Table>>> edges() { return this.edges; }
-
-    public int getDirectLinkCount(Table table) {
-        return edges.get(table) == null ? 0 : edges.get(table).size();
-    }
 
     public List<TableTreeNode> findTableTrees(Table root, Set<Table> leafNodes, int depth) {
         List<TableTreeNode> result = new ArrayList<>();
@@ -62,6 +62,9 @@ public class TableLinks {
 
         // if we have to terminate now while the current node is not yet a leaf node, we abort the search
         if (depth == 0) { return new ArrayList<>(); }
+
+        if (! (edges.containsKey(root)))
+            return new ArrayList<>();
 
         for (Set<Table> src : edges.get(root)) {
             // each list in the list contains all candidate for the nodes in src

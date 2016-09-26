@@ -1,4 +1,4 @@
-package forward_enumeration.enumerative_search.components;
+package forward_enumeration.canonical_enum.components;
 
 import forward_enumeration.context.EnumContext;
 import sql.lang.Table;

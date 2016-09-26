@@ -3,7 +3,7 @@ package forward_enumeration.primitive;
 import scythe_interface.ExampleDS;
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.container.QueryContainer;
-import forward_enumeration.enumerative_search.components.EnumJoinTableNodes;
+import forward_enumeration.canonical_enum.components.EnumJoinTableNodes;
 import org.testng.annotations.Test;
 import sql.lang.Table;
 import sql.lang.ast.table.NamedTable;
@@ -21,11 +21,11 @@ public class EnumFilterNamedTest {
     public void test() {
         ExampleDS exampleDS = ExampleDS.readFromFile("data//StackOverflow//001");
 
-        QueryContainer qc = QueryContainer.initWithInputTables(exampleDS.inputs);
-        EnumContext ec = new EnumContext(exampleDS.inputs, exampleDS.enumConstraint);
+        QueryContainer qc = QueryContainer.initWithInputTables(exampleDS.inputs, QueryContainer.ContainerType.None);
+        EnumContext ec = new EnumContext(exampleDS.inputs, exampleDS.enumConfig);
         ec.setParameterizedTables(new ArrayList<>());
         ec.setOutputTable(exampleDS.output);
-        ec.setMaxFilterLength(exampleDS.enumConstraint.maxFilterLength());
+        ec.setMaxFilterLength(exampleDS.enumConfig.maxFilterLength());
 
         List<TableNode> tns = new ArrayList<>();
         tns.add(new NamedTable(exampleDS.inputs.get(0)));

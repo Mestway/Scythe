@@ -1,9 +1,10 @@
-package forward_enumeration.enumerative_search.components;
+package forward_enumeration.canonical_enum.components;
 
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.container.QueryContainer;
 import forward_enumeration.primitive.FilterEnumerator;
 import global.GlobalConfig;
+import sql.lang.Table;
 import sql.lang.ast.filter.Filter;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
@@ -106,12 +107,20 @@ public class EnumAggrTableNode {
     }
 
     private static void emitToQueryChest(TableNode result, TableNode original, QueryContainer qc) {
-        qc.insertQuery(result);
+
         try {
+            Table resultT = result.eval(new Environment());
+            Table originalT = original.eval(new Environment());
+
+            if (originalT.getContent().isEmpty() || resultT.getContent().isEmpty())
+                return;
+
+            qc.insertQuery(result);
+
             // updating the link between tables, an edge eval(tn) --> eval(rt) is inserted
             qc.getTableLinks().insertEdge(
-                    qc.getRepresentative(original.eval(new Environment())),
-                    qc.getRepresentative(result.eval(new Environment())));
+                    qc.getRepresentative(originalT),
+                    qc.getRepresentative(resultT));
         } catch (SQLEvalException e) {
             e.printStackTrace();
         }

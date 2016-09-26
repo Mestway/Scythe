@@ -16,7 +16,7 @@ import java.util.List;
 public class ExampleDS {
     public List<Table> inputs = new ArrayList<>();
     public Table output;
-    public EnumConfig enumConstraint;
+    public EnumConfig enumConfig;
 
     private ExampleDS() {}
     public static ExampleDS readFromFile(String path) {
@@ -53,7 +53,7 @@ public class ExampleDS {
                 } else if (segName.equals("output")) {
                     example.output = TableInstanceParser.tryParseTable("output", segContent);
                 } else if (segName.equals("constraint")) {
-                    example.enumConstraint = new EnumConfig(segContent.stream().reduce(String::concat).get());
+                    example.enumConfig = new EnumConfig(segContent.stream().reduce(String::concat).get());
                 }
             } else {
                 i ++;
@@ -70,7 +70,7 @@ public class ExampleDS {
             s += "----\n" + t.toString() + "\n";
         }
         s += "----\n" + output.toString() + "\n";
-        s += enumConstraint.toString();
+        s += enumConfig.toString();
         return s;
     }
 

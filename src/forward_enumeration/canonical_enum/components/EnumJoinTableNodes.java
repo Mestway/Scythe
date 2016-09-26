@@ -1,8 +1,9 @@
-package forward_enumeration.enumerative_search.components;
+package forward_enumeration.canonical_enum.components;
 
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.container.QueryContainer;
 import forward_enumeration.primitive.FilterEnumerator;
+import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.filter.Filter;
 import sql.lang.ast.table.*;
@@ -78,12 +79,22 @@ public class EnumJoinTableNodes {
                                 .map(s -> new NamedVal(s))
                                 .collect(Collectors.toList());
                         TableNode resultTn = new SelectNode(vals, rt, f);
-                        qc.insertQuery(RenameTNWrapper.tryRename(resultTn));
+
                         try {
+                            Table tns0 = tns.get(0).eval(new Environment());
+                            Table tns1 = tns.get(1).eval(new Environment());
+                            Table resultT = resultTn.eval(new Environment());
+
+                            if (tns0.getContent().isEmpty() || tns1.getContent().isEmpty() || resultT.isEmpty()) {
+                                continue;
+                            }
+
+                            qc.insertQuery(RenameTNWrapper.tryRename(resultTn));
+
                             qc.getTableLinks().insertEdge(
-                                    qc.getRepresentative(tns.get(0).eval(new Environment())),
-                                    qc.getRepresentative(tns.get(1).eval(new Environment())),
-                                    qc.getRepresentative(resultTn.eval(new Environment())));
+                                    qc.getRepresentative(tns0),
+                                    qc.getRepresentative(tns1),
+                                    qc.getRepresentative(resultT));
                         } catch (SQLEvalException e) {
                             e.printStackTrace();
                         }
@@ -160,10 +171,9 @@ public class EnumJoinTableNodes {
     }
 
     public static final BiFunction<EnumContext, List<TableNode>, Boolean> atMostOneNoneInput = (ec, lst) -> {
-        for (int i = 1; i < lst.size(); i ++) {
-            if (! ec.isInputTableNode(lst.get(i)))
-                return false;
-        }
+        int noneInputNodeCnt = lst.stream().map(tn -> ec.isInputTableNode(tn) ? 0 : 1).reduce(0, (x,y) -> x + y);
+        if (noneInputNodeCnt > 1)
+            return false;
         return true;
     };
 
