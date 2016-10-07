@@ -1,23 +1,19 @@
 package forward_enumeration.primitive;
 
+import forward_enumeration.context.EnumContext;
 import global.GlobalConfig;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.table.LeftJoinNode;
-import sql.lang.ast.table.RenameTableNode;
 import sql.lang.ast.table.TableNode;
 import sql.lang.datatype.ValType;
 import sql.lang.datatype.Value;
 import sql.lang.exception.SQLEvalException;
 import util.CombinationGenerator;
-import util.DebugHelper;
 import util.Pair;
-import util.RenameTNWrapper;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -25,6 +21,17 @@ import java.util.stream.Collectors;
  * Created by clwang on 10/6/16.
  */
 public class LeftJoinEnumerator {
+
+    public static List<LeftJoinNode> enumLeftJoinFromEC(EnumContext ec) {
+        List<LeftJoinNode> result = new ArrayList<>();
+        List<TableNode> baseTableNodes = ec.getTableNodes();
+        for (int i = 0; i < baseTableNodes.size(); i ++) {
+            for (int j = i; j < baseTableNodes.size(); j ++) {
+                result.addAll(enumLeftJoin(baseTableNodes.get(i), baseTableNodes.get(j)));
+            }
+        }
+        return result;
+    }
 
     public static List<LeftJoinNode> enumLeftJoin(TableNode tn1, TableNode tn2) {
 
@@ -50,38 +57,44 @@ public class LeftJoinEnumerator {
                 if (!ct1.getValue().equals(ct2.getValue()))
                     continue;
 
-                boolean intersection = false;
+                boolean existsIntersection = false;
+                boolean allContained = true;
                 List<Value> col1 = t1.getColumnByIndex(t1.retrieveIndex(ct1.getKey()));
                 List<Value> col2 = t2.getColumnByIndex(t2.retrieveIndex(ct2.getKey()));
                 for (Value v : col1) {
                     if (col2.contains(v))
-                        intersection = true;
+                        existsIntersection = true;
+                    if (!col2.contains(v))
+                        allContained = false;
                 }
 
-                if (! intersection)
+                // we will not generate left-join queries for columns that have no intersection values,
+                // or columns that are already fully contained.
+                if ((! existsIntersection) || allContained)
                     continue;
 
-                joinKeys.add(new Pair<String, String>(ct1.getKey(), ct2.getKey()));
+                joinKeys.add(new Pair<>(ct1.getKey(), ct2.getKey()));
             }
         }
 
-        // generate combinations of the join keys, in support of queries with multiple join keys
-        List<List<Pair<String, String>>> combinations = CombinationGenerator
-                .genCombination(joinKeys, GlobalConfig.LEFT_JOIN_KEY_LENGTH)
-                .stream()
-                .filter(l -> {
-                    int nonDupCount1 = l.stream().map(p -> p.getKey()).collect(Collectors.toSet()).size();
-                    int nonDupCount2 = l.stream().map(p -> p.getKey()).collect(Collectors.toSet()).size();
-                    return (nonDupCount1 == l.size() && nonDupCount2 == l.size());
-                }).collect(Collectors.toList());
+        // iterating over the length of join keys to generate left-join nodes for all tables.
+        for (int keyLength = 1; keyLength <= GlobalConfig.LEFT_JOIN_KEY_LENGTH; keyLength ++) {
+            // generate combinations of the join keys, in support of queries with multiple join keys
+            List<List<Pair<String, String>>> combinations = CombinationGenerator
+                    .genCombination(joinKeys, keyLength)
+                    .stream()
+                    .filter(l -> {
+                        int nonDupCount1 = l.stream().map(p -> p.getKey()).collect(Collectors.toSet()).size();
+                        int nonDupCount2 = l.stream().map(p -> p.getKey()).collect(Collectors.toSet()).size();
+                        return (nonDupCount1 == l.size() && nonDupCount2 == l.size());
+                    }).collect(Collectors.toList());
 
-        for (List<Pair<String, String>> l : combinations) {
-            leftJoinResult.add(new LeftJoinNode(tn1, tn2, l));
+            for (List<Pair<String, String>> l : combinations) {
+                leftJoinResult.add(new LeftJoinNode(tn1, tn2, l));
+            }
         }
 
         return leftJoinResult;
     }
-
-
 
 }

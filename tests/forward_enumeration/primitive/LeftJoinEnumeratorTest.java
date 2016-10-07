@@ -1,10 +1,19 @@
 package forward_enumeration.primitive;
 
+import forward_enumeration.canonical_enum.components.EnumFilterNamed;
+import forward_enumeration.context.EnumConfig;
+import forward_enumeration.context.EnumContext;
 import org.testng.annotations.Test;
 import sql.lang.Table;
+import sql.lang.ast.table.AggregationNode;
 import sql.lang.ast.table.NamedTable;
+import sql.lang.ast.table.TableNode;
 import util.DebugHelper;
 import util.TableInstanceParser;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.testng.Assert.*;
 
@@ -34,9 +43,17 @@ public class LeftJoinEnumeratorTest {
     Table t1 = TableInstanceParser.parseMarkDownTable("t1", src);
     Table t2 = TableInstanceParser.parseMarkDownTable("t2", src2);
 
+
+    EnumConfig c = new EnumConfig(
+            2,
+            new ArrayList<>(),
+            new ArrayList<>(),
+            2);
+    EnumContext ec = new EnumContext(Arrays.asList(t1, t2), c);
+
     @Test
     public void testEnumLeftJoin() throws Exception {
-        DebugHelper.printList(LeftJoinEnumerator.enumLeftJoin(new NamedTable(t1), new NamedTable(t2)));
+        DebugHelper.printList(LeftJoinEnumerator.enumLeftJoinFromEC(ec));
     }
 
 }

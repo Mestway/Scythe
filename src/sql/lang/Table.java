@@ -15,15 +15,15 @@ import java.util.stream.Collectors;
  */
 public class Table {
 
-    static int TableCount = 0;
+    private static int TableCount = 0;
     public static String AssignNewName() {
         TableCount ++;
         return "{Default" + TableCount + "}";
     }
 
-    String name = "";
-    List<String> schema = new ArrayList<String>();
-    List<TableRow> rows = new ArrayList<TableRow>();
+    private String name = "";
+    private List<String> schema = new ArrayList<>();
+    private List<TableRow> rows = new ArrayList<>();
 
     public Table() {}
 
@@ -34,10 +34,10 @@ public class Table {
      * @param rawContent all contents in the form of string
      */
     public Table(String tableName, List<String> schema, List<List<String>> rawContent) {
-        List<TableRow> rows = new ArrayList<TableRow>();
-        for (List<String> sList : rawContent) {
-            rows.add(TableRow.TableRowFromString(tableName, schema, sList));
-        }
+        List<TableRow> rows = rawContent
+                .stream()
+                .map(sList -> TableRow.TableRowFromString(tableName, schema, sList))
+                .collect(Collectors.toList());
         this.initialize(tableName, schema, rows);
     }
 
