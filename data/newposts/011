@@ -1,0 +1,27 @@
+// http://stackoverflow.com/questions/39729402/how-to-make-a-parallel-join-on-two-tables-and-order-result-by-creation-date
+
+#input
+
+| idal | idaction | dt                  |
+|---------------------------------------|
+| 5    |        6 | 2016-09-23 15:02:50 |
+| 5    |        7 | 2016-09-23 16:00:00 |
+| 5151 |        7 | 2016-09-01 00:00:00 |
+| 5151 |        6 | 2016-12-01 15:35:34 |
+
+#output
+
+
+| idal | idaction | dt                  |
+|---------------------------------------|
+| 5    |        7 | 2016-09-23 16:00:00 |
+| 5151 |        6 | 2016-12-01 15:35:34 |
+
+# constraint
+{
+	"max_depth": 2,
+	"constants": [],
+	"aggregation_functions": ["max"],
+	"parameter_number": 0,
+	"max_filter_length": 2
+}

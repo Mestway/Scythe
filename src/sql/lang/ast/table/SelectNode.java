@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 /**
  * Created by clwang on 12/16/15.
  */
-public class SelectNode implements TableNode {
+public class SelectNode extends TableNode {
 
     List<ValNode> columns;
     TableNode tableNode;

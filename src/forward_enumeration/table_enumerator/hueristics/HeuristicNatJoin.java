@@ -1,6 +1,5 @@
 package forward_enumeration.table_enumerator.hueristics;
 
-import com.sun.tools.javac.util.Pair;
 import sql.lang.ast.val.ValNode;
 import sql.lang.datatype.Value;
 import sql.lang.Table;
@@ -13,6 +12,7 @@ import sql.lang.ast.table.SelectNode;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.exception.SQLEvalException;
+import util.Pair;
 import util.RenameTNWrapper;
 
 import java.util.ArrayList;

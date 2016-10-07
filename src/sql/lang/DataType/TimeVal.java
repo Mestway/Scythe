@@ -6,6 +6,7 @@ import java.sql.Time;
  * Created by clwang on 12/14/15.
  */
 public class TimeVal implements Value {
+
     Time val;
 
     public TimeVal(Time time) {

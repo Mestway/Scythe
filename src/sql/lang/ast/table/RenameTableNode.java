@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 /**
  * Created by clwang on 12/21/15.
  */
-public class RenameTableNode implements TableNode {
+public class RenameTableNode extends TableNode {
 
     String newTableName;
     List<String> newFieldNames;
@@ -62,7 +62,7 @@ public class RenameTableNode implements TableNode {
             table.updateName(this.newTableName);
         }
         if (this.renameFields == true) {
-            table.updateMetadata(this.newFieldNames);
+            table.updateSchema(this.newFieldNames);
         }
         return table;
     }

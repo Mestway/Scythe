@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * Created by clwang on 12/18/15.
  * Join is implemented as cartesian product
  */
-public class JoinNode implements TableNode {
+public class JoinNode extends TableNode {
 
     List<TableNode> tableNodes = new ArrayList<TableNode>();
 

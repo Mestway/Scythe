@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 /**
  * Created by clwang on 12/20/15.
  */
-public class AggregationNode implements TableNode {
+public class AggregationNode extends TableNode {
 
     public static String magicSeparatorSymbol = "-_-";
 
@@ -146,8 +146,6 @@ public class AggregationNode implements TableNode {
 
         List<ValType> schemaTypes = new ArrayList<>();
 
-        // TODO: think about naming stuff
-        if (tn.getTableName().equals("anonymous")) {
             for (String n : this.groupbyColumns) {
                 for (int i = 0; i < tableSchema.size(); i ++) {
                     if (tableSchema.get(i).equals(n)) {
@@ -162,7 +160,7 @@ public class AggregationNode implements TableNode {
                         if (!(t.getValue().equals(AggrCount) || t.getValue().equals(AggrCountDistinct))) {
                             schemaTypes.add(tableSchemaType.get(i));
                         } else {
-                            // if the aggregation function is COUNT,
+                            // if the aggregation function is COUNT or COUNT-DISTINCT,
                             // the type of the aggregation field will be changed to NumberVal
                             schemaTypes.add(ValType.NumberVal);
                         }
@@ -170,30 +168,6 @@ public class AggregationNode implements TableNode {
                     }
                 }
             }
-        } else {
-            for (String n : this.groupbyColumns) {
-                for (int i = 0; i < tableSchema.size(); i ++) {
-                    if (tableSchema.get(i).equals(n)) {
-                        schemaTypes.add(tableSchemaType.get(i));
-                        break;
-                    }
-                }
-            }
-            for (Pair<String, Function<List<Value>, Value>> t : targets) {
-                for (int i = 0; i < tableSchema.size(); i ++) {
-                    if (tableSchema.get(i).equals(t.getKey())) {
-                        if (!(t.getValue().equals(AggrCount) || t.getValue().equals(AggrCountDistinct))) {
-                            schemaTypes.add(tableSchemaType.get(i));
-                        } else {
-                            // if the aggregation function is COUNT or COUNTDISTINCT,
-                            // the type of the aggregation field will be changed to NumberVal
-                            schemaTypes.add(ValType.NumberVal);
-                        }
-                        break;
-                    }
-                }
-            }
-        }
 
         return schemaTypes;
     }

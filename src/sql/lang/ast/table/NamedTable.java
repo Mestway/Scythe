@@ -15,7 +15,7 @@ import java.util.*;
 /**
  * Created by clwang on 12/16/15.
  */
-public class NamedTable implements TableNode {
+public class NamedTable extends TableNode {
 
     Table table;
 

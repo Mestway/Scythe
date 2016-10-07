@@ -1,0 +1,33 @@
+//http://stackoverflow.com/questions/5698452/count-cumulative-total-in-postgresql
+
+#input
+
+| id | value   | comment   |
+|--------------------------|
+|  1 | Some1   | comm1     |
+|  2 | Some2   | comm2     |
+
+#input
+
+| id | id_a  |name    | amount    | factor   |
+|--------------------------------------------|
+|  1 |  1    |Car     | 12        | 2        |
+|  2 |  1    |Bike    | 22        | 5        |
+|  3 |  2    |Car     | 54        | 1        |
+|  4 |  2    |Bike    | 55        | 4        |
+
+#output
+
+|id| value | comment | Car_Amount | Car_factor | Bike_Amount | Bike_Factor |
+|--------------------------------------------------------------------------|
+| 1| Some1 | comm1   | 12         | 2          | 22          | 5           |
+| 2| Some2 | comm2   | 54         | 1          | 55          | 4           |
+
+# constraint
+{
+	"max_depth": 2,
+	"constants": [ "Bike", "Car" ],
+	"aggregation_functions": [],
+	"parameter_number": 0,
+	"max_filter_length": 2
+}

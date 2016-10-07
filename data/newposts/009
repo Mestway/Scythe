@@ -1,0 +1,45 @@
+// http://stackoverflow.com/questions/39733840/sql-combine-join
+
+#input
+
+
+| Date  | Item |
+|--------------|
+| 12/03 | aaaa |
+| 12/03 | aaaa |
+| 14/03 | bbbb |
+| 14/03 | aaaa |
+| 15/03 | cccc |
+
+#input
+
+
+| Date  | Item2 |
+|--------------|
+| 11/03 | aaaa |
+| 12/03 | aaaa |
+| 13/03 | bbbb |
+| 14/03 | aaaa |
+| 15/03 | cccc  |
+
+
+#output
+
+
+| Date  | Count(Item1) | Count(Item2) |
+|--------------------------|
+| 11/03 | 0            | 1 |
+| 12/03 | 2            | 1 |
+| 13/03 | 0            | 1 |
+| 14/03 | 2            | 1 |
+| 15/03 | 1            | 1 |
+
+
+# constraint
+{
+	"max_depth": 2,
+	"constants": [],
+	"aggregation_functions": ["count"],
+	"parameter_number": 0,
+	"max_filter_length": 2
+}

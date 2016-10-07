@@ -4,6 +4,7 @@ import backward_inference.MappingInference;
 import sql.lang.datatype.ValType;
 import sql.lang.datatype.Value;
 import sql.lang.exception.SQLEvalException;
+import util.Pair;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -54,12 +55,9 @@ public class Table {
     // Not sure if it is supposed to be used
     public void updateName(String tableName) {
         this.name = tableName;
-        for (TableRow r : rows) {
-            r.updateTableName(tableName);
-        }
     }
 
-    public void updateMetadata(List<String> schema) {
+    public void updateSchema(List<String> schema) {
         if (this.schema.size() != schema.size()) {
             System.err.println("[Error@Table61] the new metadata size does not equal to the original one.");
         }
@@ -97,6 +95,26 @@ public class Table {
             str += indent;
         }
         return str;
+    }
+
+    /**
+     * Get a column from the table, specified by index
+     * @param index the column to be retrieved
+     * @return The column represented as a list
+     */
+    public List<Value> getColumnByIndex(Integer index) {
+        if (index >= this.getSchema().size())
+            System.err.println("[ERROR@Table107] column index is bigger than the schema size.");
+
+        return this.getContent().stream().map(r -> r.getValue(index)).collect(Collectors.toList());
+    }
+
+    public Table projection(List<Integer> projectionIndexes) {
+        Table t = this.duplicate();
+        t.schema = projectionIndexes.stream().map(c -> t.schema.get(c)).collect(Collectors.toList());
+        t.rows.clear();
+        t.rows.addAll(this.rows.stream().map(r -> r.projection(projectionIndexes)).collect(Collectors.toList()));
+        return t;
     }
 
     // duplicate the current table
@@ -328,6 +346,66 @@ public class Table {
                 resultTableContent);
 
         return resultTable;
+    }
+
+    public static Table extendWithNull(Table t, List<Pair<String, ValType>> extensionSchema) {
+
+        Table result = t.duplicate();
+
+        result.schema = new ArrayList<>();
+        result.schema.addAll(t.schema);
+        result.schema.addAll(extensionSchema.stream().map(p -> p.getKey()).collect(Collectors.toList()));
+        result.rows = t.getContent().stream().map(r -> r.extendWithNull(extensionSchema)).collect(Collectors.toList());
+
+        return result;
+    }
+
+    /**
+     * Calculate t1 - t2 (returning rows that are in t1 but not in t2)
+     */
+    public static Table except(Table t1, Table t2) throws SQLEvalException {
+
+        Table t = t1.duplicate();
+        t.getContent().clear();
+
+        for (TableRow r1 : t1.getContent()) {
+            boolean contained = false;
+            for (TableRow r2 : t2.getContent()) {
+                if (r2.contentEquals(r1))
+                    contained = true;
+            }
+            if (contained == false) {
+                t.getContent().add(r1.duplicate());
+            }
+        }
+        return t;
+    }
+
+    public static Table union(Table t1, Table t2) throws SQLEvalException {
+
+        if (t1.getSchema().size() != t2.getSchema().size())
+            throw new SQLEvalException("Table Schema not equal in join.");
+
+        if (t2.getContent().isEmpty()) return t1;
+        if (t1.getContent().isEmpty()) return t2;
+
+        boolean schemaTypeEquiv = true;
+        for (int i = 0; i < t1.getSchemaType().size(); i ++) {
+            if (! t1.getSchemaType().get(i).equals(t2.getSchemaType().get(i)))
+                schemaTypeEquiv = false;
+        }
+
+        if (schemaTypeEquiv == false)
+            throw new SQLEvalException("Table Schema not equal in join.");
+
+        Table result = t1.duplicate();
+        for (TableRow r : t2.getContent()) {
+            result.getContent().add(r);
+        }
+
+        result.updateSchema(t1.getSchema());
+
+        return result;
     }
 
     // Infer projection columns from src to table

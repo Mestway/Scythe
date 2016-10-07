@@ -1,6 +1,5 @@
 package forward_enumeration.table_enumerator.hueristics;
 
-import com.sun.tools.javac.util.Pair;
 import forward_enumeration.canonical_enum.components.EnumAggrTableNode;
 import forward_enumeration.context.EnumContext;
 import sql.lang.ast.filter.Filter;
@@ -8,6 +7,7 @@ import sql.lang.ast.filter.LogicAndFilter;
 import sql.lang.ast.filter.VVComparator;
 import sql.lang.ast.table.*;
 import sql.lang.ast.val.NamedVal;
+import util.Pair;
 import util.RenameTNWrapper;
 
 import java.util.ArrayList;
@@ -45,8 +45,8 @@ public class TableNaturalJoinWithAggr {
                 filters.add(
                         new VVComparator(
                                 Arrays.asList(
-                                        new NamedVal(jntb.getSchema().get(p.fst)),
-                                        new NamedVal(jntb.getSchema().get(p.snd))),
+                                        new NamedVal(jntb.getSchema().get(p.getKey())),
+                                        new NamedVal(jntb.getSchema().get(p.getValue()))),
                                 VVComparator.eq));
             }
 
@@ -101,8 +101,8 @@ public class TableNaturalJoinWithAggr {
                     filters.add(
                         new VVComparator(
                             Arrays.asList(
-                                new NamedVal(jntb.getSchema().get(p.fst)),
-                                new NamedVal(jntb.getSchema().get(p.snd))),
+                                new NamedVal(jntb.getSchema().get(p.getKey())),
+                                new NamedVal(jntb.getSchema().get(p.getValue()))),
                             VVComparator.eq));
                 }
 
