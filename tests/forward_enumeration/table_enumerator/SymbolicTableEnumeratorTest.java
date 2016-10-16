@@ -1,7 +1,7 @@
 package forward_enumeration.table_enumerator;
 
+import org.junit.Test;
 import scythe_interface.Synthesizer;
-import org.testng.annotations.Test;
 
 /**
  * Created by clwang on 4/4/16.

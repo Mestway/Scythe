@@ -3,7 +3,7 @@ package forward_enumeration.primitive;
 import forward_enumeration.canonical_enum.components.EnumFilterNamed;
 import forward_enumeration.context.EnumConfig;
 import forward_enumeration.context.EnumContext;
-import org.testng.annotations.Test;
+import org.junit.Test;
 import sql.lang.Table;
 import sql.lang.ast.table.AggregationNode;
 import sql.lang.ast.table.LeftJoinNode;
@@ -17,8 +17,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static org.testng.Assert.*;
 
 /**
  * Created by clwang on 10/7/16.
@@ -45,9 +43,6 @@ public class LeftJoinEnumeratorTest {
 
     Table t1 = TableInstanceParser.parseMarkDownTable("t1", src);
     Table t2 = TableInstanceParser.parseMarkDownTable("t2", src2);
-
-
-
 
     @Test
     public void testEnumLeftJoin() throws Exception {

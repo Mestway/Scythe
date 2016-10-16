@@ -18,7 +18,7 @@ import util.TableInstanceParser;
 
 import java.util.Arrays;
 
-import static org.testng.AssertJUnit.assertTrue;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Case 002 in benchmark

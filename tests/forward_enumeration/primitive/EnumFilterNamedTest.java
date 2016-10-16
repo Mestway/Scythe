@@ -1,10 +1,10 @@
 package forward_enumeration.primitive;
 
+import org.junit.Test;
 import scythe_interface.ExampleDS;
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.container.QueryContainer;
 import forward_enumeration.canonical_enum.components.EnumJoinTableNodes;
-import org.testng.annotations.Test;
 import sql.lang.Table;
 import sql.lang.ast.table.NamedTable;
 import sql.lang.ast.table.TableNode;

@@ -14,7 +14,7 @@ import util.TableInstanceParser;
 
 import java.util.Arrays;
 
-import static org.testng.AssertJUnit.assertTrue;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by clwang on 1/4/16.

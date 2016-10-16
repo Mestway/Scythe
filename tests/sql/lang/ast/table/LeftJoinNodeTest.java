@@ -1,14 +1,12 @@
 package sql.lang.ast.table;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import util.Pair;
 import util.TableInstanceParser;
 
 import java.util.Arrays;
-
-import static org.testng.Assert.*;
 
 /**
  * Created by clwang on 10/6/16.
