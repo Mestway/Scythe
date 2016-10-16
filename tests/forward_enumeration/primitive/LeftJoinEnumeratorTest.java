@@ -6,14 +6,17 @@ import forward_enumeration.context.EnumContext;
 import org.testng.annotations.Test;
 import sql.lang.Table;
 import sql.lang.ast.table.AggregationNode;
+import sql.lang.ast.table.LeftJoinNode;
 import sql.lang.ast.table.NamedTable;
 import sql.lang.ast.table.TableNode;
 import util.DebugHelper;
+import util.Pair;
 import util.TableInstanceParser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.testng.Assert.*;
 
@@ -44,16 +47,65 @@ public class LeftJoinEnumeratorTest {
     Table t2 = TableInstanceParser.parseMarkDownTable("t2", src2);
 
 
-    EnumConfig c = new EnumConfig(
-            2,
-            new ArrayList<>(),
-            new ArrayList<>(),
-            2);
-    EnumContext ec = new EnumContext(Arrays.asList(t1, t2), c);
+
 
     @Test
     public void testEnumLeftJoin() throws Exception {
+        EnumConfig c = new EnumConfig(
+                2,
+                new ArrayList<>(),
+                new ArrayList<>(),
+                2);
+        EnumContext ec = new EnumContext(Arrays.asList(t1, t2), c);
         DebugHelper.printList(LeftJoinEnumerator.enumLeftJoinFromEC(ec));
     }
 
+
+    String t3Src =
+            "| id | name  | url  | data_date  |" +"\r\n" +
+            "|--------------------------------|" +"\r\n" +
+            "| 1a | name1 | url1 | 2016-08-08 |" +"\r\n" +
+            "| 1b | name2 | url2 | 2016-08-08 |" +"\r\n" +
+            "| 1c | name3 | url3 | 2016-08-08 |" +"\r\n" +
+            "| 1a | name1 | url1 | 2016-08-09 |" +"\r\n" +
+            "| 1b | name2 | url2 | 2016-08-09 |" +"\r\n" +
+            "| 1c | name3 | url3 | 2016-08-09 |";
+
+    String t4Src =
+            "| id | views | data_date |" +"\r\n" +
+            "|------------------------|" +"\r\n" +
+            "| 1a | 10   | 2016-08-08 |" +"\r\n" +
+            "| 1b | 15   | 2016-08-08 |" +"\r\n" +
+            "| 1a | 12   | 2016-08-09 |" +"\r\n" +
+            "| 1b | 17   | 2016-08-09 |";
+
+    String t5Src =
+            "| url | views | data_date |" +"\r\n" +
+            "|------------------------|" +"\r\n" +
+            "| url3 | 22 | 2016-08-08 |" +"\r\n" +
+            "| url3 | 12 | 2016-08-09 |";
+
+    Table t3 = TableInstanceParser.parseMarkDownTable("t3", t3Src);
+    Table t4 = TableInstanceParser.parseMarkDownTable("t4", t4Src);
+    Table t5 = TableInstanceParser.parseMarkDownTable("t5", t5Src);
+
+    @Test
+    public void testEnumLeftJoin2() throws Exception {
+        EnumConfig c = new EnumConfig(
+                2,
+                new ArrayList<>(),
+                new ArrayList<>(),
+                2);
+        EnumContext ec = new EnumContext(Arrays.asList(t3, t4, t5), c);
+        //DebugHelper.printTableNodes(LeftJoinEnumerator.enumLeftJoinFromEC(ec).stream().map(t -> ((TableNode) t)).collect(Collectors.toList()));
+
+        TableNode lj1 = new LeftJoinNode(new NamedTable(t3), new NamedTable(t4), Arrays.asList(new Pair<String, String>("t3.id", "t4.id")));
+        TableNode lj2 = new LeftJoinNode(new NamedTable(t3), new NamedTable(t4), Arrays.asList(new Pair<String, String>("t3.id", "t4.id"), new Pair<String, String>("t3.data_date", "t4.data_date")));
+
+        DebugHelper.printTableNodes(Arrays.asList(lj1, lj2));
+
+        System.out.println();
+
+
+    }
 }

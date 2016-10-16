@@ -77,6 +77,8 @@ public class LeftJoinEnumerator {
             }
         }
 
+        // TODO: work out a better filtering function to correctly handle the case, see the test case.
+
         // iterating over the length of join keys to generate left-join nodes for all tables.
         for (int keyLength = 1; keyLength <= GlobalConfig.LEFT_JOIN_KEY_LENGTH; keyLength ++) {
             // generate combinations of the join keys, in support of queries with multiple join keys
