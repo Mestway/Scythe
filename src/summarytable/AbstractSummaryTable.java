@@ -43,14 +43,15 @@ public abstract class AbstractSummaryTable {
 
     // abstract public Pair<Set<SymbolicFilter>, FilterLinks> lastStageInstantiateAllFilters(Set<SymbolicFilter> targetFilters);
 
-    // the lazy function that only calculate the primitive filters when necessary,
-    abstract void evalPrimitive(EnumContext ec);
+    // the function that encodes primitive filters into bit vector filters
+    // encoded filters are stored in the summary tables
+    abstract void encodePrimitiveFilters(EnumContext ec);
 
     public void emitInstantiateAllTables(
             EnumContext ec,
             BiConsumer<AbstractSummaryTable, BVFilter> f) {
 
-        this.evalPrimitive(ec);
+        this.encodePrimitiveFilters(ec);
 
         Set<BVFilter> filters = this.instantiateAllFilters();
 
@@ -75,11 +76,9 @@ public abstract class AbstractSummaryTable {
     abstract public Set<Pair<BVFilter, BVFilter>> visitDemotedSpace(
             EnumContext ec, Set<BVFilter> demotedExtFilters);
 
-    abstract public Optional<BVFilter> lazyFilterEval(Integer index);
-
     public List<Table> instantiateAllTables(EnumContext ec) {
 
-        this.evalPrimitive(ec);
+        this.encodePrimitiveFilters(ec);
 
         Set<BVFilter> filters = this.instantiateAllFilters();
         Table table = this.getBaseTable();
@@ -100,7 +99,7 @@ public abstract class AbstractSummaryTable {
 
     public List<Pair<Table, BVFilter>> instantiatedAllTablesWithBVFilters(EnumContext ec) {
 
-        this.evalPrimitive(ec);
+        this.encodePrimitiveFilters(ec);
 
         Set<BVFilter> filters = this.instantiateAllFilters();
         Table table = this.getBaseTable();
@@ -123,9 +122,9 @@ public abstract class AbstractSummaryTable {
         return result;
     }
 
-    // TODO: currently only allow filters of length 2
-    // The first
-    public static Set<BVFilter> mergeAndLinkFilters(
+    // Generate the set of compound filters that can be derived from the set of provided primitive filters.
+    // TODO: currently only conjunctions of filters with the maximum length 2 are allowed
+    public static Set<BVFilter> genCompoundFilters(
             AbstractSummaryTable ast,
             List<BVFilter> primitives) {
 
@@ -133,17 +132,11 @@ public abstract class AbstractSummaryTable {
 
         for (int i = 0; i < primitives.size(); i ++) {
             for (int j = i + 1; j < primitives.size(); j ++) {
-
                 BVFilter mergedFilter = BVFilter.mergeFilter(
                         primitives.get(i),
                         primitives.get(j),
                         AbstractSummaryTable.mergeFunction);
                 filters.add(mergedFilter);
-
-                // add the link from two source filter to the merged filter itself
-                Set<Pair<AbstractSummaryTable, BVFilter>> srcs = new HashSet<>();
-                srcs.add(new Pair<>(ast, primitives.get(i)));
-                srcs.add(new Pair<>(ast, primitives.get(j)));
             }
         }
 
@@ -151,8 +144,6 @@ public abstract class AbstractSummaryTable {
         filters.add(BVFilter.genSymbolicFilter(ast.getBaseTable(), new EmptyFilter()));
         return filters;
     }
-
-    public abstract TableNode queryForBaseTable(EnumContext ec);
 
     // index = sum_{k=1}^{i} (n-k) + (j-i)
     // TODO: use a formula to simplify this

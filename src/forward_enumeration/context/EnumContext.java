@@ -29,7 +29,7 @@ public class EnumContext {
     private List<Table> inputs = new ArrayList<>();
     private Table outputTable = null;
     private List<TableNode> parameterizedTableNodes = new ArrayList<>();
-    List<Function<List<Value>, Value>> aggrfuns = new ArrayList<>();
+    List<Function<List<Value>, Value>> aggrfunctions = new ArrayList<>();
     private int maxFilterLength = 2;
 
     // tableNodes are used to store tables that are used as input of current enumeration iteration.
@@ -45,12 +45,12 @@ public class EnumContext {
         this.inputs = tbs;
         this.tableNodes = tbs.stream().map(t -> new NamedTable(t)).collect(Collectors.toList());
         this.valNodes = c.constValNodes();
-        this.aggrfuns = c.getAggrFuns();
+        this.aggrfunctions = c.getAggrFuns();
     }
 
     public void setValNodes(List<ValNode> vns) { this.valNodes = vns; }
 
-    // set and get the number of maxinum filter length
+    // set and get the number of maximum filter length
     public void setMaxFilterLength(int maxLength) { this.maxFilterLength = maxLength; }
     public int getMaxFilterLength() { return this.maxFilterLength; }
 
@@ -89,7 +89,7 @@ public class EnumContext {
     // get aggregation functions that are used in this enumeration context
     public List<Function<List<Value>, Value>> getAggrFuns(ValType type) {
         List<Function<List<Value>, Value>> fs = AggregationNode.getAllAggrFunctions(type);
-        return fs.stream().filter(f -> this.aggrfuns.contains(f)).collect(Collectors.toList());
+        return fs.stream().filter(f -> this.aggrfunctions.contains(f)).collect(Collectors.toList());
     }
 
     public ValType getValType(String name) {
@@ -105,7 +105,7 @@ public class EnumContext {
 
         // these fields are shared
         newEC.tableNodes = ec.tableNodes;
-        newEC.aggrfuns = ec.aggrfuns;
+        newEC.aggrfunctions = ec.aggrfunctions;
         newEC.maxFilterLength = ec.maxFilterLength;
         newEC.parameterizedTableNodes = ec.parameterizedTableNodes;
         newEC.outputTable = ec.outputTable;

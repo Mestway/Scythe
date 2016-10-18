@@ -62,6 +62,26 @@ public interface Value {
             return val;
         } catch (Exception e) {}
 
+        if (raw.startsWith("NULL[")) {
+            ValType ty = parseValType(raw.substring(raw.indexOf("[") + 1, raw.indexOf("]")));
+            return new NullVal(ty);
+        }
+
         return new StringVal(raw);
+    }
+
+    static ValType parseValType(String typeRawString) {
+
+        if (typeRawString.equals("date")) {
+            return ValType.DateVal;
+        } else if (typeRawString.equals("num")) {
+            return ValType.NumberVal;
+        } else if (typeRawString.equals("str")) {
+            return ValType.StringVal;
+        } else if (typeRawString.equals("time")) {
+            return ValType.TimeVal;
+        }
+
+        return ValType.StringVal;
     }
 }

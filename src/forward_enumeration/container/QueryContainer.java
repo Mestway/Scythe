@@ -29,6 +29,10 @@ public class QueryContainer {
 
     private QueryContainer() {}
 
+    public QueryContainer(ContainerType containerType) {
+        this.containerType = containerType;
+    }
+
     public static QueryContainer initWithInputTables(List<Table> input, ContainerType containerType) {
         QueryContainer qc = new QueryContainer();
         qc.containerType = containerType;

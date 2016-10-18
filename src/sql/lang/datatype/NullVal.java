@@ -13,7 +13,7 @@ public class NullVal implements Value {
 
     @Override
     public String getVal() {
-        return "NULL(" + this.type + ")";
+        return "NULL[[" + this.type + "]]";
     }
 
     @Override
@@ -27,7 +27,16 @@ public class NullVal implements Value {
     }
 
     @Override
+    public int hashCode() {
+        return this.toString().hashCode();
+    }
+
+    @Override
     public boolean equals(Object obj) {
+        if (obj instanceof NullVal) {
+            if (((NullVal) obj).getValType().equals(this.type))
+                return true;
+        }
         return false;
     }
 

@@ -1,9 +1,7 @@
 package sql.lang.ast.filter;
 
 import forward_enumeration.primitive.parameterized.InstantiateEnv;
-import sql.lang.datatype.DateVal;
-import sql.lang.datatype.NumberVal;
-import sql.lang.datatype.Value;
+import sql.lang.datatype.*;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
@@ -81,12 +79,20 @@ public class VVComparator implements Filter {
     }
 
     public static BiFunction<Value, Value, Boolean> lt = (v1, v2) -> {
+
+        if (! v1.getValType().equals(v2.getValType())) {
+            System.out.println("[Error@VVComparator45] " + "Comparing between none-number value: " + v1.toString() + " and " + v2.toString());
+        }
+
+        // TODO: double check this
+        if (v1 instanceof NullVal || v2 instanceof NullVal)
+            return false;
+
         if (v1 instanceof NumberVal && v2 instanceof NumberVal) {
             return ((NumberVal)v1).getVal() < ((NumberVal)v2).getVal();
         } else if (v1 instanceof DateVal && v2 instanceof DateVal) {
             return ((DateVal)v1).getVal().compareTo(((DateVal)v2).getVal()) < 0 ;
         }
-        System.out.println("[Error@VVComparator45] " + "Comparing between none-number value: " + v1.toString() + " and " + v2.toString());
         return false;
      };
 

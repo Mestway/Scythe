@@ -16,10 +16,12 @@ public class NumberVal implements Value {
 
     @Override
     public Double getVal() { return this.val; }
+
     @Override
     public int hashCode() {
         return this.getVal().hashCode();
     }
+
     @Override
     public boolean equals(Object v) {
         if (v instanceof NumberVal)

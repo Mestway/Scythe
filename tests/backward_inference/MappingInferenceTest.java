@@ -7,6 +7,7 @@ import org.junit.Test;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.table.*;
+import sql.lang.datatype.Value;
 import util.TableInstanceParser;
 
 import java.util.*;
@@ -17,6 +18,39 @@ import java.util.*;
 public class MappingInferenceTest {
 
     @Test
+    public void newTest() {
+        String inputSrc =
+                "| col1 | col2 | col3 | col4 |" + "\r\n" +
+                        "|--------------------|" + "\r\n" +
+                        "|  1   |  3   | 3 |  D   |" + "\r\n" +
+                        "|  2   |  1   | 1 |  B   |" + "\r\n" +
+                        "|  1   |  2   | NULL[num] | NULL[str] |";
+
+        String outputSrc =
+                "| col1 | col2 | col3 |" + "\r\n" +
+                        "|--------------------|" + "\r\n" +
+                        "|  1   |  3   |  D   |" + "\r\n" +
+                        "|  2   |  1   |  B   |" + "\r\n" +
+                        "|  1   |  2   | NULL[str] |";
+
+        String outputSrc2 =
+                "| col1 | col2 | col3 |" + "\r\n" +
+                        "|--------------------|" + "\r\n" +
+                        "|  2   |  1   |  B   |" + "\r\n" +
+                        "|  1   |  3   |  D   |" + "\r\n" +
+                        "|  1   |  2   | NULL[str] |";
+
+        Table input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
+        Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
+        Table output2 = TableInstanceParser.parseMarkDownTable("table22", outputSrc2);
+
+        System.out.println(output2.contentEquals(output));
+
+        MappingInference mi = MappingInference.buildMapping(input, output);
+        System.out.println(mi);
+
+    }
+
     public void testTableInverse() throws Exception {
         String inputSrc =
                 "| T1.User   |  T1.Phone   |  T1.Value  | T2.User | T2.MaxVal |" + "\r\n" +

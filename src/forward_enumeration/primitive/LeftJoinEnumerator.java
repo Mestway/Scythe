@@ -41,13 +41,15 @@ public class LeftJoinEnumerator {
         List<Pair<String, ValType>> t1Columns = tn1.getSchemaWithType();
         List<Pair<String, ValType>> t2Columns = tn2.getSchemaWithType();
 
-        Table t1 = null, t2 = null;
+        Table t1, t2;
 
         try {
             t1 = tn1.eval(new Environment());
             t2 = tn2.eval(new Environment());
         } catch (SQLEvalException e) {
             System.out.println("[ERROR@LeftJoinEnumerator32] TableNodes unable to be evaluated.");
+            t1 = null;
+            t2 = null;
         }
 
         List<Pair<String, String>> joinKeys = new ArrayList<>();
@@ -70,7 +72,7 @@ public class LeftJoinEnumerator {
 
                 // we will not generate left-join queries for columns that have no intersection values,
                 // or columns that are already fully contained.
-                if ((! existsIntersection) || allContained)
+                if ((! existsIntersection))
                     continue;
 
                 joinKeys.add(new Pair<>(ct1.getKey(), ct2.getKey()));

@@ -18,6 +18,8 @@ public class CostEstimator {
     public static double estimateFilterCost(Filter f, Map<String, String> originNameMap) {
         if (f instanceof EmptyFilter) {
             return 0;
+        } if (f instanceof IsNullFilter) {
+            return 0.5;
         } else if (f instanceof ExistsFilter) {
             double cost = 0.5 + 4. * (((ExistsFilter) f).getTableNode().estimateAllFilterCost() / 5);
             return cost;

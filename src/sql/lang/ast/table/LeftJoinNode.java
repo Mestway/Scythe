@@ -6,13 +6,16 @@ import sql.lang.TableRow;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.datatype.ValType;
+import sql.lang.datatype.Value;
 import sql.lang.exception.SQLEvalException;
 import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;
 import util.Pair;
+import util.RenameTNWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -154,6 +157,44 @@ public class LeftJoinNode extends TableNode {
                 this.joinKeys);
     }
 
+    public TableNode substCoreTable(TableNode leftCore, TableNode rightCore) {
+
+        TableNode lrt = RenameTNWrapper.tryRename(leftCore);
+        TableNode rrt = RenameTNWrapper.tryRename(rightCore);
+
+        // rename the filters so that the filters refer to the elements in the new table.
+        List<Pair<String, String>> stringNameBinding = new ArrayList<>();
+        for (int i = 0; i < lrt.getSchema().size(); i ++) {
+            stringNameBinding.add(new Pair<>(
+                    this.tn1.getSchema().get(i),
+                    lrt.getSchema().get(i)));
+        }
+        for (int i = 0; i < rrt.getSchema().size(); i ++) {
+            stringNameBinding.add(new Pair<>(
+                    this.tn2.getSchema().get(i),
+                    rrt.getSchema().get(i)));
+        }
+
+        List<Pair<String, String>> newJoinKeys = new ArrayList<>();
+
+        for (Pair<String, String> key : this.joinKeys) {
+            String lKey = key.getKey();
+            String rKey = key.getValue();
+
+            for (Pair<String, String> p : stringNameBinding) {
+                if (p.getKey().equals(key.getKey())) {
+                    lKey = p.getValue();
+                }
+                if (p.getKey().equals(key.getValue())) {
+                    rKey = p.getValue();
+                }
+            }
+            newJoinKeys.add(new Pair<>(lKey, rKey));
+        }
+
+        return new LeftJoinNode(lrt, rrt, newJoinKeys);
+    }
+
     @Override
     public List<NamedTable> namedTableInvolved() {
         List<NamedTable> result = new ArrayList<>();
@@ -187,7 +228,7 @@ public class LeftJoinNode extends TableNode {
 
     @Override
     public String getQuerySkeleton() {
-        return "(J" + tn1.getQuerySkeleton() + " " + tn2.getQuerySkeleton() + ")";
+        return "(LJ" + tn1.getQuerySkeleton() + " " + tn2.getQuerySkeleton() + ")";
     }
 
 }

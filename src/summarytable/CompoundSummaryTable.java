@@ -30,9 +30,9 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
     List<BVFilter> primitives = new ArrayList<>();
 
     private boolean primitiveFiltersEvaluated = false;
-    // the representitive table will not be available until primitives are evaluated
-    // this tableNode represent the tablenode used in evaluating the filters
-    RenameTableNode representitiveTableNode = null;
+    // the representative table will not be available until primitives are evaluated
+    // this tableNode represent the table node used in evaluating the filters
+    RenameTableNode representativeTableNode = null;
 
     public CompoundSummaryTable(AbstractSummaryTable st1, AbstractSummaryTable st2) {
         this.st1 = st1;
@@ -58,7 +58,7 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
             MappingInference mi,
             EnumContext ec,
             BiConsumer<AbstractSummaryTable, BVFilter> f) {
-        this.evalPrimitive(ec);
+        this.encodePrimitiveFilters(ec);
 
         Set<BVFilter> dummyExtFilter = new HashSet<>();
         dummyExtFilter.add(BVFilter.genSymbolicFilter(this.getBaseTable(), new EmptyFilter()));
@@ -94,19 +94,19 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
         Set<BVFilter> st1FiltersLinks = st1.instantiateAllFilters();
         Set<BVFilter> st2FiltersLinks = st2.instantiateAllFilters();
         Set<BVFilter> lrFiltersLinks =
-                AbstractSummaryTable.mergeAndLinkFilters(this, this.filtersLR.stream().collect(Collectors.toList()));
+                AbstractSummaryTable.genCompoundFilters(this, this.filtersLR.stream().collect(Collectors.toList()));
 
         // map each filter in the sub-symbolic table to its promoted form in the cartesian product table.
         Map<BVFilter, BVFilter> promotedFilters1 = new HashMap<>();
         Map<BVFilter, BVFilter> promotedFilters2 = new HashMap<>();
         for (BVFilter f1 : st1FiltersLinks) {
-            BVFilter promotedf1 = this.promoteLeftFilter(f1);
+            BVFilter promotedf1 = this.pullUpLeftFilter(f1);
             if (fullyContainedAnElement(promotedf1, targetFilters))
                 promotedFilters1.put(f1, promotedf1);
         }
 
         for (BVFilter f2 : st2FiltersLinks) {
-            BVFilter promotedf2 = this.promoteRightFilter(f2);
+            BVFilter promotedf2 = this.pullUpRightFilter(f2);
             if (fullyContainedAnElement(promotedf2, targetFilters))
                 promotedFilters2.put(f2, promotedf2);
         }
@@ -169,20 +169,20 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
         // map each filter in the sub-symbolic table to its promoted form in the cartesian product table.
         Map<BVFilter, BVFilter> validPromotedDemotedf2 = new HashMap<>();
         for (BVFilter f2 : st2FiltersLinks) {
-            BVFilter promotedf2 = this.promoteRightFilter(f2);
-            BVFilter lDemotedf2 = this.demoteToLeftFilter(promotedf2);
+            BVFilter promotedf2 = this.pullUpRightFilter(f2);
+            BVFilter lDemotedf2 = this.pushDownToLeftFilter(promotedf2);
             if (fullyContainedAnElement(lDemotedf2, st1TargetFilters))
                 validPromotedDemotedf2.put(f2, promotedf2);
         }
         Map<BVFilter, BVFilter> validLRDemoted = new HashMap<>();
         for (BVFilter sf : lrFiltersLinks) {
-            BVFilter lDemotedLRF = this.demoteToLeftFilter(sf);
+            BVFilter lDemotedLRF = this.pushDownToLeftFilter(sf);
             if (fullyContainedAnElement(lDemotedLRF, st1TargetFilters))
                 validLRDemoted.put(sf, lDemotedLRF);
         }
         Map<BVFilter, BVFilter> validExtDemoted = new HashMap<>();
         for (BVFilter ef : demotedExtFilters) {
-            BVFilter lDemotedEF = this.demoteToLeftFilter(ef);
+            BVFilter lDemotedEF = this.pushDownToLeftFilter(ef);
             if (fullyContainedAnElement(lDemotedEF, st1TargetFilters))
                 validExtDemoted.put(ef, lDemotedEF);
         }
@@ -194,7 +194,7 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
             for (BVFilter f2 : validPromotedDemotedf2.keySet()) {
                 BVFilter mergedlrf2 = BVFilter.mergeFilter(
                         lrf, validPromotedDemotedf2.get(f2), AbstractSummaryTable.mergeFunction);
-                if (! fullyContainedAnElement(demoteToLeftFilter(mergedlrf2), st1TargetFilters))
+                if (! fullyContainedAnElement(pushDownToLeftFilter(mergedlrf2), st1TargetFilters))
                     continue;
                 for (BVFilter ef : validExtDemoted.keySet()) {
                     BVFilter mergedlrf2ef = BVFilter.mergeFilter(
@@ -202,7 +202,7 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
                             AbstractSummaryTable.mergeFunction
                     );
 
-                    BVFilter lDemotedMergedlrf2ef = demoteToLeftFilter(mergedlrf2ef);
+                    BVFilter lDemotedMergedlrf2ef = pushDownToLeftFilter(mergedlrf2ef);
                     if (! fullyContainedAnElement(lDemotedMergedlrf2ef, st1TargetFilters))
                         continue;
 
@@ -220,7 +220,7 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
 
         // the first element of p is a filter from st1, second element is a demoted filter
         for (Pair<BVFilter, BVFilter> p : demotedEvalResult) {
-            BVFilter promotedF1 = this.promoteLeftFilter(p.getKey());
+            BVFilter promotedF1 = this.pullUpLeftFilter(p.getKey());
 
             // key of p2 is mergedf2lr, value of p2 is a extFilter
             for (Pair<BVFilter, BVFilter> p2 : demotedCompoundToOriginalFilter.get(p.getValue())) {
@@ -247,18 +247,18 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
         Set<BVFilter> st2FiltersLinks = st2.instantiateAllFilters();
 
         Set<BVFilter> lrFiltersLinks =
-                AbstractSummaryTable.mergeAndLinkFilters(this, this.filtersLR.stream().collect(Collectors.toList()));
+                AbstractSummaryTable.genCompoundFilters(this, this.filtersLR.stream().collect(Collectors.toList()));
         // if we want more than 1 level
-        // lrFiltersLinks = AbstractSymbolicTable.mergeAndLinkFilters(this, lrFiltersLinks.getKey().stream().collect(Collectors.toList()));
+        // lrFiltersLinks = AbstractSymbolicTable.genCompoundFilters(this, lrFiltersLinks.getKey().stream().collect(Collectors.toList()));
 
         Map<BVFilter, BVFilter> promotedFilters1 = new HashMap<>();
         Map<BVFilter, BVFilter> promotedFilters2 = new HashMap<>();
 
         for (BVFilter f1 : st1FiltersLinks) {
-            promotedFilters1.put(f1, this.promoteLeftFilter(f1));
+            promotedFilters1.put(f1, this.pullUpLeftFilter(f1));
         }
         for (BVFilter f2 : st2FiltersLinks) {
-            promotedFilters2.put(f2, this.promoteRightFilter(f2));
+            promotedFilters2.put(f2, this.pullUpRightFilter(f2));
         }
 
         int filtersToBeVisited = promotedFilters1.keySet().size() * promotedFilters2.keySet().size() * lrFiltersLinks.size();
@@ -306,74 +306,17 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
     }
 
     @Override
-    public Optional<BVFilter> lazyFilterEval(Integer index) {
-
-        assert primitiveFiltersEvaluated;
-
-        int n3 = this.compoundPrimitiveFilterCount();
-        int n2 = this.st2.compoundFilterCount();
-        int n1 = this.st1.compoundFilterCount();
-
-        if (index >= n1 * n2 * n3)
-            return Optional.empty();
-
-        int k = index % n3;
-        int j = ((index - k) / n3) % n2;
-        int i = (index - j * n3 - k) / n2 / n3;
-
-        // (i) * n2 * n3 + (j) * n3 + (k)
-
-        BVFilter p1 = st1.lazyFilterEval(i).get();
-        BVFilter p2  = st2.lazyFilterEval(j).get();
-
-        // the following code are used to generate a LR filter
-
-        BVFilter LRFilter = null;
-
-        if (k == 0) {
-            LRFilter = BVFilter.genSymbolicFilter(this.getBaseTable(), new EmptyFilter());
-        } else {
-            k --;
-            Pair<Integer, Integer> xy = this.inverseFilterIndex(this.primitives.size(), k);
-            LRFilter = BVFilter.mergeFilter(
-                    primitives.get(xy.getKey()),
-                    primitives.get(xy.getValue()),
-                    AbstractSummaryTable.mergeFunction);
-
-            // add the link from two source filter to the merged filter itself
-            Set<Pair<AbstractSummaryTable, BVFilter>> srcs = new HashSet<>();
-            srcs.add(new Pair<>(this, primitives.get(xy.getKey())));
-            srcs.add(new Pair<>(this, primitives.get(xy.getValue())));
-        }
-
-        BVFilter mergedFilter = BVFilter.mergeFilter(
-                this.promoteLeftFilter(p1),
-                BVFilter.mergeFilter(
-                        this.promoteRightFilter(p2),
-                        LRFilter,
-                        AbstractSummaryTable.mergeFunction),
-                AbstractSummaryTable.mergeFunction);
-
-        Set<Pair<AbstractSummaryTable, BVFilter>> src = new HashSet<>();
-        src.add(new Pair<>(st1, p1));
-        src.add(new Pair<>(st2, p2));
-        src.add(new Pair<>(this, LRFilter));
-
-        return Optional.of(mergedFilter);
-    }
-
-    @Override
     public int getPrimitiveFilterNum() {
         return this.filtersLR.size();
     }
 
     @Override
-    void evalPrimitive(EnumContext ec) {
+    void encodePrimitiveFilters(EnumContext ec) {
         if (this.primitiveFiltersEvaluated) return;
 
         // first evaluate the filters for sub-abstract tables
-        st1.evalPrimitive(ec);
-        st2.evalPrimitive(ec);
+        st1.encodePrimitiveFilters(ec);
+        st2.encodePrimitiveFilters(ec);
 
         JoinNode jn = new JoinNode(
                 Arrays.asList(
@@ -381,9 +324,10 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
                         new NamedTable(this.st2.getBaseTable())));
 
         RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(jn);
-        this.representitiveTableNode = rt;
+        this.representativeTableNode = rt;
 
-        // the maximum filter length for filtersLR should be 1
+        // the maximum filter length for filtersLR should be 1,
+        // we use a temp variable to store the original maximum filter length
         int backUpMaxFilterLength = ec.getMaxFilterLength();
         ec.setMaxFilterLength(1);
         List<Filter> filters = FilterEnumerator.enumCanonicalFilterJoinNode(rt, ec);
@@ -406,8 +350,8 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
             entryRef.getValue().add(f);
             double cost = CostEstimator.estimateFilterCost(f,
                     TableNode.nameToOriginMap(
-                            representitiveTableNode.getSchema(),
-                            representitiveTableNode.originalColumnName()));
+                            representativeTableNode.getSchema(),
+                            representativeTableNode.originalColumnName()));
             if (cost < entryRef.getKey()) {
                 decodedLR.put(symFilter, new Pair<>(cost, entryRef.getValue()));
             }
@@ -425,32 +369,32 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
 
 
     // Promote a filter in left table to a filter for current baseTable
-    private BVFilter promoteLeftFilter(BVFilter sf1) {
-        Set<Integer> promotedFilter = new HashSet<>();
+    private BVFilter pullUpLeftFilter(BVFilter sf1) {
+        Set<Integer> pulledFilter = new HashSet<>();
         for (int i : sf1.getFilterRep()) {
             for (int j  = 0; j < this.st2.getBaseTable().getContent().size(); j ++) {
-                promotedFilter.add(i * this.st2.getBaseTable().getContent().size() + j);
+                pulledFilter.add(i * this.st2.getBaseTable().getContent().size() + j);
             }
         }
-        return new BVFilter(promotedFilter, this.getBaseTable().getContent().size());
+        return new BVFilter(pulledFilter, this.getBaseTable().getContent().size());
     }
 
     // Promote a filter in right table to a filter for current baseTable
-    private BVFilter promoteRightFilter(BVFilter sf2) {
-        Set<Integer> promotedFilter = new HashSet<>();
+    private BVFilter pullUpRightFilter(BVFilter sf2) {
+        Set<Integer> pulledFilter = new HashSet<>();
         for (int i = 0; i < st1.getBaseTable().getContent().size(); i ++) {
             for (int j : sf2.getFilterRep()) {
-                promotedFilter.add(i * this.st2.getBaseTable().getContent().size() + j);
+                pulledFilter.add(i * this.st2.getBaseTable().getContent().size() + j);
             }
         }
-        return new BVFilter(promotedFilter, this.getBaseTable().getContent().size());
+        return new BVFilter(pulledFilter, this.getBaseTable().getContent().size());
     }
 
-    private BVFilter demoteToLeftFilter(BVFilter f) {
-        Set<Integer> demotedFilter = new HashSet<>();
+    private BVFilter pushDownToLeftFilter(BVFilter f) {
+        Set<Integer> pushedFilter = new HashSet<>();
 
         for (Integer n : f.getFilterRep()) {
-            demotedFilter.add(n / st2.getBaseTable().getContent().size());
+            pushedFilter.add(n / st2.getBaseTable().getContent().size());
         }
 
         /* for (int i = 0; i < st1.getBaseTable().getContent().size(); i ++) {
@@ -460,26 +404,21 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
                 }
             }
         } */
-        return new BVFilter(demotedFilter, st1.getBaseTable().getContent().size());
+        return new BVFilter(pushedFilter, st1.getBaseTable().getContent().size());
     }
 
-    private BVFilter demoteToRightFilter(BVFilter f) {
-        Set<Integer> demotedFilter = new HashSet<>();
+    private BVFilter pushDownToRightFilter(BVFilter f) {
+        Set<Integer> pushedFilter = new HashSet<>();
 
         for (Integer n : f.getFilterRep()) {
-            demotedFilter.add(n % st2.getBaseTable().getContent().size());
+            pushedFilter.add(n % st2.getBaseTable().getContent().size());
         }
-        return new BVFilter(demotedFilter, st2.getBaseTable().getContent().size());
+        return new BVFilter(pushedFilter, st2.getBaseTable().getContent().size());
     }
 
 
     public List<Filter> decodeLR(BVFilter sf) {
         return decodedLR.get(sf).getValue();
-    }
-
-    @Override
-    public TableNode queryForBaseTable(EnumContext ec) {
-        return RenameTNWrapper.tryRename(new JoinNode(Arrays.asList(st1.queryForBaseTable(ec), st2.queryForBaseTable(ec))));
     }
 
     @Override
@@ -512,18 +451,18 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
         Set<BVFilter> st1FiltersLinks = st1.instantiateAllFilters();
         Set<BVFilter> st2FiltersLinks = st2.instantiateAllFilters();
         Set<BVFilter> lrFiltersLinks =
-                AbstractSummaryTable.mergeAndLinkFilters(this, this.filtersLR.stream().collect(Collectors.toList()));
+                AbstractSummaryTable.genCompoundFilters(this, this.filtersLR.stream().collect(Collectors.toList()));
 
         Map<BVFilter, BVFilter> promotedFilters1 = new HashMap<>();
         Map<BVFilter, BVFilter> promotedFilters2 = new HashMap<>();
 
         for (BVFilter f1 : st1FiltersLinks) {
-            BVFilter promotedf1 = this.promoteLeftFilter(f1);
+            BVFilter promotedf1 = this.pullUpLeftFilter(f1);
             if (fullyContainedAnElement(promotedf1, targets))
                 promotedFilters1.put(f1, promotedf1);
         }
         for (BVFilter f2 : st2FiltersLinks) {
-            BVFilter promotedf2 = this.promoteRightFilter(f2);
+            BVFilter promotedf2 = this.pullUpRightFilter(f2);
             if (fullyContainedAnElement(promotedf2, targets))
                 promotedFilters2.put(f2, promotedf2);
         }

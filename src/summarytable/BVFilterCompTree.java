@@ -81,6 +81,7 @@ public class BVFilterCompTree {
             List<TableNode> result = new ArrayList<>();
 
             List<TableNode> cores = ((PrimitiveSummaryTable) symTable).genTableSrc(ec);
+            // sort decodings of the core
             cores.sort(new Comparator<TableNode>() {
                 @Override
                 public int compare(TableNode o1, TableNode o2) {
@@ -100,7 +101,7 @@ public class BVFilterCompTree {
                 List<List<Filter>> unRotated = new ArrayList<>();
                 for (BVFilter sf : this.primitiveFilters) {
                     List<Filter> decoded = ((PrimitiveSummaryTable) symTable)
-                            .decodePrimitiveFilter(sf, tn, ec);
+                            .decodePrimitiveFilter(sf, tn);
 
                     decoded.sort(new Comparator<Filter>() {
                         @Override
@@ -199,6 +200,7 @@ public class BVFilterCompTree {
                             minCost = cost;
 
                         }
+                        // TODO: This one does not limit the number since it adds all filters into the result set
                         //filters.add(f);
                     }
                     // TODO: if we want to limit the number, use the commented one
@@ -212,7 +214,7 @@ public class BVFilterCompTree {
                 ValNodeSubstBinding vsb = new ValNodeSubstBinding();
                 for (int i = 0; i < coreTableNode.getSchema().size(); i ++) {
                     vsb.addBinding(new Pair<>(
-                            new NamedVal(((CompoundSummaryTable) symTable).representitiveTableNode.getSchema().get(i)),
+                            new NamedVal(((CompoundSummaryTable) symTable).representativeTableNode.getSchema().get(i)),
                             new NamedVal(coreTableNode.getSchema().get(i))));
                 }
 

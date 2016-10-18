@@ -27,45 +27,46 @@ import java.util.stream.Collectors;
  */
 public class PrimitiveSummaryTable extends AbstractSummaryTable {
 
-    // this field records what is the query to construct the base table
+    // this field records the base table and the query that construct the base table
+    private Table baseTable;
     private TableNode baseTableSrc;
 
-    // This field only presence when the baseTableSrc is an aggregation node,
-    // the aggregation core identifies the core used in enumerating aggregation.
-    private Optional<Pair<AbstractSummaryTable, BVFilter>> coreSymTableNFilter;
+    // The children node of the baseTableSrc, indicating how baseTableSrc is constructed
+    // e.g. 1) if the baseTableSrc is a named table from user input, the srcTreeChildren is empty,
+    //              and the baseTableSrc is already the final query for baseTable.
+    //      2) if the baseTableSrc is an aggregation node,
+    //             the srcTreeChildren indicates how the coreTable of the baseTable is constructed.
+    private List<Pair<AbstractSummaryTable, BVFilter>> baseTableSrcChildren = new ArrayList<>();
 
-    private Table baseTable;
-
-    private Set<BVFilter> symbolicPrimitiveFilters = new HashSet<>();
+    private Set<BVFilter> primitiveBVFilters = new HashSet<>();
     // mapping each symbolic filter to its cost and concrete form
     private Map<BVFilter, Pair<Double, List<Filter>>> decodedPrimitives = new HashMap<>();
 
-    // after primitveFiltersEvaluated is done, the list will be ready to be used.
+    // after primitiveFiltersEvaluated is done, the list will be ready to be used.
     private List<BVFilter> primitives = new ArrayList<>();
     private boolean primitiveFiltersEvaluated = false;
-
-    public TableNode getBaseTableSrc() { return this.baseTableSrc; }
 
     public PrimitiveSummaryTable(Table baseTable, TableNode baseTableSrc) {
         this.baseTable = baseTable;
         this.baseTableSrc = baseTableSrc;
         // the symbolic primitive filters are not evaluated here because we want to keep them lazy
-        this.symbolicPrimitiveFilters = new HashSet<>();
-        this.coreSymTableNFilter = Optional.ofNullable(null);
+        this.primitiveBVFilters = new HashSet<>();
     }
 
-    public PrimitiveSummaryTable(Table baseTable, TableNode baseTableSrc, Pair<AbstractSummaryTable, BVFilter> p) {
+    public PrimitiveSummaryTable(Table baseTable,
+                                 TableNode baseTableSrc,
+                                 List<Pair<AbstractSummaryTable, BVFilter>> pairs) {
         this.baseTable = baseTable;
         this.baseTableSrc = baseTableSrc;
         // the symbolic primitive filters are not evaluated here because we want to keep them lazy
-        this.symbolicPrimitiveFilters = new HashSet<>();
-        this.coreSymTableNFilter = Optional.of(p);
+        this.primitiveBVFilters = new HashSet<>();
+        baseTableSrcChildren.addAll(pairs);
     }
 
     public PrimitiveSummaryTable(Table baseTable, TableNode baseTableSrc, EnumContext ec) {
         this.baseTable = baseTable;
         this.baseTableSrc = baseTableSrc;
-        this.symbolicPrimitiveFilters = new HashSet<>();
+        this.primitiveBVFilters = new HashSet<>();
 
         // only simple filter will be evaluated
         int backUpMaxFilterLength = ec.getMaxFilterLength();
@@ -87,9 +88,9 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
         for (Filter f : filters) {
             symfilters.add(BVFilter.genSymbolicFilter(this.baseTable, f));
         }
-        this.symbolicPrimitiveFilters = symfilters;
+        this.primitiveBVFilters = symfilters;
         this.primitiveFiltersEvaluated = true;
-        this.primitives = this.symbolicPrimitiveFilters.stream().collect(Collectors.toList());
+        this.primitives = this.primitiveBVFilters.stream().collect(Collectors.toList());
 
         // calculating count
         this.primitiveSynFilterCount = filters.size();
@@ -105,14 +106,21 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
 
     @Override
     public Table getBaseTable() { return this.baseTable; }
+    public Class getBaseTableSrcNatureClass() {
+        if (this.baseTableSrc instanceof NamedTable) {
+            return NamedTable.class;
+        } else {
+            return ((RenameTableNode) baseTableSrc).getTableNode().getClass();
+        }
+    }
 
     public void setBaseTable(Table baseTable) { this.baseTable = baseTable; }
 
-    public Set<BVFilter> getSymbolicFilters() { return this.symbolicPrimitiveFilters; }
+    public Set<BVFilter> getSymbolicFilters() { return this.primitiveBVFilters; }
 
     public void setSymbolicFilters(Set<BVFilter> filters) {
-        this.symbolicPrimitiveFilters = filters;
-        this.symbolicPrimitiveFilters.add(BVFilter.genSymbolicFilter(this.baseTable, new EmptyFilter()));
+        this.primitiveBVFilters = filters;
+        this.primitiveBVFilters.add(BVFilter.genSymbolicFilter(this.baseTable, new EmptyFilter()));
     }
 
     public Set<Pair<BVFilter, BVFilter>> visitDemotedSpace(
@@ -129,8 +137,8 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
         }
 
         // this is the traditional way, invoking the mergeAndLink function to get it.
-        Set<BVFilter> allFiltersLinks = AbstractSummaryTable.mergeAndLinkFilters(this,
-                this.symbolicPrimitiveFilters.stream().collect(Collectors.toList()));
+        Set<BVFilter> allFiltersLinks = AbstractSummaryTable.genCompoundFilters(this,
+                this.primitiveBVFilters.stream().collect(Collectors.toList()));
 
         List<BVFilter> validFilter = new ArrayList<>();
         for (BVFilter sf : allFiltersLinks) {
@@ -171,13 +179,13 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
             targetFilters.add(sf);
         }
 
-        this.evalPrimitive(ec);
+        this.encodePrimitiveFilters(ec);
         // make sure that primitive filters are already evaluated
         assert primitiveFiltersEvaluated;
 
         // this is the traditional way, invoking the mergeAndLink function to get it.
-        Set<BVFilter> allFilters = AbstractSummaryTable.mergeAndLinkFilters(this,
-                this.symbolicPrimitiveFilters.stream().collect(Collectors.toList()));
+        Set<BVFilter> allFilters = AbstractSummaryTable.genCompoundFilters(this,
+                this.primitiveBVFilters.stream().collect(Collectors.toList()));
 
         int noneBogusFilterCount = 0;
 
@@ -201,61 +209,11 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
         assert primitiveFiltersEvaluated;
 
         // this is the traditional way, invoking the mergeAndLink function to get it.
-        return AbstractSummaryTable.mergeAndLinkFilters(this,
-                this.symbolicPrimitiveFilters.stream().collect(Collectors.toList()));
-
-        // This is an alternative way, invoking the lazy enumerator
-        /* Set<SymbolicFilter> result = new HashSet<>();
-        FilterLinks fl = new FilterLinks();
-
-        int k = 0;
-        while (true) {
-            Optional<Pair<SymbolicFilter, FilterLinks>> op = lazyFilterEval(k);
-            k ++;
-            if (! op.isPresent()) break;
-
-            result.add(op.get().getKey());
-            fl = FilterLinks.merge(Arrays.asList(fl, op.get().getValue()));
-        }
-
-        // this is used to make sure that the empty filter is added
-        // result.add(SymbolicFilter.genSymbolicFilter(this.getBaseTable(), new EmptyFilter()));
-
-        this.allfiltersEnumerated = true;
-        this.totalBitVecFiltersCount = result.size();
-        return new Pair<>(result, fl); */
+        return AbstractSummaryTable.genCompoundFilters(this,
+                this.primitiveBVFilters.stream().collect(Collectors.toList()));
     }
 
-    // A lazy version of instantiating all filters
-    @Override
-    public Optional<BVFilter> lazyFilterEval(Integer index) {
-
-        assert primitiveFiltersEvaluated;
-
-        if (index == 0)
-            return Optional.of(BVFilter.genSymbolicFilter(this.getBaseTable(), new EmptyFilter()));
-
-        index --;
-
-        Pair<Integer, Integer> p = this.inverseFilterIndex(this.getPrimitiveFilterNum(), index);
-
-        if ((p.getKey() == -1) && (p.getValue() == -1))
-            return Optional.empty();
-
-        BVFilter mergedFilter = BVFilter.mergeFilter(
-                primitives.get(p.getKey()),
-                primitives.get(p.getValue()),
-                AbstractSummaryTable.mergeFunction);
-
-        // add the link from two source filter to the merged filter itself
-        Set<Pair<AbstractSummaryTable, BVFilter>> srcs = new HashSet<>();
-        srcs.add(new Pair<>(this, primitives.get(p.getKey())));
-        srcs.add(new Pair<>(this, primitives.get(p.getValue())));
-
-        return Optional.of(mergedFilter);
-    }
-
-    public List<Filter> decodePrimitiveFilter(BVFilter sf, TableNode tn, EnumContext ec) {
+    public List<Filter> decodePrimitiveFilter(BVFilter sf, TableNode tn) {
         // the table can either be a named table or a renamed table from an aggregation table.
 
         try {
@@ -287,16 +245,16 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
 
     @Override
     public int getPrimitiveFilterNum() {
-        return this.symbolicPrimitiveFilters.size();
+        return this.primitiveBVFilters.size();
     }
 
     // calculate what are the primitive filters for this symbolic table.
     @Override
-    void evalPrimitive(EnumContext ec) {
+    void encodePrimitiveFilters(EnumContext ec) {
 
         if (this.primitiveFiltersEvaluated) return;
 
-        // only simple filter will be evaluated
+        // only simple filter will be encoded into bit-vectors
         int backUpMaxFilterLength = ec.getMaxFilterLength();
         ec.setMaxFilterLength(1);
 
@@ -314,6 +272,7 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
         // the empty filter is added here to make it complete.
         filters.add(new EmptyFilter());
 
+        // add possible decoding result for each symbolic table
         decodedPrimitives.put(BVFilter.genSymbolicFilter(baseTable, new EmptyFilter()), new Pair<>(0., new ArrayList<>()));
 
         Set<BVFilter> symfilters = new HashSet<>();
@@ -324,6 +283,7 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
                 decodedPrimitives.put(symFilter, new Pair<>(99999., new ArrayList<>()));
             }
 
+            // retrieve the entry of the filter and update it
             Pair<Double, List<Filter>> entryRef = decodedPrimitives.get(symFilter);
 
             entryRef.getValue().add(f);
@@ -349,9 +309,9 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
             });
         }
 
-        this.symbolicPrimitiveFilters = symfilters;
+        this.primitiveBVFilters = symfilters;
         this.primitiveFiltersEvaluated = true;
-        this.primitives = this.symbolicPrimitiveFilters.stream().collect(Collectors.toList());
+        this.primitives = this.primitiveBVFilters.stream().collect(Collectors.toList());
 
         // calculating count
         this.primitiveSynFilterCount = filters.size();
@@ -363,11 +323,6 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
         Statistics.sum_red_syn_to_bv += ((float)filters.size()) / (this.primitives.size());
         Statistics.sum_red_syn_to_bv ++;
 
-    }
-
-    @Override
-    public TableNode queryForBaseTable(EnumContext ec) {
-        return this.baseTableSrc;
     }
 
     @Override
@@ -458,27 +413,67 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
 
     public List<TableNode> genTableSrc(EnumContext ec) {
 
-        if (! this.coreSymTableNFilter.isPresent())
+        if (this.baseTableSrc instanceof NamedTable) {
+            // In this case, the table is a table from input example
             return Arrays.asList(this.baseTableSrc);
+        } else if (this.baseTableSrc instanceof RenameTableNode
+                && ((RenameTableNode) this.baseTableSrc).getTableNode() instanceof AggregationNode) {
 
-        AbstractSummaryTable symTable = coreSymTableNFilter.get().getKey();
-        BVFilter sf = coreSymTableNFilter.get().getValue();
+            // In this case, the table src is an aggregation node
+            AbstractSummaryTable symTable = baseTableSrcChildren.get(0).getKey();
+            BVFilter sf = baseTableSrcChildren.get(0).getValue();
 
+            Set<BVFilter> sfSet = new HashSet<>();
+            sfSet.add(sf);
+            List<BVFilterCompTree> trees = symTable.batchGenDecomposition(sfSet).get(sf);
+            List<TableNode> cores = new ArrayList<>();
+            for (BVFilterCompTree tr : trees) {
+                cores.addAll(tr.translateToTopSQL(ec));
+            }
 
-        Set<BVFilter> sfSet = new HashSet<>();
-        sfSet.add(sf);
-        List<BVFilterCompTree> trees = symTable.batchGenDecomposition(sfSet).get(sf);
-        List<TableNode> cores = new ArrayList<>();
-        for (BVFilterCompTree tr : trees) {
-            cores.addAll(tr.translateToTopSQL(ec));
+            List<TableNode> tableSrcs = new ArrayList<>();
+            for(TableNode core : cores) {
+                tableSrcs.add(RenameTNWrapper.tryRename(((AggregationNode)((RenameTableNode)baseTableSrc).getTableNode()).substCoreTable(core)));
+            }
+
+            return tableSrcs;
+        } else if (this.baseTableSrc instanceof RenameTableNode
+                && ((RenameTableNode) this.baseTableSrc).getTableNode() instanceof LeftJoinNode) {
+
+            List<TableNode> tableSrcs = new ArrayList<>();
+
+            List<List<TableNode>> coresList = baseTableSrcChildren
+                    .stream()
+                    .map(p -> {
+                        AbstractSummaryTable symTable = p.getKey();
+                        BVFilter sf = p.getValue();
+                        Set<BVFilter> sfSet = new HashSet<>();
+                        sfSet.add(sf);
+                        List<BVFilterCompTree> trees = symTable.batchGenDecomposition(sfSet).get(sf);
+                        List<TableNode> cores = new ArrayList<>();
+                        for (BVFilterCompTree tr : trees) {
+                            cores.addAll(tr.translateToTopSQL(ec));
+                        }
+                        return cores;
+                    }).collect(Collectors.toList());
+
+            List<TableNode> leftCores = coresList.get(0);
+            List<TableNode> rightCores = coresList.get(1);
+
+            for (TableNode lCore : leftCores) {
+                for (TableNode rCore : rightCores) {
+                    TableNode rt = RenameTNWrapper.tryRename(
+                            ((LeftJoinNode) ((RenameTableNode) this.baseTableSrc).getTableNode())
+                                    .substCoreTable(lCore, rCore));
+                    tableSrcs.add(rt);
+                }
+            }
+
+            return tableSrcs;
         }
 
-        List<TableNode> tableSrcs = new ArrayList<>();
-        for(TableNode core : cores) {
-            tableSrcs.add(RenameTNWrapper.tryRename(((AggregationNode)((RenameTableNode)baseTableSrc).getTableNode()).substCoreTable(core)));
-        }
-
-        return tableSrcs;
+        System.err.println("[ERROR@PrimitiveSummaryTable438] None implemented decoding process");
+        return null;
     }
 
     @Override

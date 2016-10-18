@@ -3,6 +3,7 @@ package forward_enumeration.table_enumerator;
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.container.QueryContainer;
 import forward_enumeration.primitive.AggrEnumerator;
+import forward_enumeration.primitive.LeftJoinEnumerator;
 import global.GlobalConfig;
 import backward_inference.MappingInference;
 import sql.lang.Table;
@@ -13,6 +14,7 @@ import sql.lang.ast.val.NamedVal;
 import sql.lang.exception.SQLEvalException;
 import summarytable.*;
 import util.Pair;
+import util.RenameTNWrapper;
 
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -30,215 +32,187 @@ public class StagedEnumerator extends AbstractTableEnumerator {
     @Override
     public List<TableNode> enumTable(EnumContext ec, int maxDepth) {
 
-        // System.out.println("[FiltersCount format](primitiveSynFilterCount, primitiveBitVecFilterCount, totalBitVecFiltersCount)");
 
-        // this is the list to store all symbolic tables used in enumeration
-        List<AbstractSummaryTable> symTables = new ArrayList<>();
+        // this is the list to store all summary tables used in enumeration
+        List<AbstractSummaryTable> summaryTables = new ArrayList<>();
 
         // construct symbolic table for each named table.
-        QueryContainer qc = QueryContainer.initWithInputTables(ec.getInputs(), QueryContainer.ContainerType.SummaryTableWBV);
+        QueryContainer candidateCollector = new QueryContainer(QueryContainer.ContainerType.SummaryTableWBV);
 
         // build symbolic table for each input table, and store them in SymTables
-        List<PrimitiveSummaryTable> symTablesForInputs = qc.getMemoizedTables()
-                .stream().map(t -> new PrimitiveSummaryTable(t, new NamedTable(t)))
-                .collect(Collectors.toList());
-        symTables.addAll(symTablesForInputs);
+        List<AbstractSummaryTable> inputSummary = EnumerationModules.enumFromInputTables(ec);
+        summaryTables.addAll(inputSummary);
+        System.out.println("[Basic]: Candidates: " + candidateCollector.getMemoizedTables().size() + " [SymTableForInputs]: Intermediate: " + inputSummary.size());
 
-        System.out.println("[Basic]: " + qc.getMemoizedTables().size() + " [SymTableForInputs]: " + symTablesForInputs.size());
 
-        int aggrNodeCount = 0;
-        List<AbstractSummaryTable> symTableForAggr = new ArrayList<>();
+        List<AbstractSummaryTable> aggrSummary = EnumerationModules.enumAggregation(inputSummary, ec);
+        summaryTables.addAll(aggrSummary);
+        System.out.println("[Aggregation]: " + aggrSummary.size() + " [SymTable]: " + summaryTables.size());
 
-        for (PrimitiveSummaryTable st : symTablesForInputs) {
-
-            // core tables to be used in enumerate aggregation
-            List<Pair<Table, BVFilter>> instantiated = st.instantiatedAllTablesWithBVFilters(ec);
-
-            for (Pair<Table, BVFilter> p : instantiated) {
-                // enumerating aggregation queries,
-                // the core of each query is built atop a filtering clause on an input table
-                ec.setTableNodes(Arrays.asList(new NamedTable(p.getKey())));
-
-                List<TableNode> ans = AggrEnumerator.enumAggrFromEC(ec, GlobalConfig.SIMPLIFY_AGGR_FIELD);
-
-                for (TableNode an : ans) {
-                    try {
-                        // build symbolic tables out of aggregation table nodes, and store them for next stage enumeration
-                        PrimitiveSummaryTable aggrSt;
-                        if (p.getValue().isEmptyFilter()) {
-                            aggrSt = new PrimitiveSummaryTable(an.eval(new Environment()), an);
-                        } else {
-                            aggrSt = new PrimitiveSummaryTable(an.eval(new Environment()), an, new Pair<>(st, p.getValue()));
-                        }
-                        aggrNodeCount ++;
-                        symTableForAggr.add(aggrSt);
-                    } catch (SQLEvalException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-
-        symTables.addAll(symTableForAggr);
-
-        System.out.println("[Aggregation]: " + aggrNodeCount + " [SymTable]: " + symTables.size());
-
-        List<AbstractSummaryTable> basicAndAggr = new ArrayList<>();
-        basicAndAggr.addAll(symTables);
 
         // only contains symbolic table generated from last stage
         //  (here includes those from aggr and input)
+        List<AbstractSummaryTable> basicAndAggr = new ArrayList<>();
+        basicAndAggr.addAll(summaryTables);
 
-        List<AbstractSummaryTable> stFromLastStage = symTables;
+        List<AbstractSummaryTable> stFromLastStage = summaryTables;
 
-        for (AbstractSummaryTable st : stFromLastStage) {
-
-            tryEvalToOutput(st, ec, qc);
-
-            if (st.allfiltersEnumerated) {
-                System.out.println("[FiltersCount]["
-                        + "r" + st.getBaseTable().getContent().size()
-                        + ", c" + st.getBaseTable().getContent().get(0).getValues().size() + "]("
-                        + st.primitiveSynFilterCount + ", "
-                        + st.primitiveBitVecFilterCount + ", "
-                        + st.totalBitVecFiltersCount + ")");
-                countPrinted.add(st);
-            }
-        }
+        tryEvalToOutput(stFromLastStage, ec, candidateCollector);
 
         // Synthesis of JOIN, can be up to 2 levels of nested joins
         for (int i = 1; i <= maxDepth; i ++) {
 
+            List<AbstractSummaryTable> joinSummary = EnumerationModules.enumJoin(stFromLastStage, inputSummary);
+            summaryTables.addAll(joinSummary);
+            stFromLastStage = joinSummary;
+            System.out.println("[EnumJoin] level " + i + " [SymTable]: " + summaryTables.size());
+
+            tryEvalToOutput(stFromLastStage, ec, candidateCollector);
+
+            if (candidateCollector.getAllCandidates().size() > 0)
+                break;
+        }
+
+        // Try enumerating joining two tables from left-join
+        if (candidateCollector.getAllCandidates().size() == 0) {
+            stFromLastStage = inputSummary;
+            for (int i = 1; i <= maxDepth; i ++) {
+                List<AbstractSummaryTable> leftJoinSummary = EnumerationModules.enumLeftJoin(stFromLastStage, inputSummary, ec);
+                summaryTables.addAll(leftJoinSummary);
+                tryEvalToOutput(leftJoinSummary, ec, candidateCollector);
+
+                if (candidateCollector.getAllCandidates().size() > 0)
+                    break;
+
+                stFromLastStage = leftJoinSummary;
+            }
+        }
+
+        // Try enumerating by joining two tables from aggregation
+        if (candidateCollector.getAllCandidates().size() == 0) {
+            stFromLastStage = basicAndAggr;
+            for (int i = 1; i <= maxDepth; i ++) {
+                List<AbstractSummaryTable> joinSummary = EnumerationModules.enumJoin(stFromLastStage, basicAndAggr);
+
+                summaryTables.addAll(joinSummary);
+                stFromLastStage = joinSummary;
+                System.out.println("[EnumJoinOnAggr] level " + i + " [SymTable]: " + summaryTables.size());
+
+                tryEvalToOutput(stFromLastStage, ec, candidateCollector);
+
+                if (candidateCollector.getAllCandidates().size() > 0)
+                    break;
+            }
+        }
+
+        // Enumerate aggregation on joined tables
+        if (candidateCollector.getAllCandidates().size() == 0) {
+            List<AbstractSummaryTable> joinSummary = EnumerationModules.enumJoin(inputSummary, inputSummary);
+            List<AbstractSummaryTable> aggrOnJoinSummary  = EnumerationModules.enumAggregation(joinSummary, ec);
+            tryEvalToOutput(aggrOnJoinSummary, ec, candidateCollector);
+        }
+
+        System.out.println("ASymTable Enumeration done: " + (summaryTables.size()));
+
+        return decodingToQueries(candidateCollector, ec);
+    }
+
+    static class EnumerationModules {
+
+        public static List<AbstractSummaryTable> enumFromInputTables(EnumContext ec) {
+            return ec.getInputs()
+                    .stream().map(t -> new PrimitiveSummaryTable(t, new NamedTable(t)))
+                    .collect(Collectors.toList());
+        }
+
+        public static List<AbstractSummaryTable> enumAggregation(List<AbstractSummaryTable> stList, EnumContext ec) {
+
+            List<AbstractSummaryTable> result = new ArrayList<>();
+
+            for (AbstractSummaryTable st : stList) {
+
+                // core tables to be used in enumerate aggregation
+                List<Pair<Table, BVFilter>> instantiated = st.instantiatedAllTablesWithBVFilters(ec);
+
+                for (Pair<Table, BVFilter> p : instantiated) {
+                    // enumerating aggregation queries,
+                    // the core of each query is built atop a filtering clause on an input table
+                    ec.setTableNodes(Arrays.asList(new NamedTable(p.getKey())));
+                    List<TableNode> ans = AggrEnumerator.enumAggrFromEC(ec, GlobalConfig.SIMPLIFY_AGGR_FIELD);
+                    for (TableNode an : ans) {
+                        try {
+                            // build symbolic tables out of aggregation table nodes, and store them for next stage enumeration
+                            result.add(new PrimitiveSummaryTable(an.eval(new Environment()), an, Arrays.asList(new Pair<>(st, p.getValue()))));
+                        } catch (SQLEvalException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static List<AbstractSummaryTable> enumJoin(
+                List<AbstractSummaryTable> leftStList,
+                List<AbstractSummaryTable> rightStList) {
+
             // used to collect queries generated in the most recent stage
             List<AbstractSummaryTable> collector = new ArrayList<>();
-            for (int k = 0; k < stFromLastStage.size(); k ++) {
-                for (int l = 0; l < basicAndAggr.size(); l ++) {
+            for (int k = 0; k < leftStList.size(); k ++) {
+                for (int l = 0; l < rightStList.size(); l ++) {
 
-                    AbstractSummaryTable st1 = stFromLastStage.get(k);
-                    AbstractSummaryTable st2 = basicAndAggr.get(l);
-
-                    // only allow joining between an input table and a compound table
-                    if (! ec.getInputs().contains(st2.getBaseTable()))
-                        continue;
-
-                    if (st2 instanceof CompoundSummaryTable)
-                        continue;
+                    AbstractSummaryTable st1 = leftStList.get(k);
+                    AbstractSummaryTable st2 = rightStList.get(l);
 
                     CompoundSummaryTable sct = new CompoundSummaryTable(st1, st2);
                     collector.add(sct);
                 }
             }
 
-            symTables.addAll(collector);
-            stFromLastStage = collector;
-
-            System.out.println("[EnumJoin] level " + i + " [SymTable]: " + symTables.size());
-
-            for (AbstractSummaryTable st : symTables) {
-
-                //System.out.println("\t" + st.getBaseTable().getMetadata().stream().reduce("", (x,y)-> x+ ", " + y).substring(1));
-
-                tryEvalToOutput(st, ec, qc);
-
-                if (! countPrinted.contains(st)  && st.allfiltersEnumerated) {
-                    System.out.println("[FiltersCount][" + "r"
-                            + st.getBaseTable().getContent().size() + ", c"
-                            + st.getBaseTable().getContent().get(0).getValues().size() + "]("
-                            + st.primitiveSynFilterCount + ", "
-                            + st.primitiveBitVecFilterCount + ", "
-                            + st.totalBitVecFiltersCount + ")");
-                    countPrinted.add(st);
-                }
-            }
-
-            if (qc.getAllCandidates().size() > 0)
-                break;
+            return collector;
         }
 
-        // Try enumerate by joining two tables from aggregation
-        if (qc.getAllCandidates().size() == 0) {
-            stFromLastStage = basicAndAggr;
+        public static List<AbstractSummaryTable> enumLeftJoin(
+                List<AbstractSummaryTable> leftStList,
+                List<AbstractSummaryTable> rightStList,
+                EnumContext ec) {
 
-            for (int i = 1; i <= maxDepth; i ++) {
-                // used to collect queries generated in the most recent stage
-                List<AbstractSummaryTable> collector = new ArrayList<>();
-                for (int k = 0; k < stFromLastStage.size(); k ++) {
-                    for (int l = 0; l < basicAndAggr.size(); l ++) {
-
-                        AbstractSummaryTable st1 = stFromLastStage.get(k);
-                        AbstractSummaryTable st2 = basicAndAggr.get(l);
-
-                        // Does not allow joining between an input table and a compound table
-                        if (st2 instanceof CompoundSummaryTable)
-                            continue;
-
-                        CompoundSummaryTable sct = new CompoundSummaryTable(st1, st2);
-                        collector.add(sct);
-                    }
-                }
-
-                symTables.addAll(collector);
-                stFromLastStage = collector;
-
-                System.out.println("[EnumJoinOnAggr] level " + i + " [SymTable]: " + symTables.size());
-
-                for (AbstractSummaryTable st : stFromLastStage) {
-                    //System.out.println("\t" + st.getBaseTable().getMetadata().stream().reduce("", (x,y)-> x+ ", " + y).substring(1));
-                    tryEvalToOutput(st, ec, qc);
-                }
-
-                if (qc.getAllCandidates().size() > 0)
-                    break;
-            }
-        }
-
-        // Enumerate aggregation on joined tables
-        if (qc.getAllCandidates().size() == 0) {
-
-            List<AbstractSummaryTable> basicSymTables = ec.getInputs()
-                    .stream().map(t -> new PrimitiveSummaryTable(t, new NamedTable(t)))
+            // we don't filter left table since it will be filtered when inferring filtering on the primitive summary table
+            List<Pair<Table, Pair<AbstractSummaryTable, BVFilter>>> leftTablePairs = leftStList.stream()
+                    .map(st -> new Pair<>(st.getBaseTable(), new Pair<>(st, BVFilter.genEmptyFilter(st.getBaseTable().getContent().size()))))
+                    .collect(Collectors.toList());
+            List<Pair<Table, Pair<AbstractSummaryTable, BVFilter>>> rightTablePairs = rightStList.stream()
+                    .flatMap(st -> st.instantiatedAllTablesWithBVFilters(ec)
+                            .stream()
+                            .map(p -> new Pair<>(p.getKey(), new Pair<>(st, p.getValue()))))
                     .collect(Collectors.toList());
 
-            for (int i = 0; i < basicSymTables.size(); i ++) {
-                for (int j = i; j < basicSymTables.size(); j ++) {
-                    AbstractSummaryTable st1 = basicSymTables.get(i);
-                    AbstractSummaryTable st2 = basicSymTables.get(j);
+            List<AbstractSummaryTable> result = new ArrayList<>();
 
-                    CompoundSummaryTable sct = new CompoundSummaryTable(st1, st2);
+            for (Pair<Table, Pair<AbstractSummaryTable, BVFilter>> p1 : leftTablePairs) {
+                for (Pair<Table, Pair<AbstractSummaryTable, BVFilter>> p2 : rightTablePairs) {
 
-                    List<Pair<Table, BVFilter>> tablesWFilters = sct.instantiatedAllTablesWithBVFilters(ec);
-                    for (Pair<Table, BVFilter> p : tablesWFilters) {
-                        // core tables to be used in enumerate aggregation
-                        List<TableNode> joinedNodes = new ArrayList<>();
-                        joinedNodes.add(new NamedTable(p.getKey()));
+                    List<TableNode> tns =
+                            LeftJoinEnumerator
+                                .enumLeftJoin(new NamedTable(p1.getKey()), new NamedTable(p2.getKey()))
+                                .stream()
+                                .map(RenameTNWrapper::tryRename).collect(Collectors.toList());
 
-                        // enumerating aggregation tables, the aggregation nodes are based on these primitive filters
-                        ec.setTableNodes(joinedNodes);
+                    List<Pair<AbstractSummaryTable, BVFilter>> subTree = new ArrayList<>();
+                    subTree.add(p1.getValue());
+                    subTree.add(p2.getValue());
 
-                        // enumerate aggregations
-                        List<TableNode> aggregationOnJoinInputs = AggrEnumerator.enumAggrFromEC(ec, GlobalConfig.SIMPLIFY_AGGR_FIELD);
-
-                        List<PrimitiveSummaryTable> enumHaving = new ArrayList<>();
-                        for (TableNode an : aggregationOnJoinInputs) {
-                            try {
-                                enumHaving.add(new PrimitiveSummaryTable(an.eval(new Environment()), an, new Pair<>(sct, p.getValue())));
-                            } catch (SQLEvalException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        for (AbstractSummaryTable st : enumHaving) {
-                            //System.out.println("\t" + st.getBaseTable().getMetadata().stream().reduce("", (x,y)-> x+ ", " + y).substring(1));
-                            tryEvalToOutput(st, ec, qc);
+                    for (TableNode tn : tns) {
+                        try {
+                            result.add(new PrimitiveSummaryTable(tn.eval(new Environment()), tn, subTree));
+                        } catch (SQLEvalException e) {
+                            e.printStackTrace();
                         }
                     }
                 }
             }
+            return result;
         }
-
-        System.out.println("ASymTable Enumeration done: " + (symTables.size()));
-
-        return decodingToQueries(qc, ec);
     }
 
     public List<TableNode> decodingToQueries(QueryContainer qc, EnumContext ec) {
@@ -263,9 +237,9 @@ public class StagedEnumerator extends AbstractTableEnumerator {
             }
         }
 
-        List<TableNode> treeDecodeResult = new ArrayList<>();
         System.out.println("Candidate Tree Number: " + candidateTrees.size());
 
+        List<TableNode> treeDecodeResult = new ArrayList<>();
         for (BVFilterCompTree t : candidateTrees) {
             List<TableNode> temp = t.translateToTopSQL(ec);
             treeDecodeResult.addAll(temp);
@@ -303,8 +277,15 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         return decodeResult;
     }
 
+    // The following two methods try to infer whether the output example can be derived from summary tables
+    // Upon success, candidates will be stored into candidate collector
+
+    private void tryEvalToOutput(List<AbstractSummaryTable> stList, EnumContext ec, QueryContainer candidateCollector) {
+        stList.forEach(st -> tryEvalToOutput(st, ec, candidateCollector));
+    }
+
     // Try to evaluate whether the output table can be derived from symbolic table st.
-    private void tryEvalToOutput(AbstractSummaryTable st, EnumContext ec, QueryContainer qc) {
+    private void tryEvalToOutput(AbstractSummaryTable st, EnumContext ec, QueryContainer candidateCollector) {
 
         BiConsumer<AbstractSummaryTable, BVFilter> f = (symTable, symFilter) -> {
 
@@ -322,7 +303,7 @@ public class StagedEnumerator extends AbstractTableEnumerator {
             //    2) can generate a trace
             if( t.getContent().size() == ec.getOutputTable().getContent().size()
                     && !MappingInference.buildMapping(t, ec.getOutputTable()).genColumnMappingInstances().isEmpty())
-                qc.insertCandidate(new Pair<>(symTable, symFilter));
+                candidateCollector.insertCandidate(new Pair<>(symTable, symFilter));
         };
 
         MappingInference mi = MappingInference.buildMapping(st.getBaseTable(), ec.getOutputTable());

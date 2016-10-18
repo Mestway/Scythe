@@ -428,7 +428,7 @@ public class MappingInference {
                     .reduce("", (x, y)-> x.toString() + ","+ y.toString()).trim();
             s += t.getKey().toString()
                     + " -> " + " ["
-                    + listString.substring(listString.indexOf("(")) + "]\n";
+                    + (listString.equals("") ? "" : listString.substring(listString.indexOf("("))) + "]\n";
         }
         return s;
     }

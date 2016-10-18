@@ -143,4 +143,12 @@ public class BVFilter {
             return true;
         return false;
     }
+
+    public static BVFilter genEmptyFilter(int rowNumber) {
+        Set<Integer> filterRep = new HashSet<>();
+        for (int i = 0; i < rowNumber; i ++) {
+            filterRep.add(i);
+        }
+        return new BVFilter(filterRep, rowNumber);
+    }
 }
