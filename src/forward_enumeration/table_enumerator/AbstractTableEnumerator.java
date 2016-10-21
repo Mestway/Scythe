@@ -24,9 +24,10 @@ public abstract class AbstractTableEnumerator {
         List<ValNode> vns = new ArrayList<>();
         vns.addAll(c.constValNodes());
 
+        // parameterized tables are obtained from
         List<TableNode> parameterizedTables = EnumParamTN
                 .enumParameterizedTableNodes(
-                        input.stream().map(t -> new NamedTable(t)).collect(Collectors.toList()),
+                        c.getExistsCores().stream().map(t -> new NamedTable(t)).collect(Collectors.toList()),
                         vns,
                         c.getNumberOfParam());
 

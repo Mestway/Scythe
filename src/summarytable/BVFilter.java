@@ -103,10 +103,9 @@ public class BVFilter {
     }
 
     // This should be performed on
-    public static BVFilter mergeFilter(
+    public static BVFilter mergeFilterConj(
             BVFilter f1,
-            BVFilter f2,
-            BiFunction<Boolean, Boolean, Boolean> mergeFunction) {
+            BVFilter f2) {
         if (! (f1.rowNumber == f2.rowNumber))
             System.err.println("[SymbolicPrimitiveFilter 99] Merging two incompatible filters.");
         Set<Integer> mergedFilterRep = new HashSet<>();
@@ -114,10 +113,21 @@ public class BVFilter {
             boolean valid1 = false, valid2 = false;
             if (f1.filterRep.contains(i)) valid1 = true;
             if (f2.filterRep.contains(i)) valid2 = true;
-            if (mergeFunction.apply(valid1, valid2)) {
+            if (valid1 && valid2) {
                 mergedFilterRep.add(i);
             }
         }
+        return new BVFilter(mergedFilterRep, f1.rowNumber);
+    }
+
+    // This should be performed on
+    public static BVFilter mergeFilterDisj(
+            BVFilter f1,
+            BVFilter f2) {
+        if (! (f1.rowNumber == f2.rowNumber))
+            System.err.println("[SymbolicPrimitiveFilter 128] Merging two incompatible filters.");
+        Set<Integer> mergedFilterRep = new HashSet<>(f1.filterRep);
+        mergedFilterRep.addAll(f2.getFilterRep());
         return new BVFilter(mergedFilterRep, f1.rowNumber);
     }
 

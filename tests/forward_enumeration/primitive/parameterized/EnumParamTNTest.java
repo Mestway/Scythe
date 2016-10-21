@@ -37,7 +37,7 @@ public class EnumParamTNTest {
 
     Table input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
     Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
-    EnumConfig c = new EnumConfig(1, new ArrayList<>(), Arrays.asList(AggregationNode.AggrMax, AggregationNode.AggrMin),2);
+    EnumConfig c = new EnumConfig(1, new ArrayList<>(), Arrays.asList(AggregationNode.AggrMax, AggregationNode.AggrMin),2,Arrays.asList(input));
 
     @Test
     public void test() {

@@ -44,7 +44,7 @@ public class NaturalTableExtensionTest {
 
         Table input = TableInstanceParser.parseMarkDownTable("table1", tableSrc2);
 
-        EnumConfig c = new EnumConfig(3, new ArrayList<>(), Arrays.asList(AggregationNode.AggrCount), 1);
+        EnumConfig c = new EnumConfig(3, new ArrayList<>(), Arrays.asList(AggregationNode.AggrCount), 1, Arrays.asList(input));
 
         List<TableNode> tns = TableNaturalJoinWithAggr.naturalJoinWithAggregation(new EnumContext(Arrays.asList(input), c));
 

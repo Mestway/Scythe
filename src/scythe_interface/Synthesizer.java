@@ -7,6 +7,7 @@ import sql.lang.ast.table.TableNode;
 import sql.lang.exception.SQLEvalException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -40,11 +41,17 @@ public class Synthesizer {
             if (!candidates.isEmpty())
                 continue;
 
-            exampleDS.enumConfig.setNumberOfParam(2);
-            exampleDS.enumConfig.setMaxDepth(maxDepth -1);
-            // synthesize
-            candidates.addAll(enumerator.enumProgramWithIO(exampleDS.inputs, exampleDS.output, exampleDS.enumConfig));
-            exampleDS.enumConfig.setNumberOfParam(0);
+            if (maxDepth == 2) {
+                // try synthesizing queries with Exists-clauses
+                for (Table existsCore : exampleDS.inputs) {
+                    exampleDS.enumConfig.setExistsCore(2, Arrays.asList(existsCore));
+                    exampleDS.enumConfig.setMaxDepth(maxDepth - 1);
+                    // synthesize
+                    candidates.addAll(enumerator.enumProgramWithIO(exampleDS.inputs, exampleDS.output, exampleDS.enumConfig));
+                }
+            }
+
+            exampleDS.enumConfig.setExistsCore(0, new ArrayList<>());
             exampleDS.enumConfig.setMaxDepth(maxDepth);
 
             timeUsed = System.currentTimeMillis() - timeStart;

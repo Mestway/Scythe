@@ -2,6 +2,7 @@ package forward_enumeration.context;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import sql.lang.Table;
 import sql.lang.datatype.Value;
 import sql.lang.ast.table.AggregationNode;
 import sql.lang.ast.val.ConstantVal;
@@ -25,6 +26,7 @@ public class EnumConfig {
 
     // the maximum number of parameters allowed in Exists clause, if the number is 0, Exists will not be allowed
     int numberOfParam = 0;
+    List<Table> existsCore = new ArrayList<>();
 
     public void setMaxDepth(int maxDepth) {
         this.maxDepth = maxDepth;
@@ -33,15 +35,18 @@ public class EnumConfig {
     public EnumConfig(int maxDepth,
                       List<Value> constants,
                       List<Function<List<Value>, Value>> aggrFuns,
-                      int numberOfParam) {
+                      int numberOfParam,
+                      List<Table> existsCore) {
         this.maxDepth = maxDepth;
         this.constValNodes = constants.stream()
                 .map(c -> new ConstantVal(c)).collect(Collectors.toList());
         this.aggrFuns = aggrFuns;
         this.numberOfParam = numberOfParam;
+        this.existsCore.addAll(existsCore);
     }
 
     public int getNumberOfParam() { return this.numberOfParam; }
+    public List<Table> getExistsCores() { return this.existsCore; }
     public List<Function<List<Value>, Value>> getAggrFuns() {
         return this.aggrFuns;
     }
@@ -49,7 +54,10 @@ public class EnumConfig {
         return this.constValNodes;
     }
     public int maxDepth() { return this.maxDepth; }
-    public void setNumberOfParam(int n) {this.numberOfParam = n; }
+    public void setExistsCore(int numberOfParam, List<Table> existsCore) {
+        this.numberOfParam = numberOfParam;
+        this.existsCore.addAll(existsCore);
+    }
 
     private class JsonConstraint {
         List<String> constants;

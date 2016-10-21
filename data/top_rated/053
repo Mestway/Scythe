@@ -1,0 +1,28 @@
+// http://stackoverflow.com/questions/16914098/how-to-select-id-with-max-date-group-by-category-in-postgresql
+
+#input
+
+id,  category,  date
+1,   a,         2013-01-01
+2,   b,         2013-01-03
+3,   c,         2013-01-02
+4,   a,         2013-01-02
+5,   b,         2013-01-02
+6,   c,         2013-01-03
+7,   a,         2013-01-03
+8,   b,         2013-01-01
+9,   c,         2013-01-01
+
+
+#output
+
+id,  category,  date
+2,   b,         2013-01-03
+6,   c,         2013-01-03
+7,   a,         2013-01-03
+
+# constraint
+{
+	"constants": [ ],
+	"aggregation_functions": ["max"]
+}

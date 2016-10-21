@@ -41,7 +41,8 @@ public class EnumAggrTableNodeTest {
             new ArrayList<>(),
             Arrays.asList(
                     AggregationNode.AggrMax),
-            2);
+            2,
+            Arrays.asList(input));
 
     @Test
     public void testEnumAggregationNode() throws Exception {

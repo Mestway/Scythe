@@ -228,9 +228,9 @@ public class MappingInferenceTest {
                 new ArrayList<>(),
                 Arrays.asList(
                         AggregationNode.AggrMax, AggregationNode.AggrCount),
-                2);
+                2,
+                Arrays.asList(input));
         EnumContext ec = new EnumContext(Arrays.asList(input), c);
-
 
         // Using only equi-join
         /*

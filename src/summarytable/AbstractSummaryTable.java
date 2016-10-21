@@ -121,9 +121,8 @@ public abstract class AbstractSummaryTable {
         return result;
     }
 
-    // Generate the set of compound filters that can be derived from the set of provided primitive filters.
-    // TODO: currently only conjunctions of filters with the maximum length 2 are allowed
-    public static Set<BVFilter> genCompoundFilters(
+    // Generate the set of conjunctive filters that can be derived from the set of provided primitive filters.
+    public static Set<BVFilter> genConjunctiveFilters(
             AbstractSummaryTable ast,
             List<BVFilter> primitives) {
 
@@ -131,14 +130,31 @@ public abstract class AbstractSummaryTable {
 
         for (int i = 0; i < primitives.size(); i ++) {
             for (int j = i + 1; j < primitives.size(); j ++) {
-                BVFilter mergedFilter = BVFilter.mergeFilter(
+                BVFilter mergedFilter = BVFilter.mergeFilterConj(
                         primitives.get(i),
-                        primitives.get(j),
-                        AbstractSummaryTable.mergeFunction);
+                        primitives.get(j));
                 filters.add(mergedFilter);
             }
         }
 
+        // this is used to make sure that the empty filter is added
+        filters.add(BVFilter.genSymbolicFilter(ast.getBaseTable(), new EmptyFilter()));
+        return filters;
+    }
+
+    // Generate the set of disjunctive filters that can be derived from the set of provided primitive filters.
+    public static Set<BVFilter> genDisjunctiveFilters(
+            AbstractSummaryTable ast,
+            List<BVFilter> primitives) {
+        Set<BVFilter> filters = new HashSet<>();
+        for (int i = 0; i < primitives.size(); i ++) {
+            for (int j = i + 1; j < primitives.size(); j ++) {
+                BVFilter mergedFilter = BVFilter.mergeFilterDisj(
+                        primitives.get(i),
+                        primitives.get(j));
+                filters.add(mergedFilter);
+            }
+        }
         // this is used to make sure that the empty filter is added
         filters.add(BVFilter.genSymbolicFilter(ast.getBaseTable(), new EmptyFilter()));
         return filters;

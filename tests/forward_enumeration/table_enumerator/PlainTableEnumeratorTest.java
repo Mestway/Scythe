@@ -36,7 +36,8 @@ public class PlainTableEnumeratorTest {
             1,
             new ArrayList<>(),
             Arrays.asList(AggregationNode.AggrMin),
-            0);
+            0,
+            Arrays.asList(input));
 
     @Test
     public void test1() {

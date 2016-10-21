@@ -31,6 +31,8 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
     private Table baseTable;
     private TableNode baseTableSrc;
 
+    private boolean allowDisjunctiveFilter = false;
+
     // The children node of the baseTableSrc, indicating how baseTableSrc is constructed
     // e.g. 1) if the baseTableSrc is a named table from user input, the srcTreeChildren is empty,
     //              and the baseTableSrc is already the final query for baseTable.
@@ -60,41 +62,9 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
         this.baseTableSrc = baseTableSrc;
         // the symbolic primitive filters are not evaluated here because we want to keep them lazy
         this.primitiveBVFilters = new HashSet<>();
+
+        // this constructor represents how this summary table is constructed from
         baseTableSrcChildren.addAll(pairs);
-    }
-
-    public PrimitiveSummaryTable(Table baseTable, TableNode baseTableSrc, EnumContext ec) {
-        this.baseTable = baseTable;
-        this.baseTableSrc = baseTableSrc;
-        this.primitiveBVFilters = new HashSet<>();
-
-        // only simple filter will be evaluated
-        int backUpMaxFilterLength = ec.getMaxFilterLength();
-        ec.setMaxFilterLength(1);
-
-        List<Filter>  filters;
-        if (this.baseTableSrc instanceof RenameTableNode
-                && ((RenameTableNode) this.baseTableSrc).getTableNode() instanceof AggregationNode)
-            filters = FilterEnumerator.enumCanonicalFilterAggrNode((RenameTableNode) baseTableSrc, ec);
-        else
-            filters = FilterEnumerator.enumCanonicalFilterNamedTable(new NamedTable(this.baseTable), ec);
-
-        ec.setMaxFilterLength(backUpMaxFilterLength);
-
-        // the empty filter is added here to make it complete.
-        filters.add(new EmptyFilter());
-
-        Set<BVFilter> symfilters = new HashSet<>();
-        for (Filter f : filters) {
-            symfilters.add(BVFilter.genSymbolicFilter(this.baseTable, f));
-        }
-        this.primitiveBVFilters = symfilters;
-        this.primitiveFiltersEvaluated = true;
-        this.primitives = this.primitiveBVFilters.stream().collect(Collectors.toList());
-
-        // calculating count
-        this.primitiveSynFilterCount = filters.size();
-        this.primitiveBitVecFilterCount = this.primitives.size();
     }
 
     @Override
@@ -137,7 +107,7 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
         }
 
         // this is the traditional way, invoking the mergeAndLink function to get it.
-        Set<BVFilter> allFiltersLinks = AbstractSummaryTable.genCompoundFilters(this,
+        Set<BVFilter> allFiltersLinks = AbstractSummaryTable.genConjunctiveFilters(this,
                 this.primitiveBVFilters.stream().collect(Collectors.toList()));
 
         List<BVFilter> validFilter = new ArrayList<>();
@@ -154,7 +124,7 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
 
         for (BVFilter vf : validFilter) {
             for (BVFilter ef : demotedExtFilters) {
-                BVFilter merged = BVFilter.mergeFilter(vf, ef, AbstractSummaryTable.mergeFunction);
+                BVFilter merged = BVFilter.mergeFilterConj(vf, ef);
                 if (targetFilters.contains(merged)) {
                     validPairs.add(new Pair<>(vf, ef));
                 }
@@ -188,10 +158,9 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
             if (! fullyContainedARange(primitives.get(i), rowMappingRangeInstances))
                 continue;
             for (int j = i + 1; j < primitives.size(); j ++) {
-                BVFilter mergedFilter = BVFilter.mergeFilter(
+                BVFilter mergedFilter = BVFilter.mergeFilterConj(
                         primitives.get(i),
-                        primitives.get(j),
-                        AbstractSummaryTable.mergeFunction);
+                        primitives.get(j));
                 if (rowMappingRangeInstances
                         .stream()
                         .map(ls -> mergedFilter.exactMatchRange(ls))
@@ -225,7 +194,7 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
         assert primitiveFiltersEvaluated;
 
         // this is the traditional way, invoking the mergeAndLink function to get it.
-        return AbstractSummaryTable.genCompoundFilters(this,
+        return AbstractSummaryTable.genConjunctiveFilters(this,
                 this.primitiveBVFilters.stream().collect(Collectors.toList()));
     }
 
@@ -281,6 +250,7 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
             // filters = EnumCanonicalFilters.enumCanonicalFilterNamedTable(new NamedTable(this.baseTable), ec);
             filters = FilterEnumerator.enumCanonicalFilterAggrNode((RenameTableNode) this.baseTableSrc, ec);
         } else {
+            // this is for left-join nodes and named tables
             filters = FilterEnumerator.enumCanonicalFilterNamedTable(new NamedTable(this.baseTable), ec);
         }
         ec.setMaxFilterLength(backUpMaxFilterLength);
@@ -376,7 +346,7 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
             BVFilter pi = validFilters.get(i);
             for (int j = i + 1; j < validFilters.size(); j ++) {
                 BVFilter pj = validFilters.get(j);
-                BVFilter mergedij = BVFilter.mergeFilter(pi, pj, AbstractSummaryTable.mergeFunction);
+                BVFilter mergedij = BVFilter.mergeFilterConj(pi, pj);
 
                 if (targets.contains(mergedij)) {
                     Set<BVFilter> s = new HashSet<>();

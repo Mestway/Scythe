@@ -40,7 +40,8 @@ public class EnumFilterNamedTest {
             new ArrayList<>(),
             Arrays.asList(
                     AggregationNode.AggrMax),
-            2);
+            2,
+            Arrays.asList(input));
 
     @Test
     public void testEnumFilterNamed() {

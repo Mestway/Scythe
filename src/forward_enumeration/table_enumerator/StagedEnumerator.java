@@ -32,7 +32,6 @@ public class StagedEnumerator extends AbstractTableEnumerator {
     @Override
     public List<TableNode> enumTable(EnumContext ec, int maxDepth) {
 
-
         // this is the list to store all summary tables used in enumeration
         List<AbstractSummaryTable> summaryTables = new ArrayList<>();
 
@@ -44,11 +43,19 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         summaryTables.addAll(inputSummary);
         System.out.println("[Basic]: Candidates: " + candidateCollector.getMemoizedTables().size() + " [SymTableForInputs]: Intermediate: " + inputSummary.size());
 
+        if (inputSummary.size() > 1) {
+            AbstractSummaryTable tmp = inputSummary.get(0);
+            for (int i = 1; i < inputSummary.size(); i ++) {
+                tmp = new CompoundSummaryTable(tmp, inputSummary.get(i));
+            }
+            tryEvalToOutput(tmp, ec, candidateCollector);
+            if (candidateCollector.getAllCandidates().size() > 0)
+                return decodingToQueries(candidateCollector, ec);
+        }
 
         List<AbstractSummaryTable> aggrSummary = EnumerationModules.enumAggregation(inputSummary, ec);
         summaryTables.addAll(aggrSummary);
         System.out.println("[Aggregation]: " + aggrSummary.size() + " [SymTable]: " + summaryTables.size());
-
 
         // only contains symbolic table generated from last stage
         //  (here includes those from aggr and input)
@@ -77,8 +84,8 @@ public class StagedEnumerator extends AbstractTableEnumerator {
 
         // Try enumerating joining two tables from left-join
         if (candidateCollector.getAllCandidates().size() == 0) {
-            stFromLastStage = inputSummary;
-            for (int i = 1; i <= maxDepth; i ++) {
+            stFromLastStage = basicAndAggr;
+            for (int i = 1; i <= maxDepth-1; i ++) {
                 List<AbstractSummaryTable> leftJoinSummary = EnumerationModules.enumLeftJoin(stFromLastStage, inputSummary, ec);
                 summaryTables.addAll(leftJoinSummary);
                 tryEvalToOutput(leftJoinSummary, ec, candidateCollector);
@@ -114,7 +121,8 @@ public class StagedEnumerator extends AbstractTableEnumerator {
                 simpleJoinSummary.addAll(EnumerationModules.enumJoin(simpleJoinSummary, inputSummary));
             }
             List<AbstractSummaryTable> aggrOnJoinSummary  = EnumerationModules.enumAggregation(simpleJoinSummary, ec);
-            tryEvalToOutput(aggrOnJoinSummary, ec, candidateCollector);
+            List<AbstractSummaryTable> joinAfterAggr = EnumerationModules.enumJoin(aggrOnJoinSummary, inputSummary);
+            tryEvalToOutput(joinAfterAggr, ec, candidateCollector);
         }
 
         if (candidateCollector.getAllCandidates().size() == 0) {

@@ -40,7 +40,8 @@ public class EnumJoinTableNodesTest {
             new ArrayList<>(),
             Arrays.asList(
                     AggregationNode.AggrMax),
-            2);
+            2,
+            Arrays.asList(input));
 
     @Test
     public void testEnumJoinNode() throws Exception {

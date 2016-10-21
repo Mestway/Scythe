@@ -50,7 +50,8 @@ public class LeftJoinEnumeratorTest {
                 2,
                 new ArrayList<>(),
                 new ArrayList<>(),
-                2);
+                2,
+                Arrays.asList(t1));
         EnumContext ec = new EnumContext(Arrays.asList(t1, t2), c);
         DebugHelper.printList(LeftJoinEnumerator.enumLeftJoinFromEC(ec));
     }
@@ -90,7 +91,8 @@ public class LeftJoinEnumeratorTest {
                 2,
                 new ArrayList<>(),
                 new ArrayList<>(),
-                2);
+                2,
+                Arrays.asList(t3, t4, t5));
         EnumContext ec = new EnumContext(Arrays.asList(t3, t4, t5), c);
         //DebugHelper.printTableNodes(LeftJoinEnumerator.enumLeftJoinFromEC(ec).stream().map(t -> ((TableNode) t)).collect(Collectors.toList()));
 

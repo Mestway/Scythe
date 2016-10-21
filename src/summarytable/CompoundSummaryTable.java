@@ -86,7 +86,7 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
         Set<BVFilter> st1Filters = st1.instantiateAllFilters();
         Set<BVFilter> st2Filters = st2.instantiateAllFilters();
         Set<BVFilter> lrFilters =
-                AbstractSummaryTable.genCompoundFilters(this, this.filtersLR.stream().collect(Collectors.toList()));
+                AbstractSummaryTable.genConjunctiveFilters(this, this.filtersLR.stream().collect(Collectors.toList()));
 
         Map<BVFilter, BVFilter> promotedFilters1 = new HashMap<>();
         Map<BVFilter, BVFilter> promotedFilters2 = new HashMap<>();
@@ -111,16 +111,16 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
         for (BVFilter f1 : promotedFilters1.keySet()) {
             for (BVFilter f2 : promotedFilters2.keySet()) {
 
-                BVFilter mergef1f2 = BVFilter.mergeFilter(
-                        promotedFilters1.get(f1), promotedFilters2.get(f2), AbstractSummaryTable.mergeFunction);
+                BVFilter mergef1f2 = BVFilter.mergeFilterConj(
+                        promotedFilters1.get(f1), promotedFilters2.get(f2));
 
                 if (! fullyContainedARange(mergef1f2, rowMappingRangeInstances))
                     continue;
 
                 for (BVFilter lrf : validLRFilters) {
 
-                    BVFilter mergef1f2lr = BVFilter.mergeFilter(
-                            mergef1f2, lrf, AbstractSummaryTable.mergeFunction);
+                    BVFilter mergef1f2lr = BVFilter.mergeFilterConj(
+                            mergef1f2, lrf);
 
                     if (rowMappingRangeInstances
                             .stream()
@@ -157,7 +157,7 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
         Set<BVFilter> st1FiltersLinks = st1.instantiateAllFilters();
         Set<BVFilter> st2FiltersLinks = st2.instantiateAllFilters();
         Set<BVFilter> lrFiltersLinks =
-                AbstractSummaryTable.genCompoundFilters(this, this.filtersLR.stream().collect(Collectors.toList()));
+                AbstractSummaryTable.genConjunctiveFilters(this, this.filtersLR.stream().collect(Collectors.toList()));
 
         // map each filter in the sub-symbolic table to its promoted form in the cartesian product table.
         Map<BVFilter, BVFilter> promotedFilters1 = new HashMap<>();
@@ -183,31 +183,27 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
         // In the first part, we are trying to visit filters to infer filters that can yield to a cross table filtering
         for (BVFilter lrf : validLRFilters) {
             for (BVFilter f2 : promotedFilters2.keySet()) {
-                BVFilter mergedlrf2 = BVFilter.mergeFilter(
-                        lrf, promotedFilters2.get(f2), AbstractSummaryTable.mergeFunction);
+                BVFilter mergedlrf2 = BVFilter.mergeFilterConj(
+                        lrf, promotedFilters2.get(f2));
                 if (! fullyContainedAnElement(mergedlrf2, targetFilters))
                     continue;
 
                 for (BVFilter ef : demotedExtFilters) {
-                    BVFilter mergedlrf2ef = BVFilter.mergeFilter(
-                            mergedlrf2, ef,
-                            AbstractSummaryTable.mergeFunction
-                    );
+                    BVFilter mergedlrf2ef = BVFilter.mergeFilterConj(
+                            mergedlrf2, ef);
 
                     if (! fullyContainedAnElement(mergedlrf2ef, targetFilters))
                         continue;
 
                     for (BVFilter f1 : promotedFilters1.keySet()) {
-                        BVFilter mergedlrf2eff1 = BVFilter.mergeFilter(
-                                mergedlrf2ef, promotedFilters1.get(f1),
-                                AbstractSummaryTable.mergeFunction
-                        );
+                        BVFilter mergedlrf2eff1 = BVFilter.mergeFilterConj(
+                                mergedlrf2ef, promotedFilters1.get(f1));
                         // Add the pair to the result set.
                         if (! targetFilters.contains(mergedlrf2eff1))
                             continue;
 
                         resultPairs.add(new Pair<>(
-                                BVFilter.mergeFilter(mergedlrf2, promotedFilters1.get(f1), AbstractSummaryTable.mergeFunction),
+                                BVFilter.mergeFilterConj(mergedlrf2, promotedFilters1.get(f1)),
                                 ef));
                     }
                 }
@@ -255,15 +251,13 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
 
         for (BVFilter lrf : validLRDemoted.keySet()) {
             for (BVFilter f2 : validPromotedDemotedf2.keySet()) {
-                BVFilter mergedlrf2 = BVFilter.mergeFilter(
-                        lrf, validPromotedDemotedf2.get(f2), AbstractSummaryTable.mergeFunction);
+                BVFilter mergedlrf2 = BVFilter.mergeFilterConj(
+                        lrf, validPromotedDemotedf2.get(f2));
                 if (! fullyContainedAnElement(pushDownToLeftFilter(mergedlrf2), st1TargetFilters))
                     continue;
                 for (BVFilter ef : validExtDemoted.keySet()) {
-                    BVFilter mergedlrf2ef = BVFilter.mergeFilter(
-                            mergedlrf2, ef,
-                            AbstractSummaryTable.mergeFunction
-                    );
+                    BVFilter mergedlrf2ef = BVFilter.mergeFilterConj(
+                            mergedlrf2, ef);
 
                     BVFilter lDemotedMergedlrf2ef = pushDownToLeftFilter(mergedlrf2ef);
                     if (! fullyContainedAnElement(lDemotedMergedlrf2ef, st1TargetFilters))
@@ -287,8 +281,7 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
 
             // key of p2 is mergedf2lr, value of p2 is a extFilter
             for (Pair<BVFilter, BVFilter> p2 : demotedCompoundToOriginalFilter.get(p.getValue())) {
-                BVFilter mergedf1f2lr = BVFilter.mergeFilter(promotedF1, p2.getKey(),
-                        AbstractSummaryTable.mergeFunction);
+                BVFilter mergedf1f2lr = BVFilter.mergeFilterConj(promotedF1, p2.getKey());
 
                 resultPairs.add(new Pair<>(mergedf1f2lr, p2.getValue()));
             }
@@ -310,9 +303,9 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
         Set<BVFilter> st2FiltersLinks = st2.instantiateAllFilters();
 
         Set<BVFilter> lrFiltersLinks =
-                AbstractSummaryTable.genCompoundFilters(this, this.filtersLR.stream().collect(Collectors.toList()));
+                AbstractSummaryTable.genConjunctiveFilters(this, this.filtersLR.stream().collect(Collectors.toList()));
         // if we want more than 1 level
-        // lrFiltersLinks = AbstractSymbolicTable.genCompoundFilters(this, lrFiltersLinks.getKey().stream().collect(Collectors.toList()));
+        // lrFiltersLinks = AbstractSymbolicTable.genConjunctiveFilters(this, lrFiltersLinks.getKey().stream().collect(Collectors.toList()));
 
         Map<BVFilter, BVFilter> promotedFilters1 = new HashMap<>();
         Map<BVFilter, BVFilter> promotedFilters2 = new HashMap<>();
@@ -335,17 +328,16 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
         for (BVFilter f1 : st1FiltersLinks) {
             for (BVFilter f2 : st2FiltersLinks) {
 
-                BVFilter mergedf1f2 = BVFilter.mergeFilter(
+                BVFilter mergedf1f2 = BVFilter.mergeFilterConj(
                         promotedFilters1.get(f1),
-                        promotedFilters2.get(f2),
-                        AbstractSummaryTable.mergeFunction);
+                        promotedFilters2.get(f2));
 
                 for (BVFilter lrf : lrFiltersLinks) {
 
                     tt ++;
 
                     BVFilter mergedFilter = BVFilter
-                            .mergeFilter(mergedf1f2, lrf, AbstractSummaryTable.mergeFunction);
+                            .mergeFilterConj(mergedf1f2, lrf);
 
                     instantiatedFilters.add(mergedFilter);
 
@@ -514,7 +506,7 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
         Set<BVFilter> st1FiltersLinks = st1.instantiateAllFilters();
         Set<BVFilter> st2FiltersLinks = st2.instantiateAllFilters();
         Set<BVFilter> lrFiltersLinks =
-                AbstractSummaryTable.genCompoundFilters(this, this.filtersLR.stream().collect(Collectors.toList()));
+                AbstractSummaryTable.genConjunctiveFilters(this, this.filtersLR.stream().collect(Collectors.toList()));
 
         Map<BVFilter, BVFilter> promotedFilters1 = new HashMap<>();
         Map<BVFilter, BVFilter> promotedFilters2 = new HashMap<>();
@@ -549,16 +541,16 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
         for (BVFilter f1 : promotedFilters1.keySet()) {
             for (BVFilter f2 : promotedFilters2.keySet()) {
 
-                BVFilter mergef1f2 = BVFilter.mergeFilter(
-                        promotedFilters1.get(f1), promotedFilters2.get(f2), AbstractSummaryTable.mergeFunction);
+                BVFilter mergef1f2 = BVFilter.mergeFilterConj(
+                        promotedFilters1.get(f1), promotedFilters2.get(f2));
 
                 if (! fullyContainedAnElement(mergef1f2, targets))
                     continue;
 
                 for (BVFilter lrf : validLRFilters) {
 
-                    BVFilter mergef1f2lr = BVFilter.mergeFilter(
-                            mergef1f2, lrf, AbstractSummaryTable.mergeFunction);
+                    BVFilter mergef1f2lr = BVFilter.mergeFilterConj(
+                            mergef1f2, lrf);
 
                     if (targets.contains(mergef1f2lr)) {
                         Triple<BVFilter, BVFilter, BVFilter> triple = new Triple<>(lrf, f1, f2);
@@ -595,8 +587,8 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
 
         for (int i = 0; i < usefulPrimitive.size(); i ++) {
             for (int j = i + 1; j < usefulPrimitive.size(); j ++) {
-                BVFilter mergedij = BVFilter.mergeFilter(usefulPrimitive.get(i),
-                        usefulPrimitive.get(j), AbstractSummaryTable.mergeFunction);
+                BVFilter mergedij = BVFilter.mergeFilterConj(usefulPrimitive.get(i),
+                        usefulPrimitive.get(j));
                 if (decomposedLR.containsKey(mergedij)) {
                     Set<BVFilter> oneDecomposition = new HashSet<>();
 
