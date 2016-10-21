@@ -25,7 +25,6 @@ public class EnumFilterNamedTest {
         EnumContext ec = new EnumContext(exampleDS.inputs, exampleDS.enumConfig);
         ec.setParameterizedTables(new ArrayList<>());
         ec.setOutputTable(exampleDS.output);
-        ec.setMaxFilterLength(exampleDS.enumConfig.maxFilterLength());
 
         List<TableNode> tns = new ArrayList<>();
         tns.add(new NamedTable(exampleDS.inputs.get(0)));
@@ -36,7 +35,5 @@ public class EnumFilterNamedTest {
         for (Table t : qc.getMemoizedTables()) {
             System.out.println(t);
         }
-
     }
-
 }

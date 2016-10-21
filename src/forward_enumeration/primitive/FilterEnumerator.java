@@ -133,6 +133,8 @@ public class FilterEnumerator {
         allValues.addAll(ec.getValNodes());
 
         for (ValNode vn : allValues) {
+            if (vn instanceof ValHole)
+                continue;
             atomics.add(new IsNullFilter(vn, true));
             atomics.add(new IsNullFilter(vn, false));
         }

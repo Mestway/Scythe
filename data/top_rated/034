@@ -1,0 +1,30 @@
+//http://stackoverflow.com/questions/1343145/tsql-pivot-without-aggregate-function
+
+#input
+
+CustomerID,   DBColumnName,   Data
+1         ,   FirstName   ,   Joe
+1         ,   MiddleName  ,   S
+1         ,   LastName    ,   Smith
+1         ,   Date        ,   12/12/2009
+2         ,   FirstName   ,   Sam
+2         ,   MiddleName  ,   S
+2         ,   LastName    ,   Freddrick
+2         ,   Date        ,   1/12/2009
+3         ,   FirstName   ,   Jaime
+3         ,   MiddleName  ,   S
+3         ,   LastName    ,   Carol
+3         ,   Date        ,   12/1/2009
+
+#output
+
+CustomerID,  FirstName,   MiddleName ,         LastName   ,     Date
+1         ,  Joe      ,       S      ,         Smith      ,     12/12/2009
+2         ,  Sam      ,       S      ,         Freddrick  ,     1/12/2009
+3         ,  Jaime    ,       S      ,         Carol      ,     12/1/2009
+
+#constraint
+{
+	"constants": ["FirstName", "MiddleName", "LastName", "Date"],
+	"aggregation_functions": ["count"]
+}

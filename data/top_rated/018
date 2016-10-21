@@ -1,0 +1,20 @@
+// http://stackoverflow.com/questions/966176/select-distinct-on-one-column
+#input
+
+ID,  SKU,	PRODUCT
+1,   FOO-23,	Orange
+2,   BAR-23,	Orange
+3,   FOO-24,	Apple
+4,   FOO-25,	Orange
+
+#output
+
+ID,  SKU,	PRODUCT
+1,   FOO-23,	Orange
+3,   FOO-24,	Apple
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["min", "max"]
+}

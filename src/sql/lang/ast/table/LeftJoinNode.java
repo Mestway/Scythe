@@ -69,7 +69,9 @@ public class LeftJoinNode extends TableNode {
 
         Table t = Table.except(t1, tempTable.projection(projCols));
         Table nullExtension = Table.extendWithNull(t, pl);
-        Table unionResult = Table.union(tempTable, nullExtension);
+
+        Table unionResult = null;
+        unionResult = Table.union(tempTable, nullExtension);
 
         return unionResult;
     }

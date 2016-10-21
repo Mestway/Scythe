@@ -70,8 +70,10 @@ public class Table {
     @Override
     public String toString() {
         String str = "@" + name + "\r\n";
+        int k = 0;
         for (String i : schema) {
-            str += i + " | ";
+            str += i + "(" + this.getSchemaType().get(k) + ")" + " | ";
+            k ++;
         }
         str = str.substring(0, str.length() - 2) + "\r\n";
         for (TableRow row : rows) {
@@ -211,13 +213,36 @@ public class Table {
         }
     }
 
+
+    public List<ValType> storedSchemaType = null;
     // return the schema type of a table.
     public List<ValType> getSchemaType() {
-        List<ValType> lv = new ArrayList<ValType>();
-        for (Value v : this.getContent().get(0).getValues()) {
-            lv.add(v.getValType());
+
+        if (this.storedSchemaType != null) return this.storedSchemaType;
+
+        List<List<ValType>> typeCollections = new ArrayList<>();
+        for (int i = 0; i < this.getSchema().size(); i ++) {
+            typeCollections.add(new ArrayList<>());
         }
-        return lv;
+        for (int i = 0; i < this.getContent().size(); i ++) {
+            int j = 0;
+            for (Value v : this.getContent().get(i).getValues()) {
+                typeCollections.get(j).add(v.getValType());
+                j ++;
+            }
+        }
+        return typeCollections.stream().map(l -> typeLowerBound(l)).collect(Collectors.toList());
+    }
+    public ValType typeLowerBound(List<ValType> types) {
+        if (types.isEmpty()) return null;
+        ValType currentType = types.get(0);
+        for (ValType type : types) {
+            if (currentType == type) {
+                continue;
+            }
+            return ValType.StringVal;
+        }
+        return currentType;
     }
 
     public boolean isEmpty() {
@@ -383,8 +408,9 @@ public class Table {
 
     public static Table union(Table t1, Table t2) throws SQLEvalException {
 
-        if (t1.getSchema().size() != t2.getSchema().size())
+        if (t1.getSchema().size() != t2.getSchema().size()) {
             throw new SQLEvalException("Table Schema not equal in join.");
+        }
 
         if (t2.getContent().isEmpty()) return t1;
         if (t1.getContent().isEmpty()) return t2;
@@ -395,8 +421,9 @@ public class Table {
                 schemaTypeEquiv = false;
         }
 
-        if (schemaTypeEquiv == false)
+        if (schemaTypeEquiv == false) {
             throw new SQLEvalException("Table Schema not equal in join.");
+        }
 
         Table result = t1.duplicate();
         for (TableRow r : t2.getContent()) {

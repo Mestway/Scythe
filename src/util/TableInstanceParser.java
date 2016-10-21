@@ -54,7 +54,7 @@ public class TableInstanceParser {
     private static List<String> splitByComma(String line) {
         String[] content = line.trim().split(",");
         List<String> lst = new ArrayList<>();
-        for (String s : content) lst.add(s);
+        for (String s : content) lst.add(s.trim());
         return lst;
     }
 

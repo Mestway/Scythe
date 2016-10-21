@@ -1,0 +1,28 @@
+//http://stackoverflow.com/questions/1124603/grouped-limit-in-postgresql-show-the-first-n-rows-for-each-group
+
+#input
+
+ id , section_id , name
+  1 ,          1 , A
+  2 ,          1 , B
+  3 ,          1 , C
+  4 ,          1 , D
+  5 ,          2 , E
+  6 ,          2 , F
+  7 ,          3 , G
+  8 ,          2 , H
+
+#output
+
+ id , section_id , name
+  1 ,          1 , A
+  2 ,          1 , B
+  5 ,          2 , E
+  6 ,          2 , F
+  7 ,          3 , G
+
+#constraint
+{
+	"constants": ["2"],
+	"aggregation_functions": ["count"]
+}

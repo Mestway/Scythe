@@ -1,5 +1,6 @@
 package forward_enumeration.context;
 
+import global.GlobalConfig;
 import sql.lang.datatype.ValType;
 import sql.lang.datatype.Value;
 import sql.lang.Table;
@@ -30,7 +31,7 @@ public class EnumContext {
     private Table outputTable = null;
     private List<TableNode> parameterizedTableNodes = new ArrayList<>();
     List<Function<List<Value>, Value>> aggrfunctions = new ArrayList<>();
-    private int maxFilterLength = 2;
+    private int maxFilterLength = GlobalConfig.MAXIMUM_FILTER_LENGTH;
 
     // tableNodes are used to store tables that are used as input of current enumeration iteration.
     private List<TableNode> tableNodes = new ArrayList<>();

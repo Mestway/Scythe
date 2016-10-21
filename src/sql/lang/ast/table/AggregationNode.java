@@ -345,6 +345,13 @@ public class AggregationNode extends TableNode {
         return null;
     };
 
+    public static Function<List<Value>, Value> AggrFirst = l -> {
+        if (l.isEmpty()) {
+            System.err.println("[Error@AggregationNode100] aggregation list is empty");
+        }
+        return l.get(0);
+    };
+
     public static Function<List<Value>, Value> AggrAvg = l -> {
         if (AggrSum.apply(l) == null) {
             System.err.println("[Error@AggregationNode92] aggregation result null");
@@ -363,6 +370,21 @@ public class AggregationNode extends TableNode {
                 result += sv.getVal() + ", ";
             }
             return new StringVal(result.substring(0, result.length() - 2));
+        }
+        System.err.println("[Error@AggregationNode110] aggregation on wrong type");
+        return null;
+    };
+
+    public static Function<List<Value>, Value> AggrConcat2 = l -> {
+        if (l.isEmpty()) {
+            System.err.println("[Error@AggregationNode100] aggregation list is empty");
+        }
+        if (l.get(0) instanceof StringVal) {
+            String result = "";
+            for (Value sv : l) {
+                result += sv.getVal() + " ";
+            }
+            return new StringVal(result.substring(0, result.length() - 1));
         }
         System.err.println("[Error@AggregationNode110] aggregation on wrong type");
         return null;
@@ -390,7 +412,7 @@ public class AggregationNode extends TableNode {
             return "SUM";
         else if (f.equals(AggrAvg))
             return "AVG";
-        else if (f.equals(AggrConcat))
+        else if (f.equals(AggrConcat) || f.equals(AggrConcat2))
             return "CONCAT";
         else if (f.equals(AggrCount))
             return "COUNT";
@@ -400,6 +422,8 @@ public class AggregationNode extends TableNode {
             return "MAX";
         else if (f.equals(AggrMin))
             return "MIN";
+        else if (f.equals(AggrFirst))
+            return "FIRST";
         else
             return "AGRREGATION";
     }
@@ -418,6 +442,7 @@ public class AggregationNode extends TableNode {
             aggrFuncs.add(AggrMax);
             aggrFuncs.add(AggrMin);
             aggrFuncs.add(AggrSum);
+            aggrFuncs.add(AggrFirst);
         } else if (type.equals(ValType.DateVal)) {
             aggrFuncs.add(AggrCount);
             aggrFuncs.add(AggrCountDistinct);
@@ -427,6 +452,9 @@ public class AggregationNode extends TableNode {
             aggrFuncs.add(AggrCount);
             aggrFuncs.add(AggrCountDistinct);
             aggrFuncs.add(AggrConcat);
+            aggrFuncs.add(AggrConcat2);
+            aggrFuncs.add(AggrFirst);
+            aggrFuncs.add(AggrFirst);
         } else if (type.equals(ValType.TimeVal)) {
             aggrFuncs.add(AggrCount);
             aggrFuncs.add(AggrCountDistinct);

@@ -29,13 +29,23 @@ public class Synthesizer {
 
         List<TableNode> candidates = new ArrayList<>();
 
-        int maxDepth = 2;
+        int maxDepth = 1;
         while (candidates.isEmpty() && timeUsed < Synthesizer.TimeOut) {
             System.out.println("[Retry] Maximum Depth: " + maxDepth);
 
             exampleDS.enumConfig.setMaxDepth(maxDepth);
             // synthesize
             candidates.addAll(enumerator.enumProgramWithIO(exampleDS.inputs, exampleDS.output, exampleDS.enumConfig));
+
+            if (!candidates.isEmpty())
+                continue;
+
+            exampleDS.enumConfig.setNumberOfParam(2);
+            exampleDS.enumConfig.setMaxDepth(maxDepth -1);
+            // synthesize
+            candidates.addAll(enumerator.enumProgramWithIO(exampleDS.inputs, exampleDS.output, exampleDS.enumConfig));
+            exampleDS.enumConfig.setNumberOfParam(0);
+            exampleDS.enumConfig.setMaxDepth(maxDepth);
 
             timeUsed = System.currentTimeMillis() - timeStart;
             maxDepth ++;

@@ -1,0 +1,22 @@
+//http://stackoverflow.com/questions/15745042/efficiently-convert-rows-to-columns-in-sql-server
+
+#input
+
+Id,  Value,   ColumnName
+1,   John,    FirstName
+1,   2.4,     Amount
+1,   ZH1E4A,  PostalCode
+1,   Fork,    LastName
+1,   857685,  AccountNumber
+
+#output
+
+FirstName,   Amount,  PostalCode,      LastName,    AccountNumber
+John,        2.4,     ZH1E4A,          Fork,        857685
+
+
+#constraint
+{
+	"constants": ["Amount", "PostalCode", "FirstName", "LastName", "AccountNumber"],
+	"aggregation_functions": []
+}

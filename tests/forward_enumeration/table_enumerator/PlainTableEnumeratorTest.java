@@ -40,13 +40,11 @@ public class PlainTableEnumeratorTest {
 
     @Test
     public void test1() {
-        c.setMaxFilterLength(4);
         List<TableNode> tn = new PlainTableEnumerator().enumProgramWithIO(Arrays.asList(input), output, c);
         //DebugHelper.printTableNodes(tn);
     }
     @Test
     public void test2() {
-        c.setMaxFilterLength(2);
         List<TableNode> tn = new CanonicalTableEnumerator().enumProgramWithIO(Arrays.asList(input), output, c);
         //DebugHelper.printTableNodes(tn);
     }

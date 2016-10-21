@@ -17,7 +17,7 @@ public class Main {
         }
 
         // for logging purpose
-        System.setErr(System.out);
+        //System.setErr(System.out);
 
         String filename = args[0];
         String enumerator = args[1];

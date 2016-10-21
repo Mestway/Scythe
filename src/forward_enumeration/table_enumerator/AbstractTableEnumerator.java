@@ -35,7 +35,6 @@ public abstract class AbstractTableEnumerator {
         EnumContext ec = new EnumContext(input, c);
         ec.setParameterizedTables(parameterizedTables);
         ec.setOutputTable(output);
-        ec.setMaxFilterLength(c.maxFilterLength());
 
         System.out.println("[Enumeration Start]");
 

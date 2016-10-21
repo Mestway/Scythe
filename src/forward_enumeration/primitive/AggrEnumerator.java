@@ -85,9 +85,13 @@ public class AggrEnumerator {
                 String targetField = tn.getSchema().get(i);
                 ValType targetType = tn.getSchemaType().get(i);
 
-                // in this case, aggregation will not provide any useful information
-                if (groupByFields.contains(targetField) && groupByFields.size() == 1)
+                // in this case, aggregation will not provide any useful information, except count
+                if (groupByFields.contains(targetField) && groupByFields.size() == 1) {
+                    if (ec.getAggrFuns(targetType).contains(AggregationNode.AggrCount)) {
+                        targetFuncList.add(new Pair<>(targetField, AggregationNode.AggrCount));
+                    }
                     continue;
+                }
 
                 // Find the target and the aggregation fields now, start generation
                 List<Function<List<Value>, Value>> aggrFuncs = ec.getAggrFuns(targetType);
