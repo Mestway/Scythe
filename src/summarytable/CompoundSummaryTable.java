@@ -60,13 +60,76 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
             BiConsumer<AbstractSummaryTable, BVFilter> f) {
         this.encodePrimitiveFilters(ec);
 
-        Set<BVFilter> dummyExtFilter = new HashSet<>();
+        bvSynthesisWithRangeMatching(mi, ec, f);
+
+        /*Set<BVFilter> dummyExtFilter = new HashSet<>();
         dummyExtFilter.add(BVFilter.genSymbolicFilter(this.getBaseTable(), new EmptyFilter()));
 
         Set<Pair<BVFilter, BVFilter>> r = this.visitDemotedSpace(ec, dummyExtFilter);
 
         for (Pair<BVFilter, BVFilter> p : r) {
             f.accept(this, p.getKey());
+        }*/
+    }
+
+    public void bvSynthesisWithRangeMatching(
+            MappingInference mi,
+            EnumContext ec,
+            BiConsumer<AbstractSummaryTable, BVFilter> f ) {
+
+        List<List<Set<Integer>>> rowMappingRangeInstances =
+                mi.genConcreteColMappings()
+                        .stream()
+                        .map(l -> mi.genRowMappingRange(l))
+                        .collect(Collectors.toList());
+
+        Set<BVFilter> st1Filters = st1.instantiateAllFilters();
+        Set<BVFilter> st2Filters = st2.instantiateAllFilters();
+        Set<BVFilter> lrFilters =
+                AbstractSummaryTable.genCompoundFilters(this, this.filtersLR.stream().collect(Collectors.toList()));
+
+        Map<BVFilter, BVFilter> promotedFilters1 = new HashMap<>();
+        Map<BVFilter, BVFilter> promotedFilters2 = new HashMap<>();
+
+        for (BVFilter f1 : st1Filters) {
+            BVFilter promotedf1 = this.pullUpLeftFilter(f1);
+            if (fullyContainedARange(promotedf1, rowMappingRangeInstances))
+                promotedFilters1.put(f1, promotedf1);
+        }
+        for (BVFilter f2 : st2Filters) {
+            BVFilter promotedf2 = this.pullUpRightFilter(f2);
+            if (fullyContainedARange(promotedf2, rowMappingRangeInstances))
+                promotedFilters2.put(f2, promotedf2);
+        }
+
+        Set<BVFilter> validLRFilters = new HashSet<>();
+        for (BVFilter sf : lrFilters) {
+            if (fullyContainedARange(sf, rowMappingRangeInstances))
+                validLRFilters.add(sf);
+        }
+
+        for (BVFilter f1 : promotedFilters1.keySet()) {
+            for (BVFilter f2 : promotedFilters2.keySet()) {
+
+                BVFilter mergef1f2 = BVFilter.mergeFilter(
+                        promotedFilters1.get(f1), promotedFilters2.get(f2), AbstractSummaryTable.mergeFunction);
+
+                if (! fullyContainedARange(mergef1f2, rowMappingRangeInstances))
+                    continue;
+
+                for (BVFilter lrf : validLRFilters) {
+
+                    BVFilter mergef1f2lr = BVFilter.mergeFilter(
+                            mergef1f2, lrf, AbstractSummaryTable.mergeFunction);
+
+                    if (rowMappingRangeInstances
+                            .stream()
+                            .map(ls -> mergef1f2lr.exactMatchRange(ls))
+                            .reduce((x,y)->x || y).get()) {
+                        f.accept(this, mergef1f2lr);
+                    }
+                }
+            }
         }
     }
 

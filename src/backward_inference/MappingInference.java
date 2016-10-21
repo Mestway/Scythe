@@ -19,7 +19,6 @@ public class MappingInference {
 
     // program convention in this class: i loops over rows and j loops over columns.
 
-    Table input, output;
     int maxR, maxC;
     // the mapping between variables
     CellToCellSetMap map = new CellToCellSetMap();
@@ -37,13 +36,12 @@ public class MappingInference {
         mi.maxR = out.getContent().size();
         mi.maxC = out.getContent().get(0).getValues().size();
         mi.map.initialize(mi.maxR, mi.maxC);
-        mi.input = in; mi.output = out;
 
-        Map<Value, Set<CellIndex>> inverseInputTable = inverseTable(mi.input);
+        Map<Value, Set<CellIndex>> inverseInputTable = inverseTable(in);
 
-        for (int i = 0; i < mi.output.getContent().size(); i ++) {
-            for (int j = 0; j < mi.output.getContent().get(i).getValues().size(); j ++) {
-                Value v = mi.output.getContent().get(i).getValue(j);
+        for (int i = 0; i < out.getContent().size(); i ++) {
+            for (int j = 0; j < out.getContent().get(i).getValues().size(); j ++) {
+                Value v = out.getContent().get(i).getValue(j);
 
                 if (inverseInputTable.containsKey(v)) {
                     for (CellIndex ci : inverseInputTable.get(v)) {
@@ -79,7 +77,7 @@ public class MappingInference {
     // how does this affect the result?
     // Refine mapping is an approximate process, as it is simply trying to remove invalid mappings
     // TODO: calculate the complexity of this algorithm
-    // TODO: refind mapping is now integrated into building process
+    // TODO: refine mapping is now integrated into building process
     private void refineMapping() {
         boolean stable = false;
         while (!stable) {
@@ -145,6 +143,18 @@ public class MappingInference {
         }
         return columnMapping;
     }
+    // it represents how columns in the output table maps to columns in the input table.
+    // A list represent a way of mapping, example: l = result[0] represent the first way
+    // to map columns in output to columns in input, and l[i] = k means that column i in output
+    // maps to column k in the input table.
+    public List<List<Integer>> genConcreteColMappings() {
+        List<Set<Integer>> columnMapping = this.genColumnMappingInstances();
+        List<List<Integer>> listRepColMapping = new ArrayList<>();
+        for (int i = 0; i < columnMapping.size(); i ++) {
+            listRepColMapping.add(columnMapping.get(i).stream().collect(Collectors.toList()));
+        }
+        return CombinationGenerator.rotateList(listRepColMapping);
+    }
 
     // We can have some interesting property here:
     //      The row inference result can be obtained even if we only apply the inference on the first column
@@ -157,6 +167,8 @@ public class MappingInference {
         }
         return rowMapping;
     }
+
+
 
     // a mapping instance will map each coordinate in output table to a coordinate in input table
     // the mapping instance is generated through the refined map
@@ -285,6 +297,29 @@ public class MappingInference {
                         candidatePool, columnRestriction);
             }
         }
+    }
+
+    // The result is the mapping about what are the candidates for each column
+    // e.g. if result[0] = {1,2,3}, then it means that the
+    // row 0 of the output table can either be from 1,2,3 of the original table.
+    public List<Set<Integer>> genRowMappingRange(List<Integer> fixedColumn) {
+        CellToCellSetMap newMap = new CellToCellSetMap();
+        newMap.initialize(maxR, maxC);
+        for (int i = 0; i < maxR; i ++) {
+            for (int j = 0; j < maxC; j ++) {
+                for (CellIndex ci : map.getImage(i,j)) {
+                    if (fixedColumn.contains(ci.c()))
+                        newMap.addPair(new CellIndex(i,j), ci);
+                }
+            }
+        }
+        MappingInference tempMi = new MappingInference();
+        tempMi.maxC  = this.maxC;
+        tempMi.maxR = this.maxR;
+        tempMi.map = newMap;
+        tempMi.refineMapping();
+
+        return tempMi.genRowMappingInstances();
     }
 
     // key: a row number in the output table
@@ -436,13 +471,19 @@ public class MappingInference {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof MappingInference) {
-            return this.input.equals(((MappingInference) obj).input)
-                    && this.output.equals(((MappingInference) obj).output)
-                    && this.maxC == ((MappingInference) obj).maxC
+            return this.maxC == ((MappingInference) obj).maxC
                     && this.maxR == ((MappingInference) obj).maxR
                     && this.map.equals(((MappingInference) obj).map);
         }
         return false;
+    }
+
+    public MappingInference deepCopy() {
+        MappingInference mi = new MappingInference();
+        mi.maxC = this.maxC;
+        mi.maxR = this.maxR;
+        mi.map = this.map.deepCopy();
+        return mi;
     }
 
     public boolean everyCellHasImage() {

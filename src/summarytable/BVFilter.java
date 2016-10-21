@@ -128,6 +128,28 @@ public class BVFilter {
         return this.getFilterRep().containsAll(sf2.filterRep);
     }
 
+    // check whether each range is covered by at least one bit
+    public boolean rangeFullyContained(List<Set<Integer>> targetRanges) {
+        for (Set<Integer> range : targetRanges) {
+            boolean contained = false;
+            for (Integer i : range) {
+                if (filterRep.contains(i)) {
+                    contained = true;
+                    break;
+                }
+            }
+            if (contained == false)
+                return false;
+        }
+        return true;
+    }
+
+    // check whether each range is covered by at least one bit
+    public boolean exactMatchRange(List<Set<Integer>> targetRanges) {
+        return this.rangeFullyContained(targetRanges) &&
+                targetRanges.stream().flatMap(x -> x.stream()).collect(Collectors.toList()).containsAll(this.filterRep);
+    }
+
     @Override
     public String toString() {
         String s = "[";

@@ -83,6 +83,23 @@ public class CellToCellSetMap {
         }
 
         return true;
+    }
 
+    public CellToCellSetMap deepCopy() {
+        CellToCellSetMap ccsm = new CellToCellSetMap();
+        ccsm.maxC = this.maxC;
+        ccsm.maxR = this.maxR;
+        ccsm.coordMap = new ArrayList<>();
+        for (List<Set<CellIndex>> l : this.coordMap) {
+            List<Set<CellIndex>> tmp = new ArrayList();
+            for (Set<CellIndex> ci : l) {
+                Set<CellIndex> s = new HashSet<>();
+                for(CellIndex c : ci)
+                    s.add(c.copy());
+                tmp.add(s);
+            }
+            ccsm.coordMap.add(tmp);
+        }
+        return ccsm;
     }
 }

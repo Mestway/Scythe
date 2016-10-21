@@ -8,16 +8,17 @@ import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.table.*;
 import sql.lang.datatype.Value;
+import util.CombinationGenerator;
 import util.TableInstanceParser;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by clwang on 2/17/16.
  */
 public class MappingInferenceTest {
 
-    @Test
     public void newTest() {
         String inputSrc =
                 "| col1 | col2 | col3 | col4 |" + "\r\n" +
@@ -101,6 +102,7 @@ public class MappingInferenceTest {
 
     }
 
+    @Test
     public void testBuildMapping0() throws Exception {
         String inputSrc =
                 "| T1.User   |  T1.Phone   |  T1.Value  | T2.User | T2.MaxVal |" + "\r\n" +
@@ -138,6 +140,19 @@ public class MappingInferenceTest {
 
         MappingInference.printColumnMapping(mi.genColumnMappingInstances());
         MappingInference.printColumnMapping(mi.genRowMappingInstances());
+
+
+        List<Set<Integer>> columnMapping = mi.genColumnMappingInstances();
+        List<List<Integer>> listRepColMapping = new ArrayList<>();
+        for (int i = 0; i < columnMapping.size(); i ++) {
+            listRepColMapping.add(columnMapping.get(i).stream().collect(Collectors.toList()));
+        }
+        List<List<Integer>> targetsToSearch = CombinationGenerator.rotateList(listRepColMapping);
+
+        for (List<Integer> l : targetsToSearch) {
+            System.out.println("##" + l.stream().map(i -> i.toString()).reduce("", (x,y)-> x + ", " + y));
+            MappingInference.printColumnMapping(mi.genRowMappingRange(l));
+        }
 
         List<CellToCellMap> is = mi.genMappingInstances();
         System.out.println(is.size());

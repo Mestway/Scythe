@@ -170,33 +170,49 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
             EnumContext ec,
             BiConsumer<AbstractSummaryTable, BVFilter> f) {
 
-        List<CellToCellMap> map = mi.genMappingInstances();
-
-        // evaluate the set of all target filters that we learnt from output
-        Set<BVFilter> targetFilters = new HashSet<>();
-        for (CellToCellMap cim : map) {
-            BVFilter sf = new BVFilter(cim.rowsInvolved(), this.getBaseTable().getContent().size());
-            targetFilters.add(sf);
-        }
+        List<List<Set<Integer>>> rowMappingRangeInstances =
+                mi.genConcreteColMappings()
+                .stream()
+                .map(l -> mi.genRowMappingRange(l))
+                .collect(Collectors.toList());
 
         this.encodePrimitiveFilters(ec);
         // make sure that primitive filters are already evaluated
         assert primitiveFiltersEvaluated;
 
-        // this is the traditional way, invoking the mergeAndLink function to get it.
-        Set<BVFilter> allFilters = AbstractSummaryTable.genCompoundFilters(this,
-                this.primitiveBVFilters.stream().collect(Collectors.toList()));
-
         int noneBogusFilterCount = 0;
+        int targetFilterSize =  primitives.size() *  primitives.size() / 2 + 1;
 
-        for (BVFilter sf : allFilters) {
-            if (targetFilters.contains(sf)) {
-                noneBogusFilterCount ++;
-                f.accept(this, sf);
+        // this is the traditional way, invoking the mergeAndLink function to get it.
+        for (int i = 0; i < primitives.size(); i ++) {
+            if (! fullyContainedARange(primitives.get(i), rowMappingRangeInstances))
+                continue;
+            for (int j = i + 1; j < primitives.size(); j ++) {
+                BVFilter mergedFilter = BVFilter.mergeFilter(
+                        primitives.get(i),
+                        primitives.get(j),
+                        AbstractSummaryTable.mergeFunction);
+                if (rowMappingRangeInstances
+                        .stream()
+                        .map(ls -> mergedFilter.exactMatchRange(ls))
+                        .reduce((x,y)->x || y).get()) {
+                    noneBogusFilterCount ++;
+                    f.accept(this, mergedFilter);
+                }
             }
         }
 
-        Statistics.sum_back_filter_bogus_rate += ((float)(targetFilters.size() - noneBogusFilterCount)) / targetFilters.size();
+        BVFilter emptyFilter = BVFilter.genSymbolicFilter(this.getBaseTable(), new EmptyFilter());
+
+        if (rowMappingRangeInstances
+                .stream()
+                .map(ls -> emptyFilter.exactMatchRange(ls))
+                .reduce((x,y)->x || y).get()) {
+            noneBogusFilterCount ++;
+            f.accept(this, emptyFilter);
+        }
+
+        Statistics.sum_back_filter_bogus_rate += ((float)(targetFilterSize - noneBogusFilterCount)) / targetFilterSize;
         Statistics.back_filter_bogus_cases ++;
     }
 

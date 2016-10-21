@@ -4,7 +4,6 @@ import forward_enumeration.context.EnumContext;
 import backward_inference.MappingInference;
 import sql.lang.Table;
 import sql.lang.ast.filter.EmptyFilter;
-import sql.lang.ast.table.TableNode;
 import util.Pair;
 
 import java.util.*;
@@ -163,6 +162,16 @@ public abstract class AbstractSummaryTable {
             BVFilter sf, Set<BVFilter> target) {
         for (BVFilter f : target) {
             if (sf.fullyContained(f)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    // checks whether sf contains at least one filter in the target.
+    protected boolean fullyContainedARange(
+            BVFilter sf, List<List<Set<Integer>>> target) {
+        for (List<Set<Integer>> t : target) {
+            if (sf.rangeFullyContained(t)) {
                 return true;
             }
         }

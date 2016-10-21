@@ -320,14 +320,9 @@ public class StagedEnumerator extends AbstractTableEnumerator {
                 candidateCollector.insertCandidate(new Pair<>(symTable, symFilter));
         };
 
-
         MappingInference mi = MappingInference.buildMapping(st.getBaseTable(), ec.getOutputTable());
         if (! mi.everyCellHasImage())
             return;
-
-        System.out.println(st.getBaseTable());
-        if (st.getBaseTable().getContent().size() == 3 && st.getBaseTable().getContent().get(0).getValues().size() == 3)
-            System.out.println();
 
         if (GlobalConfig.SPECIAL_TREAT_LAST_STAGE) {
             st.emitFinalVisitAllTables(mi, ec, f);
