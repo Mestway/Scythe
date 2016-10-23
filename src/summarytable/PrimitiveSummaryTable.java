@@ -55,6 +55,16 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
         this.primitiveBVFilters = new HashSet<>();
     }
 
+    public PrimitiveSummaryTable(Table baseTable, TableNode baseTableSrc, boolean allowDisj) {
+        this.baseTable = baseTable;
+        this.baseTableSrc = baseTableSrc;
+        // the symbolic primitive filters are not evaluated here because we want to keep them lazy
+        this.primitiveBVFilters = new HashSet<>();
+
+        // set that disjunctions are allowed for the named table
+        this.allowDisjunctiveFilter = allowDisj;
+    }
+
     public PrimitiveSummaryTable(Table baseTable,
                                  TableNode baseTableSrc,
                                  List<Pair<AbstractSummaryTable, BVFilter>> pairs) {
@@ -93,47 +103,6 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
         this.primitiveBVFilters.add(BVFilter.genSymbolicFilter(this.baseTable, new EmptyFilter()));
     }
 
-    public Set<Pair<BVFilter, BVFilter>> visitDemotedSpace(
-            EnumContext ec, Set<BVFilter> demotedExtFilters) {
-
-        MappingInference mi = MappingInference.buildMapping(this.getBaseTable(), ec.getOutputTable());
-        List<CellToCellMap> map = mi.genMappingInstances();
-
-        // evaluate the set of all target filters that we learnt from output
-        Set<BVFilter> targetFilters = new HashSet<>();
-        for (CellToCellMap cim : map) {
-            BVFilter sf = new BVFilter(cim.rowsInvolved(), this.getBaseTable().getContent().size());
-            targetFilters.add(sf);
-        }
-
-        // this is the traditional way, invoking the mergeAndLink function to get it.
-        Set<BVFilter> allFiltersLinks = AbstractSummaryTable.genConjunctiveFilters(this,
-                this.primitiveBVFilters.stream().collect(Collectors.toList()));
-
-        List<BVFilter> validFilter = new ArrayList<>();
-        for (BVFilter sf : allFiltersLinks) {
-            if (! fullyContainedAnElement(sf, targetFilters))
-                continue;
-            validFilter.add(sf);
-        }
-
-        // TODO: we assume that all filters send in are those already checked,
-        // TODO: i.e. all of them should contain at least one element in the target filter set
-
-        Set<Pair<BVFilter, BVFilter>> validPairs = new HashSet<>();
-
-        for (BVFilter vf : validFilter) {
-            for (BVFilter ef : demotedExtFilters) {
-                BVFilter merged = BVFilter.mergeFilterConj(vf, ef);
-                if (targetFilters.contains(merged)) {
-                    validPairs.add(new Pair<>(vf, ef));
-                }
-            }
-        }
-
-        return validPairs;
-    }
-
     @Override
     public void emitFinalVisitAllTables(
             MappingInference mi,
@@ -155,18 +124,36 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
 
         // this is the traditional way, invoking the mergeAndLink function to get it.
         for (int i = 0; i < primitives.size(); i ++) {
-            if (! fullyContainedARange(primitives.get(i), rowMappingRangeInstances))
+            // we can prune this if we don't allow disjunctive filters
+            if (! allowDisjunctiveFilter && ! fullyContainedARange(primitives.get(i), rowMappingRangeInstances))
                 continue;
             for (int j = i + 1; j < primitives.size(); j ++) {
-                BVFilter mergedFilter = BVFilter.mergeFilterConj(
+
+                // Consider conjunctions on the table
+                BVFilter conjFilter = BVFilter.mergeFilterConj(
                         primitives.get(i),
                         primitives.get(j));
+
                 if (rowMappingRangeInstances
                         .stream()
-                        .map(ls -> mergedFilter.exactMatchRange(ls))
+                        .map(ls -> conjFilter.exactMatchRange(ls))
                         .reduce((x,y)->x || y).get()) {
                     noneBogusFilterCount ++;
-                    f.accept(this, mergedFilter);
+                    f.accept(this, conjFilter);
+                }
+
+                if (this.allowDisjunctiveFilter) {
+                    BVFilter disjFilter = BVFilter.mergeFilterDisj(
+                            primitives.get(i),
+                            primitives.get(j));
+
+                    if (rowMappingRangeInstances
+                            .stream()
+                            .map(ls -> conjFilter.exactMatchRange(ls))
+                            .reduce((x,y)->x || y).get()) {
+                        noneBogusFilterCount ++;
+                        f.accept(this, conjFilter);
+                    }
                 }
             }
         }
@@ -190,12 +177,20 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
     // Currently the max-length is fixed as 2
     @Override
     public Set<BVFilter> instantiateAllFilters() {
+
         // make sure that primitive filters are already evaluated
         assert primitiveFiltersEvaluated;
 
-        // this is the traditional way, invoking the mergeAndLink function to get it.
-        return AbstractSummaryTable.genConjunctiveFilters(this,
+        Set<BVFilter> result = AbstractSummaryTable.genConjunctiveFilters(this,
                 this.primitiveBVFilters.stream().collect(Collectors.toList()));
+
+        // alternative disjunctive filters
+        if (this.allowDisjunctiveFilter) {
+            result.addAll(AbstractSummaryTable.genDisjunctiveFilters(this,
+                    this.primitiveBVFilters.stream().collect(Collectors.toList())));
+        }
+
+        return result;
     }
 
     public List<Filter> decodePrimitiveFilter(BVFilter sf, TableNode tn) {
@@ -341,6 +336,11 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
                 .filter(x -> fullyContainedAnElement(x, targets))
                 .collect(Collectors.toList());
 
+        if (allowDisjunctiveFilter) {
+            // in this case we cannot prune
+            validFilters = this.primitives;
+        }
+
         // this part deals only with none-empty filters
         for (int i = 0; i < validFilters.size(); i ++) {
             BVFilter pi = validFilters.get(i);
@@ -354,6 +354,18 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
                     BVFilterCompTree sct = new BVFilterCompTree(this, s);
 
                     result.get(mergedij).add(sct);
+                }
+
+                if (this.allowDisjunctiveFilter) {
+                    BVFilter disjij = BVFilter.mergeFilterDisj(pi, pj);
+
+                    if (targets.contains(disjij)) {
+                        Set<BVFilter> s = new HashSet<>();
+                        s.add(pi); s.add(pj);
+                        BVFilterCompTree sct = new BVFilterCompTree(this, s, true);
+
+                        result.get(disjij).add(sct);
+                    }
                 }
             }
         }

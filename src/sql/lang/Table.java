@@ -4,6 +4,7 @@ import backward_inference.MappingInference;
 import sql.lang.datatype.ValType;
 import sql.lang.datatype.Value;
 import sql.lang.exception.SQLEvalException;
+import util.CombinationGenerator;
 import util.Pair;
 
 import java.util.*;
@@ -406,23 +407,13 @@ public class Table {
         return t;
     }
 
-    public static Table union(Table t1, Table t2) throws SQLEvalException {
+    public static Table union(Table t1, Table t2) {
 
-        if (t1.getSchema().size() != t2.getSchema().size()) {
-            throw new SQLEvalException("Table Schema not equal in join.");
-        }
-
-        if (t2.getContent().isEmpty()) return t1;
         if (t1.getContent().isEmpty()) return t2;
+        if (t2.getContent().isEmpty()) return t1;
 
-        boolean schemaTypeEquiv = true;
-        for (int i = 0; i < t1.getSchemaType().size(); i ++) {
-            if (! t1.getSchemaType().get(i).equals(t2.getSchemaType().get(i)))
-                schemaTypeEquiv = false;
-        }
-
-        if (schemaTypeEquiv == false) {
-            throw new SQLEvalException("Table Schema not equal in join.");
+        if (! Table.schemaMatch(t1, t2)) {
+            System.err.println("[ERROR@Table412]Table Schema not equal in union.");
         }
 
         Table result = t1.duplicate();
@@ -441,6 +432,38 @@ public class Table {
         List<Integer> columns = mi.genColumnMappingInstances().stream()
                 .map(s -> s.stream().findFirst().get()).collect(Collectors.toList());
         return columns;
+    }
+
+    public static boolean schemaMatch(Table t1, Table t2) {
+        if (t1.getSchema().size() != t2.getSchema().size()) {
+            return false;
+        }
+        if (t2.getContent().isEmpty() || t1.getContent().isEmpty())
+            return true;
+
+        for (int i = 0; i < t1.getSchemaType().size(); i ++) {
+            try {
+                if (! t1.getSchemaType().get(i).equals(t2.getSchemaType().get(i)))
+                    return false;
+            } catch (Exception e) {
+                System.out.println("oh...");
+            }
+        }
+
+        return true;
+    }
+
+    public static List<Pair<Table, Table>> tryDecompose(Table t) {
+        List<Pair<List<TableRow>, List<TableRow>>> combs = CombinationGenerator.genDecomposition(t.getContent());
+        return combs.stream().map(p -> {
+            Table t1 = t.duplicate();
+            t1.getContent().clear();
+            t1.getContent().addAll(p.getKey());
+            Table t2 = t.duplicate();
+            t2.getContent().clear();
+            t2.getContent().addAll(p.getValue());
+            return new Pair<>(t1, t2);
+        }).collect(Collectors.toList());
     }
 
 }

@@ -46,7 +46,7 @@ public class EnumFilterNamedTest {
     @Test
     public void testEnumFilterNamed() {
         EnumContext ec = new EnumContext(Arrays.asList(input), c);
-        List<TableNode> tns = EnumFilterNamed.enumFilterNamed(ec);
+        List<TableNode> tns = EnumFilterNamed.enumFilterNamed(ec, true);
         DebugHelper.printTableNodes(tns);
     }
 

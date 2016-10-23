@@ -18,6 +18,7 @@ public class TableLinks {
     // The source nodes of the edges
     Map<Table, Set<Set<Table>>> edges = new HashMap<>();
 
+
     // insert an edge with one source node
     public void insertEdge(Table src, Table dst) {
         Set<Table> node = new HashSet<>();

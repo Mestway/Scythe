@@ -6,9 +6,13 @@ import forward_enumeration.canonical_enum.components.EnumAggrTableNode;
 import forward_enumeration.canonical_enum.components.EnumFilterNamed;
 import forward_enumeration.canonical_enum.components.EnumJoinTableNodes;
 import forward_enumeration.canonical_enum.components.EnumProjection;
+import sql.lang.Table;
+import sql.lang.ast.table.NamedTable;
 import sql.lang.ast.table.TableNode;
 import util.RenameTNWrapper;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,11 +23,12 @@ public class CanonicalTableEnumerator extends AbstractTableEnumerator {
 
     @Override
     public List<TableNode> enumTable(EnumContext ec, int depth) {
+
         QueryContainer qc = QueryContainer.initWithInputTables(ec.getInputs(), QueryContainer.ContainerType.TableLinks);
         enumTableWithoutProj(ec, qc, depth); // ec will memoize these intermediate results, since the result pool is shared
 
         ec.setTableNodes(qc.getRepresentativeTableNodes());
-        List<TableNode> tns = EnumProjection.enumProjection(ec, ec.getOutputTable());
+        List<TableNode> tns = EnumProjection.enumProjection(ec.getTableNodes(), ec.getOutputTable());
         qc.insertQueries(tns);
 
         return tns;
@@ -31,8 +36,10 @@ public class CanonicalTableEnumerator extends AbstractTableEnumerator {
 
     public static QueryContainer enumTableWithoutProj(EnumContext ec, QueryContainer qc, int depth) {
 
+
+
         ec.setTableNodes(qc.getRepresentativeTableNodes());
-        List<TableNode> tns = EnumFilterNamed.enumFilterNamed(ec)
+        List<TableNode> tns = EnumFilterNamed.enumFilterNamed(ec, true)
                 .stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList());
         qc.insertQueries(tns);
 
@@ -50,4 +57,5 @@ public class CanonicalTableEnumerator extends AbstractTableEnumerator {
 
         return qc;
     }
+
 }

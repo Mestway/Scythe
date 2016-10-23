@@ -2,6 +2,7 @@ package forward_enumeration.canonical_enum.datastructure;
 
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.canonical_enum.components.OneStepQueryInference;
+import global.GlobalConfig;
 import sql.lang.Table;
 import sql.lang.ast.table.NamedTable;
 import sql.lang.ast.table.TableNode;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
  * Created by clwang on 4/7/16.
  */
 public class TableTreeNode {
+
     Table node;
     List<TableTreeNode> children = new ArrayList<>();
 
@@ -126,6 +128,14 @@ public class TableTreeNode {
                 result.add(q.tableSubst(substPair));
             }
         }
+
+        if (result.size() > GlobalConfig.MAXIMUM_BEAM_SIZE) {
+            result.sort((tn1, tn2) ->
+                Double.compare(tn1.estimateAllFilterCost(), tn2.estimateAllFilterCost())
+            );
+            return result.subList(0, GlobalConfig.MAXIMUM_BEAM_SIZE);
+        }
+
         return result;
     }
 

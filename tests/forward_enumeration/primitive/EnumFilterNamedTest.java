@@ -30,7 +30,7 @@ public class EnumFilterNamedTest {
         tns.add(new NamedTable(exampleDS.inputs.get(0)));
 
         ec.setTableNodes(tns);
-        EnumJoinTableNodes.emitEnumJoinWithFilter(ec, qc);
+        EnumJoinTableNodes.generalEmitEnumJoin(tns, tns, ec, qc);
         System.out.println(qc.getRepresentativeTableNodes().size());
         for (Table t : qc.getMemoizedTables()) {
             System.out.println(t);

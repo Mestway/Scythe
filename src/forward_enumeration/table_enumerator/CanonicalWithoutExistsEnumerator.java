@@ -29,8 +29,7 @@ public class CanonicalWithoutExistsEnumerator extends AbstractTableEnumerator {
         QueryContainer qc = QueryContainer.initWithInputTables(ec.getInputs(), QueryContainer.ContainerType.TableLinks);
         qc = enumTableWithoutProjStrategy2(ec, qc, depth); // all intermediate result in qc is stored
 
-        ec.setTableNodes(qc.getRepresentativeTableNodes());
-        List<TableNode> tns = EnumProjection.enumProjection(ec, ec.getOutputTable());
+        List<TableNode> tns = EnumProjection.enumProjection(qc.getRepresentativeTableNodes(), ec.getOutputTable());
         qc.insertQueries(tns);
         return tns;
     }
@@ -38,7 +37,7 @@ public class CanonicalWithoutExistsEnumerator extends AbstractTableEnumerator {
     public static QueryContainer enumTableWithoutProj(EnumContext ec, QueryContainer qc, int depth) {
 
         ec.setTableNodes(qc.getRepresentativeTableNodes());
-        List<TableNode> tns = EnumFilterNamed.enumFilterNamed(ec)
+        List<TableNode> tns = EnumFilterNamed.enumFilterNamed(ec, true)
                 .stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList());
         qc.insertQueries(tns);
 
@@ -88,7 +87,7 @@ public class CanonicalWithoutExistsEnumerator extends AbstractTableEnumerator {
     public static QueryContainer enumTableWithoutProjStrategy2(EnumContext ec, QueryContainer qc, int depth) {
 
         ec.setTableNodes(qc.getRepresentativeTableNodes());
-        List<TableNode> tns = EnumFilterNamed.enumFilterNamed(ec)
+        List<TableNode> tns = EnumFilterNamed.enumFilterNamed(ec, true)
                 .stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList());
         qc.insertQueries(tns);
 

@@ -1,6 +1,7 @@
 package scythe_interface;
 
 import forward_enumeration.table_enumerator.AbstractTableEnumerator;
+import forward_enumeration.table_enumerator.CanonicalTableEnumerator;
 import forward_enumeration.table_enumerator.CanonicalTableEnumeratorOnTheFly;
 import forward_enumeration.table_enumerator.StagedEnumerator;
 import global.Statistics;
@@ -17,7 +18,7 @@ public class Main {
         }
 
         // for logging purpose
-        //System.setErr(System.out);
+        System.setErr(System.out);
 
         String filename = args[0];
         String enumerator = args[1];
@@ -31,6 +32,8 @@ public class Main {
             return new StagedEnumerator();
         else if (name.equals("CanonicalEnumeratorOnTheFly"))
             return new CanonicalTableEnumeratorOnTheFly();
+        else if (name.equals("CanonicalEnumerator"))
+            return new CanonicalTableEnumerator();
         else {
             System.out.println("The enumerator ["+ name + "] is currently not supported.");
             System.exit(-1);

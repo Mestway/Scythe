@@ -18,6 +18,31 @@ public class CombinationGenerator {
         return result;
     }
 
+    public static <T> List<Pair<List<T>, List<T>>> genDecomposition(List<T> list) {
+        List<Integer> indexes = new ArrayList<>();
+        for (int i = 0; i < list.size(); i ++) indexes.add(i);
+
+        List<Pair<List<T>, List<T>>> result = new ArrayList<Pair<List<T>, List<T>>>();
+
+        List<List<Integer>> half = new ArrayList<List<Integer>>();
+        for (int sz = 1; sz <= indexes.size() / 2; sz ++) {
+            half.addAll(genCombination(indexes, sz));
+        }
+
+        for (List<Integer> li : half) {
+            List<T> left = new ArrayList<T>();
+            List<T> right = new ArrayList<T>();
+            for (int i = 0; i < list.size(); i ++) {
+                if (li.contains(i))
+                    left.add(list.get(i));
+                else
+                    right.add(list.get(i));
+            }
+            result.add(new Pair<List<T>, List<T>>(left, right));
+        }
+        return result;
+    }
+
     public static <T> List<List<T>> genCombination(List<T> list, int n) {
         List<List<T>> result = new ArrayList<List<T>>();
         List<List<Integer>> indexPerm = genIndexCombination(0, list.size()-1, n);

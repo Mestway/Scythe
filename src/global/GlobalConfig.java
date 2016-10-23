@@ -12,4 +12,7 @@ public final class GlobalConfig {
     public static final Integer LEFT_JOIN_KEY_LENGTH = 2;
 
     public static final Integer MAXIMUM_FILTER_LENGTH = 2;
+
+    // the number of top queries stored during the decoding process
+    public static final Integer MAXIMUM_BEAM_SIZE = 100;
 }

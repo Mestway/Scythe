@@ -33,13 +33,28 @@ public class FilterEnumerator {
      * @param ec The enumeration context
      * @return filters enumerated within this context
      */
-    public static List<Filter> enumFiltersLR(List<ValNode> L, List<ValNode> R, EnumContext ec, boolean allowExists) {
+    public static List<Filter> enumFiltersLR(List<ValNode> L,
+                                             List<ValNode> R,
+                                             EnumContext ec,
+                                             boolean allowExists) {
+        return enumFiltersLR(L,R,ec, allowExists, false);
+    }
+
+    // this is the version that allows disjuction
+    public static List<Filter> enumFiltersLR(List<ValNode> L,
+                                             List<ValNode> R,
+                                             EnumContext ec,
+                                             boolean allowExists,
+                                             boolean allowDisjunction) {
         List<Filter> atomics = enumAtomicFiltersLR(L, R, ec, allowExists);
-        List<Filter> result = enumCompoundFilters(atomics, 1, ec.getMaxFilterLength());
+        List<Filter> result = enumCompoundFilters(atomics, 1, ec.getMaxFilterLength(), allowDisjunction);
         return result;
     }
 
-    private static List<Filter> enumCompoundFilters(List<Filter> filters, int filterLength, int maxFilterLength) {
+    private static List<Filter> enumCompoundFilters(List<Filter> filters,
+                                                    int filterLength,
+                                                    int maxFilterLength,
+                                                    boolean allowDisjunction) {
 
         // do not allow holes with same id but different type exists
         filters = filters.stream().filter(f -> {
@@ -68,13 +83,16 @@ public class FilterEnumerator {
                 Filter f = new LogicAndFilter(filters.get(i), filters.get(j));
                 if (f.getFilterLength() == filterLength + 1)
                     result.add(f);
-               /* if = new LogicOrFilter(filters.get(i), filters.get(j));
-                if (f.getFilterLength() == filterLength + 1)
-                    result.add(f); */
+
+                if (allowDisjunction) {
+                    f = new LogicOrFilter(filters.get(i), filters.get(j));
+                    if (f.getFilterLength() == filterLength + 1)
+                        result.add(f);
+                }
             }
         }
 
-        return enumCompoundFilters(result, filterLength + 1, maxFilterLength);
+        return enumCompoundFilters(result, filterLength + 1, maxFilterLength, allowDisjunction);
     }
 
     // TODO: optimize by ruling out same filters
@@ -138,6 +156,8 @@ public class FilterEnumerator {
             atomics.add(new IsNullFilter(vn, true));
             atomics.add(new IsNullFilter(vn, false));
         }
+
+        atomics.add(new EmptyFilter());
 
         return atomics;
     }

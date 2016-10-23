@@ -1,28 +1,27 @@
 package sql.lang.ast.table;
 
 import forward_enumeration.primitive.parameterized.InstantiateEnv;
-import util.Pair;
-import sql.lang.datatype.ValType;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
+import sql.lang.datatype.ValType;
 import sql.lang.exception.SQLEvalException;
 import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;
+import util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by clwang on 12/18/15.
- * Join is implemented as cartesian product
+ * Created by clwang on 10/22/16.
  */
-public class JoinNode extends TableNode {
+public class UnionNode extends TableNode {
 
     List<TableNode> tableNodes = new ArrayList<TableNode>();
 
-    public JoinNode(List<TableNode> tableNodes) {
+    public UnionNode(List<TableNode> tableNodes) {
         this.tableNodes = tableNodes;
     }
 
@@ -34,18 +33,14 @@ public class JoinNode extends TableNode {
         }
         Table currentTable = tables.get(0);
         for (int i = 1; i < tables.size(); i ++) {
-            currentTable = Table.joinTwo(currentTable, tables.get(i));
+            currentTable = Table.union(currentTable, tables.get(i));
         }
         return currentTable;
     }
 
     @Override
     public List<String> getSchema() {
-        List<String> schema = new ArrayList<String>();
-        for (TableNode tn : this.tableNodes) {
-            schema.addAll(tn.getSchema());
-        }
-        return schema;
+        return tableNodes.get(0).getSchema();
     }
 
     @Override
@@ -55,11 +50,7 @@ public class JoinNode extends TableNode {
 
     @Override
     public List<ValType> getSchemaType() {
-        List<ValType> valTypes = new ArrayList<ValType>();
-        for (TableNode tn : this.tableNodes) {
-            valTypes.addAll(tn.getSchemaType());
-        }
-        return valTypes;
+        return tableNodes.get(0).getSchemaType();
     }
 
     @Override
@@ -77,7 +68,7 @@ public class JoinNode extends TableNode {
     public String prettyPrint(int indentLv) {
         String result = "( " + this.tableNodes.get(0).prettyPrint(1).trim() + " )";
         for (int i = 1; i < this.tableNodes.size(); i ++) {
-            result += " JOIN (\r\n" + this.tableNodes.get(i).prettyPrint(1) + " )";
+            result += " UNION ALL (\r\n" + this.tableNodes.get(i).prettyPrint(1) + " )";
         }
         return IndentionManagement.addIndention(result, indentLv);
     }
@@ -91,14 +82,14 @@ public class JoinNode extends TableNode {
 
     @Override
     public TableNode instantiate(InstantiateEnv env) {
-        return new JoinNode(
-            this.tableNodes.stream()
-                .map(t -> t.instantiate(env)).collect(Collectors.toList()));
+        return new UnionNode(
+                this.tableNodes.stream()
+                        .map(t -> t.instantiate(env)).collect(Collectors.toList()));
     }
 
     @Override
     public TableNode substNamedVal(ValNodeSubstBinding vnsb) {
-        return new JoinNode(
+        return new UnionNode(
                 this.tableNodes.stream()
                         .map(t -> t.substNamedVal(vnsb)).collect(Collectors.toList()));    }
 
@@ -113,7 +104,7 @@ public class JoinNode extends TableNode {
 
     @Override
     public TableNode tableSubst(List<Pair<TableNode,TableNode>> pairs) {
-        return new JoinNode(
+        return new UnionNode(
                 tableNodes.stream()
                         .map(tn -> tn.tableSubst(pairs))
                         .collect(Collectors.toList()));
@@ -121,13 +112,8 @@ public class JoinNode extends TableNode {
 
     @Override
     public List<String> originalColumnName() {
-        List<String> result = new ArrayList<>();
-        for (TableNode tn : this.tableNodes) {
-            result.addAll(tn.originalColumnName());
-        }
-        return result;
+        return this.tableNodes.get(0).originalColumnName();
     }
-
 
     public List<TableNode> getTableNodes() { return this.tableNodes; }
 
@@ -138,19 +124,7 @@ public class JoinNode extends TableNode {
 
     @Override
     public String getQuerySkeleton() {
-        return "(J" + tableNodes.stream().map(tn -> tn.getQuerySkeleton()).reduce("", (x,y)-> (x + " " + y)) + ")";
-    }
-
-    public List<Table> getNamedTableInJoin() {
-        List<Table> result = new ArrayList<>();
-        for (TableNode tn : this.tableNodes) {
-            if (tn instanceof NamedTable)
-                result.add(((NamedTable) tn).getTable());
-            if (tn instanceof JoinNode) {
-                result.addAll(((JoinNode) tn).getNamedTableInJoin());
-            }
-        }
-        return result;
+        return "(U" + tableNodes.stream().map(tn -> tn.getQuerySkeleton()).reduce("", (x,y)-> (x + " " + y)) + ")";
     }
 
 }

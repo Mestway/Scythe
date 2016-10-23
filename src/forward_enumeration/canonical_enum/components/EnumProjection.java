@@ -25,9 +25,8 @@ import java.util.stream.Collectors;
 public class EnumProjection {
 
     // projection enumeration only happens at the last step
-    public static List<TableNode> enumProjection(EnumContext ec, Table outputTable) {
+    public static List<TableNode> enumProjection(List<TableNode> tableNodes, Table outputTable) {
 
-        List<TableNode> tableNodes = ec.getTableNodes();
         List<TableNode> result = new ArrayList<>();
 
         for (TableNode tn : tableNodes) {
@@ -73,11 +72,10 @@ public class EnumProjection {
 
     // projection enumeration only happens at the last step
     // the return value identifies whether the table is a runner-up
-    public static boolean emitEnumProjection(EnumContext ec, Table outputTable, QueryContainer qc) {
+    public static boolean emitEnumProjection(List<TableNode> tableNodes, Table outputTable, QueryContainer qc) {
 
         boolean findone = false;
 
-        List<TableNode> tableNodes = ec.getTableNodes();
         List<TableNode> result = new ArrayList<>();
 
         for (TableNode tn : tableNodes) {

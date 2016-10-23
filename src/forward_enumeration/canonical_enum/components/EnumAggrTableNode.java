@@ -89,7 +89,6 @@ public class EnumAggrTableNode {
                     TableNode filtered = RenameTNWrapper.tryRename(new SelectNode(vals, rt, f));
 
                     result.add(filtered);
-
                 }
             }
         } else {

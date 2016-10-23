@@ -15,10 +15,7 @@ import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
 import util.RenameTNWrapper;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -31,7 +28,7 @@ public class EnumFilterNamed {
      * Enumerate filter nodes for named tables: given a named table, we will generate filter for the named tables.
      * @return
      */
-    public static List<TableNode> enumFilterNamed(EnumContext ec) {
+    public static List<TableNode> enumFilterNamed(EnumContext ec,  boolean allowDisjunction) {
         List<TableNode> targets = ec.getTableNodes().stream()
                 .filter(tn -> (tn instanceof NamedTable))
                 .collect(Collectors.toList());
@@ -55,7 +52,7 @@ public class EnumFilterNamed {
 
             // we allow using exists when enumerating filters for a named table.
             boolean allowExists = true;
-            List<Filter> filters = FilterEnumerator.enumFiltersLR(vals, ec2.getValNodes(), ec2, allowExists);
+            List<Filter> filters = FilterEnumerator.enumFiltersLR(vals, ec2.getValNodes(), ec2, allowExists, allowDisjunction);
 
             for (Filter f : filters) {
                 TableNode sn = new SelectNode(vals, tn, f);
@@ -66,7 +63,9 @@ public class EnumFilterNamed {
     }
 
     // Emit enumerated query on the fly, whether to store them or not is determined by qc
-    public static void emitEnumFilterNamed(EnumContext ec, QueryContainer qc) {
+    public static Set<Table> emitEnumFilterNamed(EnumContext ec, QueryContainer qc, boolean allowDisjunction) {
+
+        Set<Table> newlyGeneratedTables = new HashSet<>();
 
         List<TableNode> targets = ec.getTableNodes();
 
@@ -86,7 +85,7 @@ public class EnumFilterNamed {
             EnumContext ec2 = EnumContext.extendValueBinding(ec, typeMap);
 
             boolean allowExists = true;
-            List<Filter> filters = FilterEnumerator.enumFiltersLR(vals, ec2.getValNodes(), ec2, allowExists);
+            List<Filter> filters = FilterEnumerator.enumFiltersLR(vals, ec2.getValNodes(), ec2, allowExists, allowDisjunction);
 
             for (Filter f : filters) {
                 TableNode sn = new SelectNode(vals, tn, f);
@@ -107,11 +106,15 @@ public class EnumFilterNamed {
                         qc.getTableLinks().insertEdge(
                                 qc.getRepresentative(src),
                                 qc.getRepresentative(dst));
+
+                        newlyGeneratedTables.add(qc.getRepresentative(dst));
                     } catch (SQLEvalException e) {
                         e.printStackTrace();
                     }
                 }
             }
         }
+
+        return newlyGeneratedTables;
     }
 }

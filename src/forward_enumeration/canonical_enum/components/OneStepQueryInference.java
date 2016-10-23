@@ -37,7 +37,7 @@ public class OneStepQueryInference {
                         return false;
                     }).collect(Collectors.toList()));
 
-            tns.addAll(EnumFilterNamed.enumFilterNamed(ec).stream().filter(tn -> {
+            tns.addAll(EnumFilterNamed.enumFilterNamed(ec, true).stream().filter(tn -> {
                 try {
                     return (tn.eval(new Environment()).equals(output));
                 } catch (SQLEvalException e) {
@@ -46,7 +46,7 @@ public class OneStepQueryInference {
                 return false;
             }).collect(Collectors.toList()));
 
-            tns.addAll(EnumProjection.enumProjection(ec, output));
+            tns.addAll(EnumProjection.enumProjection(ec.getTableNodes(), output));
 
             tns.addAll(EnumJoinTableNodes.enumJoinWithFilter(ec).stream().filter(tn -> {
                 try {
@@ -64,6 +64,8 @@ public class OneStepQueryInference {
 
             List<TableNode> tns = new ArrayList<>();
             ec.setTableNodes(inputTableNodes);
+
+            // possibly from join
             tns.addAll(EnumJoinTableNodes.enumJoinWithFilter(ec).stream().filter(t -> {
                 try {
                     return t.eval(new Environment()).equals(output);
@@ -72,6 +74,29 @@ public class OneStepQueryInference {
                 }
                 return false;
             }).collect(Collectors.toList()));
+
+            // avoid overlap between leftjoin and join
+            if (tns.isEmpty()) {
+                // possibly from left-join
+                tns.addAll(EnumLeftJoin.enumLeftJoin(ec).stream().filter(t -> {
+                    try {
+                        return t.eval(new Environment()).equals(output);
+                    } catch (SQLEvalException e) {
+                        e.printStackTrace();
+                    }
+                    return false;
+                }).collect(Collectors.toList()));
+            }
+
+            tns.addAll(EnumUnion.enumUnion(inputTableNodes, inputTableNodes).stream().filter(t -> {
+                try {
+                    return t.eval(new Environment()).equals(output);
+                } catch (SQLEvalException e) {
+                    e.printStackTrace();
+                }
+                return false;
+            }).collect(Collectors.toList()));
+
             return tns;
         }
         return new ArrayList<>();

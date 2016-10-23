@@ -4,7 +4,9 @@ import forward_enumeration.table_enumerator.AbstractTableEnumerator;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.table.TableNode;
+import sql.lang.ast.table.UnionNode;
 import sql.lang.exception.SQLEvalException;
+import util.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,6 +42,29 @@ public class Synthesizer {
 
             if (!candidates.isEmpty())
                 continue;
+
+            if (maxDepth == 1) {
+                // try decomposing the output table
+                for (Pair<Table, Table> decomposed : Table.tryDecompose(exampleDS.output)) {
+
+                    exampleDS.enumConfig.setMaxDepth(1);
+                    List<TableNode> left = enumerator.enumProgramWithIO(exampleDS.inputs, decomposed.getKey(), exampleDS.enumConfig);
+
+                    exampleDS.enumConfig.setMaxDepth(1);
+                    List<TableNode> right = enumerator.enumProgramWithIO(exampleDS.inputs, decomposed.getValue(), exampleDS.enumConfig);
+                    for (TableNode tn1 : left) {
+                        for (TableNode tn2 : right) {
+                            candidates.add(new UnionNode(Arrays.asList(tn1, tn2)));
+                        }
+                    }
+
+                    if (candidates.size() > 0)
+                        break;
+                }
+            }
+
+            if (candidates.size() > 0)
+                break;
 
             if (maxDepth == 2) {
                 // try synthesizing queries with Exists-clauses

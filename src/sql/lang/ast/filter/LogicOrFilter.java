@@ -40,6 +40,9 @@ public class LogicOrFilter implements Filter {
 
     @Override
     public String prettyPrint(int indentLv) {
+        if (f1 instanceof EmptyFilter || f2 instanceof EmptyFilter) {
+            return IndentionManagement.addIndention("True", indentLv);
+        }
         String result = f1.prettyPrint(0) + "\r\n OR " + f2.prettyPrint(0);
         return IndentionManagement.addIndention(result, indentLv);
     }
@@ -59,6 +62,14 @@ public class LogicOrFilter implements Filter {
     @Override
     public Filter instantiate(InstantiateEnv env) {
         return new LogicOrFilter(f1.instantiate(env), f2.instantiate(env));
+    }
+
+    public static Filter connectByOr(List<Filter> filters) {
+        Filter last = filters.get(0);
+        for (int i = 1; i < filters.size(); i ++) {
+            last = new LogicOrFilter(last, filters.get(i));
+        }
+        return last;
     }
 
     @Override

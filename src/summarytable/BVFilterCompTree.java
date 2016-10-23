@@ -3,8 +3,10 @@ package summarytable;
 import forward_enumeration.context.EnumContext;
 import global.Statistics;
 import sql.lang.Table;
+import sql.lang.ast.filter.EmptyFilter;
 import sql.lang.ast.filter.Filter;
 import sql.lang.ast.filter.LogicAndFilter;
+import sql.lang.ast.filter.LogicOrFilter;
 import sql.lang.ast.table.*;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.trans.ValNodeSubstBinding;
@@ -34,9 +36,17 @@ public class BVFilterCompTree {
     // child comp tree nodes, sub-symbolic tables that composed to this sym table
     List<BVFilterCompTree> children = new ArrayList<>();
 
+    // this flag indicates whether primitive filters in this node should be connected by AND or OR.
+    boolean disjComposition = false;
+
     public BVFilterCompTree(AbstractSummaryTable st, Set<BVFilter> primitiveFilters) {
+        this(st, primitiveFilters, false);
+    }
+
+    public BVFilterCompTree(AbstractSummaryTable st, Set<BVFilter> primitiveFilters, boolean disjComposition) {
         this.symTable = st;
         this.primitiveFilters = primitiveFilters;
+        this.disjComposition = disjComposition;
     }
 
     public void addChildren(BVFilterCompTree sct) {
@@ -152,8 +162,12 @@ public class BVFilterCompTree {
                     }
                 }
 
-                result.add(new SelectNode(tn.getSchema().stream().map(s -> new NamedVal(s)).collect(Collectors.toList()),
+                if (this.disjComposition == false)
+                    result.add(new SelectNode(tn.getSchema().stream().map(s -> new NamedVal(s)).collect(Collectors.toList()),
                             tn, LogicAndFilter.connectByAnd(candidateConjFilter)));
+                else
+                    result.add(new SelectNode(tn.getSchema().stream().map(s -> new NamedVal(s)).collect(Collectors.toList()),
+                            tn, LogicOrFilter.connectByOr(candidateConjFilter)));
             }
             return result;
 
@@ -171,64 +185,77 @@ public class BVFilterCompTree {
             }
 
             List<List<TableNode>> rotated = CombinationGenerator.rotateList(subQueryLists);
+            if (((CompoundSummaryTable) symTable).compositionType.equals(CompoundSummaryTable.CompositionType.union)) {
+                for (List<TableNode> subQueries : rotated) {
+                    UnionNode un = new UnionNode(subQueries);
+                    RenameTableNode coreTableNode = (RenameTableNode) RenameTNWrapper.tryRename(un);
 
-            for (List<TableNode> subQueries : rotated) {
+                    result.add(new SelectNode(
+                            coreTableNode.getSchema().stream().map(s -> new NamedVal(s)).collect(Collectors.toList()),
+                            coreTableNode, new EmptyFilter()));
+                }
+                return result;
 
-                JoinNode jn = new JoinNode(subQueries);
-                RenameTableNode coreTableNode = (RenameTableNode) RenameTNWrapper.tryRename(jn);
+            } else if (((CompoundSummaryTable) symTable).compositionType.equals(CompoundSummaryTable.CompositionType.join)) {
 
-                // Then we concrete the LR filter on this table
+                for (List<TableNode> subQueries : rotated) {
 
-                Table st1Table = ((CompoundSummaryTable) symTable).st1.getBaseTable();
-                Table st2Table = ((CompoundSummaryTable) symTable).st2.getBaseTable();
-                JoinNode fakeJN = new JoinNode(Arrays.asList(new NamedTable(st1Table), new NamedTable(st2Table)));
-                RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(fakeJN);
+                    JoinNode jn = new JoinNode(subQueries);
+                    RenameTableNode coreTableNode = (RenameTableNode) RenameTNWrapper.tryRename(jn);
 
-                List<Filter> filters = new ArrayList<>();
+                    // Then we concrete the LR filter on this table
 
-                for (BVFilter sf : this.primitiveFilters) {
-                    double minCost = 999; Filter candidate = null;
+                    Table st1Table = ((CompoundSummaryTable) symTable).st1.getBaseTable();
+                    Table st2Table = ((CompoundSummaryTable) symTable).st2.getBaseTable();
+                    JoinNode fakeJN = new JoinNode(Arrays.asList(new NamedTable(st1Table), new NamedTable(st2Table)));
+                    RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(fakeJN);
 
-                    Statistics.sumLRFilterCount += ((CompoundSummaryTable) symTable).decodeLR(sf).size();
-                    Statistics.cntLRFilterCount ++;
-                    Statistics.maxLRFilterCount = Statistics.maxLRFilterCount > ((CompoundSummaryTable) symTable).decodeLR(sf).size() ?  Statistics.maxLRFilterCount : ((CompoundSummaryTable) symTable).decodeLR(sf).size();
+                    List<Filter> filters = new ArrayList<>();
 
-                    for (Filter f : ((CompoundSummaryTable) symTable).decodeLR(sf)) {
-                        double cost = CostEstimator.estimateFilterCost(f, TableNode.nameToOriginMap(rt.getSchema(), rt.originalColumnName()));
-                        if (cost < minCost) {
-                            candidate = f;
-                            minCost = cost;
+                    for (BVFilter sf : this.primitiveFilters) {
+                        double minCost = 999; Filter candidate = null;
 
+                        Statistics.sumLRFilterCount += ((CompoundSummaryTable) symTable).decodeLR(sf).size();
+                        Statistics.cntLRFilterCount ++;
+                        Statistics.maxLRFilterCount = Statistics.maxLRFilterCount > ((CompoundSummaryTable) symTable).decodeLR(sf).size() ?  Statistics.maxLRFilterCount : ((CompoundSummaryTable) symTable).decodeLR(sf).size();
+
+                        for (Filter f : ((CompoundSummaryTable) symTable).decodeLR(sf)) {
+                            double cost = CostEstimator.estimateFilterCost(f, TableNode.nameToOriginMap(rt.getSchema(), rt.originalColumnName()));
+                            if (cost < minCost) {
+                                candidate = f;
+                                minCost = cost;
+
+                            }
+                            // TODO: This one does not limit the number since it adds all filters into the result set
+                            //filters.add(f);
                         }
-                        // TODO: This one does not limit the number since it adds all filters into the result set
-                        //filters.add(f);
+                        // TODO: if we want to limit the number, use the commented one
+                        filters.add(candidate);
                     }
-                    // TODO: if we want to limit the number, use the commented one
-                    filters.add(candidate);
+
+                    // Since the filters are built upon fakeRT, we cannot directly use these filters to construct the desired output,
+                    // and we will first need to rename the columns in each filter to construct a real filter
+
+                    // rename the filters so that the filters refer to the elements in the new table.
+                    ValNodeSubstBinding vsb = new ValNodeSubstBinding();
+                    for (int i = 0; i < coreTableNode.getSchema().size(); i ++) {
+                        vsb.addBinding(new Pair<>(
+                                new NamedVal(((CompoundSummaryTable) symTable).representativeTableNode.getSchema().get(i)),
+                                new NamedVal(coreTableNode.getSchema().get(i))));
+                    }
+
+                    List<Filter> renamedFilters = new ArrayList<>();
+                    for (Filter f : filters) {
+                        renamedFilters.add(f.substNamedVal(vsb));
+                    }
+
+                    result.add(new SelectNode(
+                            coreTableNode.getSchema().stream().map(s -> new NamedVal(s)).collect(Collectors.toList()),
+                            coreTableNode,
+                            LogicAndFilter.connectByAnd(renamedFilters)));
                 }
-
-                // Since the filters are built upon fakeRT, we cannot directly use these filters to construct the desired output,
-                // and we will first need to rename the columns in each filter to construct a real filter
-
-                // rename the filters so that the filters refer to the elements in the new table.
-                ValNodeSubstBinding vsb = new ValNodeSubstBinding();
-                for (int i = 0; i < coreTableNode.getSchema().size(); i ++) {
-                    vsb.addBinding(new Pair<>(
-                            new NamedVal(((CompoundSummaryTable) symTable).representativeTableNode.getSchema().get(i)),
-                            new NamedVal(coreTableNode.getSchema().get(i))));
-                }
-
-                List<Filter> renamedFilters = new ArrayList<>();
-                for (Filter f : filters) {
-                    renamedFilters.add(f.substNamedVal(vsb));
-                }
-
-                result.add(new SelectNode(
-                        coreTableNode.getSchema().stream().map(s -> new NamedVal(s)).collect(Collectors.toList()),
-                        coreTableNode,
-                        LogicAndFilter.connectByAnd(renamedFilters)));
+                return result;
             }
-            return result;
         }
         return null;
     }

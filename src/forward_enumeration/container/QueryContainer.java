@@ -25,6 +25,7 @@ public class QueryContainer {
 
     // store the getRepresentative table of tables with the same content, to ensure that hash lookup will not mess it up
     private Map<Table, Table> mirror = new HashMap<>();
+
     public Set<Table> getMemoizedTables() { return this.mirror.keySet(); }
 
     private QueryContainer() {}
@@ -41,25 +42,25 @@ public class QueryContainer {
     }
 
     public void insertQuery(TableNode tn) {
-        this.insertQueries(Arrays.asList(tn));
+        try {
+            Table t = tn.eval(new Environment());
+
+            if (t.getContent().size() == 0)
+                return;
+
+            if (! mirror.containsKey(t))
+                mirror.put(t, t);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // insert more queries into the QueryChest
     // (these new tables will be used later)
     public void insertQueries(List<TableNode> queries) {
         for (TableNode tn : queries) {
-            try {
-                Table t = tn.eval(new Environment());
-
-                if (t.getContent().size() == 0)
-                    continue;
-
-                if (! mirror.containsKey(t)) {
-                    mirror.put(t, t);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            insertQuery(tn);
         }
     }
 
