@@ -1,0 +1,27 @@
+//http://stackoverflow.com/questions/31848698/sql-select-counts-on-1-value
+
+#input
+
+|   Id    |    Name    | Status | Content_type |
+|----------------------------------------------|
+| 2960671 | PostJob    | Error  | general_url  |
+| 2960670 | auto_index | Done   | general_url  |
+| 2960669 | auto_index | Done   | document     |
+| 2960668 | auto_index | Error  | document     |
+| 2960667 | auto_index | Error  | document     |
+
+#output
+
+| c1  | c2           |
+|--------------------|
+| 1   |  general_url |
+| 2   |   document   |
+
+#constraint
+{
+	"max_depth": 2,
+	"constants": ["Error"],
+	"aggregation_functions": ["count"],
+	"parameter_number": 0,
+	"max_filter_length": 2
+}

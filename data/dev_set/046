@@ -1,0 +1,34 @@
+//http://stackoverflow.com/questions/37946089/fetching-same-rows-that-has-multiple-columns-along-with-other-rows/37946292#37946292
+
+#input
+
+| comp | Sub-comp | Lognum | id   | Firname | LAstname   |
+|----------------------------------------------------|
+| AK   | AK-G     | 0      | 3897 |   ABC   |   DEF   |
+| AK   | AK-G     | 0      | 5432 |   mark  |   ray      |
+| MC   | MC-A     | 0      | 1234 |   john  |   steve   |
+| MC   | MC-A     | 0      | 5678 |   dan   |   pitcher   |
+| MC   | MC-A     | 0      | 9843 |   james |   robin   |
+| MC   | MC-A     | 84     | 1234 |   john  |   steve   |
+| MC   | MC-A     | 84     | 5678 |   dan   |   pitcher   |
+| MC   | MC-A     | 84     | 9843 |   james |   robin   |
+
+#output
+
+| comp | Sub-comp | Lognum | id   | Firname | LAstname   |
+|----------------------------------------------------|
+| AK   | AK-G     | 0      | 3897 |   ABC   |   DEF   |
+| AK   | AK-G     | 0      | 5432 |   mark  |   ray      |
+| MC   | MC-A     | 84     | 1234 |   john  |   steve   |
+| MC   | MC-A     | 84     | 5678 |   dan   |   pitcher   |
+| MC   | MC-A     | 84     | 9843 |   james |   robin   |
+
+#constraint
+
+{
+	"max_depth": 2,
+	"constants": [],
+	"aggregation_functions": ["max"],
+	"parameter_number": 0,
+	"max_filter_length": 2
+}

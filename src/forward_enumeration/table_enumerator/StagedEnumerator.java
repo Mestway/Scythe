@@ -97,13 +97,23 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         //##### Synthesize LEFT-JOIN
         // Try enumerating joining two tables from left-join
         if (candidateCollector.getAllCandidates().size() == 0) {
+
             stFromLastStage = basicAndAggr;
             for (int i = 1; i <= maxDepth-1; i ++) {
+
+                System.out.println("[EnumLeftJoin] level " + i + " [SymTable]: " + summaryTables.size());
+
                 List<AbstractSummaryTable> leftJoinSummary = EnumerationModules.enumLeftJoin(stFromLastStage, inputSummary, ec);
                 summaryTables.addAll(leftJoinSummary);
+
+                List<AbstractSummaryTable> rightJoinSummary = EnumerationModules.enumLeftJoin(inputSummary, stFromLastStage, ec);
+                summaryTables.addAll(rightJoinSummary);
+
                 tryEvalToOutput(leftJoinSummary, ec, candidateCollector);
+                tryEvalToOutput(rightJoinSummary, ec, candidateCollector);
 
                 if (candidateCollector.getAllCandidates().size() > 0) break;
+                leftJoinSummary.addAll(rightJoinSummary);
                 stFromLastStage = leftJoinSummary;
             }
         }

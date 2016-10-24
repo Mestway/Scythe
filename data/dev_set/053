@@ -1,0 +1,33 @@
+//http://stackoverflow.com/questions/15969614/in-sql-how-to-select-the-top-2-rows-for-each-group
+
+#input
+
+| NAME  | SCORE |
+|---------------|
+| willy |    91 |
+| willy |    92 |
+| willy |    93 |
+| zoe   |    92 |
+| zoe   |    93 |
+| zoe   |    95 |
+|  d    |    1  |
+
+#output
+
+| NAME  | SCORE |
+|---------------|
+| willy |    92 |
+| willy |    93 |
+| zoe   |    93 |
+| zoe   |    95 |
+|  d    |    1  |
+
+
+#constraint
+{
+	"max_depth": 2,
+	"constants": ["2"],
+	"aggregation_functions": ["count"],
+	"parameter_number": 0,
+	"max_filter_length": 2
+}

@@ -1,0 +1,28 @@
+//http://stackoverflow.com/questions/37575793/get-first-row-per-product-after-a-certain-date
+
+#input
+
+|product_code | qty | stock_before | stock_after |   date     |
+|-------------------------------------------------------------|
+| xpto1       |  0  |            1 |           1 | 2015-01-01 |
+| xpto1       |  1  |            1 |           2 | 2015-02-01 |
+| xpto1       |  2  |           -1 |           1 | 2015-03-01 |
+| xpto2       |  0  |            1 |           1 | 2015-01-01 |
+| xpto2       |  1  |            1 |           2 | 2015-02-01 |
+| xpto2       |  2  |           -1 |           1 | 2015-03-01 |
+
+#output
+
+|product_code | qty | stock_before | stock_after |   date     |
+|--------------------------------|
+| xpto1 | 1 | 1 | 2 | 2015-02-01 |
+| xpto2 | 1 | 1 | 2 | 2015-02-01 |
+
+#constraint
+{
+	"max_depth": 2,
+	"constants": ["2015-01-01"],
+	"aggregation_functions": ["max"],
+	"parameter_number": 0,
+	"max_filter_length": 2
+}

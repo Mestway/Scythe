@@ -1,0 +1,26 @@
+//http://stackoverflow.com/questions/37934708/sqlhow-return-record-by-look-up-max-assign-column
+
+#input
+
+| id | data1 |  data2 |
+|---------------------|
+| 1  | 1     |  4 |
+| 2  | 1     |  5 |
+| 3  | 2     |  6 |
+| 4  | 2     |  7 |
+
+#output
+
+| data1 | id | data2 |
+|--------------------|
+| 1     | 2  | 5 |
+| 2     | 4  | 7 |
+
+#constraint
+{
+	"max_depth": 2,
+	"constants": [],
+	"aggregation_functions": ["max", "min"],
+	"parameter_number": 0,
+	"max_filter_length": 2
+}

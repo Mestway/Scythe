@@ -1,0 +1,27 @@
+//http://stackoverflow.com/questions/33063073/postgresql-max-value-for-every-user
+
+#input
+
+| User  | Phone | Value |
+|-----------------------|
+| Peter | 0     | 1     |
+| Peter | 456   | 2     |
+| Peter | 456   | 3     |
+| Paul  | 456   | 7     |
+| Paul  | 789   | 10    |
+
+#output
+
+|  c1   | c2  | c3 |
+|------------------|
+| Peter | 456 | 3  |
+| Paul  | 456 | 7  |
+
+#constraint
+{
+	"max_depth": 2,
+	"constants": ["8"],
+	"aggregation_functions": ["max"],
+	"parameter_number": 0,
+	"max_filter_length": 2
+}

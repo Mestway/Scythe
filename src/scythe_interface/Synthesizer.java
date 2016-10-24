@@ -67,7 +67,7 @@ public class Synthesizer {
                         candidates.sort((tn1, tn2) -> Double.compare(tn1.estimateAllFilterCost(), tn2.estimateAllFilterCost()));
                         candidates = candidates.subList(0, GlobalConfig.MAXIMUM_QUERY_KEPT);
                     }
-                      //  break;
+                    //  break;
                 }
             }
 
