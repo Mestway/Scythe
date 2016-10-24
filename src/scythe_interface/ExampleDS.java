@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The data structure used to store an example, with concrete enumeration context
@@ -25,19 +26,13 @@ public class ExampleDS {
 
         List<String> fileContent = new ArrayList<>();
         try {
-            fileContent = Files.readAllLines(Paths.get(path));
+            fileContent = Files.readAllLines(Paths.get(path)).stream().filter(t -> !t.startsWith("//")).collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         int i = 0;
         while (i < fileContent.size()) {
-
-            // ignore comments
-            if (fileContent.get(i).startsWith("//")) {
-                i ++;
-                continue;
-            }
 
             if (fileContent.get(i).startsWith("#")) {
                 String segName = fileContent.get(i).substring(1).trim();

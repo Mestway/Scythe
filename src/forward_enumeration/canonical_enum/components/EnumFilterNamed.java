@@ -63,7 +63,7 @@ public class EnumFilterNamed {
     }
 
     // Emit enumerated query on the fly, whether to store them or not is determined by qc
-    public static Set<Table> emitEnumFilterNamed(EnumContext ec, QueryContainer qc, boolean allowDisjunction) {
+    public static List<Table> emitEnumFilterNamed(EnumContext ec, QueryContainer qc, boolean allowDisjunction) {
 
         Set<Table> newlyGeneratedTables = new HashSet<>();
 
@@ -115,6 +115,6 @@ public class EnumFilterNamed {
             }
         }
 
-        return newlyGeneratedTables;
+        return newlyGeneratedTables.stream().collect(Collectors.toList());
     }
 }

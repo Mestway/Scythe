@@ -96,8 +96,9 @@ public class AggregationNode extends TableNode {
 
             for (int k = 0; k < this.targets.size(); k ++) {
                 Value tempV = targets.get(k).getValue().apply(aggregationTargetLists.get(k));
-                if (tempV == null)
+                if (tempV == null) {
                     throw new SQLEvalException("Aggregation function application error");
+                }
                 agrResultList.add(tempV);
             }
             List<Value> rowContent = new ArrayList<Value>();
@@ -341,7 +342,9 @@ public class AggregationNode extends TableNode {
             }
             return new DateVal(minTime);
         }
-        System.err.println("[Error@AggregationNode81] aggregation performed on unexpected type");
+        if (l.get(0) instanceof NullVal) {
+            return l.get(0);
+        }
         return null;
     };
 

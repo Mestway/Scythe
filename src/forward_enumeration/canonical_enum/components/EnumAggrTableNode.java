@@ -51,15 +51,50 @@ public class EnumAggrTableNode {
     }
 
     // the following two are functions for emit enumerating the tables.
-    public static void emitEnumAggrNodeWFilter(EnumContext ec, QueryContainer qc) {
+    public static List<Table> emitEnumAggrNodeWFilter(EnumContext ec, QueryContainer qc) {
 
-        boolean simplify = SIMPLIFY;
-        boolean withFilter = true;
+        Set<Table> newlyGeneratedTables = new HashSet<>();
 
         List<TableNode> coreTableNodes = ec.getTableNodes();
         for (TableNode coreTable : coreTableNodes) {
-            generalEnumAggrPerTable(ec, coreTable, simplify, Optional.of(qc), withFilter);
+            List<RenameTableNode> aggrNodes = AggrEnumerator.enumerateAggregation(ec, coreTable, SIMPLIFY);
+            for (RenameTableNode rt : aggrNodes) {
+
+                // filters for aggregation fields are listed here
+                List<TableNode> result = new ArrayList<>();
+                List<Filter> filters = FilterEnumerator.enumCanonicalFilterAggrNode(rt, ec);
+                for (Filter f : filters) {
+                    List<ValNode> vals = rt.getSchema().stream()
+                            .map(s -> new NamedVal(s))
+                            .collect(Collectors.toList());
+                    TableNode filtered = RenameTNWrapper.tryRename(new SelectNode(vals, rt, f));
+                    result.add(filtered);
+                }
+
+                for (TableNode tn : result) {
+                    try {
+                        Table resultT = tn.eval(new Environment());
+                        Table originalT = coreTable.eval(new Environment());
+
+                        if (originalT.getContent().isEmpty() || resultT.getContent().isEmpty())
+                            continue;
+
+                        qc.insertQuery(tn);
+
+                        // updating the link between tables, an edge eval(tn) --> eval(rt) is inserted
+                        qc.getTableLinks().insertEdge(
+                                qc.getRepresentative(originalT),
+                                qc.getRepresentative(resultT));
+
+                        newlyGeneratedTables.add(qc.getRepresentative(resultT));
+
+                    } catch (SQLEvalException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         }
+        return newlyGeneratedTables.stream().collect(Collectors.toList());
     }
 
     /**

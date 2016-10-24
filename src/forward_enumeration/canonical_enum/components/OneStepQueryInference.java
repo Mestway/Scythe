@@ -66,7 +66,7 @@ public class OneStepQueryInference {
             ec.setTableNodes(inputTableNodes);
 
             // possibly from join
-            tns.addAll(EnumJoinTableNodes.enumJoinWithFilter(ec).stream().filter(t -> {
+            tns.addAll(EnumJoinTableNodes.enumJoinLeftRight(inputTableNodes, inputTableNodes, ec).stream().filter(t -> {
                 try {
                     return t.eval(new Environment()).equals(output);
                 } catch (SQLEvalException e) {
@@ -88,7 +88,7 @@ public class OneStepQueryInference {
                 }).collect(Collectors.toList()));
             }
 
-            tns.addAll(EnumUnion.enumUnion(inputTableNodes, inputTableNodes).stream().filter(t -> {
+            tns.addAll(EnumUnion.enumUnion(inputTableNodes, inputTableNodes  ).stream().filter(t -> {
                 try {
                     return t.eval(new Environment()).equals(output);
                 } catch (SQLEvalException e) {

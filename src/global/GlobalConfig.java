@@ -14,5 +14,10 @@ public final class GlobalConfig {
     public static final Integer MAXIMUM_FILTER_LENGTH = 2;
 
     // the number of top queries stored during the decoding process
-    public static final Integer MAXIMUM_BEAM_SIZE = 100;
+    public static final Integer MAXIMUM_BEAM_SIZE = 10;
+
+    // we will only try perform decomposition only when the number is less than 5
+    public static final Integer TRY_DECOMPOSE_ROW_NUM = 8;
+
+    public static final Integer MAXIMUM_QUERY_KEPT = 20;
 }

@@ -78,9 +78,7 @@ public class StagedEnumerator extends AbstractTableEnumerator {
             System.out.println("[JOIN] level " + i + " [SymTable]: " + summaryTables.size());
 
             tryEvalToOutput(stFromLastStage, ec, candidateCollector);
-
-            if (candidateCollector.getAllCandidates().size() > 0)
-                break;
+            if (candidateCollector.getAllCandidates().size() > 0) break;
         }
 
         //##### Synthesize UNION
@@ -93,8 +91,7 @@ public class StagedEnumerator extends AbstractTableEnumerator {
             System.out.println("[UNION] level " + i + " [SymTable]: " + summaryTables.size());
 
             tryEvalToOutput(stFromLastStage, ec, candidateCollector);
-            if (candidateCollector.getAllCandidates().size() > 0)
-                break;
+            if (candidateCollector.getAllCandidates().size() > 0) break;
         }
 
         //##### Synthesize LEFT-JOIN
@@ -106,9 +103,7 @@ public class StagedEnumerator extends AbstractTableEnumerator {
                 summaryTables.addAll(leftJoinSummary);
                 tryEvalToOutput(leftJoinSummary, ec, candidateCollector);
 
-                if (candidateCollector.getAllCandidates().size() > 0)
-                    break;
-
+                if (candidateCollector.getAllCandidates().size() > 0) break;
                 stFromLastStage = leftJoinSummary;
             }
         }
@@ -146,7 +141,7 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         //##### Synthesizing aggregation on aggregation
         if (candidateCollector.getAllCandidates().size() == 0) {
             List<AbstractSummaryTable> aggrAggrSummary = EnumerationModules.enumAggregation(aggrSummary, ec);
-            for (int i = 1; i <= maxDepth; i ++) {
+            for (int i = 1; i <= maxDepth-1; i ++) {
                 List<AbstractSummaryTable> tmp = EnumerationModules.enumJoin(aggrAggrSummary, basicAndAggr);
                 tryEvalToOutput(tmp, ec, candidateCollector);
                 aggrAggrSummary = tmp;
@@ -329,8 +324,8 @@ public class StagedEnumerator extends AbstractTableEnumerator {
                 }
 
                 decodeResult.add(stn);
-            } catch (SQLEvalException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                //e.printStackTrace();
             }
         }
 
@@ -362,8 +357,9 @@ public class StagedEnumerator extends AbstractTableEnumerator {
             //    1) size equal
             //    2) can generate a trace
             if( t.getContent().size() == ec.getOutputTable().getContent().size()
-                    && !MappingInference.buildMapping(t, ec.getOutputTable()).genColumnMappingInstances().isEmpty())
+                    && ! MappingInference.buildMapping(t, ec.getOutputTable()).genColumnMappingInstances().isEmpty()) {
                 candidateCollector.insertCandidate(new Pair<>(symTable, symFilter));
+            }
         };
 
         MappingInference mi = MappingInference.buildMapping(st.getBaseTable(), ec.getOutputTable());

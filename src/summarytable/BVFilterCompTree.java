@@ -92,13 +92,7 @@ public class BVFilterCompTree {
 
             List<TableNode> cores = ((PrimitiveSummaryTable) symTable).genTableSrc(ec);
             // sort decodings of the core
-            cores.sort(new Comparator<TableNode>() {
-                @Override
-                public int compare(TableNode o1, TableNode o2) {
-                    return o1.estimateAllFilterCost() <= o2.estimateAllFilterCost() ?
-                            (o1.estimateAllFilterCost() < o2.estimateAllFilterCost() ? -1 : 0) : 1;
-                }
-            });
+            cores.sort((tn1, tn2)-> Double.compare(tn1.estimateAllFilterCost(), tn2.estimateAllFilterCost()));
 
             // select and print only the best core
             // System.out.println("[(SymFitlterCompTree) Core count]: " + cores.size());

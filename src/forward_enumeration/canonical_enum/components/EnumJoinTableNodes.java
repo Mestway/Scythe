@@ -41,6 +41,7 @@ public class EnumJoinTableNodes {
                     List<ValNode> vals = rt.getSchema().stream()
                             .map(s -> new NamedVal(s))
                             .collect(Collectors.toList());
+
                     TableNode resultTn = new SelectNode(vals, rt, f);
 
                     try {
@@ -50,7 +51,6 @@ public class EnumJoinTableNodes {
 
                         if (tns0.getContent().isEmpty() || tns1.getContent().isEmpty() || resultT.isEmpty())
                             continue;
-
 
                         result.add(resultTn);
                     } catch (SQLEvalException e) {
