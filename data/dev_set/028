@@ -21,9 +21,16 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": ["false"],
-	"aggregation_functions": ["min"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["min"]
 }
+
+#solution
+
+SELECT m.id, m.productId, m.orderIndex
+FROM myTable m
+JOIN(
+  SELECT productId, MIN(orderIndex) AS minOrderIndex
+  FROM myTable
+  WHERE rejected = 0
+  GROUP BY productId) tmp ON tmp.productId = m.productId AND tmp.minOrderIndex = m.orderIndex;

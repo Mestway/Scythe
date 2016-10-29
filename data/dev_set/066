@@ -20,9 +20,16 @@
 
 # constraint
 {
-	"max_depth": 2,
 	"constants": [],
-	"aggregation_functions": ["max"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["max"]
 }
+
+#solution
+
+SELECT b.tranid, b.item, a.maxstartdate, b.enddate
+FROM
+  (SELECT t.item, MAX(t.startdate) maxstartdate
+   FROM t
+   GROUP BY t.item) a
+JOIN t b
+ON a.maxstartdate = b.startdate AND a.item = b.item;

@@ -27,9 +27,16 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": ["True"],
-	"aggregation_functions": [],
-	"parameter_number": 2,
-	"max_filter_length": 2
+	"aggregation_functions": []
 }
+
+#solution
+
+Select * 
+From MyTable 
+Where [Plan] In (
+   Select [Plan] 
+   From MyTable 
+   Where Attributes = 'IsActive' And Value = 'True'
+)

@@ -24,9 +24,20 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": ["1","2","3"],
-	"aggregation_functions": ["avg"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["avg"]
 }
+
+#solution
+
+select Avgtrans, t2.trans, t1.month
+from 
+(select month, avg(trans) Avgtrans
+ from t
+ having user <> 3
+ groupy month) t1
+join
+(select *
+ from t
+ where user = 3) t2
+on t1.month = t2.month

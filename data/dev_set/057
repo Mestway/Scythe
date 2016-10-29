@@ -22,9 +22,17 @@
 
 # constraint
 {
-	"max_depth": 2,
 	"constants": ["Bottle"],
-	"aggregation_functions": ["max"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["max"]
 }
+
+#solution
+
+Select t1.Code
+From   TABL As t1 Join (
+      Select Name, Max(table.QTY) as MaxQTY
+      From   TABL
+      Where  Name = 'Bottle'
+      Group by Name
+) As t2
+Where t1.QTY = t2.MaxQTY And t1.Name = t2.Name

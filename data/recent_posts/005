@@ -25,3 +25,10 @@ g_event_id,   prim_cid,   event_id,   event_time
 	"aggregation_functions": []
 }
 
+#solution
+
+SELECT COUNT(DISTINCT seventeens.`prim_cid`)
+FROM `events` AS seventeens
+  LEFT JOIN `events` AS laters ON (seventeens.`prim_cid` = laters.`prim_cid` AND laters.`g_event_id` > seventeens.`g_event_id`)
+WHERE seventeens.`event_id` = 17
+  AND ISNULL(laters.`prim_cid`)

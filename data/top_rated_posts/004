@@ -22,3 +22,12 @@
 	"aggregation_functions": ["max"]
 }
 
+#solution
+
+SELECT a.id, a.rev, a.contents
+FROM YourTable a
+INNER JOIN (
+    SELECT id, MAX(rev) rev
+    FROM YourTable
+    GROUP BY id
+) b ON a.id = b.id AND a.rev = b.rev

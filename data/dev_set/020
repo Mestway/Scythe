@@ -21,9 +21,17 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": ["1"],
-	"aggregation_functions": ["count"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["count"]
 }
+
+#solution
+
+SELECT *
+FROM YourTable
+WHERE ARIDNR IN (
+    SELECT ARIDNR
+    FROM YourTable
+    GROUP BY ARIDNR
+    HAVING COUNT(*) > 1
+)

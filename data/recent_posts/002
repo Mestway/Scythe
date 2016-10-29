@@ -22,3 +22,14 @@
 	"constants": [],
 	"aggregation_functions": []
 }
+
+#solution
+
+select start, lead(start) over (order by start)
+from ((select t.start as start from likethis t
+      ) union all
+      (select t.end from likethis t
+      )
+     ) t
+where start is not null
+order by start;

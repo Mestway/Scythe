@@ -15,9 +15,12 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": [],
-	"aggregation_functions": [],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": []
 }
+
+#solution
+
+SELECT DISTINCT p.ID, p.Name
+FROM family AS p
+INNER JOIN family AS c ON p.ID = c.Parent

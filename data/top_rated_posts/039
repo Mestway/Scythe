@@ -24,3 +24,14 @@ id,      name,  city
 	"constants": ["1"],
 	"aggregation_functions": ["count"]
 }
+
+#solution
+
+select s.id, t.* 
+from [stuff] s
+join (
+    select name, city, count(*) as qty
+    from [stuff]
+    group by name, city
+    having count(*) > 1
+) t on s.name = t.name and s.city = t.city

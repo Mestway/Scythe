@@ -2,11 +2,8 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": ["1"],
-	"aggregation_functions": ["count"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["count"]
 }
 
 #input
@@ -31,3 +28,10 @@
 | 1234      | 123.xml | 
 | 4567      | 123.xml |
 | 7890      | 234.xml |
+
+#solution
+
+SELECT chapterid xmlfile
+FROM TABLE 
+GROUP BY chapterid xmlfile
+HAVING COUNT(chaptered) > 1

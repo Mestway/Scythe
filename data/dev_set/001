@@ -18,10 +18,16 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": [],
-	"aggregation_functions": ["max"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["max"]
 }
 
+#solution
+
+Select t1.id, t1.rev, t1.content
+From t As t1 Join (
+    Select id, Max(rev) As maxrev
+    From t
+    Group By id
+) As t2
+On t1.id = t2.id And t1.rev = t2.maxrev

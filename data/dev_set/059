@@ -43,9 +43,13 @@
 
 # constraint
 {
-	"max_depth": 2,
 	"constants": [],
-	"aggregation_functions": [],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": []
 }
+
+#solution
+
+select A.exams_description, A.NationalAvg, B.schools_name, B.SchoolAvg
+from CTE A
+left Join CTE1 B ON A.exams_description = B.exams_description
+

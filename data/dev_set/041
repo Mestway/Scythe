@@ -18,9 +18,24 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": [],
-	"aggregation_functions": ["min"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["min"]
 }
+
+#solution
+
+SELECT t.*
+FROM
+    tablename t
+    INNER JOIN 
+    (
+       SELECT
+          NBR
+          ,MIN(DT) AS DT
+       FROM
+          tablename
+       GROUP BY
+          NBR
+    ) g
+    ON t.NBR = g.NBR
+    AND t.DT = g.DT

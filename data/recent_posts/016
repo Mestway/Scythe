@@ -29,3 +29,14 @@ C1, 10/19/2016, 3
 	"constants": ["10/19/2016", "1"],
 	"aggregation_functions": ["max", "count"]
 }
+
+#solution
+
+SELECT C.Id,
+       MAX(RP.PullDt) as LastReportPullDt, 
+       COUNT(*) AS ReportCount
+FROM Customer C
+INNER JOIN ReportPull RP ON C.CustomerId = RP.CustomerId
+GROUP BY C.CustomerId
+HAVING COUNT(*) > 1
+AND MAX(RP.PullDt) >= "10/19/2016"

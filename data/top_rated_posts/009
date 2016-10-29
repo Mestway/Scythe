@@ -20,3 +20,17 @@
     "constants": [],
     "aggregation_functions": ["max"]
 }
+
+#solution
+
+Select u.[username]
+      ,u.[ip]
+      ,q.[time_stamp]
+From [users] As u
+Inner Join (
+    Select [username]
+          ,max(time_stamp) as [time_stamp]
+    From [users]
+    Group By [username]) As [q]
+On u.username = q.username
+And u.time_stamp = q.time_stamp

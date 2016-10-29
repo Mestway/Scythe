@@ -23,3 +23,19 @@ Zürich, 1
 	"constants": ["10/17/2016"],
 	"aggregation_functions": ["min", "count"]
 }
+
+#solution
+
+SELECT t1.Course, Count(t2.OrderID)
+FROM tab AS t1
+LEFT JOIN -- get all Courses for that day
+ ( -- find the minimum order per customer
+   SELECT CustomerID, Min(OrderID) AS OrderID
+   FROM tab AS t2
+   WHERE Date='17.10.2016'
+   GROUP BY CustomerID
+ ) AS t2
+ON t1.CustomerID = t2.CustomerID 
+AND t1.OrderID = t2.OrderID -- only one row per customer
+WHERE Date='17.10.2016'
+GROUP BY t1.Course

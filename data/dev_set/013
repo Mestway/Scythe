@@ -24,9 +24,12 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": [],
-	"aggregation_functions": ["count-distinct"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["count-distinct", "count"]
 }
+
+#solution
+
+SELECT device_id, date, COUNT(DISTINCT timestamp) AS numRows
+FROM myTable
+GROUP BY device_id, date;

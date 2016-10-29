@@ -19,9 +19,14 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": ["Error"],
-	"aggregation_functions": ["count"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["count"]
 }
+
+#solution
+
+select Content_type, 
+       count(Status) 
+from Indexing 
+where Status='Error' 
+group by Content_type;

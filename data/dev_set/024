@@ -24,9 +24,15 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": ["3"],
-	"aggregation_functions": ["count"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["count"]
 }
+
+#solution
+
+select user_id, names
+from table 
+where user_id in (select user_id
+                     from table
+                    group by user_id
+                   having count(*) > 3)

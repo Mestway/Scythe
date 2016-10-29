@@ -26,3 +26,15 @@ id,  category,  date
 	"constants": [ ],
 	"aggregation_functions": ["max"]
 }
+
+#solution
+
+SELECT * FROM Table1 t1
+JOIN 
+(
+   SELECT category, MAX(date) AS MAXDATE
+   FROM Table1
+   GROUP BY category
+) t2
+ON T1.category = t2.category
+AND t1.date = t2.MAXDATE

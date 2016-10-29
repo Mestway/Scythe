@@ -1,4 +1,5 @@
 //http://stackoverflow.com/questions/3614666/mysql-get-row-position-in-order-by
+
 #input
 
 | id | name   | name_ascii |
@@ -19,3 +20,13 @@
 	"constants": ["Beta"],
 	"aggregation_functions": ["count"]
 }
+
+#solution
+
+SELECT t.id,
+       (SELECT COUNT(*)
+          FROM TABLE x
+         WHERE x.name <= t.name) AS position
+       t.name    
+  FROM TABLE t      
+ WHERE t.name = 'Beta'

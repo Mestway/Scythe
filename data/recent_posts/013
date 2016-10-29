@@ -29,3 +29,17 @@
 	"aggregation_functions": []
 }
 
+#solution
+
+select      t1.ID
+           ,t1.Name
+           ,t2.Company_group    as RootName
+           ,t1_b.ID             as RootId
+from                    tbl_1   t1
+            join        tbl_2   t2
+            on          t2.ID   =
+                        t1.ID
+            join        tbl_1   t1_b
+            on          t1_b.Name   =
+                        t2.Company_group
+where       t1.ID <> t1_b.ID;

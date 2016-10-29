@@ -23,3 +23,13 @@ ID,    CHARGEID,	CHARGETYPE,	SERVICEMONTH
 	"constants": [],
 	"aggregation_functions": ["max"]
 }
+
+
+#solution
+
+SELECT
+  CHARGEID,
+  CHARGETYPE,
+  MAX(SERVICEMONTH) AS "MostRecentServiceMonth"
+FROM INVOICE
+GROUP BY CHARGEID, CHARGETYPE

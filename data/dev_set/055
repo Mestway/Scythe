@@ -18,9 +18,19 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": ["2"],
-	"aggregation_functions": [],
-	"parameter_number": 2,
-	"max_filter_length": 2
+	"aggregation_functions": []
 }
+
+#solution
+
+SELECT st.Product_ID
+FROM SomeTable st,
+(
+    SELECT Product_ID
+    FROM SomeTable
+    GROUP BY Product_ID
+    HAVING COUNT(*) = 1
+) tmp (Product_ID)
+WHERE tmp.Product_ID = st.Product_ID
+and st.Client_ID = 2

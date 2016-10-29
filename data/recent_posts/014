@@ -57,3 +57,16 @@ ID  ,   NAME        ,   PARENT_ID
 	"constants": [],
 	"aggregation_functions": []
 }
+
+#solution
+
+select      id
+           ,name
+           ,unique_id
+from        (           select 2,id,parent_id,name,null      from child
+            union all   select 1,id,id       ,name,unique_id from parent
+            ) t (source_order,id,pid,name,unique_id)
+order by    pid
+           ,source_order
+           ,id
+;

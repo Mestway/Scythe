@@ -24,9 +24,17 @@
 
 #constraint
 {
-    "max_depth": 2,
     "constants": [],
-    "aggregation_functions": ["max"],
-    "parameter_number": 0,
-    "max_filter_length": 2
+    "aggregation_functions": ["max"]
 }
+
+#solution
+
+SELECT tt.*
+FROM topten tt
+INNER JOIN
+    (SELECT home, MAX(datetime) AS MaxDateTime
+    FROM topten
+    GROUP BY home) groupedtt 
+ON tt.home = groupedtt.home 
+AND tt.datetime = groupedtt.MaxDateTime

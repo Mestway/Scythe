@@ -20,3 +20,13 @@ c1, c2, c3, c4, c5
 	"constants": [],
 	"aggregation_functions": []
 }
+
+#solution
+
+select p.*
+from person_log p 
+join (select first_name,last_name
+      from person_log
+      group by first_name,last_name
+      having count(*) >=2 and count(distinct action) >= 2) p1
+on p1.first_name=p.first_name and p1.last_name=p.last_name

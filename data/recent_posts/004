@@ -22,3 +22,18 @@ call_ref , job_num
 	"constants": ["0"],
 	"aggregation_functions": ["max"]
 }
+
+
+#solution
+
+SELECT *
+FROM
+(SELECT SQL_CALC_FOUND_ROWS *
+FROM calls
+WHERE parent_id = '$term'
+   AND job_num != 0
+GROUP BY job_num
+UNION SELECT SQL_CALC_FOUND_ROWS *
+FROM calls
+WHERE parent_id = '$term'
+   AND job_num = 0) AS T

@@ -1,9 +1,6 @@
 package scythe_interface;
 
-import forward_enumeration.table_enumerator.AbstractTableEnumerator;
-import forward_enumeration.table_enumerator.CanonicalTableEnumerator;
-import forward_enumeration.table_enumerator.CanonicalTableEnumeratorOnTheFly;
-import forward_enumeration.table_enumerator.StagedEnumerator;
+import forward_enumeration.table_enumerator.*;
 import global.Statistics;
 
 public class Main {
@@ -32,6 +29,8 @@ public class Main {
             return new StagedEnumerator();
         else if (name.equals("CanonicalEnumeratorOnTheFly"))
             return new CanonicalTableEnumeratorOnTheFly();
+        else if (name.equals("PaperExampleEnumerator"))
+            return new PaperExampleTestEnumerator();
         else {
             System.out.println("The enumerator ["+ name + "] is currently not supported.");
             System.exit(-1);

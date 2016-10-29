@@ -23,3 +23,14 @@ test_letter,  d1 ,    d2 , overlap_letter,  overlap_d1,  overlap_d2
 	"constants": [],
 	"aggregation_functions": []
 }
+
+#solution
+
+SELECT basetable.letter as test_letter, basetable.d1, basetable.d2,
+       overlaptable.letter as overlap_letter, overlaptable.d1 as overlap_d1, overlaptable.d2 as overlap_d2
+FROM test basetable JOIN
+     test overlaptable
+     ON basetable.d1 <= overlaptable.d2 AND
+        basetable.d2 >= overlaptable.d1
+WHERE basetable.letter < overlaptable.letter  -- This is the change
+ORDER BY basetable.letter, basetable.d1;

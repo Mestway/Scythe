@@ -20,9 +20,36 @@
 
 #constraint
 {
-    "max_depth": 2,
     "constants": ["me"],
-    "aggregation_functions": ["max"],
-    "parameter_number": 0,
-    "max_filter_length": 2
+    "aggregation_functions": ["max"]
 }
+
+#solution
+
+select m.*
+from
+Messages m
+inner join
+(   select conversation_id, max(timestamp), message_id
+    from
+    (
+        select conversation_id, timestamp, max(message_id) message_id
+        from Messages
+        where message <> 'me'
+        group by conversation_id, timestamp
+    ) max_mid
+    group by conversation_id
+) max_mid_ts on max_mid_ts.message_id = m.message_id;
+
+
+select t2.*
+from (select conversation_id, max(timestamp) maxts
+      from Messages
+      where message <> 'me'
+      group by conversation_id
+) t1 join (
+        select conversation_id, timestamp, max(message_id) message_id
+        from Messages
+        group by conversation_id, timestamp
+) t2 On t1.conversation_id = t2.conversation_id And 
+   t1.timestamp = t2.max_timestamp

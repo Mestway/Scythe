@@ -24,3 +24,11 @@ created_at,  count
 	"constants": [ ],
 	"aggregation_functions": ["count", "sum"]
 }
+
+#solution
+
+SELECT a.created_at,
+       (SELECT COUNT(b.email)
+          FROM SUBSCRIPTIONS b
+         WHERE b.created_at <= a.created_at) AS count
+  FROM SUBSCRIPTIONS a

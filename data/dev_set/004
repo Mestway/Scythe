@@ -21,9 +21,21 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": [],
-	"aggregation_functions": ["max"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["max"]
 }
+
+#solution
+
+SELECT m1.*
+FROM messages m1 LEFT JOIN messages m2
+ ON (m1.name = m2.name AND m1.id < m2.id)
+WHERE m2.id IS NULL;
+
+select
+    a.*
+from
+    messages a
+    inner join 
+        (select name, max(id) as maxid from messages group by name) as b on
+        a.id = b.maxid

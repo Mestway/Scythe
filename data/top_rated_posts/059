@@ -26,3 +26,13 @@ Henry Jones,     Chicago,         1899
 	"constants": [ ],
 	"aggregation_functions": ["max","min"]
 }
+
+#solution
+
+SELECT Name, City, Birthyear, COUNT(*) AS ct
+FROM table
+WHERE Birthyear IN (SELECT MIN(Birthyear)
+               FROM table
+               GROUP by City)
+GROUP BY City
+ORDER BY Birthyear DESC LIMIT 3;

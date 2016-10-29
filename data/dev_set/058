@@ -18,9 +18,19 @@
 
 # constraint
 {
-	"max_depth": 2,
 	"constants": [],
-	"aggregation_functions": ["max"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["max"]
 }
+
+#solution
+
+SELECT
+  t1.app_name,t1.app_platform,t1.post_created,t1.post_id
+FROM
+  (SELECT app_platform, MAX(post_created) As MaxPostCreated
+   FROM T
+   GROUP BY app_platform) AS t2 JOIN 
+  T AS t1
+WHERE
+  t1.app_platform = t2.app_platform1
+   AND t2.MaxPostCreated = t1.post_created

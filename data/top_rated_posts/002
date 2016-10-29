@@ -21,3 +21,14 @@ Tom
 	"constants": [ "1" ],
 	"aggregation_functions": ["count"]
 }
+
+#solution
+
+SELECT
+    name, email, COUNT(*)
+FROM
+    users
+GROUP BY
+    name, email
+HAVING 
+    COUNT(*) > 1

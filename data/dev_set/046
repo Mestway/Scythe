@@ -26,9 +26,20 @@
 #constraint
 
 {
-	"max_depth": 2,
-	"constants": [],
-	"aggregation_functions": ["max"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"constants": ["84", "0"],
+	"aggregation_functions": []
 }
+
+#solution
+
+(select *
+from t 
+where t.Lognum=84)
+union
+(select *
+ from t
+ where not exists (
+ 	select *
+ 	from t x
+ 	where x.id=t.id and x.Lognum=84
+ ))

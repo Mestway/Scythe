@@ -24,3 +24,10 @@ c
 	"constants": ["11"],
 	"aggregation_functions": ["count"]
 }
+
+#solution
+
+SELECT a.member, count(a.member) as total 
+FROM t1 a JOIN t1 b 
+WHERE a.element=b.element AND b.member=1 AND a.member > 1 
+GROUP BY a.member ORDER BY total DESC

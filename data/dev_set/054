@@ -19,9 +19,22 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": [],
 	"aggregation_functions": ["max", "sum"],
-	"parameter_number": 0,
-	"max_filter_length": 2
 }
+
+#solution
+
+SELECT  MaxT.Person,
+        MaxT.Duration,
+        T.Value,
+        MIN(T.Uniq) AS Uniq
+FROM    T
+        INNER JOIN
+        (   SELECT Person, SUM(`Time`) AS Duration, MAX(Value) AS Value
+            FROM    T
+            GROUP BY Person
+        ) MaxT
+            ON MaxT.Person = t.Person
+            AND MaxT.Value = t.Value
+GROUP BY MaxT.Person, MaxT.Duration, MaxT.Value;

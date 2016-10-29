@@ -48,7 +48,7 @@ public class Synthesizer {
             if (!candidates.isEmpty())
                 continue;
 
-            if (maxDepth == 1 && exampleDS.output.getContent().size() <= GlobalConfig.TRY_DECOMPOSE_ROW_NUM) {
+            if (GlobalConfig.TRY_DECOMPOSITION && maxDepth == 1 && exampleDS.output.getContent().size() <= GlobalConfig.TRY_DECOMPOSE_ROW_NUM) {
                 // try decomposing the output table
                 for (Pair<Table, Table> decomposed : Table.tryDecompose(exampleDS.output)) {
 

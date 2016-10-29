@@ -1,3 +1,4 @@
+//http://stackoverflow.com/questions/3491329/group-by-with-maxdate
 
 #input
 
@@ -11,3 +12,12 @@ Name,  Subject,  Marks
 Tilak, Maths,    90
 Tilak, Science,  40
 Tilak, English,  60
+
+#solution
+
+select Name, Marks from studentmarks
+Unpivot
+(
+  Marks for details in (Maths, Science, English)
+
+) as UnPvt

@@ -42,7 +42,7 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         System.out.println("[Basic]: " + candidateCollector.getMemoizedTables().size() + " [SymTableForInputs]: Intermediate: " + inputSummary.size());
 
         //##### Synthesize natural join
-        if (inputSummary.size() > 1) {
+        if (GlobalConfig.TRY_NATURAL_JOIN && inputSummary.size() > 1) {
             // try join all tables and infer whether the output table can be obtained in this way
             AbstractSummaryTable tmp = inputSummary.get(0);
             for (int i = 1; i < inputSummary.size(); i ++) {
@@ -376,11 +376,7 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         if (! mi.everyCellHasImage())
             return;
 
-        if (GlobalConfig.SPECIAL_TREAT_LAST_STAGE) {
-            st.emitFinalVisitAllTables(mi, ec, f);
-        } else {
-            st.emitInstantiateAllTables(ec, f);
-        }
+        st.emitFinalVisitAllTables(mi, ec, f);
     }
 
 }

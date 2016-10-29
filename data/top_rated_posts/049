@@ -21,3 +21,18 @@ Joe Bloggs , 1, Second Ave
 	"constants": [ ],
 	"aggregation_functions": ["min", "max", "count"]
 }
+
+#solution
+
+SELECT
+    M.CName, M.AddressLine,
+FROM(
+    SELECT
+        CName, MIN(Inserted) AS First
+    FROM
+        MyTable
+    GROUP BY
+        CName
+    ) foo
+JOIN MyTable M 
+ON foo.CName = M.CName AND foo.First = M.Inserted

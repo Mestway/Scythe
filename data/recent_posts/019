@@ -26,3 +26,16 @@ CustomerID , Balance , Date
 	"constants": ["0"],
 	"aggregation_functions": []
 }
+
+#solution
+
+select *
+from tablename
+where date > (select max(date) from tablename where balance > 0)
+
+select *
+from tablename t1
+where not exists (select * from tablename t2
+                  where t2.Balance > 0
+                    and t2.date > t1.date)
+                    

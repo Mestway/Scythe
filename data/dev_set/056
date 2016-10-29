@@ -16,7 +16,7 @@
 | 6052   | 3      |  2      |
 | 5328   | 3      |  3      |
 
-# output
+#output
 
 | item |
 |------|
@@ -24,9 +24,20 @@
 
 # constraint
 {
-	"max_depth": 2,
 	"constants": [],
-	"aggregation_functions": ["count", "max"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["count", "max"]
 }
+
+#solution
+
+select *
+(select max(cnt) mxcnt
+ from (select fk_food, count(*) cnt
+       from t2
+       group by fk_food)
+ group by fk_food) x
+join 
+(select fk_food, count(*) cnt
+  from t2
+  group by fk_food) y
+on x.mxcnt = y.cnt

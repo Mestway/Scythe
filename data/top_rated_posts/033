@@ -19,3 +19,10 @@ B      ,    4     ,    5
 	"constants": ["Active", "Inactive"],
 	"aggregation_functions": []
 }
+
+#solution
+
+select t1.section, t1.cnt, t2.cnt
+from (select * from t where status = "Active") t1
+join (select * from t where status = "Inactive") t2
+on t1.section = t2.section

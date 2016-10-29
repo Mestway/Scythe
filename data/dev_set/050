@@ -22,13 +22,17 @@
 
 | attendee_id  | others1 | others2 | event_id |
 |---------------------------------------------|
+|    abcd      | A       |  NULL[str]   |   NULL[num]   |
+|    ghij      | B       |  NULL[str]   |   NULL[num]  |
 |    defg      | C       |    F    |     3    |
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": ["3"],
-	"aggregation_functions": [],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": []
 }
+
+#solution
+
+SELECT a.*, b.others2, b.event_id 
+FROM attendees a LEFT JOIN eventattendees b ON a.attendee_id = b.attendee_id GROUP BY a.attendee_id

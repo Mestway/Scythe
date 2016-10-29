@@ -1,4 +1,4 @@
-// http://stackoverflow.com/questions/39733840/sql-combine-join
+// http://stackoverflow.com/questions/39732983/join-two-tables-in-one-table-using-sql/39734992#39734992
 
 #input
 
@@ -35,11 +35,34 @@
 | 15/03 | 1            | 1 |
 
 
-# constraint
+#constraint
 {
-	"max_depth": 2,
 	"constants": [],
-	"aggregation_functions": ["count"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["count"]
 }
+
+#solution
+
+SELECT Date,
+       Item1,
+       Item2 
+  FROM
+     (  
+        SELECT T1.Date AS Date,
+               COUNT(  T1.Item  ) AS Item1,                     
+               COUNT(  T2.Item  ) AS Item2  
+          FROM Table1 t1
+        LEFT JOIN
+               Table2 t2  
+            ON t1.date = t2.date  
+        GROUP BY t1.Date              
+  UNION              
+        SELECT T2.Date AS Date,
+               COUNT( T1.Item ) AS Item1,
+               COUNT( T2.Item ) AS Item2
+          FROM Table2 t2
+        LEFT JOIN
+               Table1 t1   
+            ON t2.date = t1.date
+        GROUP BY t2.Date
+      ) A

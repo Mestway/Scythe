@@ -25,9 +25,13 @@
 #constraint
 
 {
-	"max_depth": 2,
 	"constants": ["06/01/2016"],
-	"aggregation_functions": ["max"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["max"]
 }
+
+#solution
+
+select PRO_ID, MAX(PRO_DATE) as Last_PRO_Date
+from PRODUCT
+where PRO_DATE <= '01-JUN-2016' 
+group by PRO_ID;

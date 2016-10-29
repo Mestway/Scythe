@@ -21,9 +21,17 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": ["B"],
-	"aggregation_functions": [],
-	"parameter_number": 2,
-	"max_filter_length": 2
+	"aggregation_functions": []
 }
+
+#solution
+
+SELECT DISTINCT r1.P_Id
+FROM Room r1
+WHERE NOT EXISTS (
+  SELECT *
+  FROM Room r2
+  WHERE r2.room <> 'B'
+    AND r1.P_Id = r2.P_Id
+);

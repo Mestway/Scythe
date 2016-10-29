@@ -24,3 +24,13 @@
 	"constants": [],
 	"aggregation_functions": ["max"]
 }
+
+#solution
+
+select
+    a.*
+from messages a
+inner join (select name, max(id) as maxid 
+            from messages 
+            group by name) as b 
+on a.id = b.maxid

@@ -26,9 +26,18 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": ["2009-02-25 09:50:00"],
-	"aggregation_functions": ["max"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["max"]
 }
+
+#solution
+
+SELECT t2.* FROM (
+    SELECT locId, MAX(dtg) AS maxdtg 
+    FROM temperatures 
+    GROUP BY locId
+) t1 INNER JOIN (
+    SELECT locId, dtg, temp 
+    FROM temperatures
+) t2 ON t2.locId = t1.locId 
+    AND t2.dtg = t1.maxdtg

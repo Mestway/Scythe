@@ -27,3 +27,11 @@ Menu Two,     NULL[num]
 	"constants": [],
 	"aggregation_functions": ["sum"]
 }
+
+#solution
+
+ SELECT menu.name, sum(orderregel.quantity)    as quantity
+  FROM `menu` 
+  LEFT JOIN orderregel
+  on menu.menu_id = orderregel. menu_id
+  group by menu_id 

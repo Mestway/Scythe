@@ -21,9 +21,14 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": [],
-	"aggregation_functions": ["max"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["max"]
 }
+
+#solution
+
+select * from deal_status
+inner join
+  (select deal_id as did, max(timestamp) as ts
+  from deal_status group by deal_id) as ds
+  on deal_status.deal_id = ds.did and deal_status.timestamp = ds.ts

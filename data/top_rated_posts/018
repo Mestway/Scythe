@@ -18,3 +18,13 @@ ID,  SKU,	PRODUCT
 	"constants": [],
 	"aggregation_functions": ["min", "max"]
 }
+
+#solution
+
+SELECT t.*
+FROM TestData t
+INNER JOIN (SELECT
+                MIN(ID) as MinID
+                FROM TestData
+                WHERE SKU LIKE 'FOO-%'
+           ) dt ON t.ID=dt.MinID

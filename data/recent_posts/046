@@ -26,3 +26,16 @@ F ,   Z01 ,   52
 	"constants": ["Z01", "Z09"],
 	"aggregation_functions": []
 }
+
+#solution
+
+select *
+from table
+where type = `Z01`
+
+union all
+select *
+
+from table
+where type = `Z09`
+    and not exists

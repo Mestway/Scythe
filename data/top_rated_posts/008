@@ -27,3 +27,11 @@ KSG-0619-81,   5,          pentametric fan
     "constants": [],
     "aggregation_functions": ["first"]
 }
+
+#solution
+
+SELECT Orders.OrderNumber, LineItems.Quantity, LineItems.Description
+FROM Orders
+    LEFT JOIN LineItems 
+    ON Orders.OrderID = LineItems.OrderID
+GROUP BY Orders.OrderNumber

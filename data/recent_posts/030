@@ -43,3 +43,20 @@
 	"aggregation_functions": ["sum"]
 }
 
+#solution
+
+select curr.item_id, curr.sales, prev.sales
+from (
+    SELECT t.item_id, SUM(t.qty_sold) as sales 
+    FROM gnpcb.item_transactions t 
+    join gnpcb.i_multiple_int_attributes a on t.item_id = a.id
+                and a.type = 'items' and a.attribute = 'previous_editions'
+    WHERE t.id_type in ('invoice', 'credit') and t.item_id IN ('18117', '17473', '17568') and t.transaction_type in ('sale', 'return', 'return_nts')
+    GROUP BY t.item_id) curr
+left join(
+    SELECT a.id as item_id, SUM(t.qty_sold) as sales 
+    FROM gnpcb.item_transactions t 
+    join gnpcb.i_multiple_int_attributes a on t.item_id = a.value
+                and a.type = 'items' and a.attribute = 'previous_editions'
+    WHERE t.id_type in ('invoice', 'credit') and t.item_id IN ('18117', '17473', '17568') and t.transaction_type in ('sale', 'return', 'return_nts')
+    GROUP BY a.id) prev on curr.item_id = prev.item_id

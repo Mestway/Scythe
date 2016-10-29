@@ -22,3 +22,9 @@
 	"constants": [],
 	"aggregation_functions": ["concat"]
 }
+
+#solution
+
+SELECT xx.code, GROUP_CONCAT(concat(xx.variants,':',xx.variants_value)) AS variants_and_values, xx.product_name, xx.product_variants_id
+FROM products_table xx
+GROUP BY xx.product_variants_id, xx.product_name, xx.code

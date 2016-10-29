@@ -23,9 +23,13 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": ["2"],
-	"aggregation_functions": ["count"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["count"]
 }
+
+#solution
+
+SELECT DISTINCT Team
+FROM TeamPlayer
+GROUP BY Team, Player
+HAVING COUNT(*) > 1;

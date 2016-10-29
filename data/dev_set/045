@@ -21,9 +21,15 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": [],
-	"aggregation_functions": ["max"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["max"]
 }
+
+#solution
+
+select t1.*
+from tablename t1
+    join (select BOM, AltBOM, MAX(ChangeNo) as ChangeNo
+          from tablename
+          group by BOM, AltBOM) t2
+    on t1.BOM = t2.BOM and t1.AltBOM = t2.AltBOM and t1.ChangeNo = t2.ChangeNo

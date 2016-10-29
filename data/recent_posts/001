@@ -24,3 +24,14 @@ yahoo   ,      2
 	"constants": [],
 	"aggregation_functions": []
 }
+
+
+#solution
+
+select partner_company , id_demand
+From invitation 
+Where partner_company is not null
+Union All
+select concurrent_company , id_demand
+From invitation 
+Where concurrent_company is not null

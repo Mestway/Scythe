@@ -23,3 +23,41 @@
 	"constants": [],
 	"aggregation_functions": ["count"]
 }
+
+#solution
+
+SELECT 
+ user_id ,
+ COUNT(*) count
+FROM 
+ PAYMENT
+GROUP BY
+ account,
+ user_id ,
+ date
+Having
+COUNT(*) > 1
+
+ SELECT 
+    user_id,
+    account_no , 
+    date,
+        COUNT(*)
+ FROM
+    (SELECT DISTINCT
+            user_id,
+            account_no , 
+            zip, 
+            date
+         FROM
+            payment 
+
+        ) 
+        payment
+ GROUP BY
+
+    user_id,
+    account_no , 
+
+    date
+HAVING COUNT(*) > 1

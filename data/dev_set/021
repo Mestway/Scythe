@@ -20,9 +20,17 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": ["1"],
-	"aggregation_functions": ["count"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["count"]
 }
+
+#solution
+
+SELECT a.*
+FROM Customers a
+INNER JOIN 
+(SELECT email
+FROM Customers
+GROUP BY email
+HAVING COUNT(shop) > 1) b
+ON a.email = b.email

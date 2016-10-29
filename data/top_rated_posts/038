@@ -20,3 +20,12 @@ c1, c2, c3
 	"constants": [],
 	"aggregation_functions": []
 }
+
+#solution
+
+select t1.*
+(select c2, min(c1) minc1
+ from c2
+ group by c2) t1
+join t2
+on t1.minc1 = t2.c1

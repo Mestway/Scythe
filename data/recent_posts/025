@@ -25,3 +25,14 @@
 	"constants": [],
 	"aggregation_functions": ["min"]
 }
+
+#solution
+
+SELECT * FROM `images` where gallery_id is not null group by gallery_id 
+UNION
+SELECT * FROM `images` where gallery_id is null;
+
+select i.*
+from images i
+where i.gallery_id is null or
+      i.id in (select min(i2.id) from images i2 group by i2.gallery_id);

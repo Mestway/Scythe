@@ -29,3 +29,12 @@
 	"constants": [],
 	"aggregation_functions": ["concat"],
 }
+
+#solution
+
+select t1.VehicleID, t1.Name, t2.concatLocations
+from (select VehicleID, concat(City) As concatLocations
+      from  t2
+      group by VehicleID)
+join t1
+on t1.VehicleID = t2.VehicleID

@@ -24,3 +24,13 @@ B ,          X
 	"constants": [],
 	"aggregation_functions": ["max", "count"]
 }
+
+#solution
+
+select id, payment_type, time
+from (select id, payment_type, time, count(*) as cnt,
+             row_number() over (partition by id order by time desc, cnt desc) as seqnum
+      from t
+      group by id, payment_type, time
+     ) ipt
+where seqnum = 1;

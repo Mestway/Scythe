@@ -20,9 +20,16 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": ["2015-01-01"],
-	"aggregation_functions": ["max"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["max"]
 }
+
+#solution
+
+select t.*
+(select product_code, max(qty) mqty
+ from t
+ where t.date > 2015-01-01
+ group by product_code) x join t
+on t.product_code = x.product_code
+   t.qty = x.mqty

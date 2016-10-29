@@ -25,9 +25,14 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": [],
-	"aggregation_functions": ["count"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["count"]
 }
+
+#solution
+
+SELECT s.name, f.fruit
+FROM stores s
+JOIN fruit_sold f ON s.id = f.store_id
+JOIN fruit_sold f2 ON f.store_id <> f2.store_id
+WHERE f.fruit = f2.fruit

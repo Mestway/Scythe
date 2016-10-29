@@ -20,3 +20,9 @@ ID,   COMPANY_ID,   EMPLOYEE
 	"constants": [],
 	"aggregation_functions": ["concat"]
 }
+
+#solution
+
+SELECT company_id, array_to_string(array_agg(employee), ', ')
+FROM mytable
+GROUP BY company_id;

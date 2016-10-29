@@ -22,9 +22,14 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": [],
-	"aggregation_functions": [],
-	"parameter_number": 2,
-	"max_filter_length": 2
+	"aggregation_functions": []
 }
+
+#solution
+
+SELECT * 
+FROM   Call
+LEFT OUTER JOIN Phone_Book
+  ON (Call.phone_number = Phone_book.phone_number)
+  WHERE Phone_book.phone_number IS NULL

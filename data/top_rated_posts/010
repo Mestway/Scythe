@@ -25,3 +25,20 @@
 	"constants": [],
 	"aggregation_functions": []
 }
+
+
+#solution
+
+SELECT * 
+FROM   Call
+LEFT OUTER JOIN Phone_Book
+  ON (Call.phone_number = Phone_book.phone_number)
+  WHERE Phone_book.phone_number IS NULL;
+
+
+SELECT *
+FROM   Call
+WHERE  NOT EXISTS
+  (SELECT *
+   FROM   Phone_book
+   WHERE  Phone_book.phone_number = Call.phone_number)

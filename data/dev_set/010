@@ -17,9 +17,23 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": ["TREATED", "UNTREATED"],
-	"aggregation_functions": [],
-	"parameter_number": 2,
-	"max_filter_length": 2
+	"aggregation_functions": []
 }
+
+#solution
+
+select t1.id,t1.country,t1.status
+from table t1
+join table t2 on t1.country=t2.country and t2.status='UNTREATED'
+where t1.status='TREATED'
+
+
+select id,country,status
+from table t1
+where t1.status='TREATED' and
+     exists (
+          select 1 from table t2 where 
+               t2.country = t1.country and 
+               t2.status = 'UNTREATED'
+     )

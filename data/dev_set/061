@@ -19,9 +19,14 @@
 
 # constraint
 {
-	"max_depth": 2,
 	"constants": [],
-	"aggregation_functions": ["max"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["max"]
 }
+
+#solution
+
+Select B.b, C.c
+From A
+LEFT OUTER JOIN B ON B.a_id = A.id
+LEFT OUTER JOIN C ON C.a_id = A.id
+ORDER BY B.creation_Date,C.creation_Date ;

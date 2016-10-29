@@ -20,3 +20,25 @@ John,        2.4,     ZH1E4A,          Fork,        857685
 	"constants": ["Amount", "PostalCode", "FirstName", "LastName", "AccountNumber"],
 	"aggregation_functions": []
 }
+
+#solution
+
+select fn.value as FirstName,
+  a.value as Amount,
+  pc.value as PostalCode,
+  ln.value as LastName,
+  an.value as AccountNumber
+from yourtable fn
+left join yourtable a
+  on fn.somecol = a.somecol
+  and a.columnname = 'Amount'
+left join yourtable pc
+  on fn.somecol = pc.somecol
+  and pc.columnname = 'PostalCode'
+left join yourtable ln
+  on fn.somecol = ln.somecol
+  and ln.columnname = 'LastName'
+left join yourtable an
+  on fn.somecol = an.somecol
+  and an.columnname = 'AccountNumber'
+where fn.columnname = 'Firstname'

@@ -31,3 +31,21 @@
 	"parameter_number": 0,
 	"max_filter_length": 2
 }
+
+#solution
+
+SELECT *
+FROM   test s
+WHERE 
+        (
+            SELECT  COUNT(*) 
+            FROM    test  f
+            WHERE f.name = s.name AND 
+                  f.score >= s.score
+        ) <= 2
+
+select x.*
+from test x join test y
+where x.score < y.score and x.name = y.name
+group by x.name, x.score, y.name
+having count(*) <=2  

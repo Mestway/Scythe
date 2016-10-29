@@ -21,9 +21,16 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": [],
-	"aggregation_functions": ["max"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["max"]
 }
+
+#solution
+
+SELECT *
+FROM YourTable Y
+INNER JOIN (
+       SELECT Max(b) mB
+       FROM YourTable
+       ) M
+On Y.b = M.mb

@@ -25,3 +25,19 @@
 	"constants": [],
 	"aggregation_functions": ["max"]
 }
+
+#solution
+
+ SELECT * FROM DocumentStatusLogs D1 JOIN
+    (
+      SELECT
+        DocumentID,MAX(DateCreated) AS MaxDate
+      FROM
+        DocumentStatusLogs
+      GROUP BY
+        DocumentID
+    ) D2
+    ON
+      D2.DocumentID=D1.DocumentID
+    AND
+      D2.MaxDate=D1.DateCreated

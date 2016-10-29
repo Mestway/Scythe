@@ -24,3 +24,11 @@ c1, c2, c3
 	"constants": ["private"],
 	"aggregation_functions": []
 }
+
+#solution
+
+SELECT (stuff)
+FROM ChatChannels CC
+WHERE CC.type = 'Public'
+  AND CC.channelID NOT IN 
+  (SELECT channelID FROM ChatChannelMembers WHERE AccountID = 'Dave')

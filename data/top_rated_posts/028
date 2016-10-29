@@ -18,3 +18,12 @@
 	"constants": [],
 	"aggregation_functions": ["max"]
 }
+
+#solution
+
+SELECT m.cname, m.wmname, t.mx
+FROM (
+    SELECT cname, MAX(avg) AS mx
+    FROM makerar
+    GROUP BY cname
+    ) t JOIN makerar m ON m.cname = t.cname AND t.mx = m.avg;

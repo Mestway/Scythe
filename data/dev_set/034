@@ -19,9 +19,17 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": ["8"],
-	"aggregation_functions": ["max"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["max"]
 }
+
+#solution
+
+select t1.*
+from your_table t1
+join (
+    select user, max(value) as max_value
+    from your_table
+    where value < 8
+    group by user
+) t2 on t1.user = t2.user and t1.value = t2.max_value

@@ -26,9 +26,14 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": ["100"],
-	"aggregation_functions": ["min", "max"],
-	"parameter_number": 2,
-	"max_filter_length": 2
+	"aggregation_functions": ["min", "max"]
 }
+
+#solution
+
+SELECT    table_a.*, table_b.last_date
+FROM      table_a
+LEFT JOIN (SELECT   link, MAX(last_date) AS last_date
+           FROM     table_b
+           GROUP BY link) table_b ON table_a.id = table_b.link

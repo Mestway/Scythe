@@ -25,3 +25,12 @@
 	"constants": ["2"],
 	"aggregation_functions": ["count"]
 }
+
+#solution
+
+SELECT a.* FROM mytable AS a
+  LEFT JOIN mytable AS a2 
+    ON a.groupname = a2.groupname AND a.age <= a2.age
+GROUP BY a.person
+HAVING COUNT(*) <= 2
+ORDER BY a.groupname, a.age DESC;

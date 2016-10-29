@@ -24,6 +24,23 @@ c1, c2
 	"aggregation_functions": ["sum", "count"]
 }
 
+#solution
 
-
-
+select zoom, point, size
+FROM (
+  SELECT zoom::text as zoom,
+         zoom as zoom_value,
+         count(*) AS point,
+         SUM(size) AS size, 
+         1 as sort_order
+  FROM total
+  GROUP BY zoom
+  UNION ALL
+  SELECT 'Total', 
+         null,
+         count(*) AS point,
+         SUM(size) AS size, 
+         2 as sort_order
+  FROM total
+) t
+order by sort_order, zoom_value;

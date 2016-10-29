@@ -20,9 +20,17 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": [],
-	"aggregation_functions": ["max"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["max"]
 }
+
+#solution
+
+SELECT t.Train, t.Dest, r.MaxTime
+FROM (
+      SELECT Train, MAX(Time) as MaxTime
+      FROM TrainTable
+      GROUP BY Train
+) r
+INNER JOIN TrainTable t
+ON t.Train = r.Train AND t.Time = r.MaxTime

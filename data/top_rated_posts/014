@@ -21,3 +21,14 @@ Widget Company, 2, 2
 	"constants": [],
 	"aggregation_functions": ["count"]
 }
+
+#solution
+
+select o.orgName, oc.dupeCount, o.id
+from organizations o
+inner join (
+    SELECT orgName, COUNT(*) AS dupeCount
+    FROM organizations
+    GROUP BY orgName
+    HAVING COUNT(*) > 1
+) oc on o.orgName = oc.orgName

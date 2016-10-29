@@ -27,9 +27,17 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": ["1425812400"],
-	"aggregation_functions": ["max"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["max"]
 }
+
+#solution
+
+select tz.zone_id
+     , tz.zone_name
+     , max(tz.time_start)
+from timezone tz 
+where tz.time_start < strftime('%s', 'now')
+group by tz.zone_id
+       , tz.zone_name
+order by tz.zone_id;

@@ -18,9 +18,15 @@
 
 # constraint
 {
-	"max_depth": 2,
 	"constants": [],
-	"aggregation_functions": [],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": []
 }
+
+#solution
+
+SELECT PERSON_ID, 
+       MAX(NAME) as NAME, 
+       MIN(GRADE) as GRADE1, 
+       MAX(GRADE) as GRADE2
+FROM TABLE_A
+GROUP BY PERSON_ID

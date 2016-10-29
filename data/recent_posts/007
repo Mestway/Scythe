@@ -25,3 +25,16 @@
 	"constants": [],
 	"aggregation_functions": ["min", "max"]
 }
+
+# solution
+
+select t1.Employee, t1.mindt, t2.maxdt, t1.code
+from
+(select min(FromDate), Code, Employee
+from t
+group by Employee, Code) t1
+join
+(select max(ToDate), Code, Employee
+from t
+group by Employee, Code) t2
+on t1.code = t2.code

@@ -1,9 +1,12 @@
 package forward_enumeration.table_enumerator;
 
-import forward_enumeration.canonical_enum.components.*;
-import forward_enumeration.context.EnumContext;
-import forward_enumeration.container.QueryContainer;
+import forward_enumeration.canonical_enum.components.EnumAggrTableNode;
+import forward_enumeration.canonical_enum.components.EnumFilterNamed;
+import forward_enumeration.canonical_enum.components.EnumJoinTableNodes;
+import forward_enumeration.canonical_enum.components.EnumProjection;
 import forward_enumeration.canonical_enum.datastructure.TableTreeNode;
+import forward_enumeration.container.QueryContainer;
+import forward_enumeration.context.EnumContext;
 import global.GlobalConfig;
 import sql.lang.Table;
 import sql.lang.ast.table.NamedTable;
@@ -16,7 +19,7 @@ import java.util.stream.Collectors;
  * Created by clwang on 3/31/16.
  * Perform enumeration based on SynthSQL grammar, and enumeration results are stored into query chests on the fly.
  */
-public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
+public class PaperExampleTestEnumerator extends AbstractTableEnumerator {
 
     @Override
     public List<TableNode> enumTable(EnumContext ec, int depth) {
@@ -102,7 +105,7 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
                 + "Avg table size: " + qc.getMemoizedTables().stream().map(t -> t.getContent().size() * t.getSchema().size()).reduce((x,y)-> x + y).get() / qc.getMemoizedTables().size());
 
         //##### Synthesize Join
-        List<TableNode> leftSet = basicAndAggr;
+        List<TableNode> leftSet = basic;
         for (int i = 1; i <= depth; i ++) {
             //System.out.println("[Level] " + i);
 

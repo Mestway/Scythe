@@ -57,7 +57,9 @@ public class OneStepQueryInference {
                 return false;
             }).collect(Collectors.toList()));
 
+            tns.stream().sorted((tn1, tn2) -> Double.compare(tn1.estimateAllFilterCost(), tn2.estimateAllFilterCost()));
             return tns;
+
         } else if (inputTableNodes.size() == 2) {
 
             // if the output table is generated from 2 input tables, the only way is by join (for now)
@@ -97,6 +99,7 @@ public class OneStepQueryInference {
                 return false;
             }).collect(Collectors.toList()));
 
+            tns.stream().sorted((tn1, tn2) -> Double.compare(tn1.estimateAllFilterCost(), tn2.estimateAllFilterCost()));
             return tns;
         }
         return new ArrayList<>();

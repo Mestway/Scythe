@@ -20,9 +20,11 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": [],
-	"aggregation_functions": ["sum"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["sum"]
 }
+
+#solution
+
+select ErrorName, sum(Value) as TotalValue 
+from myTempTable group by ErrorName

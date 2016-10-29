@@ -25,3 +25,10 @@
 	"constants": [],
 	"aggregation_functions": ["concat"]
 }
+
+#solution
+
+Select a.isbn, a.title, group_concat(b.author )
+from Book_title, 
+INNER JOIN Book_authoron a.isbn = b.isbn_id
+group by a.isbn, a.title

@@ -20,9 +20,16 @@
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": [],
-	"aggregation_functions": ["max"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["max"]
 }
+
+#solution
+
+SELECT sc.school_id, 
+   COUNT(*) as numberofstaff,
+   SUM(st.wage) as salary
+FROM school sc
+INNER JOIN staff st
+ON sc.school_id = st.school_id
+GROUP BY sc.school_id

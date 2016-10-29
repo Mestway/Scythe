@@ -23,3 +23,14 @@
 	"constants": [],
 	"aggregation_functions": ["max"]
 }
+
+#solution
+
+SELECT t.Train, t.Dest, r.MaxTime
+FROM (
+      SELECT Train, MAX(Time) as MaxTime
+      FROM TrainTable
+      GROUP BY Train
+) r
+INNER JOIN TrainTable t
+ON t.Train = r.Train AND t.Time = r.MaxTime

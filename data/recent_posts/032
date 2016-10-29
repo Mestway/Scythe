@@ -25,3 +25,10 @@
 	"constants": [],
 	"aggregation_functions": ["max"]
 }
+
+#solution
+
+select e.crit1, e.crit2, e.value 
+from MyEntity e 
+where e.id in (select max(sub.id) from MyEntity sub group by sub.crit1, sub.crit2)
+order by e.crit1, e.crit2

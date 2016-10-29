@@ -21,3 +21,20 @@ John     ,        aaron@gmail.com
 	"constants": [],
 	"aggregation_functions": ["count"]
 }
+
+#solution
+
+SELECT EmailAddress, CustomerName 
+FROM Customers 
+WHERE EmailAddress IN
+(SELECT EmailAddress 
+ FROM Customers 
+ GROUP BY EmailAddress 
+ HAVING COUNT(*) > 1)
+
+
+SELECT EmailAddress, CustomerName 
+FROM Customers as a 
+Inner Join Customers as b 
+on a.CustomerName <> b.CustomerName 
+   and a.EmailAddress = b.EmailAddress

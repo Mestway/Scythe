@@ -20,11 +20,16 @@
 | 6  |    6    |    3 |
 | 4  |    4    |    3 |
 
-# constraint
+#constraint
 {
-	"max_depth": 2,
 	"constants": ["2"],
-	"aggregation_functions": ["count"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["count"]
 }
+
+#solution
+
+select t1.id, t1.column1, count(*)
+from t1 join t2
+where t1.column2 > t2.column2
+group by t1.id, t1.column1, t1.column2, t2.id, t2.column1
+having count(*)
