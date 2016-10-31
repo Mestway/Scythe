@@ -1,28 +1,30 @@
-//http://stackoverflow.com/questions/43870/how-to-concatenate-strings-of-a-string-field-in-a-postgresql-group-by-query
-
+// http://stackoverflow.com/questions/966176/select-distinct-on-one-column
 #input
 
-ID,   COMPANY_ID,   EMPLOYEE
-1,    1,            Anna
-2,    1,            Bill
-3,    2,            Carol
-4,    2,            Dave
+ID,  SKU,	PRODUCT
+1,   FOO-23,	Orange
+2,   BAR-23,	Orange
+3,   FOO-24,	Apple
+4,   FOO-25,	Orange
 
 #output
 
-|COMPANY_ID |   EMPLOYEE  |
-|-------------------------|
-|1          |  Anna, Bill |
-|2          |  Carol, Dave|
+ID,  SKU,	PRODUCT
+1,   FOO-23,	Orange
+3,   FOO-24,	Apple
 
 #constraint
 {
 	"constants": [],
-	"aggregation_functions": ["concat"]
+	"aggregation_functions": ["min", "max"]
 }
 
 #solution
 
-SELECT company_id, array_to_string(array_agg(employee), ', ')
-FROM mytable
-GROUP BY company_id;
+SELECT t.*
+FROM TestData t
+INNER JOIN (SELECT
+                MIN(ID) as MinID
+                FROM TestData
+                WHERE SKU LIKE 'FOO-%'
+           ) dt ON t.ID=dt.MinID

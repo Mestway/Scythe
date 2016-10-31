@@ -4,26 +4,28 @@
 
 | id  | customer | total |
 |------------------------|
-| 1   | Joe      | 95     |
-| 2   | Joe      | 96     |
-| 3   | Joe      | 96     |
-| 4   | Joe      | 96     |
-| 5   | Sally    | 93     |
-| 6   | Joe      | 92     |
-| 7   | Sally    | 91     |
+| 1   | Joe      | 5     |
+| 2   | Joe      | 6     |
+| 3   | Joe      | 6     |
+| 4   | Joe      | 6     |
+| 5   | Sally    | 3     |
+| 6   | Joe      | 2     |
+| 7   | Sally    | 1     |
 
 #output
 
 | FIRST(id) | customer | FIRST(total) |
 |-------------------------------------|
-|         2 | Joe      | 96            |
-|         5 | Sally    | 93            |
+|         2 | Joe      | 6            |
+|         5 | Sally    | 3            |
 
 #constraint
 {
 	"constants": [],
 	"aggregation_functions": ["min", "max"]
 }
+
+#solution
 
 Select *
 From (SELECT p.customer, p.total, MIN(p.id) AS min_id

@@ -37,13 +37,20 @@ public class AggrEnumerator {
         return result;
     }
 
-    /**
-     * Filters are not considered here, enumerating aggregation with filters require a stand alone pipeline.
-     * @param tn the table to perform aggregation on
-     * @return the list of enumerated table based on the given tablenode
-     */
     public static List<RenameTableNode> enumerateAggregation(
             EnumContext ec,
+            TableNode tn,
+            boolean simplify) {
+        return enumerateAggregation(ec.getAllAggrFuns(), tn, simplify);
+    }
+
+        /**
+         * Filters are not considered here, enumerating aggregation with filters require a stand alone pipeline.
+         * @param tn the table to perform aggregation on
+         * @return the list of enumerated table based on the given tablenode
+         */
+    public static List<RenameTableNode> enumerateAggregation(
+            List<Function<List<Value>, Value>> aggrFuns,
             TableNode tn,
             boolean simplify) {
 
@@ -87,14 +94,14 @@ public class AggrEnumerator {
 
                 // in this case, aggregation will not provide any useful information, except count
                 if (groupByFields.contains(targetField) && groupByFields.size() == 1) {
-                    if (ec.getAggrFuns(targetType).contains(AggregationNode.AggrCount)) {
+                    if (EnumContext.getAggrFuns(targetType, aggrFuns).contains(AggregationNode.AggrCount)) {
                         targetFuncList.add(new Pair<>(targetField, AggregationNode.AggrCount));
                     }
                     continue;
                 }
 
                 // Find the target and the aggregation fields now, start generation
-                List<Function<List<Value>, Value>> aggrFuncs = ec.getAggrFuns(targetType);
+                List<Function<List<Value>, Value>> aggrFuncs = EnumContext.getAggrFuns(targetType, aggrFuns);
 
                 // Last step, enumerate all group-by functions
                 for (Function<List<Value>, Value> f : aggrFuncs) {

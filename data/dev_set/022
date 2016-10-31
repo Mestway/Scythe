@@ -32,7 +32,6 @@
 #solution
 
 SELECT s.name, f.fruit
-FROM stores s
-JOIN fruit_sold f ON s.id = f.store_id
-JOIN fruit_sold f2 ON f.store_id <> f2.store_id
-WHERE f.fruit = f2.fruit
+FROM stores f
+JOIN fruit_sold f
+ON f.store_id <> f2.store_id AND f.fruit = f.fruit

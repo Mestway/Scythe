@@ -1,36 +1,31 @@
-//http://stackoverflow.com/questions/2411559/how-do-i-query-sql-for-a-latest-record-date-for-each-user
+//http://stackoverflow.com/questions/1641718/how-to-select-unique-records-by-sql
 
-# input
+#input
 
-    | username |   date     | value|
-    |------------------------------|
-    | brad     | 2010-01-02 |  1.1 |
-    | fred     | 2010-01-03 |  1.0 |
-    | bob      | 2009-08-04 |  1.5 |
-    | brad     | 2010-02-02 |  1.2 |
-    | fred     | 2009-12-02 |  1.3 |
+c1, c2,  c3
+1, item1, data1
+2, item1, data2
+3, item2, data3
+4, item3, data4
 
+#output
 
-# output
-
-    | username |   date      | value|
-    |-------------------------------|
-    | fred     | 2010-01-03  |  1.0 |
-    | bob      | 2009-08-04  |  1.5 |
-    | brad     | 2010-02-02  |  1.2 |
+c1, c2, c3
+1, item1, data1
+3, item2, data3
+4, item3, data4
 
 #constraint
 {
 	"constants": [],
-	"aggregation_functions": ["max"]
+	"aggregation_functions": ["min"]
 }
 
 #solution
 
-select t.username, t.date, t.value
-from MyTable t
-inner join (
-    select username, max(date) as MaxDate
-    from MyTable
-    group by username
-) tm on t.username = tm.username and t.date = tm.MaxDate
+select t1.*
+(select c2, min(c1) minc1
+ from c2
+ group by c2) t1
+join t2
+on t1.minc1 = t2.c1

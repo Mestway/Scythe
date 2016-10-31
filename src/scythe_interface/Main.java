@@ -29,10 +29,8 @@ public class Main {
             return new StagedEnumerator();
         else if (name.equals("CanonicalEnumeratorOnTheFly"))
             return new CanonicalTableEnumeratorOnTheFly();
-        else if (name.equals("PaperExampleEnumerator"))
-            return new PaperExampleTestEnumerator();
         else {
-            System.out.println("The enumerator ["+ name + "] is currently not supported.");
+            System.out.println("The enumerator [" + name + "] is currently not supported.");
             System.exit(-1);
         }
         return null;

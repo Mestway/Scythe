@@ -1,38 +1,24 @@
-//http://stackoverflow.com/questions/4662464/how-to-select-only-the-first-rows-for-each-unique-value-of-a-column
+//http://stackoverflow.com/questions/122942/how-to-return-multiple-values-in-one-column-t-sql
 
 #input
 
-CName,      AddressID,  AddressLine
-John Smith, 123, Nowheresville
-Jane Doe,   456, Evergreen Terrace
-John Smith , 999, Somewhereelse
-Joe Bloggs , 1, Second Ave
+UserId, Alias
+1,MrX
+1,MrY
+1,MrA
+2,Abc
+2,Xyz
 
 #output
 
-CName,      AddressID,  AddressLine
-John Smith, 123, Nowheresville
-Jane Doe,   456, Evergreen Terrace
-Joe Bloggs , 1, Second Ave
+| UserId | Alias     |
+|--------------------|
+| 1 |  MrX, MrY, MrA |
+| 2 |  Abc, Xyz      |
 
 
 # constraint
 {
 	"constants": [ ],
-	"aggregation_functions": ["min", "max", "count"]
+	"aggregation_functions": ["concat"]
 }
-
-#solution
-
-SELECT
-    M.CName, M.AddressLine,
-FROM(
-    SELECT
-        CName, MIN(Inserted) AS First
-    FROM
-        MyTable
-    GROUP BY
-        CName
-    ) foo
-JOIN MyTable M 
-ON foo.CName = M.CName AND foo.First = M.Inserted

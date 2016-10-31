@@ -17,9 +17,13 @@ SR,23
 
 #constraint
 {
-	"max_depth": 1,
 	"constants": ["JR"],
-	"aggregation_functions": ["avg"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["avg"]
 }
+
+#solution
+
+SELECT S.level, AVG(S.age)
+FROM Student S
+WHERE S.level <> ‘JR’
+GROUP BY S.level

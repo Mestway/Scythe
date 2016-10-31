@@ -1,32 +1,28 @@
-//http://stackoverflow.com/questions/3614666/mysql-get-row-position-in-order-by
+//http://stackoverflow.com/questions/3002499/postgresql-crosstab-query
 
 #input
 
-| id | name   | name_ascii |
-|--------------------------|
-|  5 | Alpha  |   100      |
-|  7 | Beta   |   101      |
-|  3 | Delta  |   102      |
-|  1 | Zed    |   103      |
+Section,    Status   , Count
+A      ,    Active   , 1
+A      ,    Inactive , 2
+B      ,    Active   , 4
+B      ,    Inactive , 5
 
 #output
 
-| id | position | name        |
-|-----------------------------|
-|  7 |        2 | Beta        |
+Section,    Active,    Inactive
+A      ,    1     ,    2
+B      ,    4     ,    5
 
 #constraint
 {
-	"constants": ["Beta"],
-	"aggregation_functions": ["count"]
+	"constants": ["Active", "Inactive"],
+	"aggregation_functions": []
 }
 
 #solution
 
-SELECT t.id,
-       (SELECT COUNT(*)
-          FROM TABLE x
-         WHERE x.name <= t.name) AS position
-       t.name    
-  FROM TABLE t      
- WHERE t.name = 'Beta'
+select t1.section, t1.cnt, t2.cnt
+from (select * from t where status = "Active") t1
+join (select * from t where status = "Inactive") t2
+on t1.section = t2.section

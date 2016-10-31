@@ -87,10 +87,14 @@ public class EnumContext {
         return allValNodes;
     }
 
+    public List<Function<List<Value>, Value>> getAllAggrFuns() {
+        return this.aggrfunctions;
+    }
+
     // get aggregation functions that are used in this enumeration context
-    public List<Function<List<Value>, Value>> getAggrFuns(ValType type) {
+    public static List<Function<List<Value>, Value>> getAggrFuns(ValType type, List<Function<List<Value>, Value>> enabledAggrFuns) {
         List<Function<List<Value>, Value>> fs = AggregationNode.getAllAggrFunctions(type);
-        return fs.stream().filter(f -> this.aggrfunctions.contains(f)).collect(Collectors.toList());
+        return fs.stream().filter(f -> enabledAggrFuns.contains(f)).collect(Collectors.toList());
     }
 
     public ValType getValType(String name) {

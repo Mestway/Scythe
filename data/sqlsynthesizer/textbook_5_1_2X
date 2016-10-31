@@ -1,0 +1,71 @@
+#input
+
+C_name,F_key
+class1,f1
+class2,f2
+class3,f1
+class4,f3
+class5,f4
+class6,f1
+
+#input
+
+S_key,C_name
+S1,class2
+S2,class1
+S3,class2
+S3,class5
+S4,class2
+S4,class4
+S5,class4
+S6,class3
+S6,class2
+S7,class5
+S7,class1
+S8,class4
+S9,class5
+S9,class2
+S10,class5
+
+#input
+
+F_key,F_name
+f1,faculty1
+f2,faculty2
+f3,faculty3
+f4,faculty4
+
+#input
+
+S_key,major,age
+S1,History,20
+S2,Computer,21
+S3,Computer,23
+S4,Math,18
+S5,History,22
+S6,Math,22
+S7,English,21
+S8,English,23
+S9,History,21
+S10,History,22
+
+#output
+
+age
+22
+
+#constraint
+{
+	"constants": ["History", "faculty1"],
+	"aggregation_functions": [ "max" ]
+}
+
+#solution
+
+SELECT MAX(S.age)
+FROM Student S
+WHERE (S.ma jor = ‘History’)
+    OR S.snum IN (SELECT E.snum
+    FROM Class C, Enrolled E, Faculty F
+    WHERE E.cname = C.name AND C.fid = F.fid
+    AND F.fname = ‘I.Teach’ )

@@ -49,6 +49,8 @@ public class ExampleDS {
                     example.output = TableInstanceParser.tryParseTable("output", segContent);
                 } else if (segName.equals("constraint")) {
                     example.enumConfig = new EnumConfig(segContent.stream().reduce(String::concat).get());
+                } else if (segName.equals("solution")) {
+                    //System.out.println("Stack Overflow Solution: " + segContent);
                 }
             } else {
                 i ++;

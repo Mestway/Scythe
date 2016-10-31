@@ -1,31 +1,63 @@
-//http://stackoverflow.com/questions/2563918/create-a-cumulative-sum-column-in-mysql
+//http://stackoverflow.com/questions/7151401/sql-query-for-finding-records-where-count-1
 
 #input
 
-id,   count
-1,    100
-2,    50
-3,    10
+| user_id | account_no | zip   |      date |
+|------------------------------------------|
+|       1 |        123 | 55555 | 12-DEC-09 | 
+|       1 |        123 | 66666 | 12-DEC-09 |
+|       1 |        123 | 55555 | 13-DEC-09 |
+|       2 |        456 | 77777 | 14-DEC-09 |
+|       2 |        456 | 77777 | 14-DEC-09 |
+|       2 |        789 | 77777 | 14-DEC-09 |
+|       2 |        789 | 77777 | 14-DEC-09 |
 
 #output
 
-id,   count,  cumulative_sum
-1,    100,    100
-2,    50 ,    150
-3,    10 ,    160
+| user_id | count |
+|-----------------|
+|       1 |     2 |
 
 #constraint
 {
 	"constants": [],
-	"aggregation_functions": ["sum"]
+	"aggregation_functions": ["count"]
 }
 
 #solution
 
-SELECT t.id,
-       t.count,
-       (SELECT SUM(x.count)
-          FROM TABLE x
-         WHERE x.id <= t.id) AS cumulative_sum
-FROM TABLE t
-ORDER BY t.id
+SELECT 
+ user_id ,
+ COUNT(*) count
+FROM 
+ PAYMENT
+GROUP BY
+ account,
+ user_id ,
+ date
+Having
+COUNT(*) > 1
+
+ SELECT 
+    user_id,
+    account_no , 
+    date,
+        COUNT(*)
+ FROM
+    (SELECT DISTINCT
+            user_id,
+            account_no , 
+            zip, 
+            date
+         FROM
+            payment 
+
+        ) 
+        payment
+ GROUP BY
+
+    user_id,
+    account_no , 
+
+    date
+HAVING COUNT(*) > 1

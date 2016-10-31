@@ -1,31 +1,20 @@
-//http://stackoverflow.com/questions/4686543/sql-query-to-concatenate-column-values-from-multiple-rows-in-oracle
+//http://stackoverflow.com/questions/2046037/can-i-comma-delimit-multiple-rows-into-one-column
 
 #input
 
-| PID |
-|-----|
-| A   |
-| B   |
-| C   |
-
-#input
-
-PID,   SEQ ,   Desc
-A  ,   1   ,   Have
-A  ,   2   ,   a nice
-A  ,   3   ,   day.
-B  ,   1   ,   Nice Work.
-C  ,   1   ,   Yes
-C  ,   2   ,   we can 
-C  ,   3   ,   do 
-C  ,   4   ,   this work!
+[TicketID], [Person]
+ T0001  ,     Alice
+ T0001  ,     Bob
+ T0002  ,     Catherine
+ T0002  ,     Doug
+ T0003  ,     Elaine
 
 #output
 
-PID,   Desc
-A  ,   Have a nice day.
-B  ,   Nice Work.
-C  ,   Yes we can do this work!
+[TicketID], [People]
+ T0001 ,      Alice Bob
+ T0002 ,      Catherine Doug
+ T0003 ,      Elaine
 
 #constraint
 {
@@ -35,6 +24,7 @@ C  ,   Yes we can do this work!
 
 #solution
 
-SELECT pid, LISTAGG(Desc, ' ') WITHIN GROUP (ORDER BY seq) AS desc
-FROM   B
-GROUP BY pid;
+select TicketId, listagg(Person, ', ') People
+from table
+group by TicketId
+

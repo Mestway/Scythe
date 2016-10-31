@@ -18,9 +18,12 @@ SR,23
 
 #constraint
 {
-	"max_depth": 1,
 	"constants": [],
-	"aggregation_functions": [ "avg" ],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": [ "avg" ]
 }
+
+#solution
+
+SELECT S.level, AVG(S.age)
+FROM Student S
+GROUP BY S.level

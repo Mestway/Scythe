@@ -10,6 +10,7 @@ import sql.lang.ast.val.ValNode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -54,6 +55,9 @@ public class EnumConfig {
         return this.constValNodes;
     }
     public int maxDepth() { return this.maxDepth; }
+    public void addConstVals(Set<Value> vals) {
+        this.constValNodes.addAll(vals.stream().map(v -> new ConstantVal(v)).collect(Collectors.toSet()));
+    }
     public void setExistsCore(int numberOfParam, List<Table> existsCore) {
         this.numberOfParam = numberOfParam;
         this.existsCore.addAll(existsCore);

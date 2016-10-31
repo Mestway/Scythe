@@ -1,40 +1,43 @@
-//http://stackoverflow.com/questions/6899/how-to-create-a-sql-server-function-to-join-multiple-rows-from-a-subquery-into
+//http://stackoverflow.com/questions/6841605/get-top-1-row-of-each-group
 
-# input
+#input
 
-    | VehicleID | Name |
-    |------------------|
-    | 1         | Chuck|
-    | 2         | Larry|
+|ID| DocumentID | Status | DateCreated  |
+|---------------------------------------|
+| 2| 1          | S1     | 07/29/2011   |
+| 3| 1          | S2     | 07/30/2011   |
+| 6| 1          | S1     | 08/02/2011   |
+| 1| 2          | S1     | 07/28/2011   |
+| 4| 2          | S2     | 07/30/2011   |
+| 5| 2          | S3     | 08/01/2011   |
+| 6| 3          | S1     | 08/02/2011   |
 
-# input
+#output
 
-    | LocationID | VehicleID |  City        |
-    |---------------------------------------|
-    | 1          | 1         |  New York    |
-    | 2          | 1         |  Seattle     |
-    | 3          | 1         |  Vancouver   |
-    | 4          | 2         |  Los Angeles |
-    | 5          | 2         |  Houston     |
-
-# output
-
-    | VehicleID  | Name   | Locations                     |
-    |-----------------------------------------------------|
-    | 1          | Chuck  | New York, Seattle, Vancouver  |
-    | 2          | Larry  | Los Angeles, Houston          |
+| DocumentID | Status | DateCreated  |
+|------------------------------------|
+| 1          | S1     | 08/02/2011   |
+| 2          | S3     | 08/01/2011   |
+| 3          | S1     | 08/02/2011   |
 
 #constraint
 {
 	"constants": [],
-	"aggregation_functions": ["concat"],
+	"aggregation_functions": ["max"]
 }
 
 #solution
 
-select t1.VehicleID, t1.Name, t2.concatLocations
-from (select VehicleID, concat(City) As concatLocations
-      from  t2
-      group by VehicleID)
-join t1
-on t1.VehicleID = t2.VehicleID
+ SELECT * FROM DocumentStatusLogs D1 JOIN
+    (
+      SELECT
+        DocumentID,MAX(DateCreated) AS MaxDate
+      FROM
+        DocumentStatusLogs
+      GROUP BY
+        DocumentID
+    ) D2
+    ON
+      D2.DocumentID=D1.DocumentID
+    AND
+      D2.MaxDate=D1.DateCreated

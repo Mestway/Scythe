@@ -1,6 +1,7 @@
 package util;
 
 import forward_enumeration.context.EnumContext;
+import global.GlobalConfig;
 import sql.lang.ast.filter.*;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.ConstantVal;
@@ -14,6 +15,9 @@ import java.util.Map;
  * Created by clwang on 5/19/16.
  */
 public class CostEstimator {
+
+    // if we add a filter with the cost GlobalConfig.DESIRABLE_CANDIDATE_QUERY_SCORE,
+    // we are then trying to deny such queries
 
     public static double estimateFilterCost(Filter f, Map<String, String> originNameMap) {
         if (f instanceof EmptyFilter) {
@@ -59,11 +63,19 @@ public class CostEstimator {
                     if (! ((VVComparator) f).getComparator().equals(VVComparator.eq)
                             && !((VVComparator) f).getComparator().equals(VVComparator.neq)) {
                         if (originName0.equals(originName1))
-                            score += 20;
+                            score += GlobalConfig.DESIRABLE_CANDIDATE_QUERY_SCORE;
                         else {
                             score += 10;
                         }
                     }
+                }
+
+                if ((name0.contains("COUNT-") && ! name1.contains("COUNT-"))
+                        || (!name0.contains("COUNT-") && name1.contains("COUNT-"))) {
+                    if (originName0.equals(originName1))
+                        score += GlobalConfig.DESIRABLE_CANDIDATE_QUERY_SCORE + 1;
+                    else
+                        score += GlobalConfig.DESIRABLE_CANDIDATE_QUERY_SCORE + 1;
                 }
             }
 

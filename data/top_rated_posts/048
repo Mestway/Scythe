@@ -1,38 +1,38 @@
-//http://stackoverflow.com/questions/17038193/select-row-with-most-recent-date-per-user
+//http://stackoverflow.com/questions/4662464/how-to-select-only-the-first-rows-for-each-unique-value-of-a-column
 
 #input
 
-id,  user,    time,    io
-1,   9,   1370931202,  out
-2,   9,   1370931664,  out
-3,   6,   1370932128,  out
-4,   12,  1370932128,  out
-5,   12,  1370933037,  in
+CName,      AddressID,  AddressLine
+John Smith, 123, Nowheresville
+Jane Doe,   456, Evergreen Terrace
+John Smith , 999, Somewhereelse
+Joe Bloggs , 1, Second Ave
 
 #output
 
-id,  user,    time,    io
-2,   9,   1370931664,  out
-3,   6,   1370932128,  out
-5,   12,  1370933037,  in
+CName,      AddressID,  AddressLine
+John Smith, 123, Nowheresville
+Jane Doe,   456, Evergreen Terrace
+Joe Bloggs , 1, Second Ave
+
 
 # constraint
 {
 	"constants": [ ],
-	"aggregation_functions": ["max"]
+	"aggregation_functions": ["min", "max", "count"]
 }
 
 #solution
 
-SELECT t1.*
-FROM lms_attendance t1
-WHERE t1.time = (SELECT MAX(t2.time)
-                 FROM lms_attendance t2
-                 WHERE t2.user = t1.user)
-
-SELECT t1.*
-FROM lms_attendance AS t1
-LEFT JOIN lms_attendance AS t2
-  ON t1.user = t2.user 
-        AND t1.time < t2.time
-WHERE t2.user IS NULL
+SELECT
+    M.CName, M.AddressLine,
+FROM(
+    SELECT
+        CName, MIN(Inserted) AS First
+    FROM
+        MyTable
+    GROUP BY
+        CName
+    ) foo
+JOIN MyTable M 
+ON foo.CName = M.CName AND foo.First = M.Inserted

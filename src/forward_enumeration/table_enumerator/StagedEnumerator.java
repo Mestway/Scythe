@@ -41,15 +41,17 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         summaryTables.addAll(inputSummary);
         System.out.println("[Basic]: " + candidateCollector.getMemoizedTables().size() + " [SymTableForInputs]: Intermediate: " + inputSummary.size());
 
+        AbstractSummaryTable naturalJoinResult = inputSummary.get(0);
+        for (int i = 1; i < inputSummary.size(); i ++) {
+            naturalJoinResult = new CompoundSummaryTable(naturalJoinResult, inputSummary.get(i), CompoundSummaryTable.CompositionType.join);
+        }
+
         //##### Synthesize natural join
-        if (GlobalConfig.TRY_NATURAL_JOIN && inputSummary.size() > 1) {
+        if (GlobalConfig.TRY_NATURAL_JOIN && inputSummary.size() > 1 && maxDepth == 1) {
             // try join all tables and infer whether the output table can be obtained in this way
-            AbstractSummaryTable tmp = inputSummary.get(0);
-            for (int i = 1; i < inputSummary.size(); i ++) {
-                tmp = new CompoundSummaryTable(tmp, inputSummary.get(i), CompoundSummaryTable.CompositionType.join);
-            }
             System.out.println("[NaturalJoin]: " + 1 + " [SymTable]: " + summaryTables.size());
-            tryEvalToOutput(tmp, ec, candidateCollector);
+            tryEvalToOutput(naturalJoinResult, ec, candidateCollector);
+
             if (candidateCollector.getAllCandidates().size() > 0)
                 return decodingToQueries(candidateCollector, ec);
         }
@@ -70,21 +72,25 @@ public class StagedEnumerator extends AbstractTableEnumerator {
 
         //##### Synthesize JOIN
         List<AbstractSummaryTable> joinSummary;
-        for (int i = 1; i <= maxDepth; i ++) {
+        for (int i = 1; i <= maxDepth-1; i ++) {
 
             joinSummary = EnumerationModules.enumJoin(stFromLastStage, inputSummary);
             summaryTables.addAll(joinSummary);
             stFromLastStage = joinSummary;
+
             System.out.println("[JOIN] level " + i + " [SymTable]: " + summaryTables.size());
 
             tryEvalToOutput(stFromLastStage, ec, candidateCollector);
             if (candidateCollector.getAllCandidates().size() > 0) break;
         }
 
+        if (candidateCollector.getAllCandidates().size() > 0)
+            return decodingToQueries(candidateCollector, ec);
+
         //##### Synthesize UNION
         List<AbstractSummaryTable> unionSummary;
         stFromLastStage = inputSummary;
-        for (int i = 1; i <= maxDepth; i ++) {
+        for (int i = 1; i <= maxDepth-1; i ++) {
             unionSummary = EnumerationModules.enumUnion(stFromLastStage, inputSummary);
             summaryTables.addAll(unionSummary);
             stFromLastStage = unionSummary;
@@ -94,71 +100,80 @@ public class StagedEnumerator extends AbstractTableEnumerator {
             if (candidateCollector.getAllCandidates().size() > 0) break;
         }
 
+        if (candidateCollector.getAllCandidates().size() > 0)
+            return decodingToQueries(candidateCollector, ec);
+
         //##### Synthesize LEFT-JOIN
         // Try enumerating joining two tables from left-join
-        if (candidateCollector.getAllCandidates().size() == 0) {
+        stFromLastStage = basicAndAggr;
+        for (int i = 1; i <= maxDepth-1; i ++) {
 
-            stFromLastStage = basicAndAggr;
-            for (int i = 1; i <= maxDepth-1; i ++) {
+            System.out.println("[EnumLeftJoin] level " + i + " [SymTable]: " + summaryTables.size());
 
-                System.out.println("[EnumLeftJoin] level " + i + " [SymTable]: " + summaryTables.size());
+            List<AbstractSummaryTable> leftJoinSummary = EnumerationModules.enumLeftJoin(stFromLastStage, inputSummary, ec);
+            summaryTables.addAll(leftJoinSummary);
 
-                List<AbstractSummaryTable> leftJoinSummary = EnumerationModules.enumLeftJoin(stFromLastStage, inputSummary, ec);
-                summaryTables.addAll(leftJoinSummary);
+            List<AbstractSummaryTable> rightJoinSummary = EnumerationModules.enumLeftJoin(inputSummary, stFromLastStage, ec);
+            summaryTables.addAll(rightJoinSummary);
 
-                List<AbstractSummaryTable> rightJoinSummary = EnumerationModules.enumLeftJoin(inputSummary, stFromLastStage, ec);
-                summaryTables.addAll(rightJoinSummary);
+            tryEvalToOutput(leftJoinSummary, ec, candidateCollector);
+            tryEvalToOutput(rightJoinSummary, ec, candidateCollector);
 
-                tryEvalToOutput(leftJoinSummary, ec, candidateCollector);
-                tryEvalToOutput(rightJoinSummary, ec, candidateCollector);
+            if (candidateCollector.getAllCandidates().size() > 0) break;
 
-                if (candidateCollector.getAllCandidates().size() > 0) break;
-                leftJoinSummary.addAll(rightJoinSummary);
-                stFromLastStage = leftJoinSummary;
-            }
+            leftJoinSummary.addAll(rightJoinSummary);
+            stFromLastStage = leftJoinSummary;
         }
 
-        //##### Synthesize join with aggregation result
-        // Try enumerating by joining two tables from aggregation
-        if (candidateCollector.getAllCandidates().size() == 0) {
-            stFromLastStage = basicAndAggr;
-            for (int i = 1; i <= maxDepth; i ++) {
-                List<AbstractSummaryTable> tmp = EnumerationModules.enumJoin(stFromLastStage, basicAndAggr);
-
-                summaryTables.addAll(tmp);
-                stFromLastStage = tmp;
-                System.out.println("[EnumJoinOnAggr] level " + i + " [SymTable]: " + summaryTables.size());
-
-                tryEvalToOutput(stFromLastStage, ec, candidateCollector);
-
-                if (candidateCollector.getAllCandidates().size() > 0)
-                    break;
-            }
-        }
+        if (candidateCollector.getAllCandidates().size() > 0)
+            return decodingToQueries(candidateCollector, ec);
 
         //##### Synthesize aggregation on join
         // Enumerate aggregation on joined tables
-        if (candidateCollector.getAllCandidates().size() == 0) {
-            List<AbstractSummaryTable> simpleJoinSummary = inputSummary;
-            for (int i = 1; i <= maxDepth-1; i ++) {
-                simpleJoinSummary.addAll(EnumerationModules.enumJoin(simpleJoinSummary, inputSummary));
-            }
-            List<AbstractSummaryTable> aggrOnJoinSummary  = EnumerationModules.enumAggregation(simpleJoinSummary, ec);
+        List<AbstractSummaryTable> simpleJoinSummary = inputSummary;
+        for (int i = 1; i <= maxDepth - 1; i ++) {
+            System.out.println("[EnumAggrOnJoin] level " + i + " [SymTable]: " + summaryTables.size());
+            simpleJoinSummary.addAll(EnumerationModules.enumJoin(simpleJoinSummary, inputSummary));
+        }
+        // also include natural join result
+        if (maxDepth > 1)
+            simpleJoinSummary.add(naturalJoinResult);
+        List<AbstractSummaryTable> aggrOnJoinSummary  = EnumerationModules.enumAggregation(simpleJoinSummary, ec);
+        if (maxDepth > 2) {
             List<AbstractSummaryTable> joinAfterAggr = EnumerationModules.enumJoin(aggrOnJoinSummary, inputSummary);
             tryEvalToOutput(joinAfterAggr, ec, candidateCollector);
+        } else {
+            tryEvalToOutput(aggrOnJoinSummary, ec, candidateCollector);
         }
+
+        if (candidateCollector.getAllCandidates().size() > 0)
+            return decodingToQueries(candidateCollector, ec);
+
+        //##### Synthesize join with aggregation result
+        // Try enumerating by joining two tables from aggregation
+        stFromLastStage = basicAndAggr;
+        for (int i = 1; i <= maxDepth; i ++) {
+            List<AbstractSummaryTable> tmp = EnumerationModules.enumJoin(stFromLastStage, basicAndAggr);
+
+            summaryTables.addAll(tmp);
+            stFromLastStage = tmp;
+            System.out.println("[EnumJoinOnAggr] level " + i + " [SymTable]: " + summaryTables.size());
+
+            tryEvalToOutput(stFromLastStage, ec, candidateCollector);
+
+            if (candidateCollector.getAllCandidates().size() > 0) break;
+        }
+
+        if (candidateCollector.getAllCandidates().size() > 0)
+            return decodingToQueries(candidateCollector, ec);
 
         //##### Synthesizing aggregation on aggregation
-        if (candidateCollector.getAllCandidates().size() == 0) {
-            List<AbstractSummaryTable> aggrAggrSummary = EnumerationModules.enumAggregation(aggrSummary, ec);
-            for (int i = 1; i <= maxDepth-1; i ++) {
-                List<AbstractSummaryTable> tmp = EnumerationModules.enumJoin(aggrAggrSummary, basicAndAggr);
-                tryEvalToOutput(tmp, ec, candidateCollector);
-                aggrAggrSummary = tmp;
-            }
+        List<AbstractSummaryTable> aggrAggrSummary = EnumerationModules.enumAggregation(aggrSummary, ec);
+        for (int i = 1; i <= maxDepth - 1; i ++) {
+            List<AbstractSummaryTable> tmp = EnumerationModules.enumJoin(aggrAggrSummary, basicAndAggr);
+            tryEvalToOutput(tmp, ec, candidateCollector);
+            aggrAggrSummary = tmp;
         }
-
-        System.out.println("ASymTable Enumeration done: " + (summaryTables.size()));
 
         return decodingToQueries(candidateCollector, ec);
     }

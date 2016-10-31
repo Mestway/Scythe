@@ -5,7 +5,7 @@ package global;
  */
 public final class GlobalConfig {
 
-    public static final boolean TRY_NATURAL_JOIN = false;
+    public static final boolean TRY_NATURAL_JOIN = true;
 
     public static final boolean SIMPLIFY_AGGR_FIELD = true;
 
@@ -18,10 +18,11 @@ public final class GlobalConfig {
     public static final Integer MAXIMUM_BEAM_SIZE = 10;
 
     // we will only try perform decomposition only when the number is less than 5
-    public static final boolean TRY_DECOMPOSITION = false;
+    public static final boolean TRY_DECOMPOSITION = true;
     public static final Integer TRY_DECOMPOSE_ROW_NUM = 8;
 
     public static final Integer MAXIMUM_QUERY_KEPT = 20;
 
+    public static final Integer DESIRABLE_CANDIDATE_QUERY_SCORE = 10;
 
 }

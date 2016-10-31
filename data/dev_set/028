@@ -32,5 +32,5 @@ FROM myTable m
 JOIN(
   SELECT productId, MIN(orderIndex) AS minOrderIndex
   FROM myTable
-  WHERE rejected = 0
+  WHERE rejected = false
   GROUP BY productId) tmp ON tmp.productId = m.productId AND tmp.minOrderIndex = m.orderIndex;

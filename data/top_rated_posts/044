@@ -1,40 +1,31 @@
-//http://stackoverflow.com/questions/13146304/how-to-select-every-row-where-column-value-is-not-distinct
+//http://stackoverflow.com/questions/2563918/create-a-cumulative-sum-column-in-mysql
 
 #input
 
-CustomerName ,    EmailAddress
-Aaron        ,    aaron@gmail.com
-Christy      ,    aaron@gmail.com
-Jason        ,    jason@gmail.com
-Eric         ,    eric@gmail.com
-John         ,    aaron@gmail.com
+id,   count
+1,    100
+2,    50
+3,    10
 
 #output
 
-CustomerName ,    EmailAddress
-Aaron    ,        aaron@gmail.com
-Christy  ,        aaron@gmail.com
-John     ,        aaron@gmail.com
+id,   count,  cumulative_sum
+1,    100,    100
+2,    50 ,    150
+3,    10 ,    160
 
 #constraint
 {
 	"constants": [],
-	"aggregation_functions": ["count"]
+	"aggregation_functions": ["sum"]
 }
 
 #solution
 
-SELECT EmailAddress, CustomerName 
-FROM Customers 
-WHERE EmailAddress IN
-(SELECT EmailAddress 
- FROM Customers 
- GROUP BY EmailAddress 
- HAVING COUNT(*) > 1)
-
-
-SELECT EmailAddress, CustomerName 
-FROM Customers as a 
-Inner Join Customers as b 
-on a.CustomerName <> b.CustomerName 
-   and a.EmailAddress = b.EmailAddress
+SELECT t.id,
+       t.count,
+       (SELECT SUM(x.count)
+          FROM TABLE x
+         WHERE x.id <= t.id) AS cumulative_sum
+FROM TABLE t
+ORDER BY t.id

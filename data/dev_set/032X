@@ -1,0 +1,38 @@
+//http://stackoverflow.com/questions/30361275/selecting-max-values-grouped-by-two-column
+
+#input
+
+| firstname | lastname | nb_payments |
+|------------------------------------|
+| a         | b        | 10          |
+| a         | b        | 20          |
+| b         | a        | 30          |
+| b         | a        | 40          |
+| b         | b        | 50          |
+| c         | d        | 10          |
+
+#output
+
+| firstname | lastname | top3 |
+|-----------------------------|
+| b         | a        | 70   |
+| b         | b        | 50   |
+| a         | b        | 30   |
+
+#constraint
+{
+	"aggregation_functions": ["sum", "count"],
+	"constants": ["3"]
+}
+
+#solution
+
+SELECT   firstname, lastname , SUM(nb_payments) 
+FROM     account 
+GROUP BY firstname, lastname
+ORDER BY 3 DESC LIMIT 3;
+
+select * from(
+    SELECT firstname, lastname , sum(nb_payments) as top3 
+    FROM test group by firstname,lastname ORDER BY top3 desc )
+    where rownum <=3
