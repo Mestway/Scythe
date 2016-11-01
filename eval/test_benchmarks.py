@@ -4,18 +4,22 @@ import sys
 import time
 import os
 
+scythe = os.path.join("..", "out", "artifacts", "Scythe_jar", "Scythe.jar")
 
 if __name__ == "__main__":
 
-	benchmark_dir_list = ["../data/dev_set", "../data/recent_posts", "../data/top_rated_posts", "../data/sqlsynthesizer"]
-	log_dir = "./log/log_" + datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d_%H%M')
 
-	print log_dir
+	data_dir = os.path.join("..", "data")
+
+	benchmark_dir_list = ["dev_set", "recent_posts", "top_rated_posts", "sqlsynthesizer"]
+	log_dir = os.path.join("log", "log_" + datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d_%H%M'))
 
 	if not os.path.exists(log_dir):
 		os.makedirs(log_dir)
 
-	for benchmark_dir in benchmark_dir_list:
+	for benchmark_dir_suffix in benchmark_dir_list:
+
+		benchmark_dir = os.path.join(data_dir, benchmark_dir_suffix)
 
 		if not os.path.exists(benchmark_dir):
 			print "[[ERROR]] benchmark directory not exists: " + benchmark_dir 
@@ -27,8 +31,8 @@ if __name__ == "__main__":
 			if (f.endswith("X")):
 				continue
 
-			log_file = os.path.join(log_dir, benchmark_dir.split("/")[-1] + "__" + f.split("/")[-1] + ".log")
-			
+			log_file = os.path.join(log_dir, benchmark_dir_suffix + "__" + os.path.basename(f) + ".log")
+
 			print "Running: " + f
 			output = open(log_file, "w")
-			subprocess.call(['java', '-jar', '../out/artifacts/Scythe_jar/Scythe.jar', f,'StagedEnumerator'], stdout=output)
+			subprocess.call(['java', '-jar', scythe, f,'StagedEnumerator'], stdout=output)
