@@ -1,0 +1,514 @@
+[[Synthesis start]]
+	File: ..\data\recent_posts\034
+	Enumerator: StagedEnumerator
+[Retry] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Error@AggregationNode55] aggregation performed on unexpected type
+sql.lang.exception.SQLEvalException: Aggregation function application error
+	at sql.lang.ast.table.AggregationNode.eval(AggregationNode.java:100)
+	at sql.lang.ast.table.RenameTableNode.eval(RenameTableNode.java:60)
+	at forward_enumeration.table_enumerator.StagedEnumerator$EnumerationModules.enumAggregation(StagedEnumerator.java:206)
+	at forward_enumeration.table_enumerator.StagedEnumerator.enumTable(StagedEnumerator.java:60)
+	at forward_enumeration.table_enumerator.AbstractTableEnumerator.enumProgramWithIO(AbstractTableEnumerator.java:42)
+	at scythe_interface.Synthesizer.Synthesize(Synthesizer.java:54)
+	at scythe_interface.Main.main(Main.java:22)
+[Error@AggregationNode55] aggregation performed on unexpected type
+sql.lang.exception.SQLEvalException: Aggregation function application error
+	at sql.lang.ast.table.AggregationNode.eval(AggregationNode.java:100)
+	at sql.lang.ast.table.RenameTableNode.eval(RenameTableNode.java:60)
+	at forward_enumeration.table_enumerator.StagedEnumerator$EnumerationModules.enumAggregation(StagedEnumerator.java:206)
+	at forward_enumeration.table_enumerator.StagedEnumerator.enumTable(StagedEnumerator.java:60)
+	at forward_enumeration.table_enumerator.AbstractTableEnumerator.enumProgramWithIO(AbstractTableEnumerator.java:42)
+	at scythe_interface.Synthesizer.Synthesize(Synthesizer.java:54)
+	at scythe_interface.Main.main(Main.java:22)
+[Aggregation]: 8 [SymTable]: 9
+[Error@AggregationNode55] aggregation performed on unexpected type
+sql.lang.exception.SQLEvalException: Aggregation function application error
+	at sql.lang.ast.table.AggregationNode.eval(AggregationNode.java:100)
+	at sql.lang.ast.table.RenameTableNode.eval(RenameTableNode.java:60)
+	at forward_enumeration.table_enumerator.StagedEnumerator$EnumerationModules.enumAggregation(StagedEnumerator.java:206)
+	at forward_enumeration.table_enumerator.StagedEnumerator.enumTable(StagedEnumerator.java:141)
+	at forward_enumeration.table_enumerator.AbstractTableEnumerator.enumProgramWithIO(AbstractTableEnumerator.java:42)
+	at scythe_interface.Synthesizer.Synthesize(Synthesizer.java:54)
+	at scythe_interface.Main.main(Main.java:22)
+[Error@AggregationNode55] aggregation performed on unexpected type
+sql.lang.exception.SQLEvalException: Aggregation function application error
+	at sql.lang.ast.table.AggregationNode.eval(AggregationNode.java:100)
+	at sql.lang.ast.table.RenameTableNode.eval(RenameTableNode.java:60)
+	at forward_enumeration.table_enumerator.StagedEnumerator$EnumerationModules.enumAggregation(StagedEnumerator.java:206)
+	at forward_enumeration.table_enumerator.StagedEnumerator.enumTable(StagedEnumerator.java:141)
+	at forward_enumeration.table_enumerator.AbstractTableEnumerator.enumProgramWithIO(AbstractTableEnumerator.java:42)
+	at scythe_interface.Synthesizer.Synthesize(Synthesizer.java:54)
+	at scythe_interface.Main.main(Main.java:22)
+[EnumJoinOnAggr] level 1 [SymTable]: 90
+Candidate Tree Number: 82
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T287].MATERIAL,[T287].MAX-DISCO_DATE,[T287].DATE_UPDATE
+FROM
+  (( (SELECT
+          MAX([T285].DISCO_DATE)
+        FROM
+          (SELECT
+              input1.MATERIAL,input1.DISCO_DATE,input1.DATE_UPDATE
+            FROM
+              input1
+            WHERE
+              IS NOT NULLinput1.DISCO_DATE) AS [T285][MATERIAL, DISCO_DATE, DATE_UPDATE]) AS [T286][MAX-DISCO_DATE] ) JOIN (
+      input1 )) AS [T287][MAX-DISCO_DATE, MATERIAL, DISCO_DATE, DATE_UPDATE]
+WHERE
+  [T287].MAX-DISCO_DATE == [T287].DISCO_DATE
+@anonymous
+[T287].MATERIAL(StringVal) | [T287].MAX-DISCO_DATE(DateVal) | [T287].DATE_UPDATE(DateVal) 
+T6C25AW#ABC | Mon Oct 31 00:00:00 PDT 2016 | Fri Sep 30 00:00:00 PDT 2016 
+
+[No.19]===============================
+SELECT
+  [T205].MATERIAL,[T205].DISCO_DATE,[T205].DATE_UPDATE
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          MAX([T203].DATE_UPDATE)
+        FROM
+          (SELECT
+              input1.MATERIAL,input1.DISCO_DATE,input1.DATE_UPDATE
+            FROM
+              input1
+            WHERE
+              IS NOT NULLinput1.DISCO_DATE) AS [T203][MATERIAL, DISCO_DATE, DATE_UPDATE]) AS [T204][MAX-DATE_UPDATE] )) AS [T205][MATERIAL, DISCO_DATE, DATE_UPDATE, MAX-DATE_UPDATE]
+WHERE
+  [T205].DATE_UPDATE == [T205].MAX-DATE_UPDATE
+@anonymous
+[T205].MATERIAL(StringVal) | [T205].DISCO_DATE(DateVal) | [T205].DATE_UPDATE(DateVal) 
+T6C25AW#ABC | Mon Oct 31 00:00:00 PDT 2016 | Fri Sep 30 00:00:00 PDT 2016 
+
+[No.18]===============================
+SELECT
+  [T163].MATERIAL,[T163].DISCO_DATE,[T163].DATE_UPDATE
+FROM
+  (( SELECT
+        input1.MATERIAL,input1.DISCO_DATE,input1.DATE_UPDATE
+      FROM
+        input1
+      WHERE
+        IS NOT NULLinput1.DISCO_DATE ) JOIN (
+      (SELECT
+          [T161].MATERIAL, MAX([T161].DATE_UPDATE)
+        FROM
+          (input1) AS [T161][MATERIAL, DISCO_DATE, DATE_UPDATE]
+        GROUP BY
+          [T161].MATERIAL) AS [T162][MATERIAL, MAX-DATE_UPDATE] )) AS [T163][MATERIAL, DISCO_DATE, DATE_UPDATE, MATERIAL1, MAX-DATE_UPDATE]
+WHERE
+  [T163].DATE_UPDATE == [T163].MAX-DATE_UPDATE
+@anonymous
+[T163].MATERIAL(StringVal) | [T163].DISCO_DATE(DateVal) | [T163].DATE_UPDATE(DateVal) 
+T6C25AW#ABC | Mon Oct 31 00:00:00 PDT 2016 | Fri Sep 30 00:00:00 PDT 2016 
+
+[No.17]===============================
+SELECT
+  [T71].MATERIAL,[T71].DISCO_DATE,[T71].DATE_UPDATE
+FROM
+  (( SELECT
+        input1.MATERIAL,input1.DISCO_DATE,input1.DATE_UPDATE
+      FROM
+        input1
+      WHERE
+        IS NOT NULLinput1.DISCO_DATE ) JOIN (
+      (SELECT
+          MAX([T69].DATE_UPDATE)
+        FROM
+          (input1) AS [T69][MATERIAL, DISCO_DATE, DATE_UPDATE]) AS [T70][MAX-DATE_UPDATE] )) AS [T71][MATERIAL, DISCO_DATE, DATE_UPDATE, MAX-DATE_UPDATE]
+WHERE
+  [T71].DATE_UPDATE == [T71].MAX-DATE_UPDATE
+@anonymous
+[T71].MATERIAL(StringVal) | [T71].DISCO_DATE(DateVal) | [T71].DATE_UPDATE(DateVal) 
+T6C25AW#ABC | Mon Oct 31 00:00:00 PDT 2016 | Fri Sep 30 00:00:00 PDT 2016 
+
+[No.16]===============================
+SELECT
+  [T673].MATERIAL,[T673].MAX-DISCO_DATE,[T673].MAX-DATE_UPDATE
+FROM
+  (( (SELECT
+          MAX([T667].DATE_UPDATE)
+        FROM
+          (SELECT
+              input1.MATERIAL,input1.DISCO_DATE,input1.DATE_UPDATE
+            FROM
+              input1
+            WHERE
+              IS NOT NULLinput1.DISCO_DATE) AS [T667][MATERIAL, DISCO_DATE, DATE_UPDATE]) AS [T668][MAX-DATE_UPDATE] ) JOIN (
+      (SELECT
+          [T671].MATERIAL, MAX([T671].DISCO_DATE)
+        FROM
+          (SELECT
+              input1.MATERIAL,input1.DISCO_DATE,input1.DATE_UPDATE
+            FROM
+              input1
+            WHERE
+              IS NOT NULLinput1.DISCO_DATE) AS [T671][MATERIAL, DISCO_DATE, DATE_UPDATE]
+        GROUP BY
+          [T671].MATERIAL) AS [T672][MATERIAL, MAX-DISCO_DATE] )) AS [T673][MAX-DATE_UPDATE, MATERIAL, MAX-DISCO_DATE]
+
+@anonymous
+[T673].MATERIAL(StringVal) | [T673].MAX-DISCO_DATE(DateVal) | [T673].MAX-DATE_UPDATE(DateVal) 
+T6C25AW#ABC | Mon Oct 31 00:00:00 PDT 2016 | Fri Sep 30 00:00:00 PDT 2016 
+
+[No.15]===============================
+SELECT
+  [T633].MATERIAL,[T633].MAX-DISCO_DATE,[T633].MAX-DATE_UPDATE
+FROM
+  (( (SELECT
+          MAX([T627].DISCO_DATE)
+        FROM
+          (SELECT
+              input1.MATERIAL,input1.DISCO_DATE,input1.DATE_UPDATE
+            FROM
+              input1
+            WHERE
+              IS NOT NULLinput1.DISCO_DATE) AS [T627][MATERIAL, DISCO_DATE, DATE_UPDATE]) AS [T628][MAX-DISCO_DATE] ) JOIN (
+      (SELECT
+          [T631].MATERIAL, MAX([T631].DATE_UPDATE)
+        FROM
+          (SELECT
+              input1.MATERIAL,input1.DISCO_DATE,input1.DATE_UPDATE
+            FROM
+              input1
+            WHERE
+              IS NOT NULLinput1.DISCO_DATE) AS [T631][MATERIAL, DISCO_DATE, DATE_UPDATE]
+        GROUP BY
+          [T631].MATERIAL) AS [T632][MATERIAL, MAX-DATE_UPDATE] )) AS [T633][MAX-DISCO_DATE, MATERIAL, MAX-DATE_UPDATE]
+
+@anonymous
+[T633].MATERIAL(StringVal) | [T633].MAX-DISCO_DATE(DateVal) | [T633].MAX-DATE_UPDATE(DateVal) 
+T6C25AW#ABC | Mon Oct 31 00:00:00 PDT 2016 | Fri Sep 30 00:00:00 PDT 2016 
+
+[No.14]===============================
+SELECT
+  [T503].MATERIAL,[T503].MAX-DISCO_DATE,[T503].MAX-DATE_UPDATE
+FROM
+  (( (SELECT
+          [T497].MATERIAL, MAX([T497].DATE_UPDATE)
+        FROM
+          (SELECT
+              input1.MATERIAL,input1.DISCO_DATE,input1.DATE_UPDATE
+            FROM
+              input1
+            WHERE
+              IS NOT NULLinput1.DISCO_DATE) AS [T497][MATERIAL, DISCO_DATE, DATE_UPDATE]
+        GROUP BY
+          [T497].MATERIAL) AS [T498][MATERIAL, MAX-DATE_UPDATE] ) JOIN (
+      (SELECT
+          [T501].MATERIAL, MAX([T501].DISCO_DATE)
+        FROM
+          (SELECT
+              input1.MATERIAL,input1.DISCO_DATE,input1.DATE_UPDATE
+            FROM
+              input1
+            WHERE
+              IS NOT NULLinput1.DISCO_DATE) AS [T501][MATERIAL, DISCO_DATE, DATE_UPDATE]
+        GROUP BY
+          [T501].MATERIAL) AS [T502][MATERIAL, MAX-DISCO_DATE] )) AS [T503][MATERIAL, MAX-DATE_UPDATE, MATERIAL1, MAX-DISCO_DATE]
+
+@anonymous
+[T503].MATERIAL(StringVal) | [T503].MAX-DISCO_DATE(DateVal) | [T503].MAX-DATE_UPDATE(DateVal) 
+T6C25AW#ABC | Mon Oct 31 00:00:00 PDT 2016 | Fri Sep 30 00:00:00 PDT 2016 
+
+[No.13]===============================
+(( (SELECT
+        [T395].MATERIAL, MAX([T395].DISCO_DATE)
+      FROM
+        (SELECT
+            input1.MATERIAL,input1.DISCO_DATE,input1.DATE_UPDATE
+          FROM
+            input1
+          WHERE
+            IS NOT NULLinput1.DISCO_DATE) AS [T395][MATERIAL, DISCO_DATE, DATE_UPDATE]
+      GROUP BY
+        [T395].MATERIAL) AS [T396][MATERIAL, MAX-DISCO_DATE] ) JOIN (
+    (SELECT
+        MAX([T399].DATE_UPDATE)
+      FROM
+        (SELECT
+            input1.MATERIAL,input1.DISCO_DATE,input1.DATE_UPDATE
+          FROM
+            input1
+          WHERE
+            IS NOT NULLinput1.DISCO_DATE) AS [T399][MATERIAL, DISCO_DATE, DATE_UPDATE]) AS [T400][MAX-DATE_UPDATE] )) AS [T401][MATERIAL, MAX-DISCO_DATE, MAX-DATE_UPDATE]
+@anonymous
+[T401].MATERIAL(StringVal) | [T401].MAX-DISCO_DATE(DateVal) | [T401].MAX-DATE_UPDATE(DateVal) 
+T6C25AW#ABC | Mon Oct 31 00:00:00 PDT 2016 | Fri Sep 30 00:00:00 PDT 2016 
+
+[No.12]===============================
+SELECT
+  [T391].MATERIAL,[T391].MAX-DISCO_DATE,[T391].MAX-DATE_UPDATE
+FROM
+  (( (SELECT
+          [T385].MATERIAL, MAX([T385].DATE_UPDATE)
+        FROM
+          (SELECT
+              input1.MATERIAL,input1.DISCO_DATE,input1.DATE_UPDATE
+            FROM
+              input1
+            WHERE
+              IS NOT NULLinput1.DISCO_DATE) AS [T385][MATERIAL, DISCO_DATE, DATE_UPDATE]
+        GROUP BY
+          [T385].MATERIAL) AS [T386][MATERIAL, MAX-DATE_UPDATE] ) JOIN (
+      (SELECT
+          MAX([T389].DISCO_DATE)
+        FROM
+          (SELECT
+              input1.MATERIAL,input1.DISCO_DATE,input1.DATE_UPDATE
+            FROM
+              input1
+            WHERE
+              IS NOT NULLinput1.DISCO_DATE) AS [T389][MATERIAL, DISCO_DATE, DATE_UPDATE]) AS [T390][MAX-DISCO_DATE] )) AS [T391][MATERIAL, MAX-DATE_UPDATE, MAX-DISCO_DATE]
+
+@anonymous
+[T391].MATERIAL(StringVal) | [T391].MAX-DISCO_DATE(DateVal) | [T391].MAX-DATE_UPDATE(DateVal) 
+T6C25AW#ABC | Mon Oct 31 00:00:00 PDT 2016 | Fri Sep 30 00:00:00 PDT 2016 
+
+[No.11]===============================
+SELECT
+  [T321].MATERIAL,[T321].MAX-DISCO_DATE,[T321].MAX-DATE_UPDATE
+FROM
+  (( (SELECT
+          [T315].MATERIAL, MAX([T315].DISCO_DATE)
+        FROM
+          (SELECT
+              input1.MATERIAL,input1.DISCO_DATE,input1.DATE_UPDATE
+            FROM
+              input1
+            WHERE
+              IS NOT NULLinput1.DISCO_DATE) AS [T315][MATERIAL, DISCO_DATE, DATE_UPDATE]
+        GROUP BY
+          [T315].MATERIAL) AS [T316][MATERIAL, MAX-DISCO_DATE] ) JOIN (
+      (SELECT
+          [T319].MATERIAL, MAX([T319].DATE_UPDATE)
+        FROM
+          (SELECT
+              input1.MATERIAL,input1.DISCO_DATE,input1.DATE_UPDATE
+            FROM
+              input1
+            WHERE
+              IS NOT NULLinput1.DISCO_DATE) AS [T319][MATERIAL, DISCO_DATE, DATE_UPDATE]
+        GROUP BY
+          [T319].MATERIAL) AS [T320][MATERIAL, MAX-DATE_UPDATE] )) AS [T321][MATERIAL, MAX-DISCO_DATE, MATERIAL1, MAX-DATE_UPDATE]
+
+@anonymous
+[T321].MATERIAL(StringVal) | [T321].MAX-DISCO_DATE(DateVal) | [T321].MAX-DATE_UPDATE(DateVal) 
+T6C25AW#ABC | Mon Oct 31 00:00:00 PDT 2016 | Fri Sep 30 00:00:00 PDT 2016 
+
+[No.10]===============================
+SELECT
+  [T575].MATERIAL,[T575].DISCO_DATE,[T575].MAX-DATE_UPDATE
+FROM
+  (( (SELECT
+          [T573].MATERIAL, MAX([T573].DATE_UPDATE)
+        FROM
+          (input1) AS [T573][MATERIAL, DISCO_DATE, DATE_UPDATE]
+        GROUP BY
+          [T573].MATERIAL) AS [T574][MATERIAL, MAX-DATE_UPDATE] ) JOIN (
+      input1 )) AS [T575][MATERIAL, MAX-DATE_UPDATE, MATERIAL1, DISCO_DATE, DATE_UPDATE]
+WHERE
+  [T575].MAX-DATE_UPDATE == [T575].DATE_UPDATE
+@anonymous
+[T575].MATERIAL(StringVal) | [T575].DISCO_DATE(DateVal) | [T575].MAX-DATE_UPDATE(DateVal) 
+T6C25AW#ABC | Mon Oct 31 00:00:00 PDT 2016 | Fri Sep 30 00:00:00 PDT 2016 
+
+[No.9]===============================
+SELECT
+  [T445].MATERIAL,[T445].DISCO_DATE,[T445].MAX-DATE_UPDATE
+FROM
+  (( (SELECT
+          MAX([T443].DATE_UPDATE)
+        FROM
+          (input1) AS [T443][MATERIAL, DISCO_DATE, DATE_UPDATE]) AS [T444][MAX-DATE_UPDATE] ) JOIN (
+      input1 )) AS [T445][MAX-DATE_UPDATE, MATERIAL, DISCO_DATE, DATE_UPDATE]
+WHERE
+  [T445].MAX-DATE_UPDATE == [T445].DATE_UPDATE
+@anonymous
+[T445].MATERIAL(StringVal) | [T445].DISCO_DATE(DateVal) | [T445].MAX-DATE_UPDATE(DateVal) 
+T6C25AW#ABC | Mon Oct 31 00:00:00 PDT 2016 | Fri Sep 30 00:00:00 PDT 2016 
+
+[No.8]===============================
+SELECT
+  [T151].MATERIAL,[T151].DISCO_DATE,[T151].DATE_UPDATE
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T149].MATERIAL, MAX([T149].DATE_UPDATE)
+        FROM
+          (input1) AS [T149][MATERIAL, DISCO_DATE, DATE_UPDATE]
+        GROUP BY
+          [T149].MATERIAL) AS [T150][MATERIAL, MAX-DATE_UPDATE] )) AS [T151][MATERIAL, DISCO_DATE, DATE_UPDATE, MATERIAL1, MAX-DATE_UPDATE]
+WHERE
+  [T151].DATE_UPDATE == [T151].MAX-DATE_UPDATE
+@anonymous
+[T151].MATERIAL(StringVal) | [T151].DISCO_DATE(DateVal) | [T151].DATE_UPDATE(DateVal) 
+T6C25AW#ABC | Mon Oct 31 00:00:00 PDT 2016 | Fri Sep 30 00:00:00 PDT 2016 
+
+[No.7]===============================
+SELECT
+  [T59].MATERIAL,[T59].DISCO_DATE,[T59].DATE_UPDATE
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          MAX([T57].DATE_UPDATE)
+        FROM
+          (input1) AS [T57][MATERIAL, DISCO_DATE, DATE_UPDATE]) AS [T58][MAX-DATE_UPDATE] )) AS [T59][MATERIAL, DISCO_DATE, DATE_UPDATE, MAX-DATE_UPDATE]
+WHERE
+  [T59].DATE_UPDATE == [T59].MAX-DATE_UPDATE
+@anonymous
+[T59].MATERIAL(StringVal) | [T59].DISCO_DATE(DateVal) | [T59].DATE_UPDATE(DateVal) 
+T6C25AW#ABC | Mon Oct 31 00:00:00 PDT 2016 | Fri Sep 30 00:00:00 PDT 2016 
+
+[No.6]===============================
+SELECT
+  [T433].MATERIAL,[T433].MAX-DISCO_DATE,[T433].MAX-DATE_UPDATE
+FROM
+  (( (SELECT
+          [T421].MATERIAL, MAX([T421].DISCO_DATE)
+        FROM
+          (SELECT
+              input1.MATERIAL,input1.DISCO_DATE,input1.DATE_UPDATE
+            FROM
+              input1
+            WHERE
+              IS NOT NULLinput1.DISCO_DATE) AS [T421][MATERIAL, DISCO_DATE, DATE_UPDATE]
+        GROUP BY
+          [T421].MATERIAL) AS [T422][MATERIAL, MAX-DISCO_DATE] ) JOIN (
+      (SELECT
+          [T431].MATERIAL, MAX([T431].DATE_UPDATE)
+        FROM
+          (input1) AS [T431][MATERIAL, DISCO_DATE, DATE_UPDATE]
+        GROUP BY
+          [T431].MATERIAL) AS [T432][MATERIAL, MAX-DATE_UPDATE] )) AS [T433][MATERIAL, MAX-DISCO_DATE, MATERIAL1, MAX-DATE_UPDATE]
+
+@anonymous
+[T433].MATERIAL(StringVal) | [T433].MAX-DISCO_DATE(DateVal) | [T433].MAX-DATE_UPDATE(DateVal) 
+T6C25AW#ABC | Mon Oct 31 00:00:00 PDT 2016 | Fri Sep 30 00:00:00 PDT 2016 
+
+[No.5]===============================
+SELECT
+  [T417].MATERIAL,[T417].MAX-DISCO_DATE,[T417].MAX-DATE_UPDATE
+FROM
+  (( (SELECT
+          [T411].MATERIAL, MAX([T411].DATE_UPDATE)
+        FROM
+          (input1) AS [T411][MATERIAL, DISCO_DATE, DATE_UPDATE]
+        GROUP BY
+          [T411].MATERIAL) AS [T412][MATERIAL, MAX-DATE_UPDATE] ) JOIN (
+      (SELECT
+          [T415].MATERIAL, MAX([T415].DISCO_DATE)
+        FROM
+          (SELECT
+              input1.MATERIAL,input1.DISCO_DATE,input1.DATE_UPDATE
+            FROM
+              input1
+            WHERE
+              IS NOT NULLinput1.DISCO_DATE) AS [T415][MATERIAL, DISCO_DATE, DATE_UPDATE]
+        GROUP BY
+          [T415].MATERIAL) AS [T416][MATERIAL, MAX-DISCO_DATE] )) AS [T417][MATERIAL, MAX-DATE_UPDATE, MATERIAL1, MAX-DISCO_DATE]
+
+@anonymous
+[T417].MATERIAL(StringVal) | [T417].MAX-DISCO_DATE(DateVal) | [T417].MAX-DATE_UPDATE(DateVal) 
+T6C25AW#ABC | Mon Oct 31 00:00:00 PDT 2016 | Fri Sep 30 00:00:00 PDT 2016 
+
+[No.4]===============================
+SELECT
+  [T281].MATERIAL,[T281].MAX-DISCO_DATE,[T281].MAX-DATE_UPDATE
+FROM
+  (( (SELECT
+          MAX([T275].DATE_UPDATE)
+        FROM
+          (input1) AS [T275][MATERIAL, DISCO_DATE, DATE_UPDATE]) AS [T276][MAX-DATE_UPDATE] ) JOIN (
+      (SELECT
+          [T279].MATERIAL, MAX([T279].DISCO_DATE)
+        FROM
+          (SELECT
+              input1.MATERIAL,input1.DISCO_DATE,input1.DATE_UPDATE
+            FROM
+              input1
+            WHERE
+              IS NOT NULLinput1.DISCO_DATE) AS [T279][MATERIAL, DISCO_DATE, DATE_UPDATE]
+        GROUP BY
+          [T279].MATERIAL) AS [T280][MATERIAL, MAX-DISCO_DATE] )) AS [T281][MAX-DATE_UPDATE, MATERIAL, MAX-DISCO_DATE]
+
+@anonymous
+[T281].MATERIAL(StringVal) | [T281].MAX-DISCO_DATE(DateVal) | [T281].MAX-DATE_UPDATE(DateVal) 
+T6C25AW#ABC | Mon Oct 31 00:00:00 PDT 2016 | Fri Sep 30 00:00:00 PDT 2016 
+
+[No.3]===============================
+SELECT
+  [T265].MATERIAL,[T265].MAX-DISCO_DATE,[T265].MAX-DATE_UPDATE
+FROM
+  (( (SELECT
+          MAX([T253].DISCO_DATE)
+        FROM
+          (SELECT
+              input1.MATERIAL,input1.DISCO_DATE,input1.DATE_UPDATE
+            FROM
+              input1
+            WHERE
+              IS NOT NULLinput1.DISCO_DATE) AS [T253][MATERIAL, DISCO_DATE, DATE_UPDATE]) AS [T254][MAX-DISCO_DATE] ) JOIN (
+      (SELECT
+          [T263].MATERIAL, MAX([T263].DATE_UPDATE)
+        FROM
+          (input1) AS [T263][MATERIAL, DISCO_DATE, DATE_UPDATE]
+        GROUP BY
+          [T263].MATERIAL) AS [T264][MATERIAL, MAX-DATE_UPDATE] )) AS [T265][MAX-DISCO_DATE, MATERIAL, MAX-DATE_UPDATE]
+
+@anonymous
+[T265].MATERIAL(StringVal) | [T265].MAX-DISCO_DATE(DateVal) | [T265].MAX-DATE_UPDATE(DateVal) 
+T6C25AW#ABC | Mon Oct 31 00:00:00 PDT 2016 | Fri Sep 30 00:00:00 PDT 2016 
+
+[No.2]===============================
+SELECT
+  [T139].MATERIAL,[T139].MAX-DISCO_DATE,[T139].MAX-DATE_UPDATE
+FROM
+  (( (SELECT
+          [T133].MATERIAL, MAX([T133].DATE_UPDATE)
+        FROM
+          (input1) AS [T133][MATERIAL, DISCO_DATE, DATE_UPDATE]
+        GROUP BY
+          [T133].MATERIAL) AS [T134][MATERIAL, MAX-DATE_UPDATE] ) JOIN (
+      (SELECT
+          MAX([T137].DISCO_DATE)
+        FROM
+          (SELECT
+              input1.MATERIAL,input1.DISCO_DATE,input1.DATE_UPDATE
+            FROM
+              input1
+            WHERE
+              IS NOT NULLinput1.DISCO_DATE) AS [T137][MATERIAL, DISCO_DATE, DATE_UPDATE]) AS [T138][MAX-DISCO_DATE] )) AS [T139][MATERIAL, MAX-DATE_UPDATE, MAX-DISCO_DATE]
+
+@anonymous
+[T139].MATERIAL(StringVal) | [T139].MAX-DISCO_DATE(DateVal) | [T139].MAX-DATE_UPDATE(DateVal) 
+T6C25AW#ABC | Mon Oct 31 00:00:00 PDT 2016 | Fri Sep 30 00:00:00 PDT 2016 
+
+[No.1]===============================
+(( (SELECT
+        [T111].MATERIAL, MAX([T111].DISCO_DATE)
+      FROM
+        (SELECT
+            input1.MATERIAL,input1.DISCO_DATE,input1.DATE_UPDATE
+          FROM
+            input1
+          WHERE
+            IS NOT NULLinput1.DISCO_DATE) AS [T111][MATERIAL, DISCO_DATE, DATE_UPDATE]
+      GROUP BY
+        [T111].MATERIAL) AS [T112][MATERIAL, MAX-DISCO_DATE] ) JOIN (
+    (SELECT
+        MAX([T121].DATE_UPDATE)
+      FROM
+        (input1) AS [T121][MATERIAL, DISCO_DATE, DATE_UPDATE]) AS [T122][MAX-DATE_UPDATE] )) AS [T123][MATERIAL, MAX-DISCO_DATE, MAX-DATE_UPDATE]
+@anonymous
+[T123].MATERIAL(StringVal) | [T123].MAX-DISCO_DATE(DateVal) | [T123].MAX-DATE_UPDATE(DateVal) 
+T6C25AW#ABC | Mon Oct 31 00:00:00 PDT 2016 | Fri Sep 30 00:00:00 PDT 2016 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.624s

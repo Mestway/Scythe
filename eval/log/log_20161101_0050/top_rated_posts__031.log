@@ -1,0 +1,551 @@
+[[Synthesis start]]
+	File: ..\data\top_rated_posts\031
+	Enumerator: StagedEnumerator
+[Retry] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[EnumJoinOnAggr] level 1 [SymTable]: 56
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Retry] Maximum Depth: 2
+@output
+id(NumberVal) | position(NumberVal) | name(StringVal) 
+7.0 | 2.0 | Beta 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 14
+[UNION] level 1 [SymTable]: 15
+[EnumLeftJoin] level 1 [SymTable]: 15
+[EnumAggrOnJoin] level 1 [SymTable]: 60
+Candidate Tree Number: 48
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T4675].id,[T4675].COUNT-name_ascii1,[T4675].name
+FROM
+  (SELECT
+      [T4674].id, [T4674].name, COUNT([T4674].name_ascii1)
+    FROM
+      (SELECT
+          [T4664].id,[T4664].name,[T4664].name_ascii,[T4664].id1,[T4664].name1,[T4664].name_ascii1
+        FROM
+          (( SELECT
+                input1.id,input1.name,input1.name_ascii
+              FROM
+                input1
+              WHERE
+                input1.name == Beta ) JOIN (
+              input1 )) AS [T4664][id, name, name_ascii, id1, name1, name_ascii1]
+        WHERE
+          [T4664].name_ascii < [T4664].name_ascii1) AS [T4674][id, name, name_ascii, id1, name1, name_ascii1]
+    GROUP BY
+      [T4674].id  [T4674].name) AS [T4675][id, name, COUNT-name_ascii1]
+
+@anonymous
+[T4675].id(NumberVal) | [T4675].COUNT-name_ascii1(NumberVal) | [T4675].name(StringVal) 
+7.0 | 2.0 | Beta 
+
+[No.19]===============================
+SELECT
+  [T4655].id1,[T4655].COUNT-name1,[T4655].name1
+FROM
+  (SELECT
+      [T4654].id1, [T4654].name1, [T4654].name_ascii1, COUNT([T4654].name1)
+    FROM
+      (SELECT
+          [T4644].id,[T4644].name,[T4644].name_ascii,[T4644].id1,[T4644].name1,[T4644].name_ascii1
+        FROM
+          (( input1 ) JOIN (
+              SELECT
+                input1.id,input1.name,input1.name_ascii
+              FROM
+                input1
+              WHERE
+                input1.name == Beta )) AS [T4644][id, name, name_ascii, id1, name1, name_ascii1]
+        WHERE
+          [T4644].name_ascii <= [T4644].name_ascii1) AS [T4654][id, name, name_ascii, id1, name1, name_ascii1]
+    GROUP BY
+      [T4654].id1  [T4654].name1  [T4654].name_ascii1) AS [T4655][id1, name1, name_ascii1, COUNT-name1]
+
+@anonymous
+[T4655].id1(NumberVal) | [T4655].COUNT-name1(NumberVal) | [T4655].name1(StringVal) 
+7.0 | 2.0 | Beta 
+
+[No.18]===============================
+SELECT
+  [T4635].id,[T4635].COUNT-id,[T4635].name
+FROM
+  (SELECT
+      [T4634].id, [T4634].name, COUNT([T4634].id)
+    FROM
+      (SELECT
+          [T4624].id,[T4624].name,[T4624].name_ascii,[T4624].id1,[T4624].name1,[T4624].name_ascii1
+        FROM
+          (( SELECT
+                input1.id,input1.name,input1.name_ascii
+              FROM
+                input1
+              WHERE
+                input1.name == Beta ) JOIN (
+              input1 )) AS [T4624][id, name, name_ascii, id1, name1, name_ascii1]
+        WHERE
+          [T4624].name_ascii >= [T4624].name_ascii1) AS [T4634][id, name, name_ascii, id1, name1, name_ascii1]
+    GROUP BY
+      [T4634].id  [T4634].name) AS [T4635][id, name, COUNT-id]
+
+@anonymous
+[T4635].id(NumberVal) | [T4635].COUNT-id(NumberVal) | [T4635].name(StringVal) 
+7.0 | 2.0 | Beta 
+
+[No.17]===============================
+SELECT
+  [T4615].id,[T4615].COUNT-id1,[T4615].name
+FROM
+  (SELECT
+      [T4614].id, [T4614].name, COUNT([T4614].id1)
+    FROM
+      (SELECT
+          [T4604].id,[T4604].name,[T4604].name_ascii,[T4604].id1,[T4604].name1,[T4604].name_ascii1
+        FROM
+          (( SELECT
+                input1.id,input1.name,input1.name_ascii
+              FROM
+                input1
+              WHERE
+                input1.name == Beta ) JOIN (
+              input1 )) AS [T4604][id, name, name_ascii, id1, name1, name_ascii1]
+        WHERE
+          [T4604].name_ascii >= [T4604].name_ascii1) AS [T4614][id, name, name_ascii, id1, name1, name_ascii1]
+    GROUP BY
+      [T4614].id  [T4614].name) AS [T4615][id, name, COUNT-id1]
+
+@anonymous
+[T4615].id(NumberVal) | [T4615].COUNT-id1(NumberVal) | [T4615].name(StringVal) 
+7.0 | 2.0 | Beta 
+
+[No.16]===============================
+SELECT
+  [T4595].id,[T4595].COUNT-name_ascii1,[T4595].name
+FROM
+  (SELECT
+      [T4594].id, [T4594].name, [T4594].name_ascii, COUNT([T4594].name_ascii1)
+    FROM
+      (SELECT
+          [T4584].id,[T4584].name,[T4584].name_ascii,[T4584].id1,[T4584].name1,[T4584].name_ascii1
+        FROM
+          (( SELECT
+                input1.id,input1.name,input1.name_ascii
+              FROM
+                input1
+              WHERE
+                input1.name == Beta ) JOIN (
+              input1 )) AS [T4584][id, name, name_ascii, id1, name1, name_ascii1]
+        WHERE
+          [T4584].name_ascii < [T4584].name_ascii1) AS [T4594][id, name, name_ascii, id1, name1, name_ascii1]
+    GROUP BY
+      [T4594].id  [T4594].name  [T4594].name_ascii) AS [T4595][id, name, name_ascii, COUNT-name_ascii1]
+
+@anonymous
+[T4595].id(NumberVal) | [T4595].COUNT-name_ascii1(NumberVal) | [T4595].name(StringVal) 
+7.0 | 2.0 | Beta 
+
+[No.15]===============================
+SELECT
+  [T4575].id,[T4575].COUNT-name_ascii1,[T4575].name
+FROM
+  (SELECT
+      [T4574].id, [T4574].name, [T4574].name_ascii, COUNT([T4574].name_ascii1)
+    FROM
+      (SELECT
+          [T4564].id,[T4564].name,[T4564].name_ascii,[T4564].id1,[T4564].name1,[T4564].name_ascii1
+        FROM
+          (( SELECT
+                input1.id,input1.name,input1.name_ascii
+              FROM
+                input1
+              WHERE
+                input1.name == Beta ) JOIN (
+              input1 )) AS [T4564][id, name, name_ascii, id1, name1, name_ascii1]
+        WHERE
+          [T4564].name_ascii >= [T4564].name_ascii1) AS [T4574][id, name, name_ascii, id1, name1, name_ascii1]
+    GROUP BY
+      [T4574].id  [T4574].name  [T4574].name_ascii) AS [T4575][id, name, name_ascii, COUNT-name_ascii1]
+
+@anonymous
+[T4575].id(NumberVal) | [T4575].COUNT-name_ascii1(NumberVal) | [T4575].name(StringVal) 
+7.0 | 2.0 | Beta 
+
+[No.14]===============================
+SELECT
+  [T4555].id,[T4555].COUNT-name_ascii,[T4555].name
+FROM
+  (SELECT
+      [T4554].id, [T4554].name, COUNT([T4554].name_ascii)
+    FROM
+      (SELECT
+          [T4544].id,[T4544].name,[T4544].name_ascii,[T4544].id1,[T4544].name1,[T4544].name_ascii1
+        FROM
+          (( SELECT
+                input1.id,input1.name,input1.name_ascii
+              FROM
+                input1
+              WHERE
+                input1.name == Beta ) JOIN (
+              input1 )) AS [T4544][id, name, name_ascii, id1, name1, name_ascii1]
+        WHERE
+          [T4544].name_ascii >= [T4544].name_ascii1) AS [T4554][id, name, name_ascii, id1, name1, name_ascii1]
+    GROUP BY
+      [T4554].id  [T4554].name) AS [T4555][id, name, COUNT-name_ascii]
+
+@anonymous
+[T4555].id(NumberVal) | [T4555].COUNT-name_ascii(NumberVal) | [T4555].name(StringVal) 
+7.0 | 2.0 | Beta 
+
+[No.13]===============================
+SELECT
+  [T4535].id1,[T4535].COUNT-id1,[T4535].name1
+FROM
+  (SELECT
+      [T4534].id1, [T4534].name1, [T4534].name_ascii1, COUNT([T4534].id1)
+    FROM
+      (SELECT
+          [T4524].id,[T4524].name,[T4524].name_ascii,[T4524].id1,[T4524].name1,[T4524].name_ascii1
+        FROM
+          (( input1 ) JOIN (
+              SELECT
+                input1.id,input1.name,input1.name_ascii
+              FROM
+                input1
+              WHERE
+                input1.name == Beta )) AS [T4524][id, name, name_ascii, id1, name1, name_ascii1]
+        WHERE
+          [T4524].name_ascii <= [T4524].name_ascii1) AS [T4534][id, name, name_ascii, id1, name1, name_ascii1]
+    GROUP BY
+      [T4534].id1  [T4534].name1  [T4534].name_ascii1) AS [T4535][id1, name1, name_ascii1, COUNT-id1]
+
+@anonymous
+[T4535].id1(NumberVal) | [T4535].COUNT-id1(NumberVal) | [T4535].name1(StringVal) 
+7.0 | 2.0 | Beta 
+
+[No.12]===============================
+SELECT
+  [T4515].id,[T4515].COUNT-name,[T4515].name
+FROM
+  (SELECT
+      [T4514].id, [T4514].name, COUNT([T4514].name)
+    FROM
+      (SELECT
+          [T4504].id,[T4504].name,[T4504].name_ascii,[T4504].id1,[T4504].name1,[T4504].name_ascii1
+        FROM
+          (( SELECT
+                input1.id,input1.name,input1.name_ascii
+              FROM
+                input1
+              WHERE
+                input1.name == Beta ) JOIN (
+              input1 )) AS [T4504][id, name, name_ascii, id1, name1, name_ascii1]
+        WHERE
+          [T4504].name_ascii >= [T4504].name_ascii1) AS [T4514][id, name, name_ascii, id1, name1, name_ascii1]
+    GROUP BY
+      [T4514].id  [T4514].name) AS [T4515][id, name, COUNT-name]
+
+@anonymous
+[T4515].id(NumberVal) | [T4515].COUNT-name(NumberVal) | [T4515].name(StringVal) 
+7.0 | 2.0 | Beta 
+
+[No.11]===============================
+SELECT
+  [T4495].id1,[T4495].COUNT-name,[T4495].name1
+FROM
+  (SELECT
+      [T4494].id1, [T4494].name1, [T4494].name_ascii1, COUNT([T4494].name)
+    FROM
+      (SELECT
+          [T4484].id,[T4484].name,[T4484].name_ascii,[T4484].id1,[T4484].name1,[T4484].name_ascii1
+        FROM
+          (( input1 ) JOIN (
+              SELECT
+                input1.id,input1.name,input1.name_ascii
+              FROM
+                input1
+              WHERE
+                input1.name == Beta )) AS [T4484][id, name, name_ascii, id1, name1, name_ascii1]
+        WHERE
+          [T4484].name_ascii <= [T4484].name_ascii1) AS [T4494][id, name, name_ascii, id1, name1, name_ascii1]
+    GROUP BY
+      [T4494].id1  [T4494].name1  [T4494].name_ascii1) AS [T4495][id1, name1, name_ascii1, COUNT-name]
+
+@anonymous
+[T4495].id1(NumberVal) | [T4495].COUNT-name(NumberVal) | [T4495].name1(StringVal) 
+7.0 | 2.0 | Beta 
+
+[No.10]===============================
+SELECT
+  [T4475].id,[T4475].COUNT-id,[T4475].name
+FROM
+  (SELECT
+      [T4474].id, [T4474].name, COUNT([T4474].id)
+    FROM
+      (SELECT
+          [T4464].id,[T4464].name,[T4464].name_ascii,[T4464].id1,[T4464].name1,[T4464].name_ascii1
+        FROM
+          (( SELECT
+                input1.id,input1.name,input1.name_ascii
+              FROM
+                input1
+              WHERE
+                input1.name == Beta ) JOIN (
+              input1 )) AS [T4464][id, name, name_ascii, id1, name1, name_ascii1]
+        WHERE
+          [T4464].name_ascii < [T4464].name_ascii1) AS [T4474][id, name, name_ascii, id1, name1, name_ascii1]
+    GROUP BY
+      [T4474].id  [T4474].name) AS [T4475][id, name, COUNT-id]
+
+@anonymous
+[T4475].id(NumberVal) | [T4475].COUNT-id(NumberVal) | [T4475].name(StringVal) 
+7.0 | 2.0 | Beta 
+
+[No.9]===============================
+SELECT
+  [T4455].id,[T4455].COUNT-name1,[T4455].name
+FROM
+  (SELECT
+      [T4454].id, [T4454].name, COUNT([T4454].name1)
+    FROM
+      (SELECT
+          [T4444].id,[T4444].name,[T4444].name_ascii,[T4444].id1,[T4444].name1,[T4444].name_ascii1
+        FROM
+          (( SELECT
+                input1.id,input1.name,input1.name_ascii
+              FROM
+                input1
+              WHERE
+                input1.name == Beta ) JOIN (
+              input1 )) AS [T4444][id, name, name_ascii, id1, name1, name_ascii1]
+        WHERE
+          [T4444].name_ascii < [T4444].name_ascii1) AS [T4454][id, name, name_ascii, id1, name1, name_ascii1]
+    GROUP BY
+      [T4454].id  [T4454].name) AS [T4455][id, name, COUNT-name1]
+
+@anonymous
+[T4455].id(NumberVal) | [T4455].COUNT-name1(NumberVal) | [T4455].name(StringVal) 
+7.0 | 2.0 | Beta 
+
+[No.8]===============================
+SELECT
+  [T4435].id1,[T4435].COUNT-name_ascii1,[T4435].name1
+FROM
+  (SELECT
+      [T4434].id1, [T4434].name1, [T4434].name_ascii1, COUNT([T4434].name_ascii1)
+    FROM
+      (SELECT
+          [T4424].id,[T4424].name,[T4424].name_ascii,[T4424].id1,[T4424].name1,[T4424].name_ascii1
+        FROM
+          (( input1 ) JOIN (
+              SELECT
+                input1.id,input1.name,input1.name_ascii
+              FROM
+                input1
+              WHERE
+                input1.name == Beta )) AS [T4424][id, name, name_ascii, id1, name1, name_ascii1]
+        WHERE
+          [T4424].name_ascii <= [T4424].name_ascii1) AS [T4434][id, name, name_ascii, id1, name1, name_ascii1]
+    GROUP BY
+      [T4434].id1  [T4434].name1  [T4434].name_ascii1) AS [T4435][id1, name1, name_ascii1, COUNT-name_ascii1]
+
+@anonymous
+[T4435].id1(NumberVal) | [T4435].COUNT-name_ascii1(NumberVal) | [T4435].name1(StringVal) 
+7.0 | 2.0 | Beta 
+
+[No.7]===============================
+SELECT
+  [T4415].id1,[T4415].COUNT-name_ascii,[T4415].name1
+FROM
+  (SELECT
+      [T4414].id1, [T4414].name1, [T4414].name_ascii1, COUNT([T4414].name_ascii)
+    FROM
+      (SELECT
+          [T4404].id,[T4404].name,[T4404].name_ascii,[T4404].id1,[T4404].name1,[T4404].name_ascii1
+        FROM
+          (( input1 ) JOIN (
+              SELECT
+                input1.id,input1.name,input1.name_ascii
+              FROM
+                input1
+              WHERE
+                input1.name == Beta )) AS [T4404][id, name, name_ascii, id1, name1, name_ascii1]
+        WHERE
+          [T4404].name_ascii <= [T4404].name_ascii1) AS [T4414][id, name, name_ascii, id1, name1, name_ascii1]
+    GROUP BY
+      [T4414].id1  [T4414].name1  [T4414].name_ascii1) AS [T4415][id1, name1, name_ascii1, COUNT-name_ascii]
+
+@anonymous
+[T4415].id1(NumberVal) | [T4415].COUNT-name_ascii(NumberVal) | [T4415].name1(StringVal) 
+7.0 | 2.0 | Beta 
+
+[No.6]===============================
+SELECT
+  [T4395].id1,[T4395].COUNT-name,[T4395].name1
+FROM
+  (SELECT
+      [T4394].id1, [T4394].name1, COUNT([T4394].name)
+    FROM
+      (SELECT
+          [T4384].id,[T4384].name,[T4384].name_ascii,[T4384].id1,[T4384].name1,[T4384].name_ascii1
+        FROM
+          (( input1 ) JOIN (
+              SELECT
+                input1.id,input1.name,input1.name_ascii
+              FROM
+                input1
+              WHERE
+                input1.name == Beta )) AS [T4384][id, name, name_ascii, id1, name1, name_ascii1]
+        WHERE
+          [T4384].name_ascii <= [T4384].name_ascii1) AS [T4394][id, name, name_ascii, id1, name1, name_ascii1]
+    GROUP BY
+      [T4394].id1  [T4394].name1) AS [T4395][id1, name1, COUNT-name]
+
+@anonymous
+[T4395].id1(NumberVal) | [T4395].COUNT-name(NumberVal) | [T4395].name1(StringVal) 
+7.0 | 2.0 | Beta 
+
+[No.5]===============================
+SELECT
+  [T4375].id1,[T4375].COUNT-name_ascii1,[T4375].name1
+FROM
+  (SELECT
+      [T4374].id1, [T4374].name1, [T4374].name_ascii1, COUNT([T4374].name_ascii1)
+    FROM
+      (SELECT
+          [T4364].id,[T4364].name,[T4364].name_ascii,[T4364].id1,[T4364].name1,[T4364].name_ascii1
+        FROM
+          (( input1 ) JOIN (
+              SELECT
+                input1.id,input1.name,input1.name_ascii
+              FROM
+                input1
+              WHERE
+                input1.name == Beta )) AS [T4364][id, name, name_ascii, id1, name1, name_ascii1]
+        WHERE
+          [T4364].name_ascii > [T4364].name_ascii1) AS [T4374][id, name, name_ascii, id1, name1, name_ascii1]
+    GROUP BY
+      [T4374].id1  [T4374].name1  [T4374].name_ascii1) AS [T4375][id1, name1, name_ascii1, COUNT-name_ascii1]
+
+@anonymous
+[T4375].id1(NumberVal) | [T4375].COUNT-name_ascii1(NumberVal) | [T4375].name1(StringVal) 
+7.0 | 2.0 | Beta 
+
+[No.4]===============================
+SELECT
+  [T4355].id,[T4355].COUNT-name,[T4355].name
+FROM
+  (SELECT
+      [T4354].id, [T4354].name, COUNT([T4354].name)
+    FROM
+      (SELECT
+          [T4344].id,[T4344].name,[T4344].name_ascii,[T4344].id1,[T4344].name1,[T4344].name_ascii1
+        FROM
+          (( SELECT
+                input1.id,input1.name,input1.name_ascii
+              FROM
+                input1
+              WHERE
+                input1.name == Beta ) JOIN (
+              input1 )) AS [T4344][id, name, name_ascii, id1, name1, name_ascii1]
+        WHERE
+          [T4344].name_ascii < [T4344].name_ascii1) AS [T4354][id, name, name_ascii, id1, name1, name_ascii1]
+    GROUP BY
+      [T4354].id  [T4354].name) AS [T4355][id, name, COUNT-name]
+
+@anonymous
+[T4355].id(NumberVal) | [T4355].COUNT-name(NumberVal) | [T4355].name(StringVal) 
+7.0 | 2.0 | Beta 
+
+[No.3]===============================
+SELECT
+  [T4335].id1,[T4335].COUNT-name_ascii,[T4335].name1
+FROM
+  (SELECT
+      [T4334].id1, [T4334].name1, COUNT([T4334].name_ascii)
+    FROM
+      (SELECT
+          [T4324].id,[T4324].name,[T4324].name_ascii,[T4324].id1,[T4324].name1,[T4324].name_ascii1
+        FROM
+          (( input1 ) JOIN (
+              SELECT
+                input1.id,input1.name,input1.name_ascii
+              FROM
+                input1
+              WHERE
+                input1.name == Beta )) AS [T4324][id, name, name_ascii, id1, name1, name_ascii1]
+        WHERE
+          [T4324].name_ascii <= [T4324].name_ascii1) AS [T4334][id, name, name_ascii, id1, name1, name_ascii1]
+    GROUP BY
+      [T4334].id1  [T4334].name1) AS [T4335][id1, name1, COUNT-name_ascii]
+
+@anonymous
+[T4335].id1(NumberVal) | [T4335].COUNT-name_ascii(NumberVal) | [T4335].name1(StringVal) 
+7.0 | 2.0 | Beta 
+
+[No.2]===============================
+SELECT
+  [T4315].id,[T4315].COUNT-name,[T4315].name
+FROM
+  (SELECT
+      [T4314].id, [T4314].name, [T4314].name_ascii, COUNT([T4314].name)
+    FROM
+      (SELECT
+          [T4304].id,[T4304].name,[T4304].name_ascii,[T4304].id1,[T4304].name1,[T4304].name_ascii1
+        FROM
+          (( SELECT
+                input1.id,input1.name,input1.name_ascii
+              FROM
+                input1
+              WHERE
+                input1.name == Beta ) JOIN (
+              input1 )) AS [T4304][id, name, name_ascii, id1, name1, name_ascii1]
+        WHERE
+          [T4304].name_ascii >= [T4304].name_ascii1) AS [T4314][id, name, name_ascii, id1, name1, name_ascii1]
+    GROUP BY
+      [T4314].id  [T4314].name  [T4314].name_ascii) AS [T4315][id, name, name_ascii, COUNT-name]
+
+@anonymous
+[T4315].id(NumberVal) | [T4315].COUNT-name(NumberVal) | [T4315].name(StringVal) 
+7.0 | 2.0 | Beta 
+
+[No.1]===============================
+SELECT
+  [T4295].id1,[T4295].COUNT-id,[T4295].name1
+FROM
+  (SELECT
+      [T4294].id1, [T4294].name1, [T4294].name_ascii1, COUNT([T4294].id)
+    FROM
+      (SELECT
+          [T4284].id,[T4284].name,[T4284].name_ascii,[T4284].id1,[T4284].name1,[T4284].name_ascii1
+        FROM
+          (( input1 ) JOIN (
+              SELECT
+                input1.id,input1.name,input1.name_ascii
+              FROM
+                input1
+              WHERE
+                input1.name == Beta )) AS [T4284][id, name, name_ascii, id1, name1, name_ascii1]
+        WHERE
+          [T4284].name_ascii > [T4284].name_ascii1) AS [T4294][id, name, name_ascii, id1, name1, name_ascii1]
+    GROUP BY
+      [T4294].id1  [T4294].name1  [T4294].name_ascii1) AS [T4295][id1, name1, name_ascii1, COUNT-id]
+
+@anonymous
+[T4295].id1(NumberVal) | [T4295].COUNT-id(NumberVal) | [T4295].name1(StringVal) 
+7.0 | 2.0 | Beta 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 1.044s

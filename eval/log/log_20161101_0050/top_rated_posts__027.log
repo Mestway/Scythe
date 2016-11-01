@@ -1,0 +1,390 @@
+[[Synthesis start]]
+	File: ..\data\top_rated_posts\027
+	Enumerator: StagedEnumerator
+[Retry] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[EnumJoinOnAggr] level 1 [SymTable]: 20
+Candidate Tree Number: 20
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T71].cname,[T71].wmname,[T71].avg
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T69].cname, MAX([T69].avg)
+        FROM
+          (input1) AS [T69][cname, wmname, avg]
+        GROUP BY
+          [T69].cname) AS [T70][cname, MAX-avg] )) AS [T71][cname, wmname, avg, cname1, MAX-avg]
+WHERE
+  [T71].cname == [T71].cname1
+   AND [T71].avg >= [T71].MAX-avg
+@anonymous
+[T71].cname(StringVal) | [T71].wmname(StringVal) | [T71].avg(NumberVal) 
+canada | zoro | 2.0 
+spain | usopp | 5.0 
+
+[No.19]===============================
+SELECT
+  [T41].cname,[T41].wmname,[T41].MAX-avg
+FROM
+  (( (SELECT
+          [T39].cname, MAX([T39].avg)
+        FROM
+          (input1) AS [T39][cname, wmname, avg]
+        GROUP BY
+          [T39].cname) AS [T40][cname, MAX-avg] ) JOIN (
+      input1 )) AS [T41][cname, MAX-avg, cname1, wmname, avg]
+WHERE
+  [T41].cname == [T41].cname1
+   AND [T41].MAX-avg <= [T41].avg
+@anonymous
+[T41].cname(StringVal) | [T41].wmname(StringVal) | [T41].MAX-avg(NumberVal) 
+canada | zoro | 2.0 
+spain | usopp | 5.0 
+
+[No.18]===============================
+SELECT
+  [T91].cname,[T91].wmname,[T91].avg
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.cname,input1.wmname,input1.avg
+      FROM
+        input1
+      WHERE
+        True )) AS [T91][cname, wmname, avg, cname1, wmname1, avg1]
+WHERE
+  [T91].cname <> [T91].cname1
+   AND [T91].avg >= [T91].avg1
+@anonymous
+[T91].cname(StringVal) | [T91].wmname(StringVal) | [T91].avg(NumberVal) 
+canada | zoro | 2.0 
+spain | usopp | 5.0 
+
+[No.17]===============================
+SELECT
+  [T89].cname,[T89].wmname,[T89].avg
+FROM
+  (( SELECT
+        input1.cname,input1.wmname,input1.avg
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T89][cname, wmname, avg, cname1, wmname1, avg1]
+WHERE
+  [T89].cname <> [T89].cname1
+   AND [T89].avg > [T89].avg1
+@anonymous
+[T89].cname(StringVal) | [T89].wmname(StringVal) | [T89].avg(NumberVal) 
+canada | zoro | 2.0 
+spain | usopp | 5.0 
+
+[No.16]===============================
+SELECT
+  [T87].cname,[T87].wmname,[T87].avg
+FROM
+  (( SELECT
+        input1.cname,input1.wmname,input1.avg
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T87][cname, wmname, avg, cname1, wmname1, avg1]
+WHERE
+  [T87].cname <> [T87].cname1
+   AND [T87].avg >= [T87].avg1
+@anonymous
+[T87].cname(StringVal) | [T87].wmname(StringVal) | [T87].avg(NumberVal) 
+canada | zoro | 2.0 
+spain | usopp | 5.0 
+
+[No.15]===============================
+SELECT
+  [T81].cname1,[T81].wmname1,[T81].avg1
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.cname,input1.wmname,input1.avg
+      FROM
+        input1
+      WHERE
+        True )) AS [T81][cname, wmname, avg, cname1, wmname1, avg1]
+WHERE
+  [T81].avg < [T81].avg1
+   AND [T81].cname <> [T81].cname1
+@anonymous
+[T81].cname1(StringVal) | [T81].wmname1(StringVal) | [T81].avg1(NumberVal) 
+spain | usopp | 5.0 
+canada | zoro | 2.0 
+
+[No.14]===============================
+SELECT
+  [T79].cname1,[T79].wmname1,[T79].avg1
+FROM
+  (( SELECT
+        input1.cname,input1.wmname,input1.avg
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T79][cname, wmname, avg, cname1, wmname1, avg1]
+WHERE
+  [T79].cname <> [T79].cname1
+   AND [T79].avg <= [T79].avg1
+@anonymous
+[T79].cname1(StringVal) | [T79].wmname1(StringVal) | [T79].avg1(NumberVal) 
+spain | usopp | 5.0 
+canada | zoro | 2.0 
+
+[No.13]===============================
+SELECT
+  [T77].cname1,[T77].wmname1,[T77].avg1
+FROM
+  (( SELECT
+        input1.cname,input1.wmname,input1.avg
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T77][cname, wmname, avg, cname1, wmname1, avg1]
+WHERE
+  [T77].avg < [T77].avg1
+   AND [T77].cname <> [T77].cname1
+@anonymous
+[T77].cname1(StringVal) | [T77].wmname1(StringVal) | [T77].avg1(NumberVal) 
+spain | usopp | 5.0 
+canada | zoro | 2.0 
+
+[No.12]===============================
+SELECT
+  [T85].cname,[T85].wmname,[T85].avg
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T85][cname, wmname, avg, cname1, wmname1, avg1]
+WHERE
+  [T85].cname <> [T85].cname1
+   AND [T85].avg > [T85].avg1
+@anonymous
+[T85].cname(StringVal) | [T85].wmname(StringVal) | [T85].avg(NumberVal) 
+canada | zoro | 2.0 
+spain | usopp | 5.0 
+
+[No.11]===============================
+SELECT
+  [T83].cname,[T83].wmname,[T83].avg
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T83][cname, wmname, avg, cname1, wmname1, avg1]
+WHERE
+  [T83].cname <> [T83].cname1
+   AND [T83].avg >= [T83].avg1
+@anonymous
+[T83].cname(StringVal) | [T83].wmname(StringVal) | [T83].avg(NumberVal) 
+canada | zoro | 2.0 
+spain | usopp | 5.0 
+
+[No.10]===============================
+SELECT
+  [T75].cname1,[T75].wmname1,[T75].avg1
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T75][cname, wmname, avg, cname1, wmname1, avg1]
+WHERE
+  [T75].cname <> [T75].cname1
+   AND [T75].avg <= [T75].avg1
+@anonymous
+[T75].cname1(StringVal) | [T75].wmname1(StringVal) | [T75].avg1(NumberVal) 
+spain | usopp | 5.0 
+canada | zoro | 2.0 
+
+[No.9]===============================
+SELECT
+  [T73].cname1,[T73].wmname1,[T73].avg1
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T73][cname, wmname, avg, cname1, wmname1, avg1]
+WHERE
+  [T73].avg < [T73].avg1
+   AND [T73].cname <> [T73].cname1
+@anonymous
+[T73].cname1(StringVal) | [T73].wmname1(StringVal) | [T73].avg1(NumberVal) 
+spain | usopp | 5.0 
+canada | zoro | 2.0 
+
+[No.8]===============================
+SELECT
+  [T65].cname,[T65].wmname,[T65].avg
+FROM
+  (( SELECT
+        input1.cname,input1.wmname,input1.avg
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      (SELECT
+          [T63].cname, MAX([T63].avg)
+        FROM
+          (input1) AS [T63][cname, wmname, avg]
+        GROUP BY
+          [T63].cname) AS [T64][cname, MAX-avg] )) AS [T65][cname, wmname, avg, cname1, MAX-avg]
+WHERE
+  [T65].cname == [T65].cname1
+   AND [T65].avg == [T65].MAX-avg
+@anonymous
+[T65].cname(StringVal) | [T65].wmname(StringVal) | [T65].avg(NumberVal) 
+canada | zoro | 2.0 
+spain | usopp | 5.0 
+
+[No.7]===============================
+SELECT
+  [T35].cname,[T35].wmname,[T35].MAX-avg
+FROM
+  (( (SELECT
+          [T33].cname, MAX([T33].avg)
+        FROM
+          (input1) AS [T33][cname, wmname, avg]
+        GROUP BY
+          [T33].cname) AS [T34][cname, MAX-avg] ) JOIN (
+      SELECT
+        input1.cname,input1.wmname,input1.avg
+      FROM
+        input1
+      WHERE
+        True )) AS [T35][cname, MAX-avg, cname1, wmname, avg]
+WHERE
+  [T35].cname == [T35].cname1
+   AND [T35].MAX-avg == [T35].avg
+@anonymous
+[T35].cname(StringVal) | [T35].wmname(StringVal) | [T35].MAX-avg(NumberVal) 
+canada | zoro | 2.0 
+spain | usopp | 5.0 
+
+[No.6]===============================
+SELECT
+  [T53].cname,[T53].wmname,[T53].avg
+FROM
+  (( SELECT
+        input1.cname,input1.wmname,input1.avg
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      (SELECT
+          [T51].cname, MAX([T51].avg)
+        FROM
+          (input1) AS [T51][cname, wmname, avg]
+        GROUP BY
+          [T51].cname) AS [T52][cname, MAX-avg] )) AS [T53][cname, wmname, avg, cname1, MAX-avg]
+WHERE
+  [T53].avg == [T53].MAX-avg
+@anonymous
+[T53].cname(StringVal) | [T53].wmname(StringVal) | [T53].avg(NumberVal) 
+canada | zoro | 2.0 
+spain | usopp | 5.0 
+
+[No.5]===============================
+SELECT
+  [T23].cname,[T23].wmname,[T23].MAX-avg
+FROM
+  (( (SELECT
+          [T21].cname, MAX([T21].avg)
+        FROM
+          (input1) AS [T21][cname, wmname, avg]
+        GROUP BY
+          [T21].cname) AS [T22][cname, MAX-avg] ) JOIN (
+      SELECT
+        input1.cname,input1.wmname,input1.avg
+      FROM
+        input1
+      WHERE
+        True )) AS [T23][cname, MAX-avg, cname1, wmname, avg]
+WHERE
+  [T23].MAX-avg == [T23].avg
+@anonymous
+[T23].cname(StringVal) | [T23].wmname(StringVal) | [T23].MAX-avg(NumberVal) 
+canada | zoro | 2.0 
+spain | usopp | 5.0 
+
+[No.4]===============================
+SELECT
+  [T59].cname,[T59].wmname,[T59].avg
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T57].cname, MAX([T57].avg)
+        FROM
+          (input1) AS [T57][cname, wmname, avg]
+        GROUP BY
+          [T57].cname) AS [T58][cname, MAX-avg] )) AS [T59][cname, wmname, avg, cname1, MAX-avg]
+WHERE
+  [T59].cname == [T59].cname1
+   AND [T59].avg == [T59].MAX-avg
+@anonymous
+[T59].cname(StringVal) | [T59].wmname(StringVal) | [T59].avg(NumberVal) 
+canada | zoro | 2.0 
+spain | usopp | 5.0 
+
+[No.3]===============================
+SELECT
+  [T29].cname,[T29].wmname,[T29].MAX-avg
+FROM
+  (( (SELECT
+          [T27].cname, MAX([T27].avg)
+        FROM
+          (input1) AS [T27][cname, wmname, avg]
+        GROUP BY
+          [T27].cname) AS [T28][cname, MAX-avg] ) JOIN (
+      input1 )) AS [T29][cname, MAX-avg, cname1, wmname, avg]
+WHERE
+  [T29].cname == [T29].cname1
+   AND [T29].MAX-avg == [T29].avg
+@anonymous
+[T29].cname(StringVal) | [T29].wmname(StringVal) | [T29].MAX-avg(NumberVal) 
+canada | zoro | 2.0 
+spain | usopp | 5.0 
+
+[No.2]===============================
+SELECT
+  [T47].cname,[T47].wmname,[T47].avg
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T45].cname, MAX([T45].avg)
+        FROM
+          (input1) AS [T45][cname, wmname, avg]
+        GROUP BY
+          [T45].cname) AS [T46][cname, MAX-avg] )) AS [T47][cname, wmname, avg, cname1, MAX-avg]
+WHERE
+  [T47].avg == [T47].MAX-avg
+@anonymous
+[T47].cname(StringVal) | [T47].wmname(StringVal) | [T47].avg(NumberVal) 
+canada | zoro | 2.0 
+spain | usopp | 5.0 
+
+[No.1]===============================
+SELECT
+  [T17].cname,[T17].wmname,[T17].MAX-avg
+FROM
+  (( (SELECT
+          [T15].cname, MAX([T15].avg)
+        FROM
+          (input1) AS [T15][cname, wmname, avg]
+        GROUP BY
+          [T15].cname) AS [T16][cname, MAX-avg] ) JOIN (
+      input1 )) AS [T17][cname, MAX-avg, cname1, wmname, avg]
+WHERE
+  [T17].MAX-avg == [T17].avg
+@anonymous
+[T17].cname(StringVal) | [T17].wmname(StringVal) | [T17].MAX-avg(NumberVal) 
+canada | zoro | 2.0 
+spain | usopp | 5.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.204s

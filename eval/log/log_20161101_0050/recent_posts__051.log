@@ -1,0 +1,221 @@
+[[Synthesis start]]
+	File: ..\data\recent_posts\051
+	Enumerator: StagedEnumerator
+[Retry] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[NaturalJoin]: 1 [SymTable]: 2
+[Aggregation]: 7 [SymTable]: 9
+[EnumJoinOnAggr] level 1 [SymTable]: 90
+Candidate Tree Number: 10
+[Enumeration Finished]
+[No.10]===============================
+SELECT
+  [T74].Isbn_id,[T74].title,[T74].CONCAT-Author
+FROM
+  (( (SELECT
+          [T72].Isbn_id, CONCAT([T72].Author)
+        FROM
+          (input2) AS [T72][Isbn_id, Author]
+        GROUP BY
+          [T72].Isbn_id) AS [T73][Isbn_id, CONCAT-Author] ) JOIN (
+      SELECT
+        input1.isbn,input1.title
+      FROM
+        input1
+      WHERE
+        True )) AS [T74][Isbn_id, CONCAT-Author, isbn, title]
+WHERE
+  [T74].Isbn_id == [T74].isbn
+   AND [T74].Isbn_id <= [T74].isbn
+@anonymous
+[T74].Isbn_id(NumberVal) | [T74].title(StringVal) | [T74].CONCAT-Author(StringVal) 
+9.780195153446E12 | classical | mark p. o. morford, robert j. lenardon 
+9.780374157067E12 | flu: the stor | gina kolata 
+
+[No.9]===============================
+SELECT
+  [T44].isbn,[T44].title,[T44].CONCAT-Author
+FROM
+  (( SELECT
+        input1.isbn,input1.title
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      (SELECT
+          [T42].Isbn_id, CONCAT([T42].Author)
+        FROM
+          (input2) AS [T42][Isbn_id, Author]
+        GROUP BY
+          [T42].Isbn_id) AS [T43][Isbn_id, CONCAT-Author] )) AS [T44][isbn, title, Isbn_id, CONCAT-Author]
+WHERE
+  [T44].isbn == [T44].Isbn_id
+   AND [T44].isbn <= [T44].Isbn_id
+@anonymous
+[T44].isbn(NumberVal) | [T44].title(StringVal) | [T44].CONCAT-Author(StringVal) 
+9.780195153446E12 | classical | mark p. o. morford, robert j. lenardon 
+9.780374157067E12 | flu: the stor | gina kolata 
+
+[No.8]===============================
+SELECT
+  [T68].Isbn_id,[T68].title,[T68].CONCAT-Author
+FROM
+  (( (SELECT
+          [T66].Isbn_id, CONCAT([T66].Author)
+        FROM
+          (input2) AS [T66][Isbn_id, Author]
+        GROUP BY
+          [T66].Isbn_id) AS [T67][Isbn_id, CONCAT-Author] ) JOIN (
+      input1 )) AS [T68][Isbn_id, CONCAT-Author, isbn, title]
+WHERE
+  [T68].Isbn_id == [T68].isbn
+   AND [T68].Isbn_id >= [T68].isbn
+@anonymous
+[T68].Isbn_id(NumberVal) | [T68].title(StringVal) | [T68].CONCAT-Author(StringVal) 
+9.780195153446E12 | classical | mark p. o. morford, robert j. lenardon 
+9.780374157067E12 | flu: the stor | gina kolata 
+
+[No.7]===============================
+SELECT
+  [T62].Isbn_id,[T62].title,[T62].CONCAT-Author
+FROM
+  (( (SELECT
+          [T60].Isbn_id, CONCAT([T60].Author)
+        FROM
+          (input2) AS [T60][Isbn_id, Author]
+        GROUP BY
+          [T60].Isbn_id) AS [T61][Isbn_id, CONCAT-Author] ) JOIN (
+      input1 )) AS [T62][Isbn_id, CONCAT-Author, isbn, title]
+WHERE
+  [T62].Isbn_id == [T62].isbn
+   AND [T62].Isbn_id <= [T62].isbn
+@anonymous
+[T62].Isbn_id(NumberVal) | [T62].title(StringVal) | [T62].CONCAT-Author(StringVal) 
+9.780195153446E12 | classical | mark p. o. morford, robert j. lenardon 
+9.780374157067E12 | flu: the stor | gina kolata 
+
+[No.6]===============================
+SELECT
+  [T38].isbn,[T38].title,[T38].CONCAT-Author
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T36].Isbn_id, CONCAT([T36].Author)
+        FROM
+          (input2) AS [T36][Isbn_id, Author]
+        GROUP BY
+          [T36].Isbn_id) AS [T37][Isbn_id, CONCAT-Author] )) AS [T38][isbn, title, Isbn_id, CONCAT-Author]
+WHERE
+  [T38].isbn == [T38].Isbn_id
+   AND [T38].isbn >= [T38].Isbn_id
+@anonymous
+[T38].isbn(NumberVal) | [T38].title(StringVal) | [T38].CONCAT-Author(StringVal) 
+9.780195153446E12 | classical | mark p. o. morford, robert j. lenardon 
+9.780374157067E12 | flu: the stor | gina kolata 
+
+[No.5]===============================
+SELECT
+  [T32].isbn,[T32].title,[T32].CONCAT-Author
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T30].Isbn_id, CONCAT([T30].Author)
+        FROM
+          (input2) AS [T30][Isbn_id, Author]
+        GROUP BY
+          [T30].Isbn_id) AS [T31][Isbn_id, CONCAT-Author] )) AS [T32][isbn, title, Isbn_id, CONCAT-Author]
+WHERE
+  [T32].isbn == [T32].Isbn_id
+   AND [T32].isbn <= [T32].Isbn_id
+@anonymous
+[T32].isbn(NumberVal) | [T32].title(StringVal) | [T32].CONCAT-Author(StringVal) 
+9.780195153446E12 | classical | mark p. o. morford, robert j. lenardon 
+9.780374157067E12 | flu: the stor | gina kolata 
+
+[No.4]===============================
+SELECT
+  [T56].Isbn_id,[T56].title,[T56].CONCAT-Author
+FROM
+  (( (SELECT
+          [T54].Isbn_id, CONCAT([T54].Author)
+        FROM
+          (input2) AS [T54][Isbn_id, Author]
+        GROUP BY
+          [T54].Isbn_id) AS [T55][Isbn_id, CONCAT-Author] ) JOIN (
+      SELECT
+        input1.isbn,input1.title
+      FROM
+        input1
+      WHERE
+        True )) AS [T56][Isbn_id, CONCAT-Author, isbn, title]
+WHERE
+  [T56].Isbn_id == [T56].isbn
+@anonymous
+[T56].Isbn_id(NumberVal) | [T56].title(StringVal) | [T56].CONCAT-Author(StringVal) 
+9.780195153446E12 | classical | mark p. o. morford, robert j. lenardon 
+9.780374157067E12 | flu: the stor | gina kolata 
+
+[No.3]===============================
+SELECT
+  [T26].isbn,[T26].title,[T26].CONCAT-Author
+FROM
+  (( SELECT
+        input1.isbn,input1.title
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      (SELECT
+          [T24].Isbn_id, CONCAT([T24].Author)
+        FROM
+          (input2) AS [T24][Isbn_id, Author]
+        GROUP BY
+          [T24].Isbn_id) AS [T25][Isbn_id, CONCAT-Author] )) AS [T26][isbn, title, Isbn_id, CONCAT-Author]
+WHERE
+  [T26].isbn == [T26].Isbn_id
+@anonymous
+[T26].isbn(NumberVal) | [T26].title(StringVal) | [T26].CONCAT-Author(StringVal) 
+9.780195153446E12 | classical | mark p. o. morford, robert j. lenardon 
+9.780374157067E12 | flu: the stor | gina kolata 
+
+[No.2]===============================
+SELECT
+  [T50].Isbn_id,[T50].title,[T50].CONCAT-Author
+FROM
+  (( (SELECT
+          [T48].Isbn_id, CONCAT([T48].Author)
+        FROM
+          (input2) AS [T48][Isbn_id, Author]
+        GROUP BY
+          [T48].Isbn_id) AS [T49][Isbn_id, CONCAT-Author] ) JOIN (
+      input1 )) AS [T50][Isbn_id, CONCAT-Author, isbn, title]
+WHERE
+  [T50].Isbn_id == [T50].isbn
+@anonymous
+[T50].Isbn_id(NumberVal) | [T50].title(StringVal) | [T50].CONCAT-Author(StringVal) 
+9.780195153446E12 | classical | mark p. o. morford, robert j. lenardon 
+9.780374157067E12 | flu: the stor | gina kolata 
+
+[No.1]===============================
+SELECT
+  [T20].isbn,[T20].title,[T20].CONCAT-Author
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T18].Isbn_id, CONCAT([T18].Author)
+        FROM
+          (input2) AS [T18][Isbn_id, Author]
+        GROUP BY
+          [T18].Isbn_id) AS [T19][Isbn_id, CONCAT-Author] )) AS [T20][isbn, title, Isbn_id, CONCAT-Author]
+WHERE
+  [T20].isbn == [T20].Isbn_id
+@anonymous
+[T20].isbn(NumberVal) | [T20].title(StringVal) | [T20].CONCAT-Author(StringVal) 
+9.780195153446E12 | classical | mark p. o. morford, robert j. lenardon 
+9.780374157067E12 | flu: the stor | gina kolata 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.135s

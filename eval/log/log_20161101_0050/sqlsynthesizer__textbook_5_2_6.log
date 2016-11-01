@@ -1,0 +1,762 @@
+[[Synthesis start]]
+	File: ..\data\sqlsynthesizer\textbook_5_2_6
+	Enumerator: StagedEnumerator
+[Retry] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[NaturalJoin]: 1 [SymTable]: 2
+[Aggregation]: 10 [SymTable]: 12
+[EnumJoinOnAggr] level 1 [SymTable]: 156
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Retry] Maximum Depth: 2
+@output
+part_key(StringVal) | sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P3 | SN4 
+P4 | SN1 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 10 [SymTable]: 12
+[JOIN] level 1 [SymTable]: 36
+[UNION] level 1 [SymTable]: 38
+[EnumLeftJoin] level 1 [SymTable]: 38
+[EnumAggrOnJoin] level 1 [SymTable]: 122
+[EnumJoinOnAggr] level 1 [SymTable]: 266
+[EnumJoinOnAggr] level 2 [SymTable]: 1994
+Candidate Tree Number: 20
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T7400].part_key,[T7400].sname
+FROM
+  (( SELECT
+        [T7394].sid,[T7394].part_key,[T7394].cost,[T7394].sid1,[T7394].sname
+      FROM
+        (( input1 ) JOIN (
+            input2 )) AS [T7394][sid, part_key, cost, sid1, sname]
+      WHERE
+        [T7394].sid == [T7394].sid1 ) JOIN (
+      (SELECT
+          [T7398].part_key, MAX([T7398].cost)
+        FROM
+          (input1) AS [T7398][sid, part_key, cost]
+        GROUP BY
+          [T7398].part_key) AS [T7399][part_key, MAX-cost] )) AS [T7400][sid, part_key, cost, sid1, sname, part_key1, MAX-cost]
+WHERE
+  [T7400].part_key == [T7400].part_key1
+   AND [T7400].cost >= [T7400].MAX-cost
+@anonymous
+[T7400].part_key(StringVal) | [T7400].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P4 | SN1 
+P3 | SN4 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[No.19]===============================
+SELECT
+  [T7360].part_key,[T7360].sname
+FROM
+  (( SELECT
+        [T7354].sid,[T7354].sname,[T7354].sid1,[T7354].part_key,[T7354].cost
+      FROM
+        (( input2 ) JOIN (
+            input1 )) AS [T7354][sid, sname, sid1, part_key, cost]
+      WHERE
+        [T7354].sid == [T7354].sid1 ) JOIN (
+      (SELECT
+          [T7358].part_key, MAX([T7358].cost)
+        FROM
+          (input1) AS [T7358][sid, part_key, cost]
+        GROUP BY
+          [T7358].part_key) AS [T7359][part_key, MAX-cost] )) AS [T7360][sid, sname, sid1, part_key, cost, part_key1, MAX-cost]
+WHERE
+  [T7360].part_key == [T7360].part_key1
+   AND [T7360].cost >= [T7360].MAX-cost
+@anonymous
+[T7360].part_key(StringVal) | [T7360].sname(StringVal) 
+P2 | SN1 
+P4 | SN1 
+P7 | SN1 
+P1 | SN2 
+P8 | SN2 
+P5 | SN3 
+P6 | SN3 
+P9 | SN3 
+P3 | SN4 
+
+[No.18]===============================
+SELECT
+  [T7320].part_key,[T7320].sname
+FROM
+  (( SELECT
+        [T7318].part_key,[T7318].MAX-cost,[T7318].sid,[T7318].part_key1,[T7318].cost
+      FROM
+        (( (SELECT
+                [T7316].part_key, MAX([T7316].cost)
+              FROM
+                (input1) AS [T7316][sid, part_key, cost]
+              GROUP BY
+                [T7316].part_key) AS [T7317][part_key, MAX-cost] ) JOIN (
+            input1 )) AS [T7318][part_key, MAX-cost, sid, part_key1, cost]
+      WHERE
+        [T7318].part_key == [T7318].part_key1
+         AND [T7318].MAX-cost <= [T7318].cost ) JOIN (
+      input2 )) AS [T7320][part_key, MAX-cost, sid, part_key1, cost, sid1, sname]
+WHERE
+  [T7320].sid == [T7320].sid1
+@anonymous
+[T7320].part_key(StringVal) | [T7320].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P3 | SN4 
+P4 | SN1 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[No.17]===============================
+SELECT
+  [T7280].part_key,[T7280].sname
+FROM
+  (( SELECT
+        [T7278].sid,[T7278].part_key,[T7278].cost,[T7278].part_key1,[T7278].MAX-cost
+      FROM
+        (( input1 ) JOIN (
+            (SELECT
+                [T7276].part_key, MAX([T7276].cost)
+              FROM
+                (input1) AS [T7276][sid, part_key, cost]
+              GROUP BY
+                [T7276].part_key) AS [T7277][part_key, MAX-cost] )) AS [T7278][sid, part_key, cost, part_key1, MAX-cost]
+      WHERE
+        [T7278].part_key == [T7278].part_key1
+         AND [T7278].cost >= [T7278].MAX-cost ) JOIN (
+      input2 )) AS [T7280][sid, part_key, cost, part_key1, MAX-cost, sid1, sname]
+WHERE
+  [T7280].sid == [T7280].sid1
+@anonymous
+[T7280].part_key(StringVal) | [T7280].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P4 | SN1 
+P3 | SN4 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[No.16]===============================
+SELECT
+  [T7392].part_key,[T7392].sname
+FROM
+  (( SELECT
+        [T7386].sid,[T7386].part_key,[T7386].cost,[T7386].sid1,[T7386].sname
+      FROM
+        (( SELECT
+              input1.sid,input1.part_key,input1.cost
+            FROM
+              input1
+            WHERE
+              True ) JOIN (
+            SELECT
+              input2.sid,input2.sname
+            FROM
+              input2
+            WHERE
+              True )) AS [T7386][sid, part_key, cost, sid1, sname]
+      WHERE
+        [T7386].sid == [T7386].sid1 ) JOIN (
+      (SELECT
+          [T7390].part_key, MAX([T7390].cost)
+        FROM
+          (input1) AS [T7390][sid, part_key, cost]
+        GROUP BY
+          [T7390].part_key) AS [T7391][part_key, MAX-cost] )) AS [T7392][sid, part_key, cost, sid1, sname, part_key1, MAX-cost]
+WHERE
+  [T7392].part_key == [T7392].part_key1
+   AND [T7392].cost == [T7392].MAX-cost
+@anonymous
+[T7392].part_key(StringVal) | [T7392].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P4 | SN1 
+P3 | SN4 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[No.15]===============================
+SELECT
+  [T7352].part_key,[T7352].sname
+FROM
+  (( SELECT
+        [T7346].sid,[T7346].sname,[T7346].sid1,[T7346].part_key,[T7346].cost
+      FROM
+        (( SELECT
+              input2.sid,input2.sname
+            FROM
+              input2
+            WHERE
+              True ) JOIN (
+            SELECT
+              input1.sid,input1.part_key,input1.cost
+            FROM
+              input1
+            WHERE
+              True )) AS [T7346][sid, sname, sid1, part_key, cost]
+      WHERE
+        [T7346].sid == [T7346].sid1 ) JOIN (
+      (SELECT
+          [T7350].part_key, MAX([T7350].cost)
+        FROM
+          (input1) AS [T7350][sid, part_key, cost]
+        GROUP BY
+          [T7350].part_key) AS [T7351][part_key, MAX-cost] )) AS [T7352][sid, sname, sid1, part_key, cost, part_key1, MAX-cost]
+WHERE
+  [T7352].cost == [T7352].MAX-cost
+   AND [T7352].part_key == [T7352].part_key1
+@anonymous
+[T7352].part_key(StringVal) | [T7352].sname(StringVal) 
+P2 | SN1 
+P4 | SN1 
+P7 | SN1 
+P1 | SN2 
+P8 | SN2 
+P5 | SN3 
+P6 | SN3 
+P9 | SN3 
+P3 | SN4 
+
+[No.14]===============================
+SELECT
+  [T7312].part_key,[T7312].sname
+FROM
+  (( SELECT
+        [T7310].part_key,[T7310].MAX-cost,[T7310].sid,[T7310].part_key1,[T7310].cost
+      FROM
+        (( (SELECT
+                [T7308].part_key, MAX([T7308].cost)
+              FROM
+                (input1) AS [T7308][sid, part_key, cost]
+              GROUP BY
+                [T7308].part_key) AS [T7309][part_key, MAX-cost] ) JOIN (
+            SELECT
+              input1.sid,input1.part_key,input1.cost
+            FROM
+              input1
+            WHERE
+              True )) AS [T7310][part_key, MAX-cost, sid, part_key1, cost]
+      WHERE
+        [T7310].part_key == [T7310].part_key1
+         AND [T7310].MAX-cost == [T7310].cost ) JOIN (
+      SELECT
+        input2.sid,input2.sname
+      FROM
+        input2
+      WHERE
+        True )) AS [T7312][part_key, MAX-cost, sid, part_key1, cost, sid1, sname]
+WHERE
+  [T7312].sid == [T7312].sid1
+@anonymous
+[T7312].part_key(StringVal) | [T7312].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P3 | SN4 
+P4 | SN1 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[No.13]===============================
+SELECT
+  [T7272].part_key,[T7272].sname
+FROM
+  (( SELECT
+        [T7270].sid,[T7270].part_key,[T7270].cost,[T7270].part_key1,[T7270].MAX-cost
+      FROM
+        (( SELECT
+              input1.sid,input1.part_key,input1.cost
+            FROM
+              input1
+            WHERE
+              True ) JOIN (
+            (SELECT
+                [T7268].part_key, MAX([T7268].cost)
+              FROM
+                (input1) AS [T7268][sid, part_key, cost]
+              GROUP BY
+                [T7268].part_key) AS [T7269][part_key, MAX-cost] )) AS [T7270][sid, part_key, cost, part_key1, MAX-cost]
+      WHERE
+        [T7270].part_key == [T7270].part_key1
+         AND [T7270].cost == [T7270].MAX-cost ) JOIN (
+      SELECT
+        input2.sid,input2.sname
+      FROM
+        input2
+      WHERE
+        True )) AS [T7272][sid, part_key, cost, part_key1, MAX-cost, sid1, sname]
+WHERE
+  [T7272].sid == [T7272].sid1
+@anonymous
+[T7272].part_key(StringVal) | [T7272].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P4 | SN1 
+P3 | SN4 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[No.12]===============================
+SELECT
+  [T7384].part_key,[T7384].sname
+FROM
+  (( SELECT
+        [T7378].sid,[T7378].part_key,[T7378].cost,[T7378].sid1,[T7378].sname
+      FROM
+        (( input1 ) JOIN (
+            SELECT
+              input2.sid,input2.sname
+            FROM
+              input2
+            WHERE
+              True )) AS [T7378][sid, part_key, cost, sid1, sname]
+      WHERE
+        [T7378].sid == [T7378].sid1 ) JOIN (
+      (SELECT
+          [T7382].part_key, MAX([T7382].cost)
+        FROM
+          (input1) AS [T7382][sid, part_key, cost]
+        GROUP BY
+          [T7382].part_key) AS [T7383][part_key, MAX-cost] )) AS [T7384][sid, part_key, cost, sid1, sname, part_key1, MAX-cost]
+WHERE
+  [T7384].part_key == [T7384].part_key1
+   AND [T7384].cost == [T7384].MAX-cost
+@anonymous
+[T7384].part_key(StringVal) | [T7384].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P4 | SN1 
+P3 | SN4 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[No.11]===============================
+SELECT
+  [T7376].part_key,[T7376].sname
+FROM
+  (( SELECT
+        [T7370].sid,[T7370].part_key,[T7370].cost,[T7370].sid1,[T7370].sname
+      FROM
+        (( SELECT
+              input1.sid,input1.part_key,input1.cost
+            FROM
+              input1
+            WHERE
+              True ) JOIN (
+            input2 )) AS [T7370][sid, part_key, cost, sid1, sname]
+      WHERE
+        [T7370].sid == [T7370].sid1 ) JOIN (
+      (SELECT
+          [T7374].part_key, MAX([T7374].cost)
+        FROM
+          (input1) AS [T7374][sid, part_key, cost]
+        GROUP BY
+          [T7374].part_key) AS [T7375][part_key, MAX-cost] )) AS [T7376][sid, part_key, cost, sid1, sname, part_key1, MAX-cost]
+WHERE
+  [T7376].part_key == [T7376].part_key1
+   AND [T7376].cost == [T7376].MAX-cost
+@anonymous
+[T7376].part_key(StringVal) | [T7376].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P4 | SN1 
+P3 | SN4 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[No.10]===============================
+SELECT
+  [T7344].part_key,[T7344].sname
+FROM
+  (( SELECT
+        [T7338].sid,[T7338].sname,[T7338].sid1,[T7338].part_key,[T7338].cost
+      FROM
+        (( input2 ) JOIN (
+            SELECT
+              input1.sid,input1.part_key,input1.cost
+            FROM
+              input1
+            WHERE
+              True )) AS [T7338][sid, sname, sid1, part_key, cost]
+      WHERE
+        [T7338].sid == [T7338].sid1 ) JOIN (
+      (SELECT
+          [T7342].part_key, MAX([T7342].cost)
+        FROM
+          (input1) AS [T7342][sid, part_key, cost]
+        GROUP BY
+          [T7342].part_key) AS [T7343][part_key, MAX-cost] )) AS [T7344][sid, sname, sid1, part_key, cost, part_key1, MAX-cost]
+WHERE
+  [T7344].cost == [T7344].MAX-cost
+   AND [T7344].part_key == [T7344].part_key1
+@anonymous
+[T7344].part_key(StringVal) | [T7344].sname(StringVal) 
+P2 | SN1 
+P4 | SN1 
+P7 | SN1 
+P1 | SN2 
+P8 | SN2 
+P5 | SN3 
+P6 | SN3 
+P9 | SN3 
+P3 | SN4 
+
+[No.9]===============================
+SELECT
+  [T7336].part_key,[T7336].sname
+FROM
+  (( SELECT
+        [T7330].sid,[T7330].sname,[T7330].sid1,[T7330].part_key,[T7330].cost
+      FROM
+        (( SELECT
+              input2.sid,input2.sname
+            FROM
+              input2
+            WHERE
+              True ) JOIN (
+            input1 )) AS [T7330][sid, sname, sid1, part_key, cost]
+      WHERE
+        [T7330].sid == [T7330].sid1 ) JOIN (
+      (SELECT
+          [T7334].part_key, MAX([T7334].cost)
+        FROM
+          (input1) AS [T7334][sid, part_key, cost]
+        GROUP BY
+          [T7334].part_key) AS [T7335][part_key, MAX-cost] )) AS [T7336][sid, sname, sid1, part_key, cost, part_key1, MAX-cost]
+WHERE
+  [T7336].cost == [T7336].MAX-cost
+   AND [T7336].part_key == [T7336].part_key1
+@anonymous
+[T7336].part_key(StringVal) | [T7336].sname(StringVal) 
+P2 | SN1 
+P4 | SN1 
+P7 | SN1 
+P1 | SN2 
+P8 | SN2 
+P5 | SN3 
+P6 | SN3 
+P9 | SN3 
+P3 | SN4 
+
+[No.8]===============================
+SELECT
+  [T7304].part_key,[T7304].sname
+FROM
+  (( SELECT
+        [T7302].part_key,[T7302].MAX-cost,[T7302].sid,[T7302].part_key1,[T7302].cost
+      FROM
+        (( (SELECT
+                [T7300].part_key, MAX([T7300].cost)
+              FROM
+                (input1) AS [T7300][sid, part_key, cost]
+              GROUP BY
+                [T7300].part_key) AS [T7301][part_key, MAX-cost] ) JOIN (
+            input1 )) AS [T7302][part_key, MAX-cost, sid, part_key1, cost]
+      WHERE
+        [T7302].part_key == [T7302].part_key1
+         AND [T7302].MAX-cost == [T7302].cost ) JOIN (
+      SELECT
+        input2.sid,input2.sname
+      FROM
+        input2
+      WHERE
+        True )) AS [T7304][part_key, MAX-cost, sid, part_key1, cost, sid1, sname]
+WHERE
+  [T7304].sid == [T7304].sid1
+@anonymous
+[T7304].part_key(StringVal) | [T7304].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P3 | SN4 
+P4 | SN1 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[No.7]===============================
+SELECT
+  [T7296].part_key,[T7296].sname
+FROM
+  (( SELECT
+        [T7294].part_key,[T7294].MAX-cost,[T7294].sid,[T7294].part_key1,[T7294].cost
+      FROM
+        (( (SELECT
+                [T7292].part_key, MAX([T7292].cost)
+              FROM
+                (input1) AS [T7292][sid, part_key, cost]
+              GROUP BY
+                [T7292].part_key) AS [T7293][part_key, MAX-cost] ) JOIN (
+            SELECT
+              input1.sid,input1.part_key,input1.cost
+            FROM
+              input1
+            WHERE
+              True )) AS [T7294][part_key, MAX-cost, sid, part_key1, cost]
+      WHERE
+        [T7294].part_key == [T7294].part_key1
+         AND [T7294].MAX-cost == [T7294].cost ) JOIN (
+      input2 )) AS [T7296][part_key, MAX-cost, sid, part_key1, cost, sid1, sname]
+WHERE
+  [T7296].sid == [T7296].sid1
+@anonymous
+[T7296].part_key(StringVal) | [T7296].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P3 | SN4 
+P4 | SN1 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[No.6]===============================
+SELECT
+  [T7264].part_key,[T7264].sname
+FROM
+  (( SELECT
+        [T7262].sid,[T7262].part_key,[T7262].cost,[T7262].part_key1,[T7262].MAX-cost
+      FROM
+        (( input1 ) JOIN (
+            (SELECT
+                [T7260].part_key, MAX([T7260].cost)
+              FROM
+                (input1) AS [T7260][sid, part_key, cost]
+              GROUP BY
+                [T7260].part_key) AS [T7261][part_key, MAX-cost] )) AS [T7262][sid, part_key, cost, part_key1, MAX-cost]
+      WHERE
+        [T7262].part_key == [T7262].part_key1
+         AND [T7262].cost == [T7262].MAX-cost ) JOIN (
+      SELECT
+        input2.sid,input2.sname
+      FROM
+        input2
+      WHERE
+        True )) AS [T7264][sid, part_key, cost, part_key1, MAX-cost, sid1, sname]
+WHERE
+  [T7264].sid == [T7264].sid1
+@anonymous
+[T7264].part_key(StringVal) | [T7264].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P4 | SN1 
+P3 | SN4 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[No.5]===============================
+SELECT
+  [T7256].part_key,[T7256].sname
+FROM
+  (( SELECT
+        [T7254].sid,[T7254].part_key,[T7254].cost,[T7254].part_key1,[T7254].MAX-cost
+      FROM
+        (( SELECT
+              input1.sid,input1.part_key,input1.cost
+            FROM
+              input1
+            WHERE
+              True ) JOIN (
+            (SELECT
+                [T7252].part_key, MAX([T7252].cost)
+              FROM
+                (input1) AS [T7252][sid, part_key, cost]
+              GROUP BY
+                [T7252].part_key) AS [T7253][part_key, MAX-cost] )) AS [T7254][sid, part_key, cost, part_key1, MAX-cost]
+      WHERE
+        [T7254].part_key == [T7254].part_key1
+         AND [T7254].cost == [T7254].MAX-cost ) JOIN (
+      input2 )) AS [T7256][sid, part_key, cost, part_key1, MAX-cost, sid1, sname]
+WHERE
+  [T7256].sid == [T7256].sid1
+@anonymous
+[T7256].part_key(StringVal) | [T7256].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P4 | SN1 
+P3 | SN4 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[No.4]===============================
+SELECT
+  [T7368].part_key,[T7368].sname
+FROM
+  (( SELECT
+        [T7362].sid,[T7362].part_key,[T7362].cost,[T7362].sid1,[T7362].sname
+      FROM
+        (( input1 ) JOIN (
+            input2 )) AS [T7362][sid, part_key, cost, sid1, sname]
+      WHERE
+        [T7362].sid == [T7362].sid1 ) JOIN (
+      (SELECT
+          [T7366].part_key, MAX([T7366].cost)
+        FROM
+          (input1) AS [T7366][sid, part_key, cost]
+        GROUP BY
+          [T7366].part_key) AS [T7367][part_key, MAX-cost] )) AS [T7368][sid, part_key, cost, sid1, sname, part_key1, MAX-cost]
+WHERE
+  [T7368].part_key == [T7368].part_key1
+   AND [T7368].cost == [T7368].MAX-cost
+@anonymous
+[T7368].part_key(StringVal) | [T7368].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P4 | SN1 
+P3 | SN4 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[No.3]===============================
+SELECT
+  [T7328].part_key,[T7328].sname
+FROM
+  (( SELECT
+        [T7322].sid,[T7322].sname,[T7322].sid1,[T7322].part_key,[T7322].cost
+      FROM
+        (( input2 ) JOIN (
+            input1 )) AS [T7322][sid, sname, sid1, part_key, cost]
+      WHERE
+        [T7322].sid == [T7322].sid1 ) JOIN (
+      (SELECT
+          [T7326].part_key, MAX([T7326].cost)
+        FROM
+          (input1) AS [T7326][sid, part_key, cost]
+        GROUP BY
+          [T7326].part_key) AS [T7327][part_key, MAX-cost] )) AS [T7328][sid, sname, sid1, part_key, cost, part_key1, MAX-cost]
+WHERE
+  [T7328].cost == [T7328].MAX-cost
+   AND [T7328].part_key == [T7328].part_key1
+@anonymous
+[T7328].part_key(StringVal) | [T7328].sname(StringVal) 
+P2 | SN1 
+P4 | SN1 
+P7 | SN1 
+P1 | SN2 
+P8 | SN2 
+P5 | SN3 
+P6 | SN3 
+P9 | SN3 
+P3 | SN4 
+
+[No.2]===============================
+SELECT
+  [T7288].part_key,[T7288].sname
+FROM
+  (( SELECT
+        [T7286].part_key,[T7286].MAX-cost,[T7286].sid,[T7286].part_key1,[T7286].cost
+      FROM
+        (( (SELECT
+                [T7284].part_key, MAX([T7284].cost)
+              FROM
+                (input1) AS [T7284][sid, part_key, cost]
+              GROUP BY
+                [T7284].part_key) AS [T7285][part_key, MAX-cost] ) JOIN (
+            input1 )) AS [T7286][part_key, MAX-cost, sid, part_key1, cost]
+      WHERE
+        [T7286].part_key == [T7286].part_key1
+         AND [T7286].MAX-cost == [T7286].cost ) JOIN (
+      input2 )) AS [T7288][part_key, MAX-cost, sid, part_key1, cost, sid1, sname]
+WHERE
+  [T7288].sid == [T7288].sid1
+@anonymous
+[T7288].part_key(StringVal) | [T7288].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P3 | SN4 
+P4 | SN1 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[No.1]===============================
+SELECT
+  [T7248].part_key,[T7248].sname
+FROM
+  (( SELECT
+        [T7246].sid,[T7246].part_key,[T7246].cost,[T7246].part_key1,[T7246].MAX-cost
+      FROM
+        (( input1 ) JOIN (
+            (SELECT
+                [T7244].part_key, MAX([T7244].cost)
+              FROM
+                (input1) AS [T7244][sid, part_key, cost]
+              GROUP BY
+                [T7244].part_key) AS [T7245][part_key, MAX-cost] )) AS [T7246][sid, part_key, cost, part_key1, MAX-cost]
+      WHERE
+        [T7246].part_key == [T7246].part_key1
+         AND [T7246].cost == [T7246].MAX-cost ) JOIN (
+      input2 )) AS [T7248][sid, part_key, cost, part_key1, MAX-cost, sid1, sname]
+WHERE
+  [T7248].sid == [T7248].sid1
+@anonymous
+[T7248].part_key(StringVal) | [T7248].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P4 | SN1 
+P3 | SN4 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 18.457s

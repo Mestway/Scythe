@@ -1,0 +1,220 @@
+[[Synthesis start]]
+	File: ..\data\top_rated_posts\017
+	Enumerator: StagedEnumerator
+[Retry] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+[EnumJoinOnAggr] level 1 [SymTable]: 42
+Candidate Tree Number: 10
+[Enumeration Finished]
+[No.10]===============================
+SELECT
+  [T49].ID,[T49].SKU,[T49].PRODUCT
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T47].PRODUCT, MIN([T47].ID)
+        FROM
+          (input1) AS [T47][ID, SKU, PRODUCT]
+        GROUP BY
+          [T47].PRODUCT) AS [T48][PRODUCT, MIN-ID] )) AS [T49][ID, SKU, PRODUCT, PRODUCT1, MIN-ID]
+WHERE
+  [T49].ID == [T49].MIN-ID
+   AND [T49].ID <= [T49].MIN-ID
+@anonymous
+[T49].ID(NumberVal) | [T49].SKU(StringVal) | [T49].PRODUCT(StringVal) 
+1.0 | FOO-23 | Orange 
+3.0 | FOO-24 | Apple 
+
+[No.9]===============================
+SELECT
+  [T79].MIN-ID,[T79].SKU,[T79].PRODUCT
+FROM
+  (( (SELECT
+          [T77].PRODUCT, MIN([T77].ID)
+        FROM
+          (input1) AS [T77][ID, SKU, PRODUCT]
+        GROUP BY
+          [T77].PRODUCT) AS [T78][PRODUCT, MIN-ID] ) JOIN (
+      input1 )) AS [T79][PRODUCT, MIN-ID, ID, SKU, PRODUCT1]
+WHERE
+  [T79].PRODUCT == [T79].PRODUCT1
+   AND [T79].MIN-ID >= [T79].ID
+@anonymous
+[T79].MIN-ID(NumberVal) | [T79].SKU(StringVal) | [T79].PRODUCT(StringVal) 
+1.0 | FOO-23 | Orange 
+3.0 | FOO-24 | Apple 
+
+[No.8]===============================
+SELECT
+  [T73].MIN-ID,[T73].SKU,[T73].PRODUCT
+FROM
+  (( (SELECT
+          [T71].PRODUCT, MIN([T71].ID)
+        FROM
+          (input1) AS [T71][ID, SKU, PRODUCT]
+        GROUP BY
+          [T71].PRODUCT) AS [T72][PRODUCT, MIN-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.SKU,input1.PRODUCT
+      FROM
+        input1
+      WHERE
+        True )) AS [T73][PRODUCT, MIN-ID, ID, SKU, PRODUCT1]
+WHERE
+  [T73].PRODUCT == [T73].PRODUCT1
+   AND [T73].MIN-ID == [T73].ID
+@anonymous
+[T73].MIN-ID(NumberVal) | [T73].SKU(StringVal) | [T73].PRODUCT(StringVal) 
+1.0 | FOO-23 | Orange 
+3.0 | FOO-24 | Apple 
+
+[No.7]===============================
+SELECT
+  [T43].ID,[T43].SKU,[T43].PRODUCT
+FROM
+  (( SELECT
+        input1.ID,input1.SKU,input1.PRODUCT
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      (SELECT
+          [T41].PRODUCT, MIN([T41].ID)
+        FROM
+          (input1) AS [T41][ID, SKU, PRODUCT]
+        GROUP BY
+          [T41].PRODUCT) AS [T42][PRODUCT, MIN-ID] )) AS [T43][ID, SKU, PRODUCT, PRODUCT1, MIN-ID]
+WHERE
+  [T43].ID == [T43].MIN-ID
+   AND [T43].PRODUCT == [T43].PRODUCT1
+@anonymous
+[T43].ID(NumberVal) | [T43].SKU(StringVal) | [T43].PRODUCT(StringVal) 
+1.0 | FOO-23 | Orange 
+3.0 | FOO-24 | Apple 
+
+[No.6]===============================
+SELECT
+  [T61].MIN-ID,[T61].SKU,[T61].PRODUCT
+FROM
+  (( (SELECT
+          [T59].PRODUCT, MIN([T59].ID)
+        FROM
+          (input1) AS [T59][ID, SKU, PRODUCT]
+        GROUP BY
+          [T59].PRODUCT) AS [T60][PRODUCT, MIN-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.SKU,input1.PRODUCT
+      FROM
+        input1
+      WHERE
+        True )) AS [T61][PRODUCT, MIN-ID, ID, SKU, PRODUCT1]
+WHERE
+  [T61].MIN-ID == [T61].ID
+@anonymous
+[T61].MIN-ID(NumberVal) | [T61].SKU(StringVal) | [T61].PRODUCT(StringVal) 
+1.0 | FOO-23 | Orange 
+3.0 | FOO-24 | Apple 
+
+[No.5]===============================
+SELECT
+  [T31].ID,[T31].SKU,[T31].PRODUCT
+FROM
+  (( SELECT
+        input1.ID,input1.SKU,input1.PRODUCT
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      (SELECT
+          [T29].PRODUCT, MIN([T29].ID)
+        FROM
+          (input1) AS [T29][ID, SKU, PRODUCT]
+        GROUP BY
+          [T29].PRODUCT) AS [T30][PRODUCT, MIN-ID] )) AS [T31][ID, SKU, PRODUCT, PRODUCT1, MIN-ID]
+WHERE
+  [T31].ID == [T31].MIN-ID
+@anonymous
+[T31].ID(NumberVal) | [T31].SKU(StringVal) | [T31].PRODUCT(StringVal) 
+1.0 | FOO-23 | Orange 
+3.0 | FOO-24 | Apple 
+
+[No.4]===============================
+SELECT
+  [T67].MIN-ID,[T67].SKU,[T67].PRODUCT
+FROM
+  (( (SELECT
+          [T65].PRODUCT, MIN([T65].ID)
+        FROM
+          (input1) AS [T65][ID, SKU, PRODUCT]
+        GROUP BY
+          [T65].PRODUCT) AS [T66][PRODUCT, MIN-ID] ) JOIN (
+      input1 )) AS [T67][PRODUCT, MIN-ID, ID, SKU, PRODUCT1]
+WHERE
+  [T67].PRODUCT == [T67].PRODUCT1
+   AND [T67].MIN-ID == [T67].ID
+@anonymous
+[T67].MIN-ID(NumberVal) | [T67].SKU(StringVal) | [T67].PRODUCT(StringVal) 
+1.0 | FOO-23 | Orange 
+3.0 | FOO-24 | Apple 
+
+[No.3]===============================
+SELECT
+  [T37].ID,[T37].SKU,[T37].PRODUCT
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T35].PRODUCT, MIN([T35].ID)
+        FROM
+          (input1) AS [T35][ID, SKU, PRODUCT]
+        GROUP BY
+          [T35].PRODUCT) AS [T36][PRODUCT, MIN-ID] )) AS [T37][ID, SKU, PRODUCT, PRODUCT1, MIN-ID]
+WHERE
+  [T37].ID == [T37].MIN-ID
+   AND [T37].PRODUCT == [T37].PRODUCT1
+@anonymous
+[T37].ID(NumberVal) | [T37].SKU(StringVal) | [T37].PRODUCT(StringVal) 
+1.0 | FOO-23 | Orange 
+3.0 | FOO-24 | Apple 
+
+[No.2]===============================
+SELECT
+  [T55].MIN-ID,[T55].SKU,[T55].PRODUCT
+FROM
+  (( (SELECT
+          [T53].PRODUCT, MIN([T53].ID)
+        FROM
+          (input1) AS [T53][ID, SKU, PRODUCT]
+        GROUP BY
+          [T53].PRODUCT) AS [T54][PRODUCT, MIN-ID] ) JOIN (
+      input1 )) AS [T55][PRODUCT, MIN-ID, ID, SKU, PRODUCT1]
+WHERE
+  [T55].MIN-ID == [T55].ID
+@anonymous
+[T55].MIN-ID(NumberVal) | [T55].SKU(StringVal) | [T55].PRODUCT(StringVal) 
+1.0 | FOO-23 | Orange 
+3.0 | FOO-24 | Apple 
+
+[No.1]===============================
+SELECT
+  [T25].ID,[T25].SKU,[T25].PRODUCT
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T23].PRODUCT, MIN([T23].ID)
+        FROM
+          (input1) AS [T23][ID, SKU, PRODUCT]
+        GROUP BY
+          [T23].PRODUCT) AS [T24][PRODUCT, MIN-ID] )) AS [T25][ID, SKU, PRODUCT, PRODUCT1, MIN-ID]
+WHERE
+  [T25].ID == [T25].MIN-ID
+@anonymous
+[T25].ID(NumberVal) | [T25].SKU(StringVal) | [T25].PRODUCT(StringVal) 
+1.0 | FOO-23 | Orange 
+3.0 | FOO-24 | Apple 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.192s

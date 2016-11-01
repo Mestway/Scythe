@@ -1,0 +1,658 @@
+[[Synthesis start]]
+	File: ..\data\dev_set\015
+	Enumerator: StagedEnumerator
+[Retry] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[NaturalJoin]: 1 [SymTable]: 2
+[Aggregation]: 8 [SymTable]: 10
+[EnumJoinOnAggr] level 1 [SymTable]: 110
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Retry] Maximum Depth: 2
+@output
+Emp_ID(NumberVal) | Sale_Date(DateVal) | Promo_Date(DateVal) 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Tue Aug 21 00:00:00 PDT 2012 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Wed Aug 21 00:00:00 PDT 2013 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 8 [SymTable]: 10
+[JOIN] level 1 [SymTable]: 30
+[UNION] level 1 [SymTable]: 34
+[EnumLeftJoin] level 1 [SymTable]: 34
+[EnumAggrOnJoin] level 1 [SymTable]: 86
+[EnumJoinOnAggr] level 1 [SymTable]: 186
+[EnumJoinOnAggr] level 2 [SymTable]: 1186
+Candidate Tree Number: 90
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T7207].Emp_ID,[T7207].Sale_Date,[T7207].Promo_Date1
+FROM
+  (( SELECT
+        [T7205].Emp_ID,[T7205].Sale_Date,[T7205].Emp_ID1,[T7205].Promo_Date
+      FROM
+        (( input2 ) JOIN (
+            input1 )) AS [T7205][Emp_ID, Sale_Date, Emp_ID1, Promo_Date]
+      WHERE
+        [T7205].Sale_Date < [T7205].Promo_Date ) JOIN (
+      input1 )) AS [T7207][Emp_ID, Sale_Date, Emp_ID1, Promo_Date, Emp_ID2, Promo_Date1]
+WHERE
+  [T7207].Emp_ID == [T7207].Emp_ID2
+   AND [T7207].Emp_ID1 == [T7207].Emp_ID2
+@anonymous
+[T7207].Emp_ID(NumberVal) | [T7207].Sale_Date(DateVal) | [T7207].Promo_Date1(DateVal) 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Tue Aug 21 00:00:00 PDT 2012 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Wed Aug 21 00:00:00 PDT 2013 
+
+[No.19]===============================
+SELECT
+  [T7187].Emp_ID,[T7187].Sale_Date,[T7187].Promo_Date
+FROM
+  (( SELECT
+        [T7185].Emp_ID,[T7185].Sale_Date,[T7185].Emp_ID1,[T7185].Promo_Date
+      FROM
+        (( input2 ) JOIN (
+            input1 )) AS [T7185][Emp_ID, Sale_Date, Emp_ID1, Promo_Date]
+      WHERE
+        [T7185].Emp_ID == [T7185].Emp_ID1 ) JOIN (
+      input1 )) AS [T7187][Emp_ID, Sale_Date, Emp_ID1, Promo_Date, Emp_ID2, Promo_Date1]
+WHERE
+  [T7187].Sale_Date < [T7187].Promo_Date1
+   AND [T7187].Emp_ID1 == [T7187].Emp_ID2
+@anonymous
+[T7187].Emp_ID(NumberVal) | [T7187].Sale_Date(DateVal) | [T7187].Promo_Date(DateVal) 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Tue Aug 21 00:00:00 PDT 2012 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Wed Aug 21 00:00:00 PDT 2013 
+
+[No.18]===============================
+SELECT
+  [T7091].Emp_ID,[T7091].Sale_Date,[T7091].Promo_Date1
+FROM
+  (( SELECT
+        [T7089].Emp_ID,[T7089].Promo_Date,[T7089].Emp_ID1,[T7089].Sale_Date
+      FROM
+        (( input1 ) JOIN (
+            input2 )) AS [T7089][Emp_ID, Promo_Date, Emp_ID1, Sale_Date]
+      WHERE
+        [T7089].Promo_Date > [T7089].Sale_Date
+         AND [T7089].Emp_ID == [T7089].Emp_ID1 ) JOIN (
+      input1 )) AS [T7091][Emp_ID, Promo_Date, Emp_ID1, Sale_Date, Emp_ID2, Promo_Date1]
+WHERE
+  [T7091].Emp_ID == [T7091].Emp_ID2
+@anonymous
+[T7091].Emp_ID(NumberVal) | [T7091].Sale_Date(DateVal) | [T7091].Promo_Date1(DateVal) 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Tue Aug 21 00:00:00 PDT 2012 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Wed Aug 21 00:00:00 PDT 2013 
+
+[No.17]===============================
+SELECT
+  [T7087].Emp_ID,[T7087].Sale_Date,[T7087].Promo_Date1
+FROM
+  (( SELECT
+        [T7085].Emp_ID,[T7085].Promo_Date,[T7085].Emp_ID1,[T7085].Sale_Date
+      FROM
+        (( input1 ) JOIN (
+            input2 )) AS [T7085][Emp_ID, Promo_Date, Emp_ID1, Sale_Date]
+      WHERE
+        [T7085].Promo_Date > [T7085].Sale_Date ) JOIN (
+      input1 )) AS [T7087][Emp_ID, Promo_Date, Emp_ID1, Sale_Date, Emp_ID2, Promo_Date1]
+WHERE
+  [T7087].Emp_ID == [T7087].Emp_ID2
+   AND [T7087].Emp_ID1 == [T7087].Emp_ID2
+@anonymous
+[T7087].Emp_ID(NumberVal) | [T7087].Sale_Date(DateVal) | [T7087].Promo_Date1(DateVal) 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Tue Aug 21 00:00:00 PDT 2012 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Wed Aug 21 00:00:00 PDT 2013 
+
+[No.16]===============================
+SELECT
+  [T7067].Emp_ID,[T7067].Sale_Date,[T7067].Promo_Date
+FROM
+  (( SELECT
+        [T7065].Emp_ID,[T7065].Promo_Date,[T7065].Emp_ID1,[T7065].Sale_Date
+      FROM
+        (( input1 ) JOIN (
+            input2 )) AS [T7065][Emp_ID, Promo_Date, Emp_ID1, Sale_Date]
+      WHERE
+        [T7065].Emp_ID == [T7065].Emp_ID1 ) JOIN (
+      input1 )) AS [T7067][Emp_ID, Promo_Date, Emp_ID1, Sale_Date, Emp_ID2, Promo_Date1]
+WHERE
+  [T7067].Sale_Date < [T7067].Promo_Date1
+   AND [T7067].Emp_ID == [T7067].Emp_ID2
+@anonymous
+[T7067].Emp_ID(NumberVal) | [T7067].Sale_Date(DateVal) | [T7067].Promo_Date(DateVal) 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Tue Aug 21 00:00:00 PDT 2012 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Wed Aug 21 00:00:00 PDT 2013 
+
+[No.15]===============================
+SELECT
+  [T6831].Emp_ID,[T6831].Sale_Date,[T6831].Promo_Date
+FROM
+  (( SELECT
+        [T6825].Emp_ID,[T6825].Sale_Date,[T6825].Emp_ID1,[T6825].Promo_Date
+      FROM
+        (( input2 ) JOIN (
+            input1 )) AS [T6825][Emp_ID, Sale_Date, Emp_ID1, Promo_Date]
+      WHERE
+        [T6825].Emp_ID == [T6825].Emp_ID1 ) JOIN (
+      (SELECT
+          [T6829].Emp_ID, MAX([T6829].Sale_Date)
+        FROM
+          (input2) AS [T6829][Emp_ID, Sale_Date]
+        GROUP BY
+          [T6829].Emp_ID) AS [T6830][Emp_ID, MAX-Sale_Date] )) AS [T6831][Emp_ID, Sale_Date, Emp_ID1, Promo_Date, Emp_ID2, MAX-Sale_Date]
+WHERE
+  [T6831].Sale_Date <> [T6831].MAX-Sale_Date
+   AND [T6831].Emp_ID1 == [T6831].Emp_ID2
+@anonymous
+[T6831].Emp_ID(NumberVal) | [T6831].Sale_Date(DateVal) | [T6831].Promo_Date(DateVal) 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Tue Aug 21 00:00:00 PDT 2012 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Wed Aug 21 00:00:00 PDT 2013 
+
+[No.14]===============================
+SELECT
+  [T7359].Emp_ID,[T7359].Sale_Date,[T7359].Promo_Date
+FROM
+  (( SELECT
+        [T7357].Emp_ID,[T7357].MAX-Sale_Date,[T7357].Emp_ID1,[T7357].Promo_Date
+      FROM
+        (( (SELECT
+                [T7355].Emp_ID, MAX([T7355].Sale_Date)
+              FROM
+                (input2) AS [T7355][Emp_ID, Sale_Date]
+              GROUP BY
+                [T7355].Emp_ID) AS [T7356][Emp_ID, MAX-Sale_Date] ) JOIN (
+            input1 )) AS [T7357][Emp_ID, MAX-Sale_Date, Emp_ID1, Promo_Date]
+      WHERE
+        [T7357].Emp_ID == [T7357].Emp_ID1 ) JOIN (
+      input2 )) AS [T7359][Emp_ID, MAX-Sale_Date, Emp_ID1, Promo_Date, Emp_ID2, Sale_Date]
+WHERE
+  [T7359].MAX-Sale_Date <> [T7359].Sale_Date
+   AND [T7359].Emp_ID == [T7359].Emp_ID2
+@anonymous
+[T7359].Emp_ID(NumberVal) | [T7359].Sale_Date(DateVal) | [T7359].Promo_Date(DateVal) 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Tue Aug 21 00:00:00 PDT 2012 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Wed Aug 21 00:00:00 PDT 2013 
+
+[No.13]===============================
+SELECT
+  [T7271].Emp_ID,[T7271].Sale_Date,[T7271].Promo_Date
+FROM
+  (( SELECT
+        [T7269].Emp_ID,[T7269].Promo_Date,[T7269].Emp_ID1,[T7269].MAX-Sale_Date
+      FROM
+        (( input1 ) JOIN (
+            (SELECT
+                [T7267].Emp_ID, MAX([T7267].Sale_Date)
+              FROM
+                (input2) AS [T7267][Emp_ID, Sale_Date]
+              GROUP BY
+                [T7267].Emp_ID) AS [T7268][Emp_ID, MAX-Sale_Date] )) AS [T7269][Emp_ID, Promo_Date, Emp_ID1, MAX-Sale_Date]
+      WHERE
+        [T7269].Emp_ID == [T7269].Emp_ID1 ) JOIN (
+      input2 )) AS [T7271][Emp_ID, Promo_Date, Emp_ID1, MAX-Sale_Date, Emp_ID2, Sale_Date]
+WHERE
+  [T7271].MAX-Sale_Date <> [T7271].Sale_Date
+   AND [T7271].Emp_ID1 == [T7271].Emp_ID2
+@anonymous
+[T7271].Emp_ID(NumberVal) | [T7271].Sale_Date(DateVal) | [T7271].Promo_Date(DateVal) 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Tue Aug 21 00:00:00 PDT 2012 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Wed Aug 21 00:00:00 PDT 2013 
+
+[No.12]===============================
+SELECT
+  [T7231].Emp_ID,[T7231].Sale_Date,[T7231].Promo_Date
+FROM
+  (( SELECT
+        [T7225].Emp_ID,[T7225].Promo_Date,[T7225].Emp_ID1,[T7225].Sale_Date
+      FROM
+        (( input1 ) JOIN (
+            input2 )) AS [T7225][Emp_ID, Promo_Date, Emp_ID1, Sale_Date]
+      WHERE
+        [T7225].Emp_ID == [T7225].Emp_ID1 ) JOIN (
+      (SELECT
+          [T7229].Emp_ID, MAX([T7229].Sale_Date)
+        FROM
+          (input2) AS [T7229][Emp_ID, Sale_Date]
+        GROUP BY
+          [T7229].Emp_ID) AS [T7230][Emp_ID, MAX-Sale_Date] )) AS [T7231][Emp_ID, Promo_Date, Emp_ID1, Sale_Date, Emp_ID2, MAX-Sale_Date]
+WHERE
+  [T7231].Sale_Date <> [T7231].MAX-Sale_Date
+   AND [T7231].Emp_ID1 == [T7231].Emp_ID2
+@anonymous
+[T7231].Emp_ID(NumberVal) | [T7231].Sale_Date(DateVal) | [T7231].Promo_Date(DateVal) 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Tue Aug 21 00:00:00 PDT 2012 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Wed Aug 21 00:00:00 PDT 2013 
+
+[No.11]===============================
+SELECT
+  [T6839].Emp_ID,[T6839].Sale_Date,[T6839].Promo_Date
+FROM
+  (( SELECT
+        [T6833].Emp_ID,[T6833].Sale_Date,[T6833].Emp_ID1,[T6833].Promo_Date
+      FROM
+        (( input2 ) JOIN (
+            input1 )) AS [T6833][Emp_ID, Sale_Date, Emp_ID1, Promo_Date]
+      WHERE
+        [T6833].Emp_ID == [T6833].Emp_ID1 ) JOIN (
+      (SELECT
+          [T6837].Emp_ID, MAX([T6837].Sale_Date)
+        FROM
+          (input2) AS [T6837][Emp_ID, Sale_Date]
+        GROUP BY
+          [T6837].Emp_ID) AS [T6838][Emp_ID, MAX-Sale_Date] )) AS [T6839][Emp_ID, Sale_Date, Emp_ID1, Promo_Date, Emp_ID2, MAX-Sale_Date]
+WHERE
+  [T6839].Sale_Date <> [T6839].MAX-Sale_Date
+   AND [T6839].Emp_ID == [T6839].Emp_ID2
+@anonymous
+[T6839].Emp_ID(NumberVal) | [T6839].Sale_Date(DateVal) | [T6839].Promo_Date(DateVal) 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Tue Aug 21 00:00:00 PDT 2012 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Wed Aug 21 00:00:00 PDT 2013 
+
+[No.10]===============================
+SELECT
+  [T7311].Emp_ID,[T7311].Sale_Date,[T7311].Promo_Date
+FROM
+  (( SELECT
+        [T7309].Emp_ID,[T7309].MAX-Sale_Date,[T7309].Emp_ID1,[T7309].Sale_Date
+      FROM
+        (( (SELECT
+                [T7307].Emp_ID, MAX([T7307].Sale_Date)
+              FROM
+                (input2) AS [T7307][Emp_ID, Sale_Date]
+              GROUP BY
+                [T7307].Emp_ID) AS [T7308][Emp_ID, MAX-Sale_Date] ) JOIN (
+            input2 )) AS [T7309][Emp_ID, MAX-Sale_Date, Emp_ID1, Sale_Date]
+      WHERE
+        [T7309].MAX-Sale_Date <> [T7309].Sale_Date ) JOIN (
+      input1 )) AS [T7311][Emp_ID, MAX-Sale_Date, Emp_ID1, Sale_Date, Emp_ID2, Promo_Date]
+WHERE
+  [T7311].Emp_ID == [T7311].Emp_ID2
+   AND [T7311].Emp_ID1 == [T7311].Emp_ID2
+@anonymous
+[T7311].Emp_ID(NumberVal) | [T7311].Sale_Date(DateVal) | [T7311].Promo_Date(DateVal) 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Tue Aug 21 00:00:00 PDT 2012 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Wed Aug 21 00:00:00 PDT 2013 
+
+[No.9]===============================
+SELECT
+  [T7031].Emp_ID,[T7031].Sale_Date,[T7031].Promo_Date
+FROM
+  (( SELECT
+        [T7029].Emp_ID,[T7029].Sale_Date,[T7029].Emp_ID1,[T7029].MAX-Sale_Date
+      FROM
+        (( input2 ) JOIN (
+            (SELECT
+                [T7027].Emp_ID, MAX([T7027].Sale_Date)
+              FROM
+                (input2) AS [T7027][Emp_ID, Sale_Date]
+              GROUP BY
+                [T7027].Emp_ID) AS [T7028][Emp_ID, MAX-Sale_Date] )) AS [T7029][Emp_ID, Sale_Date, Emp_ID1, MAX-Sale_Date]
+      WHERE
+        [T7029].Sale_Date <> [T7029].MAX-Sale_Date ) JOIN (
+      input1 )) AS [T7031][Emp_ID, Sale_Date, Emp_ID1, MAX-Sale_Date, Emp_ID2, Promo_Date]
+WHERE
+  [T7031].Emp_ID == [T7031].Emp_ID2
+   AND [T7031].Emp_ID1 == [T7031].Emp_ID2
+@anonymous
+[T7031].Emp_ID(NumberVal) | [T7031].Sale_Date(DateVal) | [T7031].Promo_Date(DateVal) 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Tue Aug 21 00:00:00 PDT 2012 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Wed Aug 21 00:00:00 PDT 2013 
+
+[No.8]===============================
+SELECT
+  [T6811].Emp_ID,[T6811].Sale_Date,[T6811].Promo_Date
+FROM
+  (( SELECT
+        [T6809].Emp_ID,[T6809].Promo_Date,[T6809].Emp_ID1,[T6809].Promo_Date1
+      FROM
+        (( input1 ) JOIN (
+            input1 )) AS [T6809][Emp_ID, Promo_Date, Emp_ID1, Promo_Date1]
+      WHERE
+        [T6809].Emp_ID == [T6809].Emp_ID1 ) JOIN (
+      input2 )) AS [T6811][Emp_ID, Promo_Date, Emp_ID1, Promo_Date1, Emp_ID2, Sale_Date]
+WHERE
+  [T6811].Emp_ID1 == [T6811].Emp_ID2
+   AND [T6811].Promo_Date1 > [T6811].Sale_Date
+@anonymous
+[T6811].Emp_ID(NumberVal) | [T6811].Sale_Date(DateVal) | [T6811].Promo_Date(DateVal) 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Tue Aug 21 00:00:00 PDT 2012 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Wed Aug 21 00:00:00 PDT 2013 
+
+[No.7]===============================
+SELECT
+  [T6807].Emp_ID,[T6807].Sale_Date,[T6807].Promo_Date
+FROM
+  (( SELECT
+        [T6805].Emp_ID,[T6805].Promo_Date,[T6805].Emp_ID1,[T6805].Promo_Date1
+      FROM
+        (( input1 ) JOIN (
+            input1 )) AS [T6805][Emp_ID, Promo_Date, Emp_ID1, Promo_Date1]
+      WHERE
+        [T6805].Emp_ID == [T6805].Emp_ID1 ) JOIN (
+      input2 )) AS [T6807][Emp_ID, Promo_Date, Emp_ID1, Promo_Date1, Emp_ID2, Sale_Date]
+WHERE
+  [T6807].Emp_ID == [T6807].Emp_ID2
+   AND [T6807].Promo_Date1 > [T6807].Sale_Date
+@anonymous
+[T6807].Emp_ID(NumberVal) | [T6807].Sale_Date(DateVal) | [T6807].Promo_Date(DateVal) 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Tue Aug 21 00:00:00 PDT 2012 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Wed Aug 21 00:00:00 PDT 2013 
+
+[No.6]===============================
+SELECT
+  [T6791].Emp_ID,[T6791].Sale_Date,[T6791].Promo_Date1
+FROM
+  (( SELECT
+        [T6789].Emp_ID,[T6789].Promo_Date,[T6789].Emp_ID1,[T6789].Promo_Date1
+      FROM
+        (( input1 ) JOIN (
+            input1 )) AS [T6789][Emp_ID, Promo_Date, Emp_ID1, Promo_Date1]
+      WHERE
+        [T6789].Emp_ID == [T6789].Emp_ID1 ) JOIN (
+      input2 )) AS [T6791][Emp_ID, Promo_Date, Emp_ID1, Promo_Date1, Emp_ID2, Sale_Date]
+WHERE
+  [T6791].Emp_ID == [T6791].Emp_ID2
+   AND [T6791].Promo_Date > [T6791].Sale_Date
+@anonymous
+[T6791].Emp_ID(NumberVal) | [T6791].Sale_Date(DateVal) | [T6791].Promo_Date1(DateVal) 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Tue Aug 21 00:00:00 PDT 2012 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Wed Aug 21 00:00:00 PDT 2013 
+
+[No.5]===============================
+SELECT
+  [T6787].Emp_ID,[T6787].Sale_Date,[T6787].Promo_Date1
+FROM
+  (( SELECT
+        [T6785].Emp_ID,[T6785].Promo_Date,[T6785].Emp_ID1,[T6785].Promo_Date1
+      FROM
+        (( input1 ) JOIN (
+            input1 )) AS [T6785][Emp_ID, Promo_Date, Emp_ID1, Promo_Date1]
+      WHERE
+        [T6785].Emp_ID == [T6785].Emp_ID1 ) JOIN (
+      input2 )) AS [T6787][Emp_ID, Promo_Date, Emp_ID1, Promo_Date1, Emp_ID2, Sale_Date]
+WHERE
+  [T6787].Emp_ID1 == [T6787].Emp_ID2
+   AND [T6787].Promo_Date > [T6787].Sale_Date
+@anonymous
+[T6787].Emp_ID(NumberVal) | [T6787].Sale_Date(DateVal) | [T6787].Promo_Date1(DateVal) 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Tue Aug 21 00:00:00 PDT 2012 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Wed Aug 21 00:00:00 PDT 2013 
+
+[No.4]===============================
+SELECT
+  [T7327].Emp_ID,[T7327].Sale_Date,[T7327].Promo_Date
+FROM
+  (( SELECT
+        [T7325].Emp_ID,[T7325].MAX-Sale_Date,[T7325].Emp_ID1,[T7325].Sale_Date
+      FROM
+        (( (SELECT
+                [T7323].Emp_ID, MAX([T7323].Sale_Date)
+              FROM
+                (input2) AS [T7323][Emp_ID, Sale_Date]
+              GROUP BY
+                [T7323].Emp_ID) AS [T7324][Emp_ID, MAX-Sale_Date] ) JOIN (
+            input2 )) AS [T7325][Emp_ID, MAX-Sale_Date, Emp_ID1, Sale_Date]
+      WHERE
+        [T7325].Emp_ID == [T7325].Emp_ID1
+         AND [T7325].MAX-Sale_Date <> [T7325].Sale_Date ) JOIN (
+      input1 )) AS [T7327][Emp_ID, MAX-Sale_Date, Emp_ID1, Sale_Date, Emp_ID2, Promo_Date]
+WHERE
+  [T7327].Emp_ID == [T7327].Emp_ID2
+@anonymous
+[T7327].Emp_ID(NumberVal) | [T7327].Sale_Date(DateVal) | [T7327].Promo_Date(DateVal) 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Tue Aug 21 00:00:00 PDT 2012 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Wed Aug 21 00:00:00 PDT 2013 
+
+[No.3]===============================
+SELECT
+  [T7319].Emp_ID,[T7319].Sale_Date,[T7319].Promo_Date
+FROM
+  (( SELECT
+        [T7317].Emp_ID,[T7317].MAX-Sale_Date,[T7317].Emp_ID1,[T7317].Sale_Date
+      FROM
+        (( (SELECT
+                [T7315].Emp_ID, MAX([T7315].Sale_Date)
+              FROM
+                (input2) AS [T7315][Emp_ID, Sale_Date]
+              GROUP BY
+                [T7315].Emp_ID) AS [T7316][Emp_ID, MAX-Sale_Date] ) JOIN (
+            input2 )) AS [T7317][Emp_ID, MAX-Sale_Date, Emp_ID1, Sale_Date]
+      WHERE
+        [T7317].Emp_ID == [T7317].Emp_ID1
+         AND [T7317].MAX-Sale_Date <> [T7317].Sale_Date ) JOIN (
+      input1 )) AS [T7319][Emp_ID, MAX-Sale_Date, Emp_ID1, Sale_Date, Emp_ID2, Promo_Date]
+WHERE
+  [T7319].Emp_ID1 == [T7319].Emp_ID2
+@anonymous
+[T7319].Emp_ID(NumberVal) | [T7319].Sale_Date(DateVal) | [T7319].Promo_Date(DateVal) 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Tue Aug 21 00:00:00 PDT 2012 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Wed Aug 21 00:00:00 PDT 2013 
+
+[No.2]===============================
+SELECT
+  [T7047].Emp_ID,[T7047].Sale_Date,[T7047].Promo_Date
+FROM
+  (( SELECT
+        [T7045].Emp_ID,[T7045].Sale_Date,[T7045].Emp_ID1,[T7045].MAX-Sale_Date
+      FROM
+        (( input2 ) JOIN (
+            (SELECT
+                [T7043].Emp_ID, MAX([T7043].Sale_Date)
+              FROM
+                (input2) AS [T7043][Emp_ID, Sale_Date]
+              GROUP BY
+                [T7043].Emp_ID) AS [T7044][Emp_ID, MAX-Sale_Date] )) AS [T7045][Emp_ID, Sale_Date, Emp_ID1, MAX-Sale_Date]
+      WHERE
+        [T7045].Emp_ID == [T7045].Emp_ID1
+         AND [T7045].Sale_Date <> [T7045].MAX-Sale_Date ) JOIN (
+      input1 )) AS [T7047][Emp_ID, Sale_Date, Emp_ID1, MAX-Sale_Date, Emp_ID2, Promo_Date]
+WHERE
+  [T7047].Emp_ID1 == [T7047].Emp_ID2
+@anonymous
+[T7047].Emp_ID(NumberVal) | [T7047].Sale_Date(DateVal) | [T7047].Promo_Date(DateVal) 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Tue Aug 21 00:00:00 PDT 2012 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Wed Aug 21 00:00:00 PDT 2013 
+
+[No.1]===============================
+SELECT
+  [T7039].Emp_ID,[T7039].Sale_Date,[T7039].Promo_Date
+FROM
+  (( SELECT
+        [T7037].Emp_ID,[T7037].Sale_Date,[T7037].Emp_ID1,[T7037].MAX-Sale_Date
+      FROM
+        (( input2 ) JOIN (
+            (SELECT
+                [T7035].Emp_ID, MAX([T7035].Sale_Date)
+              FROM
+                (input2) AS [T7035][Emp_ID, Sale_Date]
+              GROUP BY
+                [T7035].Emp_ID) AS [T7036][Emp_ID, MAX-Sale_Date] )) AS [T7037][Emp_ID, Sale_Date, Emp_ID1, MAX-Sale_Date]
+      WHERE
+        [T7037].Emp_ID == [T7037].Emp_ID1
+         AND [T7037].Sale_Date <> [T7037].MAX-Sale_Date ) JOIN (
+      input1 )) AS [T7039][Emp_ID, Sale_Date, Emp_ID1, MAX-Sale_Date, Emp_ID2, Promo_Date]
+WHERE
+  [T7039].Emp_ID == [T7039].Emp_ID2
+@anonymous
+[T7039].Emp_ID(NumberVal) | [T7039].Sale_Date(DateVal) | [T7039].Promo_Date(DateVal) 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Wed Jun 12 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Sun Jul 01 00:00:00 PDT 2012 
+1.0 | Sun Jun 30 00:00:00 PDT 2013 | Mon Jul 01 00:00:00 PDT 2013 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Sat Jun 15 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Thu Jul 19 00:00:00 PDT 2012 
+2.0 | Mon Jun 17 00:00:00 PDT 2013 | Fri Jul 19 00:00:00 PDT 2013 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Tue Aug 21 00:00:00 PDT 2012 
+3.0 | Wed Jul 31 00:00:00 PDT 2013 | Wed Aug 21 00:00:00 PDT 2013 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 3.541s

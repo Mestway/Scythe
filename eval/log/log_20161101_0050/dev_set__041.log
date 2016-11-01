@@ -1,0 +1,406 @@
+[[Synthesis start]]
+	File: ..\data\dev_set\041
+	Enumerator: StagedEnumerator
+[Retry] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 18 [SymTable]: 19
+[EnumJoinOnAggr] level 1 [SymTable]: 380
+Candidate Tree Number: 205
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T785].NBR,[T785].ID,[T785].MIN-DT
+FROM
+  (( (SELECT
+          MIN([T783].DT)
+        FROM
+          (input1) AS [T783][NBR, ID, DT]) AS [T784][MIN-DT] ) JOIN (
+      SELECT
+        input1.NBR,input1.ID,input1.DT
+      FROM
+        input1
+      WHERE
+        input1.NBR < input1.ID )) AS [T785][MIN-DT, NBR, ID, DT]
+WHERE
+  [T785].MIN-DT == [T785].DT
+@anonymous
+[T785].NBR(NumberVal) | [T785].ID(NumberVal) | [T785].MIN-DT(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[No.19]===============================
+SELECT
+  [T721].NBR,[T721].MIN-ID,[T721].MIN-DT
+FROM
+  (( (SELECT
+          [T715].NBR, MIN([T715].DT)
+        FROM
+          (input1) AS [T715][NBR, ID, DT]
+        GROUP BY
+          [T715].NBR) AS [T716][NBR, MIN-DT] ) JOIN (
+      (SELECT
+          [T719].NBR, MIN([T719].ID)
+        FROM
+          (SELECT
+              input1.NBR,input1.ID,input1.DT
+            FROM
+              input1
+            WHERE
+              input1.NBR < input1.ID) AS [T719][NBR, ID, DT]
+        GROUP BY
+          [T719].NBR) AS [T720][NBR, MIN-ID] )) AS [T721][NBR, MIN-DT, NBR1, MIN-ID]
+WHERE
+  [T721].NBR == [T721].NBR1
+@anonymous
+[T721].NBR(NumberVal) | [T721].MIN-ID(NumberVal) | [T721].MIN-DT(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[No.18]===============================
+SELECT
+  [T631].NBR,[T631].MIN-ID,[T631].MIN-DT
+FROM
+  (( (SELECT
+          [T619].NBR, MIN([T619].ID)
+        FROM
+          (SELECT
+              input1.NBR,input1.ID,input1.DT
+            FROM
+              input1
+            WHERE
+              input1.NBR < input1.ID) AS [T619][NBR, ID, DT]
+        GROUP BY
+          [T619].NBR) AS [T620][NBR, MIN-ID] ) JOIN (
+      (SELECT
+          [T629].NBR, MIN([T629].DT)
+        FROM
+          (input1) AS [T629][NBR, ID, DT]
+        GROUP BY
+          [T629].NBR) AS [T630][NBR, MIN-DT] )) AS [T631][NBR, MIN-ID, NBR1, MIN-DT]
+WHERE
+  [T631].NBR == [T631].NBR1
+@anonymous
+[T631].NBR(NumberVal) | [T631].MIN-ID(NumberVal) | [T631].MIN-DT(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[No.17]===============================
+SELECT
+  [T543].NBR,[T543].ID,[T543].DT
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T541].NBR, MIN([T541].ID)
+        FROM
+          (SELECT
+              input1.NBR,input1.ID,input1.DT
+            FROM
+              input1
+            WHERE
+              input1.NBR < input1.ID) AS [T541][NBR, ID, DT]
+        GROUP BY
+          [T541].NBR) AS [T542][NBR, MIN-ID] )) AS [T543][NBR, ID, DT, NBR1, MIN-ID]
+WHERE
+  [T543].ID == [T543].MIN-ID
+@anonymous
+[T543].NBR(NumberVal) | [T543].ID(NumberVal) | [T543].DT(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[No.16]===============================
+SELECT
+  [T393].NBR,[T393].ID,[T393].DT
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          MIN([T391].DT)
+        FROM
+          (SELECT
+              input1.NBR,input1.ID,input1.DT
+            FROM
+              input1
+            WHERE
+              input1.NBR < input1.ID) AS [T391][NBR, ID, DT]) AS [T392][MIN-DT] )) AS [T393][NBR, ID, DT, MIN-DT]
+WHERE
+  [T393].DT == [T393].MIN-DT
+@anonymous
+[T393].NBR(NumberVal) | [T393].ID(NumberVal) | [T393].DT(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[No.15]===============================
+SELECT
+  [T157].NBR,[T157].MIN-ID,[T157].DT
+FROM
+  (( (SELECT
+          [T155].NBR, MIN([T155].ID)
+        FROM
+          (SELECT
+              input1.NBR,input1.ID,input1.DT
+            FROM
+              input1
+            WHERE
+              input1.NBR < input1.ID) AS [T155][NBR, ID, DT]
+        GROUP BY
+          [T155].NBR) AS [T156][NBR, MIN-ID] ) JOIN (
+      input1 )) AS [T157][NBR, MIN-ID, NBR1, ID, DT]
+WHERE
+  [T157].MIN-ID == [T157].ID
+@anonymous
+[T157].NBR(NumberVal) | [T157].MIN-ID(NumberVal) | [T157].DT(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[No.14]===============================
+SELECT
+  [T1479].MIN-NBR,[T1479].ID,[T1479].DT1
+FROM
+  (( (SELECT
+          [T1477].DT, MIN([T1477].NBR)
+        FROM
+          (input1) AS [T1477][NBR, ID, DT]
+        GROUP BY
+          [T1477].DT) AS [T1478][DT, MIN-NBR] ) JOIN (
+      input1 )) AS [T1479][DT, MIN-NBR, NBR, ID, DT1]
+WHERE
+  [T1479].MIN-NBR == [T1479].NBR
+   AND [T1479].DT > [T1479].DT1
+@anonymous
+[T1479].MIN-NBR(NumberVal) | [T1479].ID(NumberVal) | [T1479].DT1(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[No.13]===============================
+SELECT
+  [T1459].NBR,[T1459].ID1,[T1459].DT1
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T1459][NBR, ID, DT, NBR1, ID1, DT1]
+WHERE
+  [T1459].NBR == [T1459].NBR1
+   AND [T1459].DT > [T1459].DT1
+@anonymous
+[T1459].NBR(NumberVal) | [T1459].ID1(NumberVal) | [T1459].DT1(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[No.12]===============================
+SELECT
+  [T1429].NBR,[T1429].ID,[T1429].DT
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T1429][NBR, ID, DT, NBR1, ID1, DT1]
+WHERE
+  [T1429].NBR == [T1429].NBR1
+   AND [T1429].DT < [T1429].DT1
+@anonymous
+[T1429].NBR(NumberVal) | [T1429].ID(NumberVal) | [T1429].DT(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[No.11]===============================
+SELECT
+  [T1411].NBR,[T1411].ID,[T1411].DT
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T1411][NBR, ID, DT, NBR1, ID1, DT1]
+WHERE
+  [T1411].NBR <> [T1411].NBR1
+   AND [T1411].DT == [T1411].DT1
+@anonymous
+[T1411].NBR(NumberVal) | [T1411].ID(NumberVal) | [T1411].DT(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[No.10]===============================
+SELECT
+  [T1409].NBR,[T1409].ID,[T1409].DT
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T1409][NBR, ID, DT, NBR1, ID1, DT1]
+WHERE
+  [T1409].ID <> [T1409].ID1
+   AND [T1409].DT == [T1409].DT1
+@anonymous
+[T1409].NBR(NumberVal) | [T1409].ID(NumberVal) | [T1409].DT(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[No.9]===============================
+SELECT
+  [T1189].NBR,[T1189].ID,[T1189].DT
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T1187].NBR, MIN([T1187].DT)
+        FROM
+          (input1) AS [T1187][NBR, ID, DT]
+        GROUP BY
+          [T1187].NBR) AS [T1188][NBR, MIN-DT] )) AS [T1189][NBR, ID, DT, NBR1, MIN-DT]
+WHERE
+  [T1189].DT == [T1189].MIN-DT
+   AND [T1189].NBR <> [T1189].NBR1
+@anonymous
+[T1189].NBR(NumberVal) | [T1189].ID(NumberVal) | [T1189].DT(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[No.8]===============================
+SELECT
+  [T1009].NBR1,[T1009].ID,[T1009].MIN-DT
+FROM
+  (( (SELECT
+          [T1007].NBR, MIN([T1007].DT)
+        FROM
+          (input1) AS [T1007][NBR, ID, DT]
+        GROUP BY
+          [T1007].NBR) AS [T1008][NBR, MIN-DT] ) JOIN (
+      input1 )) AS [T1009][NBR, MIN-DT, NBR1, ID, DT]
+WHERE
+  [T1009].NBR <> [T1009].NBR1
+   AND [T1009].MIN-DT == [T1009].DT
+@anonymous
+[T1009].NBR1(NumberVal) | [T1009].ID(NumberVal) | [T1009].MIN-DT(DateVal) 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[No.7]===============================
+SELECT
+  [T283].NBR,[T283].ID,[T283].DT
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T281].DT, MIN([T281].NBR)
+        FROM
+          (input1) AS [T281][NBR, ID, DT]
+        GROUP BY
+          [T281].DT) AS [T282][DT, MIN-NBR] )) AS [T283][NBR, ID, DT, DT1, MIN-NBR]
+WHERE
+  [T283].NBR == [T283].MIN-NBR
+   AND [T283].DT < [T283].DT1
+@anonymous
+[T283].NBR(NumberVal) | [T283].ID(NumberVal) | [T283].DT(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[No.6]===============================
+SELECT
+  [T1543].NBR,[T1543].MIN-ID,[T1543].MIN-DT
+FROM
+  (( (SELECT
+          MIN([T1537].DT)
+        FROM
+          (input1) AS [T1537][NBR, ID, DT]) AS [T1538][MIN-DT] ) JOIN (
+      (SELECT
+          [T1541].NBR, MIN([T1541].ID)
+        FROM
+          (SELECT
+              input1.NBR,input1.ID,input1.DT
+            FROM
+              input1
+            WHERE
+              input1.NBR < input1.ID) AS [T1541][NBR, ID, DT]
+        GROUP BY
+          [T1541].NBR) AS [T1542][NBR, MIN-ID] )) AS [T1543][MIN-DT, NBR, MIN-ID]
+
+@anonymous
+[T1543].NBR(NumberVal) | [T1543].MIN-ID(NumberVal) | [T1543].MIN-DT(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[No.5]===============================
+(( (SELECT
+        [T335].NBR, MIN([T335].ID)
+      FROM
+        (SELECT
+            input1.NBR,input1.ID,input1.DT
+          FROM
+            input1
+          WHERE
+            input1.NBR < input1.ID) AS [T335][NBR, ID, DT]
+      GROUP BY
+        [T335].NBR) AS [T336][NBR, MIN-ID] ) JOIN (
+    (SELECT
+        MIN([T345].DT)
+      FROM
+        (input1) AS [T345][NBR, ID, DT]) AS [T346][MIN-DT] )) AS [T347][NBR, MIN-ID, MIN-DT]
+@anonymous
+[T347].NBR(NumberVal) | [T347].MIN-ID(NumberVal) | [T347].MIN-DT(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[No.4]===============================
+SELECT
+  [T1249].NBR,[T1249].ID,[T1249].DT
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T1247].NBR, MIN([T1247].DT)
+        FROM
+          (input1) AS [T1247][NBR, ID, DT]
+        GROUP BY
+          [T1247].NBR) AS [T1248][NBR, MIN-DT] )) AS [T1249][NBR, ID, DT, NBR1, MIN-DT]
+WHERE
+  [T1249].DT == [T1249].MIN-DT
+   AND [T1249].NBR == [T1249].NBR1
+@anonymous
+[T1249].NBR(NumberVal) | [T1249].ID(NumberVal) | [T1249].DT(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[No.3]===============================
+SELECT
+  [T1069].NBR,[T1069].ID,[T1069].MIN-DT
+FROM
+  (( (SELECT
+          [T1067].NBR, MIN([T1067].DT)
+        FROM
+          (input1) AS [T1067][NBR, ID, DT]
+        GROUP BY
+          [T1067].NBR) AS [T1068][NBR, MIN-DT] ) JOIN (
+      input1 )) AS [T1069][NBR, MIN-DT, NBR1, ID, DT]
+WHERE
+  [T1069].MIN-DT == [T1069].DT
+   AND [T1069].NBR == [T1069].NBR1
+@anonymous
+[T1069].NBR(NumberVal) | [T1069].ID(NumberVal) | [T1069].MIN-DT(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[No.2]===============================
+SELECT
+  [T949].NBR,[T949].ID,[T949].DT
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          MIN([T947].DT)
+        FROM
+          (input1) AS [T947][NBR, ID, DT]) AS [T948][MIN-DT] )) AS [T949][NBR, ID, DT, MIN-DT]
+WHERE
+  [T949].DT == [T949].MIN-DT
+@anonymous
+[T949].NBR(NumberVal) | [T949].ID(NumberVal) | [T949].DT(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[No.1]===============================
+SELECT
+  [T749].NBR,[T749].ID,[T749].MIN-DT
+FROM
+  (( (SELECT
+          MIN([T747].DT)
+        FROM
+          (input1) AS [T747][NBR, ID, DT]) AS [T748][MIN-DT] ) JOIN (
+      input1 )) AS [T749][MIN-DT, NBR, ID, DT]
+WHERE
+  [T749].MIN-DT == [T749].DT
+@anonymous
+[T749].NBR(NumberVal) | [T749].ID(NumberVal) | [T749].MIN-DT(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 1.081s
