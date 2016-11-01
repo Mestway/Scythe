@@ -1,0 +1,614 @@
+[[Synthesis start]]
+	File: ../data/dev_set/031
+	Enumerator: StagedEnumerator
+[Retry] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[NaturalJoin]: 1 [SymTable]: 2
+[Aggregation]: 23 [SymTable]: 25
+[EnumJoinOnAggr] level 1 [SymTable]: 650
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[NaturalJoin]: 1 [SymTable]: 2
+[Aggregation]: 23 [SymTable]: 25
+[EnumJoinOnAggr] level 1 [SymTable]: 650
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[NaturalJoin]: 1 [SymTable]: 2
+[Aggregation]: 23 [SymTable]: 25
+[EnumJoinOnAggr] level 1 [SymTable]: 650
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[NaturalJoin]: 1 [SymTable]: 2
+[Aggregation]: 23 [SymTable]: 25
+[EnumJoinOnAggr] level 1 [SymTable]: 650
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[NaturalJoin]: 1 [SymTable]: 2
+[Aggregation]: 23 [SymTable]: 25
+[EnumJoinOnAggr] level 1 [SymTable]: 650
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Retry] Maximum Depth: 2
+@output
+name(StringVal) | waiter(NumberVal) | maxamount(NumberVal) | bill(NumberVal) 
+john | 1.0 | 60.0 | 5.0 
+joe | 2.0 | 50.0 | 3.0 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 23 [SymTable]: 25
+[JOIN] level 1 [SymTable]: 75
+[UNION] level 1 [SymTable]: 77
+[EnumLeftJoin] level 1 [SymTable]: 77
+[EnumAggrOnJoin] level 1 [SymTable]: 556
+stored cnt / visited compound cnt 1 / 1000(3232) = 0.001
+[EnumJoinOnAggr] level 1 [SymTable]: 1181
+[EnumJoinOnAggr] level 2 [SymTable]: 16806
+stored cnt / visited compound cnt 1 / 1000(3232) = 0.001
+stored cnt / visited compound cnt 34 / 1000(2432) = 0.034
+stored cnt / visited compound cnt 13 / 1000(2432) = 0.013
+stored cnt / visited compound cnt 26 / 1000(1664) = 0.026
+stored cnt / visited compound cnt 26 / 1000(1664) = 0.026
+stored cnt / visited compound cnt 1 / 1000(3232) = 0.001
+stored cnt / visited compound cnt 34 / 1000(2432) = 0.034
+stored cnt / visited compound cnt 13 / 1000(2432) = 0.013
+Candidate Tree Number: 556
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T126326].name,[T126326].id_waiter,[T126326].MAX-amount,[T126326].MAX-id
+FROM
+  (( SELECT
+        [T126314].id_waiter,[T126314].MAX-amount,[T126314].id,[T126314].name
+      FROM
+        (( (SELECT
+                [T126312].id_waiter, MAX([T126312].amount)
+              FROM
+                (input1) AS [T126312][id, amount, id_waiter]
+              GROUP BY
+                [T126312].id_waiter) AS [T126313][id_waiter, MAX-amount] ) JOIN (
+            input2 )) AS [T126314][id_waiter, MAX-amount, id, name]
+      WHERE
+        [T126314].id_waiter == [T126314].id ) JOIN (
+      (SELECT
+          [T126324].amount, MAX([T126324].id)
+        FROM
+          (input1) AS [T126324][id, amount, id_waiter]
+        GROUP BY
+          [T126324].amount) AS [T126325][amount, MAX-id] )) AS [T126326][id_waiter, MAX-amount, id, name, amount, MAX-id]
+WHERE
+  [T126326].MAX-amount == [T126326].amount
+@anonymous
+[T126326].name(StringVal) | [T126326].id_waiter(NumberVal) | [T126326].MAX-amount(NumberVal) | [T126326].MAX-id(NumberVal) 
+john | 1.0 | 60.0 | 5.0 
+joe | 2.0 | 50.0 | 3.0 
+
+[No.19]===============================
+SELECT
+  [T126050].name,[T126050].id,[T126050].MAX-amount,[T126050].MAX-id
+FROM
+  (( SELECT
+        [T126038].id,[T126038].name,[T126038].id_waiter,[T126038].MAX-amount
+      FROM
+        (( input2 ) JOIN (
+            (SELECT
+                [T126036].id_waiter, MAX([T126036].amount)
+              FROM
+                (input1) AS [T126036][id, amount, id_waiter]
+              GROUP BY
+                [T126036].id_waiter) AS [T126037][id_waiter, MAX-amount] )) AS [T126038][id, name, id_waiter, MAX-amount]
+      WHERE
+        [T126038].id == [T126038].id_waiter ) JOIN (
+      (SELECT
+          [T126048].amount, [T126048].id_waiter, MAX([T126048].id)
+        FROM
+          (input1) AS [T126048][id, amount, id_waiter]
+        GROUP BY
+          [T126048].amount  [T126048].id_waiter) AS [T126049][amount, id_waiter, MAX-id] )) AS [T126050][id, name, id_waiter, MAX-amount, amount, id_waiter1, MAX-id]
+WHERE
+  [T126050].MAX-amount == [T126050].amount
+@anonymous
+[T126050].name(StringVal) | [T126050].id(NumberVal) | [T126050].MAX-amount(NumberVal) | [T126050].MAX-id(NumberVal) 
+john | 1.0 | 60.0 | 5.0 
+joe | 2.0 | 50.0 | 3.0 
+
+[No.18]===============================
+SELECT
+  [T126026].name,[T126026].id,[T126026].MAX-amount,[T126026].MAX-id
+FROM
+  (( (( input2 ) JOIN (
+          (SELECT
+              [T126012].id_waiter, MAX([T126012].amount)
+            FROM
+              (input1) AS [T126012][id, amount, id_waiter]
+            GROUP BY
+              [T126012].id_waiter) AS [T126013][id_waiter, MAX-amount] )) AS [T126014][id, name, id_waiter, MAX-amount] ) JOIN (
+      (SELECT
+          [T126024].amount, [T126024].id_waiter, MAX([T126024].id)
+        FROM
+          (input1) AS [T126024][id, amount, id_waiter]
+        GROUP BY
+          [T126024].amount  [T126024].id_waiter) AS [T126025][amount, id_waiter, MAX-id] )) AS [T126026][id, name, id_waiter, MAX-amount, amount, id_waiter1, MAX-id]
+WHERE
+  [T126026].MAX-amount == [T126026].amount
+   AND [T126026].id == [T126026].id_waiter1
+@anonymous
+[T126026].name(StringVal) | [T126026].id(NumberVal) | [T126026].MAX-amount(NumberVal) | [T126026].MAX-id(NumberVal) 
+john | 1.0 | 60.0 | 5.0 
+joe | 2.0 | 50.0 | 3.0 
+
+[No.17]===============================
+SELECT
+  [T123690].name,[T123690].id_waiter,[T123690].MAX-amount,[T123690].MAX-id
+FROM
+  (( SELECT
+        [T123678].id_waiter,[T123678].MAX-amount,[T123678].id,[T123678].name
+      FROM
+        (( (SELECT
+                [T123676].id_waiter, MAX([T123676].amount)
+              FROM
+                (input1) AS [T123676][id, amount, id_waiter]
+              GROUP BY
+                [T123676].id_waiter) AS [T123677][id_waiter, MAX-amount] ) JOIN (
+            input2 )) AS [T123678][id_waiter, MAX-amount, id, name]
+      WHERE
+        [T123678].id_waiter == [T123678].id ) JOIN (
+      (SELECT
+          [T123688].amount, [T123688].id_waiter, MAX([T123688].id)
+        FROM
+          (input1) AS [T123688][id, amount, id_waiter]
+        GROUP BY
+          [T123688].amount  [T123688].id_waiter) AS [T123689][amount, id_waiter, MAX-id] )) AS [T123690][id_waiter, MAX-amount, id, name, amount, id_waiter1, MAX-id]
+WHERE
+  [T123690].MAX-amount == [T123690].amount
+@anonymous
+[T123690].name(StringVal) | [T123690].id_waiter(NumberVal) | [T123690].MAX-amount(NumberVal) | [T123690].MAX-id(NumberVal) 
+john | 1.0 | 60.0 | 5.0 
+joe | 2.0 | 50.0 | 3.0 
+
+[No.16]===============================
+SELECT
+  [T123666].name,[T123666].id_waiter,[T123666].MAX-amount,[T123666].MAX-id
+FROM
+  (( (( (SELECT
+              [T123652].id_waiter, MAX([T123652].amount)
+            FROM
+              (input1) AS [T123652][id, amount, id_waiter]
+            GROUP BY
+              [T123652].id_waiter) AS [T123653][id_waiter, MAX-amount] ) JOIN (
+          input2 )) AS [T123654][id_waiter, MAX-amount, id, name] ) JOIN (
+      (SELECT
+          [T123664].amount, [T123664].id_waiter, MAX([T123664].id)
+        FROM
+          (input1) AS [T123664][id, amount, id_waiter]
+        GROUP BY
+          [T123664].amount  [T123664].id_waiter) AS [T123665][amount, id_waiter, MAX-id] )) AS [T123666][id_waiter, MAX-amount, id, name, amount, id_waiter1, MAX-id]
+WHERE
+  [T123666].MAX-amount == [T123666].amount
+   AND [T123666].id == [T123666].id_waiter1
+@anonymous
+[T123666].name(StringVal) | [T123666].id_waiter(NumberVal) | [T123666].MAX-amount(NumberVal) | [T123666].MAX-id(NumberVal) 
+john | 1.0 | 60.0 | 5.0 
+joe | 2.0 | 50.0 | 3.0 
+
+[No.15]===============================
+SELECT
+  [T123642].name,[T123642].id,[T123642].amount,[T123642].MAX-id
+FROM
+  (( (( (SELECT
+              [T123628].amount, MAX([T123628].id)
+            FROM
+              (input1) AS [T123628][id, amount, id_waiter]
+            GROUP BY
+              [T123628].amount) AS [T123629][amount, MAX-id] ) JOIN (
+          input2 )) AS [T123630][amount, MAX-id, id, name] ) JOIN (
+      (SELECT
+          [T123640].id_waiter, MAX([T123640].amount)
+        FROM
+          (input1) AS [T123640][id, amount, id_waiter]
+        GROUP BY
+          [T123640].id_waiter) AS [T123641][id_waiter, MAX-amount] )) AS [T123642][amount, MAX-id, id, name, id_waiter, MAX-amount]
+WHERE
+  [T123642].id == [T123642].id_waiter
+   AND [T123642].amount == [T123642].MAX-amount
+@anonymous
+[T123642].name(StringVal) | [T123642].id(NumberVal) | [T123642].amount(NumberVal) | [T123642].MAX-id(NumberVal) 
+joe | 2.0 | 50.0 | 3.0 
+john | 1.0 | 60.0 | 5.0 
+
+[No.14]===============================
+SELECT
+  [T123384].name,[T123384].id,[T123384].amount,[T123384].id1
+FROM
+  (( SELECT
+        [T123372].id,[T123372].name,[T123372].id1,[T123372].amount,[T123372].id_waiter
+      FROM
+        (( input2 ) JOIN (
+            input1 )) AS [T123372][id, name, id1, amount, id_waiter]
+      WHERE
+        [T123372].id == [T123372].id_waiter ) JOIN (
+      (SELECT
+          [T123382].id_waiter, MAX([T123382].amount)
+        FROM
+          (input1) AS [T123382][id, amount, id_waiter]
+        GROUP BY
+          [T123382].id_waiter) AS [T123383][id_waiter, MAX-amount] )) AS [T123384][id, name, id1, amount, id_waiter, id_waiter1, MAX-amount]
+WHERE
+  [T123384].amount == [T123384].MAX-amount
+@anonymous
+[T123384].name(StringVal) | [T123384].id(NumberVal) | [T123384].amount(NumberVal) | [T123384].id1(NumberVal) 
+john | 1.0 | 60.0 | 5.0 
+joe | 2.0 | 50.0 | 3.0 
+
+[No.13]===============================
+SELECT
+  [T123370].name,[T123370].id,[T123370].amount,[T123370].id1
+FROM
+  (( (( input2 ) JOIN (
+          input1 )) AS [T123358][id, name, id1, amount, id_waiter] ) JOIN (
+      (SELECT
+          [T123368].id_waiter, MAX([T123368].amount)
+        FROM
+          (input1) AS [T123368][id, amount, id_waiter]
+        GROUP BY
+          [T123368].id_waiter) AS [T123369][id_waiter, MAX-amount] )) AS [T123370][id, name, id1, amount, id_waiter, id_waiter1, MAX-amount]
+WHERE
+  [T123370].amount == [T123370].MAX-amount
+   AND [T123370].id == [T123370].id_waiter1
+@anonymous
+[T123370].name(StringVal) | [T123370].id(NumberVal) | [T123370].amount(NumberVal) | [T123370].id1(NumberVal) 
+john | 1.0 | 60.0 | 5.0 
+joe | 2.0 | 50.0 | 3.0 
+
+[No.12]===============================
+SELECT
+  [T123194].name,[T123194].id_waiter,[T123194].amount,[T123194].MAX-id
+FROM
+  (( SELECT
+        [T123182].amount,[T123182].id_waiter,[T123182].MAX-id,[T123182].id,[T123182].name
+      FROM
+        (( (SELECT
+                [T123180].amount, [T123180].id_waiter, MAX([T123180].id)
+              FROM
+                (input1) AS [T123180][id, amount, id_waiter]
+              GROUP BY
+                [T123180].amount  [T123180].id_waiter) AS [T123181][amount, id_waiter, MAX-id] ) JOIN (
+            input2 )) AS [T123182][amount, id_waiter, MAX-id, id, name]
+      WHERE
+        [T123182].id_waiter == [T123182].id ) JOIN (
+      (SELECT
+          [T123192].id_waiter, MAX([T123192].amount)
+        FROM
+          (input1) AS [T123192][id, amount, id_waiter]
+        GROUP BY
+          [T123192].id_waiter) AS [T123193][id_waiter, MAX-amount] )) AS [T123194][amount, id_waiter, MAX-id, id, name, id_waiter1, MAX-amount]
+WHERE
+  [T123194].amount == [T123194].MAX-amount
+@anonymous
+[T123194].name(StringVal) | [T123194].id_waiter(NumberVal) | [T123194].amount(NumberVal) | [T123194].MAX-id(NumberVal) 
+joe | 2.0 | 50.0 | 3.0 
+john | 1.0 | 60.0 | 5.0 
+
+[No.11]===============================
+SELECT
+  [T123170].name,[T123170].id_waiter,[T123170].amount,[T123170].MAX-id
+FROM
+  (( (( (SELECT
+              [T123156].amount, [T123156].id_waiter, MAX([T123156].id)
+            FROM
+              (input1) AS [T123156][id, amount, id_waiter]
+            GROUP BY
+              [T123156].amount  [T123156].id_waiter) AS [T123157][amount, id_waiter, MAX-id] ) JOIN (
+          input2 )) AS [T123158][amount, id_waiter, MAX-id, id, name] ) JOIN (
+      (SELECT
+          [T123168].id_waiter, MAX([T123168].amount)
+        FROM
+          (input1) AS [T123168][id, amount, id_waiter]
+        GROUP BY
+          [T123168].id_waiter) AS [T123169][id_waiter, MAX-amount] )) AS [T123170][amount, id_waiter, MAX-id, id, name, id_waiter1, MAX-amount]
+WHERE
+  [T123170].id == [T123170].id_waiter1
+   AND [T123170].amount == [T123170].MAX-amount
+@anonymous
+[T123170].name(StringVal) | [T123170].id_waiter(NumberVal) | [T123170].amount(NumberVal) | [T123170].MAX-id(NumberVal) 
+joe | 2.0 | 50.0 | 3.0 
+john | 1.0 | 60.0 | 5.0 
+
+[No.10]===============================
+SELECT
+  [T129920].name,[T129920].id_waiter,[T129920].amount,[T129920].id
+FROM
+  (( SELECT
+        [T129918].id,[T129918].amount,[T129918].id_waiter,[T129918].id_waiter1,[T129918].MAX-amount
+      FROM
+        (( input1 ) JOIN (
+            (SELECT
+                [T129916].id_waiter, MAX([T129916].amount)
+              FROM
+                (input1) AS [T129916][id, amount, id_waiter]
+              GROUP BY
+                [T129916].id_waiter) AS [T129917][id_waiter, MAX-amount] )) AS [T129918][id, amount, id_waiter, id_waiter1, MAX-amount]
+      WHERE
+        [T129918].amount == [T129918].MAX-amount ) JOIN (
+      input2 )) AS [T129920][id, amount, id_waiter, id_waiter1, MAX-amount, id1, name]
+WHERE
+  [T129920].id_waiter == [T129920].id1
+@anonymous
+[T129920].name(StringVal) | [T129920].id_waiter(NumberVal) | [T129920].amount(NumberVal) | [T129920].id(NumberVal) 
+joe | 2.0 | 50.0 | 3.0 
+john | 1.0 | 60.0 | 5.0 
+
+[No.9]===============================
+SELECT
+  [T129906].name,[T129906].id_waiter,[T129906].amount,[T129906].id
+FROM
+  (( SELECT
+        [T129904].id,[T129904].amount,[T129904].id_waiter,[T129904].id_waiter1,[T129904].MAX-amount
+      FROM
+        (( input1 ) JOIN (
+            (SELECT
+                [T129902].id_waiter, MAX([T129902].amount)
+              FROM
+                (input1) AS [T129902][id, amount, id_waiter]
+              GROUP BY
+                [T129902].id_waiter) AS [T129903][id_waiter, MAX-amount] )) AS [T129904][id, amount, id_waiter, id_waiter1, MAX-amount]
+      WHERE
+        [T129904].amount == [T129904].MAX-amount ) JOIN (
+      input2 )) AS [T129906][id, amount, id_waiter, id_waiter1, MAX-amount, id1, name]
+WHERE
+  [T129906].id_waiter1 == [T129906].id1
+@anonymous
+[T129906].name(StringVal) | [T129906].id_waiter(NumberVal) | [T129906].amount(NumberVal) | [T129906].id(NumberVal) 
+joe | 2.0 | 50.0 | 3.0 
+john | 1.0 | 60.0 | 5.0 
+
+[No.8]===============================
+SELECT
+  [T128854].name,[T128854].id_waiter,[T128854].MAX-amount,[T128854].MAX-id
+FROM
+  (( SELECT
+        [T128852].id_waiter,[T128852].MAX-amount,[T128852].amount,[T128852].MAX-id
+      FROM
+        (( (SELECT
+                [T128840].id_waiter, MAX([T128840].amount)
+              FROM
+                (input1) AS [T128840][id, amount, id_waiter]
+              GROUP BY
+                [T128840].id_waiter) AS [T128841][id_waiter, MAX-amount] ) JOIN (
+            (SELECT
+                [T128850].amount, MAX([T128850].id)
+              FROM
+                (input1) AS [T128850][id, amount, id_waiter]
+              GROUP BY
+                [T128850].amount) AS [T128851][amount, MAX-id] )) AS [T128852][id_waiter, MAX-amount, amount, MAX-id]
+      WHERE
+        [T128852].MAX-amount == [T128852].amount ) JOIN (
+      input2 )) AS [T128854][id_waiter, MAX-amount, amount, MAX-id, id, name]
+WHERE
+  [T128854].id_waiter == [T128854].id
+@anonymous
+[T128854].name(StringVal) | [T128854].id_waiter(NumberVal) | [T128854].MAX-amount(NumberVal) | [T128854].MAX-id(NumberVal) 
+john | 1.0 | 60.0 | 5.0 
+joe | 2.0 | 50.0 | 3.0 
+
+[No.7]===============================
+SELECT
+  [T127538].name,[T127538].id_waiter,[T127538].amount,[T127538].MAX-id
+FROM
+  (( SELECT
+        [T127536].amount,[T127536].id_waiter,[T127536].MAX-id,[T127536].id_waiter1,[T127536].MAX-amount
+      FROM
+        (( (SELECT
+                [T127524].amount, [T127524].id_waiter, MAX([T127524].id)
+              FROM
+                (input1) AS [T127524][id, amount, id_waiter]
+              GROUP BY
+                [T127524].amount  [T127524].id_waiter) AS [T127525][amount, id_waiter, MAX-id] ) JOIN (
+            (SELECT
+                [T127534].id_waiter, MAX([T127534].amount)
+              FROM
+                (input1) AS [T127534][id, amount, id_waiter]
+              GROUP BY
+                [T127534].id_waiter) AS [T127535][id_waiter, MAX-amount] )) AS [T127536][amount, id_waiter, MAX-id, id_waiter1, MAX-amount]
+      WHERE
+        [T127536].amount == [T127536].MAX-amount ) JOIN (
+      input2 )) AS [T127538][amount, id_waiter, MAX-id, id_waiter1, MAX-amount, id, name]
+WHERE
+  [T127538].id_waiter1 == [T127538].id
+@anonymous
+[T127538].name(StringVal) | [T127538].id_waiter(NumberVal) | [T127538].amount(NumberVal) | [T127538].MAX-id(NumberVal) 
+joe | 2.0 | 50.0 | 3.0 
+john | 1.0 | 60.0 | 5.0 
+
+[No.6]===============================
+SELECT
+  [T127514].name,[T127514].id_waiter,[T127514].amount,[T127514].MAX-id
+FROM
+  (( SELECT
+        [T127512].amount,[T127512].id_waiter,[T127512].MAX-id,[T127512].id_waiter1,[T127512].MAX-amount
+      FROM
+        (( (SELECT
+                [T127500].amount, [T127500].id_waiter, MAX([T127500].id)
+              FROM
+                (input1) AS [T127500][id, amount, id_waiter]
+              GROUP BY
+                [T127500].amount  [T127500].id_waiter) AS [T127501][amount, id_waiter, MAX-id] ) JOIN (
+            (SELECT
+                [T127510].id_waiter, MAX([T127510].amount)
+              FROM
+                (input1) AS [T127510][id, amount, id_waiter]
+              GROUP BY
+                [T127510].id_waiter) AS [T127511][id_waiter, MAX-amount] )) AS [T127512][amount, id_waiter, MAX-id, id_waiter1, MAX-amount]
+      WHERE
+        [T127512].amount == [T127512].MAX-amount ) JOIN (
+      input2 )) AS [T127514][amount, id_waiter, MAX-id, id_waiter1, MAX-amount, id, name]
+WHERE
+  [T127514].id_waiter == [T127514].id
+@anonymous
+[T127514].name(StringVal) | [T127514].id_waiter(NumberVal) | [T127514].amount(NumberVal) | [T127514].MAX-id(NumberVal) 
+joe | 2.0 | 50.0 | 3.0 
+john | 1.0 | 60.0 | 5.0 
+
+[No.5]===============================
+SELECT
+  [T126582].name,[T126582].id_waiter,[T126582].amount,[T126582].MAX-id
+FROM
+  (( SELECT
+        [T126580].amount,[T126580].MAX-id,[T126580].id_waiter,[T126580].MAX-amount
+      FROM
+        (( (SELECT
+                [T126568].amount, MAX([T126568].id)
+              FROM
+                (input1) AS [T126568][id, amount, id_waiter]
+              GROUP BY
+                [T126568].amount) AS [T126569][amount, MAX-id] ) JOIN (
+            (SELECT
+                [T126578].id_waiter, MAX([T126578].amount)
+              FROM
+                (input1) AS [T126578][id, amount, id_waiter]
+              GROUP BY
+                [T126578].id_waiter) AS [T126579][id_waiter, MAX-amount] )) AS [T126580][amount, MAX-id, id_waiter, MAX-amount]
+      WHERE
+        [T126580].amount == [T126580].MAX-amount ) JOIN (
+      input2 )) AS [T126582][amount, MAX-id, id_waiter, MAX-amount, id, name]
+WHERE
+  [T126582].id_waiter == [T126582].id
+@anonymous
+[T126582].name(StringVal) | [T126582].id_waiter(NumberVal) | [T126582].amount(NumberVal) | [T126582].MAX-id(NumberVal) 
+joe | 2.0 | 50.0 | 3.0 
+john | 1.0 | 60.0 | 5.0 
+
+[No.4]===============================
+SELECT
+  [T124920].name,[T124920].id_waiter,[T124920].MAX-amount,[T124920].id
+FROM
+  (( SELECT
+        [T124918].id_waiter,[T124918].MAX-amount,[T124918].id,[T124918].amount,[T124918].id_waiter1
+      FROM
+        (( (SELECT
+                [T124916].id_waiter, MAX([T124916].amount)
+              FROM
+                (input1) AS [T124916][id, amount, id_waiter]
+              GROUP BY
+                [T124916].id_waiter) AS [T124917][id_waiter, MAX-amount] ) JOIN (
+            input1 )) AS [T124918][id_waiter, MAX-amount, id, amount, id_waiter1]
+      WHERE
+        [T124918].MAX-amount == [T124918].amount ) JOIN (
+      input2 )) AS [T124920][id_waiter, MAX-amount, id, amount, id_waiter1, id1, name]
+WHERE
+  [T124920].id_waiter1 == [T124920].id1
+@anonymous
+[T124920].name(StringVal) | [T124920].id_waiter(NumberVal) | [T124920].MAX-amount(NumberVal) | [T124920].id(NumberVal) 
+john | 1.0 | 60.0 | 5.0 
+joe | 2.0 | 50.0 | 3.0 
+
+[No.3]===============================
+SELECT
+  [T124906].name,[T124906].id_waiter,[T124906].MAX-amount,[T124906].id
+FROM
+  (( SELECT
+        [T124904].id_waiter,[T124904].MAX-amount,[T124904].id,[T124904].amount,[T124904].id_waiter1
+      FROM
+        (( (SELECT
+                [T124902].id_waiter, MAX([T124902].amount)
+              FROM
+                (input1) AS [T124902][id, amount, id_waiter]
+              GROUP BY
+                [T124902].id_waiter) AS [T124903][id_waiter, MAX-amount] ) JOIN (
+            input1 )) AS [T124904][id_waiter, MAX-amount, id, amount, id_waiter1]
+      WHERE
+        [T124904].MAX-amount == [T124904].amount ) JOIN (
+      input2 )) AS [T124906][id_waiter, MAX-amount, id, amount, id_waiter1, id1, name]
+WHERE
+  [T124906].id_waiter == [T124906].id1
+@anonymous
+[T124906].name(StringVal) | [T124906].id_waiter(NumberVal) | [T124906].MAX-amount(NumberVal) | [T124906].id(NumberVal) 
+john | 1.0 | 60.0 | 5.0 
+joe | 2.0 | 50.0 | 3.0 
+
+[No.2]===============================
+SELECT
+  [T123474].name,[T123474].id_waiter,[T123474].MAX-amount,[T123474].MAX-id
+FROM
+  (( SELECT
+        [T123472].id_waiter,[T123472].MAX-amount,[T123472].amount,[T123472].id_waiter1,[T123472].MAX-id
+      FROM
+        (( (SELECT
+                [T123460].id_waiter, MAX([T123460].amount)
+              FROM
+                (input1) AS [T123460][id, amount, id_waiter]
+              GROUP BY
+                [T123460].id_waiter) AS [T123461][id_waiter, MAX-amount] ) JOIN (
+            (SELECT
+                [T123470].amount, [T123470].id_waiter, MAX([T123470].id)
+              FROM
+                (input1) AS [T123470][id, amount, id_waiter]
+              GROUP BY
+                [T123470].amount  [T123470].id_waiter) AS [T123471][amount, id_waiter, MAX-id] )) AS [T123472][id_waiter, MAX-amount, amount, id_waiter1, MAX-id]
+      WHERE
+        [T123472].MAX-amount == [T123472].amount ) JOIN (
+      input2 )) AS [T123474][id_waiter, MAX-amount, amount, id_waiter1, MAX-id, id, name]
+WHERE
+  [T123474].id_waiter == [T123474].id
+@anonymous
+[T123474].name(StringVal) | [T123474].id_waiter(NumberVal) | [T123474].MAX-amount(NumberVal) | [T123474].MAX-id(NumberVal) 
+john | 1.0 | 60.0 | 5.0 
+joe | 2.0 | 50.0 | 3.0 
+
+[No.1]===============================
+SELECT
+  [T123450].name,[T123450].id_waiter,[T123450].MAX-amount,[T123450].MAX-id
+FROM
+  (( SELECT
+        [T123448].id_waiter,[T123448].MAX-amount,[T123448].amount,[T123448].id_waiter1,[T123448].MAX-id
+      FROM
+        (( (SELECT
+                [T123436].id_waiter, MAX([T123436].amount)
+              FROM
+                (input1) AS [T123436][id, amount, id_waiter]
+              GROUP BY
+                [T123436].id_waiter) AS [T123437][id_waiter, MAX-amount] ) JOIN (
+            (SELECT
+                [T123446].amount, [T123446].id_waiter, MAX([T123446].id)
+              FROM
+                (input1) AS [T123446][id, amount, id_waiter]
+              GROUP BY
+                [T123446].amount  [T123446].id_waiter) AS [T123447][amount, id_waiter, MAX-id] )) AS [T123448][id_waiter, MAX-amount, amount, id_waiter1, MAX-id]
+      WHERE
+        [T123448].MAX-amount == [T123448].amount ) JOIN (
+      input2 )) AS [T123450][id_waiter, MAX-amount, amount, id_waiter1, MAX-id, id, name]
+WHERE
+  [T123450].id_waiter1 == [T123450].id
+@anonymous
+[T123450].name(StringVal) | [T123450].id_waiter(NumberVal) | [T123450].MAX-amount(NumberVal) | [T123450].MAX-id(NumberVal) 
+john | 1.0 | 60.0 | 5.0 
+joe | 2.0 | 50.0 | 3.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 21.357s

@@ -1,0 +1,31 @@
+[[Synthesis start]]
+	File: ../data/dev_set/033
+	Enumerator: StagedEnumerator
+[Retry] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 72 [SymTable]: 73
+Candidate Tree Number: 1
+[Enumeration Finished]
+[No.1]===============================
+(SELECT
+    [T78].zone_id, [T78].zone_name, MAX([T78].time_start)
+  FROM
+    (SELECT
+        input1.zone_id,input1.zone_name,input1.time_start
+      FROM
+        input1
+      WHERE
+        input1.time_start <= 1.4258124E9) AS [T78][zone_id, zone_name, time_start]
+  GROUP BY
+    [T78].zone_id  [T78].zone_name) AS [T79][zone_id, zone_name, MAX-time_start]
+@anonymous
+[T79].zone_id(NumberVal) | [T79].zone_name(StringVal) | [T79].MAX-time_start(NumberVal) 
+391.0 | America/Los_Angeles | 1.4258088E9 
+392.0 | America/Metlakatla | 4.363524E8 
+393.0 | America/Anchorage | 1.4258124E9 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.104s

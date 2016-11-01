@@ -1,0 +1,599 @@
+[[Synthesis start]]
+	File: ../data/recent_posts/016
+	Enumerator: StagedEnumerator
+[Retry] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[NaturalJoin]: 1 [SymTable]: 2
+[Aggregation]: 24 [SymTable]: 26
+[EnumJoinOnAggr] level 1 [SymTable]: 702
+Candidate Tree Number: 204
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T2434].c1,[T2434].c2,[T2434].COUNT-c1
+FROM
+  (( SELECT
+        [T2423].c1,[T2423].COUNT-c1
+      FROM
+        (SELECT
+            [T2422].c1, COUNT([T2422].c1)
+          FROM
+            (input2) AS [T2422][c1, c2]
+          GROUP BY
+            [T2422].c1) AS [T2423][c1, COUNT-c1]
+      WHERE
+        [T2423].COUNT-c1 == 3.0 ) JOIN (
+      SELECT
+        [T2433].c2,[T2433].COUNT-c2
+      FROM
+        (SELECT
+            [T2432].c2, COUNT([T2432].c2)
+          FROM
+            (input2) AS [T2432][c1, c2]
+          GROUP BY
+            [T2432].c2) AS [T2433][c2, COUNT-c2]
+      WHERE
+        [T2433].COUNT-c2 == 2.0 )) AS [T2434][c1, COUNT-c1, c2, COUNT-c2]
+
+@anonymous
+[T2434].c1(StringVal) | [T2434].c2(DateVal) | [T2434].COUNT-c1(NumberVal) 
+C1 | Wed Oct 19 00:00:00 PDT 2016 | 3.0 
+
+[No.19]===============================
+SELECT
+  [T2324].c1,[T2324].c2,[T2324].COUNT-c2
+FROM
+  (( SELECT
+        [T2313].c2,[T2313].COUNT-c1
+      FROM
+        (SELECT
+            [T2312].c2, COUNT([T2312].c1)
+          FROM
+            (input2) AS [T2312][c1, c2]
+          GROUP BY
+            [T2312].c2) AS [T2313][c2, COUNT-c1]
+      WHERE
+        [T2313].COUNT-c1 == 2.0 ) JOIN (
+      SELECT
+        [T2323].c1,[T2323].COUNT-c2
+      FROM
+        (SELECT
+            [T2322].c1, COUNT([T2322].c2)
+          FROM
+            (input2) AS [T2322][c1, c2]
+          GROUP BY
+            [T2322].c1) AS [T2323][c1, COUNT-c2]
+      WHERE
+        [T2323].COUNT-c2 == 3.0 )) AS [T2324][c2, COUNT-c1, c1, COUNT-c2]
+
+@anonymous
+[T2324].c1(StringVal) | [T2324].c2(DateVal) | [T2324].COUNT-c2(NumberVal) 
+C1 | Wed Oct 19 00:00:00 PDT 2016 | 3.0 
+
+[No.18]===============================
+SELECT
+  [T2238].c1,[T2238].c2,[T2238].COUNT-c2
+FROM
+  (( (SELECT
+          [T2226].c2, COUNT([T2226].c1)
+        FROM
+          (SELECT
+              input2.c1,input2.c2
+            FROM
+              input2
+            WHERE
+              input2.c2 == Wed Oct 19 00:00:00 PDT 2016) AS [T2226][c1, c2]
+        GROUP BY
+          [T2226].c2) AS [T2227][c2, COUNT-c1] ) JOIN (
+      SELECT
+        [T2237].c1,[T2237].COUNT-c2
+      FROM
+        (SELECT
+            [T2236].c1, COUNT([T2236].c2)
+          FROM
+            (input2) AS [T2236][c1, c2]
+          GROUP BY
+            [T2236].c1) AS [T2237][c1, COUNT-c2]
+      WHERE
+        [T2237].COUNT-c2 == 3.0 )) AS [T2238][c2, COUNT-c1, c1, COUNT-c2]
+
+@anonymous
+[T2238].c1(StringVal) | [T2238].c2(DateVal) | [T2238].COUNT-c2(NumberVal) 
+C1 | Wed Oct 19 00:00:00 PDT 2016 | 3.0 
+
+[No.17]===============================
+SELECT
+  [T2190].c1,[T2190].MAX-c2,[T2190].COUNT-c1
+FROM
+  (( (SELECT
+          MAX([T2178].c2)
+        FROM
+          (SELECT
+              input2.c1,input2.c2
+            FROM
+              input2
+            WHERE
+              input2.c2 == Wed Oct 19 00:00:00 PDT 2016) AS [T2178][c1, c2]) AS [T2179][MAX-c2] ) JOIN (
+      SELECT
+        [T2189].c1,[T2189].COUNT-c1
+      FROM
+        (SELECT
+            [T2188].c1, COUNT([T2188].c1)
+          FROM
+            (input2) AS [T2188][c1, c2]
+          GROUP BY
+            [T2188].c1) AS [T2189][c1, COUNT-c1]
+      WHERE
+        [T2189].COUNT-c1 == 3.0 )) AS [T2190][MAX-c2, c1, COUNT-c1]
+
+@anonymous
+[T2190].c1(StringVal) | [T2190].MAX-c2(DateVal) | [T2190].COUNT-c1(NumberVal) 
+C1 | Wed Oct 19 00:00:00 PDT 2016 | 3.0 
+
+[No.16]===============================
+SELECT
+  [T1830].c1,[T1830].MAX-c2,[T1830].COUNT-c2
+FROM
+  (( SELECT
+        [T1825].c1,[T1825].COUNT-c2
+      FROM
+        (SELECT
+            [T1824].c1, COUNT([T1824].c2)
+          FROM
+            (input2) AS [T1824][c1, c2]
+          GROUP BY
+            [T1824].c1) AS [T1825][c1, COUNT-c2]
+      WHERE
+        [T1825].COUNT-c2 == 3.0 ) JOIN (
+      (SELECT
+          MAX([T1828].c2)
+        FROM
+          (SELECT
+              input2.c1,input2.c2
+            FROM
+              input2
+            WHERE
+              input2.c2 == Wed Oct 19 00:00:00 PDT 2016) AS [T1828][c1, c2]) AS [T1829][MAX-c2] )) AS [T1830][c1, COUNT-c2, MAX-c2]
+
+@anonymous
+[T1830].c1(StringVal) | [T1830].MAX-c2(DateVal) | [T1830].COUNT-c2(NumberVal) 
+C1 | Wed Oct 19 00:00:00 PDT 2016 | 3.0 
+
+[No.15]===============================
+SELECT
+  [T1568].c1,[T1568].MAX-c2,[T1568].COUNT-c2
+FROM
+  (( (SELECT
+          MAX([T1556].c2)
+        FROM
+          (SELECT
+              input2.c1,input2.c2
+            FROM
+              input2
+            WHERE
+              input2.c2 == Wed Oct 19 00:00:00 PDT 2016) AS [T1556][c1, c2]) AS [T1557][MAX-c2] ) JOIN (
+      SELECT
+        [T1567].c1,[T1567].COUNT-c2
+      FROM
+        (SELECT
+            [T1566].c1, COUNT([T1566].c2)
+          FROM
+            (input2) AS [T1566][c1, c2]
+          GROUP BY
+            [T1566].c1) AS [T1567][c1, COUNT-c2]
+      WHERE
+        [T1567].COUNT-c2 == 3.0 )) AS [T1568][MAX-c2, c1, COUNT-c2]
+
+@anonymous
+[T1568].c1(StringVal) | [T1568].MAX-c2(DateVal) | [T1568].COUNT-c2(NumberVal) 
+C1 | Wed Oct 19 00:00:00 PDT 2016 | 3.0 
+
+[No.14]===============================
+SELECT
+  [T1472].c1,[T1472].c2,[T1472].COUNT-c2
+FROM
+  (( SELECT
+        [T1467].c1,[T1467].COUNT-c2
+      FROM
+        (SELECT
+            [T1466].c1, COUNT([T1466].c2)
+          FROM
+            (input2) AS [T1466][c1, c2]
+          GROUP BY
+            [T1466].c1) AS [T1467][c1, COUNT-c2]
+      WHERE
+        [T1467].COUNT-c2 == 3.0 ) JOIN (
+      (SELECT
+          [T1470].c2, COUNT([T1470].c2)
+        FROM
+          (SELECT
+              input2.c1,input2.c2
+            FROM
+              input2
+            WHERE
+              input2.c2 == Wed Oct 19 00:00:00 PDT 2016) AS [T1470][c1, c2]
+        GROUP BY
+          [T1470].c2) AS [T1471][c2, COUNT-c2] )) AS [T1472][c1, COUNT-c2, c2, COUNT-c21]
+
+@anonymous
+[T1472].c1(StringVal) | [T1472].c2(DateVal) | [T1472].COUNT-c2(NumberVal) 
+C1 | Wed Oct 19 00:00:00 PDT 2016 | 3.0 
+
+[No.13]===============================
+SELECT
+  [T1392].c1,[T1392].c2,[T1392].COUNT-c2
+FROM
+  (( SELECT
+        [T1387].c1,[T1387].COUNT-c2
+      FROM
+        (SELECT
+            [T1386].c1, COUNT([T1386].c2)
+          FROM
+            (input2) AS [T1386][c1, c2]
+          GROUP BY
+            [T1386].c1) AS [T1387][c1, COUNT-c2]
+      WHERE
+        [T1387].COUNT-c2 == 3.0 ) JOIN (
+      (SELECT
+          [T1390].c2, COUNT([T1390].c1)
+        FROM
+          (SELECT
+              input2.c1,input2.c2
+            FROM
+              input2
+            WHERE
+              input2.c2 == Wed Oct 19 00:00:00 PDT 2016) AS [T1390][c1, c2]
+        GROUP BY
+          [T1390].c2) AS [T1391][c2, COUNT-c1] )) AS [T1392][c1, COUNT-c2, c2, COUNT-c1]
+
+@anonymous
+[T1392].c1(StringVal) | [T1392].c2(DateVal) | [T1392].COUNT-c2(NumberVal) 
+C1 | Wed Oct 19 00:00:00 PDT 2016 | 3.0 
+
+[No.12]===============================
+SELECT
+  [T1288].c1,[T1288].c2,[T1288].COUNT-c1
+FROM
+  (( SELECT
+        [T1277].c1,[T1277].COUNT-c1
+      FROM
+        (SELECT
+            [T1276].c1, COUNT([T1276].c1)
+          FROM
+            (input2) AS [T1276][c1, c2]
+          GROUP BY
+            [T1276].c1) AS [T1277][c1, COUNT-c1]
+      WHERE
+        [T1277].COUNT-c1 == 3.0 ) JOIN (
+      SELECT
+        [T1287].c2,[T1287].COUNT-c1
+      FROM
+        (SELECT
+            [T1286].c2, COUNT([T1286].c1)
+          FROM
+            (input2) AS [T1286][c1, c2]
+          GROUP BY
+            [T1286].c2) AS [T1287][c2, COUNT-c1]
+      WHERE
+        [T1287].COUNT-c1 == 2.0 )) AS [T1288][c1, COUNT-c1, c2, COUNT-c11]
+
+@anonymous
+[T1288].c1(StringVal) | [T1288].c2(DateVal) | [T1288].COUNT-c1(NumberVal) 
+C1 | Wed Oct 19 00:00:00 PDT 2016 | 3.0 
+
+[No.11]===============================
+SELECT
+  [T1002].c1,[T1002].c2,[T1002].COUNT-c21
+FROM
+  (( SELECT
+        [T991].c2,[T991].COUNT-c2
+      FROM
+        (SELECT
+            [T990].c2, COUNT([T990].c2)
+          FROM
+            (input2) AS [T990][c1, c2]
+          GROUP BY
+            [T990].c2) AS [T991][c2, COUNT-c2]
+      WHERE
+        [T991].COUNT-c2 == 2.0 ) JOIN (
+      SELECT
+        [T1001].c1,[T1001].COUNT-c2
+      FROM
+        (SELECT
+            [T1000].c1, COUNT([T1000].c2)
+          FROM
+            (input2) AS [T1000][c1, c2]
+          GROUP BY
+            [T1000].c1) AS [T1001][c1, COUNT-c2]
+      WHERE
+        [T1001].COUNT-c2 == 3.0 )) AS [T1002][c2, COUNT-c2, c1, COUNT-c21]
+
+@anonymous
+[T1002].c1(StringVal) | [T1002].c2(DateVal) | [T1002].COUNT-c21(NumberVal) 
+C1 | Wed Oct 19 00:00:00 PDT 2016 | 3.0 
+
+[No.10]===============================
+SELECT
+  [T916].c1,[T916].c2,[T916].COUNT-c1
+FROM
+  (( SELECT
+        [T911].c1,[T911].COUNT-c1
+      FROM
+        (SELECT
+            [T910].c1, COUNT([T910].c1)
+          FROM
+            (input2) AS [T910][c1, c2]
+          GROUP BY
+            [T910].c1) AS [T911][c1, COUNT-c1]
+      WHERE
+        [T911].COUNT-c1 == 3.0 ) JOIN (
+      (SELECT
+          [T914].c2, COUNT([T914].c2)
+        FROM
+          (SELECT
+              input2.c1,input2.c2
+            FROM
+              input2
+            WHERE
+              input2.c2 == Wed Oct 19 00:00:00 PDT 2016) AS [T914][c1, c2]
+        GROUP BY
+          [T914].c2) AS [T915][c2, COUNT-c2] )) AS [T916][c1, COUNT-c1, c2, COUNT-c2]
+
+@anonymous
+[T916].c1(StringVal) | [T916].c2(DateVal) | [T916].COUNT-c1(NumberVal) 
+C1 | Wed Oct 19 00:00:00 PDT 2016 | 3.0 
+
+[No.9]===============================
+SELECT
+  [T836].c1,[T836].c2,[T836].COUNT-c11
+FROM
+  (( (SELECT
+          [T824].c2, COUNT([T824].c1)
+        FROM
+          (SELECT
+              input2.c1,input2.c2
+            FROM
+              input2
+            WHERE
+              input2.c2 == Wed Oct 19 00:00:00 PDT 2016) AS [T824][c1, c2]
+        GROUP BY
+          [T824].c2) AS [T825][c2, COUNT-c1] ) JOIN (
+      SELECT
+        [T835].c1,[T835].COUNT-c1
+      FROM
+        (SELECT
+            [T834].c1, COUNT([T834].c1)
+          FROM
+            (input2) AS [T834][c1, c2]
+          GROUP BY
+            [T834].c1) AS [T835][c1, COUNT-c1]
+      WHERE
+        [T835].COUNT-c1 == 3.0 )) AS [T836][c2, COUNT-c1, c1, COUNT-c11]
+
+@anonymous
+[T836].c1(StringVal) | [T836].c2(DateVal) | [T836].COUNT-c11(NumberVal) 
+C1 | Wed Oct 19 00:00:00 PDT 2016 | 3.0 
+
+[No.8]===============================
+SELECT
+  [T558].c1,[T558].c2,[T558].COUNT-c1
+FROM
+  (( (SELECT
+          [T546].c2, COUNT([T546].c2)
+        FROM
+          (SELECT
+              input2.c1,input2.c2
+            FROM
+              input2
+            WHERE
+              input2.c2 == Wed Oct 19 00:00:00 PDT 2016) AS [T546][c1, c2]
+        GROUP BY
+          [T546].c2) AS [T547][c2, COUNT-c2] ) JOIN (
+      SELECT
+        [T557].c1,[T557].COUNT-c1
+      FROM
+        (SELECT
+            [T556].c1, COUNT([T556].c1)
+          FROM
+            (input2) AS [T556][c1, c2]
+          GROUP BY
+            [T556].c1) AS [T557][c1, COUNT-c1]
+      WHERE
+        [T557].COUNT-c1 == 3.0 )) AS [T558][c2, COUNT-c2, c1, COUNT-c1]
+
+@anonymous
+[T558].c1(StringVal) | [T558].c2(DateVal) | [T558].COUNT-c1(NumberVal) 
+C1 | Wed Oct 19 00:00:00 PDT 2016 | 3.0 
+
+[No.7]===============================
+SELECT
+  [T510].c1,[T510].c2,[T510].COUNT-c2
+FROM
+  (( SELECT
+        [T505].c1,[T505].COUNT-c2
+      FROM
+        (SELECT
+            [T504].c1, COUNT([T504].c2)
+          FROM
+            (input2) AS [T504][c1, c2]
+          GROUP BY
+            [T504].c1) AS [T505][c1, COUNT-c2]
+      WHERE
+        [T505].COUNT-c2 == 3.0 ) JOIN (
+      (SELECT
+          [T508].c2, FROM
+          (SELECT
+              input2.c1,input2.c2
+            FROM
+              input2
+            WHERE
+              input2.c2 == Wed Oct 19 00:00:00 PDT 2016) AS [T508][c1, c2]
+        GROUP BY
+          [T508].c2) AS [T509][c2] )) AS [T510][c1, COUNT-c2, c2]
+
+@anonymous
+[T510].c1(StringVal) | [T510].c2(DateVal) | [T510].COUNT-c2(NumberVal) 
+C1 | Wed Oct 19 00:00:00 PDT 2016 | 3.0 
+
+[No.6]===============================
+SELECT
+  [T390].c1,[T390].c2,[T390].COUNT-c11
+FROM
+  (( SELECT
+        [T379].c2,[T379].COUNT-c1
+      FROM
+        (SELECT
+            [T378].c2, COUNT([T378].c1)
+          FROM
+            (input2) AS [T378][c1, c2]
+          GROUP BY
+            [T378].c2) AS [T379][c2, COUNT-c1]
+      WHERE
+        [T379].COUNT-c1 == 2.0 ) JOIN (
+      SELECT
+        [T389].c1,[T389].COUNT-c1
+      FROM
+        (SELECT
+            [T388].c1, COUNT([T388].c1)
+          FROM
+            (input2) AS [T388][c1, c2]
+          GROUP BY
+            [T388].c1) AS [T389][c1, COUNT-c1]
+      WHERE
+        [T389].COUNT-c1 == 3.0 )) AS [T390][c2, COUNT-c1, c1, COUNT-c11]
+
+@anonymous
+[T390].c1(StringVal) | [T390].c2(DateVal) | [T390].COUNT-c11(NumberVal) 
+C1 | Wed Oct 19 00:00:00 PDT 2016 | 3.0 
+
+[No.5]===============================
+SELECT
+  [T336].c1,[T336].c2,[T336].COUNT-c1
+FROM
+  (( SELECT
+        [T331].c1,[T331].COUNT-c1
+      FROM
+        (SELECT
+            [T330].c1, COUNT([T330].c1)
+          FROM
+            (input2) AS [T330][c1, c2]
+          GROUP BY
+            [T330].c1) AS [T331][c1, COUNT-c1]
+      WHERE
+        [T331].COUNT-c1 == 3.0 ) JOIN (
+      (SELECT
+          [T334].c2, FROM
+          (SELECT
+              input2.c1,input2.c2
+            FROM
+              input2
+            WHERE
+              input2.c2 == Wed Oct 19 00:00:00 PDT 2016) AS [T334][c1, c2]
+        GROUP BY
+          [T334].c2) AS [T335][c2] )) AS [T336][c1, COUNT-c1, c2]
+
+@anonymous
+[T336].c1(StringVal) | [T336].c2(DateVal) | [T336].COUNT-c1(NumberVal) 
+C1 | Wed Oct 19 00:00:00 PDT 2016 | 3.0 
+
+[No.4]===============================
+SELECT
+  [T2114].c1,[T2114].MAX-c2,[T2114].COUNT-c1
+FROM
+  (( SELECT
+        [T2103].c1,[T2103].COUNT-c1
+      FROM
+        (SELECT
+            [T2102].c1, COUNT([T2102].c1)
+          FROM
+            (input2) AS [T2102][c1, c2]
+          GROUP BY
+            [T2102].c1) AS [T2103][c1, COUNT-c1]
+      WHERE
+        [T2103].COUNT-c1 == 3.0 ) JOIN (
+      (SELECT
+          MAX([T2112].c2)
+        FROM
+          (input2) AS [T2112][c1, c2]) AS [T2113][MAX-c2] )) AS [T2114][c1, COUNT-c1, MAX-c2]
+
+@anonymous
+[T2114].c1(StringVal) | [T2114].MAX-c2(DateVal) | [T2114].COUNT-c1(NumberVal) 
+C1 | Wed Oct 19 00:00:00 PDT 2016 | 3.0 
+
+[No.3]===============================
+SELECT
+  [T2026].c1,[T2026].MAX-c2,[T2026].COUNT-c2
+FROM
+  (( SELECT
+        [T2015].c1,[T2015].COUNT-c2
+      FROM
+        (SELECT
+            [T2014].c1, COUNT([T2014].c2)
+          FROM
+            (input2) AS [T2014][c1, c2]
+          GROUP BY
+            [T2014].c1) AS [T2015][c1, COUNT-c2]
+      WHERE
+        [T2015].COUNT-c2 == 3.0 ) JOIN (
+      (SELECT
+          MAX([T2024].c2)
+        FROM
+          (input2) AS [T2024][c1, c2]) AS [T2025][MAX-c2] )) AS [T2026][c1, COUNT-c2, MAX-c2]
+
+@anonymous
+[T2026].c1(StringVal) | [T2026].MAX-c2(DateVal) | [T2026].COUNT-c2(NumberVal) 
+C1 | Wed Oct 19 00:00:00 PDT 2016 | 3.0 
+
+[No.2]===============================
+SELECT
+  [T1222].c1,[T1222].MAX-c2,[T1222].COUNT-c2
+FROM
+  (( (SELECT
+          MAX([T1210].c2)
+        FROM
+          (input2) AS [T1210][c1, c2]) AS [T1211][MAX-c2] ) JOIN (
+      SELECT
+        [T1221].c1,[T1221].COUNT-c2
+      FROM
+        (SELECT
+            [T1220].c1, COUNT([T1220].c2)
+          FROM
+            (input2) AS [T1220][c1, c2]
+          GROUP BY
+            [T1220].c1) AS [T1221][c1, COUNT-c2]
+      WHERE
+        [T1221].COUNT-c2 == 3.0 )) AS [T1222][MAX-c2, c1, COUNT-c2]
+
+@anonymous
+[T1222].c1(StringVal) | [T1222].MAX-c2(DateVal) | [T1222].COUNT-c2(NumberVal) 
+C1 | Wed Oct 19 00:00:00 PDT 2016 | 3.0 
+
+[No.1]===============================
+SELECT
+  [T1134].c1,[T1134].MAX-c2,[T1134].COUNT-c1
+FROM
+  (( (SELECT
+          MAX([T1122].c2)
+        FROM
+          (input2) AS [T1122][c1, c2]) AS [T1123][MAX-c2] ) JOIN (
+      SELECT
+        [T1133].c1,[T1133].COUNT-c1
+      FROM
+        (SELECT
+            [T1132].c1, COUNT([T1132].c1)
+          FROM
+            (input2) AS [T1132][c1, c2]
+          GROUP BY
+            [T1132].c1) AS [T1133][c1, COUNT-c1]
+      WHERE
+        [T1133].COUNT-c1 == 3.0 )) AS [T1134][MAX-c2, c1, COUNT-c1]
+
+@anonymous
+[T1134].c1(StringVal) | [T1134].MAX-c2(DateVal) | [T1134].COUNT-c1(NumberVal) 
+C1 | Wed Oct 19 00:00:00 PDT 2016 | 3.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.936s

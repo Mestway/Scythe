@@ -1,0 +1,562 @@
+[[Synthesis start]]
+	File: ../data/dev_set/030
+	Enumerator: StagedEnumerator
+[Retry] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[NaturalJoin]: 1 [SymTable]: 2
+[Aggregation]: 40 [SymTable]: 42
+[EnumJoinOnAggr] level 1 [SymTable]: 1806
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Retry] Maximum Depth: 2
+@output
+c1(NumberVal) | c4(NumberVal) | c2(StringVal) | c3(DateVal) 
+101.0 | 6.0 | DESCRIPTION1 | Sat Dec 14 00:00:00 PST 2013 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 40 [SymTable]: 42
+[JOIN] level 1 [SymTable]: 126
+[UNION] level 1 [SymTable]: 128
+[EnumLeftJoin] level 1 [SymTable]: 128
+[EnumAggrOnJoin] level 1 [SymTable]: 518
+stored cnt / visited compound cnt 135 / 1000(1040) = 0.135
+[EnumJoinOnAggr] level 1 [SymTable]: 2282
+[EnumJoinOnAggr] level 2 [SymTable]: 76370
+stored cnt / visited compound cnt 135 / 1000(1040) = 0.135
+Candidate Tree Number: 1300
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T76114].ID,[T76114].MAX-ID,[T76114].DESC,[T76114].MAX-LAST_DATE
+FROM
+  (( (( (SELECT
+              MAX([T76106].ID)
+            FROM
+              (input2) AS [T76106][ID, LINK, LAST_DATE]) AS [T76107][MAX-ID] ) JOIN (
+          SELECT
+            input1.ID,input1.DESC
+          FROM
+            input1
+          WHERE
+            input1.ID > 100.0 )) AS [T76108][MAX-ID, ID, DESC] ) JOIN (
+      (SELECT
+          [T76112].LINK, MAX([T76112].LAST_DATE)
+        FROM
+          (SELECT
+              input2.ID,input2.LINK,input2.LAST_DATE
+            FROM
+              input2
+            WHERE
+              input2.LINK == 100.0) AS [T76112][ID, LINK, LAST_DATE]
+        GROUP BY
+          [T76112].LINK) AS [T76113][LINK, MAX-LAST_DATE] )) AS [T76114][MAX-ID, ID, DESC, LINK, MAX-LAST_DATE]
+
+@anonymous
+[T76114].ID(NumberVal) | [T76114].MAX-ID(NumberVal) | [T76114].DESC(StringVal) | [T76114].MAX-LAST_DATE(DateVal) 
+101.0 | 6.0 | DESCRIPTION1 | Sat Dec 14 00:00:00 PST 2013 
+
+[No.19]===============================
+SELECT
+  [T75984].ID,[T75984].MAX-ID,[T75984].DESC,[T75984].MAX-LAST_DATE
+FROM
+  (( (( (SELECT
+              MAX([T75976].ID)
+            FROM
+              (input2) AS [T75976][ID, LINK, LAST_DATE]) AS [T75977][MAX-ID] ) JOIN (
+          (SELECT
+              [T75980].LINK, MAX([T75980].LAST_DATE)
+            FROM
+              (SELECT
+                  input2.ID,input2.LINK,input2.LAST_DATE
+                FROM
+                  input2
+                WHERE
+                  input2.LINK == 100.0) AS [T75980][ID, LINK, LAST_DATE]
+            GROUP BY
+              [T75980].LINK) AS [T75981][LINK, MAX-LAST_DATE] )) AS [T75982][MAX-ID, LINK, MAX-LAST_DATE] ) JOIN (
+      SELECT
+        input1.ID,input1.DESC
+      FROM
+        input1
+      WHERE
+        input1.ID > 100.0 )) AS [T75984][MAX-ID, LINK, MAX-LAST_DATE, ID, DESC]
+
+@anonymous
+[T75984].ID(NumberVal) | [T75984].MAX-ID(NumberVal) | [T75984].DESC(StringVal) | [T75984].MAX-LAST_DATE(DateVal) 
+101.0 | 6.0 | DESCRIPTION1 | Sat Dec 14 00:00:00 PST 2013 
+
+[No.18]===============================
+SELECT
+  [T74840].ID,[T74840].MAX-ID,[T74840].DESC,[T74840].MAX-LAST_DATE
+FROM
+  (( (( SELECT
+            input1.ID,input1.DESC
+          FROM
+            input1
+          WHERE
+            input1.ID > 100.0 ) JOIN (
+          (SELECT
+              MAX([T74826].LAST_DATE)
+            FROM
+              (SELECT
+                  input2.ID,input2.LINK,input2.LAST_DATE
+                FROM
+                  input2
+                WHERE
+                  input2.LINK == 100.0) AS [T74826][ID, LINK, LAST_DATE]) AS [T74827][MAX-LAST_DATE] )) AS [T74828][ID, DESC, MAX-LAST_DATE] ) JOIN (
+      (SELECT
+          MAX([T74838].ID)
+        FROM
+          (input2) AS [T74838][ID, LINK, LAST_DATE]) AS [T74839][MAX-ID] )) AS [T74840][ID, DESC, MAX-LAST_DATE, MAX-ID]
+
+@anonymous
+[T74840].ID(NumberVal) | [T74840].MAX-ID(NumberVal) | [T74840].DESC(StringVal) | [T74840].MAX-LAST_DATE(DateVal) 
+101.0 | 6.0 | DESCRIPTION1 | Sat Dec 14 00:00:00 PST 2013 
+
+[No.17]===============================
+SELECT
+  [T74396].ID,[T74396].MAX-ID,[T74396].DESC,[T74396].MAX-LAST_DATE
+FROM
+  (( (( SELECT
+            input1.ID,input1.DESC
+          FROM
+            input1
+          WHERE
+            input1.ID > 100.0 ) JOIN (
+          (SELECT
+              [T74382].LINK, MAX([T74382].LAST_DATE)
+            FROM
+              (SELECT
+                  input2.ID,input2.LINK,input2.LAST_DATE
+                FROM
+                  input2
+                WHERE
+                  input2.LINK == 100.0) AS [T74382][ID, LINK, LAST_DATE]
+            GROUP BY
+              [T74382].LINK) AS [T74383][LINK, MAX-LAST_DATE] )) AS [T74384][ID, DESC, LINK, MAX-LAST_DATE] ) JOIN (
+      (SELECT
+          MAX([T74394].ID)
+        FROM
+          (input2) AS [T74394][ID, LINK, LAST_DATE]) AS [T74395][MAX-ID] )) AS [T74396][ID, DESC, LINK, MAX-LAST_DATE, MAX-ID]
+
+@anonymous
+[T74396].ID(NumberVal) | [T74396].MAX-ID(NumberVal) | [T74396].DESC(StringVal) | [T74396].MAX-LAST_DATE(DateVal) 
+101.0 | 6.0 | DESCRIPTION1 | Sat Dec 14 00:00:00 PST 2013 
+
+[No.16]===============================
+SELECT
+  [T74378].ID,[T74378].MAX-ID,[T74378].DESC,[T74378].MAX-LAST_DATE
+FROM
+  (( (( SELECT
+            input1.ID,input1.DESC
+          FROM
+            input1
+          WHERE
+            input1.ID > 100.0 ) JOIN (
+          (SELECT
+              MAX([T74370].ID)
+            FROM
+              (input2) AS [T74370][ID, LINK, LAST_DATE]) AS [T74371][MAX-ID] )) AS [T74372][ID, DESC, MAX-ID] ) JOIN (
+      (SELECT
+          MAX([T74376].LAST_DATE)
+        FROM
+          (SELECT
+              input2.ID,input2.LINK,input2.LAST_DATE
+            FROM
+              input2
+            WHERE
+              input2.LINK == 100.0) AS [T74376][ID, LINK, LAST_DATE]) AS [T74377][MAX-LAST_DATE] )) AS [T74378][ID, DESC, MAX-ID, MAX-LAST_DATE]
+
+@anonymous
+[T74378].ID(NumberVal) | [T74378].MAX-ID(NumberVal) | [T74378].DESC(StringVal) | [T74378].MAX-LAST_DATE(DateVal) 
+101.0 | 6.0 | DESCRIPTION1 | Sat Dec 14 00:00:00 PST 2013 
+
+[No.15]===============================
+SELECT
+  [T72802].ID,[T72802].MAX-ID,[T72802].DESC,[T72802].MAX-LAST_DATE
+FROM
+  (( (( (SELECT
+              [T72788].LINK, MAX([T72788].LAST_DATE)
+            FROM
+              (SELECT
+                  input2.ID,input2.LINK,input2.LAST_DATE
+                FROM
+                  input2
+                WHERE
+                  input2.LINK == 100.0) AS [T72788][ID, LINK, LAST_DATE]
+            GROUP BY
+              [T72788].LINK) AS [T72789][LINK, MAX-LAST_DATE] ) JOIN (
+          SELECT
+            input1.ID,input1.DESC
+          FROM
+            input1
+          WHERE
+            input1.ID > 100.0 )) AS [T72790][LINK, MAX-LAST_DATE, ID, DESC] ) JOIN (
+      (SELECT
+          MAX([T72800].ID)
+        FROM
+          (input2) AS [T72800][ID, LINK, LAST_DATE]) AS [T72801][MAX-ID] )) AS [T72802][LINK, MAX-LAST_DATE, ID, DESC, MAX-ID]
+
+@anonymous
+[T72802].ID(NumberVal) | [T72802].MAX-ID(NumberVal) | [T72802].DESC(StringVal) | [T72802].MAX-LAST_DATE(DateVal) 
+101.0 | 6.0 | DESCRIPTION1 | Sat Dec 14 00:00:00 PST 2013 
+
+[No.14]===============================
+SELECT
+  [T71664].ID,[T71664].MAX-ID,[T71664].DESC,[T71664].MAX-LAST_DATE
+FROM
+  (( (( (SELECT
+              MAX([T71656].ID)
+            FROM
+              (input2) AS [T71656][ID, LINK, LAST_DATE]) AS [T71657][MAX-ID] ) JOIN (
+          SELECT
+            input1.ID,input1.DESC
+          FROM
+            input1
+          WHERE
+            input1.ID > 100.0 )) AS [T71658][MAX-ID, ID, DESC] ) JOIN (
+      (SELECT
+          MAX([T71662].LAST_DATE)
+        FROM
+          (SELECT
+              input2.ID,input2.LINK,input2.LAST_DATE
+            FROM
+              input2
+            WHERE
+              input2.LINK == 100.0) AS [T71662][ID, LINK, LAST_DATE]) AS [T71663][MAX-LAST_DATE] )) AS [T71664][MAX-ID, ID, DESC, MAX-LAST_DATE]
+
+@anonymous
+[T71664].ID(NumberVal) | [T71664].MAX-ID(NumberVal) | [T71664].DESC(StringVal) | [T71664].MAX-LAST_DATE(DateVal) 
+101.0 | 6.0 | DESCRIPTION1 | Sat Dec 14 00:00:00 PST 2013 
+
+[No.13]===============================
+SELECT
+  [T68318].ID,[T68318].MAX-ID,[T68318].DESC,[T68318].MAX-LAST_DATE
+FROM
+  (( (( (SELECT
+              MAX([T68304].LAST_DATE)
+            FROM
+              (SELECT
+                  input2.ID,input2.LINK,input2.LAST_DATE
+                FROM
+                  input2
+                WHERE
+                  input2.LINK == 100.0) AS [T68304][ID, LINK, LAST_DATE]) AS [T68305][MAX-LAST_DATE] ) JOIN (
+          (SELECT
+              MAX([T68314].ID)
+            FROM
+              (input2) AS [T68314][ID, LINK, LAST_DATE]) AS [T68315][MAX-ID] )) AS [T68316][MAX-LAST_DATE, MAX-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.DESC
+      FROM
+        input1
+      WHERE
+        input1.ID > 100.0 )) AS [T68318][MAX-LAST_DATE, MAX-ID, ID, DESC]
+
+@anonymous
+[T68318].ID(NumberVal) | [T68318].MAX-ID(NumberVal) | [T68318].DESC(StringVal) | [T68318].MAX-LAST_DATE(DateVal) 
+101.0 | 6.0 | DESCRIPTION1 | Sat Dec 14 00:00:00 PST 2013 
+
+[No.12]===============================
+SELECT
+  [T65552].ID,[T65552].MAX-ID,[T65552].DESC,[T65552].MAX-LAST_DATE
+FROM
+  (( (( (SELECT
+              MAX([T65538].LAST_DATE)
+            FROM
+              (SELECT
+                  input2.ID,input2.LINK,input2.LAST_DATE
+                FROM
+                  input2
+                WHERE
+                  input2.LINK == 100.0) AS [T65538][ID, LINK, LAST_DATE]) AS [T65539][MAX-LAST_DATE] ) JOIN (
+          SELECT
+            input1.ID,input1.DESC
+          FROM
+            input1
+          WHERE
+            input1.ID > 100.0 )) AS [T65540][MAX-LAST_DATE, ID, DESC] ) JOIN (
+      (SELECT
+          MAX([T65550].ID)
+        FROM
+          (input2) AS [T65550][ID, LINK, LAST_DATE]) AS [T65551][MAX-ID] )) AS [T65552][MAX-LAST_DATE, ID, DESC, MAX-ID]
+
+@anonymous
+[T65552].ID(NumberVal) | [T65552].MAX-ID(NumberVal) | [T65552].DESC(StringVal) | [T65552].MAX-LAST_DATE(DateVal) 
+101.0 | 6.0 | DESCRIPTION1 | Sat Dec 14 00:00:00 PST 2013 
+
+[No.11]===============================
+SELECT
+  [T59612].ID,[T59612].MAX-ID,[T59612].DESC,[T59612].MAX-LAST_DATE
+FROM
+  (( (( SELECT
+            input1.ID,input1.DESC
+          FROM
+            input1
+          WHERE
+            input1.ID > 100.0 ) JOIN (
+          (SELECT
+              MAX([T59604].ID)
+            FROM
+              (input2) AS [T59604][ID, LINK, LAST_DATE]) AS [T59605][MAX-ID] )) AS [T59606][ID, DESC, MAX-ID] ) JOIN (
+      (SELECT
+          [T59610].LINK, MAX([T59610].LAST_DATE)
+        FROM
+          (SELECT
+              input2.ID,input2.LINK,input2.LAST_DATE
+            FROM
+              input2
+            WHERE
+              input2.LINK == 100.0) AS [T59610][ID, LINK, LAST_DATE]
+        GROUP BY
+          [T59610].LINK) AS [T59611][LINK, MAX-LAST_DATE] )) AS [T59612][ID, DESC, MAX-ID, LINK, MAX-LAST_DATE]
+
+@anonymous
+[T59612].ID(NumberVal) | [T59612].MAX-ID(NumberVal) | [T59612].DESC(StringVal) | [T59612].MAX-LAST_DATE(DateVal) 
+101.0 | 6.0 | DESCRIPTION1 | Sat Dec 14 00:00:00 PST 2013 
+
+[No.10]===============================
+SELECT
+  [T75810].ID,[T75810].MAX-ID,[T75810].DESC,[T75810].MAX-LAST_DATE
+FROM
+  (( (( (SELECT
+              MAX([T75796].LAST_DATE)
+            FROM
+              (input2) AS [T75796][ID, LINK, LAST_DATE]) AS [T75797][MAX-LAST_DATE] ) JOIN (
+          (SELECT
+              MAX([T75806].ID)
+            FROM
+              (input2) AS [T75806][ID, LINK, LAST_DATE]) AS [T75807][MAX-ID] )) AS [T75808][MAX-LAST_DATE, MAX-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.DESC
+      FROM
+        input1
+      WHERE
+        input1.ID > 100.0 )) AS [T75810][MAX-LAST_DATE, MAX-ID, ID, DESC]
+
+@anonymous
+[T75810].ID(NumberVal) | [T75810].MAX-ID(NumberVal) | [T75810].DESC(StringVal) | [T75810].MAX-LAST_DATE(DateVal) 
+101.0 | 6.0 | DESCRIPTION1 | Sat Dec 14 00:00:00 PST 2013 
+
+[No.9]===============================
+SELECT
+  [T75376].ID,[T75376].MAX-ID,[T75376].DESC,[T75376].MAX-LAST_DATE
+FROM
+  (( (( (SELECT
+              MAX([T75362].ID)
+            FROM
+              (input2) AS [T75362][ID, LINK, LAST_DATE]) AS [T75363][MAX-ID] ) JOIN (
+          (SELECT
+              MAX([T75372].LAST_DATE)
+            FROM
+              (input2) AS [T75372][ID, LINK, LAST_DATE]) AS [T75373][MAX-LAST_DATE] )) AS [T75374][MAX-ID, MAX-LAST_DATE] ) JOIN (
+      SELECT
+        input1.ID,input1.DESC
+      FROM
+        input1
+      WHERE
+        input1.ID > 100.0 )) AS [T75376][MAX-ID, MAX-LAST_DATE, ID, DESC]
+
+@anonymous
+[T75376].ID(NumberVal) | [T75376].MAX-ID(NumberVal) | [T75376].DESC(StringVal) | [T75376].MAX-LAST_DATE(DateVal) 
+101.0 | 6.0 | DESCRIPTION1 | Sat Dec 14 00:00:00 PST 2013 
+
+[No.8]===============================
+SELECT
+  [T74998].ID,[T74998].MAX-ID,[T74998].DESC,[T74998].MAX-LAST_DATE
+FROM
+  (( (( SELECT
+            input1.ID,input1.DESC
+          FROM
+            input1
+          WHERE
+            input1.ID > 100.0 ) JOIN (
+          (SELECT
+              MAX([T74984].ID)
+            FROM
+              (input2) AS [T74984][ID, LINK, LAST_DATE]) AS [T74985][MAX-ID] )) AS [T74986][ID, DESC, MAX-ID] ) JOIN (
+      (SELECT
+          MAX([T74996].LAST_DATE)
+        FROM
+          (input2) AS [T74996][ID, LINK, LAST_DATE]) AS [T74997][MAX-LAST_DATE] )) AS [T74998][ID, DESC, MAX-ID, MAX-LAST_DATE]
+
+@anonymous
+[T74998].ID(NumberVal) | [T74998].MAX-ID(NumberVal) | [T74998].DESC(StringVal) | [T74998].MAX-LAST_DATE(DateVal) 
+101.0 | 6.0 | DESCRIPTION1 | Sat Dec 14 00:00:00 PST 2013 
+
+[No.7]===============================
+SELECT
+  [T69382].ID,[T69382].MAX-ID,[T69382].DESC,[T69382].MAX-LAST_DATE
+FROM
+  (( (( (SELECT
+              MAX([T69368].LAST_DATE)
+            FROM
+              (input2) AS [T69368][ID, LINK, LAST_DATE]) AS [T69369][MAX-LAST_DATE] ) JOIN (
+          SELECT
+            input1.ID,input1.DESC
+          FROM
+            input1
+          WHERE
+            input1.ID > 100.0 )) AS [T69370][MAX-LAST_DATE, ID, DESC] ) JOIN (
+      (SELECT
+          MAX([T69380].ID)
+        FROM
+          (input2) AS [T69380][ID, LINK, LAST_DATE]) AS [T69381][MAX-ID] )) AS [T69382][MAX-LAST_DATE, ID, DESC, MAX-ID]
+
+@anonymous
+[T69382].ID(NumberVal) | [T69382].MAX-ID(NumberVal) | [T69382].DESC(StringVal) | [T69382].MAX-LAST_DATE(DateVal) 
+101.0 | 6.0 | DESCRIPTION1 | Sat Dec 14 00:00:00 PST 2013 
+
+[No.6]===============================
+SELECT
+  [T64260].ID,[T64260].MAX-ID,[T64260].DESC,[T64260].MAX-LAST_DATE
+FROM
+  (( (( (SELECT
+              MAX([T64246].ID)
+            FROM
+              (input2) AS [T64246][ID, LINK, LAST_DATE]) AS [T64247][MAX-ID] ) JOIN (
+          SELECT
+            input1.ID,input1.DESC
+          FROM
+            input1
+          WHERE
+            input1.ID > 100.0 )) AS [T64248][MAX-ID, ID, DESC] ) JOIN (
+      (SELECT
+          MAX([T64258].LAST_DATE)
+        FROM
+          (input2) AS [T64258][ID, LINK, LAST_DATE]) AS [T64259][MAX-LAST_DATE] )) AS [T64260][MAX-ID, ID, DESC, MAX-LAST_DATE]
+
+@anonymous
+[T64260].ID(NumberVal) | [T64260].MAX-ID(NumberVal) | [T64260].DESC(StringVal) | [T64260].MAX-LAST_DATE(DateVal) 
+101.0 | 6.0 | DESCRIPTION1 | Sat Dec 14 00:00:00 PST 2013 
+
+[No.5]===============================
+SELECT
+  [T59768].ID,[T59768].MAX-ID,[T59768].DESC,[T59768].MAX-LAST_DATE
+FROM
+  (( (( SELECT
+            input1.ID,input1.DESC
+          FROM
+            input1
+          WHERE
+            input1.ID > 100.0 ) JOIN (
+          (SELECT
+              MAX([T59754].LAST_DATE)
+            FROM
+              (input2) AS [T59754][ID, LINK, LAST_DATE]) AS [T59755][MAX-LAST_DATE] )) AS [T59756][ID, DESC, MAX-LAST_DATE] ) JOIN (
+      (SELECT
+          MAX([T59766].ID)
+        FROM
+          (input2) AS [T59766][ID, LINK, LAST_DATE]) AS [T59767][MAX-ID] )) AS [T59768][ID, DESC, MAX-LAST_DATE, MAX-ID]
+
+@anonymous
+[T59768].ID(NumberVal) | [T59768].MAX-ID(NumberVal) | [T59768].DESC(StringVal) | [T59768].MAX-LAST_DATE(DateVal) 
+101.0 | 6.0 | DESCRIPTION1 | Sat Dec 14 00:00:00 PST 2013 
+
+[No.4]===============================
+SELECT
+  [T80248].LINK,[T80248].MAX-ID,[T80248].DESC,[T80248].LAST_DATE
+FROM
+  (( SELECT
+        [T80246].LAST_DATE,[T80246].MAX-ID,[T80246].LINK,[T80246].MAX-ID1
+      FROM
+        (( (SELECT
+                [T80234].LAST_DATE, MAX([T80234].ID)
+              FROM
+                (input2) AS [T80234][ID, LINK, LAST_DATE]
+              GROUP BY
+                [T80234].LAST_DATE) AS [T80235][LAST_DATE, MAX-ID] ) JOIN (
+            (SELECT
+                [T80244].LINK, MAX([T80244].ID)
+              FROM
+                (input2) AS [T80244][ID, LINK, LAST_DATE]
+              GROUP BY
+                [T80244].LINK) AS [T80245][LINK, MAX-ID] )) AS [T80246][LAST_DATE, MAX-ID, LINK, MAX-ID1]
+      WHERE
+        [T80246].MAX-ID == [T80246].MAX-ID1 ) JOIN (
+      input1 )) AS [T80248][LAST_DATE, MAX-ID, LINK, MAX-ID1, ID, DESC]
+WHERE
+  [T80248].LINK == [T80248].ID
+@anonymous
+[T80248].LINK(NumberVal) | [T80248].MAX-ID(NumberVal) | [T80248].DESC(StringVal) | [T80248].LAST_DATE(DateVal) 
+101.0 | 6.0 | DESCRIPTION1 | Sat Dec 14 00:00:00 PST 2013 
+
+[No.3]===============================
+SELECT
+  [T79662].LINK,[T79662].ID,[T79662].DESC,[T79662].LAST_DATE
+FROM
+  (( SELECT
+        [T79660].ID,[T79660].LINK,[T79660].LAST_DATE,[T79660].MAX-ID
+      FROM
+        (( input2 ) JOIN (
+            (SELECT
+                MAX([T79658].ID)
+              FROM
+                (input2) AS [T79658][ID, LINK, LAST_DATE]) AS [T79659][MAX-ID] )) AS [T79660][ID, LINK, LAST_DATE, MAX-ID]
+      WHERE
+        [T79660].ID == [T79660].MAX-ID ) JOIN (
+      input1 )) AS [T79662][ID, LINK, LAST_DATE, MAX-ID, ID1, DESC]
+WHERE
+  [T79662].LINK == [T79662].ID1
+@anonymous
+[T79662].LINK(NumberVal) | [T79662].ID(NumberVal) | [T79662].DESC(StringVal) | [T79662].LAST_DATE(DateVal) 
+101.0 | 6.0 | DESCRIPTION1 | Sat Dec 14 00:00:00 PST 2013 
+
+[No.2]===============================
+SELECT
+  [T77876].LINK,[T77876].MAX-ID,[T77876].DESC,[T77876].LAST_DATE
+FROM
+  (( SELECT
+        [T77874].LINK,[T77874].MAX-ID,[T77874].LAST_DATE,[T77874].MAX-ID1
+      FROM
+        (( (SELECT
+                [T77862].LINK, MAX([T77862].ID)
+              FROM
+                (input2) AS [T77862][ID, LINK, LAST_DATE]
+              GROUP BY
+                [T77862].LINK) AS [T77863][LINK, MAX-ID] ) JOIN (
+            (SELECT
+                [T77872].LAST_DATE, MAX([T77872].ID)
+              FROM
+                (input2) AS [T77872][ID, LINK, LAST_DATE]
+              GROUP BY
+                [T77872].LAST_DATE) AS [T77873][LAST_DATE, MAX-ID] )) AS [T77874][LINK, MAX-ID, LAST_DATE, MAX-ID1]
+      WHERE
+        [T77874].MAX-ID == [T77874].MAX-ID1 ) JOIN (
+      input1 )) AS [T77876][LINK, MAX-ID, LAST_DATE, MAX-ID1, ID, DESC]
+WHERE
+  [T77876].LINK == [T77876].ID
+@anonymous
+[T77876].LINK(NumberVal) | [T77876].MAX-ID(NumberVal) | [T77876].DESC(StringVal) | [T77876].LAST_DATE(DateVal) 
+101.0 | 6.0 | DESCRIPTION1 | Sat Dec 14 00:00:00 PST 2013 
+
+[No.1]===============================
+SELECT
+  [T62126].LINK,[T62126].MAX-ID,[T62126].DESC,[T62126].LAST_DATE
+FROM
+  (( SELECT
+        [T62124].MAX-ID,[T62124].ID,[T62124].LINK,[T62124].LAST_DATE
+      FROM
+        (( (SELECT
+                MAX([T62122].ID)
+              FROM
+                (input2) AS [T62122][ID, LINK, LAST_DATE]) AS [T62123][MAX-ID] ) JOIN (
+            input2 )) AS [T62124][MAX-ID, ID, LINK, LAST_DATE]
+      WHERE
+        [T62124].MAX-ID == [T62124].ID ) JOIN (
+      input1 )) AS [T62126][MAX-ID, ID, LINK, LAST_DATE, ID1, DESC]
+WHERE
+  [T62126].LINK == [T62126].ID1
+@anonymous
+[T62126].LINK(NumberVal) | [T62126].MAX-ID(NumberVal) | [T62126].DESC(StringVal) | [T62126].LAST_DATE(DateVal) 
+101.0 | 6.0 | DESCRIPTION1 | Sat Dec 14 00:00:00 PST 2013 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 13.735s

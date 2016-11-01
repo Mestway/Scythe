@@ -1,0 +1,515 @@
+[[Synthesis start]]
+	File: ../data/recent_posts/013
+	Enumerator: StagedEnumerator
+[Retry] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[NaturalJoin]: 1 [SymTable]: 2
+[Aggregation]: 1 [SymTable]: 3
+[EnumJoinOnAggr] level 1 [SymTable]: 12
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[NaturalJoin]: 1 [SymTable]: 2
+[Aggregation]: 1 [SymTable]: 3
+[EnumJoinOnAggr] level 1 [SymTable]: 12
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[NaturalJoin]: 1 [SymTable]: 2
+[Aggregation]: 1 [SymTable]: 3
+[EnumJoinOnAggr] level 1 [SymTable]: 12
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[NaturalJoin]: 1 [SymTable]: 2
+[Aggregation]: 1 [SymTable]: 3
+[EnumJoinOnAggr] level 1 [SymTable]: 12
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[NaturalJoin]: 1 [SymTable]: 2
+[Aggregation]: 1 [SymTable]: 3
+[EnumJoinOnAggr] level 1 [SymTable]: 12
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Retry] Maximum Depth: 2
+@output
+ID(NumberVal) | Name(StringVal) | RootName(StringVal) | RootId(NumberVal) 
+1.0 | Company1 | Company3 | 3.0 
+3.0 | Company3 | Company2 | 2.0 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 1 [SymTable]: 3
+[JOIN] level 1 [SymTable]: 9
+[UNION] level 1 [SymTable]: 13
+[EnumLeftJoin] level 1 [SymTable]: 13
+[EnumAggrOnJoin] level 1 [SymTable]: 41
+[EnumJoinOnAggr] level 1 [SymTable]: 50
+[EnumJoinOnAggr] level 2 [SymTable]: 77
+Candidate Tree Number: 145
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T1080].ID,[T1080].Name,[T1080].Company_group,[T1080].ID2
+FROM
+  (( SELECT
+        [T1078].ID,[T1078].Name,[T1078].ID1,[T1078].Company_group
+      FROM
+        (( SELECT
+              input1.ID,input1.Name
+            FROM
+              input1
+            WHERE
+              True ) JOIN (
+            input2 )) AS [T1078][ID, Name, ID1, Company_group]
+      WHERE
+        [T1078].ID == [T1078].ID1 ) JOIN (
+      input1 )) AS [T1080][ID, Name, ID1, Company_group, ID2, Name1]
+WHERE
+  [T1080].Company_group == [T1080].Name1
+   AND [T1080].ID <> [T1080].ID2
+@anonymous
+[T1080].ID(NumberVal) | [T1080].Name(StringVal) | [T1080].Company_group(StringVal) | [T1080].ID2(NumberVal) 
+1.0 | Company1 | Company3 | 3.0 
+3.0 | Company3 | Company2 | 2.0 
+
+[No.19]===============================
+SELECT
+  [T1076].ID,[T1076].Name,[T1076].Company_group,[T1076].ID2
+FROM
+  (( SELECT
+        [T1074].ID,[T1074].Name,[T1074].ID1,[T1074].Company_group
+      FROM
+        (( input1 ) JOIN (
+            input2 )) AS [T1074][ID, Name, ID1, Company_group]
+      WHERE
+        [T1074].ID == [T1074].ID1 ) JOIN (
+      SELECT
+        input1.ID,input1.Name
+      FROM
+        input1
+      WHERE
+        True )) AS [T1076][ID, Name, ID1, Company_group, ID2, Name1]
+WHERE
+  [T1076].Company_group == [T1076].Name1
+   AND [T1076].ID <> [T1076].ID2
+@anonymous
+[T1076].ID(NumberVal) | [T1076].Name(StringVal) | [T1076].Company_group(StringVal) | [T1076].ID2(NumberVal) 
+1.0 | Company1 | Company3 | 3.0 
+3.0 | Company3 | Company2 | 2.0 
+
+[No.18]===============================
+SELECT
+  [T844].ID,[T844].Name,[T844].Name1,[T844].ID1
+FROM
+  (( SELECT
+        [T842].ID,[T842].Name,[T842].ID1,[T842].Name1
+      FROM
+        (( input1 ) JOIN (
+            input1 )) AS [T842][ID, Name, ID1, Name1]
+      WHERE
+        [T842].ID <> [T842].ID1 ) JOIN (
+      SELECT
+        input2.ID,input2.Company_group
+      FROM
+        input2
+      WHERE
+        True )) AS [T844][ID, Name, ID1, Name1, ID2, Company_group]
+WHERE
+  [T844].ID == [T844].ID2
+   AND [T844].Name1 == [T844].Company_group
+@anonymous
+[T844].ID(NumberVal) | [T844].Name(StringVal) | [T844].Name1(StringVal) | [T844].ID1(NumberVal) 
+1.0 | Company1 | Company3 | 3.0 
+3.0 | Company3 | Company2 | 2.0 
+
+[No.17]===============================
+SELECT
+  [T840].ID,[T840].Name,[T840].Name1,[T840].ID1
+FROM
+  (( SELECT
+        [T838].ID,[T838].Name,[T838].ID1,[T838].Name1
+      FROM
+        (( input1 ) JOIN (
+            SELECT
+              input1.ID,input1.Name
+            FROM
+              input1
+            WHERE
+              True )) AS [T838][ID, Name, ID1, Name1]
+      WHERE
+        [T838].ID <> [T838].ID1 ) JOIN (
+      input2 )) AS [T840][ID, Name, ID1, Name1, ID2, Company_group]
+WHERE
+  [T840].ID == [T840].ID2
+   AND [T840].Name1 == [T840].Company_group
+@anonymous
+[T840].ID(NumberVal) | [T840].Name(StringVal) | [T840].Name1(StringVal) | [T840].ID1(NumberVal) 
+1.0 | Company1 | Company3 | 3.0 
+3.0 | Company3 | Company2 | 2.0 
+
+[No.16]===============================
+SELECT
+  [T836].ID,[T836].Name,[T836].Name1,[T836].ID1
+FROM
+  (( SELECT
+        [T834].ID,[T834].Name,[T834].ID1,[T834].Name1
+      FROM
+        (( SELECT
+              input1.ID,input1.Name
+            FROM
+              input1
+            WHERE
+              True ) JOIN (
+            input1 )) AS [T834][ID, Name, ID1, Name1]
+      WHERE
+        [T834].ID <> [T834].ID1 ) JOIN (
+      input2 )) AS [T836][ID, Name, ID1, Name1, ID2, Company_group]
+WHERE
+  [T836].ID == [T836].ID2
+   AND [T836].Name1 == [T836].Company_group
+@anonymous
+[T836].ID(NumberVal) | [T836].Name(StringVal) | [T836].Name1(StringVal) | [T836].ID1(NumberVal) 
+1.0 | Company1 | Company3 | 3.0 
+3.0 | Company3 | Company2 | 2.0 
+
+[No.15]===============================
+SELECT
+  [T784].ID1,[T784].Name1,[T784].Name,[T784].ID
+FROM
+  (( SELECT
+        [T782].ID,[T782].Name,[T782].ID1,[T782].Name1
+      FROM
+        (( input1 ) JOIN (
+            input1 )) AS [T782][ID, Name, ID1, Name1]
+      WHERE
+        [T782].ID <> [T782].ID1 ) JOIN (
+      SELECT
+        input2.ID,input2.Company_group
+      FROM
+        input2
+      WHERE
+        True )) AS [T784][ID, Name, ID1, Name1, ID2, Company_group]
+WHERE
+  [T784].Name == [T784].Company_group
+   AND [T784].ID1 == [T784].ID2
+@anonymous
+[T784].ID1(NumberVal) | [T784].Name1(StringVal) | [T784].Name(StringVal) | [T784].ID(NumberVal) 
+3.0 | Company3 | Company2 | 2.0 
+1.0 | Company1 | Company3 | 3.0 
+
+[No.14]===============================
+SELECT
+  [T780].ID1,[T780].Name1,[T780].Name,[T780].ID
+FROM
+  (( SELECT
+        [T778].ID,[T778].Name,[T778].ID1,[T778].Name1
+      FROM
+        (( input1 ) JOIN (
+            SELECT
+              input1.ID,input1.Name
+            FROM
+              input1
+            WHERE
+              True )) AS [T778][ID, Name, ID1, Name1]
+      WHERE
+        [T778].ID <> [T778].ID1 ) JOIN (
+      input2 )) AS [T780][ID, Name, ID1, Name1, ID2, Company_group]
+WHERE
+  [T780].Name == [T780].Company_group
+   AND [T780].ID1 == [T780].ID2
+@anonymous
+[T780].ID1(NumberVal) | [T780].Name1(StringVal) | [T780].Name(StringVal) | [T780].ID(NumberVal) 
+3.0 | Company3 | Company2 | 2.0 
+1.0 | Company1 | Company3 | 3.0 
+
+[No.13]===============================
+SELECT
+  [T776].ID1,[T776].Name1,[T776].Name,[T776].ID
+FROM
+  (( SELECT
+        [T774].ID,[T774].Name,[T774].ID1,[T774].Name1
+      FROM
+        (( SELECT
+              input1.ID,input1.Name
+            FROM
+              input1
+            WHERE
+              True ) JOIN (
+            input1 )) AS [T774][ID, Name, ID1, Name1]
+      WHERE
+        [T774].ID <> [T774].ID1 ) JOIN (
+      input2 )) AS [T776][ID, Name, ID1, Name1, ID2, Company_group]
+WHERE
+  [T776].Name == [T776].Company_group
+   AND [T776].ID1 == [T776].ID2
+@anonymous
+[T776].ID1(NumberVal) | [T776].Name1(StringVal) | [T776].Name(StringVal) | [T776].ID(NumberVal) 
+3.0 | Company3 | Company2 | 2.0 
+1.0 | Company1 | Company3 | 3.0 
+
+[No.12]===============================
+SELECT
+  [T1088].ID,[T1088].Name,[T1088].Company_group,[T1088].ID2
+FROM
+  (( SELECT
+        [T1086].ID,[T1086].Name,[T1086].ID1,[T1086].Company_group
+      FROM
+        (( input1 ) JOIN (
+            input2 )) AS [T1086][ID, Name, ID1, Company_group]
+      WHERE
+        [T1086].ID == [T1086].ID1
+         AND [T1086].Name <> [T1086].Company_group ) JOIN (
+      input1 )) AS [T1088][ID, Name, ID1, Company_group, ID2, Name1]
+WHERE
+  [T1088].Company_group == [T1088].Name1
+@anonymous
+[T1088].ID(NumberVal) | [T1088].Name(StringVal) | [T1088].Company_group(StringVal) | [T1088].ID2(NumberVal) 
+1.0 | Company1 | Company3 | 3.0 
+3.0 | Company3 | Company2 | 2.0 
+
+[No.11]===============================
+SELECT
+  [T996].ID1,[T996].Name1,[T996].Name,[T996].ID
+FROM
+  (( SELECT
+        [T994].ID,[T994].Name,[T994].ID1,[T994].Company_group
+      FROM
+        (( input1 ) JOIN (
+            input2 )) AS [T994][ID, Name, ID1, Company_group]
+      WHERE
+        [T994].ID <> [T994].ID1
+         AND [T994].Name == [T994].Company_group ) JOIN (
+      input1 )) AS [T996][ID, Name, ID1, Company_group, ID2, Name1]
+WHERE
+  [T996].ID1 == [T996].ID2
+@anonymous
+[T996].ID1(NumberVal) | [T996].Name1(StringVal) | [T996].Name(StringVal) | [T996].ID(NumberVal) 
+3.0 | Company3 | Company2 | 2.0 
+1.0 | Company1 | Company3 | 3.0 
+
+[No.10]===============================
+SELECT
+  [T660].ID,[T660].Name,[T660].Company_group,[T660].ID2
+FROM
+  (( SELECT
+        [T658].ID,[T658].Company_group,[T658].ID1,[T658].Name
+      FROM
+        (( input2 ) JOIN (
+            input1 )) AS [T658][ID, Company_group, ID1, Name]
+      WHERE
+        [T658].ID == [T658].ID1 ) JOIN (
+      input1 )) AS [T660][ID, Company_group, ID1, Name, ID2, Name1]
+WHERE
+  [T660].Company_group == [T660].Name1
+   AND [T660].ID <> [T660].ID2
+@anonymous
+[T660].ID(NumberVal) | [T660].Name(StringVal) | [T660].Company_group(StringVal) | [T660].ID2(NumberVal) 
+1.0 | Company1 | Company3 | 3.0 
+3.0 | Company3 | Company2 | 2.0 
+
+[No.9]===============================
+SELECT
+  [T656].ID,[T656].Name,[T656].Company_group,[T656].ID2
+FROM
+  (( SELECT
+        [T654].ID,[T654].Company_group,[T654].ID1,[T654].Name
+      FROM
+        (( input2 ) JOIN (
+            input1 )) AS [T654][ID, Company_group, ID1, Name]
+      WHERE
+        [T654].ID == [T654].ID1
+         AND [T654].Company_group <> [T654].Name ) JOIN (
+      input1 )) AS [T656][ID, Company_group, ID1, Name, ID2, Name1]
+WHERE
+  [T656].Company_group == [T656].Name1
+@anonymous
+[T656].ID(NumberVal) | [T656].Name(StringVal) | [T656].Company_group(StringVal) | [T656].ID2(NumberVal) 
+1.0 | Company1 | Company3 | 3.0 
+3.0 | Company3 | Company2 | 2.0 
+
+[No.8]===============================
+SELECT
+  [T640].ID,[T640].Name1,[T640].Company_group,[T640].ID1
+FROM
+  (( SELECT
+        [T638].ID,[T638].Company_group,[T638].ID1,[T638].Name
+      FROM
+        (( input2 ) JOIN (
+            input1 )) AS [T638][ID, Company_group, ID1, Name]
+      WHERE
+        [T638].Company_group == [T638].Name ) JOIN (
+      input1 )) AS [T640][ID, Company_group, ID1, Name, ID2, Name1]
+WHERE
+  [T640].Company_group <> [T640].Name1
+   AND [T640].ID == [T640].ID2
+@anonymous
+[T640].ID(NumberVal) | [T640].Name1(StringVal) | [T640].Company_group(StringVal) | [T640].ID1(NumberVal) 
+1.0 | Company1 | Company3 | 3.0 
+3.0 | Company3 | Company2 | 2.0 
+
+[No.7]===============================
+SELECT
+  [T636].ID,[T636].Name1,[T636].Company_group,[T636].ID1
+FROM
+  (( SELECT
+        [T634].ID,[T634].Company_group,[T634].ID1,[T634].Name
+      FROM
+        (( input2 ) JOIN (
+            input1 )) AS [T634][ID, Company_group, ID1, Name]
+      WHERE
+        [T634].ID <> [T634].ID1
+         AND [T634].Company_group == [T634].Name ) JOIN (
+      input1 )) AS [T636][ID, Company_group, ID1, Name, ID2, Name1]
+WHERE
+  [T636].ID == [T636].ID2
+@anonymous
+[T636].ID(NumberVal) | [T636].Name1(StringVal) | [T636].Company_group(StringVal) | [T636].ID1(NumberVal) 
+1.0 | Company1 | Company3 | 3.0 
+3.0 | Company3 | Company2 | 2.0 
+
+[No.6]===============================
+SELECT
+  [T992].ID1,[T992].Name1,[T992].Name,[T992].ID
+FROM
+  (( SELECT
+        [T990].ID,[T990].Name,[T990].ID1,[T990].Company_group
+      FROM
+        (( input1 ) JOIN (
+            input2 )) AS [T990][ID, Name, ID1, Company_group]
+      WHERE
+        [T990].Name == [T990].Company_group ) JOIN (
+      input1 )) AS [T992][ID, Name, ID1, Company_group, ID2, Name1]
+WHERE
+  [T992].ID1 == [T992].ID2
+   AND [T992].ID <> [T992].ID2
+@anonymous
+[T992].ID1(NumberVal) | [T992].Name1(StringVal) | [T992].Name(StringVal) | [T992].ID(NumberVal) 
+3.0 | Company3 | Company2 | 2.0 
+1.0 | Company1 | Company3 | 3.0 
+
+[No.5]===============================
+SELECT
+  [T652].ID,[T652].Name,[T652].Company_group,[T652].ID2
+FROM
+  (( SELECT
+        [T650].ID,[T650].Company_group,[T650].ID1,[T650].Name
+      FROM
+        (( input2 ) JOIN (
+            input1 )) AS [T650][ID, Company_group, ID1, Name]
+      WHERE
+        [T650].ID == [T650].ID1 ) JOIN (
+      input1 )) AS [T652][ID, Company_group, ID1, Name, ID2, Name1]
+WHERE
+  [T652].Company_group == [T652].Name1
+   AND [T652].ID1 <> [T652].ID2
+@anonymous
+[T652].ID(NumberVal) | [T652].Name(StringVal) | [T652].Company_group(StringVal) | [T652].ID2(NumberVal) 
+1.0 | Company1 | Company3 | 3.0 
+3.0 | Company3 | Company2 | 2.0 
+
+[No.4]===============================
+SELECT
+  [T632].ID,[T632].Name1,[T632].Company_group,[T632].ID1
+FROM
+  (( SELECT
+        [T630].ID,[T630].Company_group,[T630].ID1,[T630].Name
+      FROM
+        (( input2 ) JOIN (
+            input1 )) AS [T630][ID, Company_group, ID1, Name]
+      WHERE
+        [T630].Company_group == [T630].Name ) JOIN (
+      input1 )) AS [T632][ID, Company_group, ID1, Name, ID2, Name1]
+WHERE
+  [T632].ID == [T632].ID2
+   AND [T632].ID1 <> [T632].ID2
+@anonymous
+[T632].ID(NumberVal) | [T632].Name1(StringVal) | [T632].Company_group(StringVal) | [T632].ID1(NumberVal) 
+1.0 | Company1 | Company3 | 3.0 
+3.0 | Company3 | Company2 | 2.0 
+
+[No.3]===============================
+SELECT
+  [T1072].ID,[T1072].Name,[T1072].Company_group,[T1072].ID2
+FROM
+  (( SELECT
+        [T1070].ID,[T1070].Name,[T1070].ID1,[T1070].Company_group
+      FROM
+        (( input1 ) JOIN (
+            input2 )) AS [T1070][ID, Name, ID1, Company_group]
+      WHERE
+        [T1070].ID == [T1070].ID1 ) JOIN (
+      input1 )) AS [T1072][ID, Name, ID1, Company_group, ID2, Name1]
+WHERE
+  [T1072].Company_group == [T1072].Name1
+   AND [T1072].ID <> [T1072].ID2
+@anonymous
+[T1072].ID(NumberVal) | [T1072].Name(StringVal) | [T1072].Company_group(StringVal) | [T1072].ID2(NumberVal) 
+1.0 | Company1 | Company3 | 3.0 
+3.0 | Company3 | Company2 | 2.0 
+
+[No.2]===============================
+SELECT
+  [T832].ID,[T832].Name,[T832].Name1,[T832].ID1
+FROM
+  (( SELECT
+        [T830].ID,[T830].Name,[T830].ID1,[T830].Name1
+      FROM
+        (( input1 ) JOIN (
+            input1 )) AS [T830][ID, Name, ID1, Name1]
+      WHERE
+        [T830].ID <> [T830].ID1 ) JOIN (
+      input2 )) AS [T832][ID, Name, ID1, Name1, ID2, Company_group]
+WHERE
+  [T832].ID == [T832].ID2
+   AND [T832].Name1 == [T832].Company_group
+@anonymous
+[T832].ID(NumberVal) | [T832].Name(StringVal) | [T832].Name1(StringVal) | [T832].ID1(NumberVal) 
+1.0 | Company1 | Company3 | 3.0 
+3.0 | Company3 | Company2 | 2.0 
+
+[No.1]===============================
+SELECT
+  [T772].ID1,[T772].Name1,[T772].Name,[T772].ID
+FROM
+  (( SELECT
+        [T770].ID,[T770].Name,[T770].ID1,[T770].Name1
+      FROM
+        (( input1 ) JOIN (
+            input1 )) AS [T770][ID, Name, ID1, Name1]
+      WHERE
+        [T770].ID <> [T770].ID1 ) JOIN (
+      input2 )) AS [T772][ID, Name, ID1, Name1, ID2, Company_group]
+WHERE
+  [T772].Name == [T772].Company_group
+   AND [T772].ID1 == [T772].ID2
+@anonymous
+[T772].ID1(NumberVal) | [T772].Name1(StringVal) | [T772].Name(StringVal) | [T772].ID(NumberVal) 
+3.0 | Company3 | Company2 | 2.0 
+1.0 | Company1 | Company3 | 3.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 1.133s

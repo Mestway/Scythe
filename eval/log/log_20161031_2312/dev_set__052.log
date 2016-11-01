@@ -1,0 +1,466 @@
+[[Synthesis start]]
+	File: ../data/dev_set/052
+	Enumerator: StagedEnumerator
+[Retry] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 21 [SymTable]: 22
+[EnumJoinOnAggr] level 1 [SymTable]: 506
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 21 [SymTable]: 22
+[EnumJoinOnAggr] level 1 [SymTable]: 506
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 21 [SymTable]: 22
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 21 [SymTable]: 22
+Candidate Tree Number: 2
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 21 [SymTable]: 22
+[EnumJoinOnAggr] level 1 [SymTable]: 506
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 21 [SymTable]: 22
+Candidate Tree Number: 2
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 21 [SymTable]: 22
+[EnumJoinOnAggr] level 1 [SymTable]: 506
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Retry] Maximum Depth: 2
+@output
+StoreId(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 21 [SymTable]: 22
+[JOIN] level 1 [SymTable]: 44
+[UNION] level 1 [SymTable]: 45
+[EnumLeftJoin] level 1 [SymTable]: 45
+Candidate Tree Number: 104
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T5659].StoreId
+FROM
+  (( (input1) AS [T5657][StoreId, ClientId] ) LEFT-JOIN (
+      (SELECT
+          input1.StoreId,input1.ClientId
+        FROM
+          input1
+        WHERE
+          input1.ClientId == 5.0
+           OR input1.StoreId > input1.ClientId) AS [T5658][StoreId, ClientId] ) ON [T5657].StoreId = [T5658].ClientId) AS [T5659][StoreId, ClientId, StoreId1, ClientId1]
+WHERE
+  IS NULL [T5659].ClientId1
+@anonymous
+[T5659].StoreId(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.19]===============================
+SELECT
+  [T4031].StoreId
+FROM
+  (( (input1) AS [T4029][StoreId, ClientId] ) LEFT-JOIN (
+      (SELECT
+          input1.StoreId,input1.ClientId
+        FROM
+          input1
+        WHERE
+          input1.ClientId == 5.0
+           OR input1.StoreId > input1.ClientId) AS [T4030][StoreId, ClientId] ) ON [T4029].StoreId = [T4030].ClientId) AS [T4031][StoreId, ClientId, StoreId1, ClientId1]
+WHERE
+  IS NULL [T4031].StoreId1
+@anonymous
+[T4031].StoreId(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.18]===============================
+SELECT
+  [T3694].StoreId
+FROM
+  (( (input1) AS [T3692][StoreId, ClientId] ) LEFT-JOIN (
+      (SELECT
+          input1.StoreId,input1.ClientId
+        FROM
+          input1
+        WHERE
+          input1.ClientId >= 5.0
+           OR input1.StoreId > input1.ClientId) AS [T3693][StoreId, ClientId] ) ON [T3692].StoreId = [T3693].ClientId) AS [T3694][StoreId, ClientId, StoreId1, ClientId1]
+WHERE
+  IS NULL [T3694].StoreId1
+@anonymous
+[T3694].StoreId(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.17]===============================
+SELECT
+  [T3569].StoreId
+FROM
+  (( (input1) AS [T3567][StoreId, ClientId] ) LEFT-JOIN (
+      (SELECT
+          input1.StoreId,input1.ClientId
+        FROM
+          input1
+        WHERE
+          input1.ClientId > 5.0
+           OR input1.StoreId > input1.ClientId) AS [T3568][StoreId, ClientId] ) ON [T3567].StoreId = [T3568].ClientId) AS [T3569][StoreId, ClientId, StoreId1, ClientId1]
+WHERE
+  IS NULL [T3569].ClientId1
+@anonymous
+[T3569].StoreId(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.16]===============================
+SELECT
+  [T2516].StoreId
+FROM
+  (( (input1) AS [T2514][StoreId, ClientId] ) LEFT-JOIN (
+      (SELECT
+          input1.StoreId,input1.ClientId
+        FROM
+          input1
+        WHERE
+          input1.ClientId > 5.0
+           OR input1.StoreId > input1.ClientId) AS [T2515][StoreId, ClientId] ) ON [T2514].StoreId = [T2515].ClientId) AS [T2516][StoreId, ClientId, StoreId1, ClientId1]
+WHERE
+  IS NULL [T2516].StoreId1
+@anonymous
+[T2516].StoreId(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.15]===============================
+SELECT
+  [T2441].StoreId
+FROM
+  (( (input1) AS [T2439][StoreId, ClientId] ) LEFT-JOIN (
+      (SELECT
+          input1.StoreId,input1.ClientId
+        FROM
+          input1
+        WHERE
+          input1.ClientId >= 5.0
+           OR input1.StoreId > input1.ClientId) AS [T2440][StoreId, ClientId] ) ON [T2439].StoreId = [T2440].ClientId) AS [T2441][StoreId, ClientId, StoreId1, ClientId1]
+WHERE
+  IS NULL [T2441].ClientId1
+@anonymous
+[T2441].StoreId(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.14]===============================
+SELECT
+  [T2344].StoreId
+FROM
+  (( (input1) AS [T2342][StoreId, ClientId] ) LEFT-JOIN (
+      ((SELECT
+            [T2340].ClientId, FROM
+            (SELECT
+                input1.StoreId,input1.ClientId
+              FROM
+                input1
+              WHERE
+                input1.ClientId >= 5.0
+                 OR input1.StoreId > input1.ClientId) AS [T2340][StoreId, ClientId]
+          GROUP BY
+            [T2340].ClientId) AS [T2341][ClientId]) AS [T2343][ClientId] ) ON [T2342].StoreId = [T2343].ClientId) AS [T2344][StoreId, ClientId, ClientId1]
+WHERE
+  IS NULL [T2344].ClientId1
+@anonymous
+[T2344].StoreId(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.13]===============================
+SELECT
+  [T4955].StoreId
+FROM
+  (( (input1) AS [T4953][StoreId, ClientId] ) LEFT-JOIN (
+      (SELECT
+          input1.StoreId,input1.ClientId
+        FROM
+          input1
+        WHERE
+          input1.ClientId == 5.0) AS [T4954][StoreId, ClientId] ) ON [T4953].StoreId = [T4954].StoreId) AS [T4955][StoreId, ClientId, StoreId1, ClientId1]
+WHERE
+  IS NULL [T4955].ClientId1
+   AND [T4955].ClientId <= [T4955].ClientId1
+@anonymous
+[T4955].StoreId(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.12]===============================
+SELECT
+  [T4880].StoreId
+FROM
+  (( (input1) AS [T4878][StoreId, ClientId] ) LEFT-JOIN (
+      (SELECT
+          input1.StoreId,input1.ClientId
+        FROM
+          input1
+        WHERE
+          input1.ClientId == 5.0) AS [T4879][StoreId, ClientId] ) ON [T4878].StoreId = [T4879].StoreId) AS [T4880][StoreId, ClientId, StoreId1, ClientId1]
+WHERE
+  IS NULL [T4880].ClientId1
+   AND [T4880].ClientId >= [T4880].ClientId1
+@anonymous
+[T4880].StoreId(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.11]===============================
+SELECT
+  [T4391].StoreId
+FROM
+  (( (input1) AS [T4389][StoreId, ClientId] ) LEFT-JOIN (
+      (SELECT
+          input1.StoreId,input1.ClientId
+        FROM
+          input1
+        WHERE
+          input1.ClientId == 5.0) AS [T4390][StoreId, ClientId] ) ON [T4389].StoreId = [T4390].StoreId) AS [T4391][StoreId, ClientId, StoreId1, ClientId1]
+WHERE
+  IS NULL [T4391].ClientId1
+   AND [T4391].ClientId <= [T4391].ClientId1
+@anonymous
+[T4391].StoreId(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.10]===============================
+SELECT
+  [T4316].StoreId
+FROM
+  (( (input1) AS [T4314][StoreId, ClientId] ) LEFT-JOIN (
+      (SELECT
+          input1.StoreId,input1.ClientId
+        FROM
+          input1
+        WHERE
+          input1.ClientId == 5.0) AS [T4315][StoreId, ClientId] ) ON [T4314].StoreId = [T4315].StoreId) AS [T4316][StoreId, ClientId, StoreId1, ClientId1]
+WHERE
+  IS NULL [T4316].ClientId1
+   AND [T4316].ClientId >= [T4316].ClientId1
+@anonymous
+[T4316].StoreId(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.9]===============================
+SELECT
+  [T5264].StoreId
+FROM
+  (( (input1) AS [T5262][StoreId, ClientId] ) LEFT-JOIN (
+      (SELECT
+          input1.StoreId,input1.ClientId
+        FROM
+          input1
+        WHERE
+          input1.StoreId > input1.ClientId) AS [T5263][StoreId, ClientId] ) ON [T5262].StoreId = [T5263].ClientId) AS [T5264][StoreId, ClientId, StoreId1, ClientId1]
+WHERE
+  IS NULL [T5264].ClientId1
+@anonymous
+[T5264].StoreId(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.8]===============================
+SELECT
+  [T2825].StoreId
+FROM
+  (( (input1) AS [T2823][StoreId, ClientId] ) LEFT-JOIN (
+      (SELECT
+          input1.StoreId,input1.ClientId
+        FROM
+          input1
+        WHERE
+          input1.StoreId > input1.ClientId) AS [T2824][StoreId, ClientId] ) ON [T2823].StoreId = [T2824].ClientId) AS [T2825][StoreId, ClientId, StoreId1, ClientId1]
+WHERE
+  IS NULL [T2825].ClientId1
+@anonymous
+[T2825].StoreId(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.7]===============================
+SELECT
+  [T5030].StoreId
+FROM
+  (( (input1) AS [T5028][StoreId, ClientId] ) LEFT-JOIN (
+      (input1) AS [T5029][StoreId, ClientId] ) ON [T5029].StoreId = [T5029].ClientId) AS [T5030][StoreId, ClientId, StoreId1, ClientId1]
+WHERE
+  [T5030].StoreId >= [T5030].StoreId1
+@anonymous
+[T5030].StoreId(NumberVal) 
+4.0 
+4.0 
+3.0 
+
+[No.6]===============================
+SELECT
+  [T3254].StoreId
+FROM
+  (( (input1) AS [T3252][StoreId, ClientId] ) LEFT-JOIN (
+      (input1) AS [T3253][StoreId, ClientId] ) ON [T3253].StoreId = [T3253].ClientId) AS [T3254][StoreId, ClientId, StoreId1, ClientId1]
+WHERE
+  [T3254].StoreId >= [T3254].StoreId1
+@anonymous
+[T3254].StoreId(NumberVal) 
+4.0 
+4.0 
+3.0 
+
+[No.5]===============================
+SELECT
+  [T2386].StoreId
+FROM
+  (( (input1) AS [T2384][StoreId, ClientId] ) LEFT-JOIN (
+      ((SELECT
+            [T2374].ClientId, FROM
+            (input1) AS [T2374][StoreId, ClientId]
+          GROUP BY
+            [T2374].ClientId) AS [T2375][ClientId]) AS [T2385][ClientId] ) ON [T2384].StoreId = [T2385].ClientId) AS [T2386][StoreId, ClientId, ClientId1]
+WHERE
+  [T2386].ClientId <= [T2386].ClientId1
+@anonymous
+[T2386].StoreId(NumberVal) 
+4.0 
+4.0 
+3.0 
+
+[No.4]===============================
+SELECT
+  [T4805].StoreId
+FROM
+  (( (input1) AS [T4803][StoreId, ClientId] ) LEFT-JOIN (
+      (SELECT
+          input1.StoreId,input1.ClientId
+        FROM
+          input1
+        WHERE
+          input1.ClientId == 5.0) AS [T4804][StoreId, ClientId] ) ON [T4803].StoreId = [T4804].StoreId) AS [T4805][StoreId, ClientId, StoreId1, ClientId1]
+WHERE
+  IS NULL [T4805].ClientId1
+   AND [T4805].ClientId <> 5.0
+@anonymous
+[T4805].StoreId(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.3]===============================
+SELECT
+  [T4241].StoreId
+FROM
+  (( (input1) AS [T4239][StoreId, ClientId] ) LEFT-JOIN (
+      (SELECT
+          input1.StoreId,input1.ClientId
+        FROM
+          input1
+        WHERE
+          input1.ClientId == 5.0) AS [T4240][StoreId, ClientId] ) ON [T4239].StoreId = [T4240].StoreId) AS [T4241][StoreId, ClientId, StoreId1, ClientId1]
+WHERE
+  IS NULL [T4241].ClientId1
+   AND [T4241].ClientId <> 5.0
+@anonymous
+[T4241].StoreId(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.2]===============================
+SELECT
+  [T4730].StoreId
+FROM
+  (( (input1) AS [T4728][StoreId, ClientId] ) LEFT-JOIN (
+      (SELECT
+          input1.StoreId,input1.ClientId
+        FROM
+          input1
+        WHERE
+          input1.ClientId == 5.0) AS [T4729][StoreId, ClientId] ) ON [T4728].StoreId = [T4729].StoreId) AS [T4730][StoreId, ClientId, StoreId1, ClientId1]
+WHERE
+  IS NULL [T4730].ClientId1
+@anonymous
+[T4730].StoreId(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.1]===============================
+SELECT
+  [T4166].StoreId
+FROM
+  (( (input1) AS [T4164][StoreId, ClientId] ) LEFT-JOIN (
+      (SELECT
+          input1.StoreId,input1.ClientId
+        FROM
+          input1
+        WHERE
+          input1.ClientId == 5.0) AS [T4165][StoreId, ClientId] ) ON [T4164].StoreId = [T4165].StoreId) AS [T4166][StoreId, ClientId, StoreId1, ClientId1]
+WHERE
+  IS NULL [T4166].ClientId1
+@anonymous
+[T4166].StoreId(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 3.323s

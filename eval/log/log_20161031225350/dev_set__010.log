@@ -1,0 +1,430 @@
+[[Synthesis start]]
+	File: ../data/dev_set/010
+	Enumerator: StagedEnumerator
+[Retry] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 4 [SymTable]: 5
+[EnumJoinOnAggr] level 1 [SymTable]: 30
+Candidate Tree Number: 30
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T41].id,[T41].country,[T41].status
+FROM
+  (( SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.country == TREATED
+         OR input1.status == TREATED )) AS [T41][id, country, status, id1, country1, status1]
+WHERE
+  [T41].id < [T41].id1
+@anonymous
+[T41].id(NumberVal) | [T41].country(StringVal) | [T41].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.19]===============================
+SELECT
+  [T39].id,[T39].country,[T39].status
+FROM
+  (( SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.country == TREATED
+         OR input1.status == TREATED ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED )) AS [T39][id, country, status, id1, country1, status1]
+WHERE
+  [T39].id < [T39].id1
+@anonymous
+[T39].id(NumberVal) | [T39].country(StringVal) | [T39].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.18]===============================
+SELECT
+  [T49].id1,[T49].country1,[T49].status1
+FROM
+  (( SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == UNTREATED ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED )) AS [T49][id, country, status, id1, country1, status1]
+WHERE
+  [T49].id > [T49].id1
+   AND [T49].country <> [T49].country1
+@anonymous
+[T49].id1(NumberVal) | [T49].country1(StringVal) | [T49].status1(StringVal) 
+1.0 | SE | TREATED 
+
+[No.17]===============================
+SELECT
+  [T47].id1,[T47].country1,[T47].status1
+FROM
+  (( SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == UNTREATED ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED )) AS [T47][id, country, status, id1, country1, status1]
+WHERE
+  [T47].id >= [T47].id1
+   AND [T47].country <> [T47].country1
+@anonymous
+[T47].id1(NumberVal) | [T47].country1(StringVal) | [T47].status1(StringVal) 
+1.0 | SE | TREATED 
+
+[No.16]===============================
+SELECT
+  [T19].id,[T19].country,[T19].status
+FROM
+  (( SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == UNTREATED )) AS [T19][id, country, status, id1, country1, status1]
+WHERE
+  [T19].id < [T19].id1
+   AND [T19].country <> [T19].country1
+@anonymous
+[T19].id(NumberVal) | [T19].country(StringVal) | [T19].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.15]===============================
+SELECT
+  [T17].id,[T17].country,[T17].status
+FROM
+  (( SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == UNTREATED )) AS [T17][id, country, status, id1, country1, status1]
+WHERE
+  [T17].country <> [T17].country1
+   AND [T17].id <= [T17].id1
+@anonymous
+[T17].id(NumberVal) | [T17].country(StringVal) | [T17].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.14]===============================
+SELECT
+  [T61].id1,[T61].country,[T61].status1
+FROM
+  (( SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == UNTREATED ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.country == TREATED
+         OR input1.status == TREATED )) AS [T61][id, country, status, id1, country1, status1]
+WHERE
+  [T61].country == [T61].country1
+@anonymous
+[T61].id1(NumberVal) | [T61].country(StringVal) | [T61].status1(StringVal) 
+1.0 | SE | TREATED 
+
+[No.13]===============================
+SELECT
+  [T59].id1,[T59].country,[T59].status1
+FROM
+  (( SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.country == TREATED
+         OR input1.status == UNTREATED ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED )) AS [T59][id, country, status, id1, country1, status1]
+WHERE
+  [T59].country == [T59].country1
+@anonymous
+[T59].id1(NumberVal) | [T59].country(StringVal) | [T59].status1(StringVal) 
+1.0 | SE | TREATED 
+
+[No.12]===============================
+SELECT
+  [T31].id,[T31].country,[T31].status
+FROM
+  (( SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.country == TREATED
+         OR input1.status == UNTREATED )) AS [T31][id, country, status, id1, country1, status1]
+WHERE
+  [T31].country == [T31].country1
+@anonymous
+[T31].id(NumberVal) | [T31].country(StringVal) | [T31].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.11]===============================
+SELECT
+  [T29].id,[T29].country,[T29].status
+FROM
+  (( SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.country == TREATED
+         OR input1.status == TREATED ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == UNTREATED )) AS [T29][id, country, status, id1, country1, status1]
+WHERE
+  [T29].country == [T29].country1
+@anonymous
+[T29].id(NumberVal) | [T29].country(StringVal) | [T29].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.10]===============================
+SELECT
+  [T75].id1,[T75].country1,[T75].status
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED )) AS [T75][id, country, status, id1, country1, status1]
+WHERE
+  [T75].id > [T75].id1
+   AND [T75].status == [T75].status1
+@anonymous
+[T75].id1(NumberVal) | [T75].country1(StringVal) | [T75].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.9]===============================
+SELECT
+  [T73].id1,[T73].country1,[T73].status
+FROM
+  (( SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED ) JOIN (
+      input1 )) AS [T73][id, country, status, id1, country1, status1]
+WHERE
+  [T73].id > [T73].id1
+   AND [T73].status == [T73].status1
+@anonymous
+[T73].id1(NumberVal) | [T73].country1(StringVal) | [T73].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.8]===============================
+SELECT
+  [T45].id,[T45].country,[T45].status
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED )) AS [T45][id, country, status, id1, country1, status1]
+WHERE
+  [T45].id < [T45].id1
+   AND [T45].status == [T45].status1
+@anonymous
+[T45].id(NumberVal) | [T45].country(StringVal) | [T45].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.7]===============================
+SELECT
+  [T43].id,[T43].country,[T43].status
+FROM
+  (( SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED ) JOIN (
+      input1 )) AS [T43][id, country, status, id1, country1, status1]
+WHERE
+  [T43].id < [T43].id1
+   AND [T43].status == [T43].status1
+@anonymous
+[T43].id(NumberVal) | [T43].country(StringVal) | [T43].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.6]===============================
+SELECT
+  [T65].id1,[T65].country,[T65].status1
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T65][id, country, status, id1, country1, status1]
+WHERE
+  [T65].id > [T65].id1
+   AND [T65].country == [T65].country1
+@anonymous
+[T65].id1(NumberVal) | [T65].country(StringVal) | [T65].status1(StringVal) 
+1.0 | SE | TREATED 
+
+[No.5]===============================
+SELECT
+  [T35].id,[T35].country,[T35].status
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T35][id, country, status, id1, country1, status1]
+WHERE
+  [T35].id < [T35].id1
+   AND [T35].country == [T35].country1
+@anonymous
+[T35].id(NumberVal) | [T35].country(StringVal) | [T35].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.4]===============================
+SELECT
+  [T67].id1,[T67].country1,[T67].status
+FROM
+  (( SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED )) AS [T67][id, country, status, id1, country1, status1]
+WHERE
+  [T67].id > [T67].id1
+@anonymous
+[T67].id1(NumberVal) | [T67].country1(StringVal) | [T67].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.3]===============================
+SELECT
+  [T37].id,[T37].country,[T37].status
+FROM
+  (( SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED )) AS [T37][id, country, status, id1, country1, status1]
+WHERE
+  [T37].id < [T37].id1
+@anonymous
+[T37].id(NumberVal) | [T37].country(StringVal) | [T37].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.2]===============================
+SELECT
+  [T57].id1,[T57].country,[T57].status1
+FROM
+  (( SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == UNTREATED ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED )) AS [T57][id, country, status, id1, country1, status1]
+WHERE
+  [T57].country == [T57].country1
+@anonymous
+[T57].id1(NumberVal) | [T57].country(StringVal) | [T57].status1(StringVal) 
+1.0 | SE | TREATED 
+
+[No.1]===============================
+SELECT
+  [T27].id,[T27].country,[T27].status
+FROM
+  (( SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == UNTREATED )) AS [T27][id, country, status, id1, country1, status1]
+WHERE
+  [T27].country == [T27].country1
+@anonymous
+[T27].id(NumberVal) | [T27].country(StringVal) | [T27].status(StringVal) 
+1.0 | SE | TREATED 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.319s
