@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 public class Synthesizer {
 
     public static long TimeOut = 600000;
+    public static int maxCandidateKeptEachStage = 3;
 
     public static List<TableNode> Synthesize(String exampleFilePath, AbstractTableEnumerator enumerator) {
 
@@ -46,25 +47,29 @@ public class Synthesizer {
 
         List<TableNode> candidates = new ArrayList<>();
 
-        int maxDepth = 0;
+        int depth = 0;
         while (timeUsed < Synthesizer.TimeOut) {
-            System.out.println("[[Retry]] Maximum Depth: " + maxDepth);
+            System.out.println("[[Retry]] Trying to search for depth: " + depth);
 
-            if (maxDepth == 2) System.out.println(output);
+            if (depth == 2) System.out.println(output);
 
-            if (maxDepth == 0) {
+            if (depth == 0) {
+                //allow using all aggregation functions
                 config.setAggrFunctions(AggregationNode.getAllAggrFunctions());
             }
+
             //##### Synthesis
-            config.setMaxDepth(maxDepth);
-            candidates.addAll(enumerator.enumProgramWithIO(inputs, output, config));
+            config.setMaxDepth(depth);
+            List<TableNode> synthesisResult = enumerator.enumProgramWithIO(inputs, output, config);
+            candidates.addAll(findTopK(synthesisResult, maxCandidateKeptEachStage * 2));
             config.setAggrFunctions(new ArrayList<>());
 
-            if (maxDepth == 1) {
+            if (depth == 1) {
 
-                List<Set<Function<List<Value>, Value>>> aggrFunctionSets =
-                        SynthesizerHelper.getRelatedFunctions(config.getConstValues(), inputs, output);
-                for (Set<Function<List<Value>, Value>> funcSet : aggrFunctionSets) {
+                synthesisResult = new ArrayList<>();
+                // iterate over all candidate aggregation functions
+                for (Set<Function<List<Value>, Value>> funcSet
+                        : SynthesizerHelper.getRelatedFunctions(config.getConstValues(), inputs, output)) {
 
                     config.setAggrFunctions(funcSet);
 
@@ -74,11 +79,13 @@ public class Synthesizer {
                         Set<NumberVal> guessedNumConstants = SynthesizerHelper.guessExtraConstants(config.getAggrFuns(), inputs);
                         tempConfig.addConstVals(guessedNumConstants.stream().collect(Collectors.toSet()));
                     }
-                    candidates.addAll(enumerator.enumProgramWithIO(inputs, output, tempConfig));
+
+                    synthesisResult.addAll(enumerator.enumProgramWithIO(inputs, output, tempConfig));
 
                     //if (containsDesirableCandidate(candidates)) break;
                     config.setAggrFunctions(new ArrayList<>());
                 }
+                candidates.addAll(findTopK(synthesisResult, maxCandidateKeptEachStage));
                 if (containsDesirableCandidate(candidates)) break;
 
                 //##### Try decompose tables
@@ -86,20 +93,23 @@ public class Synthesizer {
                         && output.getContent().size() <= GlobalConfig.TRY_DECOMPOSE_ROW_NUM) {
                     config.setMaxDepth(1);
                     config.setAggrFunctions(SynthesizerHelper.getRelatedFunctions(config.getConstValues(), inputs, output).get(0));
-                    candidates.addAll(SynthesizerHelper.synthesizeWithDecomposition(inputs, output, config, enumerator));
+
+                    synthesisResult = SynthesizerHelper.synthesizeWithDecomposition(inputs, output, config, enumerator);
+                    candidates.addAll(findTopK(synthesisResult, maxCandidateKeptEachStage));
                     config.setMaxDepth(1);
                 }
                 if (containsDesirableCandidate(candidates)) break;
 
-                //##### try synthesis with aggregation functions
+                //##### try synthesis with all aggregation functions
                 config.setAggrFunctions(AggregationNode.getAllAggrFunctions());
-                candidates.addAll(enumerator.enumProgramWithIO(inputs, output, config));
+                synthesisResult = enumerator.enumProgramWithIO(inputs, output, config);
+                candidates.addAll(findTopK(synthesisResult, maxCandidateKeptEachStage));
 
                 if (containsDesirableCandidate(candidates)) break;
                 config.setAggrFunctions(new ArrayList<>());
             }
 
-            if (maxDepth == 2) {
+            if (depth == 2) {
 
                 if (containsDesirableCandidate(candidates)) break;
 
@@ -113,40 +123,41 @@ public class Synthesizer {
                         config.addConstVals(guessedNumConstants.stream().collect(Collectors.toSet()));
                     }
                     config.setAggrFunctions(funcSet);
-                    candidates.addAll(enumerator.enumProgramWithIO(inputs, output, config));
+                    synthesisResult = enumerator.enumProgramWithIO(inputs, output, config);
+                    candidates.addAll(findTopK(synthesisResult, maxCandidateKeptEachStage));
+
                     if (containsDesirableCandidate(candidates)) break;
                     config.setAggrFunctions(new ArrayList<>());
                 }
-            }
 
-            if (maxDepth == 2) {
-                // try synthesizing queries with Exists-clauses
+                //**** try synthesizing queries with Exists-clauses
                 for (Table existsCore : inputs) {
                     config.setExistsCore(2, Arrays.asList(existsCore));
                     config.setMaxDepth(0);
 
-                    candidates.addAll(enumerator.enumProgramWithIO(inputs, output, config));
+                    synthesisResult = enumerator.enumProgramWithIO(inputs, output, config);
+                    candidates.addAll(findTopK(synthesisResult, maxCandidateKeptEachStage));
+
                     if (containsDesirableCandidate(candidates)) break;
                 }
                 config.setExistsCore(0, new ArrayList<>());
             }
 
-            config.setMaxDepth(maxDepth);
+            config.setMaxDepth(depth);
 
             timeUsed = System.currentTimeMillis() - timeStart;
-            maxDepth ++;
+            depth ++;
 
-            if (maxDepth > 1 && containsDesirableCandidate(candidates)) break;
+            if (depth > 1 && containsDesirableCandidate(candidates)) break;
         }
 
-        candidates.sort((tn1, tn2) -> Double.compare(tn1.estimateAllFilterCost(), tn2.estimateAllFilterCost()));
-        int lastIndex = GlobalConfig.MAXIMUM_QUERY_KEPT > candidates.size() ? candidates.size() - 1
-                : GlobalConfig.MAXIMUM_QUERY_KEPT - 1;
-        for (int i = lastIndex; i >= 0; i --) {
+        List<TableNode> topCandidates = findTopK(candidates, GlobalConfig.MAXIMUM_QUERY_KEPT);
+
+        for (int i = topCandidates.size() - 1; i >= 0; i --) {
             TableNode tn = candidates.get(i);
             try {
                 Table t = tn.eval(new Environment());
-                System.out.println("[No." + (i + 1) + "]===============================");
+                System.out.println("[Query No." + (i + 1) + "]===============================");
                 System.out.println(tn.prettyPrint(0));
                 System.out.println(t);
             } catch (SQLEvalException e) {
@@ -183,6 +194,15 @@ public class Synthesizer {
             }
         }
         return false;
+    }
+
+    public static List<TableNode> findTopK(List<TableNode> candidates, int k) {
+        if (candidates.isEmpty())
+            return candidates;
+        else {
+            candidates.sort((tn1, tn2) -> Double.compare(tn1.estimateAllFilterCost(), tn2.estimateAllFilterCost()));
+            return candidates.subList(0, candidates.size() > k ? k : candidates.size());
+        }
     }
 
 

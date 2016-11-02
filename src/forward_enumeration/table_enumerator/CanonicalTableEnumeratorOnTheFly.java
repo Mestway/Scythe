@@ -103,30 +103,8 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
         if (depth == 0) return;
 
         //##### Synthesize Join
-        List<TableNode> leftSet = basic;
+        List<TableNode> leftSet = basicAndAggr;
         for (int i = 1; i <= depth; i ++) {
-            //System.out.println("[Level] " + i);
-
-            // check whether a result can be obtained by projection
-            List<TableNode> tns = EnumProjection.enumProjection(leftSet, ec.getOutputTable());
-            if (i >= 2 && ! tns.isEmpty())
-                break;
-
-            leftSet = EnumJoinTableNodes.generalEmitEnumJoin(leftSet, basic, ec, qc)
-                    .stream().map(t -> new NamedTable(t)).collect(Collectors.toList());
-
-            //System.out.println("after enumJoinWithFilter: " + qc.getRepresentativeTableNodes().size() + " tables");
-            System.out.println("[Stage " + (2 + i) + "] EnumJoinBasicBasic" + i + " \n\t"
-                    // + "Tables generated: " + (qc.tracked.size()) + "\n\t"
-                    + "Total table by now: " + qc.getMemoizedTables().size() + "\n\t"
-                    + "Avg table size: " + qc.getMemoizedTables().stream().map(t -> t.getContent().size() * t.getSchema().size()).reduce((x,y)-> x + y).get() / qc.getMemoizedTables().size());
-        }
-
-        if (depth == 1) return;
-
-        //##### Synthesize Join
-        leftSet = basicAndAggr;
-        for (int i = 1; i <= depth-1; i ++) {
             //System.out.println("[Level] " + i);
 
             // check whether a result can be obtained by projection
