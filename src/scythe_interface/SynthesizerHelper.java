@@ -27,12 +27,32 @@ public class SynthesizerHelper {
     public static List<TableNode> synthesizeWithDecomposition(List<Table> inputs,
                                                               Table output,
                                                               EnumConfig config,
-                                                              AbstractTableEnumerator enumerator) {
+                                                              AbstractTableEnumerator enumerator,
+                                                              int maxDepth) {
         List<TableNode> candidates = new ArrayList<>();
         // try decomposing the output table
         for (Pair<Table, Table> decomposed : Table.tryDecompose(output)) {
+            System.out.println("  [Try decomposition] \n" + decomposed.getKey().toString() + "\n" + decomposed.getValue().toString());
+
+            config.setMaxDepth(0);
             List<TableNode> left = enumerator.enumProgramWithIO(inputs, decomposed.getKey(), config);
+            if (left.isEmpty() && maxDepth == 1) {
+                config.setMaxDepth(1);
+                left = enumerator.enumProgramWithIO(inputs, decomposed.getKey(), config);
+            }
+            if (left.isEmpty()) continue;
+
+            config.setMaxDepth(0);
             List<TableNode> right = enumerator.enumProgramWithIO(inputs, decomposed.getValue(), config);
+            if (right.isEmpty() && maxDepth == 1) {
+                config.setMaxDepth(1);
+                right = enumerator.enumProgramWithIO(inputs, decomposed.getValue(), config);
+            }
+            if (right.isEmpty()) continue;
+
+            left = findTopK(left, 3);
+            right = findTopK(right, 3);
+
             for (TableNode tn1 : left) {
                 for (TableNode tn2 : right) {
                     candidates.add(new UnionNode(Arrays.asList(tn1, tn2)));
@@ -182,4 +202,15 @@ public class SynthesizerHelper {
         result.add(tmp);
         return result;
     }
+
+    //Rank the candidates and returns only top k of them
+    public static List<TableNode> findTopK(List<TableNode> candidates, int k) {
+        if (candidates.isEmpty())
+            return candidates;
+        else {
+            candidates.sort((tn1, tn2) -> Double.compare(tn1.estimateAllFilterCost(), tn2.estimateAllFilterCost()));
+            return candidates.subList(0, candidates.size() > k ? k : candidates.size());
+        }
+    }
+
 }

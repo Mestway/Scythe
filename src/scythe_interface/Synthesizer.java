@@ -61,7 +61,7 @@ public class Synthesizer {
             //##### Synthesis
             config.setMaxDepth(depth);
             List<TableNode> synthesisResult = enumerator.enumProgramWithIO(inputs, output, config);
-            candidates.addAll(findTopK(synthesisResult, maxCandidateKeptEachStage * 2));
+            candidates.addAll(SynthesizerHelper.findTopK(synthesisResult, maxCandidateKeptEachStage * 2));
             config.setAggrFunctions(new ArrayList<>());
 
             if (depth == 1) {
@@ -85,17 +85,20 @@ public class Synthesizer {
                     //if (containsDesirableCandidate(candidates)) break;
                     config.setAggrFunctions(new ArrayList<>());
                 }
-                candidates.addAll(findTopK(synthesisResult, maxCandidateKeptEachStage));
+                candidates.addAll(SynthesizerHelper.findTopK(synthesisResult, maxCandidateKeptEachStage));
                 if (containsDesirableCandidate(candidates)) break;
 
                 //##### Try decompose tables
                 if (GlobalConfig.TRY_DECOMPOSITION
                         && output.getContent().size() <= GlobalConfig.TRY_DECOMPOSE_ROW_NUM) {
-                    config.setMaxDepth(1);
-                    config.setAggrFunctions(SynthesizerHelper.getRelatedFunctions(config.getConstValues(), inputs, output).get(0));
 
-                    synthesisResult = SynthesizerHelper.synthesizeWithDecomposition(inputs, output, config, enumerator);
-                    candidates.addAll(findTopK(synthesisResult, maxCandidateKeptEachStage));
+                    config.setAggrFunctions(
+                            Arrays.asList(AggregationNode.AggrMax, AggregationNode.AggrMin)
+                    );
+                    synthesisResult = SynthesizerHelper.synthesizeWithDecomposition(inputs, output, config, enumerator, 1);
+
+                    System.out.println(" [Finished Decomposition Synthesis]");
+                    candidates.addAll(SynthesizerHelper.findTopK(synthesisResult, maxCandidateKeptEachStage));
                     config.setMaxDepth(1);
                 }
                 if (containsDesirableCandidate(candidates)) break;
@@ -103,7 +106,7 @@ public class Synthesizer {
                 //##### try synthesis with all aggregation functions
                 config.setAggrFunctions(AggregationNode.getAllAggrFunctions());
                 synthesisResult = enumerator.enumProgramWithIO(inputs, output, config);
-                candidates.addAll(findTopK(synthesisResult, maxCandidateKeptEachStage));
+                candidates.addAll(SynthesizerHelper.findTopK(synthesisResult, maxCandidateKeptEachStage));
 
                 if (containsDesirableCandidate(candidates)) break;
                 config.setAggrFunctions(new ArrayList<>());
@@ -124,7 +127,7 @@ public class Synthesizer {
                     }
                     config.setAggrFunctions(funcSet);
                     synthesisResult = enumerator.enumProgramWithIO(inputs, output, config);
-                    candidates.addAll(findTopK(synthesisResult, maxCandidateKeptEachStage));
+                    candidates.addAll(SynthesizerHelper.findTopK(synthesisResult, maxCandidateKeptEachStage));
 
                     if (containsDesirableCandidate(candidates)) break;
                     config.setAggrFunctions(new ArrayList<>());
@@ -136,7 +139,7 @@ public class Synthesizer {
                     config.setMaxDepth(0);
 
                     synthesisResult = enumerator.enumProgramWithIO(inputs, output, config);
-                    candidates.addAll(findTopK(synthesisResult, maxCandidateKeptEachStage));
+                    candidates.addAll(SynthesizerHelper.findTopK(synthesisResult, maxCandidateKeptEachStage));
 
                     if (containsDesirableCandidate(candidates)) break;
                 }
@@ -151,7 +154,7 @@ public class Synthesizer {
             if (depth > 1 && containsDesirableCandidate(candidates)) break;
         }
 
-        List<TableNode> topCandidates = findTopK(candidates, GlobalConfig.MAXIMUM_QUERY_KEPT);
+        List<TableNode> topCandidates = SynthesizerHelper.findTopK(candidates, GlobalConfig.MAXIMUM_QUERY_KEPT);
 
         for (int i = topCandidates.size() - 1; i >= 0; i --) {
             TableNode tn = candidates.get(i);
@@ -194,16 +197,6 @@ public class Synthesizer {
             }
         }
         return false;
-    }
-
-    //Rank the candidates and returns only top k of them
-    public static List<TableNode> findTopK(List<TableNode> candidates, int k) {
-        if (candidates.isEmpty())
-            return candidates;
-        else {
-            candidates.sort((tn1, tn2) -> Double.compare(tn1.estimateAllFilterCost(), tn2.estimateAllFilterCost()));
-            return candidates.subList(0, candidates.size() > k ? k : candidates.size());
-        }
     }
 
 }

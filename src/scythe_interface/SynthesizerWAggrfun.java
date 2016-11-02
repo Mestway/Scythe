@@ -62,7 +62,8 @@ public class SynthesizerWAggrfun {
                 // try decompose tables
                 if (GlobalConfig.TRY_DECOMPOSITION
                         && exampleDS.output.getContent().size() <= GlobalConfig.TRY_DECOMPOSE_ROW_NUM) {
-                    candidates.addAll(SynthesizerHelper.synthesizeWithDecomposition(inputs, output, config, enumerator));
+                    candidates.addAll(SynthesizerHelper.synthesizeWithDecomposition(inputs, output, config, enumerator,1));
+                    config.setMaxDepth(1);
                 }
                 if (containsDesirableCandidate(candidates)) break;
             }

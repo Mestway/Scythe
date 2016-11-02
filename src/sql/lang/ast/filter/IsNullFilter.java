@@ -58,7 +58,7 @@ public class IsNullFilter implements Filter {
     public String prettyPrint(int indentLv) {
         String str = "IS NULL " + arg.prettyPrint(0);
         if (negSign)
-            str = "IS NOT NULL" + arg.prettyPrint(0);
+            str = "IS NOT NULL " + arg.prettyPrint(0);
         return IndentionManagement.addIndention(str, indentLv);
     }
 

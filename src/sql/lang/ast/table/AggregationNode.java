@@ -265,31 +265,41 @@ public class AggregationNode extends TableNode {
         if (l.isEmpty()) {
             System.err.println("[Error@AggregationNode17] aggregation list is empty");
         }
-        if (l.get(0) instanceof NumberVal) {
-            Double result = 0.;
-            for (Value v : l) {
+
+        Double result = 0.;
+        for (Value v : l) {
+            if (v instanceof NullVal)
+                continue;
+            else if (v instanceof  NumberVal)
                 result += ((NumberVal)v).getVal();
+            else {
+                System.err.println("[Error@AggregationNode26] aggregation performed on unexpected type");
+                return null;
             }
-            return new NumberVal(result);
         }
-        System.err.println("[Error@AggregationNode26] aggregation performed on unexpected type");
-        return null;
+        return new NumberVal(result);
+
+
     };
 
     public static Function<List<Value>, Value> AggrMax = l -> {
         if (l.isEmpty()) {
             System.err.println("[Error@AggregationNode35] aggregation list is empty");
         }
-        if (l.get(0) instanceof NumberVal) {
+        if (l.get(0).getValType().equals(ValType.NumberVal)) {
+            if (l.get(0) instanceof NullVal)
+                return  l.get(0);
             Double maxVal = (Double) l.get(0).getVal();
             for (Value v : l) {
+                if (v instanceof NullVal)
+                    return v;
                 if (((NumberVal) v).getVal() > maxVal) {
                     maxVal = (Double) v.getVal();
                 }
             }
             return new NumberVal(maxVal);
         }
-        if (l.get(0) instanceof DateVal) {
+        if (l.get(0).equals(ValType.DateVal)) {
             Date maxDate = (Date)((Date)l.get(0).getVal()).clone();
             for (Value v : l) {
                 if (((DateVal)v).getVal().compareTo(maxDate) > 0) {
@@ -298,7 +308,7 @@ public class AggregationNode extends TableNode {
             }
             return new DateVal(maxDate);
         }
-        if (l.get(0) instanceof TimeVal) {
+        if (l.get(0).equals(ValType.TimeVal)) {
             Time maxTime = (Time)((Date)l.get(0).getVal()).clone();
             for (Value v : l) {
                 if (((TimeVal)v).getVal().compareTo(maxTime) > 0) {

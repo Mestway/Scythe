@@ -65,8 +65,7 @@ public class StagedEnumerator extends AbstractTableEnumerator {
                 tryEvalToOutput(naturalJoinResult, ec, candidateCollector);
             }
 
-            if (depth == 0)
-                return decodingToQueries(candidateCollector, ec);
+            return decodingToQueries(candidateCollector, ec);
         }
 
         //##### Synthesize JOIN
@@ -85,7 +84,6 @@ public class StagedEnumerator extends AbstractTableEnumerator {
             tryEvalToOutput(stFromLastStage, ec, candidateCollector);
         if (candidateCollector.getAllCandidates().size() > 0)
             return decodingToQueries(candidateCollector, ec);
-
 
         //##### Synthesize UNION
         List<AbstractSummaryTable> unionSummary;
