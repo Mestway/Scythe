@@ -83,7 +83,7 @@ public class Synthesizer {
                 //##### Try decompose tables
                 if (GlobalConfig.TRY_DECOMPOSITION
                         && output.getContent().size() <= GlobalConfig.TRY_DECOMPOSE_ROW_NUM) {
-                    config.setMaxDepth(0);
+                    config.setMaxDepth(1);
                     config.setAggrFunctions(SynthesizerHelper.getRelatedFunctions(config.getConstValues(), inputs, output).get(0));
                     candidates.addAll(SynthesizerHelper.synthesizeWithDecomposition(inputs, output, config, enumerator));
                     config.setMaxDepth(1);
@@ -116,11 +116,11 @@ public class Synthesizer {
                 }
             }
 
-            if (maxDepth == 3) {
+            if (maxDepth == 2) {
                 // try synthesizing queries with Exists-clauses
                 for (Table existsCore : inputs) {
                     config.setExistsCore(2, Arrays.asList(existsCore));
-                    config.setMaxDepth(maxDepth - 1);
+                    config.setMaxDepth(0);
 
                     candidates.addAll(enumerator.enumProgramWithIO(inputs, output, config));
                     if (containsDesirableCandidate(candidates)) break;

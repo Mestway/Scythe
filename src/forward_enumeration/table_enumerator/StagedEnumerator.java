@@ -130,7 +130,7 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         //##### Synthesize LEFT-JOIN
         // Try enumerating joining two tables from left-join
         stFromLastStage = inputSummary;
-        for (int i = 1; i <= maxDepth; i ++) {
+        for (int i = 1; i <= maxDepth-1; i ++) {
             System.out.println("[EnumLeftJoin] level " + i + " [SymTable]: " + summaryTables.size());
 
             List<AbstractSummaryTable> leftJoinSummary = EnumerationModules.enumLeftJoin(stFromLastStage, inputSummary, ec);
