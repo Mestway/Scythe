@@ -74,7 +74,7 @@ public class SynthesizerWAggrfun {
                 // try synthesizing queries with Exists-clauses
                 for (Table existsCore : exampleDS.inputs) {
                     config.setExistsCore(2, Arrays.asList(existsCore));
-                    config.setMaxDepth(maxDepth - 1);
+                    config.setMaxDepth(0);
 
                     candidates.addAll(enumerator.enumProgramWithIO(exampleDS.inputs, exampleDS.output, exampleDS.enumConfig));
                     if (containsDesirableCandidate(candidates)) break;

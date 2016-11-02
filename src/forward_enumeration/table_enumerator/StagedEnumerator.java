@@ -69,7 +69,6 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         if (maxDepth == 0)
             return decodingToQueries(candidateCollector, ec);
 
-
         //##### Synthesize natural join on aggregation
         /*if (GlobalConfig.TRY_NATURAL_JOIN && inputSummary.size() > 1 && maxDepth == 1) {
             // try join all tables and infer whether the output table can be obtained in this way
