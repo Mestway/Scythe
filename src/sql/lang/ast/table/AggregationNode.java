@@ -299,7 +299,9 @@ public class AggregationNode extends TableNode {
             }
             return new NumberVal(maxVal);
         }
-        if (l.get(0).equals(ValType.DateVal)) {
+        if (l.get(0).getValType().equals(ValType.DateVal)) {
+            if (l.get(0) instanceof NullVal)
+                return  l.get(0);
             Date maxDate = (Date)((Date)l.get(0).getVal()).clone();
             for (Value v : l) {
                 if (((DateVal)v).getVal().compareTo(maxDate) > 0) {
@@ -308,7 +310,9 @@ public class AggregationNode extends TableNode {
             }
             return new DateVal(maxDate);
         }
-        if (l.get(0).equals(ValType.TimeVal)) {
+        if (l.get(0).getValType().equals(ValType.TimeVal)) {
+            if (l.get(0) instanceof NullVal)
+                return  l.get(0);
             Time maxTime = (Time)((Date)l.get(0).getVal()).clone();
             for (Value v : l) {
                 if (((TimeVal)v).getVal().compareTo(maxTime) > 0) {
