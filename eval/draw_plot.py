@@ -6,7 +6,7 @@ def parse_log_file(content):
 	time = -1
 	for l in content:
 		if l.startswith("[[Synthesizer finished]] seconds: "):
-			time = float(l[len("[[Synthesizer finished]] seconds: "):-1].strip())
+			time = float(l[len("[[Synthesis Time]] seconds: "):-2].strip())
 	return time
 
 def main():

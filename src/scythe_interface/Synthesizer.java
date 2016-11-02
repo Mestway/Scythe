@@ -196,6 +196,7 @@ public class Synthesizer {
         return false;
     }
 
+    //Rank the candidates and returns only top k of them
     public static List<TableNode> findTopK(List<TableNode> candidates, int k) {
         if (candidates.isEmpty())
             return candidates;
@@ -204,7 +205,5 @@ public class Synthesizer {
             return candidates.subList(0, candidates.size() > k ? k : candidates.size());
         }
     }
-
-
 
 }
