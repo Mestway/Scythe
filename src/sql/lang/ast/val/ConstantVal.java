@@ -32,6 +32,8 @@ public class ConstantVal implements ValNode {
         return val;
     }
 
+    public Value getValue() { return this.val; }
+
     @Override
     public String getName() {
         return "anonymous";

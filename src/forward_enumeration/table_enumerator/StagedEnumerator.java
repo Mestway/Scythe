@@ -41,21 +41,6 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         summaryTables.addAll(inputSummary);
         System.out.println("[Basic]: " + candidateCollector.getMemoizedTables().size() + " [SymTableForInputs]: Intermediate: " + inputSummary.size());
 
-        AbstractSummaryTable naturalJoinResult = inputSummary.get(0);
-        for (int i = 1; i < inputSummary.size(); i ++) {
-            naturalJoinResult = new CompoundSummaryTable(naturalJoinResult, inputSummary.get(i), CompoundSummaryTable.CompositionType.join);
-        }
-
-        //##### Synthesize natural join
-        if (GlobalConfig.TRY_NATURAL_JOIN && inputSummary.size() > 1 && maxDepth == 1) {
-            // try join all tables and infer whether the output table can be obtained in this way
-            System.out.println("[NaturalJoin]: " + 1 + " [SymTable]: " + summaryTables.size());
-            tryEvalToOutput(naturalJoinResult, ec, candidateCollector);
-
-            if (candidateCollector.getAllCandidates().size() > 0)
-                return decodingToQueries(candidateCollector, ec);
-        }
-
         //##### Synthesize AGGR
         List<AbstractSummaryTable> aggrSummary = EnumerationModules.enumAggregation(inputSummary, ec);
         summaryTables.addAll(aggrSummary);
@@ -66,12 +51,51 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         List<AbstractSummaryTable> basicAndAggr = new ArrayList<>();
         basicAndAggr.addAll(summaryTables);
 
-        List<AbstractSummaryTable> stFromLastStage = summaryTables;
+        tryEvalToOutput(basicAndAggr, ec, candidateCollector);
 
-        tryEvalToOutput(stFromLastStage, ec, candidateCollector);
+        //##### Synthesize natural join
+        // Natural join all input summary tables
+        AbstractSummaryTable naturalJoinResult = EnumerationModules.naturalJoinWithUnused(Optional.empty(), inputSummary);
+
+        if (GlobalConfig.TRY_NATURAL_JOIN && inputSummary.size() > 1 && maxDepth == 0) {
+            // try join all tables and infer whether the output table can be obtained in this way
+            System.out.println("[NaturalJoin]: " + 1 + " [SymTable]: " + summaryTables.size());
+            tryEvalToOutput(naturalJoinResult, ec, candidateCollector);
+
+            if (candidateCollector.getAllCandidates().size() > 0)
+                return decodingToQueries(candidateCollector, ec);
+        }
+
+        if (maxDepth == 0)
+            return decodingToQueries(candidateCollector, ec);
+
+
+        //##### Synthesize natural join on aggregation
+        /*if (GlobalConfig.TRY_NATURAL_JOIN && inputSummary.size() > 1 && maxDepth == 1) {
+            // try join all tables and infer whether the output table can be obtained in this way
+            System.out.println("[NaturalJoinOnAggr]: " + 1 + " [SymTable]: " + summaryTables.size());
+
+            List<AbstractSummaryTable> aggrNatJoin = EnumerationModules.enumNaturalJoin(aggrSummary, inputSummary);
+            tryEvalToOutput(aggrNatJoin, ec, candidateCollector);
+
+            if (candidateCollector.getAllCandidates().size() > 0)
+                return decodingToQueries(candidateCollector, ec);
+        }*/
 
         //##### Synthesize JOIN
+        List<AbstractSummaryTable> stFromLastStage = inputSummary;
         List<AbstractSummaryTable> joinSummary;
+        for (int i = 1; i <= maxDepth; i ++) {
+            joinSummary = EnumerationModules.enumJoin(stFromLastStage, inputSummary);
+            summaryTables.addAll(joinSummary);
+            stFromLastStage = joinSummary;
+
+            System.out.println("[JOINOnInput] level " + i + " [SymTable]: " + summaryTables.size());
+
+            tryEvalToOutput(stFromLastStage, ec, candidateCollector);
+            if (candidateCollector.getAllCandidates().size() > 0) break;
+        }
+        stFromLastStage = basicAndAggr;
         for (int i = 1; i <= maxDepth-1; i ++) {
 
             joinSummary = EnumerationModules.enumJoin(stFromLastStage, inputSummary);
@@ -105,10 +129,25 @@ public class StagedEnumerator extends AbstractTableEnumerator {
 
         //##### Synthesize LEFT-JOIN
         // Try enumerating joining two tables from left-join
+        stFromLastStage = inputSummary;
+        for (int i = 1; i <= maxDepth; i ++) {
+            System.out.println("[EnumLeftJoin] level " + i + " [SymTable]: " + summaryTables.size());
+
+            List<AbstractSummaryTable> leftJoinSummary = EnumerationModules.enumLeftJoin(stFromLastStage, inputSummary, ec);
+            summaryTables.addAll(leftJoinSummary);
+            List<AbstractSummaryTable> rightJoinSummary = EnumerationModules.enumLeftJoin(inputSummary, stFromLastStage, ec);
+            summaryTables.addAll(rightJoinSummary);
+            tryEvalToOutput(leftJoinSummary, ec, candidateCollector);
+            tryEvalToOutput(rightJoinSummary, ec, candidateCollector);
+            if (candidateCollector.getAllCandidates().size() > 0) break;
+            leftJoinSummary.addAll(rightJoinSummary);
+            stFromLastStage = leftJoinSummary;
+        }
+        // Try enumerating joining two tables from left-join
         stFromLastStage = basicAndAggr;
         for (int i = 1; i <= maxDepth-1; i ++) {
 
-            System.out.println("[EnumLeftJoin] level " + i + " [SymTable]: " + summaryTables.size());
+            System.out.println("[EnumLeftJoinWAggr] level " + i + " [SymTable]: " + summaryTables.size());
 
             List<AbstractSummaryTable> leftJoinSummary = EnumerationModules.enumLeftJoin(stFromLastStage, inputSummary, ec);
             summaryTables.addAll(leftJoinSummary);
@@ -292,6 +331,55 @@ public class StagedEnumerator extends AbstractTableEnumerator {
                 }
             }
             return result;
+        }
+
+        // for each table on the left, natural join them with some table on the right side
+        public static List<AbstractSummaryTable> enumNaturalJoin(List<AbstractSummaryTable> current,
+                                                                 List<AbstractSummaryTable> inputSummary) {
+            List<AbstractSummaryTable> result = new ArrayList<>();
+
+            for (AbstractSummaryTable st : current) {
+                AbstractSummaryTable r = naturalJoinWithUnused(Optional.of(st), inputSummary);
+                if (! r.equals(st))
+                    result.add(r);
+            }
+
+            return result;
+        }
+
+        // looking into allBasicTables for those not yet used and then perform a natural join
+        public static AbstractSummaryTable naturalJoinWithUnused(Optional<AbstractSummaryTable> current,
+                                                                 List<AbstractSummaryTable> inputSummary) {
+
+            List<AbstractSummaryTable> unusedSummary = new ArrayList<>();
+
+            if (current.isPresent()) {
+                unusedSummary.add(current.get());
+                unusedSummary.addAll(inputSummary.stream().filter(st -> {
+                    if (! current.get().namedTableInvolved()
+                            .stream().map(nt -> nt.getTable())
+                            .collect(Collectors.toSet())
+                            .contains(st.getBaseTable())) {
+                        return true;
+                    }
+                    return false;
+                }).collect(Collectors.toList()));
+            } else {
+                unusedSummary = inputSummary;
+            }
+
+            if (unusedSummary.isEmpty()) {
+                System.out.println("[[ERROR StagedEnumerator316]] no table exists in join.");
+            }
+
+            if (unusedSummary.size() == 1)
+                return unusedSummary.get(0);
+
+            AbstractSummaryTable naturalJoinResult = unusedSummary.get(0);
+            for (int i = 1; i < unusedSummary.size(); i ++) {
+                naturalJoinResult = new CompoundSummaryTable(naturalJoinResult, unusedSummary.get(i), CompoundSummaryTable.CompositionType.join);
+            }
+            return naturalJoinResult;
         }
     }
 

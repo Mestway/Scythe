@@ -1,28 +1,26 @@
 package scythe_interface;
 
 import forward_enumeration.context.EnumConfig;
-import forward_enumeration.primitive.AggrEnumerator;
 import forward_enumeration.table_enumerator.AbstractTableEnumerator;
 import global.GlobalConfig;
 import sql.lang.Table;
-import sql.lang.TableRow;
 import sql.lang.ast.Environment;
-import sql.lang.ast.table.*;
-import sql.lang.ast.val.ConstantVal;
+import sql.lang.ast.table.TableNode;
+import sql.lang.ast.table.UnionNode;
 import sql.lang.datatype.NumberVal;
-import sql.lang.datatype.StringVal;
-import sql.lang.datatype.Value;
 import sql.lang.exception.SQLEvalException;
 import util.Pair;
 
-import java.util.*;
-import java.util.function.Function;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
  * Created by clwang on 3/22/16.
  */
-public class Synthesizer {
+public class SynthesizerWAggrfun {
 
     public static long TimeOut = 600000;
 
@@ -41,94 +39,50 @@ public class Synthesizer {
         List<Table> inputs = exampleDS.inputs;
         Table output = exampleDS.output;
 
-        // Ignore provided aggregation functions
-        config.setAggrFunctions(new ArrayList<>());
-
         List<TableNode> candidates = new ArrayList<>();
 
-        int maxDepth = 0;
-        while (timeUsed < Synthesizer.TimeOut) {
+        // guess constants
+        Set<NumberVal> guessedNumConstants = SynthesizerHelper.guessExtraConstants(config.getAggrFuns(), inputs);
+        config.addConstVals(guessedNumConstants.stream().collect(Collectors.toSet()));
+
+        int maxDepth = 1;
+        while (timeUsed < SynthesizerWAggrfun.TimeOut) {
             System.out.println("[[Retry]] Maximum Depth: " + maxDepth);
 
-            if (maxDepth == 2) System.out.println(output);
+            if (maxDepth == 2)
+                System.out.println(output);
 
-            if (maxDepth == 0) {
-                config.setAggrFunctions(AggregationNode.getAllAggrFunctions());
-            }
             //##### Synthesis
             config.setMaxDepth(maxDepth);
             candidates.addAll(enumerator.enumProgramWithIO(inputs, output, config));
-            config.setAggrFunctions(new ArrayList<>());
+            if (containsDesirableCandidate(candidates)) break;
+
 
             if (maxDepth == 1) {
-
-                List<Set<Function<List<Value>, Value>>> aggrFunctionSets =
-                        SynthesizerHelper.getRelatedFunctions(config.getConstValues(), inputs, output);
-                for (Set<Function<List<Value>, Value>> funcSet : aggrFunctionSets) {
-
-                    config.setAggrFunctions(funcSet);
-
-                    // guess constants
-                    Set<NumberVal> guessedNumConstants = SynthesizerHelper.guessExtraConstants(config.getAggrFuns(), inputs);
-                    EnumConfig tempConfig = config.deepCopy();
-                    tempConfig.addConstVals(guessedNumConstants.stream().collect(Collectors.toSet()));
-
-                    candidates.addAll(enumerator.enumProgramWithIO(inputs, output, tempConfig));
-
-                    if (containsDesirableCandidate(candidates)) break;
-                    config.setAggrFunctions(new ArrayList<>());
-                }
-                if (containsDesirableCandidate(candidates)) break;
-
-                //##### Try decompose tables
+                // try decompose tables
                 if (GlobalConfig.TRY_DECOMPOSITION
-                        && output.getContent().size() <= GlobalConfig.TRY_DECOMPOSE_ROW_NUM) {
-                    config.setMaxDepth(0);
-                    config.setAggrFunctions(SynthesizerHelper.getRelatedFunctions(config.getConstValues(), inputs, output).get(0));
+                        && exampleDS.output.getContent().size() <= GlobalConfig.TRY_DECOMPOSE_ROW_NUM) {
                     candidates.addAll(SynthesizerHelper.synthesizeWithDecomposition(inputs, output, config, enumerator));
-                    config.setMaxDepth(1);
                 }
                 if (containsDesirableCandidate(candidates)) break;
-
-                //##### try synthesis with aggregation functions
-                config.setAggrFunctions(AggregationNode.getAllAggrFunctions());
-                candidates.addAll(enumerator.enumProgramWithIO(inputs, output, config));
-
-                if (containsDesirableCandidate(candidates)) break;
-                config.setAggrFunctions(new ArrayList<>());
             }
+
+            // backtrack on aggregation functions
+            //exampleDS.enumConfig.setAggrFunctions(new ArrayList<>());
 
             if (maxDepth == 2) {
-
-                if (containsDesirableCandidate(candidates)) break;
-
-                List<Set<Function<List<Value>, Value>>> aggreFunctions =
-                        SynthesizerHelper.rankAggrFunctions(config.getConstValues(), inputs, output);
-
-                for (Set<Function<List<Value>, Value>> funcSet : aggreFunctions) {
-                    // guess constants
-                    Set<NumberVal> guessedNumConstants = SynthesizerHelper.guessExtraConstants(config.getAggrFuns(), inputs);
-                    config.addConstVals(guessedNumConstants.stream().collect(Collectors.toSet()));
-                    config.setAggrFunctions(funcSet);
-                    candidates.addAll(enumerator.enumProgramWithIO(inputs, output, config));
-                    if (containsDesirableCandidate(candidates)) break;
-                    config.setAggrFunctions(new ArrayList<>());
-                }
-            }
-
-            if (maxDepth == 3) {
                 // try synthesizing queries with Exists-clauses
-                for (Table existsCore : inputs) {
+                for (Table existsCore : exampleDS.inputs) {
                     config.setExistsCore(2, Arrays.asList(existsCore));
                     config.setMaxDepth(maxDepth - 1);
 
-                    candidates.addAll(enumerator.enumProgramWithIO(inputs, output, config));
+                    candidates.addAll(enumerator.enumProgramWithIO(exampleDS.inputs, exampleDS.output, exampleDS.enumConfig));
                     if (containsDesirableCandidate(candidates)) break;
                 }
-                config.setExistsCore(0, new ArrayList<>());
             }
 
-            config.setMaxDepth(maxDepth);
+            exampleDS.enumConfig.setExistsCore(0, new ArrayList<>());
+            exampleDS.enumConfig.setMaxDepth(maxDepth);
 
             timeUsed = System.currentTimeMillis() - timeStart;
             maxDepth ++;
@@ -181,7 +135,5 @@ public class Synthesizer {
         }
         return false;
     }
-
-
 
 }

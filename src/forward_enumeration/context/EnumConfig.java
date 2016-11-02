@@ -9,6 +9,7 @@ import sql.lang.ast.val.ConstantVal;
 import sql.lang.ast.val.ValNode;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
@@ -29,6 +30,18 @@ public class EnumConfig {
     int numberOfParam = 0;
     List<Table> existsCore = new ArrayList<>();
 
+    public EnumConfig deepCopy() {
+
+        List<Value> constants = new ArrayList<>();
+        constants.addAll(this.getConstValues());
+        List<Function<List<Value>, Value>> aggrFuns = new ArrayList<>();
+        aggrFuns.addAll(this.aggrFuns);
+        List<Table> existsCore = new ArrayList<>();
+        existsCore.addAll(this.existsCore);
+
+        return new EnumConfig(this.maxDepth, constants, aggrFuns, this.numberOfParam, existsCore);
+    }
+
     public void setMaxDepth(int maxDepth) {
         this.maxDepth = maxDepth;
     }
@@ -46,11 +59,20 @@ public class EnumConfig {
         this.existsCore.addAll(existsCore);
     }
 
+    public List<Value> getConstValues() {
+        return this.constValNodes.stream().map(vn -> ((ConstantVal)vn).getValue()).collect(Collectors.toList());
+    }
+
     public int getNumberOfParam() { return this.numberOfParam; }
     public List<Table> getExistsCores() { return this.existsCore; }
     public List<Function<List<Value>, Value>> getAggrFuns() {
         return this.aggrFuns;
     }
+    public void setAggrFunctions(Collection<Function<List<Value>, Value>> aggrFunctions) {
+        this.aggrFuns = new ArrayList<>();
+        aggrFuns.addAll(aggrFunctions);
+    }
+
     public List<ValNode> constValNodes() {
         return this.constValNodes;
     }

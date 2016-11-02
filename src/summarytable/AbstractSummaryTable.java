@@ -4,6 +4,7 @@ import forward_enumeration.context.EnumContext;
 import backward_inference.MappingInference;
 import sql.lang.Table;
 import sql.lang.ast.filter.EmptyFilter;
+import sql.lang.ast.table.NamedTable;
 import util.Pair;
 
 import java.util.*;
@@ -35,6 +36,8 @@ public abstract class AbstractSummaryTable {
     abstract public List<Table> getAllPrimitiveBaseTables();
     // calculate the cost of a symbolic filter
     abstract public double estimatePrimitiveSymFilterCost(BVFilter sf);
+
+    abstract public List<NamedTable> namedTableInvolved();
 
     // Given a list of target symbolic filters to decompose, we will generate what are their decompositions
     // For each one, a tree will be generated and the tree represent how the symbolic is built from ground.

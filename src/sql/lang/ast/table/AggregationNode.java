@@ -367,7 +367,7 @@ public class AggregationNode extends TableNode {
         if (l.isEmpty()) {
             System.err.println("[Error@AggregationNode100] aggregation list is empty");
         }
-        if (l.get(0) instanceof StringVal) {
+        if (l.get(0) instanceof StringVal || l.get(0) instanceof NullVal) {
             String result = "";
             for (Value sv : l) {
                 result += sv.getVal() + ", ";
@@ -382,7 +382,7 @@ public class AggregationNode extends TableNode {
         if (l.isEmpty()) {
             System.err.println("[Error@AggregationNode100] aggregation list is empty");
         }
-        if (l.get(0) instanceof StringVal) {
+        if (l.get(0) instanceof StringVal || l.get(0) instanceof NullVal) {
             String result = "";
             for (Value sv : l) {
                 result += sv.getVal() + " ";
@@ -409,8 +409,7 @@ public class AggregationNode extends TableNode {
         return new NumberVal(distinctVals.size());
     };
 
-
-    private static String FuncName(Function<List<Value>, Value> f) {
+    public static String FuncName(Function<List<Value>, Value> f) {
         if (f.equals(AggrSum))
             return "SUM";
         else if (f.equals(AggrAvg))
@@ -464,6 +463,20 @@ public class AggregationNode extends TableNode {
             aggrFuncs.add(AggrMax);
             aggrFuncs.add(AggrMin);
         }
+        return aggrFuncs;
+    }
+
+    public static List<Function<List<Value>, Value>> getAllAggrFunctions() {
+        List<Function<List<Value>, Value>> aggrFuncs = new ArrayList<>();
+        aggrFuncs.add(AggrAvg);
+        aggrFuncs.add(AggrCount);
+        aggrFuncs.add(AggrCountDistinct);
+        aggrFuncs.add(AggrMax);
+        aggrFuncs.add(AggrMin);
+        aggrFuncs.add(AggrSum);
+        aggrFuncs.add(AggrFirst);
+        aggrFuncs.add(AggrConcat);
+        aggrFuncs.add(AggrConcat2);
         return aggrFuncs;
     }
 

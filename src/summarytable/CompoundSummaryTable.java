@@ -543,4 +543,12 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
         return this.decodedLR.get(sf).getKey();
     }
 
+    @Override
+    public List<NamedTable> namedTableInvolved() {
+        List<NamedTable> result = new ArrayList<>();
+        result.addAll(st1.namedTableInvolved());
+        result.addAll(st2.namedTableInvolved());
+        return result;
+    }
+
 }

@@ -48,13 +48,6 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
     private List<BVFilter> primitives = new ArrayList<>();
     private boolean primitiveFiltersEvaluated = false;
 
-    public PrimitiveSummaryTable(Table baseTable, TableNode baseTableSrc) {
-        this.baseTable = baseTable;
-        this.baseTableSrc = baseTableSrc;
-        // the symbolic primitive filters are not evaluated here because we want to keep them lazy
-        this.primitiveBVFilters = new HashSet<>();
-    }
-
     public PrimitiveSummaryTable(Table baseTable, TableNode baseTableSrc, boolean allowDisj) {
         this.baseTable = baseTable;
         this.baseTableSrc = baseTableSrc;
@@ -477,6 +470,11 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
     @Override
     public double estimatePrimitiveSymFilterCost(BVFilter sf) {
         return this.decodedPrimitives.get(sf).getKey();
+    }
+
+    @Override
+    public List<NamedTable> namedTableInvolved() {
+        return this.baseTableSrc.namedTableInvolved();
     }
 
 }
