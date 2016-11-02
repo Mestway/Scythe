@@ -1,0 +1,470 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/047
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 150 [SymTable]: 151
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+[JOINOnInput] level 1 [SymTable]: 7
+[EnumJoinOnAggr] level 1 [SymTable]: 43
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 21 [SymTable]: 22
+[JOINOnInput] level 1 [SymTable]: 23
+[EnumJoinOnAggr] level 1 [SymTable]: 507
+Candidate Tree Number: 20
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T407].id,[T407].user,[T407].MAX-time,[T407].io
+FROM
+  (( (SELECT
+          [T405].user, MAX([T405].time)
+        FROM
+          (input1) AS [T405][id, user, time, io]
+        GROUP BY
+          [T405].user) AS [T406][user, MAX-time] ) JOIN (
+      input1 )) AS [T407][user, MAX-time, id, user1, time, io]
+WHERE
+  [T407].MAX-time <= [T407].time
+   AND [T407].user == [T407].user1
+@anonymous
+[T407].id(NumberVal) | [T407].user(NumberVal) | [T407].MAX-time(NumberVal) | [T407].io(StringVal) 
+2.0 | 9.0 | 1.370931664E9 | out 
+3.0 | 6.0 | 1.370932128E9 | out 
+5.0 | 12.0 | 1.370933037E9 | in 
+
+[No.19]===============================
+SELECT
+  [T377].id,[T377].user,[T377].time,[T377].io
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T375].user, MAX([T375].time)
+        FROM
+          (input1) AS [T375][id, user, time, io]
+        GROUP BY
+          [T375].user) AS [T376][user, MAX-time] )) AS [T377][id, user, time, io, user1, MAX-time]
+WHERE
+  [T377].time >= [T377].MAX-time
+   AND [T377].user == [T377].user1
+@anonymous
+[T377].id(NumberVal) | [T377].user(NumberVal) | [T377].time(NumberVal) | [T377].io(StringVal) 
+2.0 | 9.0 | 1.370931664E9 | out 
+3.0 | 6.0 | 1.370932128E9 | out 
+5.0 | 12.0 | 1.370933037E9 | in 
+
+[No.18]===============================
+SELECT
+  [T401].id,[T401].user,[T401].MAX-time,[T401].io
+FROM
+  (( (SELECT
+          [T399].user, MAX([T399].time)
+        FROM
+          (input1) AS [T399][id, user, time, io]
+        GROUP BY
+          [T399].user) AS [T400][user, MAX-time] ) JOIN (
+      SELECT
+        input1.id,input1.user,input1.time,input1.io
+      FROM
+        input1
+      WHERE
+        True )) AS [T401][user, MAX-time, id, user1, time, io]
+WHERE
+  [T401].user >= [T401].user1
+   AND [T401].MAX-time == [T401].time
+@anonymous
+[T401].id(NumberVal) | [T401].user(NumberVal) | [T401].MAX-time(NumberVal) | [T401].io(StringVal) 
+2.0 | 9.0 | 1.370931664E9 | out 
+3.0 | 6.0 | 1.370932128E9 | out 
+5.0 | 12.0 | 1.370933037E9 | in 
+
+[No.17]===============================
+SELECT
+  [T371].id,[T371].user,[T371].time,[T371].io
+FROM
+  (( SELECT
+        input1.id,input1.user,input1.time,input1.io
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      (SELECT
+          [T369].user, MAX([T369].time)
+        FROM
+          (input1) AS [T369][id, user, time, io]
+        GROUP BY
+          [T369].user) AS [T370][user, MAX-time] )) AS [T371][id, user, time, io, user1, MAX-time]
+WHERE
+  [T371].user <= [T371].user1
+   AND [T371].time == [T371].MAX-time
+@anonymous
+[T371].id(NumberVal) | [T371].user(NumberVal) | [T371].time(NumberVal) | [T371].io(StringVal) 
+2.0 | 9.0 | 1.370931664E9 | out 
+3.0 | 6.0 | 1.370932128E9 | out 
+5.0 | 12.0 | 1.370933037E9 | in 
+
+[No.16]===============================
+SELECT
+  [T389].id,[T389].user,[T389].MAX-time,[T389].io
+FROM
+  (( (SELECT
+          [T387].user, MAX([T387].time)
+        FROM
+          (input1) AS [T387][id, user, time, io]
+        GROUP BY
+          [T387].user) AS [T388][user, MAX-time] ) JOIN (
+      SELECT
+        input1.id,input1.user,input1.time,input1.io
+      FROM
+        input1
+      WHERE
+        True )) AS [T389][user, MAX-time, id, user1, time, io]
+WHERE
+  [T389].user == [T389].user1
+   AND [T389].MAX-time == [T389].time
+@anonymous
+[T389].id(NumberVal) | [T389].user(NumberVal) | [T389].MAX-time(NumberVal) | [T389].io(StringVal) 
+2.0 | 9.0 | 1.370931664E9 | out 
+3.0 | 6.0 | 1.370932128E9 | out 
+5.0 | 12.0 | 1.370933037E9 | in 
+
+[No.15]===============================
+SELECT
+  [T359].id,[T359].user,[T359].time,[T359].io
+FROM
+  (( SELECT
+        input1.id,input1.user,input1.time,input1.io
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      (SELECT
+          [T357].user, MAX([T357].time)
+        FROM
+          (input1) AS [T357][id, user, time, io]
+        GROUP BY
+          [T357].user) AS [T358][user, MAX-time] )) AS [T359][id, user, time, io, user1, MAX-time]
+WHERE
+  [T359].user == [T359].user1
+   AND [T359].time == [T359].MAX-time
+@anonymous
+[T359].id(NumberVal) | [T359].user(NumberVal) | [T359].time(NumberVal) | [T359].io(StringVal) 
+2.0 | 9.0 | 1.370931664E9 | out 
+3.0 | 6.0 | 1.370932128E9 | out 
+5.0 | 12.0 | 1.370933037E9 | in 
+
+[No.14]===============================
+SELECT
+  [T341].MAX-id,[T341].user,[T341].time,[T341].io
+FROM
+  (( (SELECT
+          [T339].user, MAX([T339].id)
+        FROM
+          (input1) AS [T339][id, user, time, io]
+        GROUP BY
+          [T339].user) AS [T340][user, MAX-id] ) JOIN (
+      SELECT
+        input1.id,input1.user,input1.time,input1.io
+      FROM
+        input1
+      WHERE
+        True )) AS [T341][user, MAX-id, id, user1, time, io]
+WHERE
+  [T341].user == [T341].user1
+   AND [T341].MAX-id == [T341].id
+@anonymous
+[T341].MAX-id(NumberVal) | [T341].user(NumberVal) | [T341].time(NumberVal) | [T341].io(StringVal) 
+2.0 | 9.0 | 1.370931664E9 | out 
+3.0 | 6.0 | 1.370932128E9 | out 
+5.0 | 12.0 | 1.370933037E9 | in 
+
+[No.13]===============================
+SELECT
+  [T311].id,[T311].user,[T311].time,[T311].io
+FROM
+  (( SELECT
+        input1.id,input1.user,input1.time,input1.io
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      (SELECT
+          [T309].user, MAX([T309].id)
+        FROM
+          (input1) AS [T309][id, user, time, io]
+        GROUP BY
+          [T309].user) AS [T310][user, MAX-id] )) AS [T311][id, user, time, io, user1, MAX-id]
+WHERE
+  [T311].id == [T311].MAX-id
+   AND [T311].user == [T311].user1
+@anonymous
+[T311].id(NumberVal) | [T311].user(NumberVal) | [T311].time(NumberVal) | [T311].io(StringVal) 
+2.0 | 9.0 | 1.370931664E9 | out 
+3.0 | 6.0 | 1.370932128E9 | out 
+5.0 | 12.0 | 1.370933037E9 | in 
+
+[No.12]===============================
+SELECT
+  [T329].MAX-id,[T329].user,[T329].time,[T329].io
+FROM
+  (( (SELECT
+          [T327].user, MAX([T327].id)
+        FROM
+          (input1) AS [T327][id, user, time, io]
+        GROUP BY
+          [T327].user) AS [T328][user, MAX-id] ) JOIN (
+      SELECT
+        input1.id,input1.user,input1.time,input1.io
+      FROM
+        input1
+      WHERE
+        True )) AS [T329][user, MAX-id, id, user1, time, io]
+WHERE
+  [T329].MAX-id == [T329].id
+@anonymous
+[T329].MAX-id(NumberVal) | [T329].user(NumberVal) | [T329].time(NumberVal) | [T329].io(StringVal) 
+2.0 | 9.0 | 1.370931664E9 | out 
+3.0 | 6.0 | 1.370932128E9 | out 
+5.0 | 12.0 | 1.370933037E9 | in 
+
+[No.11]===============================
+SELECT
+  [T299].id,[T299].user,[T299].time,[T299].io
+FROM
+  (( SELECT
+        input1.id,input1.user,input1.time,input1.io
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      (SELECT
+          [T297].user, MAX([T297].id)
+        FROM
+          (input1) AS [T297][id, user, time, io]
+        GROUP BY
+          [T297].user) AS [T298][user, MAX-id] )) AS [T299][id, user, time, io, user1, MAX-id]
+WHERE
+  [T299].id == [T299].MAX-id
+@anonymous
+[T299].id(NumberVal) | [T299].user(NumberVal) | [T299].time(NumberVal) | [T299].io(StringVal) 
+2.0 | 9.0 | 1.370931664E9 | out 
+3.0 | 6.0 | 1.370932128E9 | out 
+5.0 | 12.0 | 1.370933037E9 | in 
+
+[No.10]===============================
+SELECT
+  [T395].id,[T395].user,[T395].MAX-time,[T395].io
+FROM
+  (( (SELECT
+          [T393].user, MAX([T393].time)
+        FROM
+          (input1) AS [T393][id, user, time, io]
+        GROUP BY
+          [T393].user) AS [T394][user, MAX-time] ) JOIN (
+      input1 )) AS [T395][user, MAX-time, id, user1, time, io]
+WHERE
+  [T395].user >= [T395].user1
+   AND [T395].MAX-time == [T395].time
+@anonymous
+[T395].id(NumberVal) | [T395].user(NumberVal) | [T395].MAX-time(NumberVal) | [T395].io(StringVal) 
+2.0 | 9.0 | 1.370931664E9 | out 
+3.0 | 6.0 | 1.370932128E9 | out 
+5.0 | 12.0 | 1.370933037E9 | in 
+
+[No.9]===============================
+SELECT
+  [T365].id,[T365].user,[T365].time,[T365].io
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T363].user, MAX([T363].time)
+        FROM
+          (input1) AS [T363][id, user, time, io]
+        GROUP BY
+          [T363].user) AS [T364][user, MAX-time] )) AS [T365][id, user, time, io, user1, MAX-time]
+WHERE
+  [T365].user <= [T365].user1
+   AND [T365].time == [T365].MAX-time
+@anonymous
+[T365].id(NumberVal) | [T365].user(NumberVal) | [T365].time(NumberVal) | [T365].io(StringVal) 
+2.0 | 9.0 | 1.370931664E9 | out 
+3.0 | 6.0 | 1.370932128E9 | out 
+5.0 | 12.0 | 1.370933037E9 | in 
+
+[No.8]===============================
+SELECT
+  [T347].MAX-id,[T347].user,[T347].time,[T347].io
+FROM
+  (( (SELECT
+          [T345].user, MAX([T345].id)
+        FROM
+          (input1) AS [T345][id, user, time, io]
+        GROUP BY
+          [T345].user) AS [T346][user, MAX-id] ) JOIN (
+      input1 )) AS [T347][user, MAX-id, id, user1, time, io]
+WHERE
+  [T347].user <= [T347].user1
+   AND [T347].MAX-id == [T347].id
+@anonymous
+[T347].MAX-id(NumberVal) | [T347].user(NumberVal) | [T347].time(NumberVal) | [T347].io(StringVal) 
+2.0 | 9.0 | 1.370931664E9 | out 
+3.0 | 6.0 | 1.370932128E9 | out 
+5.0 | 12.0 | 1.370933037E9 | in 
+
+[No.7]===============================
+SELECT
+  [T317].id,[T317].user,[T317].time,[T317].io
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T315].user, MAX([T315].id)
+        FROM
+          (input1) AS [T315][id, user, time, io]
+        GROUP BY
+          [T315].user) AS [T316][user, MAX-id] )) AS [T317][id, user, time, io, user1, MAX-id]
+WHERE
+  [T317].user >= [T317].user1
+   AND [T317].id == [T317].MAX-id
+@anonymous
+[T317].id(NumberVal) | [T317].user(NumberVal) | [T317].time(NumberVal) | [T317].io(StringVal) 
+2.0 | 9.0 | 1.370931664E9 | out 
+3.0 | 6.0 | 1.370932128E9 | out 
+5.0 | 12.0 | 1.370933037E9 | in 
+
+[No.6]===============================
+SELECT
+  [T383].id,[T383].user,[T383].MAX-time,[T383].io
+FROM
+  (( (SELECT
+          [T381].user, MAX([T381].time)
+        FROM
+          (input1) AS [T381][id, user, time, io]
+        GROUP BY
+          [T381].user) AS [T382][user, MAX-time] ) JOIN (
+      input1 )) AS [T383][user, MAX-time, id, user1, time, io]
+WHERE
+  [T383].user == [T383].user1
+   AND [T383].MAX-time == [T383].time
+@anonymous
+[T383].id(NumberVal) | [T383].user(NumberVal) | [T383].MAX-time(NumberVal) | [T383].io(StringVal) 
+2.0 | 9.0 | 1.370931664E9 | out 
+3.0 | 6.0 | 1.370932128E9 | out 
+5.0 | 12.0 | 1.370933037E9 | in 
+
+[No.5]===============================
+SELECT
+  [T353].id,[T353].user,[T353].time,[T353].io
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T351].user, MAX([T351].time)
+        FROM
+          (input1) AS [T351][id, user, time, io]
+        GROUP BY
+          [T351].user) AS [T352][user, MAX-time] )) AS [T353][id, user, time, io, user1, MAX-time]
+WHERE
+  [T353].user == [T353].user1
+   AND [T353].time == [T353].MAX-time
+@anonymous
+[T353].id(NumberVal) | [T353].user(NumberVal) | [T353].time(NumberVal) | [T353].io(StringVal) 
+2.0 | 9.0 | 1.370931664E9 | out 
+3.0 | 6.0 | 1.370932128E9 | out 
+5.0 | 12.0 | 1.370933037E9 | in 
+
+[No.4]===============================
+SELECT
+  [T335].MAX-id,[T335].user,[T335].time,[T335].io
+FROM
+  (( (SELECT
+          [T333].user, MAX([T333].id)
+        FROM
+          (input1) AS [T333][id, user, time, io]
+        GROUP BY
+          [T333].user) AS [T334][user, MAX-id] ) JOIN (
+      input1 )) AS [T335][user, MAX-id, id, user1, time, io]
+WHERE
+  [T335].user == [T335].user1
+   AND [T335].MAX-id == [T335].id
+@anonymous
+[T335].MAX-id(NumberVal) | [T335].user(NumberVal) | [T335].time(NumberVal) | [T335].io(StringVal) 
+2.0 | 9.0 | 1.370931664E9 | out 
+3.0 | 6.0 | 1.370932128E9 | out 
+5.0 | 12.0 | 1.370933037E9 | in 
+
+[No.3]===============================
+SELECT
+  [T305].id,[T305].user,[T305].time,[T305].io
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T303].user, MAX([T303].id)
+        FROM
+          (input1) AS [T303][id, user, time, io]
+        GROUP BY
+          [T303].user) AS [T304][user, MAX-id] )) AS [T305][id, user, time, io, user1, MAX-id]
+WHERE
+  [T305].id == [T305].MAX-id
+   AND [T305].user == [T305].user1
+@anonymous
+[T305].id(NumberVal) | [T305].user(NumberVal) | [T305].time(NumberVal) | [T305].io(StringVal) 
+2.0 | 9.0 | 1.370931664E9 | out 
+3.0 | 6.0 | 1.370932128E9 | out 
+5.0 | 12.0 | 1.370933037E9 | in 
+
+[No.2]===============================
+SELECT
+  [T323].MAX-id,[T323].user,[T323].time,[T323].io
+FROM
+  (( (SELECT
+          [T321].user, MAX([T321].id)
+        FROM
+          (input1) AS [T321][id, user, time, io]
+        GROUP BY
+          [T321].user) AS [T322][user, MAX-id] ) JOIN (
+      input1 )) AS [T323][user, MAX-id, id, user1, time, io]
+WHERE
+  [T323].MAX-id == [T323].id
+@anonymous
+[T323].MAX-id(NumberVal) | [T323].user(NumberVal) | [T323].time(NumberVal) | [T323].io(StringVal) 
+2.0 | 9.0 | 1.370931664E9 | out 
+3.0 | 6.0 | 1.370932128E9 | out 
+5.0 | 12.0 | 1.370933037E9 | in 
+
+[No.1]===============================
+SELECT
+  [T293].id,[T293].user,[T293].time,[T293].io
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T291].user, MAX([T291].id)
+        FROM
+          (input1) AS [T291][id, user, time, io]
+        GROUP BY
+          [T291].user) AS [T292][user, MAX-id] )) AS [T293][id, user, time, io, user1, MAX-id]
+WHERE
+  [T293].id == [T293].MAX-id
+@anonymous
+[T293].id(NumberVal) | [T293].user(NumberVal) | [T293].time(NumberVal) | [T293].io(StringVal) 
+2.0 | 9.0 | 1.370931664E9 | out 
+3.0 | 6.0 | 1.370932128E9 | out 
+5.0 | 12.0 | 1.370933037E9 | in 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.752s

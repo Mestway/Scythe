@@ -1,0 +1,410 @@
+[[Synthesis start]]
+	File: ../data/dev_set/019
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 285 [SymTable]: 286
+Candidate Tree Number: 25
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T526].COUNT-Team
+FROM
+  (SELECT
+      [T525].Team, COUNT([T525].Team)
+    FROM
+      (input1) AS [T525][Team, Player]
+    GROUP BY
+      [T525].Team) AS [T526][Team, COUNT-Team]
+WHERE
+  [T526].COUNT-Team > [T526].Team
+@anonymous
+[T526].COUNT-Team(NumberVal) 
+2.0 
+4.0 
+
+[No.19]===============================
+SELECT
+  [T334].Team
+FROM
+  (SELECT
+      [T333].Team, [T333].Player, SUM([T333].Team)
+    FROM
+      (SELECT
+          input1.Team,input1.Player
+        FROM
+          input1
+        WHERE
+          input1.Team >= 2.0) AS [T333][Team, Player]
+    GROUP BY
+      [T333].Team  [T333].Player) AS [T334][Team, Player, SUM-Team]
+WHERE
+  [T334].SUM-Team > 2.0
+   AND [T334].SUM-Team > [T334].Team
+@anonymous
+[T334].Team(NumberVal) 
+2.0 
+4.0 
+
+[No.18]===============================
+SELECT
+  [T446].Team
+FROM
+  (SELECT
+      [T445].Team, [T445].Player, SUM([T445].Team)
+    FROM
+      (input1) AS [T445][Team, Player]
+    GROUP BY
+      [T445].Team  [T445].Player) AS [T446][Team, Player, SUM-Team]
+WHERE
+  [T446].SUM-Team <> 2.0
+   AND [T446].SUM-Team > [T446].Team
+@anonymous
+[T446].Team(NumberVal) 
+2.0 
+4.0 
+
+[No.17]===============================
+SELECT
+  [T436].Team
+FROM
+  (SELECT
+      [T435].Team, [T435].Player, SUM([T435].Team)
+    FROM
+      (input1) AS [T435][Team, Player]
+    GROUP BY
+      [T435].Team  [T435].Player) AS [T436][Team, Player, SUM-Team]
+WHERE
+  [T436].SUM-Team > 2.0
+   AND [T436].SUM-Team > [T436].Team
+@anonymous
+[T436].Team(NumberVal) 
+2.0 
+4.0 
+
+[No.16]===============================
+SELECT
+  [T416].Team
+FROM
+  (SELECT
+      [T415].Team, [T415].Player, SUM([T415].Team)
+    FROM
+      (input1) AS [T415][Team, Player]
+    GROUP BY
+      [T415].Team  [T415].Player) AS [T416][Team, Player, SUM-Team]
+WHERE
+  [T416].SUM-Team >= 2.0
+   AND [T416].SUM-Team > [T416].Team
+@anonymous
+[T416].Team(NumberVal) 
+2.0 
+4.0 
+
+[No.15]===============================
+SELECT
+  [T404].Team
+FROM
+  (SELECT
+      [T403].Team, [T403].Player, CONCAT([T403].Player)
+    FROM
+      (SELECT
+          input1.Team,input1.Player
+        FROM
+          input1
+        WHERE
+          input1.Team >= 2.0) AS [T403][Team, Player]
+    GROUP BY
+      [T403].Team  [T403].Player) AS [T404][Team, Player, CONCAT-Player]
+WHERE
+  [T404].CONCAT-Player <> [T404].Player
+@anonymous
+[T404].Team(NumberVal) 
+2.0 
+4.0 
+
+[No.14]===============================
+SELECT
+  [T354].Team
+FROM
+  (SELECT
+      [T353].Team, [T353].Player, CONCAT([T353].Player)
+    FROM
+      (SELECT
+          input1.Team,input1.Player
+        FROM
+          input1
+        WHERE
+          input1.Team >= 2.0) AS [T353][Team, Player]
+    GROUP BY
+      [T353].Team  [T353].Player) AS [T354][Team, Player, CONCAT-Player]
+WHERE
+  [T354].CONCAT-Player <> [T354].Player
+@anonymous
+[T354].Team(NumberVal) 
+2.0 
+4.0 
+
+[No.13]===============================
+SELECT
+  [T344].Team
+FROM
+  (SELECT
+      [T343].Team, [T343].Player, SUM([T343].Team)
+    FROM
+      (SELECT
+          input1.Team,input1.Player
+        FROM
+          input1
+        WHERE
+          input1.Team >= 2.0) AS [T343][Team, Player]
+    GROUP BY
+      [T343].Team  [T343].Player) AS [T344][Team, Player, SUM-Team]
+WHERE
+  [T344].SUM-Team > [T344].Team
+@anonymous
+[T344].Team(NumberVal) 
+2.0 
+4.0 
+
+[No.12]===============================
+SELECT
+  [T484].Team
+FROM
+  (SELECT
+      [T483].Team, COUNT([T483].Player)
+    FROM
+      (SELECT
+          input1.Team,input1.Player
+        FROM
+          input1
+        WHERE
+          input1.Team >= 2.0) AS [T483][Team, Player]
+    GROUP BY
+      [T483].Team) AS [T484][Team, COUNT-Player]
+WHERE
+  [T484].COUNT-Player >= 2.0
+@anonymous
+[T484].Team(NumberVal) 
+2.0 
+4.0 
+
+[No.11]===============================
+SELECT
+  [T474].Team
+FROM
+  (SELECT
+      [T473].Team, COUNT([T473].Team)
+    FROM
+      (SELECT
+          input1.Team,input1.Player
+        FROM
+          input1
+        WHERE
+          input1.Team >= 2.0) AS [T473][Team, Player]
+    GROUP BY
+      [T473].Team) AS [T474][Team, COUNT-Team]
+WHERE
+  [T474].COUNT-Team >= 2.0
+@anonymous
+[T474].Team(NumberVal) 
+2.0 
+4.0 
+
+[No.10]===============================
+SELECT
+  [T464].Team
+FROM
+  (SELECT
+      [T463].Team, [T463].Player, COUNT([T463].Player)
+    FROM
+      (SELECT
+          input1.Team,input1.Player
+        FROM
+          input1
+        WHERE
+          input1.Team >= 2.0) AS [T463][Team, Player]
+    GROUP BY
+      [T463].Team  [T463].Player) AS [T464][Team, Player, COUNT-Player]
+WHERE
+  [T464].COUNT-Player >= 2.0
+@anonymous
+[T464].Team(NumberVal) 
+2.0 
+4.0 
+
+[No.9]===============================
+SELECT
+  [T394].Team
+FROM
+  (SELECT
+      [T393].Team, [T393].Player, COUNT([T393].Team)
+    FROM
+      (SELECT
+          input1.Team,input1.Player
+        FROM
+          input1
+        WHERE
+          input1.Team >= 2.0) AS [T393][Team, Player]
+    GROUP BY
+      [T393].Team  [T393].Player) AS [T394][Team, Player, COUNT-Team]
+WHERE
+  [T394].COUNT-Team >= 2.0
+@anonymous
+[T394].Team(NumberVal) 
+2.0 
+4.0 
+
+[No.8]===============================
+SELECT
+  [T374].AVG-Team
+FROM
+  (SELECT
+      [T373].Player, AVG([T373].Team)
+    FROM
+      (SELECT
+          input1.Team,input1.Player
+        FROM
+          input1
+        WHERE
+          input1.Team <> 2.0) AS [T373][Team, Player]
+    GROUP BY
+      [T373].Player) AS [T374][Player, AVG-Team]
+WHERE
+  [T374].AVG-Team >= 2.0
+@anonymous
+[T374].AVG-Team(NumberVal) 
+2.0 
+4.0 
+
+[No.7]===============================
+SELECT
+  [T486].Team
+FROM
+  (SELECT
+      [T485].Team, [T485].Player, CONCAT([T485].Player)
+    FROM
+      (input1) AS [T485][Team, Player]
+    GROUP BY
+      [T485].Team  [T485].Player) AS [T486][Team, Player, CONCAT-Player]
+WHERE
+  [T486].CONCAT-Player <> [T486].Player
+@anonymous
+[T486].Team(NumberVal) 
+2.0 
+4.0 
+
+[No.6]===============================
+SELECT
+  [T426].Team
+FROM
+  (SELECT
+      [T425].Team, [T425].Player, SUM([T425].Team)
+    FROM
+      (input1) AS [T425][Team, Player]
+    GROUP BY
+      [T425].Team  [T425].Player) AS [T426][Team, Player, SUM-Team]
+WHERE
+  [T426].SUM-Team > [T426].Team
+@anonymous
+[T426].Team(NumberVal) 
+2.0 
+4.0 
+
+[No.5]===============================
+SELECT
+  [T406].Team
+FROM
+  (SELECT
+      [T405].Team, [T405].Player, CONCAT([T405].Player)
+    FROM
+      (input1) AS [T405][Team, Player]
+    GROUP BY
+      [T405].Team  [T405].Player) AS [T406][Team, Player, CONCAT-Player]
+WHERE
+  [T406].CONCAT-Player <> [T406].Player
+@anonymous
+[T406].Team(NumberVal) 
+2.0 
+4.0 
+
+[No.4]===============================
+SELECT
+  [T384].COUNT-Player
+FROM
+  (SELECT
+      [T383].Team, COUNT([T383].Player)
+    FROM
+      (SELECT
+          input1.Team,input1.Player
+        FROM
+          input1
+        WHERE
+          input1.Team <= 2.0) AS [T383][Team, Player]
+    GROUP BY
+      [T383].Team) AS [T384][Team, COUNT-Player]
+
+@anonymous
+[T384].COUNT-Player(NumberVal) 
+2.0 
+4.0 
+
+[No.3]===============================
+SELECT
+  [T364].COUNT-Team
+FROM
+  (SELECT
+      [T363].Team, COUNT([T363].Team)
+    FROM
+      (SELECT
+          input1.Team,input1.Player
+        FROM
+          input1
+        WHERE
+          input1.Team <= 2.0) AS [T363][Team, Player]
+    GROUP BY
+      [T363].Team) AS [T364][Team, COUNT-Team]
+
+@anonymous
+[T364].COUNT-Team(NumberVal) 
+2.0 
+4.0 
+
+[No.2]===============================
+SELECT
+  [T316].Team
+FROM
+  (SELECT
+      [T315].Team, [T315].Player, COUNT([T315].Player)
+    FROM
+      (input1) AS [T315][Team, Player]
+    GROUP BY
+      [T315].Team  [T315].Player) AS [T316][Team, Player, COUNT-Player]
+WHERE
+  [T316].COUNT-Player >= 2.0
+@anonymous
+[T316].Team(NumberVal) 
+2.0 
+4.0 
+
+[No.1]===============================
+SELECT
+  [T296].Team
+FROM
+  (SELECT
+      [T295].Team, [T295].Player, COUNT([T295].Team)
+    FROM
+      (input1) AS [T295][Team, Player]
+    GROUP BY
+      [T295].Team  [T295].Player) AS [T296][Team, Player, COUNT-Team]
+WHERE
+  [T296].COUNT-Team >= 2.0
+@anonymous
+[T296].Team(NumberVal) 
+2.0 
+4.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.320s

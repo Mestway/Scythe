@@ -1,0 +1,411 @@
+[[Synthesis start]]
+	File: ../data/dev_set/007
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 145 [SymTable]: 146
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 4 [SymTable]: 5
+[JOINOnInput] level 1 [SymTable]: 6
+Candidate Tree Number: 10
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 22 [SymTable]: 23
+[JOINOnInput] level 1 [SymTable]: 24
+Candidate Tree Number: 10
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T211].id,[T211].home,[T211].datetime,[T211].player,[T211].resource
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.id,input1.home,input1.datetime,input1.player,input1.resource
+      FROM
+        input1
+      WHERE
+        True )) AS [T211][id, home, datetime, player, resource, id1, home1, datetime1, player1, resource1]
+WHERE
+  [T211].resource > [T211].resource1
+   AND [T211].home == [T211].home1
+@anonymous
+[T211].id(NumberVal) | [T211].home(NumberVal) | [T211].datetime(DateVal) | [T211].player(StringVal) | [T211].resource(NumberVal) 
+1.0 | 10.0 | Wed Mar 04 00:00:00 PST 2009 | john | 399.0 
+2.0 | 11.0 | Wed Mar 04 00:00:00 PST 2009 | juliet | 244.0 
+5.0 | 12.0 | Wed Mar 04 00:00:00 PST 2009 | borat | 555.0 
+8.0 | 13.0 | Thu Jan 01 00:00:00 PST 2009 | borat | 700.0 
+
+[No.19]===============================
+SELECT
+  [T209].id,[T209].home,[T209].datetime,[T209].player,[T209].resource
+FROM
+  (( SELECT
+        input1.id,input1.home,input1.datetime,input1.player,input1.resource
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T209][id, home, datetime, player, resource, id1, home1, datetime1, player1, resource1]
+WHERE
+  [T209].home == [T209].home1
+   AND [T209].datetime > [T209].datetime1
+@anonymous
+[T209].id(NumberVal) | [T209].home(NumberVal) | [T209].datetime(DateVal) | [T209].player(StringVal) | [T209].resource(NumberVal) 
+1.0 | 10.0 | Wed Mar 04 00:00:00 PST 2009 | john | 399.0 
+2.0 | 11.0 | Wed Mar 04 00:00:00 PST 2009 | juliet | 244.0 
+5.0 | 12.0 | Wed Mar 04 00:00:00 PST 2009 | borat | 555.0 
+8.0 | 13.0 | Thu Jan 01 00:00:00 PST 2009 | borat | 700.0 
+
+[No.18]===============================
+SELECT
+  [T207].id,[T207].home,[T207].datetime,[T207].player,[T207].resource
+FROM
+  (( SELECT
+        input1.id,input1.home,input1.datetime,input1.player,input1.resource
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T207][id, home, datetime, player, resource, id1, home1, datetime1, player1, resource1]
+WHERE
+  [T207].resource > [T207].resource1
+   AND [T207].home == [T207].home1
+@anonymous
+[T207].id(NumberVal) | [T207].home(NumberVal) | [T207].datetime(DateVal) | [T207].player(StringVal) | [T207].resource(NumberVal) 
+1.0 | 10.0 | Wed Mar 04 00:00:00 PST 2009 | john | 399.0 
+2.0 | 11.0 | Wed Mar 04 00:00:00 PST 2009 | juliet | 244.0 
+5.0 | 12.0 | Wed Mar 04 00:00:00 PST 2009 | borat | 555.0 
+8.0 | 13.0 | Thu Jan 01 00:00:00 PST 2009 | borat | 700.0 
+
+[No.17]===============================
+SELECT
+  [T201].id1,[T201].home,[T201].datetime1,[T201].player,[T201].resource1
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.id,input1.home,input1.datetime,input1.player,input1.resource
+      FROM
+        input1
+      WHERE
+        True )) AS [T201][id, home, datetime, player, resource, id1, home1, datetime1, player1, resource1]
+WHERE
+  [T201].datetime < [T201].datetime1
+   AND [T201].home == [T201].home1
+@anonymous
+[T201].id1(NumberVal) | [T201].home(NumberVal) | [T201].datetime1(DateVal) | [T201].player(StringVal) | [T201].resource1(NumberVal) 
+1.0 | 10.0 | Wed Mar 04 00:00:00 PST 2009 | john | 399.0 
+2.0 | 11.0 | Wed Mar 04 00:00:00 PST 2009 | juliet | 244.0 
+5.0 | 12.0 | Wed Mar 04 00:00:00 PST 2009 | borat | 555.0 
+8.0 | 13.0 | Thu Jan 01 00:00:00 PST 2009 | borat | 700.0 
+
+[No.16]===============================
+SELECT
+  [T199].id1,[T199].home,[T199].datetime1,[T199].player,[T199].resource1
+FROM
+  (( SELECT
+        input1.id,input1.home,input1.datetime,input1.player,input1.resource
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T199][id, home, datetime, player, resource, id1, home1, datetime1, player1, resource1]
+WHERE
+  [T199].resource < [T199].resource1
+   AND [T199].home == [T199].home1
+@anonymous
+[T199].id1(NumberVal) | [T199].home(NumberVal) | [T199].datetime1(DateVal) | [T199].player(StringVal) | [T199].resource1(NumberVal) 
+1.0 | 10.0 | Wed Mar 04 00:00:00 PST 2009 | john | 399.0 
+2.0 | 11.0 | Wed Mar 04 00:00:00 PST 2009 | juliet | 244.0 
+5.0 | 12.0 | Wed Mar 04 00:00:00 PST 2009 | borat | 555.0 
+8.0 | 13.0 | Thu Jan 01 00:00:00 PST 2009 | borat | 700.0 
+
+[No.15]===============================
+SELECT
+  [T197].id1,[T197].home,[T197].datetime1,[T197].player,[T197].resource1
+FROM
+  (( SELECT
+        input1.id,input1.home,input1.datetime,input1.player,input1.resource
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T197][id, home, datetime, player, resource, id1, home1, datetime1, player1, resource1]
+WHERE
+  [T197].datetime < [T197].datetime1
+   AND [T197].home == [T197].home1
+@anonymous
+[T197].id1(NumberVal) | [T197].home(NumberVal) | [T197].datetime1(DateVal) | [T197].player(StringVal) | [T197].resource1(NumberVal) 
+1.0 | 10.0 | Wed Mar 04 00:00:00 PST 2009 | john | 399.0 
+2.0 | 11.0 | Wed Mar 04 00:00:00 PST 2009 | juliet | 244.0 
+5.0 | 12.0 | Wed Mar 04 00:00:00 PST 2009 | borat | 555.0 
+8.0 | 13.0 | Thu Jan 01 00:00:00 PST 2009 | borat | 700.0 
+
+[No.14]===============================
+SELECT
+  [T168].id,[T168].home,[T168].datetime,[T168].player,[T168].resource
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.id,input1.home,input1.datetime,input1.player,input1.resource
+      FROM
+        input1
+      WHERE
+        True )) AS [T168][id, home, datetime, player, resource, id1, home1, datetime1, player1, resource1]
+WHERE
+  [T168].resource > [T168].resource1
+   AND [T168].home == [T168].home1
+@anonymous
+[T168].id(NumberVal) | [T168].home(NumberVal) | [T168].datetime(DateVal) | [T168].player(StringVal) | [T168].resource(NumberVal) 
+1.0 | 10.0 | Wed Mar 04 00:00:00 PST 2009 | john | 399.0 
+2.0 | 11.0 | Wed Mar 04 00:00:00 PST 2009 | juliet | 244.0 
+5.0 | 12.0 | Wed Mar 04 00:00:00 PST 2009 | borat | 555.0 
+8.0 | 13.0 | Thu Jan 01 00:00:00 PST 2009 | borat | 700.0 
+
+[No.13]===============================
+SELECT
+  [T166].id,[T166].home,[T166].datetime,[T166].player,[T166].resource
+FROM
+  (( SELECT
+        input1.id,input1.home,input1.datetime,input1.player,input1.resource
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T166][id, home, datetime, player, resource, id1, home1, datetime1, player1, resource1]
+WHERE
+  [T166].home == [T166].home1
+   AND [T166].datetime > [T166].datetime1
+@anonymous
+[T166].id(NumberVal) | [T166].home(NumberVal) | [T166].datetime(DateVal) | [T166].player(StringVal) | [T166].resource(NumberVal) 
+1.0 | 10.0 | Wed Mar 04 00:00:00 PST 2009 | john | 399.0 
+2.0 | 11.0 | Wed Mar 04 00:00:00 PST 2009 | juliet | 244.0 
+5.0 | 12.0 | Wed Mar 04 00:00:00 PST 2009 | borat | 555.0 
+8.0 | 13.0 | Thu Jan 01 00:00:00 PST 2009 | borat | 700.0 
+
+[No.12]===============================
+SELECT
+  [T164].id,[T164].home,[T164].datetime,[T164].player,[T164].resource
+FROM
+  (( SELECT
+        input1.id,input1.home,input1.datetime,input1.player,input1.resource
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T164][id, home, datetime, player, resource, id1, home1, datetime1, player1, resource1]
+WHERE
+  [T164].resource > [T164].resource1
+   AND [T164].home == [T164].home1
+@anonymous
+[T164].id(NumberVal) | [T164].home(NumberVal) | [T164].datetime(DateVal) | [T164].player(StringVal) | [T164].resource(NumberVal) 
+1.0 | 10.0 | Wed Mar 04 00:00:00 PST 2009 | john | 399.0 
+2.0 | 11.0 | Wed Mar 04 00:00:00 PST 2009 | juliet | 244.0 
+5.0 | 12.0 | Wed Mar 04 00:00:00 PST 2009 | borat | 555.0 
+8.0 | 13.0 | Thu Jan 01 00:00:00 PST 2009 | borat | 700.0 
+
+[No.11]===============================
+SELECT
+  [T158].id1,[T158].home,[T158].datetime1,[T158].player,[T158].resource1
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.id,input1.home,input1.datetime,input1.player,input1.resource
+      FROM
+        input1
+      WHERE
+        True )) AS [T158][id, home, datetime, player, resource, id1, home1, datetime1, player1, resource1]
+WHERE
+  [T158].datetime < [T158].datetime1
+   AND [T158].home == [T158].home1
+@anonymous
+[T158].id1(NumberVal) | [T158].home(NumberVal) | [T158].datetime1(DateVal) | [T158].player(StringVal) | [T158].resource1(NumberVal) 
+1.0 | 10.0 | Wed Mar 04 00:00:00 PST 2009 | john | 399.0 
+2.0 | 11.0 | Wed Mar 04 00:00:00 PST 2009 | juliet | 244.0 
+5.0 | 12.0 | Wed Mar 04 00:00:00 PST 2009 | borat | 555.0 
+8.0 | 13.0 | Thu Jan 01 00:00:00 PST 2009 | borat | 700.0 
+
+[No.10]===============================
+SELECT
+  [T156].id1,[T156].home,[T156].datetime1,[T156].player,[T156].resource1
+FROM
+  (( SELECT
+        input1.id,input1.home,input1.datetime,input1.player,input1.resource
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T156][id, home, datetime, player, resource, id1, home1, datetime1, player1, resource1]
+WHERE
+  [T156].resource < [T156].resource1
+   AND [T156].home == [T156].home1
+@anonymous
+[T156].id1(NumberVal) | [T156].home(NumberVal) | [T156].datetime1(DateVal) | [T156].player(StringVal) | [T156].resource1(NumberVal) 
+1.0 | 10.0 | Wed Mar 04 00:00:00 PST 2009 | john | 399.0 
+2.0 | 11.0 | Wed Mar 04 00:00:00 PST 2009 | juliet | 244.0 
+5.0 | 12.0 | Wed Mar 04 00:00:00 PST 2009 | borat | 555.0 
+8.0 | 13.0 | Thu Jan 01 00:00:00 PST 2009 | borat | 700.0 
+
+[No.9]===============================
+SELECT
+  [T154].id1,[T154].home,[T154].datetime1,[T154].player,[T154].resource1
+FROM
+  (( SELECT
+        input1.id,input1.home,input1.datetime,input1.player,input1.resource
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T154][id, home, datetime, player, resource, id1, home1, datetime1, player1, resource1]
+WHERE
+  [T154].datetime < [T154].datetime1
+   AND [T154].home == [T154].home1
+@anonymous
+[T154].id1(NumberVal) | [T154].home(NumberVal) | [T154].datetime1(DateVal) | [T154].player(StringVal) | [T154].resource1(NumberVal) 
+1.0 | 10.0 | Wed Mar 04 00:00:00 PST 2009 | john | 399.0 
+2.0 | 11.0 | Wed Mar 04 00:00:00 PST 2009 | juliet | 244.0 
+5.0 | 12.0 | Wed Mar 04 00:00:00 PST 2009 | borat | 555.0 
+8.0 | 13.0 | Thu Jan 01 00:00:00 PST 2009 | borat | 700.0 
+
+[No.8]===============================
+SELECT
+  [T205].id,[T205].home,[T205].datetime,[T205].player,[T205].resource
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T205][id, home, datetime, player, resource, id1, home1, datetime1, player1, resource1]
+WHERE
+  [T205].home == [T205].home1
+   AND [T205].datetime > [T205].datetime1
+@anonymous
+[T205].id(NumberVal) | [T205].home(NumberVal) | [T205].datetime(DateVal) | [T205].player(StringVal) | [T205].resource(NumberVal) 
+1.0 | 10.0 | Wed Mar 04 00:00:00 PST 2009 | john | 399.0 
+2.0 | 11.0 | Wed Mar 04 00:00:00 PST 2009 | juliet | 244.0 
+5.0 | 12.0 | Wed Mar 04 00:00:00 PST 2009 | borat | 555.0 
+8.0 | 13.0 | Thu Jan 01 00:00:00 PST 2009 | borat | 700.0 
+
+[No.7]===============================
+SELECT
+  [T203].id,[T203].home,[T203].datetime,[T203].player,[T203].resource
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T203][id, home, datetime, player, resource, id1, home1, datetime1, player1, resource1]
+WHERE
+  [T203].resource > [T203].resource1
+   AND [T203].home == [T203].home1
+@anonymous
+[T203].id(NumberVal) | [T203].home(NumberVal) | [T203].datetime(DateVal) | [T203].player(StringVal) | [T203].resource(NumberVal) 
+1.0 | 10.0 | Wed Mar 04 00:00:00 PST 2009 | john | 399.0 
+2.0 | 11.0 | Wed Mar 04 00:00:00 PST 2009 | juliet | 244.0 
+5.0 | 12.0 | Wed Mar 04 00:00:00 PST 2009 | borat | 555.0 
+8.0 | 13.0 | Thu Jan 01 00:00:00 PST 2009 | borat | 700.0 
+
+[No.6]===============================
+SELECT
+  [T195].id1,[T195].home,[T195].datetime1,[T195].player,[T195].resource1
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T195][id, home, datetime, player, resource, id1, home1, datetime1, player1, resource1]
+WHERE
+  [T195].resource < [T195].resource1
+   AND [T195].home == [T195].home1
+@anonymous
+[T195].id1(NumberVal) | [T195].home(NumberVal) | [T195].datetime1(DateVal) | [T195].player(StringVal) | [T195].resource1(NumberVal) 
+1.0 | 10.0 | Wed Mar 04 00:00:00 PST 2009 | john | 399.0 
+2.0 | 11.0 | Wed Mar 04 00:00:00 PST 2009 | juliet | 244.0 
+5.0 | 12.0 | Wed Mar 04 00:00:00 PST 2009 | borat | 555.0 
+8.0 | 13.0 | Thu Jan 01 00:00:00 PST 2009 | borat | 700.0 
+
+[No.5]===============================
+SELECT
+  [T193].id1,[T193].home,[T193].datetime1,[T193].player,[T193].resource1
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T193][id, home, datetime, player, resource, id1, home1, datetime1, player1, resource1]
+WHERE
+  [T193].datetime < [T193].datetime1
+   AND [T193].home == [T193].home1
+@anonymous
+[T193].id1(NumberVal) | [T193].home(NumberVal) | [T193].datetime1(DateVal) | [T193].player(StringVal) | [T193].resource1(NumberVal) 
+1.0 | 10.0 | Wed Mar 04 00:00:00 PST 2009 | john | 399.0 
+2.0 | 11.0 | Wed Mar 04 00:00:00 PST 2009 | juliet | 244.0 
+5.0 | 12.0 | Wed Mar 04 00:00:00 PST 2009 | borat | 555.0 
+8.0 | 13.0 | Thu Jan 01 00:00:00 PST 2009 | borat | 700.0 
+
+[No.4]===============================
+SELECT
+  [T162].id,[T162].home,[T162].datetime,[T162].player,[T162].resource
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T162][id, home, datetime, player, resource, id1, home1, datetime1, player1, resource1]
+WHERE
+  [T162].home == [T162].home1
+   AND [T162].datetime > [T162].datetime1
+@anonymous
+[T162].id(NumberVal) | [T162].home(NumberVal) | [T162].datetime(DateVal) | [T162].player(StringVal) | [T162].resource(NumberVal) 
+1.0 | 10.0 | Wed Mar 04 00:00:00 PST 2009 | john | 399.0 
+2.0 | 11.0 | Wed Mar 04 00:00:00 PST 2009 | juliet | 244.0 
+5.0 | 12.0 | Wed Mar 04 00:00:00 PST 2009 | borat | 555.0 
+8.0 | 13.0 | Thu Jan 01 00:00:00 PST 2009 | borat | 700.0 
+
+[No.3]===============================
+SELECT
+  [T160].id,[T160].home,[T160].datetime,[T160].player,[T160].resource
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T160][id, home, datetime, player, resource, id1, home1, datetime1, player1, resource1]
+WHERE
+  [T160].resource > [T160].resource1
+   AND [T160].home == [T160].home1
+@anonymous
+[T160].id(NumberVal) | [T160].home(NumberVal) | [T160].datetime(DateVal) | [T160].player(StringVal) | [T160].resource(NumberVal) 
+1.0 | 10.0 | Wed Mar 04 00:00:00 PST 2009 | john | 399.0 
+2.0 | 11.0 | Wed Mar 04 00:00:00 PST 2009 | juliet | 244.0 
+5.0 | 12.0 | Wed Mar 04 00:00:00 PST 2009 | borat | 555.0 
+8.0 | 13.0 | Thu Jan 01 00:00:00 PST 2009 | borat | 700.0 
+
+[No.2]===============================
+SELECT
+  [T152].id1,[T152].home,[T152].datetime1,[T152].player,[T152].resource1
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T152][id, home, datetime, player, resource, id1, home1, datetime1, player1, resource1]
+WHERE
+  [T152].resource < [T152].resource1
+   AND [T152].home == [T152].home1
+@anonymous
+[T152].id1(NumberVal) | [T152].home(NumberVal) | [T152].datetime1(DateVal) | [T152].player(StringVal) | [T152].resource1(NumberVal) 
+1.0 | 10.0 | Wed Mar 04 00:00:00 PST 2009 | john | 399.0 
+2.0 | 11.0 | Wed Mar 04 00:00:00 PST 2009 | juliet | 244.0 
+5.0 | 12.0 | Wed Mar 04 00:00:00 PST 2009 | borat | 555.0 
+8.0 | 13.0 | Thu Jan 01 00:00:00 PST 2009 | borat | 700.0 
+
+[No.1]===============================
+SELECT
+  [T150].id1,[T150].home,[T150].datetime1,[T150].player,[T150].resource1
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T150][id, home, datetime, player, resource, id1, home1, datetime1, player1, resource1]
+WHERE
+  [T150].datetime < [T150].datetime1
+   AND [T150].home == [T150].home1
+@anonymous
+[T150].id1(NumberVal) | [T150].home(NumberVal) | [T150].datetime1(DateVal) | [T150].player(StringVal) | [T150].resource1(NumberVal) 
+1.0 | 10.0 | Wed Mar 04 00:00:00 PST 2009 | john | 399.0 
+2.0 | 11.0 | Wed Mar 04 00:00:00 PST 2009 | juliet | 244.0 
+5.0 | 12.0 | Wed Mar 04 00:00:00 PST 2009 | borat | 555.0 
+8.0 | 13.0 | Thu Jan 01 00:00:00 PST 2009 | borat | 700.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.572s

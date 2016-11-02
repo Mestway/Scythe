@@ -1,0 +1,260 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/037
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 34 [SymTable]: 35
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1 [SymTable]: 2
+[JOINOnInput] level 1 [SymTable]: 3
+[EnumJoinOnAggr] level 1 [SymTable]: 7
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOINOnInput] level 1 [SymTable]: 5
+[EnumJoinOnAggr] level 1 [SymTable]: 21
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOINOnInput] level 1 [SymTable]: 5
+[EnumJoinOnAggr] level 1 [SymTable]: 21
+Candidate Tree Number: 10
+[Enumeration Finished]
+[No.10]===============================
+SELECT
+  [T97].c1,[T97].c2,[T97].c3
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T95].c2, MIN([T95].c1)
+        FROM
+          (input1) AS [T95][c1, c2, c3]
+        GROUP BY
+          [T95].c2) AS [T96][c2, MIN-c1] )) AS [T97][c1, c2, c3, c21, MIN-c1]
+WHERE
+  [T97].c1 <= [T97].MIN-c1
+   AND [T97].c1 == [T97].MIN-c1
+@anonymous
+[T97].c1(NumberVal) | [T97].c2(StringVal) | [T97].c3(StringVal) 
+1.0 | item1 | data1 
+3.0 | item2 | data3 
+4.0 | item3 | data4 
+
+[No.9]===============================
+SELECT
+  [T127].MIN-c1,[T127].c2,[T127].c3
+FROM
+  (( (SELECT
+          [T125].c2, MIN([T125].c1)
+        FROM
+          (input1) AS [T125][c1, c2, c3]
+        GROUP BY
+          [T125].c2) AS [T126][c2, MIN-c1] ) JOIN (
+      input1 )) AS [T127][c2, MIN-c1, c1, c21, c3]
+WHERE
+  [T127].c2 == [T127].c21
+   AND [T127].MIN-c1 >= [T127].c1
+@anonymous
+[T127].MIN-c1(NumberVal) | [T127].c2(StringVal) | [T127].c3(StringVal) 
+1.0 | item1 | data1 
+3.0 | item2 | data3 
+4.0 | item3 | data4 
+
+[No.8]===============================
+SELECT
+  [T121].MIN-c1,[T121].c2,[T121].c3
+FROM
+  (( (SELECT
+          [T119].c2, MIN([T119].c1)
+        FROM
+          (input1) AS [T119][c1, c2, c3]
+        GROUP BY
+          [T119].c2) AS [T120][c2, MIN-c1] ) JOIN (
+      SELECT
+        input1.c1,input1.c2,input1.c3
+      FROM
+        input1
+      WHERE
+        True )) AS [T121][c2, MIN-c1, c1, c21, c3]
+WHERE
+  [T121].c2 == [T121].c21
+   AND [T121].MIN-c1 == [T121].c1
+@anonymous
+[T121].MIN-c1(NumberVal) | [T121].c2(StringVal) | [T121].c3(StringVal) 
+1.0 | item1 | data1 
+3.0 | item2 | data3 
+4.0 | item3 | data4 
+
+[No.7]===============================
+SELECT
+  [T91].c1,[T91].c2,[T91].c3
+FROM
+  (( SELECT
+        input1.c1,input1.c2,input1.c3
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      (SELECT
+          [T89].c2, MIN([T89].c1)
+        FROM
+          (input1) AS [T89][c1, c2, c3]
+        GROUP BY
+          [T89].c2) AS [T90][c2, MIN-c1] )) AS [T91][c1, c2, c3, c21, MIN-c1]
+WHERE
+  [T91].c1 == [T91].MIN-c1
+   AND [T91].c2 == [T91].c21
+@anonymous
+[T91].c1(NumberVal) | [T91].c2(StringVal) | [T91].c3(StringVal) 
+1.0 | item1 | data1 
+3.0 | item2 | data3 
+4.0 | item3 | data4 
+
+[No.6]===============================
+SELECT
+  [T109].MIN-c1,[T109].c2,[T109].c3
+FROM
+  (( (SELECT
+          [T107].c2, MIN([T107].c1)
+        FROM
+          (input1) AS [T107][c1, c2, c3]
+        GROUP BY
+          [T107].c2) AS [T108][c2, MIN-c1] ) JOIN (
+      SELECT
+        input1.c1,input1.c2,input1.c3
+      FROM
+        input1
+      WHERE
+        True )) AS [T109][c2, MIN-c1, c1, c21, c3]
+WHERE
+  [T109].MIN-c1 == [T109].c1
+@anonymous
+[T109].MIN-c1(NumberVal) | [T109].c2(StringVal) | [T109].c3(StringVal) 
+1.0 | item1 | data1 
+3.0 | item2 | data3 
+4.0 | item3 | data4 
+
+[No.5]===============================
+SELECT
+  [T79].c1,[T79].c2,[T79].c3
+FROM
+  (( SELECT
+        input1.c1,input1.c2,input1.c3
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      (SELECT
+          [T77].c2, MIN([T77].c1)
+        FROM
+          (input1) AS [T77][c1, c2, c3]
+        GROUP BY
+          [T77].c2) AS [T78][c2, MIN-c1] )) AS [T79][c1, c2, c3, c21, MIN-c1]
+WHERE
+  [T79].c1 == [T79].MIN-c1
+@anonymous
+[T79].c1(NumberVal) | [T79].c2(StringVal) | [T79].c3(StringVal) 
+1.0 | item1 | data1 
+3.0 | item2 | data3 
+4.0 | item3 | data4 
+
+[No.4]===============================
+SELECT
+  [T115].MIN-c1,[T115].c2,[T115].c3
+FROM
+  (( (SELECT
+          [T113].c2, MIN([T113].c1)
+        FROM
+          (input1) AS [T113][c1, c2, c3]
+        GROUP BY
+          [T113].c2) AS [T114][c2, MIN-c1] ) JOIN (
+      input1 )) AS [T115][c2, MIN-c1, c1, c21, c3]
+WHERE
+  [T115].c2 == [T115].c21
+   AND [T115].MIN-c1 == [T115].c1
+@anonymous
+[T115].MIN-c1(NumberVal) | [T115].c2(StringVal) | [T115].c3(StringVal) 
+1.0 | item1 | data1 
+3.0 | item2 | data3 
+4.0 | item3 | data4 
+
+[No.3]===============================
+SELECT
+  [T85].c1,[T85].c2,[T85].c3
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T83].c2, MIN([T83].c1)
+        FROM
+          (input1) AS [T83][c1, c2, c3]
+        GROUP BY
+          [T83].c2) AS [T84][c2, MIN-c1] )) AS [T85][c1, c2, c3, c21, MIN-c1]
+WHERE
+  [T85].c1 == [T85].MIN-c1
+   AND [T85].c2 == [T85].c21
+@anonymous
+[T85].c1(NumberVal) | [T85].c2(StringVal) | [T85].c3(StringVal) 
+1.0 | item1 | data1 
+3.0 | item2 | data3 
+4.0 | item3 | data4 
+
+[No.2]===============================
+SELECT
+  [T103].MIN-c1,[T103].c2,[T103].c3
+FROM
+  (( (SELECT
+          [T101].c2, MIN([T101].c1)
+        FROM
+          (input1) AS [T101][c1, c2, c3]
+        GROUP BY
+          [T101].c2) AS [T102][c2, MIN-c1] ) JOIN (
+      input1 )) AS [T103][c2, MIN-c1, c1, c21, c3]
+WHERE
+  [T103].MIN-c1 == [T103].c1
+@anonymous
+[T103].MIN-c1(NumberVal) | [T103].c2(StringVal) | [T103].c3(StringVal) 
+1.0 | item1 | data1 
+3.0 | item2 | data3 
+4.0 | item3 | data4 
+
+[No.1]===============================
+SELECT
+  [T73].c1,[T73].c2,[T73].c3
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T71].c2, MIN([T71].c1)
+        FROM
+          (input1) AS [T71][c1, c2, c3]
+        GROUP BY
+          [T71].c2) AS [T72][c2, MIN-c1] )) AS [T73][c1, c2, c3, c21, MIN-c1]
+WHERE
+  [T73].c1 == [T73].MIN-c1
+@anonymous
+[T73].c1(NumberVal) | [T73].c2(StringVal) | [T73].c3(StringVal) 
+1.0 | item1 | data1 
+3.0 | item2 | data3 
+4.0 | item3 | data4 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.309s

@@ -1,0 +1,502 @@
+[[Synthesis start]]
+	File: ../data/recent_posts/005
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 395 [SymTable]: 396
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 11 [SymTable]: 12
+[JOINOnInput] level 1 [SymTable]: 13
+[EnumJoinOnAggr] level 1 [SymTable]: 157
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 72 [SymTable]: 73
+[JOINOnInput] level 1 [SymTable]: 74
+[EnumJoinOnAggr] level 1 [SymTable]: 5403
+Candidate Tree Number: 90
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T1281].g_event_id,[T1281].prim_cid,[T1281].event_id,[T1281].event_time
+FROM
+  (( SELECT
+        input1.g_event_id,input1.prim_cid,input1.event_id,input1.event_time
+      FROM
+        input1
+      WHERE
+        input1.event_id == 17.0 ) JOIN (
+      (SELECT
+          [T1273].prim_cid, MAX([T1273].g_event_id)
+        FROM
+          (SELECT
+              input1.g_event_id,input1.prim_cid,input1.event_id,input1.event_time
+            FROM
+              input1
+            WHERE
+              input1.event_id >= 17.0) AS [T1273][g_event_id, prim_cid, event_id, event_time]
+        GROUP BY
+          [T1273].prim_cid) AS [T1274][prim_cid, MAX-g_event_id] )) AS [T1281][g_event_id, prim_cid, event_id, event_time, prim_cid1, MAX-g_event_id]
+WHERE
+  [T1281].g_event_id == [T1281].MAX-g_event_id
+@anonymous
+[T1281].g_event_id(NumberVal) | [T1281].prim_cid(NumberVal) | [T1281].event_id(NumberVal) | [T1281].event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[No.19]===============================
+SELECT
+  [T1161].g_event_id,[T1161].prim_cid,[T1161].event_id,[T1161].MAX-event_time
+FROM
+  (( (SELECT
+          [T1153].prim_cid, MAX([T1153].event_time)
+        FROM
+          (SELECT
+              input1.g_event_id,input1.prim_cid,input1.event_id,input1.event_time
+            FROM
+              input1
+            WHERE
+              input1.event_id >= 17.0) AS [T1153][g_event_id, prim_cid, event_id, event_time]
+        GROUP BY
+          [T1153].prim_cid) AS [T1154][prim_cid, MAX-event_time] ) JOIN (
+      SELECT
+        input1.g_event_id,input1.prim_cid,input1.event_id,input1.event_time
+      FROM
+        input1
+      WHERE
+        input1.event_id == 17.0 )) AS [T1161][prim_cid, MAX-event_time, g_event_id, prim_cid1, event_id, event_time]
+WHERE
+  [T1161].MAX-event_time == [T1161].event_time
+@anonymous
+[T1161].g_event_id(NumberVal) | [T1161].prim_cid(NumberVal) | [T1161].event_id(NumberVal) | [T1161].MAX-event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[No.18]===============================
+SELECT
+  [T1569].MAX-g_event_id,[T1569].prim_cid,[T1569].event_id,[T1569].event_time
+FROM
+  (( (SELECT
+          [T1559].prim_cid, MAX([T1559].g_event_id)
+        FROM
+          (input1) AS [T1559][g_event_id, prim_cid, event_id, event_time]
+        GROUP BY
+          [T1559].prim_cid) AS [T1560][prim_cid, MAX-g_event_id] ) JOIN (
+      SELECT
+        input1.g_event_id,input1.prim_cid,input1.event_id,input1.event_time
+      FROM
+        input1
+      WHERE
+        input1.event_id <= 17.0 )) AS [T1569][prim_cid, MAX-g_event_id, g_event_id, prim_cid1, event_id, event_time]
+WHERE
+  [T1569].MAX-g_event_id == [T1569].g_event_id
+@anonymous
+[T1569].MAX-g_event_id(NumberVal) | [T1569].prim_cid(NumberVal) | [T1569].event_id(NumberVal) | [T1569].event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[No.17]===============================
+SELECT
+  [T1089].g_event_id,[T1089].prim_cid,[T1089].event_id,[T1089].event_time
+FROM
+  (( SELECT
+        input1.g_event_id,input1.prim_cid,input1.event_id,input1.event_time
+      FROM
+        input1
+      WHERE
+        input1.event_id <= 17.0 ) JOIN (
+      (SELECT
+          [T1079].prim_cid, MAX([T1079].g_event_id)
+        FROM
+          (input1) AS [T1079][g_event_id, prim_cid, event_id, event_time]
+        GROUP BY
+          [T1079].prim_cid) AS [T1080][prim_cid, MAX-g_event_id] )) AS [T1089][g_event_id, prim_cid, event_id, event_time, prim_cid1, MAX-g_event_id]
+WHERE
+  [T1089].g_event_id == [T1089].MAX-g_event_id
+@anonymous
+[T1089].g_event_id(NumberVal) | [T1089].prim_cid(NumberVal) | [T1089].event_id(NumberVal) | [T1089].event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[No.16]===============================
+SELECT
+  [T909].g_event_id,[T909].prim_cid,[T909].event_id,[T909].MAX-event_time
+FROM
+  (( (SELECT
+          [T899].prim_cid, MAX([T899].event_time)
+        FROM
+          (input1) AS [T899][g_event_id, prim_cid, event_id, event_time]
+        GROUP BY
+          [T899].prim_cid) AS [T900][prim_cid, MAX-event_time] ) JOIN (
+      SELECT
+        input1.g_event_id,input1.prim_cid,input1.event_id,input1.event_time
+      FROM
+        input1
+      WHERE
+        input1.event_id <= 17.0 )) AS [T909][prim_cid, MAX-event_time, g_event_id, prim_cid1, event_id, event_time]
+WHERE
+  [T909].MAX-event_time == [T909].event_time
+@anonymous
+[T909].g_event_id(NumberVal) | [T909].prim_cid(NumberVal) | [T909].event_id(NumberVal) | [T909].MAX-event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[No.15]===============================
+SELECT
+  [T849].g_event_id,[T849].prim_cid,[T849].event_id,[T849].event_time
+FROM
+  (( SELECT
+        input1.g_event_id,input1.prim_cid,input1.event_id,input1.event_time
+      FROM
+        input1
+      WHERE
+        input1.event_id <= 17.0 ) JOIN (
+      (SELECT
+          [T839].prim_cid, MAX([T839].event_time)
+        FROM
+          (input1) AS [T839][g_event_id, prim_cid, event_id, event_time]
+        GROUP BY
+          [T839].prim_cid) AS [T840][prim_cid, MAX-event_time] )) AS [T849][g_event_id, prim_cid, event_id, event_time, prim_cid1, MAX-event_time]
+WHERE
+  [T849].event_time == [T849].MAX-event_time
+@anonymous
+[T849].g_event_id(NumberVal) | [T849].prim_cid(NumberVal) | [T849].event_id(NumberVal) | [T849].event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[No.14]===============================
+SELECT
+  [T1545].MAX-g_event_id,[T1545].prim_cid,[T1545].event_id,[T1545].event_time
+FROM
+  (( (SELECT
+          [T1535].prim_cid, MAX([T1535].g_event_id)
+        FROM
+          (input1) AS [T1535][g_event_id, prim_cid, event_id, event_time]
+        GROUP BY
+          [T1535].prim_cid) AS [T1536][prim_cid, MAX-g_event_id] ) JOIN (
+      SELECT
+        input1.g_event_id,input1.prim_cid,input1.event_id,input1.event_time
+      FROM
+        input1
+      WHERE
+        input1.event_id == 17.0 )) AS [T1545][prim_cid, MAX-g_event_id, g_event_id, prim_cid1, event_id, event_time]
+WHERE
+  [T1545].prim_cid == [T1545].prim_cid1
+   AND [T1545].MAX-g_event_id == [T1545].g_event_id
+@anonymous
+[T1545].MAX-g_event_id(NumberVal) | [T1545].prim_cid(NumberVal) | [T1545].event_id(NumberVal) | [T1545].event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[No.13]===============================
+SELECT
+  [T1437].g_event_id,[T1437].prim_cid,[T1437].event_id,[T1437].event_time
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        [T1428].prim_cid,[T1428].MAX-event_id
+      FROM
+        (SELECT
+            [T1427].prim_cid, MAX([T1427].event_id)
+          FROM
+            (input1) AS [T1427][g_event_id, prim_cid, event_id, event_time]
+          GROUP BY
+            [T1427].prim_cid) AS [T1428][prim_cid, MAX-event_id]
+      WHERE
+        [T1428].MAX-event_id == 17.0 )) AS [T1437][g_event_id, prim_cid, event_id, event_time, prim_cid1, MAX-event_id]
+WHERE
+  [T1437].prim_cid == [T1437].prim_cid1
+   AND [T1437].event_id == [T1437].MAX-event_id
+@anonymous
+[T1437].g_event_id(NumberVal) | [T1437].prim_cid(NumberVal) | [T1437].event_id(NumberVal) | [T1437].event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[No.12]===============================
+SELECT
+  [T1425].g_event_id,[T1425].prim_cid,[T1425].event_id,[T1425].event_time
+FROM
+  (( SELECT
+        input1.g_event_id,input1.prim_cid,input1.event_id,input1.event_time
+      FROM
+        input1
+      WHERE
+        input1.event_id == 17.0 ) JOIN (
+      (SELECT
+          [T1415].prim_cid, MAX([T1415].event_id)
+        FROM
+          (input1) AS [T1415][g_event_id, prim_cid, event_id, event_time]
+        GROUP BY
+          [T1415].prim_cid) AS [T1416][prim_cid, MAX-event_id] )) AS [T1425][g_event_id, prim_cid, event_id, event_time, prim_cid1, MAX-event_id]
+WHERE
+  [T1425].prim_cid == [T1425].prim_cid1
+   AND [T1425].event_id == [T1425].MAX-event_id
+@anonymous
+[T1425].g_event_id(NumberVal) | [T1425].prim_cid(NumberVal) | [T1425].event_id(NumberVal) | [T1425].event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[No.11]===============================
+SELECT
+  [T1257].g_event_id,[T1257].prim_cid,[T1257].MAX-event_id,[T1257].event_time
+FROM
+  (( SELECT
+        [T1248].prim_cid,[T1248].MAX-event_id
+      FROM
+        (SELECT
+            [T1247].prim_cid, MAX([T1247].event_id)
+          FROM
+            (input1) AS [T1247][g_event_id, prim_cid, event_id, event_time]
+          GROUP BY
+            [T1247].prim_cid) AS [T1248][prim_cid, MAX-event_id]
+      WHERE
+        [T1248].MAX-event_id == 17.0 ) JOIN (
+      input1 )) AS [T1257][prim_cid, MAX-event_id, g_event_id, prim_cid1, event_id, event_time]
+WHERE
+  [T1257].prim_cid == [T1257].prim_cid1
+   AND [T1257].MAX-event_id == [T1257].event_id
+@anonymous
+[T1257].g_event_id(NumberVal) | [T1257].prim_cid(NumberVal) | [T1257].MAX-event_id(NumberVal) | [T1257].event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[No.10]===============================
+SELECT
+  [T1245].g_event_id,[T1245].prim_cid,[T1245].MAX-event_id,[T1245].event_time
+FROM
+  (( (SELECT
+          [T1235].prim_cid, MAX([T1235].event_id)
+        FROM
+          (input1) AS [T1235][g_event_id, prim_cid, event_id, event_time]
+        GROUP BY
+          [T1235].prim_cid) AS [T1236][prim_cid, MAX-event_id] ) JOIN (
+      SELECT
+        input1.g_event_id,input1.prim_cid,input1.event_id,input1.event_time
+      FROM
+        input1
+      WHERE
+        input1.event_id == 17.0 )) AS [T1245][prim_cid, MAX-event_id, g_event_id, prim_cid1, event_id, event_time]
+WHERE
+  [T1245].prim_cid == [T1245].prim_cid1
+   AND [T1245].MAX-event_id == [T1245].event_id
+@anonymous
+[T1245].g_event_id(NumberVal) | [T1245].prim_cid(NumberVal) | [T1245].MAX-event_id(NumberVal) | [T1245].event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[No.9]===============================
+SELECT
+  [T1065].g_event_id,[T1065].prim_cid,[T1065].event_id,[T1065].event_time
+FROM
+  (( SELECT
+        input1.g_event_id,input1.prim_cid,input1.event_id,input1.event_time
+      FROM
+        input1
+      WHERE
+        input1.event_id == 17.0 ) JOIN (
+      (SELECT
+          [T1055].prim_cid, MAX([T1055].g_event_id)
+        FROM
+          (input1) AS [T1055][g_event_id, prim_cid, event_id, event_time]
+        GROUP BY
+          [T1055].prim_cid) AS [T1056][prim_cid, MAX-g_event_id] )) AS [T1065][g_event_id, prim_cid, event_id, event_time, prim_cid1, MAX-g_event_id]
+WHERE
+  [T1065].prim_cid == [T1065].prim_cid1
+   AND [T1065].g_event_id == [T1065].MAX-g_event_id
+@anonymous
+[T1065].g_event_id(NumberVal) | [T1065].prim_cid(NumberVal) | [T1065].event_id(NumberVal) | [T1065].event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[No.8]===============================
+SELECT
+  [T885].g_event_id,[T885].prim_cid,[T885].event_id,[T885].MAX-event_time
+FROM
+  (( (SELECT
+          [T875].prim_cid, MAX([T875].event_time)
+        FROM
+          (input1) AS [T875][g_event_id, prim_cid, event_id, event_time]
+        GROUP BY
+          [T875].prim_cid) AS [T876][prim_cid, MAX-event_time] ) JOIN (
+      SELECT
+        input1.g_event_id,input1.prim_cid,input1.event_id,input1.event_time
+      FROM
+        input1
+      WHERE
+        input1.event_id == 17.0 )) AS [T885][prim_cid, MAX-event_time, g_event_id, prim_cid1, event_id, event_time]
+WHERE
+  [T885].prim_cid == [T885].prim_cid1
+   AND [T885].MAX-event_time == [T885].event_time
+@anonymous
+[T885].g_event_id(NumberVal) | [T885].prim_cid(NumberVal) | [T885].event_id(NumberVal) | [T885].MAX-event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[No.7]===============================
+SELECT
+  [T825].g_event_id,[T825].prim_cid,[T825].event_id,[T825].event_time
+FROM
+  (( SELECT
+        input1.g_event_id,input1.prim_cid,input1.event_id,input1.event_time
+      FROM
+        input1
+      WHERE
+        input1.event_id == 17.0 ) JOIN (
+      (SELECT
+          [T815].prim_cid, MAX([T815].event_time)
+        FROM
+          (input1) AS [T815][g_event_id, prim_cid, event_id, event_time]
+        GROUP BY
+          [T815].prim_cid) AS [T816][prim_cid, MAX-event_time] )) AS [T825][g_event_id, prim_cid, event_id, event_time, prim_cid1, MAX-event_time]
+WHERE
+  [T825].prim_cid == [T825].prim_cid1
+   AND [T825].event_time == [T825].MAX-event_time
+@anonymous
+[T825].g_event_id(NumberVal) | [T825].prim_cid(NumberVal) | [T825].event_id(NumberVal) | [T825].event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[No.6]===============================
+SELECT
+  [T1401].g_event_id,[T1401].prim_cid,[T1401].event_id,[T1401].event_time
+FROM
+  (( SELECT
+        input1.g_event_id,input1.prim_cid,input1.event_id,input1.event_time
+      FROM
+        input1
+      WHERE
+        input1.event_id == 17.0 ) JOIN (
+      SELECT
+        [T1392].prim_cid,[T1392].MAX-event_id
+      FROM
+        (SELECT
+            [T1391].prim_cid, MAX([T1391].event_id)
+          FROM
+            (input1) AS [T1391][g_event_id, prim_cid, event_id, event_time]
+          GROUP BY
+            [T1391].prim_cid) AS [T1392][prim_cid, MAX-event_id]
+      WHERE
+        [T1392].MAX-event_id == 17.0 )) AS [T1401][g_event_id, prim_cid, event_id, event_time, prim_cid1, MAX-event_id]
+WHERE
+  [T1401].prim_cid == [T1401].prim_cid1
+@anonymous
+[T1401].g_event_id(NumberVal) | [T1401].prim_cid(NumberVal) | [T1401].event_id(NumberVal) | [T1401].event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[No.5]===============================
+SELECT
+  [T1221].g_event_id,[T1221].prim_cid,[T1221].MAX-event_id,[T1221].event_time
+FROM
+  (( SELECT
+        [T1212].prim_cid,[T1212].MAX-event_id
+      FROM
+        (SELECT
+            [T1211].prim_cid, MAX([T1211].event_id)
+          FROM
+            (input1) AS [T1211][g_event_id, prim_cid, event_id, event_time]
+          GROUP BY
+            [T1211].prim_cid) AS [T1212][prim_cid, MAX-event_id]
+      WHERE
+        [T1212].MAX-event_id == 17.0 ) JOIN (
+      SELECT
+        input1.g_event_id,input1.prim_cid,input1.event_id,input1.event_time
+      FROM
+        input1
+      WHERE
+        input1.event_id == 17.0 )) AS [T1221][prim_cid, MAX-event_id, g_event_id, prim_cid1, event_id, event_time]
+WHERE
+  [T1221].prim_cid == [T1221].prim_cid1
+@anonymous
+[T1221].g_event_id(NumberVal) | [T1221].prim_cid(NumberVal) | [T1221].MAX-event_id(NumberVal) | [T1221].event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[No.4]===============================
+SELECT
+  [T1521].MAX-g_event_id,[T1521].prim_cid,[T1521].event_id,[T1521].event_time
+FROM
+  (( (SELECT
+          [T1511].prim_cid, MAX([T1511].g_event_id)
+        FROM
+          (input1) AS [T1511][g_event_id, prim_cid, event_id, event_time]
+        GROUP BY
+          [T1511].prim_cid) AS [T1512][prim_cid, MAX-g_event_id] ) JOIN (
+      SELECT
+        input1.g_event_id,input1.prim_cid,input1.event_id,input1.event_time
+      FROM
+        input1
+      WHERE
+        input1.event_id == 17.0 )) AS [T1521][prim_cid, MAX-g_event_id, g_event_id, prim_cid1, event_id, event_time]
+WHERE
+  [T1521].MAX-g_event_id == [T1521].g_event_id
+@anonymous
+[T1521].MAX-g_event_id(NumberVal) | [T1521].prim_cid(NumberVal) | [T1521].event_id(NumberVal) | [T1521].event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[No.3]===============================
+SELECT
+  [T1041].g_event_id,[T1041].prim_cid,[T1041].event_id,[T1041].event_time
+FROM
+  (( SELECT
+        input1.g_event_id,input1.prim_cid,input1.event_id,input1.event_time
+      FROM
+        input1
+      WHERE
+        input1.event_id == 17.0 ) JOIN (
+      (SELECT
+          [T1031].prim_cid, MAX([T1031].g_event_id)
+        FROM
+          (input1) AS [T1031][g_event_id, prim_cid, event_id, event_time]
+        GROUP BY
+          [T1031].prim_cid) AS [T1032][prim_cid, MAX-g_event_id] )) AS [T1041][g_event_id, prim_cid, event_id, event_time, prim_cid1, MAX-g_event_id]
+WHERE
+  [T1041].g_event_id == [T1041].MAX-g_event_id
+@anonymous
+[T1041].g_event_id(NumberVal) | [T1041].prim_cid(NumberVal) | [T1041].event_id(NumberVal) | [T1041].event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[No.2]===============================
+SELECT
+  [T861].g_event_id,[T861].prim_cid,[T861].event_id,[T861].MAX-event_time
+FROM
+  (( (SELECT
+          [T851].prim_cid, MAX([T851].event_time)
+        FROM
+          (input1) AS [T851][g_event_id, prim_cid, event_id, event_time]
+        GROUP BY
+          [T851].prim_cid) AS [T852][prim_cid, MAX-event_time] ) JOIN (
+      SELECT
+        input1.g_event_id,input1.prim_cid,input1.event_id,input1.event_time
+      FROM
+        input1
+      WHERE
+        input1.event_id == 17.0 )) AS [T861][prim_cid, MAX-event_time, g_event_id, prim_cid1, event_id, event_time]
+WHERE
+  [T861].MAX-event_time == [T861].event_time
+@anonymous
+[T861].g_event_id(NumberVal) | [T861].prim_cid(NumberVal) | [T861].event_id(NumberVal) | [T861].MAX-event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[No.1]===============================
+SELECT
+  [T801].g_event_id,[T801].prim_cid,[T801].event_id,[T801].event_time
+FROM
+  (( SELECT
+        input1.g_event_id,input1.prim_cid,input1.event_id,input1.event_time
+      FROM
+        input1
+      WHERE
+        input1.event_id == 17.0 ) JOIN (
+      (SELECT
+          [T791].prim_cid, MAX([T791].event_time)
+        FROM
+          (input1) AS [T791][g_event_id, prim_cid, event_id, event_time]
+        GROUP BY
+          [T791].prim_cid) AS [T792][prim_cid, MAX-event_time] )) AS [T801][g_event_id, prim_cid, event_id, event_time, prim_cid1, MAX-event_time]
+WHERE
+  [T801].event_time == [T801].MAX-event_time
+@anonymous
+[T801].g_event_id(NumberVal) | [T801].prim_cid(NumberVal) | [T801].event_id(NumberVal) | [T801].event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 1.795s

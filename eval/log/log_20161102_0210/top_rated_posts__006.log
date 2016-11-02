@@ -1,0 +1,250 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/006
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 34 [SymTable]: 35
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1 [SymTable]: 2
+[JOINOnInput] level 1 [SymTable]: 3
+[EnumJoinOnAggr] level 1 [SymTable]: 7
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOINOnInput] level 1 [SymTable]: 5
+[EnumJoinOnAggr] level 1 [SymTable]: 21
+Candidate Tree Number: 10
+[Enumeration Finished]
+[No.10]===============================
+SELECT
+  [T112].Id,[T112].Name,[T112].Other_Columns
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T110].Name, MAX([T110].Id)
+        FROM
+          (input1) AS [T110][Id, Name, Other_Columns]
+        GROUP BY
+          [T110].Name) AS [T111][Name, MAX-Id] )) AS [T112][Id, Name, Other_Columns, Name1, MAX-Id]
+WHERE
+  [T112].Id == [T112].MAX-Id
+   AND [T112].Id >= [T112].MAX-Id
+@anonymous
+[T112].Id(NumberVal) | [T112].Name(StringVal) | [T112].Other_Columns(StringVal) 
+3.0 | A | A_data_3 
+5.0 | B | B_data_2 
+6.0 | C | C_data_1 
+
+[No.9]===============================
+SELECT
+  [T82].MAX-Id,[T82].Name,[T82].Other_Columns
+FROM
+  (( (SELECT
+          [T80].Name, MAX([T80].Id)
+        FROM
+          (input1) AS [T80][Id, Name, Other_Columns]
+        GROUP BY
+          [T80].Name) AS [T81][Name, MAX-Id] ) JOIN (
+      input1 )) AS [T82][Name, MAX-Id, Id, Name1, Other_Columns]
+WHERE
+  [T82].MAX-Id == [T82].Id
+   AND [T82].MAX-Id <= [T82].Id
+@anonymous
+[T82].MAX-Id(NumberVal) | [T82].Name(StringVal) | [T82].Other_Columns(StringVal) 
+3.0 | A | A_data_3 
+5.0 | B | B_data_2 
+6.0 | C | C_data_1 
+
+[No.8]===============================
+SELECT
+  [T106].Id,[T106].Name,[T106].Other_Columns
+FROM
+  (( SELECT
+        input1.Id,input1.Name,input1.Other_Columns
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      (SELECT
+          [T104].Name, MAX([T104].Id)
+        FROM
+          (input1) AS [T104][Id, Name, Other_Columns]
+        GROUP BY
+          [T104].Name) AS [T105][Name, MAX-Id] )) AS [T106][Id, Name, Other_Columns, Name1, MAX-Id]
+WHERE
+  [T106].Id == [T106].MAX-Id
+   AND [T106].Name == [T106].Name1
+@anonymous
+[T106].Id(NumberVal) | [T106].Name(StringVal) | [T106].Other_Columns(StringVal) 
+3.0 | A | A_data_3 
+5.0 | B | B_data_2 
+6.0 | C | C_data_1 
+
+[No.7]===============================
+SELECT
+  [T76].MAX-Id,[T76].Name,[T76].Other_Columns
+FROM
+  (( (SELECT
+          [T74].Name, MAX([T74].Id)
+        FROM
+          (input1) AS [T74][Id, Name, Other_Columns]
+        GROUP BY
+          [T74].Name) AS [T75][Name, MAX-Id] ) JOIN (
+      SELECT
+        input1.Id,input1.Name,input1.Other_Columns
+      FROM
+        input1
+      WHERE
+        True )) AS [T76][Name, MAX-Id, Id, Name1, Other_Columns]
+WHERE
+  [T76].Name == [T76].Name1
+   AND [T76].MAX-Id == [T76].Id
+@anonymous
+[T76].MAX-Id(NumberVal) | [T76].Name(StringVal) | [T76].Other_Columns(StringVal) 
+3.0 | A | A_data_3 
+5.0 | B | B_data_2 
+6.0 | C | C_data_1 
+
+[No.6]===============================
+SELECT
+  [T94].Id,[T94].Name,[T94].Other_Columns
+FROM
+  (( SELECT
+        input1.Id,input1.Name,input1.Other_Columns
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      (SELECT
+          [T92].Name, MAX([T92].Id)
+        FROM
+          (input1) AS [T92][Id, Name, Other_Columns]
+        GROUP BY
+          [T92].Name) AS [T93][Name, MAX-Id] )) AS [T94][Id, Name, Other_Columns, Name1, MAX-Id]
+WHERE
+  [T94].Id == [T94].MAX-Id
+@anonymous
+[T94].Id(NumberVal) | [T94].Name(StringVal) | [T94].Other_Columns(StringVal) 
+3.0 | A | A_data_3 
+5.0 | B | B_data_2 
+6.0 | C | C_data_1 
+
+[No.5]===============================
+SELECT
+  [T64].MAX-Id,[T64].Name,[T64].Other_Columns
+FROM
+  (( (SELECT
+          [T62].Name, MAX([T62].Id)
+        FROM
+          (input1) AS [T62][Id, Name, Other_Columns]
+        GROUP BY
+          [T62].Name) AS [T63][Name, MAX-Id] ) JOIN (
+      SELECT
+        input1.Id,input1.Name,input1.Other_Columns
+      FROM
+        input1
+      WHERE
+        True )) AS [T64][Name, MAX-Id, Id, Name1, Other_Columns]
+WHERE
+  [T64].MAX-Id == [T64].Id
+@anonymous
+[T64].MAX-Id(NumberVal) | [T64].Name(StringVal) | [T64].Other_Columns(StringVal) 
+3.0 | A | A_data_3 
+5.0 | B | B_data_2 
+6.0 | C | C_data_1 
+
+[No.4]===============================
+SELECT
+  [T100].Id,[T100].Name,[T100].Other_Columns
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T98].Name, MAX([T98].Id)
+        FROM
+          (input1) AS [T98][Id, Name, Other_Columns]
+        GROUP BY
+          [T98].Name) AS [T99][Name, MAX-Id] )) AS [T100][Id, Name, Other_Columns, Name1, MAX-Id]
+WHERE
+  [T100].Id == [T100].MAX-Id
+   AND [T100].Name == [T100].Name1
+@anonymous
+[T100].Id(NumberVal) | [T100].Name(StringVal) | [T100].Other_Columns(StringVal) 
+3.0 | A | A_data_3 
+5.0 | B | B_data_2 
+6.0 | C | C_data_1 
+
+[No.3]===============================
+SELECT
+  [T70].MAX-Id,[T70].Name,[T70].Other_Columns
+FROM
+  (( (SELECT
+          [T68].Name, MAX([T68].Id)
+        FROM
+          (input1) AS [T68][Id, Name, Other_Columns]
+        GROUP BY
+          [T68].Name) AS [T69][Name, MAX-Id] ) JOIN (
+      input1 )) AS [T70][Name, MAX-Id, Id, Name1, Other_Columns]
+WHERE
+  [T70].Name == [T70].Name1
+   AND [T70].MAX-Id == [T70].Id
+@anonymous
+[T70].MAX-Id(NumberVal) | [T70].Name(StringVal) | [T70].Other_Columns(StringVal) 
+3.0 | A | A_data_3 
+5.0 | B | B_data_2 
+6.0 | C | C_data_1 
+
+[No.2]===============================
+SELECT
+  [T88].Id,[T88].Name,[T88].Other_Columns
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T86].Name, MAX([T86].Id)
+        FROM
+          (input1) AS [T86][Id, Name, Other_Columns]
+        GROUP BY
+          [T86].Name) AS [T87][Name, MAX-Id] )) AS [T88][Id, Name, Other_Columns, Name1, MAX-Id]
+WHERE
+  [T88].Id == [T88].MAX-Id
+@anonymous
+[T88].Id(NumberVal) | [T88].Name(StringVal) | [T88].Other_Columns(StringVal) 
+3.0 | A | A_data_3 
+5.0 | B | B_data_2 
+6.0 | C | C_data_1 
+
+[No.1]===============================
+SELECT
+  [T58].MAX-Id,[T58].Name,[T58].Other_Columns
+FROM
+  (( (SELECT
+          [T56].Name, MAX([T56].Id)
+        FROM
+          (input1) AS [T56][Id, Name, Other_Columns]
+        GROUP BY
+          [T56].Name) AS [T57][Name, MAX-Id] ) JOIN (
+      input1 )) AS [T58][Name, MAX-Id, Id, Name1, Other_Columns]
+WHERE
+  [T58].MAX-Id == [T58].Id
+@anonymous
+[T58].MAX-Id(NumberVal) | [T58].Name(StringVal) | [T58].Other_Columns(StringVal) 
+3.0 | A | A_data_3 
+5.0 | B | B_data_2 
+6.0 | C | C_data_1 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.323s

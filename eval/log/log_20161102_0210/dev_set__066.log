@@ -1,0 +1,300 @@
+[[Synthesis start]]
+	File: ../data/dev_set/066
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 79 [SymTable]: 80
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOINOnInput] level 1 [SymTable]: 5
+[EnumJoinOnAggr] level 1 [SymTable]: 21
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 14 [SymTable]: 15
+[JOINOnInput] level 1 [SymTable]: 16
+[EnumJoinOnAggr] level 1 [SymTable]: 241
+Candidate Tree Number: 12
+[Enumeration Finished]
+[No.12]===============================
+SELECT
+  [T240].tranid,[T240].item,[T240].MAX-startdate,[T240].enddate
+FROM
+  (( (SELECT
+          [T238].item, MAX([T238].startdate)
+        FROM
+          (input1) AS [T238][tranid, item, startdate, enddate]
+        GROUP BY
+          [T238].item) AS [T239][item, MAX-startdate] ) JOIN (
+      input1 )) AS [T240][item, MAX-startdate, tranid, item1, startdate, enddate]
+WHERE
+  [T240].MAX-startdate == [T240].startdate
+   AND [T240].MAX-startdate <= [T240].startdate
+@anonymous
+[T240].tranid(NumberVal) | [T240].item(StringVal) | [T240].MAX-startdate(DateVal) | [T240].enddate(DateVal) 
+2.0 | A | Mon May 01 00:00:00 PDT 2000 | Wed Feb 02 00:00:00 PST 2005 
+3.0 | B | Wed Jul 08 00:00:00 PDT 2015 | Tue Sep 08 00:00:00 PDT 2015 
+4.0 | C | Tue Apr 10 00:00:00 PDT 2007 | Sun Jul 20 00:00:00 PDT 2008 
+
+[No.11]===============================
+SELECT
+  [T190].tranid,[T190].item,[T190].startdate,[T190].enddate
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T188].item, MAX([T188].startdate)
+        FROM
+          (input1) AS [T188][tranid, item, startdate, enddate]
+        GROUP BY
+          [T188].item) AS [T189][item, MAX-startdate] )) AS [T190][tranid, item, startdate, enddate, item1, MAX-startdate]
+WHERE
+  [T190].startdate >= [T190].MAX-startdate
+   AND [T190].startdate == [T190].MAX-startdate
+@anonymous
+[T190].tranid(NumberVal) | [T190].item(StringVal) | [T190].startdate(DateVal) | [T190].enddate(DateVal) 
+2.0 | A | Mon May 01 00:00:00 PDT 2000 | Wed Feb 02 00:00:00 PST 2005 
+3.0 | B | Wed Jul 08 00:00:00 PDT 2015 | Tue Sep 08 00:00:00 PDT 2015 
+4.0 | C | Tue Apr 10 00:00:00 PDT 2007 | Sun Jul 20 00:00:00 PDT 2008 
+
+[No.10]===============================
+SELECT
+  [T210].MAX-tranid,[T210].item,[T210].MAX-startdate,[T210].enddate
+FROM
+  (( (SELECT
+          [T204].item, [T204].enddate, MAX([T204].tranid)
+        FROM
+          (input1) AS [T204][tranid, item, startdate, enddate]
+        GROUP BY
+          [T204].item  [T204].enddate) AS [T205][item, enddate, MAX-tranid] ) JOIN (
+      (SELECT
+          [T208].item, MAX([T208].startdate)
+        FROM
+          (input1) AS [T208][tranid, item, startdate, enddate]
+        GROUP BY
+          [T208].item) AS [T209][item, MAX-startdate] )) AS [T210][item, enddate, MAX-tranid, item1, MAX-startdate]
+WHERE
+  [T210].item == [T210].item1
+   AND [T210].enddate > [T210].MAX-startdate
+@anonymous
+[T210].MAX-tranid(NumberVal) | [T210].item(StringVal) | [T210].MAX-startdate(DateVal) | [T210].enddate(DateVal) 
+2.0 | A | Mon May 01 00:00:00 PDT 2000 | Wed Feb 02 00:00:00 PST 2005 
+3.0 | B | Wed Jul 08 00:00:00 PDT 2015 | Tue Sep 08 00:00:00 PDT 2015 
+4.0 | C | Tue Apr 10 00:00:00 PDT 2007 | Sun Jul 20 00:00:00 PDT 2008 
+
+[No.9]===============================
+SELECT
+  [T200].MAX-tranid,[T200].item,[T200].MAX-startdate,[T200].enddate
+FROM
+  (( (SELECT
+          [T194].item, MAX([T194].startdate)
+        FROM
+          (input1) AS [T194][tranid, item, startdate, enddate]
+        GROUP BY
+          [T194].item) AS [T195][item, MAX-startdate] ) JOIN (
+      (SELECT
+          [T198].item, [T198].enddate, MAX([T198].tranid)
+        FROM
+          (input1) AS [T198][tranid, item, startdate, enddate]
+        GROUP BY
+          [T198].item  [T198].enddate) AS [T199][item, enddate, MAX-tranid] )) AS [T200][item, MAX-startdate, item1, enddate, MAX-tranid]
+WHERE
+  [T200].item == [T200].item1
+   AND [T200].MAX-startdate < [T200].enddate
+@anonymous
+[T200].MAX-tranid(NumberVal) | [T200].item(StringVal) | [T200].MAX-startdate(DateVal) | [T200].enddate(DateVal) 
+2.0 | A | Mon May 01 00:00:00 PDT 2000 | Wed Feb 02 00:00:00 PST 2005 
+3.0 | B | Wed Jul 08 00:00:00 PDT 2015 | Tue Sep 08 00:00:00 PDT 2015 
+4.0 | C | Tue Apr 10 00:00:00 PDT 2007 | Sun Jul 20 00:00:00 PDT 2008 
+
+[No.8]===============================
+SELECT
+  [T234].tranid,[T234].item,[T234].MAX-startdate,[T234].enddate
+FROM
+  (( (SELECT
+          [T232].item, MAX([T232].startdate)
+        FROM
+          (input1) AS [T232][tranid, item, startdate, enddate]
+        GROUP BY
+          [T232].item) AS [T233][item, MAX-startdate] ) JOIN (
+      SELECT
+        input1.tranid,input1.item,input1.startdate,input1.enddate
+      FROM
+        input1
+      WHERE
+        True )) AS [T234][item, MAX-startdate, tranid, item1, startdate, enddate]
+WHERE
+  [T234].MAX-startdate == [T234].startdate
+   AND [T234].item == [T234].item1
+@anonymous
+[T234].tranid(NumberVal) | [T234].item(StringVal) | [T234].MAX-startdate(DateVal) | [T234].enddate(DateVal) 
+2.0 | A | Mon May 01 00:00:00 PDT 2000 | Wed Feb 02 00:00:00 PST 2005 
+3.0 | B | Wed Jul 08 00:00:00 PDT 2015 | Tue Sep 08 00:00:00 PDT 2015 
+4.0 | C | Tue Apr 10 00:00:00 PDT 2007 | Sun Jul 20 00:00:00 PDT 2008 
+
+[No.7]===============================
+SELECT
+  [T184].tranid,[T184].item,[T184].startdate,[T184].enddate
+FROM
+  (( SELECT
+        input1.tranid,input1.item,input1.startdate,input1.enddate
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      (SELECT
+          [T182].item, MAX([T182].startdate)
+        FROM
+          (input1) AS [T182][tranid, item, startdate, enddate]
+        GROUP BY
+          [T182].item) AS [T183][item, MAX-startdate] )) AS [T184][tranid, item, startdate, enddate, item1, MAX-startdate]
+WHERE
+  [T184].startdate == [T184].MAX-startdate
+   AND [T184].item == [T184].item1
+@anonymous
+[T184].tranid(NumberVal) | [T184].item(StringVal) | [T184].startdate(DateVal) | [T184].enddate(DateVal) 
+2.0 | A | Mon May 01 00:00:00 PDT 2000 | Wed Feb 02 00:00:00 PST 2005 
+3.0 | B | Wed Jul 08 00:00:00 PDT 2015 | Tue Sep 08 00:00:00 PDT 2015 
+4.0 | C | Tue Apr 10 00:00:00 PDT 2007 | Sun Jul 20 00:00:00 PDT 2008 
+
+[No.6]===============================
+SELECT
+  [T222].tranid,[T222].item,[T222].MAX-startdate,[T222].enddate
+FROM
+  (( (SELECT
+          [T220].item, MAX([T220].startdate)
+        FROM
+          (input1) AS [T220][tranid, item, startdate, enddate]
+        GROUP BY
+          [T220].item) AS [T221][item, MAX-startdate] ) JOIN (
+      SELECT
+        input1.tranid,input1.item,input1.startdate,input1.enddate
+      FROM
+        input1
+      WHERE
+        True )) AS [T222][item, MAX-startdate, tranid, item1, startdate, enddate]
+WHERE
+  [T222].MAX-startdate == [T222].startdate
+@anonymous
+[T222].tranid(NumberVal) | [T222].item(StringVal) | [T222].MAX-startdate(DateVal) | [T222].enddate(DateVal) 
+2.0 | A | Mon May 01 00:00:00 PDT 2000 | Wed Feb 02 00:00:00 PST 2005 
+3.0 | B | Wed Jul 08 00:00:00 PDT 2015 | Tue Sep 08 00:00:00 PDT 2015 
+4.0 | C | Tue Apr 10 00:00:00 PDT 2007 | Sun Jul 20 00:00:00 PDT 2008 
+
+[No.5]===============================
+SELECT
+  [T172].tranid,[T172].item,[T172].startdate,[T172].enddate
+FROM
+  (( SELECT
+        input1.tranid,input1.item,input1.startdate,input1.enddate
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      (SELECT
+          [T170].item, MAX([T170].startdate)
+        FROM
+          (input1) AS [T170][tranid, item, startdate, enddate]
+        GROUP BY
+          [T170].item) AS [T171][item, MAX-startdate] )) AS [T172][tranid, item, startdate, enddate, item1, MAX-startdate]
+WHERE
+  [T172].startdate == [T172].MAX-startdate
+@anonymous
+[T172].tranid(NumberVal) | [T172].item(StringVal) | [T172].startdate(DateVal) | [T172].enddate(DateVal) 
+2.0 | A | Mon May 01 00:00:00 PDT 2000 | Wed Feb 02 00:00:00 PST 2005 
+3.0 | B | Wed Jul 08 00:00:00 PDT 2015 | Tue Sep 08 00:00:00 PDT 2015 
+4.0 | C | Tue Apr 10 00:00:00 PDT 2007 | Sun Jul 20 00:00:00 PDT 2008 
+
+[No.4]===============================
+SELECT
+  [T228].tranid,[T228].item,[T228].MAX-startdate,[T228].enddate
+FROM
+  (( (SELECT
+          [T226].item, MAX([T226].startdate)
+        FROM
+          (input1) AS [T226][tranid, item, startdate, enddate]
+        GROUP BY
+          [T226].item) AS [T227][item, MAX-startdate] ) JOIN (
+      input1 )) AS [T228][item, MAX-startdate, tranid, item1, startdate, enddate]
+WHERE
+  [T228].MAX-startdate == [T228].startdate
+   AND [T228].item == [T228].item1
+@anonymous
+[T228].tranid(NumberVal) | [T228].item(StringVal) | [T228].MAX-startdate(DateVal) | [T228].enddate(DateVal) 
+2.0 | A | Mon May 01 00:00:00 PDT 2000 | Wed Feb 02 00:00:00 PST 2005 
+3.0 | B | Wed Jul 08 00:00:00 PDT 2015 | Tue Sep 08 00:00:00 PDT 2015 
+4.0 | C | Tue Apr 10 00:00:00 PDT 2007 | Sun Jul 20 00:00:00 PDT 2008 
+
+[No.3]===============================
+SELECT
+  [T178].tranid,[T178].item,[T178].startdate,[T178].enddate
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T176].item, MAX([T176].startdate)
+        FROM
+          (input1) AS [T176][tranid, item, startdate, enddate]
+        GROUP BY
+          [T176].item) AS [T177][item, MAX-startdate] )) AS [T178][tranid, item, startdate, enddate, item1, MAX-startdate]
+WHERE
+  [T178].startdate == [T178].MAX-startdate
+   AND [T178].item == [T178].item1
+@anonymous
+[T178].tranid(NumberVal) | [T178].item(StringVal) | [T178].startdate(DateVal) | [T178].enddate(DateVal) 
+2.0 | A | Mon May 01 00:00:00 PDT 2000 | Wed Feb 02 00:00:00 PST 2005 
+3.0 | B | Wed Jul 08 00:00:00 PDT 2015 | Tue Sep 08 00:00:00 PDT 2015 
+4.0 | C | Tue Apr 10 00:00:00 PDT 2007 | Sun Jul 20 00:00:00 PDT 2008 
+
+[No.2]===============================
+SELECT
+  [T216].tranid,[T216].item,[T216].MAX-startdate,[T216].enddate
+FROM
+  (( (SELECT
+          [T214].item, MAX([T214].startdate)
+        FROM
+          (input1) AS [T214][tranid, item, startdate, enddate]
+        GROUP BY
+          [T214].item) AS [T215][item, MAX-startdate] ) JOIN (
+      input1 )) AS [T216][item, MAX-startdate, tranid, item1, startdate, enddate]
+WHERE
+  [T216].MAX-startdate == [T216].startdate
+@anonymous
+[T216].tranid(NumberVal) | [T216].item(StringVal) | [T216].MAX-startdate(DateVal) | [T216].enddate(DateVal) 
+2.0 | A | Mon May 01 00:00:00 PDT 2000 | Wed Feb 02 00:00:00 PST 2005 
+3.0 | B | Wed Jul 08 00:00:00 PDT 2015 | Tue Sep 08 00:00:00 PDT 2015 
+4.0 | C | Tue Apr 10 00:00:00 PDT 2007 | Sun Jul 20 00:00:00 PDT 2008 
+
+[No.1]===============================
+SELECT
+  [T166].tranid,[T166].item,[T166].startdate,[T166].enddate
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T164].item, MAX([T164].startdate)
+        FROM
+          (input1) AS [T164][tranid, item, startdate, enddate]
+        GROUP BY
+          [T164].item) AS [T165][item, MAX-startdate] )) AS [T166][tranid, item, startdate, enddate, item1, MAX-startdate]
+WHERE
+  [T166].startdate == [T166].MAX-startdate
+@anonymous
+[T166].tranid(NumberVal) | [T166].item(StringVal) | [T166].startdate(DateVal) | [T166].enddate(DateVal) 
+2.0 | A | Mon May 01 00:00:00 PDT 2000 | Wed Feb 02 00:00:00 PST 2005 
+3.0 | B | Wed Jul 08 00:00:00 PDT 2015 | Tue Sep 08 00:00:00 PDT 2015 
+4.0 | C | Tue Apr 10 00:00:00 PDT 2007 | Sun Jul 20 00:00:00 PDT 2008 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.536s

@@ -1,0 +1,431 @@
+[[Synthesis start]]
+	File: ../data/recent_posts/014
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 90 [SymTable]: 92
+[NaturalJoin]: 1 [SymTable]: 92
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 2 [SymTable]: 4
+[JOINOnInput] level 1 [SymTable]: 8
+[EnumJoinOnAggr] level 1 [SymTable]: 24
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 10 [SymTable]: 12
+[JOINOnInput] level 1 [SymTable]: 16
+[EnumJoinOnAggr] level 1 [SymTable]: 160
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 10 [SymTable]: 12
+[JOINOnInput] level 1 [SymTable]: 16
+[EnumJoinOnAggr] level 1 [SymTable]: 160
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 10 [SymTable]: 12
+[JOINOnInput] level 1 [SymTable]: 16
+[EnumJoinOnAggr] level 1 [SymTable]: 160
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 18 [SymTable]: 20
+[JOINOnInput] level 1 [SymTable]: 24
+[EnumJoinOnAggr] level 1 [SymTable]: 424
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 570 [SymTable]: 572
+[JOINOnInput] level 1 [SymTable]: 576
+[EnumJoinOnAggr] level 1 [SymTable]: 327760
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 90 [SymTable]: 92
+[JOINOnInput] level 1 [SymTable]: 96
+[EnumJoinOnAggr] level 1 [SymTable]: 8560
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 2
+@output
+ID(NumberVal) | NAME(StringVal) | PARENT_ID(NumberVal) 
+1.0 | parent 1 | 1.0 
+1.0 | child 1 | 1.0 
+2.0 | child 2 | 1.0 
+3.0 | child 3 | 1.0 
+4.0 | child 4 | 1.0 
+5.0 | child 5 | 1.0 
+2.0 | parent 2 | 2.0 
+6.0 | child 6 | 2.0 
+7.0 | child 7 | 2.0 
+8.0 | child 8 | 2.0 
+9.0 | child 9 | 2.0 
+10.0 | child 10 | 2.0 
+11.0 | child 11 | 2.0 
+12.0 | child 12 | 2.0 
+13.0 | child 13 | 2.0 
+14.0 | child 14 | 2.0 
+3.0 | parent 3 | 3.0 
+15.0 | child 15 | 3.0 
+16.0 | child 16 | 3.0 
+17.0 | child 17 | 3.0 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 2 [SymTable]: 4
+[JOINOnInput] level 1 [SymTable]: 8
+[JOINOnInput] level 2 [SymTable]: 16
+[JOIN] level 1 [SymTable]: 24
+[UNION] level 1 [SymTable]: 28
+Candidate Tree Number: 10
+[Enumeration Finished]
+[No.10]===============================
+(( SELECT
+      input2.ID,input2.NAME,input2.UNIQUE_ID
+    FROM
+      input2
+    WHERE
+      True ) UNION ALL (
+    SELECT
+      input1.ID,input1.NAME,input1.PARENT_ID
+    FROM
+      input1
+    WHERE
+      True )) AS [T3927][ID, NAME, UNIQUE_ID]
+@anonymous
+[T3927].ID(NumberVal) | [T3927].NAME(StringVal) | [T3927].UNIQUE_ID(NumberVal) 
+1.0 | parent 1 | 1.0 
+2.0 | parent 2 | 2.0 
+3.0 | parent 3 | 3.0 
+1.0 | child 1 | 1.0 
+2.0 | child 2 | 1.0 
+3.0 | child 3 | 1.0 
+4.0 | child 4 | 1.0 
+5.0 | child 5 | 1.0 
+6.0 | child 6 | 2.0 
+7.0 | child 7 | 2.0 
+8.0 | child 8 | 2.0 
+9.0 | child 9 | 2.0 
+10.0 | child 10 | 2.0 
+11.0 | child 11 | 2.0 
+12.0 | child 12 | 2.0 
+13.0 | child 13 | 2.0 
+14.0 | child 14 | 2.0 
+15.0 | child 15 | 3.0 
+16.0 | child 16 | 3.0 
+17.0 | child 17 | 3.0 
+
+[No.9]===============================
+(( SELECT
+      input1.ID,input1.NAME,input1.PARENT_ID
+    FROM
+      input1
+    WHERE
+      True ) UNION ALL (
+    SELECT
+      input2.ID,input2.NAME,input2.UNIQUE_ID
+    FROM
+      input2
+    WHERE
+      True )) AS [T3922][ID, NAME, PARENT_ID]
+@anonymous
+[T3922].ID(NumberVal) | [T3922].NAME(StringVal) | [T3922].PARENT_ID(NumberVal) 
+1.0 | child 1 | 1.0 
+2.0 | child 2 | 1.0 
+3.0 | child 3 | 1.0 
+4.0 | child 4 | 1.0 
+5.0 | child 5 | 1.0 
+6.0 | child 6 | 2.0 
+7.0 | child 7 | 2.0 
+8.0 | child 8 | 2.0 
+9.0 | child 9 | 2.0 
+10.0 | child 10 | 2.0 
+11.0 | child 11 | 2.0 
+12.0 | child 12 | 2.0 
+13.0 | child 13 | 2.0 
+14.0 | child 14 | 2.0 
+15.0 | child 15 | 3.0 
+16.0 | child 16 | 3.0 
+17.0 | child 17 | 3.0 
+1.0 | parent 1 | 1.0 
+2.0 | parent 2 | 2.0 
+3.0 | parent 3 | 3.0 
+
+[No.8]===============================
+(( input2 ) UNION ALL (
+    SELECT
+      input1.ID,input1.NAME,input1.PARENT_ID
+    FROM
+      input1
+    WHERE
+      True )) AS [T3928][ID, NAME, UNIQUE_ID]
+@anonymous
+[T3928].ID(NumberVal) | [T3928].NAME(StringVal) | [T3928].UNIQUE_ID(NumberVal) 
+1.0 | parent 1 | 1.0 
+2.0 | parent 2 | 2.0 
+3.0 | parent 3 | 3.0 
+1.0 | child 1 | 1.0 
+2.0 | child 2 | 1.0 
+3.0 | child 3 | 1.0 
+4.0 | child 4 | 1.0 
+5.0 | child 5 | 1.0 
+6.0 | child 6 | 2.0 
+7.0 | child 7 | 2.0 
+8.0 | child 8 | 2.0 
+9.0 | child 9 | 2.0 
+10.0 | child 10 | 2.0 
+11.0 | child 11 | 2.0 
+12.0 | child 12 | 2.0 
+13.0 | child 13 | 2.0 
+14.0 | child 14 | 2.0 
+15.0 | child 15 | 3.0 
+16.0 | child 16 | 3.0 
+17.0 | child 17 | 3.0 
+
+[No.7]===============================
+(( input2 ) UNION ALL (
+    SELECT
+      input1.ID,input1.NAME,input1.PARENT_ID
+    FROM
+      input1
+    WHERE
+      True )) AS [T3926][ID, NAME, UNIQUE_ID]
+@anonymous
+[T3926].ID(NumberVal) | [T3926].NAME(StringVal) | [T3926].UNIQUE_ID(NumberVal) 
+1.0 | parent 1 | 1.0 
+2.0 | parent 2 | 2.0 
+3.0 | parent 3 | 3.0 
+1.0 | child 1 | 1.0 
+2.0 | child 2 | 1.0 
+3.0 | child 3 | 1.0 
+4.0 | child 4 | 1.0 
+5.0 | child 5 | 1.0 
+6.0 | child 6 | 2.0 
+7.0 | child 7 | 2.0 
+8.0 | child 8 | 2.0 
+9.0 | child 9 | 2.0 
+10.0 | child 10 | 2.0 
+11.0 | child 11 | 2.0 
+12.0 | child 12 | 2.0 
+13.0 | child 13 | 2.0 
+14.0 | child 14 | 2.0 
+15.0 | child 15 | 3.0 
+16.0 | child 16 | 3.0 
+17.0 | child 17 | 3.0 
+
+[No.6]===============================
+(( SELECT
+      input2.ID,input2.NAME,input2.UNIQUE_ID
+    FROM
+      input2
+    WHERE
+      True ) UNION ALL (
+    input1 )) AS [T3925][ID, NAME, UNIQUE_ID]
+@anonymous
+[T3925].ID(NumberVal) | [T3925].NAME(StringVal) | [T3925].UNIQUE_ID(NumberVal) 
+1.0 | parent 1 | 1.0 
+2.0 | parent 2 | 2.0 
+3.0 | parent 3 | 3.0 
+1.0 | child 1 | 1.0 
+2.0 | child 2 | 1.0 
+3.0 | child 3 | 1.0 
+4.0 | child 4 | 1.0 
+5.0 | child 5 | 1.0 
+6.0 | child 6 | 2.0 
+7.0 | child 7 | 2.0 
+8.0 | child 8 | 2.0 
+9.0 | child 9 | 2.0 
+10.0 | child 10 | 2.0 
+11.0 | child 11 | 2.0 
+12.0 | child 12 | 2.0 
+13.0 | child 13 | 2.0 
+14.0 | child 14 | 2.0 
+15.0 | child 15 | 3.0 
+16.0 | child 16 | 3.0 
+17.0 | child 17 | 3.0 
+
+[No.5]===============================
+(( SELECT
+      input1.ID,input1.NAME,input1.PARENT_ID
+    FROM
+      input1
+    WHERE
+      True ) UNION ALL (
+    input2 )) AS [T3923][ID, NAME, PARENT_ID]
+@anonymous
+[T3923].ID(NumberVal) | [T3923].NAME(StringVal) | [T3923].PARENT_ID(NumberVal) 
+1.0 | child 1 | 1.0 
+2.0 | child 2 | 1.0 
+3.0 | child 3 | 1.0 
+4.0 | child 4 | 1.0 
+5.0 | child 5 | 1.0 
+6.0 | child 6 | 2.0 
+7.0 | child 7 | 2.0 
+8.0 | child 8 | 2.0 
+9.0 | child 9 | 2.0 
+10.0 | child 10 | 2.0 
+11.0 | child 11 | 2.0 
+12.0 | child 12 | 2.0 
+13.0 | child 13 | 2.0 
+14.0 | child 14 | 2.0 
+15.0 | child 15 | 3.0 
+16.0 | child 16 | 3.0 
+17.0 | child 17 | 3.0 
+1.0 | parent 1 | 1.0 
+2.0 | parent 2 | 2.0 
+3.0 | parent 3 | 3.0 
+
+[No.4]===============================
+(( input1 ) UNION ALL (
+    SELECT
+      input2.ID,input2.NAME,input2.UNIQUE_ID
+    FROM
+      input2
+    WHERE
+      True )) AS [T3921][ID, NAME, PARENT_ID]
+@anonymous
+[T3921].ID(NumberVal) | [T3921].NAME(StringVal) | [T3921].PARENT_ID(NumberVal) 
+1.0 | child 1 | 1.0 
+2.0 | child 2 | 1.0 
+3.0 | child 3 | 1.0 
+4.0 | child 4 | 1.0 
+5.0 | child 5 | 1.0 
+6.0 | child 6 | 2.0 
+7.0 | child 7 | 2.0 
+8.0 | child 8 | 2.0 
+9.0 | child 9 | 2.0 
+10.0 | child 10 | 2.0 
+11.0 | child 11 | 2.0 
+12.0 | child 12 | 2.0 
+13.0 | child 13 | 2.0 
+14.0 | child 14 | 2.0 
+15.0 | child 15 | 3.0 
+16.0 | child 16 | 3.0 
+17.0 | child 17 | 3.0 
+1.0 | parent 1 | 1.0 
+2.0 | parent 2 | 2.0 
+3.0 | parent 3 | 3.0 
+
+[No.3]===============================
+(( SELECT
+      input1.ID,input1.NAME,input1.PARENT_ID
+    FROM
+      input1
+    WHERE
+      True ) UNION ALL (
+    input2 )) AS [T3920][ID, NAME, PARENT_ID]
+@anonymous
+[T3920].ID(NumberVal) | [T3920].NAME(StringVal) | [T3920].PARENT_ID(NumberVal) 
+1.0 | child 1 | 1.0 
+2.0 | child 2 | 1.0 
+3.0 | child 3 | 1.0 
+4.0 | child 4 | 1.0 
+5.0 | child 5 | 1.0 
+6.0 | child 6 | 2.0 
+7.0 | child 7 | 2.0 
+8.0 | child 8 | 2.0 
+9.0 | child 9 | 2.0 
+10.0 | child 10 | 2.0 
+11.0 | child 11 | 2.0 
+12.0 | child 12 | 2.0 
+13.0 | child 13 | 2.0 
+14.0 | child 14 | 2.0 
+15.0 | child 15 | 3.0 
+16.0 | child 16 | 3.0 
+17.0 | child 17 | 3.0 
+1.0 | parent 1 | 1.0 
+2.0 | parent 2 | 2.0 
+3.0 | parent 3 | 3.0 
+
+[No.2]===============================
+(( input2 ) UNION ALL (
+    input1 )) AS [T3924][ID, NAME, UNIQUE_ID]
+@anonymous
+[T3924].ID(NumberVal) | [T3924].NAME(StringVal) | [T3924].UNIQUE_ID(NumberVal) 
+1.0 | parent 1 | 1.0 
+2.0 | parent 2 | 2.0 
+3.0 | parent 3 | 3.0 
+1.0 | child 1 | 1.0 
+2.0 | child 2 | 1.0 
+3.0 | child 3 | 1.0 
+4.0 | child 4 | 1.0 
+5.0 | child 5 | 1.0 
+6.0 | child 6 | 2.0 
+7.0 | child 7 | 2.0 
+8.0 | child 8 | 2.0 
+9.0 | child 9 | 2.0 
+10.0 | child 10 | 2.0 
+11.0 | child 11 | 2.0 
+12.0 | child 12 | 2.0 
+13.0 | child 13 | 2.0 
+14.0 | child 14 | 2.0 
+15.0 | child 15 | 3.0 
+16.0 | child 16 | 3.0 
+17.0 | child 17 | 3.0 
+
+[No.1]===============================
+(( input1 ) UNION ALL (
+    input2 )) AS [T3919][ID, NAME, PARENT_ID]
+@anonymous
+[T3919].ID(NumberVal) | [T3919].NAME(StringVal) | [T3919].PARENT_ID(NumberVal) 
+1.0 | child 1 | 1.0 
+2.0 | child 2 | 1.0 
+3.0 | child 3 | 1.0 
+4.0 | child 4 | 1.0 
+5.0 | child 5 | 1.0 
+6.0 | child 6 | 2.0 
+7.0 | child 7 | 2.0 
+8.0 | child 8 | 2.0 
+9.0 | child 9 | 2.0 
+10.0 | child 10 | 2.0 
+11.0 | child 11 | 2.0 
+12.0 | child 12 | 2.0 
+13.0 | child 13 | 2.0 
+14.0 | child 14 | 2.0 
+15.0 | child 15 | 3.0 
+16.0 | child 16 | 3.0 
+17.0 | child 17 | 3.0 
+1.0 | parent 1 | 1.0 
+2.0 | parent 2 | 2.0 
+3.0 | parent 3 | 3.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 11.606s

@@ -1,0 +1,487 @@
+[[Synthesis start]]
+	File: ../data/recent_posts/004
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 111 [SymTable]: 112
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOINOnInput] level 1 [SymTable]: 5
+[EnumJoinOnAggr] level 1 [SymTable]: 21
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 18 [SymTable]: 19
+[JOINOnInput] level 1 [SymTable]: 20
+[EnumJoinOnAggr] level 1 [SymTable]: 381
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 18 [SymTable]: 19
+[JOINOnInput] level 1 [SymTable]: 20
+[EnumJoinOnAggr] level 1 [SymTable]: 381
+Candidate Tree Number: 100
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T781].call_ref,[T781].job_num
+FROM
+  (( (SELECT
+          MIN([T779].call_ref)
+        FROM
+          (input1) AS [T779][id, call_ref, job_num]) AS [T780][MIN-call_ref] ) JOIN (
+      SELECT
+        input1.id,input1.call_ref,input1.job_num
+      FROM
+        input1
+      WHERE
+        True )) AS [T781][MIN-call_ref, id, call_ref, job_num]
+WHERE
+  [T781].MIN-call_ref <> [T781].call_ref
+@anonymous
+[T781].call_ref(NumberVal) | [T781].job_num(NumberVal) 
+342537.0 | 0.0 
+876483.0 | 2389.0 
+644686.0 | 5643.0 
+654532.0 | 0.0 
+
+[No.19]===============================
+SELECT
+  [T769].call_ref,[T769].job_num
+FROM
+  (( (SELECT
+          MIN([T767].call_ref)
+        FROM
+          (input1) AS [T767][id, call_ref, job_num]) AS [T768][MIN-call_ref] ) JOIN (
+      SELECT
+        input1.id,input1.call_ref,input1.job_num
+      FROM
+        input1
+      WHERE
+        input1.id < input1.job_num
+         OR input1.job_num == 0.0 )) AS [T769][MIN-call_ref, id, call_ref, job_num]
+WHERE
+  [T769].MIN-call_ref <> [T769].call_ref
+@anonymous
+[T769].call_ref(NumberVal) | [T769].job_num(NumberVal) 
+342537.0 | 0.0 
+876483.0 | 2389.0 
+644686.0 | 5643.0 
+654532.0 | 0.0 
+
+[No.18]===============================
+SELECT
+  [T757].call_ref,[T757].job_num
+FROM
+  (( (SELECT
+          MIN([T755].call_ref)
+        FROM
+          (input1) AS [T755][id, call_ref, job_num]) AS [T756][MIN-call_ref] ) JOIN (
+      SELECT
+        input1.id,input1.call_ref,input1.job_num
+      FROM
+        input1
+      WHERE
+        True )) AS [T757][MIN-call_ref, id, call_ref, job_num]
+WHERE
+  [T757].MIN-call_ref <> [T757].call_ref
+@anonymous
+[T757].call_ref(NumberVal) | [T757].job_num(NumberVal) 
+342537.0 | 0.0 
+876483.0 | 2389.0 
+644686.0 | 5643.0 
+654532.0 | 0.0 
+
+[No.17]===============================
+SELECT
+  [T745].call_ref,[T745].job_num
+FROM
+  (( (SELECT
+          MIN([T743].call_ref)
+        FROM
+          (input1) AS [T743][id, call_ref, job_num]) AS [T744][MIN-call_ref] ) JOIN (
+      SELECT
+        input1.id,input1.call_ref,input1.job_num
+      FROM
+        input1
+      WHERE
+        True )) AS [T745][MIN-call_ref, id, call_ref, job_num]
+WHERE
+  [T745].MIN-call_ref <> [T745].call_ref
+@anonymous
+[T745].call_ref(NumberVal) | [T745].job_num(NumberVal) 
+342537.0 | 0.0 
+876483.0 | 2389.0 
+644686.0 | 5643.0 
+654532.0 | 0.0 
+
+[No.16]===============================
+SELECT
+  [T631].call_ref,[T631].job_num
+FROM
+  (( SELECT
+        input1.id,input1.call_ref,input1.job_num
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      (SELECT
+          MIN([T629].call_ref)
+        FROM
+          (input1) AS [T629][id, call_ref, job_num]) AS [T630][MIN-call_ref] )) AS [T631][id, call_ref, job_num, MIN-call_ref]
+WHERE
+  [T631].call_ref <> [T631].MIN-call_ref
+@anonymous
+[T631].call_ref(NumberVal) | [T631].job_num(NumberVal) 
+342537.0 | 0.0 
+876483.0 | 2389.0 
+644686.0 | 5643.0 
+654532.0 | 0.0 
+
+[No.15]===============================
+SELECT
+  [T619].call_ref,[T619].job_num
+FROM
+  (( SELECT
+        input1.id,input1.call_ref,input1.job_num
+      FROM
+        input1
+      WHERE
+        input1.id < input1.job_num
+         OR input1.job_num == 0.0 ) JOIN (
+      (SELECT
+          MIN([T617].call_ref)
+        FROM
+          (input1) AS [T617][id, call_ref, job_num]) AS [T618][MIN-call_ref] )) AS [T619][id, call_ref, job_num, MIN-call_ref]
+WHERE
+  [T619].call_ref <> [T619].MIN-call_ref
+@anonymous
+[T619].call_ref(NumberVal) | [T619].job_num(NumberVal) 
+342537.0 | 0.0 
+876483.0 | 2389.0 
+644686.0 | 5643.0 
+654532.0 | 0.0 
+
+[No.14]===============================
+SELECT
+  [T607].call_ref,[T607].job_num
+FROM
+  (( SELECT
+        input1.id,input1.call_ref,input1.job_num
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      (SELECT
+          MIN([T605].call_ref)
+        FROM
+          (input1) AS [T605][id, call_ref, job_num]) AS [T606][MIN-call_ref] )) AS [T607][id, call_ref, job_num, MIN-call_ref]
+WHERE
+  [T607].call_ref <> [T607].MIN-call_ref
+@anonymous
+[T607].call_ref(NumberVal) | [T607].job_num(NumberVal) 
+342537.0 | 0.0 
+876483.0 | 2389.0 
+644686.0 | 5643.0 
+654532.0 | 0.0 
+
+[No.13]===============================
+SELECT
+  [T595].call_ref,[T595].job_num
+FROM
+  (( SELECT
+        input1.id,input1.call_ref,input1.job_num
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      (SELECT
+          MIN([T593].call_ref)
+        FROM
+          (input1) AS [T593][id, call_ref, job_num]) AS [T594][MIN-call_ref] )) AS [T595][id, call_ref, job_num, MIN-call_ref]
+WHERE
+  [T595].call_ref <> [T595].MIN-call_ref
+@anonymous
+[T595].call_ref(NumberVal) | [T595].job_num(NumberVal) 
+342537.0 | 0.0 
+876483.0 | 2389.0 
+644686.0 | 5643.0 
+654532.0 | 0.0 
+
+[No.12]===============================
+SELECT
+  [T571].call_ref,[T571].job_num
+FROM
+  (( (SELECT
+          MIN([T569].id)
+        FROM
+          (input1) AS [T569][id, call_ref, job_num]) AS [T570][MIN-id] ) JOIN (
+      SELECT
+        input1.id,input1.call_ref,input1.job_num
+      FROM
+        input1
+      WHERE
+        True )) AS [T571][MIN-id, id, call_ref, job_num]
+WHERE
+  [T571].MIN-id <> [T571].id
+@anonymous
+[T571].call_ref(NumberVal) | [T571].job_num(NumberVal) 
+342537.0 | 0.0 
+876483.0 | 2389.0 
+644686.0 | 5643.0 
+654532.0 | 0.0 
+
+[No.11]===============================
+SELECT
+  [T559].call_ref,[T559].job_num
+FROM
+  (( (SELECT
+          MIN([T557].id)
+        FROM
+          (input1) AS [T557][id, call_ref, job_num]) AS [T558][MIN-id] ) JOIN (
+      SELECT
+        input1.id,input1.call_ref,input1.job_num
+      FROM
+        input1
+      WHERE
+        input1.id < input1.job_num
+         OR input1.job_num == 0.0 )) AS [T559][MIN-id, id, call_ref, job_num]
+WHERE
+  [T559].MIN-id <> [T559].id
+@anonymous
+[T559].call_ref(NumberVal) | [T559].job_num(NumberVal) 
+342537.0 | 0.0 
+876483.0 | 2389.0 
+644686.0 | 5643.0 
+654532.0 | 0.0 
+
+[No.10]===============================
+SELECT
+  [T547].call_ref,[T547].job_num
+FROM
+  (( (SELECT
+          MIN([T545].id)
+        FROM
+          (input1) AS [T545][id, call_ref, job_num]) AS [T546][MIN-id] ) JOIN (
+      SELECT
+        input1.id,input1.call_ref,input1.job_num
+      FROM
+        input1
+      WHERE
+        True )) AS [T547][MIN-id, id, call_ref, job_num]
+WHERE
+  [T547].MIN-id <> [T547].id
+@anonymous
+[T547].call_ref(NumberVal) | [T547].job_num(NumberVal) 
+342537.0 | 0.0 
+876483.0 | 2389.0 
+644686.0 | 5643.0 
+654532.0 | 0.0 
+
+[No.9]===============================
+SELECT
+  [T535].call_ref,[T535].job_num
+FROM
+  (( (SELECT
+          MIN([T533].id)
+        FROM
+          (input1) AS [T533][id, call_ref, job_num]) AS [T534][MIN-id] ) JOIN (
+      SELECT
+        input1.id,input1.call_ref,input1.job_num
+      FROM
+        input1
+      WHERE
+        True )) AS [T535][MIN-id, id, call_ref, job_num]
+WHERE
+  [T535].MIN-id <> [T535].id
+@anonymous
+[T535].call_ref(NumberVal) | [T535].job_num(NumberVal) 
+342537.0 | 0.0 
+876483.0 | 2389.0 
+644686.0 | 5643.0 
+654532.0 | 0.0 
+
+[No.8]===============================
+SELECT
+  [T883].call_ref,[T883].job_num
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          MIN([T881].call_ref)
+        FROM
+          (SELECT
+              input1.id,input1.call_ref,input1.job_num
+            FROM
+              input1
+            WHERE
+              input1.job_num > 0.0) AS [T881][id, call_ref, job_num]) AS [T882][MIN-call_ref] )) AS [T883][id, call_ref, job_num, MIN-call_ref]
+WHERE
+  [T883].call_ref <> [T883].MIN-call_ref
+@anonymous
+[T883].call_ref(NumberVal) | [T883].job_num(NumberVal) 
+342537.0 | 0.0 
+876483.0 | 2389.0 
+644686.0 | 5643.0 
+654532.0 | 0.0 
+
+[No.7]===============================
+SELECT
+  [T733].call_ref,[T733].job_num
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          MIN([T731].id)
+        FROM
+          (SELECT
+              input1.id,input1.call_ref,input1.job_num
+            FROM
+              input1
+            WHERE
+              input1.job_num > 0.0) AS [T731][id, call_ref, job_num]) AS [T732][MIN-id] )) AS [T733][id, call_ref, job_num, MIN-id]
+WHERE
+  [T733].id <> [T733].MIN-id
+@anonymous
+[T733].call_ref(NumberVal) | [T733].job_num(NumberVal) 
+342537.0 | 0.0 
+876483.0 | 2389.0 
+644686.0 | 5643.0 
+654532.0 | 0.0 
+
+[No.6]===============================
+SELECT
+  [T703].call_ref,[T703].job_num
+FROM
+  (( (SELECT
+          MIN([T701].call_ref)
+        FROM
+          (SELECT
+              input1.id,input1.call_ref,input1.job_num
+            FROM
+              input1
+            WHERE
+              input1.job_num > 0.0) AS [T701][id, call_ref, job_num]) AS [T702][MIN-call_ref] ) JOIN (
+      input1 )) AS [T703][MIN-call_ref, id, call_ref, job_num]
+WHERE
+  [T703].MIN-call_ref <> [T703].call_ref
+@anonymous
+[T703].call_ref(NumberVal) | [T703].job_num(NumberVal) 
+342537.0 | 0.0 
+876483.0 | 2389.0 
+644686.0 | 5643.0 
+654532.0 | 0.0 
+
+[No.5]===============================
+SELECT
+  [T673].call_ref,[T673].job_num
+FROM
+  (( (SELECT
+          MIN([T671].id)
+        FROM
+          (SELECT
+              input1.id,input1.call_ref,input1.job_num
+            FROM
+              input1
+            WHERE
+              input1.job_num > 0.0) AS [T671][id, call_ref, job_num]) AS [T672][MIN-id] ) JOIN (
+      input1 )) AS [T673][MIN-id, id, call_ref, job_num]
+WHERE
+  [T673].MIN-id <> [T673].id
+@anonymous
+[T673].call_ref(NumberVal) | [T673].job_num(NumberVal) 
+342537.0 | 0.0 
+876483.0 | 2389.0 
+644686.0 | 5643.0 
+654532.0 | 0.0 
+
+[No.4]===============================
+SELECT
+  [T853].call_ref,[T853].job_num
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          MIN([T851].id)
+        FROM
+          (input1) AS [T851][id, call_ref, job_num]) AS [T852][MIN-id] )) AS [T853][id, call_ref, job_num, MIN-id]
+WHERE
+  [T853].id <> [T853].MIN-id
+@anonymous
+[T853].call_ref(NumberVal) | [T853].job_num(NumberVal) 
+342537.0 | 0.0 
+876483.0 | 2389.0 
+644686.0 | 5643.0 
+654532.0 | 0.0 
+
+[No.3]===============================
+SELECT
+  [T793].call_ref,[T793].job_num
+FROM
+  (( (SELECT
+          MIN([T791].call_ref)
+        FROM
+          (input1) AS [T791][id, call_ref, job_num]) AS [T792][MIN-call_ref] ) JOIN (
+      input1 )) AS [T793][MIN-call_ref, id, call_ref, job_num]
+WHERE
+  [T793].MIN-call_ref <> [T793].call_ref
+@anonymous
+[T793].call_ref(NumberVal) | [T793].job_num(NumberVal) 
+342537.0 | 0.0 
+876483.0 | 2389.0 
+644686.0 | 5643.0 
+654532.0 | 0.0 
+
+[No.2]===============================
+SELECT
+  [T643].call_ref,[T643].job_num
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          MIN([T641].call_ref)
+        FROM
+          (input1) AS [T641][id, call_ref, job_num]) AS [T642][MIN-call_ref] )) AS [T643][id, call_ref, job_num, MIN-call_ref]
+WHERE
+  [T643].call_ref <> [T643].MIN-call_ref
+@anonymous
+[T643].call_ref(NumberVal) | [T643].job_num(NumberVal) 
+342537.0 | 0.0 
+876483.0 | 2389.0 
+644686.0 | 5643.0 
+654532.0 | 0.0 
+
+[No.1]===============================
+SELECT
+  [T583].call_ref,[T583].job_num
+FROM
+  (( (SELECT
+          MIN([T581].id)
+        FROM
+          (input1) AS [T581][id, call_ref, job_num]) AS [T582][MIN-id] ) JOIN (
+      input1 )) AS [T583][MIN-id, id, call_ref, job_num]
+WHERE
+  [T583].MIN-id <> [T583].id
+@anonymous
+[T583].call_ref(NumberVal) | [T583].job_num(NumberVal) 
+342537.0 | 0.0 
+876483.0 | 2389.0 
+644686.0 | 5643.0 
+654532.0 | 0.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 1.004s
