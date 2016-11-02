@@ -1,0 +1,47 @@
+[[Synthesis start]]
+	File: ../data/dev_set/055M
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 108 [SymTable]: 109
+Candidate Tree Number: 2
+[Enumeration Finished]
+[No.2]===============================
+SELECT
+  [T127].Product_ID
+FROM
+  (SELECT
+      [T126].Product_ID, AVG([T126].Client_ID)
+    FROM
+      (input1) AS [T126][Product_ID, Client_ID]
+    GROUP BY
+      [T126].Product_ID) AS [T127][Product_ID, AVG-Client_ID]
+WHERE
+  [T127].AVG-Client_ID == 233.0
+@anonymous
+[T127].Product_ID(NumberVal) 
+22.0 
+23.0 
+
+[No.1]===============================
+SELECT
+  [T117].Product_ID
+FROM
+  (SELECT
+      [T116].Product_ID, MAX([T116].Client_ID)
+    FROM
+      (input1) AS [T116][Product_ID, Client_ID]
+    GROUP BY
+      [T116].Product_ID) AS [T117][Product_ID, MAX-Client_ID]
+WHERE
+  [T117].MAX-Client_ID == 233.0
+@anonymous
+[T117].Product_ID(NumberVal) 
+22.0 
+23.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.211s

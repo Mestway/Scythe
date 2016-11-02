@@ -1,0 +1,563 @@
+[[Synthesis start]]
+	File: ../data/recent_posts/007
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 76 [SymTable]: 77
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 8
+[EnumLeftJoin] level 1 [SymTable]: 8
+[EnumJoinOnAggr] level 1 [SymTable]: 44
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 14 [SymTable]: 15
+[JOIN] level 1 [SymTable]: 30
+[EnumLeftJoin] level 1 [SymTable]: 30
+[EnumJoinOnAggr] level 1 [SymTable]: 275
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 14 [SymTable]: 15
+[JOIN] level 1 [SymTable]: 30
+[EnumLeftJoin] level 1 [SymTable]: 30
+[EnumJoinOnAggr] level 1 [SymTable]: 275
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 14
+[EnumLeftJoin] level 1 [SymTable]: 14
+[EnumJoinOnAggr] level 1 [SymTable]: 83
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 25 [SymTable]: 26
+[JOIN] level 1 [SymTable]: 52
+[EnumLeftJoin] level 1 [SymTable]: 52
+[EnumJoinOnAggr] level 1 [SymTable]: 748
+Candidate Tree Number: 30
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T564].Employee,[T564].MIN-FromDate,[T564].MAX-ToDate,[T564].Code
+FROM
+  (( (SELECT
+          [T558].Employee, [T558].Code, MAX([T558].ToDate)
+        FROM
+          (input1) AS [T558][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T558].Employee  [T558].Code) AS [T559][Employee, Code, MAX-ToDate] ) JOIN (
+      (SELECT
+          [T562].Code, MIN([T562].FromDate)
+        FROM
+          (input1) AS [T562][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T562].Code) AS [T563][Code, MIN-FromDate] )) AS [T564][Employee, Code, MAX-ToDate, Code1, MIN-FromDate]
+WHERE
+  [T564].Code == [T564].Code1
+   AND [T564].Code <= [T564].Code1
+@anonymous
+[T564].Employee(StringVal) | [T564].MIN-FromDate(DateVal) | [T564].MAX-ToDate(DateVal) | [T564].Code(NumberVal) 
+Employee | Fri Jan 01 00:00:00 PST 2016 | Sun Jul 31 00:00:00 PDT 2016 | 4.0 
+Employee | Sun May 01 00:00:00 PDT 2016 | Thu Jun 30 00:00:00 PDT 2016 | 2.0 
+Employee | Tue Mar 01 00:00:00 PST 2016 | Sat Apr 30 00:00:00 PDT 2016 | 3.0 
+
+[No.19]===============================
+SELECT
+  [T554].Employee,[T554].MIN-FromDate,[T554].MAX-ToDate,[T554].Code
+FROM
+  (( (SELECT
+          [T548].Employee, [T548].Code, MAX([T548].ToDate)
+        FROM
+          (input1) AS [T548][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T548].Employee  [T548].Code) AS [T549][Employee, Code, MAX-ToDate] ) JOIN (
+      (SELECT
+          [T552].Code, MIN([T552].FromDate)
+        FROM
+          (input1) AS [T552][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T552].Code) AS [T553][Code, MIN-FromDate] )) AS [T554][Employee, Code, MAX-ToDate, Code1, MIN-FromDate]
+WHERE
+  [T554].Code == [T554].Code1
+   AND [T554].Code >= [T554].Code1
+@anonymous
+[T554].Employee(StringVal) | [T554].MIN-FromDate(DateVal) | [T554].MAX-ToDate(DateVal) | [T554].Code(NumberVal) 
+Employee | Fri Jan 01 00:00:00 PST 2016 | Sun Jul 31 00:00:00 PDT 2016 | 4.0 
+Employee | Sun May 01 00:00:00 PDT 2016 | Thu Jun 30 00:00:00 PDT 2016 | 2.0 
+Employee | Tue Mar 01 00:00:00 PST 2016 | Sat Apr 30 00:00:00 PDT 2016 | 3.0 
+
+[No.18]===============================
+SELECT
+  [T514].Employee,[T514].MIN-FromDate,[T514].MAX-ToDate,[T514].Code
+FROM
+  (( (SELECT
+          [T508].Code, MIN([T508].FromDate)
+        FROM
+          (input1) AS [T508][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T508].Code) AS [T509][Code, MIN-FromDate] ) JOIN (
+      (SELECT
+          [T512].Employee, [T512].Code, MAX([T512].ToDate)
+        FROM
+          (input1) AS [T512][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T512].Employee  [T512].Code) AS [T513][Employee, Code, MAX-ToDate] )) AS [T514][Code, MIN-FromDate, Employee, Code1, MAX-ToDate]
+WHERE
+  [T514].Code == [T514].Code1
+   AND [T514].Code <= [T514].Code1
+@anonymous
+[T514].Employee(StringVal) | [T514].MIN-FromDate(DateVal) | [T514].MAX-ToDate(DateVal) | [T514].Code(NumberVal) 
+Employee | Fri Jan 01 00:00:00 PST 2016 | Sun Jul 31 00:00:00 PDT 2016 | 4.0 
+Employee | Sun May 01 00:00:00 PDT 2016 | Thu Jun 30 00:00:00 PDT 2016 | 2.0 
+Employee | Tue Mar 01 00:00:00 PST 2016 | Sat Apr 30 00:00:00 PDT 2016 | 3.0 
+
+[No.17]===============================
+SELECT
+  [T504].Employee,[T504].MIN-FromDate,[T504].MAX-ToDate,[T504].Code
+FROM
+  (( (SELECT
+          [T498].Code, MIN([T498].FromDate)
+        FROM
+          (input1) AS [T498][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T498].Code) AS [T499][Code, MIN-FromDate] ) JOIN (
+      (SELECT
+          [T502].Employee, [T502].Code, MAX([T502].ToDate)
+        FROM
+          (input1) AS [T502][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T502].Employee  [T502].Code) AS [T503][Employee, Code, MAX-ToDate] )) AS [T504][Code, MIN-FromDate, Employee, Code1, MAX-ToDate]
+WHERE
+  [T504].Code == [T504].Code1
+   AND [T504].Code >= [T504].Code1
+@anonymous
+[T504].Employee(StringVal) | [T504].MIN-FromDate(DateVal) | [T504].MAX-ToDate(DateVal) | [T504].Code(NumberVal) 
+Employee | Fri Jan 01 00:00:00 PST 2016 | Sun Jul 31 00:00:00 PDT 2016 | 4.0 
+Employee | Sun May 01 00:00:00 PDT 2016 | Thu Jun 30 00:00:00 PDT 2016 | 2.0 
+Employee | Tue Mar 01 00:00:00 PST 2016 | Sat Apr 30 00:00:00 PDT 2016 | 3.0 
+
+[No.16]===============================
+SELECT
+  [T474].Employee,[T474].MIN-FromDate,[T474].MAX-ToDate,[T474].Code
+FROM
+  (( (SELECT
+          [T468].Employee, [T468].Code, MIN([T468].FromDate)
+        FROM
+          (input1) AS [T468][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T468].Employee  [T468].Code) AS [T469][Employee, Code, MIN-FromDate] ) JOIN (
+      (SELECT
+          [T472].Employee, [T472].Code, MAX([T472].ToDate)
+        FROM
+          (input1) AS [T472][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T472].Employee  [T472].Code) AS [T473][Employee, Code, MAX-ToDate] )) AS [T474][Employee, Code, MIN-FromDate, Employee1, Code1, MAX-ToDate]
+WHERE
+  [T474].Code == [T474].Code1
+   AND [T474].Code <= [T474].Code1
+@anonymous
+[T474].Employee(StringVal) | [T474].MIN-FromDate(DateVal) | [T474].MAX-ToDate(DateVal) | [T474].Code(NumberVal) 
+Employee | Fri Jan 01 00:00:00 PST 2016 | Sun Jul 31 00:00:00 PDT 2016 | 4.0 
+Employee | Sun May 01 00:00:00 PDT 2016 | Thu Jun 30 00:00:00 PDT 2016 | 2.0 
+Employee | Tue Mar 01 00:00:00 PST 2016 | Sat Apr 30 00:00:00 PDT 2016 | 3.0 
+
+[No.15]===============================
+SELECT
+  [T454].Employee,[T454].MIN-FromDate,[T454].MAX-ToDate,[T454].Code
+FROM
+  (( (SELECT
+          [T448].Employee, [T448].Code, MIN([T448].FromDate)
+        FROM
+          (input1) AS [T448][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T448].Employee  [T448].Code) AS [T449][Employee, Code, MIN-FromDate] ) JOIN (
+      (SELECT
+          [T452].Employee, [T452].Code, MAX([T452].ToDate)
+        FROM
+          (input1) AS [T452][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T452].Employee  [T452].Code) AS [T453][Employee, Code, MAX-ToDate] )) AS [T454][Employee, Code, MIN-FromDate, Employee1, Code1, MAX-ToDate]
+WHERE
+  [T454].Code == [T454].Code1
+   AND [T454].Code >= [T454].Code1
+@anonymous
+[T454].Employee(StringVal) | [T454].MIN-FromDate(DateVal) | [T454].MAX-ToDate(DateVal) | [T454].Code(NumberVal) 
+Employee | Fri Jan 01 00:00:00 PST 2016 | Sun Jul 31 00:00:00 PDT 2016 | 4.0 
+Employee | Sun May 01 00:00:00 PDT 2016 | Thu Jun 30 00:00:00 PDT 2016 | 2.0 
+Employee | Tue Mar 01 00:00:00 PST 2016 | Sat Apr 30 00:00:00 PDT 2016 | 3.0 
+
+[No.14]===============================
+SELECT
+  [T414].Employee,[T414].MIN-FromDate,[T414].MAX-ToDate,[T414].Code
+FROM
+  (( (SELECT
+          [T408].Code, MAX([T408].ToDate)
+        FROM
+          (input1) AS [T408][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T408].Code) AS [T409][Code, MAX-ToDate] ) JOIN (
+      (SELECT
+          [T412].Employee, [T412].Code, MIN([T412].FromDate)
+        FROM
+          (input1) AS [T412][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T412].Employee  [T412].Code) AS [T413][Employee, Code, MIN-FromDate] )) AS [T414][Code, MAX-ToDate, Employee, Code1, MIN-FromDate]
+WHERE
+  [T414].Code == [T414].Code1
+   AND [T414].Code <= [T414].Code1
+@anonymous
+[T414].Employee(StringVal) | [T414].MIN-FromDate(DateVal) | [T414].MAX-ToDate(DateVal) | [T414].Code(NumberVal) 
+Employee | Fri Jan 01 00:00:00 PST 2016 | Sun Jul 31 00:00:00 PDT 2016 | 4.0 
+Employee | Sun May 01 00:00:00 PDT 2016 | Thu Jun 30 00:00:00 PDT 2016 | 2.0 
+Employee | Tue Mar 01 00:00:00 PST 2016 | Sat Apr 30 00:00:00 PDT 2016 | 3.0 
+
+[No.13]===============================
+SELECT
+  [T404].Employee,[T404].MIN-FromDate,[T404].MAX-ToDate,[T404].Code
+FROM
+  (( (SELECT
+          [T398].Code, MAX([T398].ToDate)
+        FROM
+          (input1) AS [T398][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T398].Code) AS [T399][Code, MAX-ToDate] ) JOIN (
+      (SELECT
+          [T402].Employee, [T402].Code, MIN([T402].FromDate)
+        FROM
+          (input1) AS [T402][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T402].Employee  [T402].Code) AS [T403][Employee, Code, MIN-FromDate] )) AS [T404][Code, MAX-ToDate, Employee, Code1, MIN-FromDate]
+WHERE
+  [T404].Code == [T404].Code1
+   AND [T404].Code >= [T404].Code1
+@anonymous
+[T404].Employee(StringVal) | [T404].MIN-FromDate(DateVal) | [T404].MAX-ToDate(DateVal) | [T404].Code(NumberVal) 
+Employee | Fri Jan 01 00:00:00 PST 2016 | Sun Jul 31 00:00:00 PDT 2016 | 4.0 
+Employee | Sun May 01 00:00:00 PDT 2016 | Thu Jun 30 00:00:00 PDT 2016 | 2.0 
+Employee | Tue Mar 01 00:00:00 PST 2016 | Sat Apr 30 00:00:00 PDT 2016 | 3.0 
+
+[No.12]===============================
+SELECT
+  [T674].Employee,[T674].MIN-FromDate,[T674].MAX-ToDate,[T674].Code
+FROM
+  (( (SELECT
+          [T668].Employee, [T668].Code, MIN([T668].FromDate)
+        FROM
+          (input1) AS [T668][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T668].Employee  [T668].Code) AS [T669][Employee, Code, MIN-FromDate] ) JOIN (
+      (SELECT
+          [T672].Code, MAX([T672].ToDate)
+        FROM
+          (input1) AS [T672][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T672].Code) AS [T673][Code, MAX-ToDate] )) AS [T674][Employee, Code, MIN-FromDate, Code1, MAX-ToDate]
+WHERE
+  [T674].Code == [T674].Code1
+   AND [T674].MIN-FromDate < [T674].MAX-ToDate
+@anonymous
+[T674].Employee(StringVal) | [T674].MIN-FromDate(DateVal) | [T674].MAX-ToDate(DateVal) | [T674].Code(NumberVal) 
+Employee | Fri Jan 01 00:00:00 PST 2016 | Sun Jul 31 00:00:00 PDT 2016 | 4.0 
+Employee | Sun May 01 00:00:00 PDT 2016 | Thu Jun 30 00:00:00 PDT 2016 | 2.0 
+Employee | Tue Mar 01 00:00:00 PST 2016 | Sat Apr 30 00:00:00 PDT 2016 | 3.0 
+
+[No.11]===============================
+SELECT
+  [T634].Employee,[T634].MIN-FromDate,[T634].MAX-ToDate,[T634].Code
+FROM
+  (( (SELECT
+          [T628].Employee, [T628].Code, MAX([T628].ToDate)
+        FROM
+          (input1) AS [T628][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T628].Employee  [T628].Code) AS [T629][Employee, Code, MAX-ToDate] ) JOIN (
+      (SELECT
+          [T632].Employee, [T632].Code, MIN([T632].FromDate)
+        FROM
+          (input1) AS [T632][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T632].Employee  [T632].Code) AS [T633][Employee, Code, MIN-FromDate] )) AS [T634][Employee, Code, MAX-ToDate, Employee1, Code1, MIN-FromDate]
+WHERE
+  [T634].Code == [T634].Code1
+   AND [T634].MAX-ToDate > [T634].MIN-FromDate
+@anonymous
+[T634].Employee(StringVal) | [T634].MIN-FromDate(DateVal) | [T634].MAX-ToDate(DateVal) | [T634].Code(NumberVal) 
+Employee | Fri Jan 01 00:00:00 PST 2016 | Sun Jul 31 00:00:00 PDT 2016 | 4.0 
+Employee | Sun May 01 00:00:00 PDT 2016 | Thu Jun 30 00:00:00 PDT 2016 | 2.0 
+Employee | Tue Mar 01 00:00:00 PST 2016 | Sat Apr 30 00:00:00 PDT 2016 | 3.0 
+
+[No.10]===============================
+SELECT
+  [T574].Employee,[T574].MIN-FromDate,[T574].MAX-ToDate,[T574].Code
+FROM
+  (( (SELECT
+          [T568].Employee, [T568].Code, MAX([T568].ToDate)
+        FROM
+          (input1) AS [T568][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T568].Employee  [T568].Code) AS [T569][Employee, Code, MAX-ToDate] ) JOIN (
+      (SELECT
+          [T572].Code, MIN([T572].FromDate)
+        FROM
+          (input1) AS [T572][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T572].Code) AS [T573][Code, MIN-FromDate] )) AS [T574][Employee, Code, MAX-ToDate, Code1, MIN-FromDate]
+WHERE
+  [T574].Code == [T574].Code1
+   AND [T574].MAX-ToDate > [T574].MIN-FromDate
+@anonymous
+[T574].Employee(StringVal) | [T574].MIN-FromDate(DateVal) | [T574].MAX-ToDate(DateVal) | [T574].Code(NumberVal) 
+Employee | Fri Jan 01 00:00:00 PST 2016 | Sun Jul 31 00:00:00 PDT 2016 | 4.0 
+Employee | Sun May 01 00:00:00 PDT 2016 | Thu Jun 30 00:00:00 PDT 2016 | 2.0 
+Employee | Tue Mar 01 00:00:00 PST 2016 | Sat Apr 30 00:00:00 PDT 2016 | 3.0 
+
+[No.9]===============================
+SELECT
+  [T524].Employee,[T524].MIN-FromDate,[T524].MAX-ToDate,[T524].Code
+FROM
+  (( (SELECT
+          [T518].Code, MIN([T518].FromDate)
+        FROM
+          (input1) AS [T518][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T518].Code) AS [T519][Code, MIN-FromDate] ) JOIN (
+      (SELECT
+          [T522].Employee, [T522].Code, MAX([T522].ToDate)
+        FROM
+          (input1) AS [T522][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T522].Employee  [T522].Code) AS [T523][Employee, Code, MAX-ToDate] )) AS [T524][Code, MIN-FromDate, Employee, Code1, MAX-ToDate]
+WHERE
+  [T524].Code == [T524].Code1
+   AND [T524].MIN-FromDate < [T524].MAX-ToDate
+@anonymous
+[T524].Employee(StringVal) | [T524].MIN-FromDate(DateVal) | [T524].MAX-ToDate(DateVal) | [T524].Code(NumberVal) 
+Employee | Fri Jan 01 00:00:00 PST 2016 | Sun Jul 31 00:00:00 PDT 2016 | 4.0 
+Employee | Sun May 01 00:00:00 PDT 2016 | Thu Jun 30 00:00:00 PDT 2016 | 2.0 
+Employee | Tue Mar 01 00:00:00 PST 2016 | Sat Apr 30 00:00:00 PDT 2016 | 3.0 
+
+[No.8]===============================
+SELECT
+  [T484].Employee,[T484].MIN-FromDate,[T484].MAX-ToDate,[T484].Code
+FROM
+  (( (SELECT
+          [T478].Employee, [T478].Code, MIN([T478].FromDate)
+        FROM
+          (input1) AS [T478][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T478].Employee  [T478].Code) AS [T479][Employee, Code, MIN-FromDate] ) JOIN (
+      (SELECT
+          [T482].Employee, [T482].Code, MAX([T482].ToDate)
+        FROM
+          (input1) AS [T482][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T482].Employee  [T482].Code) AS [T483][Employee, Code, MAX-ToDate] )) AS [T484][Employee, Code, MIN-FromDate, Employee1, Code1, MAX-ToDate]
+WHERE
+  [T484].Code == [T484].Code1
+   AND [T484].MIN-FromDate < [T484].MAX-ToDate
+@anonymous
+[T484].Employee(StringVal) | [T484].MIN-FromDate(DateVal) | [T484].MAX-ToDate(DateVal) | [T484].Code(NumberVal) 
+Employee | Fri Jan 01 00:00:00 PST 2016 | Sun Jul 31 00:00:00 PDT 2016 | 4.0 
+Employee | Sun May 01 00:00:00 PDT 2016 | Thu Jun 30 00:00:00 PDT 2016 | 2.0 
+Employee | Tue Mar 01 00:00:00 PST 2016 | Sat Apr 30 00:00:00 PDT 2016 | 3.0 
+
+[No.7]===============================
+SELECT
+  [T424].Employee,[T424].MIN-FromDate,[T424].MAX-ToDate,[T424].Code
+FROM
+  (( (SELECT
+          [T418].Code, MAX([T418].ToDate)
+        FROM
+          (input1) AS [T418][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T418].Code) AS [T419][Code, MAX-ToDate] ) JOIN (
+      (SELECT
+          [T422].Employee, [T422].Code, MIN([T422].FromDate)
+        FROM
+          (input1) AS [T422][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T422].Employee  [T422].Code) AS [T423][Employee, Code, MIN-FromDate] )) AS [T424][Code, MAX-ToDate, Employee, Code1, MIN-FromDate]
+WHERE
+  [T424].Code == [T424].Code1
+   AND [T424].MAX-ToDate > [T424].MIN-FromDate
+@anonymous
+[T424].Employee(StringVal) | [T424].MIN-FromDate(DateVal) | [T424].MAX-ToDate(DateVal) | [T424].Code(NumberVal) 
+Employee | Fri Jan 01 00:00:00 PST 2016 | Sun Jul 31 00:00:00 PDT 2016 | 4.0 
+Employee | Sun May 01 00:00:00 PDT 2016 | Thu Jun 30 00:00:00 PDT 2016 | 2.0 
+Employee | Tue Mar 01 00:00:00 PST 2016 | Sat Apr 30 00:00:00 PDT 2016 | 3.0 
+
+[No.6]===============================
+SELECT
+  [T684].Employee,[T684].MIN-FromDate,[T684].MAX-ToDate,[T684].Code
+FROM
+  (( (SELECT
+          [T678].Employee, [T678].Code, MIN([T678].FromDate)
+        FROM
+          (input1) AS [T678][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T678].Employee  [T678].Code) AS [T679][Employee, Code, MIN-FromDate] ) JOIN (
+      (SELECT
+          [T682].Code, MAX([T682].ToDate)
+        FROM
+          (input1) AS [T682][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T682].Code) AS [T683][Code, MAX-ToDate] )) AS [T684][Employee, Code, MIN-FromDate, Code1, MAX-ToDate]
+WHERE
+  [T684].Code == [T684].Code1
+@anonymous
+[T684].Employee(StringVal) | [T684].MIN-FromDate(DateVal) | [T684].MAX-ToDate(DateVal) | [T684].Code(NumberVal) 
+Employee | Fri Jan 01 00:00:00 PST 2016 | Sun Jul 31 00:00:00 PDT 2016 | 4.0 
+Employee | Sun May 01 00:00:00 PDT 2016 | Thu Jun 30 00:00:00 PDT 2016 | 2.0 
+Employee | Tue Mar 01 00:00:00 PST 2016 | Sat Apr 30 00:00:00 PDT 2016 | 3.0 
+
+[No.5]===============================
+SELECT
+  [T614].Employee,[T614].MIN-FromDate,[T614].MAX-ToDate,[T614].Code
+FROM
+  (( (SELECT
+          [T608].Employee, [T608].Code, MAX([T608].ToDate)
+        FROM
+          (input1) AS [T608][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T608].Employee  [T608].Code) AS [T609][Employee, Code, MAX-ToDate] ) JOIN (
+      (SELECT
+          [T612].Employee, [T612].Code, MIN([T612].FromDate)
+        FROM
+          (input1) AS [T612][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T612].Employee  [T612].Code) AS [T613][Employee, Code, MIN-FromDate] )) AS [T614][Employee, Code, MAX-ToDate, Employee1, Code1, MIN-FromDate]
+WHERE
+  [T614].Code == [T614].Code1
+@anonymous
+[T614].Employee(StringVal) | [T614].MIN-FromDate(DateVal) | [T614].MAX-ToDate(DateVal) | [T614].Code(NumberVal) 
+Employee | Fri Jan 01 00:00:00 PST 2016 | Sun Jul 31 00:00:00 PDT 2016 | 4.0 
+Employee | Sun May 01 00:00:00 PDT 2016 | Thu Jun 30 00:00:00 PDT 2016 | 2.0 
+Employee | Tue Mar 01 00:00:00 PST 2016 | Sat Apr 30 00:00:00 PDT 2016 | 3.0 
+
+[No.4]===============================
+SELECT
+  [T584].Employee,[T584].MIN-FromDate,[T584].MAX-ToDate,[T584].Code
+FROM
+  (( (SELECT
+          [T578].Employee, [T578].Code, MAX([T578].ToDate)
+        FROM
+          (input1) AS [T578][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T578].Employee  [T578].Code) AS [T579][Employee, Code, MAX-ToDate] ) JOIN (
+      (SELECT
+          [T582].Code, MIN([T582].FromDate)
+        FROM
+          (input1) AS [T582][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T582].Code) AS [T583][Code, MIN-FromDate] )) AS [T584][Employee, Code, MAX-ToDate, Code1, MIN-FromDate]
+WHERE
+  [T584].Code == [T584].Code1
+@anonymous
+[T584].Employee(StringVal) | [T584].MIN-FromDate(DateVal) | [T584].MAX-ToDate(DateVal) | [T584].Code(NumberVal) 
+Employee | Fri Jan 01 00:00:00 PST 2016 | Sun Jul 31 00:00:00 PDT 2016 | 4.0 
+Employee | Sun May 01 00:00:00 PDT 2016 | Thu Jun 30 00:00:00 PDT 2016 | 2.0 
+Employee | Tue Mar 01 00:00:00 PST 2016 | Sat Apr 30 00:00:00 PDT 2016 | 3.0 
+
+[No.3]===============================
+SELECT
+  [T534].Employee,[T534].MIN-FromDate,[T534].MAX-ToDate,[T534].Code
+FROM
+  (( (SELECT
+          [T528].Code, MIN([T528].FromDate)
+        FROM
+          (input1) AS [T528][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T528].Code) AS [T529][Code, MIN-FromDate] ) JOIN (
+      (SELECT
+          [T532].Employee, [T532].Code, MAX([T532].ToDate)
+        FROM
+          (input1) AS [T532][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T532].Employee  [T532].Code) AS [T533][Employee, Code, MAX-ToDate] )) AS [T534][Code, MIN-FromDate, Employee, Code1, MAX-ToDate]
+WHERE
+  [T534].Code == [T534].Code1
+@anonymous
+[T534].Employee(StringVal) | [T534].MIN-FromDate(DateVal) | [T534].MAX-ToDate(DateVal) | [T534].Code(NumberVal) 
+Employee | Fri Jan 01 00:00:00 PST 2016 | Sun Jul 31 00:00:00 PDT 2016 | 4.0 
+Employee | Sun May 01 00:00:00 PDT 2016 | Thu Jun 30 00:00:00 PDT 2016 | 2.0 
+Employee | Tue Mar 01 00:00:00 PST 2016 | Sat Apr 30 00:00:00 PDT 2016 | 3.0 
+
+[No.2]===============================
+SELECT
+  [T464].Employee,[T464].MIN-FromDate,[T464].MAX-ToDate,[T464].Code
+FROM
+  (( (SELECT
+          [T458].Employee, [T458].Code, MIN([T458].FromDate)
+        FROM
+          (input1) AS [T458][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T458].Employee  [T458].Code) AS [T459][Employee, Code, MIN-FromDate] ) JOIN (
+      (SELECT
+          [T462].Employee, [T462].Code, MAX([T462].ToDate)
+        FROM
+          (input1) AS [T462][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T462].Employee  [T462].Code) AS [T463][Employee, Code, MAX-ToDate] )) AS [T464][Employee, Code, MIN-FromDate, Employee1, Code1, MAX-ToDate]
+WHERE
+  [T464].Code == [T464].Code1
+@anonymous
+[T464].Employee(StringVal) | [T464].MIN-FromDate(DateVal) | [T464].MAX-ToDate(DateVal) | [T464].Code(NumberVal) 
+Employee | Fri Jan 01 00:00:00 PST 2016 | Sun Jul 31 00:00:00 PDT 2016 | 4.0 
+Employee | Sun May 01 00:00:00 PDT 2016 | Thu Jun 30 00:00:00 PDT 2016 | 2.0 
+Employee | Tue Mar 01 00:00:00 PST 2016 | Sat Apr 30 00:00:00 PDT 2016 | 3.0 
+
+[No.1]===============================
+SELECT
+  [T434].Employee,[T434].MIN-FromDate,[T434].MAX-ToDate,[T434].Code
+FROM
+  (( (SELECT
+          [T428].Code, MAX([T428].ToDate)
+        FROM
+          (input1) AS [T428][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T428].Code) AS [T429][Code, MAX-ToDate] ) JOIN (
+      (SELECT
+          [T432].Employee, [T432].Code, MIN([T432].FromDate)
+        FROM
+          (input1) AS [T432][Employee, FromDate, ToDate, Code]
+        GROUP BY
+          [T432].Employee  [T432].Code) AS [T433][Employee, Code, MIN-FromDate] )) AS [T434][Code, MAX-ToDate, Employee, Code1, MIN-FromDate]
+WHERE
+  [T434].Code == [T434].Code1
+@anonymous
+[T434].Employee(StringVal) | [T434].MIN-FromDate(DateVal) | [T434].MAX-ToDate(DateVal) | [T434].Code(NumberVal) 
+Employee | Fri Jan 01 00:00:00 PST 2016 | Sun Jul 31 00:00:00 PDT 2016 | 4.0 
+Employee | Sun May 01 00:00:00 PDT 2016 | Thu Jun 30 00:00:00 PDT 2016 | 2.0 
+Employee | Tue Mar 01 00:00:00 PST 2016 | Sat Apr 30 00:00:00 PDT 2016 | 3.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 11.090s

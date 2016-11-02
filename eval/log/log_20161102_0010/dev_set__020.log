@@ -1,0 +1,488 @@
+[[Synthesis start]]
+	File: ../data/dev_set/020
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 81 [SymTable]: 82
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 12
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 10 [SymTable]: 11
+[JOIN] level 1 [SymTable]: 22
+Candidate Tree Number: 25
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T309].ARIDNR,[T309].LIEFNR
+FROM
+  (( SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        True )) AS [T309][ARIDNR, LIEFNR, ARIDNR1, LIEFNR1]
+WHERE
+  [T309].LIEFNR <> [T309].LIEFNR1
+   AND [T309].ARIDNR == [T309].ARIDNR1
+@anonymous
+[T309].ARIDNR(NumberVal) | [T309].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[No.19]===============================
+SELECT
+  [T98].ARIDNR,[T98].LIEFNR
+FROM
+  (( SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        True )) AS [T98][ARIDNR, LIEFNR, ARIDNR1, LIEFNR1]
+WHERE
+  [T98].LIEFNR <> [T98].LIEFNR1
+   AND [T98].ARIDNR == [T98].ARIDNR1
+@anonymous
+[T98].ARIDNR(NumberVal) | [T98].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[No.18]===============================
+SELECT
+  [T235].ARIDNR,[T235].LIEFNR
+FROM
+  (( (SELECT
+          MAX([T233].ARIDNR)
+        FROM
+          (SELECT
+              input1.ARIDNR,input1.LIEFNR
+            FROM
+              input1
+            WHERE
+              input1.ARIDNR > 1.0) AS [T233][ARIDNR, LIEFNR]) AS [T234][MAX-ARIDNR] ) JOIN (
+      SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        True )) AS [T235][MAX-ARIDNR, ARIDNR, LIEFNR]
+WHERE
+  [T235].MAX-ARIDNR <> [T235].ARIDNR
+@anonymous
+[T235].ARIDNR(NumberVal) | [T235].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[No.17]===============================
+SELECT
+  [T229].ARIDNR,[T229].LIEFNR
+FROM
+  (( (SELECT
+          MAX([T227].ARIDNR)
+        FROM
+          (SELECT
+              input1.ARIDNR,input1.LIEFNR
+            FROM
+              input1
+            WHERE
+              input1.ARIDNR > 1.0) AS [T227][ARIDNR, LIEFNR]) AS [T228][MAX-ARIDNR] ) JOIN (
+      SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        True )) AS [T229][MAX-ARIDNR, ARIDNR, LIEFNR]
+WHERE
+  [T229].MAX-ARIDNR <> [T229].ARIDNR
+@anonymous
+[T229].ARIDNR(NumberVal) | [T229].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[No.16]===============================
+SELECT
+  [T223].ARIDNR,[T223].LIEFNR
+FROM
+  (( (SELECT
+          MAX([T221].ARIDNR)
+        FROM
+          (SELECT
+              input1.ARIDNR,input1.LIEFNR
+            FROM
+              input1
+            WHERE
+              input1.ARIDNR > 1.0) AS [T221][ARIDNR, LIEFNR]) AS [T222][MAX-ARIDNR] ) JOIN (
+      SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        input1.ARIDNR == 1.0
+         OR input1.ARIDNR > 1.0 )) AS [T223][MAX-ARIDNR, ARIDNR, LIEFNR]
+WHERE
+  [T223].MAX-ARIDNR <> [T223].ARIDNR
+@anonymous
+[T223].ARIDNR(NumberVal) | [T223].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[No.15]===============================
+SELECT
+  [T217].ARIDNR,[T217].LIEFNR
+FROM
+  (( (SELECT
+          MAX([T215].ARIDNR)
+        FROM
+          (SELECT
+              input1.ARIDNR,input1.LIEFNR
+            FROM
+              input1
+            WHERE
+              input1.ARIDNR > 1.0) AS [T215][ARIDNR, LIEFNR]) AS [T216][MAX-ARIDNR] ) JOIN (
+      SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        True )) AS [T217][MAX-ARIDNR, ARIDNR, LIEFNR]
+WHERE
+  [T217].MAX-ARIDNR <> [T217].ARIDNR
+@anonymous
+[T217].ARIDNR(NumberVal) | [T217].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[No.14]===============================
+SELECT
+  [T311].ARIDNR,[T311].LIEFNR
+FROM
+  (( SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T311][ARIDNR, LIEFNR, ARIDNR1, LIEFNR1]
+WHERE
+  [T311].LIEFNR <> [T311].LIEFNR1
+   AND [T311].ARIDNR == [T311].ARIDNR1
+@anonymous
+[T311].ARIDNR(NumberVal) | [T311].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[No.13]===============================
+SELECT
+  [T307].ARIDNR,[T307].LIEFNR
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        True )) AS [T307][ARIDNR, LIEFNR, ARIDNR1, LIEFNR1]
+WHERE
+  [T307].LIEFNR <> [T307].LIEFNR1
+   AND [T307].ARIDNR == [T307].ARIDNR1
+@anonymous
+[T307].ARIDNR(NumberVal) | [T307].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[No.12]===============================
+SELECT
+  [T305].ARIDNR,[T305].LIEFNR
+FROM
+  (( SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T305][ARIDNR, LIEFNR, ARIDNR1, LIEFNR1]
+WHERE
+  [T305].LIEFNR <> [T305].LIEFNR1
+   AND [T305].ARIDNR == [T305].ARIDNR1
+@anonymous
+[T305].ARIDNR(NumberVal) | [T305].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[No.11]===============================
+SELECT
+  [T100].ARIDNR,[T100].LIEFNR
+FROM
+  (( SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T100][ARIDNR, LIEFNR, ARIDNR1, LIEFNR1]
+WHERE
+  [T100].LIEFNR <> [T100].LIEFNR1
+   AND [T100].ARIDNR == [T100].ARIDNR1
+@anonymous
+[T100].ARIDNR(NumberVal) | [T100].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[No.10]===============================
+SELECT
+  [T96].ARIDNR,[T96].LIEFNR
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        True )) AS [T96][ARIDNR, LIEFNR, ARIDNR1, LIEFNR1]
+WHERE
+  [T96].LIEFNR <> [T96].LIEFNR1
+   AND [T96].ARIDNR == [T96].ARIDNR1
+@anonymous
+[T96].ARIDNR(NumberVal) | [T96].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[No.9]===============================
+SELECT
+  [T94].ARIDNR,[T94].LIEFNR
+FROM
+  (( SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T94][ARIDNR, LIEFNR, ARIDNR1, LIEFNR1]
+WHERE
+  [T94].LIEFNR <> [T94].LIEFNR1
+   AND [T94].ARIDNR == [T94].ARIDNR1
+@anonymous
+[T94].ARIDNR(NumberVal) | [T94].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[No.8]===============================
+SELECT
+  [T199].ARIDNR,[T199].LIEFNR
+FROM
+  (( (SELECT
+          MAX([T197].ARIDNR)
+        FROM
+          (input1) AS [T197][ARIDNR, LIEFNR]) AS [T198][MAX-ARIDNR] ) JOIN (
+      SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        True )) AS [T199][MAX-ARIDNR, ARIDNR, LIEFNR]
+WHERE
+  [T199].MAX-ARIDNR <> [T199].ARIDNR
+@anonymous
+[T199].ARIDNR(NumberVal) | [T199].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[No.7]===============================
+SELECT
+  [T187].ARIDNR,[T187].LIEFNR
+FROM
+  (( (SELECT
+          MAX([T185].ARIDNR)
+        FROM
+          (input1) AS [T185][ARIDNR, LIEFNR]) AS [T186][MAX-ARIDNR] ) JOIN (
+      SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        True )) AS [T187][MAX-ARIDNR, ARIDNR, LIEFNR]
+WHERE
+  [T187].MAX-ARIDNR <> [T187].ARIDNR
+@anonymous
+[T187].ARIDNR(NumberVal) | [T187].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[No.6]===============================
+SELECT
+  [T175].ARIDNR,[T175].LIEFNR
+FROM
+  (( (SELECT
+          MAX([T173].ARIDNR)
+        FROM
+          (input1) AS [T173][ARIDNR, LIEFNR]) AS [T174][MAX-ARIDNR] ) JOIN (
+      SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        input1.ARIDNR == 1.0
+         OR input1.ARIDNR > 1.0 )) AS [T175][MAX-ARIDNR, ARIDNR, LIEFNR]
+WHERE
+  [T175].MAX-ARIDNR <> [T175].ARIDNR
+@anonymous
+[T175].ARIDNR(NumberVal) | [T175].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[No.5]===============================
+SELECT
+  [T163].ARIDNR,[T163].LIEFNR
+FROM
+  (( (SELECT
+          MAX([T161].ARIDNR)
+        FROM
+          (input1) AS [T161][ARIDNR, LIEFNR]) AS [T162][MAX-ARIDNR] ) JOIN (
+      SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        True )) AS [T163][MAX-ARIDNR, ARIDNR, LIEFNR]
+WHERE
+  [T163].MAX-ARIDNR <> [T163].ARIDNR
+@anonymous
+[T163].ARIDNR(NumberVal) | [T163].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[No.4]===============================
+SELECT
+  [T241].ARIDNR,[T241].LIEFNR
+FROM
+  (( (SELECT
+          MAX([T239].ARIDNR)
+        FROM
+          (SELECT
+              input1.ARIDNR,input1.LIEFNR
+            FROM
+              input1
+            WHERE
+              input1.ARIDNR > 1.0) AS [T239][ARIDNR, LIEFNR]) AS [T240][MAX-ARIDNR] ) JOIN (
+      input1 )) AS [T241][MAX-ARIDNR, ARIDNR, LIEFNR]
+WHERE
+  [T241].MAX-ARIDNR <> [T241].ARIDNR
+@anonymous
+[T241].ARIDNR(NumberVal) | [T241].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[No.3]===============================
+SELECT
+  [T303].ARIDNR,[T303].LIEFNR
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T303][ARIDNR, LIEFNR, ARIDNR1, LIEFNR1]
+WHERE
+  [T303].LIEFNR <> [T303].LIEFNR1
+   AND [T303].ARIDNR == [T303].ARIDNR1
+@anonymous
+[T303].ARIDNR(NumberVal) | [T303].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[No.2]===============================
+SELECT
+  [T92].ARIDNR,[T92].LIEFNR
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T92][ARIDNR, LIEFNR, ARIDNR1, LIEFNR1]
+WHERE
+  [T92].LIEFNR <> [T92].LIEFNR1
+   AND [T92].ARIDNR == [T92].ARIDNR1
+@anonymous
+[T92].ARIDNR(NumberVal) | [T92].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[No.1]===============================
+SELECT
+  [T211].ARIDNR,[T211].LIEFNR
+FROM
+  (( (SELECT
+          MAX([T209].ARIDNR)
+        FROM
+          (input1) AS [T209][ARIDNR, LIEFNR]) AS [T210][MAX-ARIDNR] ) JOIN (
+      input1 )) AS [T211][MAX-ARIDNR, ARIDNR, LIEFNR]
+WHERE
+  [T211].MAX-ARIDNR <> [T211].ARIDNR
+@anonymous
+[T211].ARIDNR(NumberVal) | [T211].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.369s

@@ -1,0 +1,73 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/048
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 34 [SymTable]: 35
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 4
+[EnumLeftJoin] level 1 [SymTable]: 4
+[EnumJoinOnAggr] level 1 [SymTable]: 20
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 8
+Candidate Tree Number: 2
+[Enumeration Finished]
+[No.2]===============================
+SELECT
+  [T64].CName,[T64].AddressID,[T64].AddressLine
+FROM
+  (( (SELECT
+          MAX([T62].AddressID)
+        FROM
+          (input1) AS [T62][CName, AddressID, AddressLine]) AS [T63][MAX-AddressID] ) JOIN (
+      SELECT
+        input1.CName,input1.AddressID,input1.AddressLine
+      FROM
+        input1
+      WHERE
+        True )) AS [T64][MAX-AddressID, CName, AddressID, AddressLine]
+WHERE
+  [T64].MAX-AddressID <> [T64].AddressID
+@anonymous
+[T64].CName(StringVal) | [T64].AddressID(NumberVal) | [T64].AddressLine(StringVal) 
+John Smith | 123.0 | Nowheresville 
+Jane Doe | 456.0 | Evergreen Terrace 
+Joe Bloggs | 1.0 | Second Ave 
+
+[No.1]===============================
+SELECT
+  [T70].CName,[T70].AddressID,[T70].AddressLine
+FROM
+  (( (SELECT
+          MAX([T68].AddressID)
+        FROM
+          (input1) AS [T68][CName, AddressID, AddressLine]) AS [T69][MAX-AddressID] ) JOIN (
+      input1 )) AS [T70][MAX-AddressID, CName, AddressID, AddressLine]
+WHERE
+  [T70].MAX-AddressID <> [T70].AddressID
+@anonymous
+[T70].CName(StringVal) | [T70].AddressID(NumberVal) | [T70].AddressLine(StringVal) 
+John Smith | 123.0 | Nowheresville 
+Jane Doe | 456.0 | Evergreen Terrace 
+Joe Bloggs | 1.0 | Second Ave 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.373s

@@ -1,0 +1,142 @@
+[[Synthesis start]]
+	File: ../data/dev_set/004
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 34 [SymTable]: 35
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 4
+[EnumLeftJoin] level 1 [SymTable]: 4
+[EnumJoinOnAggr] level 1 [SymTable]: 20
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 8
+Candidate Tree Number: 5
+[Enumeration Finished]
+[No.5]===============================
+SELECT
+  [T88].MAX-Id,[T88].Name,[T88].Other_Columns
+FROM
+  (( (SELECT
+          [T86].Name, MAX([T86].Id)
+        FROM
+          (input1) AS [T86][Id, Name, Other_Columns]
+        GROUP BY
+          [T86].Name) AS [T87][Name, MAX-Id] ) JOIN (
+      input1 )) AS [T88][Name, MAX-Id, Id, Name1, Other_Columns]
+WHERE
+  [T88].MAX-Id == [T88].Id
+   AND [T88].MAX-Id <= [T88].Id
+@anonymous
+[T88].MAX-Id(NumberVal) | [T88].Name(StringVal) | [T88].Other_Columns(StringVal) 
+3.0 | A | A_data_3 
+5.0 | B | B_data_2 
+6.0 | C | C_data_1 
+
+[No.4]===============================
+SELECT
+  [T82].MAX-Id,[T82].Name,[T82].Other_Columns
+FROM
+  (( (SELECT
+          [T80].Name, MAX([T80].Id)
+        FROM
+          (input1) AS [T80][Id, Name, Other_Columns]
+        GROUP BY
+          [T80].Name) AS [T81][Name, MAX-Id] ) JOIN (
+      SELECT
+        input1.Id,input1.Name,input1.Other_Columns
+      FROM
+        input1
+      WHERE
+        True )) AS [T82][Name, MAX-Id, Id, Name1, Other_Columns]
+WHERE
+  [T82].Name == [T82].Name1
+   AND [T82].MAX-Id == [T82].Id
+@anonymous
+[T82].MAX-Id(NumberVal) | [T82].Name(StringVal) | [T82].Other_Columns(StringVal) 
+3.0 | A | A_data_3 
+5.0 | B | B_data_2 
+6.0 | C | C_data_1 
+
+[No.3]===============================
+SELECT
+  [T70].MAX-Id,[T70].Name,[T70].Other_Columns
+FROM
+  (( (SELECT
+          [T68].Name, MAX([T68].Id)
+        FROM
+          (input1) AS [T68][Id, Name, Other_Columns]
+        GROUP BY
+          [T68].Name) AS [T69][Name, MAX-Id] ) JOIN (
+      SELECT
+        input1.Id,input1.Name,input1.Other_Columns
+      FROM
+        input1
+      WHERE
+        True )) AS [T70][Name, MAX-Id, Id, Name1, Other_Columns]
+WHERE
+  [T70].MAX-Id == [T70].Id
+@anonymous
+[T70].MAX-Id(NumberVal) | [T70].Name(StringVal) | [T70].Other_Columns(StringVal) 
+3.0 | A | A_data_3 
+5.0 | B | B_data_2 
+6.0 | C | C_data_1 
+
+[No.2]===============================
+SELECT
+  [T76].MAX-Id,[T76].Name,[T76].Other_Columns
+FROM
+  (( (SELECT
+          [T74].Name, MAX([T74].Id)
+        FROM
+          (input1) AS [T74][Id, Name, Other_Columns]
+        GROUP BY
+          [T74].Name) AS [T75][Name, MAX-Id] ) JOIN (
+      input1 )) AS [T76][Name, MAX-Id, Id, Name1, Other_Columns]
+WHERE
+  [T76].Name == [T76].Name1
+   AND [T76].MAX-Id == [T76].Id
+@anonymous
+[T76].MAX-Id(NumberVal) | [T76].Name(StringVal) | [T76].Other_Columns(StringVal) 
+3.0 | A | A_data_3 
+5.0 | B | B_data_2 
+6.0 | C | C_data_1 
+
+[No.1]===============================
+SELECT
+  [T64].MAX-Id,[T64].Name,[T64].Other_Columns
+FROM
+  (( (SELECT
+          [T62].Name, MAX([T62].Id)
+        FROM
+          (input1) AS [T62][Id, Name, Other_Columns]
+        GROUP BY
+          [T62].Name) AS [T63][Name, MAX-Id] ) JOIN (
+      input1 )) AS [T64][Name, MAX-Id, Id, Name1, Other_Columns]
+WHERE
+  [T64].MAX-Id == [T64].Id
+@anonymous
+[T64].MAX-Id(NumberVal) | [T64].Name(StringVal) | [T64].Other_Columns(StringVal) 
+3.0 | A | A_data_3 
+5.0 | B | B_data_2 
+6.0 | C | C_data_1 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.474s

@@ -1,0 +1,564 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/012
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 458 [SymTable]: 459
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 18 [SymTable]: 19
+[JOIN] level 1 [SymTable]: 38
+[EnumLeftJoin] level 1 [SymTable]: 38
+[EnumJoinOnAggr] level 1 [SymTable]: 513
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 72 [SymTable]: 73
+[JOIN] level 1 [SymTable]: 146
+Candidate Tree Number: 20
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T1022].DocumentID,[T1022].Status,[T1022].DateCreated
+FROM
+  (( (SELECT
+          [T1020].DocumentID, MAX([T1020].ID)
+        FROM
+          (SELECT
+              input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+            FROM
+              input1
+            WHERE
+              input1.ID > input1.DocumentID) AS [T1020][ID, DocumentID, Status, DateCreated]
+        GROUP BY
+          [T1020].DocumentID) AS [T1021][DocumentID, MAX-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+      FROM
+        input1
+      WHERE
+        True )) AS [T1022][DocumentID, MAX-ID, ID, DocumentID1, Status, DateCreated]
+WHERE
+  [T1022].DocumentID == [T1022].DocumentID1
+   AND [T1022].MAX-ID == [T1022].ID
+@anonymous
+[T1022].DocumentID(NumberVal) | [T1022].Status(StringVal) | [T1022].DateCreated(DateVal) 
+1.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+2.0 | S3 | Mon Aug 01 00:00:00 PDT 2011 
+3.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+
+[No.19]===============================
+SELECT
+  [T1016].DocumentID,[T1016].Status,[T1016].DateCreated
+FROM
+  (( (SELECT
+          [T1014].DocumentID, MAX([T1014].ID)
+        FROM
+          (SELECT
+              input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+            FROM
+              input1
+            WHERE
+              input1.ID > input1.DocumentID) AS [T1014][ID, DocumentID, Status, DateCreated]
+        GROUP BY
+          [T1014].DocumentID) AS [T1015][DocumentID, MAX-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+      FROM
+        input1
+      WHERE
+        True )) AS [T1016][DocumentID, MAX-ID, ID, DocumentID1, Status, DateCreated]
+WHERE
+  [T1016].DocumentID == [T1016].DocumentID1
+   AND [T1016].MAX-ID == [T1016].ID
+@anonymous
+[T1016].DocumentID(NumberVal) | [T1016].Status(StringVal) | [T1016].DateCreated(DateVal) 
+1.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+2.0 | S3 | Mon Aug 01 00:00:00 PDT 2011 
+3.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+
+[No.18]===============================
+SELECT
+  [T1004].DocumentID,[T1004].Status,[T1004].DateCreated
+FROM
+  (( (SELECT
+          [T1002].DocumentID, MAX([T1002].ID)
+        FROM
+          (SELECT
+              input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+            FROM
+              input1
+            WHERE
+              input1.ID > input1.DocumentID) AS [T1002][ID, DocumentID, Status, DateCreated]
+        GROUP BY
+          [T1002].DocumentID) AS [T1003][DocumentID, MAX-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+      FROM
+        input1
+      WHERE
+        True )) AS [T1004][DocumentID, MAX-ID, ID, DocumentID1, Status, DateCreated]
+WHERE
+  [T1004].DocumentID == [T1004].DocumentID1
+   AND [T1004].MAX-ID == [T1004].ID
+@anonymous
+[T1004].DocumentID(NumberVal) | [T1004].Status(StringVal) | [T1004].DateCreated(DateVal) 
+1.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+2.0 | S3 | Mon Aug 01 00:00:00 PDT 2011 
+3.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+
+[No.17]===============================
+SELECT
+  [T932].DocumentID,[T932].Status,[T932].MAX-DateCreated
+FROM
+  (( (SELECT
+          [T930].DocumentID, MAX([T930].DateCreated)
+        FROM
+          (SELECT
+              input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+            FROM
+              input1
+            WHERE
+              input1.ID > input1.DocumentID) AS [T930][ID, DocumentID, Status, DateCreated]
+        GROUP BY
+          [T930].DocumentID) AS [T931][DocumentID, MAX-DateCreated] ) JOIN (
+      SELECT
+        input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+      FROM
+        input1
+      WHERE
+        True )) AS [T932][DocumentID, MAX-DateCreated, ID, DocumentID1, Status, DateCreated]
+WHERE
+  [T932].DocumentID == [T932].DocumentID1
+   AND [T932].MAX-DateCreated == [T932].DateCreated
+@anonymous
+[T932].DocumentID(NumberVal) | [T932].Status(StringVal) | [T932].MAX-DateCreated(DateVal) 
+1.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+2.0 | S3 | Mon Aug 01 00:00:00 PDT 2011 
+3.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+
+[No.16]===============================
+SELECT
+  [T926].DocumentID,[T926].Status,[T926].MAX-DateCreated
+FROM
+  (( (SELECT
+          [T924].DocumentID, MAX([T924].DateCreated)
+        FROM
+          (SELECT
+              input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+            FROM
+              input1
+            WHERE
+              input1.ID > input1.DocumentID) AS [T924][ID, DocumentID, Status, DateCreated]
+        GROUP BY
+          [T924].DocumentID) AS [T925][DocumentID, MAX-DateCreated] ) JOIN (
+      SELECT
+        input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+      FROM
+        input1
+      WHERE
+        True )) AS [T926][DocumentID, MAX-DateCreated, ID, DocumentID1, Status, DateCreated]
+WHERE
+  [T926].DocumentID == [T926].DocumentID1
+   AND [T926].MAX-DateCreated == [T926].DateCreated
+@anonymous
+[T926].DocumentID(NumberVal) | [T926].Status(StringVal) | [T926].MAX-DateCreated(DateVal) 
+1.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+2.0 | S3 | Mon Aug 01 00:00:00 PDT 2011 
+3.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+
+[No.15]===============================
+SELECT
+  [T914].DocumentID,[T914].Status,[T914].MAX-DateCreated
+FROM
+  (( (SELECT
+          [T912].DocumentID, MAX([T912].DateCreated)
+        FROM
+          (SELECT
+              input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+            FROM
+              input1
+            WHERE
+              input1.ID > input1.DocumentID) AS [T912][ID, DocumentID, Status, DateCreated]
+        GROUP BY
+          [T912].DocumentID) AS [T913][DocumentID, MAX-DateCreated] ) JOIN (
+      SELECT
+        input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+      FROM
+        input1
+      WHERE
+        True )) AS [T914][DocumentID, MAX-DateCreated, ID, DocumentID1, Status, DateCreated]
+WHERE
+  [T914].DocumentID == [T914].DocumentID1
+   AND [T914].MAX-DateCreated == [T914].DateCreated
+@anonymous
+[T914].DocumentID(NumberVal) | [T914].Status(StringVal) | [T914].MAX-DateCreated(DateVal) 
+1.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+2.0 | S3 | Mon Aug 01 00:00:00 PDT 2011 
+3.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+
+[No.14]===============================
+SELECT
+  [T1010].DocumentID,[T1010].Status,[T1010].DateCreated
+FROM
+  (( (SELECT
+          [T1008].DocumentID, MAX([T1008].ID)
+        FROM
+          (SELECT
+              input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+            FROM
+              input1
+            WHERE
+              input1.ID > input1.DocumentID) AS [T1008][ID, DocumentID, Status, DateCreated]
+        GROUP BY
+          [T1008].DocumentID) AS [T1009][DocumentID, MAX-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+      FROM
+        input1
+      WHERE
+        input1.ID > input1.DocumentID )) AS [T1010][DocumentID, MAX-ID, ID, DocumentID1, Status, DateCreated]
+WHERE
+  [T1010].DocumentID == [T1010].DocumentID1
+   AND [T1010].MAX-ID == [T1010].ID
+@anonymous
+[T1010].DocumentID(NumberVal) | [T1010].Status(StringVal) | [T1010].DateCreated(DateVal) 
+1.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+2.0 | S3 | Mon Aug 01 00:00:00 PDT 2011 
+3.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+
+[No.13]===============================
+SELECT
+  [T920].DocumentID,[T920].Status,[T920].MAX-DateCreated
+FROM
+  (( (SELECT
+          [T918].DocumentID, MAX([T918].DateCreated)
+        FROM
+          (SELECT
+              input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+            FROM
+              input1
+            WHERE
+              input1.ID > input1.DocumentID) AS [T918][ID, DocumentID, Status, DateCreated]
+        GROUP BY
+          [T918].DocumentID) AS [T919][DocumentID, MAX-DateCreated] ) JOIN (
+      SELECT
+        input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+      FROM
+        input1
+      WHERE
+        input1.ID > input1.DocumentID )) AS [T920][DocumentID, MAX-DateCreated, ID, DocumentID1, Status, DateCreated]
+WHERE
+  [T920].DocumentID == [T920].DocumentID1
+   AND [T920].MAX-DateCreated == [T920].DateCreated
+@anonymous
+[T920].DocumentID(NumberVal) | [T920].Status(StringVal) | [T920].MAX-DateCreated(DateVal) 
+1.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+2.0 | S3 | Mon Aug 01 00:00:00 PDT 2011 
+3.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+
+[No.12]===============================
+SELECT
+  [T1082].DocumentID,[T1082].Status,[T1082].MAX-DateCreated
+FROM
+  (( (SELECT
+          [T1080].DocumentID, MAX([T1080].DateCreated)
+        FROM
+          (input1) AS [T1080][ID, DocumentID, Status, DateCreated]
+        GROUP BY
+          [T1080].DocumentID) AS [T1081][DocumentID, MAX-DateCreated] ) JOIN (
+      SELECT
+        input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+      FROM
+        input1
+      WHERE
+        True )) AS [T1082][DocumentID, MAX-DateCreated, ID, DocumentID1, Status, DateCreated]
+WHERE
+  [T1082].DocumentID == [T1082].DocumentID1
+   AND [T1082].MAX-DateCreated == [T1082].DateCreated
+@anonymous
+[T1082].DocumentID(NumberVal) | [T1082].Status(StringVal) | [T1082].MAX-DateCreated(DateVal) 
+1.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+2.0 | S3 | Mon Aug 01 00:00:00 PDT 2011 
+3.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+
+[No.11]===============================
+SELECT
+  [T1070].DocumentID,[T1070].Status,[T1070].MAX-DateCreated
+FROM
+  (( (SELECT
+          [T1068].DocumentID, MAX([T1068].DateCreated)
+        FROM
+          (input1) AS [T1068][ID, DocumentID, Status, DateCreated]
+        GROUP BY
+          [T1068].DocumentID) AS [T1069][DocumentID, MAX-DateCreated] ) JOIN (
+      SELECT
+        input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+      FROM
+        input1
+      WHERE
+        True )) AS [T1070][DocumentID, MAX-DateCreated, ID, DocumentID1, Status, DateCreated]
+WHERE
+  [T1070].DocumentID == [T1070].DocumentID1
+   AND [T1070].MAX-DateCreated == [T1070].DateCreated
+@anonymous
+[T1070].DocumentID(NumberVal) | [T1070].Status(StringVal) | [T1070].MAX-DateCreated(DateVal) 
+1.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+2.0 | S3 | Mon Aug 01 00:00:00 PDT 2011 
+3.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+
+[No.10]===============================
+SELECT
+  [T1046].DocumentID,[T1046].Status,[T1046].MAX-DateCreated
+FROM
+  (( (SELECT
+          [T1044].DocumentID, MAX([T1044].DateCreated)
+        FROM
+          (input1) AS [T1044][ID, DocumentID, Status, DateCreated]
+        GROUP BY
+          [T1044].DocumentID) AS [T1045][DocumentID, MAX-DateCreated] ) JOIN (
+      SELECT
+        input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+      FROM
+        input1
+      WHERE
+        True )) AS [T1046][DocumentID, MAX-DateCreated, ID, DocumentID1, Status, DateCreated]
+WHERE
+  [T1046].DocumentID == [T1046].DocumentID1
+   AND [T1046].MAX-DateCreated == [T1046].DateCreated
+@anonymous
+[T1046].DocumentID(NumberVal) | [T1046].Status(StringVal) | [T1046].MAX-DateCreated(DateVal) 
+1.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+2.0 | S3 | Mon Aug 01 00:00:00 PDT 2011 
+3.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+
+[No.9]===============================
+SELECT
+  [T992].DocumentID,[T992].Status,[T992].DateCreated
+FROM
+  (( (SELECT
+          [T990].DocumentID, MAX([T990].ID)
+        FROM
+          (input1) AS [T990][ID, DocumentID, Status, DateCreated]
+        GROUP BY
+          [T990].DocumentID) AS [T991][DocumentID, MAX-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+      FROM
+        input1
+      WHERE
+        True )) AS [T992][DocumentID, MAX-ID, ID, DocumentID1, Status, DateCreated]
+WHERE
+  [T992].DocumentID == [T992].DocumentID1
+   AND [T992].MAX-ID == [T992].ID
+@anonymous
+[T992].DocumentID(NumberVal) | [T992].Status(StringVal) | [T992].DateCreated(DateVal) 
+1.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+2.0 | S3 | Mon Aug 01 00:00:00 PDT 2011 
+3.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+
+[No.8]===============================
+SELECT
+  [T980].DocumentID,[T980].Status,[T980].DateCreated
+FROM
+  (( (SELECT
+          [T978].DocumentID, MAX([T978].ID)
+        FROM
+          (input1) AS [T978][ID, DocumentID, Status, DateCreated]
+        GROUP BY
+          [T978].DocumentID) AS [T979][DocumentID, MAX-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+      FROM
+        input1
+      WHERE
+        True )) AS [T980][DocumentID, MAX-ID, ID, DocumentID1, Status, DateCreated]
+WHERE
+  [T980].DocumentID == [T980].DocumentID1
+   AND [T980].MAX-ID == [T980].ID
+@anonymous
+[T980].DocumentID(NumberVal) | [T980].Status(StringVal) | [T980].DateCreated(DateVal) 
+1.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+2.0 | S3 | Mon Aug 01 00:00:00 PDT 2011 
+3.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+
+[No.7]===============================
+SELECT
+  [T956].DocumentID,[T956].Status,[T956].DateCreated
+FROM
+  (( (SELECT
+          [T954].DocumentID, MAX([T954].ID)
+        FROM
+          (input1) AS [T954][ID, DocumentID, Status, DateCreated]
+        GROUP BY
+          [T954].DocumentID) AS [T955][DocumentID, MAX-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+      FROM
+        input1
+      WHERE
+        True )) AS [T956][DocumentID, MAX-ID, ID, DocumentID1, Status, DateCreated]
+WHERE
+  [T956].DocumentID == [T956].DocumentID1
+   AND [T956].MAX-ID == [T956].ID
+@anonymous
+[T956].DocumentID(NumberVal) | [T956].Status(StringVal) | [T956].DateCreated(DateVal) 
+1.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+2.0 | S3 | Mon Aug 01 00:00:00 PDT 2011 
+3.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+
+[No.6]===============================
+SELECT
+  [T1058].DocumentID,[T1058].Status,[T1058].MAX-DateCreated
+FROM
+  (( (SELECT
+          [T1056].DocumentID, MAX([T1056].DateCreated)
+        FROM
+          (input1) AS [T1056][ID, DocumentID, Status, DateCreated]
+        GROUP BY
+          [T1056].DocumentID) AS [T1057][DocumentID, MAX-DateCreated] ) JOIN (
+      SELECT
+        input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+      FROM
+        input1
+      WHERE
+        input1.ID > input1.DocumentID )) AS [T1058][DocumentID, MAX-DateCreated, ID, DocumentID1, Status, DateCreated]
+WHERE
+  [T1058].DocumentID == [T1058].DocumentID1
+   AND [T1058].MAX-DateCreated == [T1058].DateCreated
+@anonymous
+[T1058].DocumentID(NumberVal) | [T1058].Status(StringVal) | [T1058].MAX-DateCreated(DateVal) 
+1.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+2.0 | S3 | Mon Aug 01 00:00:00 PDT 2011 
+3.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+
+[No.5]===============================
+SELECT
+  [T998].DocumentID,[T998].Status,[T998].DateCreated
+FROM
+  (( (SELECT
+          [T996].DocumentID, MAX([T996].ID)
+        FROM
+          (SELECT
+              input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+            FROM
+              input1
+            WHERE
+              input1.ID > input1.DocumentID) AS [T996][ID, DocumentID, Status, DateCreated]
+        GROUP BY
+          [T996].DocumentID) AS [T997][DocumentID, MAX-ID] ) JOIN (
+      input1 )) AS [T998][DocumentID, MAX-ID, ID, DocumentID1, Status, DateCreated]
+WHERE
+  [T998].DocumentID == [T998].DocumentID1
+   AND [T998].MAX-ID == [T998].ID
+@anonymous
+[T998].DocumentID(NumberVal) | [T998].Status(StringVal) | [T998].DateCreated(DateVal) 
+1.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+2.0 | S3 | Mon Aug 01 00:00:00 PDT 2011 
+3.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+
+[No.4]===============================
+SELECT
+  [T968].DocumentID,[T968].Status,[T968].DateCreated
+FROM
+  (( (SELECT
+          [T966].DocumentID, MAX([T966].ID)
+        FROM
+          (input1) AS [T966][ID, DocumentID, Status, DateCreated]
+        GROUP BY
+          [T966].DocumentID) AS [T967][DocumentID, MAX-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+      FROM
+        input1
+      WHERE
+        input1.ID > input1.DocumentID )) AS [T968][DocumentID, MAX-ID, ID, DocumentID1, Status, DateCreated]
+WHERE
+  [T968].DocumentID == [T968].DocumentID1
+   AND [T968].MAX-ID == [T968].ID
+@anonymous
+[T968].DocumentID(NumberVal) | [T968].Status(StringVal) | [T968].DateCreated(DateVal) 
+1.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+2.0 | S3 | Mon Aug 01 00:00:00 PDT 2011 
+3.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+
+[No.3]===============================
+SELECT
+  [T908].DocumentID,[T908].Status,[T908].MAX-DateCreated
+FROM
+  (( (SELECT
+          [T906].DocumentID, MAX([T906].DateCreated)
+        FROM
+          (SELECT
+              input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+            FROM
+              input1
+            WHERE
+              input1.ID > input1.DocumentID) AS [T906][ID, DocumentID, Status, DateCreated]
+        GROUP BY
+          [T906].DocumentID) AS [T907][DocumentID, MAX-DateCreated] ) JOIN (
+      input1 )) AS [T908][DocumentID, MAX-DateCreated, ID, DocumentID1, Status, DateCreated]
+WHERE
+  [T908].DocumentID == [T908].DocumentID1
+   AND [T908].MAX-DateCreated == [T908].DateCreated
+@anonymous
+[T908].DocumentID(NumberVal) | [T908].Status(StringVal) | [T908].MAX-DateCreated(DateVal) 
+1.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+2.0 | S3 | Mon Aug 01 00:00:00 PDT 2011 
+3.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+
+[No.2]===============================
+SELECT
+  [T1034].DocumentID,[T1034].Status,[T1034].MAX-DateCreated
+FROM
+  (( (SELECT
+          [T1032].DocumentID, MAX([T1032].DateCreated)
+        FROM
+          (input1) AS [T1032][ID, DocumentID, Status, DateCreated]
+        GROUP BY
+          [T1032].DocumentID) AS [T1033][DocumentID, MAX-DateCreated] ) JOIN (
+      input1 )) AS [T1034][DocumentID, MAX-DateCreated, ID, DocumentID1, Status, DateCreated]
+WHERE
+  [T1034].DocumentID == [T1034].DocumentID1
+   AND [T1034].MAX-DateCreated == [T1034].DateCreated
+@anonymous
+[T1034].DocumentID(NumberVal) | [T1034].Status(StringVal) | [T1034].MAX-DateCreated(DateVal) 
+1.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+2.0 | S3 | Mon Aug 01 00:00:00 PDT 2011 
+3.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+
+[No.1]===============================
+SELECT
+  [T944].DocumentID,[T944].Status,[T944].DateCreated
+FROM
+  (( (SELECT
+          [T942].DocumentID, MAX([T942].ID)
+        FROM
+          (input1) AS [T942][ID, DocumentID, Status, DateCreated]
+        GROUP BY
+          [T942].DocumentID) AS [T943][DocumentID, MAX-ID] ) JOIN (
+      input1 )) AS [T944][DocumentID, MAX-ID, ID, DocumentID1, Status, DateCreated]
+WHERE
+  [T944].DocumentID == [T944].DocumentID1
+   AND [T944].MAX-ID == [T944].ID
+@anonymous
+[T944].DocumentID(NumberVal) | [T944].Status(StringVal) | [T944].DateCreated(DateVal) 
+1.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+2.0 | S3 | Mon Aug 01 00:00:00 PDT 2011 
+3.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 34.213s
