@@ -68,14 +68,15 @@ public class Synthesizer {
 
                     config.setAggrFunctions(funcSet);
 
-                    // guess constants
-                    Set<NumberVal> guessedNumConstants = SynthesizerHelper.guessExtraConstants(config.getAggrFuns(), inputs);
                     EnumConfig tempConfig = config.deepCopy();
-                    tempConfig.addConstVals(guessedNumConstants.stream().collect(Collectors.toSet()));
-
+                    if (!containsDesirableCandidate(candidates)) {
+                        // guess constants
+                        Set<NumberVal> guessedNumConstants = SynthesizerHelper.guessExtraConstants(config.getAggrFuns(), inputs);
+                        tempConfig.addConstVals(guessedNumConstants.stream().collect(Collectors.toSet()));
+                    }
                     candidates.addAll(enumerator.enumProgramWithIO(inputs, output, tempConfig));
 
-                    if (containsDesirableCandidate(candidates)) break;
+                    //if (containsDesirableCandidate(candidates)) break;
                     config.setAggrFunctions(new ArrayList<>());
                 }
                 if (containsDesirableCandidate(candidates)) break;
@@ -107,8 +108,10 @@ public class Synthesizer {
 
                 for (Set<Function<List<Value>, Value>> funcSet : aggreFunctions) {
                     // guess constants
-                    Set<NumberVal> guessedNumConstants = SynthesizerHelper.guessExtraConstants(config.getAggrFuns(), inputs);
-                    config.addConstVals(guessedNumConstants.stream().collect(Collectors.toSet()));
+                    if (!containsDesirableCandidate(candidates)) {
+                        Set<NumberVal> guessedNumConstants = SynthesizerHelper.guessExtraConstants(config.getAggrFuns(), inputs);
+                        config.addConstVals(guessedNumConstants.stream().collect(Collectors.toSet()));
+                    }
                     config.setAggrFunctions(funcSet);
                     candidates.addAll(enumerator.enumProgramWithIO(inputs, output, config));
                     if (containsDesirableCandidate(candidates)) break;
@@ -133,7 +136,7 @@ public class Synthesizer {
             timeUsed = System.currentTimeMillis() - timeStart;
             maxDepth ++;
 
-            if (containsDesirableCandidate(candidates)) break;
+            if (maxDepth > 1 && containsDesirableCandidate(candidates)) break;
         }
 
         candidates.sort((tn1, tn2) -> Double.compare(tn1.estimateAllFilterCost(), tn2.estimateAllFilterCost()));
