@@ -1,0 +1,439 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/021
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 110 [SymTable]: 111
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 4 [SymTable]: 5
+[JOIN] level 1 [SymTable]: 10
+[EnumJoinOnAggr] level 1 [SymTable]: 35
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 17 [SymTable]: 18
+[JOIN] level 1 [SymTable]: 36
+Candidate Tree Number: 26
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 17 [SymTable]: 18
+[JOIN] level 1 [SymTable]: 36
+Candidate Tree Number: 15
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 13 [SymTable]: 14
+[JOIN] level 1 [SymTable]: 28
+Candidate Tree Number: 12
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 30 [SymTable]: 31
+[JOIN] level 1 [SymTable]: 62
+Candidate Tree Number: 41
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 37 [SymTable]: 38
+[JOIN] level 1 [SymTable]: 76
+Candidate Tree Number: 70
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T981].ID,[T981].CHARGEID,[T981].CHARGETYPE,[T981].MAX-SERVICEMONTH
+FROM
+  (( (SELECT
+          [T979].CHARGEID, [T979].CHARGETYPE, MAX([T979].SERVICEMONTH)
+        FROM
+          (input1) AS [T979][ID, CHARGEID, CHARGETYPE, SERVICEMONTH]
+        GROUP BY
+          [T979].CHARGEID  [T979].CHARGETYPE) AS [T980][CHARGEID, CHARGETYPE, MAX-SERVICEMONTH] ) JOIN (
+      input1 )) AS [T981][CHARGEID, CHARGETYPE, MAX-SERVICEMONTH, ID, CHARGEID1, CHARGETYPE1, SERVICEMONTH]
+WHERE
+  [T981].MAX-SERVICEMONTH == [T981].SERVICEMONTH
+   AND [T981].CHARGEID == [T981].CHARGEID1
+@anonymous
+[T981].ID(NumberVal) | [T981].CHARGEID(NumberVal) | [T981].CHARGETYPE(StringVal) | [T981].MAX-SERVICEMONTH(DateVal) 
+1.0 | 101.0 | R | Fri Aug 01 00:00:00 PDT 2008 
+2.0 | 161.0 | N | Fri Feb 01 00:00:00 PST 2008 
+
+[No.19]===============================
+SELECT
+  [T975].ID,[T975].CHARGEID,[T975].CHARGETYPE,[T975].MAX-SERVICEMONTH
+FROM
+  (( (SELECT
+          [T973].CHARGETYPE, MAX([T973].SERVICEMONTH)
+        FROM
+          (input1) AS [T973][ID, CHARGEID, CHARGETYPE, SERVICEMONTH]
+        GROUP BY
+          [T973].CHARGETYPE) AS [T974][CHARGETYPE, MAX-SERVICEMONTH] ) JOIN (
+      input1 )) AS [T975][CHARGETYPE, MAX-SERVICEMONTH, ID, CHARGEID, CHARGETYPE1, SERVICEMONTH]
+WHERE
+  [T975].MAX-SERVICEMONTH == [T975].SERVICEMONTH
+   AND [T975].CHARGETYPE == [T975].CHARGETYPE1
+@anonymous
+[T975].ID(NumberVal) | [T975].CHARGEID(NumberVal) | [T975].CHARGETYPE(StringVal) | [T975].MAX-SERVICEMONTH(DateVal) 
+1.0 | 101.0 | R | Fri Aug 01 00:00:00 PDT 2008 
+2.0 | 161.0 | N | Fri Feb 01 00:00:00 PST 2008 
+
+[No.18]===============================
+SELECT
+  [T816].MIN-ID,[T816].CHARGEID,[T816].CHARGETYPE,[T816].SERVICEMONTH
+FROM
+  (( (SELECT
+          [T814].CHARGETYPE, MIN([T814].ID)
+        FROM
+          (input1) AS [T814][ID, CHARGEID, CHARGETYPE, SERVICEMONTH]
+        GROUP BY
+          [T814].CHARGETYPE) AS [T815][CHARGETYPE, MIN-ID] ) JOIN (
+      input1 )) AS [T816][CHARGETYPE, MIN-ID, ID, CHARGEID, CHARGETYPE1, SERVICEMONTH]
+WHERE
+  [T816].MIN-ID == [T816].ID
+   AND [T816].CHARGETYPE == [T816].CHARGETYPE1
+@anonymous
+[T816].MIN-ID(NumberVal) | [T816].CHARGEID(NumberVal) | [T816].CHARGETYPE(StringVal) | [T816].SERVICEMONTH(DateVal) 
+1.0 | 101.0 | R | Fri Aug 01 00:00:00 PDT 2008 
+2.0 | 161.0 | N | Fri Feb 01 00:00:00 PST 2008 
+
+[No.17]===============================
+SELECT
+  [T774].ID,[T774].CHARGEID,[T774].CHARGETYPE,[T774].MAX-SERVICEMONTH
+FROM
+  (( (SELECT
+          [T772].CHARGEID, [T772].CHARGETYPE, MAX([T772].SERVICEMONTH)
+        FROM
+          (input1) AS [T772][ID, CHARGEID, CHARGETYPE, SERVICEMONTH]
+        GROUP BY
+          [T772].CHARGEID  [T772].CHARGETYPE) AS [T773][CHARGEID, CHARGETYPE, MAX-SERVICEMONTH] ) JOIN (
+      input1 )) AS [T774][CHARGEID, CHARGETYPE, MAX-SERVICEMONTH, ID, CHARGEID1, CHARGETYPE1, SERVICEMONTH]
+WHERE
+  [T774].MAX-SERVICEMONTH == [T774].SERVICEMONTH
+   AND [T774].CHARGEID == [T774].CHARGEID1
+@anonymous
+[T774].ID(NumberVal) | [T774].CHARGEID(NumberVal) | [T774].CHARGETYPE(StringVal) | [T774].MAX-SERVICEMONTH(DateVal) 
+1.0 | 101.0 | R | Fri Aug 01 00:00:00 PDT 2008 
+2.0 | 161.0 | N | Fri Feb 01 00:00:00 PST 2008 
+
+[No.16]===============================
+SELECT
+  [T768].ID,[T768].CHARGEID,[T768].CHARGETYPE,[T768].MAX-SERVICEMONTH
+FROM
+  (( (SELECT
+          [T766].CHARGETYPE, MAX([T766].SERVICEMONTH)
+        FROM
+          (input1) AS [T766][ID, CHARGEID, CHARGETYPE, SERVICEMONTH]
+        GROUP BY
+          [T766].CHARGETYPE) AS [T767][CHARGETYPE, MAX-SERVICEMONTH] ) JOIN (
+      input1 )) AS [T768][CHARGETYPE, MAX-SERVICEMONTH, ID, CHARGEID, CHARGETYPE1, SERVICEMONTH]
+WHERE
+  [T768].MAX-SERVICEMONTH == [T768].SERVICEMONTH
+   AND [T768].CHARGETYPE == [T768].CHARGETYPE1
+@anonymous
+[T768].ID(NumberVal) | [T768].CHARGEID(NumberVal) | [T768].CHARGETYPE(StringVal) | [T768].MAX-SERVICEMONTH(DateVal) 
+1.0 | 101.0 | R | Fri Aug 01 00:00:00 PDT 2008 
+2.0 | 161.0 | N | Fri Feb 01 00:00:00 PST 2008 
+
+[No.15]===============================
+SELECT
+  [T732].MIN-ID,[T732].CHARGEID,[T732].CHARGETYPE,[T732].SERVICEMONTH
+FROM
+  (( (SELECT
+          [T730].CHARGEID, MIN([T730].ID)
+        FROM
+          (input1) AS [T730][ID, CHARGEID, CHARGETYPE, SERVICEMONTH]
+        GROUP BY
+          [T730].CHARGEID) AS [T731][CHARGEID, MIN-ID] ) JOIN (
+      input1 )) AS [T732][CHARGEID, MIN-ID, ID, CHARGEID1, CHARGETYPE, SERVICEMONTH]
+WHERE
+  [T732].MIN-ID == [T732].ID
+   AND [T732].CHARGEID == [T732].CHARGEID1
+@anonymous
+[T732].MIN-ID(NumberVal) | [T732].CHARGEID(NumberVal) | [T732].CHARGETYPE(StringVal) | [T732].SERVICEMONTH(DateVal) 
+1.0 | 101.0 | R | Fri Aug 01 00:00:00 PDT 2008 
+2.0 | 161.0 | N | Fri Feb 01 00:00:00 PST 2008 
+
+[No.14]===============================
+SELECT
+  [T702].MIN-ID,[T702].CHARGEID,[T702].CHARGETYPE,[T702].SERVICEMONTH
+FROM
+  (( (SELECT
+          [T700].CHARGEID, [T700].CHARGETYPE, MIN([T700].ID)
+        FROM
+          (input1) AS [T700][ID, CHARGEID, CHARGETYPE, SERVICEMONTH]
+        GROUP BY
+          [T700].CHARGEID  [T700].CHARGETYPE) AS [T701][CHARGEID, CHARGETYPE, MIN-ID] ) JOIN (
+      input1 )) AS [T702][CHARGEID, CHARGETYPE, MIN-ID, ID, CHARGEID1, CHARGETYPE1, SERVICEMONTH]
+WHERE
+  [T702].MIN-ID == [T702].ID
+   AND [T702].CHARGEID == [T702].CHARGEID1
+@anonymous
+[T702].MIN-ID(NumberVal) | [T702].CHARGEID(NumberVal) | [T702].CHARGETYPE(StringVal) | [T702].SERVICEMONTH(DateVal) 
+1.0 | 101.0 | R | Fri Aug 01 00:00:00 PDT 2008 
+2.0 | 161.0 | N | Fri Feb 01 00:00:00 PST 2008 
+
+[No.13]===============================
+SELECT
+  [T660].ID,[T660].CHARGEID,[T660].CHARGETYPE,[T660].MAX-SERVICEMONTH
+FROM
+  (( (SELECT
+          [T658].CHARGEID, MAX([T658].SERVICEMONTH)
+        FROM
+          (input1) AS [T658][ID, CHARGEID, CHARGETYPE, SERVICEMONTH]
+        GROUP BY
+          [T658].CHARGEID) AS [T659][CHARGEID, MAX-SERVICEMONTH] ) JOIN (
+      input1 )) AS [T660][CHARGEID, MAX-SERVICEMONTH, ID, CHARGEID1, CHARGETYPE, SERVICEMONTH]
+WHERE
+  [T660].MAX-SERVICEMONTH == [T660].SERVICEMONTH
+   AND [T660].CHARGEID == [T660].CHARGEID1
+@anonymous
+[T660].ID(NumberVal) | [T660].CHARGEID(NumberVal) | [T660].CHARGETYPE(StringVal) | [T660].MAX-SERVICEMONTH(DateVal) 
+1.0 | 101.0 | R | Fri Aug 01 00:00:00 PDT 2008 
+2.0 | 161.0 | N | Fri Feb 01 00:00:00 PST 2008 
+
+[No.12]===============================
+SELECT
+  [T434].MIN-ID,[T434].CHARGEID,[T434].CHARGETYPE,[T434].SERVICEMONTH
+FROM
+  (( (SELECT
+          [T432].CHARGEID, [T432].CHARGETYPE, MIN([T432].ID)
+        FROM
+          (input1) AS [T432][ID, CHARGEID, CHARGETYPE, SERVICEMONTH]
+        GROUP BY
+          [T432].CHARGEID  [T432].CHARGETYPE) AS [T433][CHARGEID, CHARGETYPE, MIN-ID] ) JOIN (
+      input1 )) AS [T434][CHARGEID, CHARGETYPE, MIN-ID, ID, CHARGEID1, CHARGETYPE1, SERVICEMONTH]
+WHERE
+  [T434].MIN-ID == [T434].ID
+   AND [T434].CHARGEID == [T434].CHARGEID1
+@anonymous
+[T434].MIN-ID(NumberVal) | [T434].CHARGEID(NumberVal) | [T434].CHARGETYPE(StringVal) | [T434].SERVICEMONTH(DateVal) 
+1.0 | 101.0 | R | Fri Aug 01 00:00:00 PDT 2008 
+2.0 | 161.0 | N | Fri Feb 01 00:00:00 PST 2008 
+
+[No.11]===============================
+SELECT
+  [T404].MIN-ID,[T404].CHARGEID,[T404].CHARGETYPE,[T404].SERVICEMONTH
+FROM
+  (( (SELECT
+          [T402].CHARGEID, MIN([T402].ID)
+        FROM
+          (input1) AS [T402][ID, CHARGEID, CHARGETYPE, SERVICEMONTH]
+        GROUP BY
+          [T402].CHARGEID) AS [T403][CHARGEID, MIN-ID] ) JOIN (
+      input1 )) AS [T404][CHARGEID, MIN-ID, ID, CHARGEID1, CHARGETYPE, SERVICEMONTH]
+WHERE
+  [T404].MIN-ID == [T404].ID
+   AND [T404].CHARGEID == [T404].CHARGEID1
+@anonymous
+[T404].MIN-ID(NumberVal) | [T404].CHARGEID(NumberVal) | [T404].CHARGETYPE(StringVal) | [T404].SERVICEMONTH(DateVal) 
+1.0 | 101.0 | R | Fri Aug 01 00:00:00 PDT 2008 
+2.0 | 161.0 | N | Fri Feb 01 00:00:00 PST 2008 
+
+[No.10]===============================
+SELECT
+  [T374].MIN-ID,[T374].CHARGEID,[T374].CHARGETYPE,[T374].SERVICEMONTH
+FROM
+  (( (SELECT
+          [T372].CHARGETYPE, MIN([T372].ID)
+        FROM
+          (input1) AS [T372][ID, CHARGEID, CHARGETYPE, SERVICEMONTH]
+        GROUP BY
+          [T372].CHARGETYPE) AS [T373][CHARGETYPE, MIN-ID] ) JOIN (
+      input1 )) AS [T374][CHARGETYPE, MIN-ID, ID, CHARGEID, CHARGETYPE1, SERVICEMONTH]
+WHERE
+  [T374].MIN-ID == [T374].ID
+   AND [T374].CHARGETYPE == [T374].CHARGETYPE1
+@anonymous
+[T374].MIN-ID(NumberVal) | [T374].CHARGEID(NumberVal) | [T374].CHARGETYPE(StringVal) | [T374].SERVICEMONTH(DateVal) 
+1.0 | 101.0 | R | Fri Aug 01 00:00:00 PDT 2008 
+2.0 | 161.0 | N | Fri Feb 01 00:00:00 PST 2008 
+
+[No.9]===============================
+SELECT
+  [T321].ID,[T321].CHARGEID,[T321].CHARGETYPE,[T321].MAX-SERVICEMONTH
+FROM
+  (( (SELECT
+          [T319].CHARGETYPE, MAX([T319].SERVICEMONTH)
+        FROM
+          (input1) AS [T319][ID, CHARGEID, CHARGETYPE, SERVICEMONTH]
+        GROUP BY
+          [T319].CHARGETYPE) AS [T320][CHARGETYPE, MAX-SERVICEMONTH] ) JOIN (
+      input1 )) AS [T321][CHARGETYPE, MAX-SERVICEMONTH, ID, CHARGEID, CHARGETYPE1, SERVICEMONTH]
+WHERE
+  [T321].MAX-SERVICEMONTH == [T321].SERVICEMONTH
+   AND [T321].CHARGETYPE == [T321].CHARGETYPE1
+@anonymous
+[T321].ID(NumberVal) | [T321].CHARGEID(NumberVal) | [T321].CHARGETYPE(StringVal) | [T321].MAX-SERVICEMONTH(DateVal) 
+1.0 | 101.0 | R | Fri Aug 01 00:00:00 PDT 2008 
+2.0 | 161.0 | N | Fri Feb 01 00:00:00 PST 2008 
+
+[No.8]===============================
+SELECT
+  [T273].ID,[T273].CHARGEID,[T273].CHARGETYPE,[T273].MAX-SERVICEMONTH
+FROM
+  (( (SELECT
+          [T271].CHARGEID, MAX([T271].SERVICEMONTH)
+        FROM
+          (input1) AS [T271][ID, CHARGEID, CHARGETYPE, SERVICEMONTH]
+        GROUP BY
+          [T271].CHARGEID) AS [T272][CHARGEID, MAX-SERVICEMONTH] ) JOIN (
+      input1 )) AS [T273][CHARGEID, MAX-SERVICEMONTH, ID, CHARGEID1, CHARGETYPE, SERVICEMONTH]
+WHERE
+  [T273].MAX-SERVICEMONTH == [T273].SERVICEMONTH
+   AND [T273].CHARGEID == [T273].CHARGEID1
+@anonymous
+[T273].ID(NumberVal) | [T273].CHARGEID(NumberVal) | [T273].CHARGETYPE(StringVal) | [T273].MAX-SERVICEMONTH(DateVal) 
+1.0 | 101.0 | R | Fri Aug 01 00:00:00 PDT 2008 
+2.0 | 161.0 | N | Fri Feb 01 00:00:00 PST 2008 
+
+[No.7]===============================
+SELECT
+  [T195].ID,[T195].CHARGEID,[T195].CHARGETYPE,[T195].MAX-SERVICEMONTH
+FROM
+  (( (SELECT
+          [T193].CHARGEID, [T193].CHARGETYPE, MAX([T193].SERVICEMONTH)
+        FROM
+          (input1) AS [T193][ID, CHARGEID, CHARGETYPE, SERVICEMONTH]
+        GROUP BY
+          [T193].CHARGEID  [T193].CHARGETYPE) AS [T194][CHARGEID, CHARGETYPE, MAX-SERVICEMONTH] ) JOIN (
+      input1 )) AS [T195][CHARGEID, CHARGETYPE, MAX-SERVICEMONTH, ID, CHARGEID1, CHARGETYPE1, SERVICEMONTH]
+WHERE
+  [T195].MAX-SERVICEMONTH == [T195].SERVICEMONTH
+   AND [T195].CHARGEID == [T195].CHARGEID1
+@anonymous
+[T195].ID(NumberVal) | [T195].CHARGEID(NumberVal) | [T195].CHARGETYPE(StringVal) | [T195].MAX-SERVICEMONTH(DateVal) 
+1.0 | 101.0 | R | Fri Aug 01 00:00:00 PDT 2008 
+2.0 | 161.0 | N | Fri Feb 01 00:00:00 PST 2008 
+
+[No.6]===============================
+SELECT
+  [T804].MIN-ID,[T804].CHARGEID,[T804].CHARGETYPE,[T804].SERVICEMONTH
+FROM
+  (( (SELECT
+          [T802].CHARGETYPE, MIN([T802].ID)
+        FROM
+          (input1) AS [T802][ID, CHARGEID, CHARGETYPE, SERVICEMONTH]
+        GROUP BY
+          [T802].CHARGETYPE) AS [T803][CHARGETYPE, MIN-ID] ) JOIN (
+      input1 )) AS [T804][CHARGETYPE, MIN-ID, ID, CHARGEID, CHARGETYPE1, SERVICEMONTH]
+WHERE
+  [T804].MIN-ID == [T804].ID
+@anonymous
+[T804].MIN-ID(NumberVal) | [T804].CHARGEID(NumberVal) | [T804].CHARGETYPE(StringVal) | [T804].SERVICEMONTH(DateVal) 
+1.0 | 101.0 | R | Fri Aug 01 00:00:00 PDT 2008 
+2.0 | 161.0 | N | Fri Feb 01 00:00:00 PST 2008 
+
+[No.5]===============================
+SELECT
+  [T720].MIN-ID,[T720].CHARGEID,[T720].CHARGETYPE,[T720].SERVICEMONTH
+FROM
+  (( (SELECT
+          [T718].CHARGEID, MIN([T718].ID)
+        FROM
+          (input1) AS [T718][ID, CHARGEID, CHARGETYPE, SERVICEMONTH]
+        GROUP BY
+          [T718].CHARGEID) AS [T719][CHARGEID, MIN-ID] ) JOIN (
+      input1 )) AS [T720][CHARGEID, MIN-ID, ID, CHARGEID1, CHARGETYPE, SERVICEMONTH]
+WHERE
+  [T720].MIN-ID == [T720].ID
+@anonymous
+[T720].MIN-ID(NumberVal) | [T720].CHARGEID(NumberVal) | [T720].CHARGETYPE(StringVal) | [T720].SERVICEMONTH(DateVal) 
+1.0 | 101.0 | R | Fri Aug 01 00:00:00 PDT 2008 
+2.0 | 161.0 | N | Fri Feb 01 00:00:00 PST 2008 
+
+[No.4]===============================
+SELECT
+  [T690].MIN-ID,[T690].CHARGEID,[T690].CHARGETYPE,[T690].SERVICEMONTH
+FROM
+  (( (SELECT
+          [T688].CHARGEID, [T688].CHARGETYPE, MIN([T688].ID)
+        FROM
+          (input1) AS [T688][ID, CHARGEID, CHARGETYPE, SERVICEMONTH]
+        GROUP BY
+          [T688].CHARGEID  [T688].CHARGETYPE) AS [T689][CHARGEID, CHARGETYPE, MIN-ID] ) JOIN (
+      input1 )) AS [T690][CHARGEID, CHARGETYPE, MIN-ID, ID, CHARGEID1, CHARGETYPE1, SERVICEMONTH]
+WHERE
+  [T690].MIN-ID == [T690].ID
+@anonymous
+[T690].MIN-ID(NumberVal) | [T690].CHARGEID(NumberVal) | [T690].CHARGETYPE(StringVal) | [T690].SERVICEMONTH(DateVal) 
+1.0 | 101.0 | R | Fri Aug 01 00:00:00 PDT 2008 
+2.0 | 161.0 | N | Fri Feb 01 00:00:00 PST 2008 
+
+[No.3]===============================
+SELECT
+  [T422].MIN-ID,[T422].CHARGEID,[T422].CHARGETYPE,[T422].SERVICEMONTH
+FROM
+  (( (SELECT
+          [T420].CHARGEID, [T420].CHARGETYPE, MIN([T420].ID)
+        FROM
+          (input1) AS [T420][ID, CHARGEID, CHARGETYPE, SERVICEMONTH]
+        GROUP BY
+          [T420].CHARGEID  [T420].CHARGETYPE) AS [T421][CHARGEID, CHARGETYPE, MIN-ID] ) JOIN (
+      input1 )) AS [T422][CHARGEID, CHARGETYPE, MIN-ID, ID, CHARGEID1, CHARGETYPE1, SERVICEMONTH]
+WHERE
+  [T422].MIN-ID == [T422].ID
+@anonymous
+[T422].MIN-ID(NumberVal) | [T422].CHARGEID(NumberVal) | [T422].CHARGETYPE(StringVal) | [T422].SERVICEMONTH(DateVal) 
+1.0 | 101.0 | R | Fri Aug 01 00:00:00 PDT 2008 
+2.0 | 161.0 | N | Fri Feb 01 00:00:00 PST 2008 
+
+[No.2]===============================
+SELECT
+  [T392].MIN-ID,[T392].CHARGEID,[T392].CHARGETYPE,[T392].SERVICEMONTH
+FROM
+  (( (SELECT
+          [T390].CHARGEID, MIN([T390].ID)
+        FROM
+          (input1) AS [T390][ID, CHARGEID, CHARGETYPE, SERVICEMONTH]
+        GROUP BY
+          [T390].CHARGEID) AS [T391][CHARGEID, MIN-ID] ) JOIN (
+      input1 )) AS [T392][CHARGEID, MIN-ID, ID, CHARGEID1, CHARGETYPE, SERVICEMONTH]
+WHERE
+  [T392].MIN-ID == [T392].ID
+@anonymous
+[T392].MIN-ID(NumberVal) | [T392].CHARGEID(NumberVal) | [T392].CHARGETYPE(StringVal) | [T392].SERVICEMONTH(DateVal) 
+1.0 | 101.0 | R | Fri Aug 01 00:00:00 PDT 2008 
+2.0 | 161.0 | N | Fri Feb 01 00:00:00 PST 2008 
+
+[No.1]===============================
+SELECT
+  [T362].MIN-ID,[T362].CHARGEID,[T362].CHARGETYPE,[T362].SERVICEMONTH
+FROM
+  (( (SELECT
+          [T360].CHARGETYPE, MIN([T360].ID)
+        FROM
+          (input1) AS [T360][ID, CHARGEID, CHARGETYPE, SERVICEMONTH]
+        GROUP BY
+          [T360].CHARGETYPE) AS [T361][CHARGETYPE, MIN-ID] ) JOIN (
+      input1 )) AS [T362][CHARGETYPE, MIN-ID, ID, CHARGEID, CHARGETYPE1, SERVICEMONTH]
+WHERE
+  [T362].MIN-ID == [T362].ID
+@anonymous
+[T362].MIN-ID(NumberVal) | [T362].CHARGEID(NumberVal) | [T362].CHARGETYPE(StringVal) | [T362].SERVICEMONTH(DateVal) 
+1.0 | 101.0 | R | Fri Aug 01 00:00:00 PDT 2008 
+2.0 | 161.0 | N | Fri Feb 01 00:00:00 PST 2008 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 1.762s

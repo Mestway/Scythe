@@ -1,0 +1,399 @@
+[[Synthesis start]]
+	File: ../data/recent_posts/042
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 34 [SymTable]: 35
+Candidate Tree Number: 2
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 4
+Candidate Tree Number: 9
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 8
+Candidate Tree Number: 15
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 8
+Candidate Tree Number: 15
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 8
+Candidate Tree Number: 13
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 12
+Candidate Tree Number: 21
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 9 [SymTable]: 10
+[JOIN] level 1 [SymTable]: 20
+Candidate Tree Number: 27
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T100].id,[T100].name
+FROM
+  (( (SELECT
+          [T98].school, MAX([T98].id)
+        FROM
+          (input1) AS [T98][id, name, school]
+        GROUP BY
+          [T98].school) AS [T99][school, MAX-id] ) JOIN (
+      input1 )) AS [T100][school, MAX-id, id, name, school1]
+WHERE
+  [T100].school == [T100].school1
+@anonymous
+[T100].id(NumberVal) | [T100].name(StringVal) 
+1.0 | Joe 
+3.0 | Ane 
+2.0 | Mike 
+5.0 | Cools 
+4.0 | Trevor 
+
+[No.19]===============================
+SELECT
+  [T76].id,[T76].name
+FROM
+  (( (SELECT
+          [T74].school, FROM
+          (input1) AS [T74][id, name, school]
+        GROUP BY
+          [T74].school) AS [T75][school] ) JOIN (
+      input1 )) AS [T76][school, id, name, school1]
+WHERE
+  [T76].school == [T76].school1
+@anonymous
+[T76].id(NumberVal) | [T76].name(StringVal) 
+1.0 | Joe 
+3.0 | Ane 
+2.0 | Mike 
+5.0 | Cools 
+4.0 | Trevor 
+
+[No.18]===============================
+SELECT
+  [T49].id,[T49].name
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T49][id, name, school, id1, name1, school1]
+WHERE
+  [T49].id == [T49].id1
+@anonymous
+[T49].id(NumberVal) | [T49].name(StringVal) 
+1.0 | Joe 
+2.0 | Mike 
+3.0 | Ane 
+4.0 | Trevor 
+5.0 | Cools 
+
+[No.17]===============================
+SELECT
+  [T47].id,[T47].name
+FROM
+  (( (SELECT
+          [T45].school, FROM
+          (input1) AS [T45][id, name, school]
+        GROUP BY
+          [T45].school) AS [T46][school] ) JOIN (
+      input1 )) AS [T47][school, id, name, school1]
+WHERE
+  [T47].school == [T47].school1
+@anonymous
+[T47].id(NumberVal) | [T47].name(StringVal) 
+1.0 | Joe 
+3.0 | Ane 
+2.0 | Mike 
+5.0 | Cools 
+4.0 | Trevor 
+
+[No.16]===============================
+SELECT
+  [T494].id,[T494].name
+FROM
+  (( (SELECT
+          MAX([T492].id)
+        FROM
+          (input1) AS [T492][id, name, school]) AS [T493][MAX-id] ) JOIN (
+      input1 )) AS [T494][MAX-id, id, name, school]
+
+@anonymous
+[T494].id(NumberVal) | [T494].name(StringVal) 
+1.0 | Joe 
+2.0 | Mike 
+3.0 | Ane 
+4.0 | Trevor 
+5.0 | Cools 
+
+[No.15]===============================
+SELECT
+  [T482].id,[T482].name
+FROM
+  (( (SELECT
+          COUNT([T480].id)
+        FROM
+          (input1) AS [T480][id, name, school]) AS [T481][COUNT-id] ) JOIN (
+      input1 )) AS [T482][COUNT-id, id, name, school]
+
+@anonymous
+[T482].id(NumberVal) | [T482].name(StringVal) 
+1.0 | Joe 
+2.0 | Mike 
+3.0 | Ane 
+4.0 | Trevor 
+5.0 | Cools 
+
+[No.14]===============================
+SELECT
+  input1.id,input1.name
+FROM
+  input1
+
+@anonymous
+input1.id(NumberVal) | input1.name(StringVal) 
+1.0 | Joe 
+2.0 | Mike 
+3.0 | Ane 
+4.0 | Trevor 
+5.0 | Cools 
+
+[No.13]===============================
+SELECT
+  [T436].id,[T436].name
+FROM
+  (( (SELECT
+          COUNT([T434].name)
+        FROM
+          (input1) AS [T434][id, name, school]) AS [T435][COUNT-name] ) JOIN (
+      input1 )) AS [T436][COUNT-name, id, name, school]
+
+@anonymous
+[T436].id(NumberVal) | [T436].name(StringVal) 
+1.0 | Joe 
+2.0 | Mike 
+3.0 | Ane 
+4.0 | Trevor 
+5.0 | Cools 
+
+[No.12]===============================
+SELECT
+  [T424].id,[T424].name
+FROM
+  (( (SELECT
+          COUNT([T422].school)
+        FROM
+          (input1) AS [T422][id, name, school]) AS [T423][COUNT-school] ) JOIN (
+      input1 )) AS [T424][COUNT-school, id, name, school]
+
+@anonymous
+[T424].id(NumberVal) | [T424].name(StringVal) 
+1.0 | Joe 
+2.0 | Mike 
+3.0 | Ane 
+4.0 | Trevor 
+5.0 | Cools 
+
+[No.11]===============================
+SELECT
+  [T285].id,[T285].name
+FROM
+  (( (SELECT
+          MIN([T283].id)
+        FROM
+          (input1) AS [T283][id, name, school]) AS [T284][MIN-id] ) JOIN (
+      input1 )) AS [T285][MIN-id, id, name, school]
+
+@anonymous
+[T285].id(NumberVal) | [T285].name(StringVal) 
+1.0 | Joe 
+2.0 | Mike 
+3.0 | Ane 
+4.0 | Trevor 
+5.0 | Cools 
+
+[No.10]===============================
+SELECT
+  [T263].id,[T263].name
+FROM
+  (( (SELECT
+          MAX([T261].id)
+        FROM
+          (input1) AS [T261][id, name, school]) AS [T262][MAX-id] ) JOIN (
+      input1 )) AS [T263][MAX-id, id, name, school]
+
+@anonymous
+[T263].id(NumberVal) | [T263].name(StringVal) 
+1.0 | Joe 
+2.0 | Mike 
+3.0 | Ane 
+4.0 | Trevor 
+5.0 | Cools 
+
+[No.9]===============================
+SELECT
+  input1.id,input1.name
+FROM
+  input1
+
+@anonymous
+input1.id(NumberVal) | input1.name(StringVal) 
+1.0 | Joe 
+2.0 | Mike 
+3.0 | Ane 
+4.0 | Trevor 
+5.0 | Cools 
+
+[No.8]===============================
+SELECT
+  [T228].id,[T228].name
+FROM
+  (( (SELECT
+          AVG([T226].id)
+        FROM
+          (input1) AS [T226][id, name, school]) AS [T227][AVG-id] ) JOIN (
+      input1 )) AS [T228][AVG-id, id, name, school]
+
+@anonymous
+[T228].id(NumberVal) | [T228].name(StringVal) 
+1.0 | Joe 
+2.0 | Mike 
+3.0 | Ane 
+4.0 | Trevor 
+5.0 | Cools 
+
+[No.7]===============================
+SELECT
+  input1.id,input1.name
+FROM
+  input1
+
+@anonymous
+input1.id(NumberVal) | input1.name(StringVal) 
+1.0 | Joe 
+2.0 | Mike 
+3.0 | Ane 
+4.0 | Trevor 
+5.0 | Cools 
+
+[No.6]===============================
+SELECT
+  input1.id,input1.name
+FROM
+  input1
+
+@anonymous
+input1.id(NumberVal) | input1.name(StringVal) 
+1.0 | Joe 
+2.0 | Mike 
+3.0 | Ane 
+4.0 | Trevor 
+5.0 | Cools 
+
+[No.5]===============================
+SELECT
+  [T141].id,[T141].name
+FROM
+  (( (SELECT
+          MIN([T139].id)
+        FROM
+          (input1) AS [T139][id, name, school]) AS [T140][MIN-id] ) JOIN (
+      input1 )) AS [T141][MIN-id, id, name, school]
+
+@anonymous
+[T141].id(NumberVal) | [T141].name(StringVal) 
+1.0 | Joe 
+2.0 | Mike 
+3.0 | Ane 
+4.0 | Trevor 
+5.0 | Cools 
+
+[No.4]===============================
+SELECT
+  input1.id,input1.name
+FROM
+  input1
+
+@anonymous
+input1.id(NumberVal) | input1.name(StringVal) 
+1.0 | Joe 
+2.0 | Mike 
+3.0 | Ane 
+4.0 | Trevor 
+5.0 | Cools 
+
+[No.3]===============================
+SELECT
+  [T122].id,[T122].name
+FROM
+  (( (SELECT
+          MAX([T120].id)
+        FROM
+          (input1) AS [T120][id, name, school]) AS [T121][MAX-id] ) JOIN (
+      input1 )) AS [T122][MAX-id, id, name, school]
+
+@anonymous
+[T122].id(NumberVal) | [T122].name(StringVal) 
+1.0 | Joe 
+2.0 | Mike 
+3.0 | Ane 
+4.0 | Trevor 
+5.0 | Cools 
+
+[No.2]===============================
+SELECT
+  input1.id,input1.name
+FROM
+  input1
+
+@anonymous
+input1.id(NumberVal) | input1.name(StringVal) 
+1.0 | Joe 
+2.0 | Mike 
+3.0 | Ane 
+4.0 | Trevor 
+5.0 | Cools 
+
+[No.1]===============================
+SELECT
+  input1.id,input1.name
+FROM
+  input1
+
+@anonymous
+input1.id(NumberVal) | input1.name(StringVal) 
+1.0 | Joe 
+2.0 | Mike 
+3.0 | Ane 
+4.0 | Trevor 
+5.0 | Cools 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.617s

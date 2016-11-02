@@ -1,0 +1,531 @@
+[[Synthesis start]]
+	File: ../data/dev_set/002
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 205 [SymTable]: 206
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 10 [SymTable]: 11
+[JOIN] level 1 [SymTable]: 22
+[EnumJoinOnAggr] level 1 [SymTable]: 143
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 31 [SymTable]: 32
+[JOIN] level 1 [SymTable]: 64
+[EnumJoinOnAggr] level 1 [SymTable]: 1088
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 41 [SymTable]: 42
+[JOIN] level 1 [SymTable]: 84
+Candidate Tree Number: 20
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 41 [SymTable]: 42
+[JOIN] level 1 [SymTable]: 84
+[EnumJoinOnAggr] level 1 [SymTable]: 1848
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 31 [SymTable]: 32
+[JOIN] level 1 [SymTable]: 64
+[EnumJoinOnAggr] level 1 [SymTable]: 1088
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 72 [SymTable]: 73
+[JOIN] level 1 [SymTable]: 146
+Candidate Tree Number: 20
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 80 [SymTable]: 81
+[JOIN] level 1 [SymTable]: 162
+Candidate Tree Number: 20
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T853].locId,[T853].MAX-dtg,[T853].temp
+FROM
+  (( (SELECT
+          MAX([T851].dtg)
+        FROM
+          (input1) AS [T851][locId, dtg, temp]) AS [T852][MAX-dtg] ) JOIN (
+      SELECT
+        input1.locId,input1.dtg,input1.temp
+      FROM
+        input1
+      WHERE
+        True )) AS [T853][MAX-dtg, locId, dtg, temp]
+WHERE
+  [T853].MAX-dtg == [T853].dtg
+@anonymous
+[T853].locId(NumberVal) | [T853].MAX-dtg(DateVal) | [T853].temp(NumberVal) 
+100.0 | Wed Feb 25 10:00:00 PST 2009 | 15.0 
+200.0 | Wed Feb 25 10:00:00 PST 2009 | 20.0 
+300.0 | Wed Feb 25 10:00:00 PST 2009 | 24.0 
+
+[No.19]===============================
+SELECT
+  [T829].locId,[T829].MAX-dtg,[T829].temp
+FROM
+  (( (SELECT
+          MAX([T827].dtg)
+        FROM
+          (input1) AS [T827][locId, dtg, temp]) AS [T828][MAX-dtg] ) JOIN (
+      SELECT
+        input1.locId,input1.dtg,input1.temp
+      FROM
+        input1
+      WHERE
+        True )) AS [T829][MAX-dtg, locId, dtg, temp]
+WHERE
+  [T829].MAX-dtg == [T829].dtg
+@anonymous
+[T829].locId(NumberVal) | [T829].MAX-dtg(DateVal) | [T829].temp(NumberVal) 
+100.0 | Wed Feb 25 10:00:00 PST 2009 | 15.0 
+200.0 | Wed Feb 25 10:00:00 PST 2009 | 20.0 
+300.0 | Wed Feb 25 10:00:00 PST 2009 | 24.0 
+
+[No.18]===============================
+SELECT
+  [T2362].locId,[T2362].MAX-dtg,[T2362].temp
+FROM
+  (( (SELECT
+          [T2360].locId, MAX([T2360].dtg)
+        FROM
+          (SELECT
+              input1.locId,input1.dtg,input1.temp
+            FROM
+              input1
+            WHERE
+              input1.dtg > Wed Feb 25 09:50:00 PST 2009) AS [T2360][locId, dtg, temp]
+        GROUP BY
+          [T2360].locId) AS [T2361][locId, MAX-dtg] ) JOIN (
+      input1 )) AS [T2362][locId, MAX-dtg, locId1, dtg, temp]
+WHERE
+  [T2362].locId == [T2362].locId1
+   AND [T2362].MAX-dtg == [T2362].dtg
+@anonymous
+[T2362].locId(NumberVal) | [T2362].MAX-dtg(DateVal) | [T2362].temp(NumberVal) 
+100.0 | Wed Feb 25 10:00:00 PST 2009 | 15.0 
+200.0 | Wed Feb 25 10:00:00 PST 2009 | 20.0 
+300.0 | Wed Feb 25 10:00:00 PST 2009 | 24.0 
+
+[No.17]===============================
+SELECT
+  [T2320].locId,[T2320].MAX-dtg,[T2320].temp
+FROM
+  (( (SELECT
+          [T2318].locId, MAX([T2318].dtg)
+        FROM
+          (input1) AS [T2318][locId, dtg, temp]
+        GROUP BY
+          [T2318].locId) AS [T2319][locId, MAX-dtg] ) JOIN (
+      SELECT
+        input1.locId,input1.dtg,input1.temp
+      FROM
+        input1
+      WHERE
+        input1.dtg > Wed Feb 25 09:50:00 PST 2009 )) AS [T2320][locId, MAX-dtg, locId1, dtg, temp]
+WHERE
+  [T2320].locId == [T2320].locId1
+   AND [T2320].MAX-dtg == [T2320].dtg
+@anonymous
+[T2320].locId(NumberVal) | [T2320].MAX-dtg(DateVal) | [T2320].temp(NumberVal) 
+100.0 | Wed Feb 25 10:00:00 PST 2009 | 15.0 
+200.0 | Wed Feb 25 10:00:00 PST 2009 | 20.0 
+300.0 | Wed Feb 25 10:00:00 PST 2009 | 24.0 
+
+[No.16]===============================
+SELECT
+  [T2308].locId,[T2308].MAX-dtg,[T2308].temp
+FROM
+  (( SELECT
+        [T2307].locId,[T2307].MAX-dtg
+      FROM
+        (SELECT
+            [T2306].locId, MAX([T2306].dtg)
+          FROM
+            (input1) AS [T2306][locId, dtg, temp]
+          GROUP BY
+            [T2306].locId) AS [T2307][locId, MAX-dtg]
+      WHERE
+        [T2307].MAX-dtg > Wed Feb 25 09:50:00 PST 2009 ) JOIN (
+      input1 )) AS [T2308][locId, MAX-dtg, locId1, dtg, temp]
+WHERE
+  [T2308].locId == [T2308].locId1
+   AND [T2308].MAX-dtg == [T2308].dtg
+@anonymous
+[T2308].locId(NumberVal) | [T2308].MAX-dtg(DateVal) | [T2308].temp(NumberVal) 
+100.0 | Wed Feb 25 10:00:00 PST 2009 | 15.0 
+200.0 | Wed Feb 25 10:00:00 PST 2009 | 20.0 
+300.0 | Wed Feb 25 10:00:00 PST 2009 | 24.0 
+
+[No.15]===============================
+SELECT
+  [T2081].locId,[T2081].MAX-dtg,[T2081].temp
+FROM
+  (( (SELECT
+          [T2079].locId, MAX([T2079].dtg)
+        FROM
+          (SELECT
+              input1.locId,input1.dtg,input1.temp
+            FROM
+              input1
+            WHERE
+              input1.dtg > Wed Feb 25 09:50:00 PST 2009) AS [T2079][locId, dtg, temp]
+        GROUP BY
+          [T2079].locId) AS [T2080][locId, MAX-dtg] ) JOIN (
+      input1 )) AS [T2081][locId, MAX-dtg, locId1, dtg, temp]
+WHERE
+  [T2081].locId == [T2081].locId1
+   AND [T2081].MAX-dtg == [T2081].dtg
+@anonymous
+[T2081].locId(NumberVal) | [T2081].MAX-dtg(DateVal) | [T2081].temp(NumberVal) 
+100.0 | Wed Feb 25 10:00:00 PST 2009 | 15.0 
+200.0 | Wed Feb 25 10:00:00 PST 2009 | 20.0 
+300.0 | Wed Feb 25 10:00:00 PST 2009 | 24.0 
+
+[No.14]===============================
+SELECT
+  [T2039].locId,[T2039].MAX-dtg,[T2039].temp
+FROM
+  (( (SELECT
+          [T2037].locId, MAX([T2037].dtg)
+        FROM
+          (input1) AS [T2037][locId, dtg, temp]
+        GROUP BY
+          [T2037].locId) AS [T2038][locId, MAX-dtg] ) JOIN (
+      SELECT
+        input1.locId,input1.dtg,input1.temp
+      FROM
+        input1
+      WHERE
+        input1.dtg > Wed Feb 25 09:50:00 PST 2009 )) AS [T2039][locId, MAX-dtg, locId1, dtg, temp]
+WHERE
+  [T2039].locId == [T2039].locId1
+   AND [T2039].MAX-dtg == [T2039].dtg
+@anonymous
+[T2039].locId(NumberVal) | [T2039].MAX-dtg(DateVal) | [T2039].temp(NumberVal) 
+100.0 | Wed Feb 25 10:00:00 PST 2009 | 15.0 
+200.0 | Wed Feb 25 10:00:00 PST 2009 | 20.0 
+300.0 | Wed Feb 25 10:00:00 PST 2009 | 24.0 
+
+[No.13]===============================
+SELECT
+  [T2027].locId,[T2027].MAX-dtg,[T2027].temp
+FROM
+  (( SELECT
+        [T2026].locId,[T2026].MAX-dtg
+      FROM
+        (SELECT
+            [T2025].locId, MAX([T2025].dtg)
+          FROM
+            (input1) AS [T2025][locId, dtg, temp]
+          GROUP BY
+            [T2025].locId) AS [T2026][locId, MAX-dtg]
+      WHERE
+        [T2026].MAX-dtg > Wed Feb 25 09:50:00 PST 2009 ) JOIN (
+      input1 )) AS [T2027][locId, MAX-dtg, locId1, dtg, temp]
+WHERE
+  [T2027].locId == [T2027].locId1
+   AND [T2027].MAX-dtg == [T2027].dtg
+@anonymous
+[T2027].locId(NumberVal) | [T2027].MAX-dtg(DateVal) | [T2027].temp(NumberVal) 
+100.0 | Wed Feb 25 10:00:00 PST 2009 | 15.0 
+200.0 | Wed Feb 25 10:00:00 PST 2009 | 20.0 
+300.0 | Wed Feb 25 10:00:00 PST 2009 | 24.0 
+
+[No.12]===============================
+SELECT
+  [T871].locId,[T871].MAX-dtg,[T871].temp
+FROM
+  (( (SELECT
+          [T869].locId, MAX([T869].dtg)
+        FROM
+          (SELECT
+              input1.locId,input1.dtg,input1.temp
+            FROM
+              input1
+            WHERE
+              input1.dtg > Wed Feb 25 09:50:00 PST 2009) AS [T869][locId, dtg, temp]
+        GROUP BY
+          [T869].locId) AS [T870][locId, MAX-dtg] ) JOIN (
+      input1 )) AS [T871][locId, MAX-dtg, locId1, dtg, temp]
+WHERE
+  [T871].locId == [T871].locId1
+   AND [T871].MAX-dtg == [T871].dtg
+@anonymous
+[T871].locId(NumberVal) | [T871].MAX-dtg(DateVal) | [T871].temp(NumberVal) 
+100.0 | Wed Feb 25 10:00:00 PST 2009 | 15.0 
+200.0 | Wed Feb 25 10:00:00 PST 2009 | 20.0 
+300.0 | Wed Feb 25 10:00:00 PST 2009 | 24.0 
+
+[No.11]===============================
+SELECT
+  [T739].locId,[T739].MAX-dtg,[T739].temp
+FROM
+  (( (SELECT
+          [T737].locId, MAX([T737].dtg)
+        FROM
+          (input1) AS [T737][locId, dtg, temp]
+        GROUP BY
+          [T737].locId) AS [T738][locId, MAX-dtg] ) JOIN (
+      SELECT
+        input1.locId,input1.dtg,input1.temp
+      FROM
+        input1
+      WHERE
+        input1.dtg > Wed Feb 25 09:50:00 PST 2009 )) AS [T739][locId, MAX-dtg, locId1, dtg, temp]
+WHERE
+  [T739].locId == [T739].locId1
+   AND [T739].MAX-dtg == [T739].dtg
+@anonymous
+[T739].locId(NumberVal) | [T739].MAX-dtg(DateVal) | [T739].temp(NumberVal) 
+100.0 | Wed Feb 25 10:00:00 PST 2009 | 15.0 
+200.0 | Wed Feb 25 10:00:00 PST 2009 | 20.0 
+300.0 | Wed Feb 25 10:00:00 PST 2009 | 24.0 
+
+[No.10]===============================
+SELECT
+  [T727].locId,[T727].MAX-dtg,[T727].temp
+FROM
+  (( SELECT
+        [T726].locId,[T726].MAX-dtg
+      FROM
+        (SELECT
+            [T725].locId, MAX([T725].dtg)
+          FROM
+            (input1) AS [T725][locId, dtg, temp]
+          GROUP BY
+            [T725].locId) AS [T726][locId, MAX-dtg]
+      WHERE
+        [T726].MAX-dtg > Wed Feb 25 09:50:00 PST 2009 ) JOIN (
+      input1 )) AS [T727][locId, MAX-dtg, locId1, dtg, temp]
+WHERE
+  [T727].locId == [T727].locId1
+   AND [T727].MAX-dtg == [T727].dtg
+@anonymous
+[T727].locId(NumberVal) | [T727].MAX-dtg(DateVal) | [T727].temp(NumberVal) 
+100.0 | Wed Feb 25 10:00:00 PST 2009 | 15.0 
+200.0 | Wed Feb 25 10:00:00 PST 2009 | 20.0 
+300.0 | Wed Feb 25 10:00:00 PST 2009 | 24.0 
+
+[No.9]===============================
+SELECT
+  [T2452].locId,[T2452].MAX-dtg,[T2452].temp
+FROM
+  (( (SELECT
+          MAX([T2450].dtg)
+        FROM
+          (SELECT
+              input1.locId,input1.dtg,input1.temp
+            FROM
+              input1
+            WHERE
+              input1.dtg > Wed Feb 25 09:50:00 PST 2009) AS [T2450][locId, dtg, temp]) AS [T2451][MAX-dtg] ) JOIN (
+      input1 )) AS [T2452][MAX-dtg, locId, dtg, temp]
+WHERE
+  [T2452].MAX-dtg == [T2452].dtg
+@anonymous
+[T2452].locId(NumberVal) | [T2452].MAX-dtg(DateVal) | [T2452].temp(NumberVal) 
+100.0 | Wed Feb 25 10:00:00 PST 2009 | 15.0 
+200.0 | Wed Feb 25 10:00:00 PST 2009 | 20.0 
+300.0 | Wed Feb 25 10:00:00 PST 2009 | 24.0 
+
+[No.8]===============================
+SELECT
+  [T2422].locId,[T2422].MAX-dtg,[T2422].temp
+FROM
+  (( (SELECT
+          MAX([T2420].dtg)
+        FROM
+          (input1) AS [T2420][locId, dtg, temp]) AS [T2421][MAX-dtg] ) JOIN (
+      SELECT
+        input1.locId,input1.dtg,input1.temp
+      FROM
+        input1
+      WHERE
+        input1.dtg > Wed Feb 25 09:50:00 PST 2009 )) AS [T2422][MAX-dtg, locId, dtg, temp]
+WHERE
+  [T2422].MAX-dtg == [T2422].dtg
+@anonymous
+[T2422].locId(NumberVal) | [T2422].MAX-dtg(DateVal) | [T2422].temp(NumberVal) 
+100.0 | Wed Feb 25 10:00:00 PST 2009 | 15.0 
+200.0 | Wed Feb 25 10:00:00 PST 2009 | 20.0 
+300.0 | Wed Feb 25 10:00:00 PST 2009 | 24.0 
+
+[No.7]===============================
+SELECT
+  [T2111].locId,[T2111].MAX-dtg,[T2111].temp
+FROM
+  (( (SELECT
+          MAX([T2109].dtg)
+        FROM
+          (SELECT
+              input1.locId,input1.dtg,input1.temp
+            FROM
+              input1
+            WHERE
+              input1.dtg > Wed Feb 25 09:50:00 PST 2009) AS [T2109][locId, dtg, temp]) AS [T2110][MAX-dtg] ) JOIN (
+      input1 )) AS [T2111][MAX-dtg, locId, dtg, temp]
+WHERE
+  [T2111].MAX-dtg == [T2111].dtg
+@anonymous
+[T2111].locId(NumberVal) | [T2111].MAX-dtg(DateVal) | [T2111].temp(NumberVal) 
+100.0 | Wed Feb 25 10:00:00 PST 2009 | 15.0 
+200.0 | Wed Feb 25 10:00:00 PST 2009 | 20.0 
+300.0 | Wed Feb 25 10:00:00 PST 2009 | 24.0 
+
+[No.6]===============================
+SELECT
+  [T1991].locId,[T1991].MAX-dtg,[T1991].temp
+FROM
+  (( (SELECT
+          MAX([T1989].dtg)
+        FROM
+          (input1) AS [T1989][locId, dtg, temp]) AS [T1990][MAX-dtg] ) JOIN (
+      SELECT
+        input1.locId,input1.dtg,input1.temp
+      FROM
+        input1
+      WHERE
+        input1.dtg > Wed Feb 25 09:50:00 PST 2009 )) AS [T1991][MAX-dtg, locId, dtg, temp]
+WHERE
+  [T1991].MAX-dtg == [T1991].dtg
+@anonymous
+[T1991].locId(NumberVal) | [T1991].MAX-dtg(DateVal) | [T1991].temp(NumberVal) 
+100.0 | Wed Feb 25 10:00:00 PST 2009 | 15.0 
+200.0 | Wed Feb 25 10:00:00 PST 2009 | 20.0 
+300.0 | Wed Feb 25 10:00:00 PST 2009 | 24.0 
+
+[No.5]===============================
+SELECT
+  [T841].locId,[T841].MAX-dtg,[T841].temp
+FROM
+  (( (SELECT
+          MAX([T839].dtg)
+        FROM
+          (input1) AS [T839][locId, dtg, temp]) AS [T840][MAX-dtg] ) JOIN (
+      SELECT
+        input1.locId,input1.dtg,input1.temp
+      FROM
+        input1
+      WHERE
+        input1.dtg > Wed Feb 25 09:50:00 PST 2009 )) AS [T841][MAX-dtg, locId, dtg, temp]
+WHERE
+  [T841].MAX-dtg == [T841].dtg
+@anonymous
+[T841].locId(NumberVal) | [T841].MAX-dtg(DateVal) | [T841].temp(NumberVal) 
+100.0 | Wed Feb 25 10:00:00 PST 2009 | 15.0 
+200.0 | Wed Feb 25 10:00:00 PST 2009 | 20.0 
+300.0 | Wed Feb 25 10:00:00 PST 2009 | 24.0 
+
+[No.4]===============================
+SELECT
+  [T781].locId,[T781].MAX-dtg,[T781].temp
+FROM
+  (( (SELECT
+          MAX([T779].dtg)
+        FROM
+          (SELECT
+              input1.locId,input1.dtg,input1.temp
+            FROM
+              input1
+            WHERE
+              input1.dtg > Wed Feb 25 09:50:00 PST 2009) AS [T779][locId, dtg, temp]) AS [T780][MAX-dtg] ) JOIN (
+      input1 )) AS [T781][MAX-dtg, locId, dtg, temp]
+WHERE
+  [T781].MAX-dtg == [T781].dtg
+@anonymous
+[T781].locId(NumberVal) | [T781].MAX-dtg(DateVal) | [T781].temp(NumberVal) 
+100.0 | Wed Feb 25 10:00:00 PST 2009 | 15.0 
+200.0 | Wed Feb 25 10:00:00 PST 2009 | 20.0 
+300.0 | Wed Feb 25 10:00:00 PST 2009 | 24.0 
+
+[No.3]===============================
+SELECT
+  [T2398].locId,[T2398].MAX-dtg,[T2398].temp
+FROM
+  (( (SELECT
+          MAX([T2396].dtg)
+        FROM
+          (input1) AS [T2396][locId, dtg, temp]) AS [T2397][MAX-dtg] ) JOIN (
+      input1 )) AS [T2398][MAX-dtg, locId, dtg, temp]
+WHERE
+  [T2398].MAX-dtg == [T2398].dtg
+@anonymous
+[T2398].locId(NumberVal) | [T2398].MAX-dtg(DateVal) | [T2398].temp(NumberVal) 
+100.0 | Wed Feb 25 10:00:00 PST 2009 | 15.0 
+200.0 | Wed Feb 25 10:00:00 PST 2009 | 20.0 
+300.0 | Wed Feb 25 10:00:00 PST 2009 | 24.0 
+
+[No.2]===============================
+SELECT
+  [T1967].locId,[T1967].MAX-dtg,[T1967].temp
+FROM
+  (( (SELECT
+          MAX([T1965].dtg)
+        FROM
+          (input1) AS [T1965][locId, dtg, temp]) AS [T1966][MAX-dtg] ) JOIN (
+      input1 )) AS [T1967][MAX-dtg, locId, dtg, temp]
+WHERE
+  [T1967].MAX-dtg == [T1967].dtg
+@anonymous
+[T1967].locId(NumberVal) | [T1967].MAX-dtg(DateVal) | [T1967].temp(NumberVal) 
+100.0 | Wed Feb 25 10:00:00 PST 2009 | 15.0 
+200.0 | Wed Feb 25 10:00:00 PST 2009 | 20.0 
+300.0 | Wed Feb 25 10:00:00 PST 2009 | 24.0 
+
+[No.1]===============================
+SELECT
+  [T817].locId,[T817].MAX-dtg,[T817].temp
+FROM
+  (( (SELECT
+          MAX([T815].dtg)
+        FROM
+          (input1) AS [T815][locId, dtg, temp]) AS [T816][MAX-dtg] ) JOIN (
+      input1 )) AS [T817][MAX-dtg, locId, dtg, temp]
+WHERE
+  [T817].MAX-dtg == [T817].dtg
+@anonymous
+[T817].locId(NumberVal) | [T817].MAX-dtg(DateVal) | [T817].temp(NumberVal) 
+100.0 | Wed Feb 25 10:00:00 PST 2009 | 15.0 
+200.0 | Wed Feb 25 10:00:00 PST 2009 | 20.0 
+300.0 | Wed Feb 25 10:00:00 PST 2009 | 24.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 7.700s

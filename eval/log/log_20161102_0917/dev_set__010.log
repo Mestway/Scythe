@@ -1,0 +1,489 @@
+[[Synthesis start]]
+	File: ../data/dev_set/010
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 117 [SymTable]: 118
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 4 [SymTable]: 5
+[JOIN] level 1 [SymTable]: 10
+Candidate Tree Number: 30
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 11 [SymTable]: 12
+[JOIN] level 1 [SymTable]: 24
+Candidate Tree Number: 62
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 11 [SymTable]: 12
+[JOIN] level 1 [SymTable]: 24
+Candidate Tree Number: 65
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 11 [SymTable]: 12
+[JOIN] level 1 [SymTable]: 24
+Candidate Tree Number: 55
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 18 [SymTable]: 19
+[JOIN] level 1 [SymTable]: 38
+Candidate Tree Number: 97
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 32 [SymTable]: 33
+[JOIN] level 1 [SymTable]: 66
+Candidate Tree Number: 173
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T1027].id1,[T1027].country,[T1027].status1
+FROM
+  (( SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == UNTREATED ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED )) AS [T1027][id, country, status, id1, country1, status1]
+WHERE
+  [T1027].country == [T1027].country1
+@anonymous
+[T1027].id1(NumberVal) | [T1027].country(StringVal) | [T1027].status1(StringVal) 
+1.0 | SE | TREATED 
+
+[No.19]===============================
+SELECT
+  [T997].id,[T997].country,[T997].status
+FROM
+  (( SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == UNTREATED )) AS [T997][id, country, status, id1, country1, status1]
+WHERE
+  [T997].country == [T997].country1
+@anonymous
+[T997].id(NumberVal) | [T997].country(StringVal) | [T997].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.18]===============================
+SELECT
+  [T764].MIN-id,[T764].country,[T764].status
+FROM
+  (( (SELECT
+          MIN([T762].id)
+        FROM
+          (SELECT
+              input1.id,input1.country,input1.status
+            FROM
+              input1
+            WHERE
+              input1.status == TREATED) AS [T762][id, country, status]) AS [T763][MIN-id] ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED )) AS [T764][MIN-id, id, country, status]
+WHERE
+  [T764].MIN-id == [T764].id
+@anonymous
+[T764].MIN-id(NumberVal) | [T764].country(StringVal) | [T764].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.17]===============================
+SELECT
+  [T644].MIN-id,[T644].country,[T644].status
+FROM
+  (( (SELECT
+          [T642].status, MIN([T642].id)
+        FROM
+          (SELECT
+              input1.id,input1.country,input1.status
+            FROM
+              input1
+            WHERE
+              input1.status == TREATED) AS [T642][id, country, status]
+        GROUP BY
+          [T642].status) AS [T643][status, MIN-id] ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED )) AS [T644][status, MIN-id, id, country, status1]
+WHERE
+  [T644].MIN-id == [T644].id
+@anonymous
+[T644].MIN-id(NumberVal) | [T644].country(StringVal) | [T644].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.16]===============================
+SELECT
+  [T614].id1,[T614].country,[T614].status1
+FROM
+  (( SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == UNTREATED ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED )) AS [T614][id, country, status, id1, country1, status1]
+WHERE
+  [T614].country == [T614].country1
+@anonymous
+[T614].id1(NumberVal) | [T614].country(StringVal) | [T614].status1(StringVal) 
+1.0 | SE | TREATED 
+
+[No.15]===============================
+SELECT
+  [T584].id,[T584].country,[T584].status
+FROM
+  (( SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == UNTREATED )) AS [T584][id, country, status, id1, country1, status1]
+WHERE
+  [T584].country == [T584].country1
+@anonymous
+[T584].id(NumberVal) | [T584].country(StringVal) | [T584].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.14]===============================
+SELECT
+  [T531].id1,[T531].country,[T531].status1
+FROM
+  (( SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == UNTREATED ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED )) AS [T531][id, country, status, id1, country1, status1]
+WHERE
+  [T531].country == [T531].country1
+@anonymous
+[T531].id1(NumberVal) | [T531].country(StringVal) | [T531].status1(StringVal) 
+1.0 | SE | TREATED 
+
+[No.13]===============================
+SELECT
+  [T501].id,[T501].country,[T501].status
+FROM
+  (( SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == UNTREATED )) AS [T501][id, country, status, id1, country1, status1]
+WHERE
+  [T501].country == [T501].country1
+@anonymous
+[T501].id(NumberVal) | [T501].country(StringVal) | [T501].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.12]===============================
+SELECT
+  [T166].id1,[T166].country,[T166].status1
+FROM
+  (( SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == UNTREATED ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED )) AS [T166][id, country, status, id1, country1, status1]
+WHERE
+  [T166].country == [T166].country1
+@anonymous
+[T166].id1(NumberVal) | [T166].country(StringVal) | [T166].status1(StringVal) 
+1.0 | SE | TREATED 
+
+[No.11]===============================
+SELECT
+  [T136].id,[T136].country,[T136].status
+FROM
+  (( SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == UNTREATED )) AS [T136][id, country, status, id1, country1, status1]
+WHERE
+  [T136].country == [T136].country1
+@anonymous
+[T136].id(NumberVal) | [T136].country(StringVal) | [T136].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.10]===============================
+SELECT
+  [T1490].MIN-id,[T1490].country,[T1490].status
+FROM
+  (( (SELECT
+          [T1488].status, MIN([T1488].id)
+        FROM
+          (input1) AS [T1488][id, country, status]
+        GROUP BY
+          [T1488].status) AS [T1489][status, MIN-id] ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED )) AS [T1490][status, MIN-id, id, country, status1]
+WHERE
+  [T1490].MIN-id == [T1490].id
+@anonymous
+[T1490].MIN-id(NumberVal) | [T1490].country(StringVal) | [T1490].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.9]===============================
+SELECT
+  [T1442].MIN-id,[T1442].country,[T1442].status
+FROM
+  (( (SELECT
+          MIN([T1440].id)
+        FROM
+          (input1) AS [T1440][id, country, status]) AS [T1441][MIN-id] ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED )) AS [T1442][MIN-id, id, country, status]
+WHERE
+  [T1442].MIN-id == [T1442].id
+@anonymous
+[T1442].MIN-id(NumberVal) | [T1442].country(StringVal) | [T1442].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.8]===============================
+SELECT
+  [T1394].MIN-id,[T1394].country,[T1394].status
+FROM
+  (( (SELECT
+          MIN([T1392].id)
+        FROM
+          (SELECT
+              input1.id,input1.country,input1.status
+            FROM
+              input1
+            WHERE
+              input1.status == TREATED) AS [T1392][id, country, status]) AS [T1393][MIN-id] ) JOIN (
+      input1 )) AS [T1394][MIN-id, id, country, status]
+WHERE
+  [T1394].MIN-id == [T1394].id
+@anonymous
+[T1394].MIN-id(NumberVal) | [T1394].country(StringVal) | [T1394].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.7]===============================
+SELECT
+  [T1274].MIN-id,[T1274].country,[T1274].status
+FROM
+  (( (SELECT
+          [T1272].status, MIN([T1272].id)
+        FROM
+          (SELECT
+              input1.id,input1.country,input1.status
+            FROM
+              input1
+            WHERE
+              input1.status == TREATED) AS [T1272][id, country, status]
+        GROUP BY
+          [T1272].status) AS [T1273][status, MIN-id] ) JOIN (
+      input1 )) AS [T1274][status, MIN-id, id, country, status1]
+WHERE
+  [T1274].MIN-id == [T1274].id
+@anonymous
+[T1274].MIN-id(NumberVal) | [T1274].country(StringVal) | [T1274].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.6]===============================
+SELECT
+  [T794].MIN-id,[T794].country,[T794].status
+FROM
+  (( (SELECT
+          [T792].status, MIN([T792].id)
+        FROM
+          (input1) AS [T792][id, country, status]
+        GROUP BY
+          [T792].status) AS [T793][status, MIN-id] ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED )) AS [T794][status, MIN-id, id, country, status1]
+WHERE
+  [T794].MIN-id == [T794].id
+@anonymous
+[T794].MIN-id(NumberVal) | [T794].country(StringVal) | [T794].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.5]===============================
+SELECT
+  [T758].MIN-id,[T758].country,[T758].status
+FROM
+  (( (SELECT
+          MIN([T756].id)
+        FROM
+          (SELECT
+              input1.id,input1.country,input1.status
+            FROM
+              input1
+            WHERE
+              input1.status == TREATED) AS [T756][id, country, status]) AS [T757][MIN-id] ) JOIN (
+      input1 )) AS [T758][MIN-id, id, country, status]
+WHERE
+  [T758].MIN-id == [T758].id
+@anonymous
+[T758].MIN-id(NumberVal) | [T758].country(StringVal) | [T758].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.4]===============================
+SELECT
+  [T686].MIN-id,[T686].country,[T686].status
+FROM
+  (( (SELECT
+          MIN([T684].id)
+        FROM
+          (input1) AS [T684][id, country, status]) AS [T685][MIN-id] ) JOIN (
+      SELECT
+        input1.id,input1.country,input1.status
+      FROM
+        input1
+      WHERE
+        input1.status == TREATED )) AS [T686][MIN-id, id, country, status]
+WHERE
+  [T686].MIN-id == [T686].id
+@anonymous
+[T686].MIN-id(NumberVal) | [T686].country(StringVal) | [T686].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.3]===============================
+SELECT
+  [T638].MIN-id,[T638].country,[T638].status
+FROM
+  (( (SELECT
+          [T636].status, MIN([T636].id)
+        FROM
+          (SELECT
+              input1.id,input1.country,input1.status
+            FROM
+              input1
+            WHERE
+              input1.status == TREATED) AS [T636][id, country, status]
+        GROUP BY
+          [T636].status) AS [T637][status, MIN-id] ) JOIN (
+      input1 )) AS [T638][status, MIN-id, id, country, status1]
+WHERE
+  [T638].MIN-id == [T638].id
+@anonymous
+[T638].MIN-id(NumberVal) | [T638].country(StringVal) | [T638].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.2]===============================
+SELECT
+  [T1430].MIN-id,[T1430].country,[T1430].status
+FROM
+  (( (SELECT
+          MIN([T1428].id)
+        FROM
+          (input1) AS [T1428][id, country, status]) AS [T1429][MIN-id] ) JOIN (
+      input1 )) AS [T1430][MIN-id, id, country, status]
+WHERE
+  [T1430].MIN-id == [T1430].id
+@anonymous
+[T1430].MIN-id(NumberVal) | [T1430].country(StringVal) | [T1430].status(StringVal) 
+1.0 | SE | TREATED 
+
+[No.1]===============================
+SELECT
+  [T674].MIN-id,[T674].country,[T674].status
+FROM
+  (( (SELECT
+          MIN([T672].id)
+        FROM
+          (input1) AS [T672][id, country, status]) AS [T673][MIN-id] ) JOIN (
+      input1 )) AS [T674][MIN-id, id, country, status]
+WHERE
+  [T674].MIN-id == [T674].id
+@anonymous
+[T674].MIN-id(NumberVal) | [T674].country(StringVal) | [T674].status(StringVal) 
+1.0 | SE | TREATED 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 1.577s

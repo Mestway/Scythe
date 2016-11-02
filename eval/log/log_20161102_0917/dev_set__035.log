@@ -1,0 +1,540 @@
+[[Synthesis start]]
+	File: ../data/dev_set/035
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 75 [SymTable]: 76
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 8
+[EnumJoinOnAggr] level 1 [SymTable]: 24
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 13 [SymTable]: 14
+[JOIN] level 1 [SymTable]: 28
+[EnumJoinOnAggr] level 1 [SymTable]: 224
+Candidate Tree Number: 18
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 13 [SymTable]: 14
+[JOIN] level 1 [SymTable]: 28
+[EnumJoinOnAggr] level 1 [SymTable]: 224
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 13 [SymTable]: 14
+[JOIN] level 1 [SymTable]: 28
+[EnumJoinOnAggr] level 1 [SymTable]: 224
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 23 [SymTable]: 24
+[JOIN] level 1 [SymTable]: 48
+[EnumJoinOnAggr] level 1 [SymTable]: 624
+Candidate Tree Number: 18
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 25 [SymTable]: 26
+[JOIN] level 1 [SymTable]: 52
+[EnumJoinOnAggr] level 1 [SymTable]: 728
+Candidate Tree Number: 18
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T237].number,[T237].MAX-quantity,[T237].MAX-retail_price
+FROM
+  (( (SELECT
+          [T231].number, MAX([T231].quantity)
+        FROM
+          (input1) AS [T231][number, quantity, retail_price]
+        GROUP BY
+          [T231].number) AS [T232][number, MAX-quantity] ) JOIN (
+      (SELECT
+          [T235].number, [T235].quantity, MAX([T235].retail_price)
+        FROM
+          (input1) AS [T235][number, quantity, retail_price]
+        GROUP BY
+          [T235].number  [T235].quantity) AS [T236][number, quantity, MAX-retail_price] )) AS [T237][number, MAX-quantity, number1, quantity, MAX-retail_price]
+WHERE
+  [T237].number >= [T237].number1
+   AND [T237].MAX-quantity == [T237].quantity
+@anonymous
+[T237].number(NumberVal) | [T237].MAX-quantity(NumberVal) | [T237].MAX-retail_price(NumberVal) 
+1007.0 | 576.0 | 5.46 
+1006.0 | 500.0 | 5.01 
+
+[No.19]===============================
+SELECT
+  [T227].number,[T227].MAX-quantity,[T227].MAX-retail_price
+FROM
+  (( (SELECT
+          [T221].number, MAX([T221].quantity)
+        FROM
+          (input1) AS [T221][number, quantity, retail_price]
+        GROUP BY
+          [T221].number) AS [T222][number, MAX-quantity] ) JOIN (
+      (SELECT
+          [T225].number, [T225].quantity, MAX([T225].retail_price)
+        FROM
+          (input1) AS [T225][number, quantity, retail_price]
+        GROUP BY
+          [T225].number  [T225].quantity) AS [T226][number, quantity, MAX-retail_price] )) AS [T227][number, MAX-quantity, number1, quantity, MAX-retail_price]
+WHERE
+  [T227].number <= [T227].number1
+   AND [T227].MAX-quantity == [T227].quantity
+@anonymous
+[T227].number(NumberVal) | [T227].MAX-quantity(NumberVal) | [T227].MAX-retail_price(NumberVal) 
+1007.0 | 576.0 | 5.46 
+1006.0 | 500.0 | 5.01 
+
+[No.18]===============================
+SELECT
+  [T1313].number,[T1313].MAX-quantity,[T1313].MAX-retail_price
+FROM
+  (( (SELECT
+          [T1307].number, MAX([T1307].quantity)
+        FROM
+          (input1) AS [T1307][number, quantity, retail_price]
+        GROUP BY
+          [T1307].number) AS [T1308][number, MAX-quantity] ) JOIN (
+      (SELECT
+          [T1311].number, [T1311].quantity, MAX([T1311].retail_price)
+        FROM
+          (input1) AS [T1311][number, quantity, retail_price]
+        GROUP BY
+          [T1311].number  [T1311].quantity) AS [T1312][number, quantity, MAX-retail_price] )) AS [T1313][number, MAX-quantity, number1, quantity, MAX-retail_price]
+WHERE
+  [T1313].number == [T1313].number1
+   AND [T1313].MAX-quantity == [T1313].quantity
+@anonymous
+[T1313].number(NumberVal) | [T1313].MAX-quantity(NumberVal) | [T1313].MAX-retail_price(NumberVal) 
+1007.0 | 576.0 | 5.46 
+1006.0 | 500.0 | 5.01 
+
+[No.17]===============================
+SELECT
+  [T1263].number,[T1263].quantity,[T1263].MAX-retail_price
+FROM
+  (( (SELECT
+          [T1257].number, [T1257].quantity, MAX([T1257].retail_price)
+        FROM
+          (input1) AS [T1257][number, quantity, retail_price]
+        GROUP BY
+          [T1257].number  [T1257].quantity) AS [T1258][number, quantity, MAX-retail_price] ) JOIN (
+      (SELECT
+          [T1261].number, MAX([T1261].quantity)
+        FROM
+          (input1) AS [T1261][number, quantity, retail_price]
+        GROUP BY
+          [T1261].number) AS [T1262][number, MAX-quantity] )) AS [T1263][number, quantity, MAX-retail_price, number1, MAX-quantity]
+WHERE
+  [T1263].number == [T1263].number1
+   AND [T1263].quantity == [T1263].MAX-quantity
+@anonymous
+[T1263].number(NumberVal) | [T1263].quantity(NumberVal) | [T1263].MAX-retail_price(NumberVal) 
+1007.0 | 576.0 | 5.46 
+1006.0 | 500.0 | 5.01 
+
+[No.16]===============================
+SELECT
+  [T851].number,[T851].MAX-quantity,[T851].MAX-retail_price
+FROM
+  (( (SELECT
+          [T845].number, MAX([T845].quantity)
+        FROM
+          (input1) AS [T845][number, quantity, retail_price]
+        GROUP BY
+          [T845].number) AS [T846][number, MAX-quantity] ) JOIN (
+      (SELECT
+          [T849].number, [T849].quantity, MAX([T849].retail_price)
+        FROM
+          (input1) AS [T849][number, quantity, retail_price]
+        GROUP BY
+          [T849].number  [T849].quantity) AS [T850][number, quantity, MAX-retail_price] )) AS [T851][number, MAX-quantity, number1, quantity, MAX-retail_price]
+WHERE
+  [T851].number == [T851].number1
+   AND [T851].MAX-quantity == [T851].quantity
+@anonymous
+[T851].number(NumberVal) | [T851].MAX-quantity(NumberVal) | [T851].MAX-retail_price(NumberVal) 
+1007.0 | 576.0 | 5.46 
+1006.0 | 500.0 | 5.01 
+
+[No.15]===============================
+SELECT
+  [T801].number,[T801].quantity,[T801].MAX-retail_price
+FROM
+  (( (SELECT
+          [T795].number, [T795].quantity, MAX([T795].retail_price)
+        FROM
+          (input1) AS [T795][number, quantity, retail_price]
+        GROUP BY
+          [T795].number  [T795].quantity) AS [T796][number, quantity, MAX-retail_price] ) JOIN (
+      (SELECT
+          [T799].number, MAX([T799].quantity)
+        FROM
+          (input1) AS [T799][number, quantity, retail_price]
+        GROUP BY
+          [T799].number) AS [T800][number, MAX-quantity] )) AS [T801][number, quantity, MAX-retail_price, number1, MAX-quantity]
+WHERE
+  [T801].number == [T801].number1
+   AND [T801].quantity == [T801].MAX-quantity
+@anonymous
+[T801].number(NumberVal) | [T801].quantity(NumberVal) | [T801].MAX-retail_price(NumberVal) 
+1007.0 | 576.0 | 5.46 
+1006.0 | 500.0 | 5.01 
+
+[No.14]===============================
+SELECT
+  [T347].number,[T347].quantity,[T347].MAX-retail_price
+FROM
+  (( (SELECT
+          [T341].number, [T341].quantity, MAX([T341].retail_price)
+        FROM
+          (input1) AS [T341][number, quantity, retail_price]
+        GROUP BY
+          [T341].number  [T341].quantity) AS [T342][number, quantity, MAX-retail_price] ) JOIN (
+      (SELECT
+          [T345].number, MAX([T345].quantity)
+        FROM
+          (input1) AS [T345][number, quantity, retail_price]
+        GROUP BY
+          [T345].number) AS [T346][number, MAX-quantity] )) AS [T347][number, quantity, MAX-retail_price, number1, MAX-quantity]
+WHERE
+  [T347].number == [T347].number1
+   AND [T347].quantity == [T347].MAX-quantity
+@anonymous
+[T347].number(NumberVal) | [T347].quantity(NumberVal) | [T347].MAX-retail_price(NumberVal) 
+1007.0 | 576.0 | 5.46 
+1006.0 | 500.0 | 5.01 
+
+[No.13]===============================
+SELECT
+  [T217].number,[T217].MAX-quantity,[T217].MAX-retail_price
+FROM
+  (( (SELECT
+          [T211].number, MAX([T211].quantity)
+        FROM
+          (input1) AS [T211][number, quantity, retail_price]
+        GROUP BY
+          [T211].number) AS [T212][number, MAX-quantity] ) JOIN (
+      (SELECT
+          [T215].number, [T215].quantity, MAX([T215].retail_price)
+        FROM
+          (input1) AS [T215][number, quantity, retail_price]
+        GROUP BY
+          [T215].number  [T215].quantity) AS [T216][number, quantity, MAX-retail_price] )) AS [T217][number, MAX-quantity, number1, quantity, MAX-retail_price]
+WHERE
+  [T217].number == [T217].number1
+   AND [T217].MAX-quantity == [T217].quantity
+@anonymous
+[T217].number(NumberVal) | [T217].MAX-quantity(NumberVal) | [T217].MAX-retail_price(NumberVal) 
+1007.0 | 576.0 | 5.46 
+1006.0 | 500.0 | 5.01 
+
+[No.12]===============================
+SELECT
+  [T1303].number,[T1303].MAX-quantity,[T1303].MAX-retail_price
+FROM
+  (( (SELECT
+          [T1297].number, MAX([T1297].quantity)
+        FROM
+          (input1) AS [T1297][number, quantity, retail_price]
+        GROUP BY
+          [T1297].number) AS [T1298][number, MAX-quantity] ) JOIN (
+      (SELECT
+          [T1301].number, [T1301].quantity, MAX([T1301].retail_price)
+        FROM
+          (input1) AS [T1301][number, quantity, retail_price]
+        GROUP BY
+          [T1301].number  [T1301].quantity) AS [T1302][number, quantity, MAX-retail_price] )) AS [T1303][number, MAX-quantity, number1, quantity, MAX-retail_price]
+WHERE
+  [T1303].MAX-quantity == [T1303].quantity
+@anonymous
+[T1303].number(NumberVal) | [T1303].MAX-quantity(NumberVal) | [T1303].MAX-retail_price(NumberVal) 
+1007.0 | 576.0 | 5.46 
+1006.0 | 500.0 | 5.01 
+
+[No.11]===============================
+SELECT
+  [T1253].number,[T1253].quantity,[T1253].MAX-retail_price
+FROM
+  (( (SELECT
+          [T1247].number, [T1247].quantity, MAX([T1247].retail_price)
+        FROM
+          (input1) AS [T1247][number, quantity, retail_price]
+        GROUP BY
+          [T1247].number  [T1247].quantity) AS [T1248][number, quantity, MAX-retail_price] ) JOIN (
+      (SELECT
+          [T1251].number, MAX([T1251].quantity)
+        FROM
+          (input1) AS [T1251][number, quantity, retail_price]
+        GROUP BY
+          [T1251].number) AS [T1252][number, MAX-quantity] )) AS [T1253][number, quantity, MAX-retail_price, number1, MAX-quantity]
+WHERE
+  [T1253].quantity == [T1253].MAX-quantity
+@anonymous
+[T1253].number(NumberVal) | [T1253].quantity(NumberVal) | [T1253].MAX-retail_price(NumberVal) 
+1007.0 | 576.0 | 5.46 
+1006.0 | 500.0 | 5.01 
+
+[No.10]===============================
+SELECT
+  [T1213].number,[T1213].MAX-quantity,[T1213].MAX-retail_price
+FROM
+  (( (SELECT
+          [T1207].number, MAX([T1207].quantity)
+        FROM
+          (input1) AS [T1207][number, quantity, retail_price]
+        GROUP BY
+          [T1207].number) AS [T1208][number, MAX-quantity] ) JOIN (
+      (SELECT
+          [T1211].quantity, MAX([T1211].retail_price)
+        FROM
+          (input1) AS [T1211][number, quantity, retail_price]
+        GROUP BY
+          [T1211].quantity) AS [T1212][quantity, MAX-retail_price] )) AS [T1213][number, MAX-quantity, quantity, MAX-retail_price]
+WHERE
+  [T1213].MAX-quantity == [T1213].quantity
+@anonymous
+[T1213].number(NumberVal) | [T1213].MAX-quantity(NumberVal) | [T1213].MAX-retail_price(NumberVal) 
+1007.0 | 576.0 | 5.46 
+1006.0 | 500.0 | 5.01 
+
+[No.9]===============================
+SELECT
+  [T1173].number,[T1173].quantity,[T1173].MAX-retail_price
+FROM
+  (( (SELECT
+          [T1167].quantity, MAX([T1167].retail_price)
+        FROM
+          (input1) AS [T1167][number, quantity, retail_price]
+        GROUP BY
+          [T1167].quantity) AS [T1168][quantity, MAX-retail_price] ) JOIN (
+      (SELECT
+          [T1171].number, MAX([T1171].quantity)
+        FROM
+          (input1) AS [T1171][number, quantity, retail_price]
+        GROUP BY
+          [T1171].number) AS [T1172][number, MAX-quantity] )) AS [T1173][quantity, MAX-retail_price, number, MAX-quantity]
+WHERE
+  [T1173].quantity == [T1173].MAX-quantity
+@anonymous
+[T1173].number(NumberVal) | [T1173].quantity(NumberVal) | [T1173].MAX-retail_price(NumberVal) 
+1007.0 | 576.0 | 5.46 
+1006.0 | 500.0 | 5.01 
+
+[No.8]===============================
+SELECT
+  [T931].number,[T931].quantity,[T931].MAX-retail_price
+FROM
+  (( (SELECT
+          [T925].quantity, MAX([T925].retail_price)
+        FROM
+          (input1) AS [T925][number, quantity, retail_price]
+        GROUP BY
+          [T925].quantity) AS [T926][quantity, MAX-retail_price] ) JOIN (
+      (SELECT
+          [T929].number, MAX([T929].quantity)
+        FROM
+          (input1) AS [T929][number, quantity, retail_price]
+        GROUP BY
+          [T929].number) AS [T930][number, MAX-quantity] )) AS [T931][quantity, MAX-retail_price, number, MAX-quantity]
+WHERE
+  [T931].quantity == [T931].MAX-quantity
+@anonymous
+[T931].number(NumberVal) | [T931].quantity(NumberVal) | [T931].MAX-retail_price(NumberVal) 
+1007.0 | 576.0 | 5.46 
+1006.0 | 500.0 | 5.01 
+
+[No.7]===============================
+SELECT
+  [T891].number,[T891].MAX-quantity,[T891].MAX-retail_price
+FROM
+  (( (SELECT
+          [T885].number, MAX([T885].quantity)
+        FROM
+          (input1) AS [T885][number, quantity, retail_price]
+        GROUP BY
+          [T885].number) AS [T886][number, MAX-quantity] ) JOIN (
+      (SELECT
+          [T889].quantity, MAX([T889].retail_price)
+        FROM
+          (input1) AS [T889][number, quantity, retail_price]
+        GROUP BY
+          [T889].quantity) AS [T890][quantity, MAX-retail_price] )) AS [T891][number, MAX-quantity, quantity, MAX-retail_price]
+WHERE
+  [T891].MAX-quantity == [T891].quantity
+@anonymous
+[T891].number(NumberVal) | [T891].MAX-quantity(NumberVal) | [T891].MAX-retail_price(NumberVal) 
+1007.0 | 576.0 | 5.46 
+1006.0 | 500.0 | 5.01 
+
+[No.6]===============================
+SELECT
+  [T841].number,[T841].MAX-quantity,[T841].MAX-retail_price
+FROM
+  (( (SELECT
+          [T835].number, MAX([T835].quantity)
+        FROM
+          (input1) AS [T835][number, quantity, retail_price]
+        GROUP BY
+          [T835].number) AS [T836][number, MAX-quantity] ) JOIN (
+      (SELECT
+          [T839].number, [T839].quantity, MAX([T839].retail_price)
+        FROM
+          (input1) AS [T839][number, quantity, retail_price]
+        GROUP BY
+          [T839].number  [T839].quantity) AS [T840][number, quantity, MAX-retail_price] )) AS [T841][number, MAX-quantity, number1, quantity, MAX-retail_price]
+WHERE
+  [T841].MAX-quantity == [T841].quantity
+@anonymous
+[T841].number(NumberVal) | [T841].MAX-quantity(NumberVal) | [T841].MAX-retail_price(NumberVal) 
+1007.0 | 576.0 | 5.46 
+1006.0 | 500.0 | 5.01 
+
+[No.5]===============================
+SELECT
+  [T791].number,[T791].quantity,[T791].MAX-retail_price
+FROM
+  (( (SELECT
+          [T785].number, [T785].quantity, MAX([T785].retail_price)
+        FROM
+          (input1) AS [T785][number, quantity, retail_price]
+        GROUP BY
+          [T785].number  [T785].quantity) AS [T786][number, quantity, MAX-retail_price] ) JOIN (
+      (SELECT
+          [T789].number, MAX([T789].quantity)
+        FROM
+          (input1) AS [T789][number, quantity, retail_price]
+        GROUP BY
+          [T789].number) AS [T790][number, MAX-quantity] )) AS [T791][number, quantity, MAX-retail_price, number1, MAX-quantity]
+WHERE
+  [T791].quantity == [T791].MAX-quantity
+@anonymous
+[T791].number(NumberVal) | [T791].quantity(NumberVal) | [T791].MAX-retail_price(NumberVal) 
+1007.0 | 576.0 | 5.46 
+1006.0 | 500.0 | 5.01 
+
+[No.4]===============================
+SELECT
+  [T337].number,[T337].quantity,[T337].MAX-retail_price
+FROM
+  (( (SELECT
+          [T331].number, [T331].quantity, MAX([T331].retail_price)
+        FROM
+          (input1) AS [T331][number, quantity, retail_price]
+        GROUP BY
+          [T331].number  [T331].quantity) AS [T332][number, quantity, MAX-retail_price] ) JOIN (
+      (SELECT
+          [T335].number, MAX([T335].quantity)
+        FROM
+          (input1) AS [T335][number, quantity, retail_price]
+        GROUP BY
+          [T335].number) AS [T336][number, MAX-quantity] )) AS [T337][number, quantity, MAX-retail_price, number1, MAX-quantity]
+WHERE
+  [T337].quantity == [T337].MAX-quantity
+@anonymous
+[T337].number(NumberVal) | [T337].quantity(NumberVal) | [T337].MAX-retail_price(NumberVal) 
+1007.0 | 576.0 | 5.46 
+1006.0 | 500.0 | 5.01 
+
+[No.3]===============================
+SELECT
+  [T297].number,[T297].quantity,[T297].MAX-retail_price
+FROM
+  (( (SELECT
+          [T291].quantity, MAX([T291].retail_price)
+        FROM
+          (input1) AS [T291][number, quantity, retail_price]
+        GROUP BY
+          [T291].quantity) AS [T292][quantity, MAX-retail_price] ) JOIN (
+      (SELECT
+          [T295].number, MAX([T295].quantity)
+        FROM
+          (input1) AS [T295][number, quantity, retail_price]
+        GROUP BY
+          [T295].number) AS [T296][number, MAX-quantity] )) AS [T297][quantity, MAX-retail_price, number, MAX-quantity]
+WHERE
+  [T297].quantity == [T297].MAX-quantity
+@anonymous
+[T297].number(NumberVal) | [T297].quantity(NumberVal) | [T297].MAX-retail_price(NumberVal) 
+1007.0 | 576.0 | 5.46 
+1006.0 | 500.0 | 5.01 
+
+[No.2]===============================
+SELECT
+  [T257].number,[T257].MAX-quantity,[T257].MAX-retail_price
+FROM
+  (( (SELECT
+          [T251].number, MAX([T251].quantity)
+        FROM
+          (input1) AS [T251][number, quantity, retail_price]
+        GROUP BY
+          [T251].number) AS [T252][number, MAX-quantity] ) JOIN (
+      (SELECT
+          [T255].quantity, MAX([T255].retail_price)
+        FROM
+          (input1) AS [T255][number, quantity, retail_price]
+        GROUP BY
+          [T255].quantity) AS [T256][quantity, MAX-retail_price] )) AS [T257][number, MAX-quantity, quantity, MAX-retail_price]
+WHERE
+  [T257].MAX-quantity == [T257].quantity
+@anonymous
+[T257].number(NumberVal) | [T257].MAX-quantity(NumberVal) | [T257].MAX-retail_price(NumberVal) 
+1007.0 | 576.0 | 5.46 
+1006.0 | 500.0 | 5.01 
+
+[No.1]===============================
+SELECT
+  [T207].number,[T207].MAX-quantity,[T207].MAX-retail_price
+FROM
+  (( (SELECT
+          [T201].number, MAX([T201].quantity)
+        FROM
+          (input1) AS [T201][number, quantity, retail_price]
+        GROUP BY
+          [T201].number) AS [T202][number, MAX-quantity] ) JOIN (
+      (SELECT
+          [T205].number, [T205].quantity, MAX([T205].retail_price)
+        FROM
+          (input1) AS [T205][number, quantity, retail_price]
+        GROUP BY
+          [T205].number  [T205].quantity) AS [T206][number, quantity, MAX-retail_price] )) AS [T207][number, MAX-quantity, number1, quantity, MAX-retail_price]
+WHERE
+  [T207].MAX-quantity == [T207].quantity
+@anonymous
+[T207].number(NumberVal) | [T207].MAX-quantity(NumberVal) | [T207].MAX-retail_price(NumberVal) 
+1007.0 | 576.0 | 5.46 
+1006.0 | 500.0 | 5.01 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 4.597s

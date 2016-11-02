@@ -1,0 +1,455 @@
+[[Synthesis start]]
+	File: ../data/recent_posts/044M
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 52 [SymTable]: 54
+[NaturalJoin]: 1 [SymTable]: 54
+Candidate Tree Number: 1
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 3 [SymTable]: 5
+[JOIN] level 1 [SymTable]: 15
+[EnumJoinOnAggr] level 1 [SymTable]: 40
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 7 [SymTable]: 9
+[JOIN] level 1 [SymTable]: 27
+Candidate Tree Number: 7
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 7 [SymTable]: 9
+[JOIN] level 1 [SymTable]: 27
+[EnumJoinOnAggr] level 1 [SymTable]: 108
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 7 [SymTable]: 9
+[JOIN] level 1 [SymTable]: 27
+Candidate Tree Number: 2
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 11 [SymTable]: 13
+[JOIN] level 1 [SymTable]: 39
+Candidate Tree Number: 7
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 17 [SymTable]: 19
+[JOIN] level 1 [SymTable]: 57
+Candidate Tree Number: 11
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T375].OriginalID,[T375].Area1
+FROM
+  (( (SELECT
+          [T373].Area, COUNT([T373].Area)
+        FROM
+          (input1) AS [T373][OriginalID, Area]
+        GROUP BY
+          [T373].Area) AS [T374][Area, COUNT-Area] ) JOIN (
+      input1 )) AS [T375][Area, COUNT-Area, OriginalID, Area1]
+WHERE
+  [T375].Area <> [T375].Area1
+   AND [T375].COUNT-Area < [T375].OriginalID
+@anonymous
+[T375].OriginalID(NumberVal) | [T375].Area1(StringVal) 
+4.0 | Bottom 
+3.0 | Abdomen 
+
+[No.19]===============================
+SELECT
+  [T363].OriginalID,[T363].Area1
+FROM
+  (( (SELECT
+          [T361].Area, COUNT([T361].OriginalID)
+        FROM
+          (input1) AS [T361][OriginalID, Area]
+        GROUP BY
+          [T361].Area) AS [T362][Area, COUNT-OriginalID] ) JOIN (
+      input1 )) AS [T363][Area, COUNT-OriginalID, OriginalID, Area1]
+WHERE
+  [T363].Area <> [T363].Area1
+   AND [T363].COUNT-OriginalID < [T363].OriginalID
+@anonymous
+[T363].OriginalID(NumberVal) | [T363].Area1(StringVal) 
+4.0 | Bottom 
+3.0 | Abdomen 
+
+[No.18]===============================
+SELECT
+  [T351].OriginalID,[T351].Part
+FROM
+  (( (SELECT
+          [T349].Part, MAX([T349].OriginalID)
+        FROM
+          (input2) AS [T349][Part, OriginalID]
+        GROUP BY
+          [T349].Part) AS [T350][Part, MAX-OriginalID] ) JOIN (
+      input1 )) AS [T351][Part, MAX-OriginalID, OriginalID, Area]
+WHERE
+  [T351].Part == [T351].Area
+   AND [T351].MAX-OriginalID < [T351].OriginalID
+@anonymous
+[T351].OriginalID(NumberVal) | [T351].Part(StringVal) 
+3.0 | Abdomen 
+4.0 | Bottom 
+
+[No.17]===============================
+SELECT
+  [T393].MAX-OriginalID,[T393].Area
+FROM
+  (( (SELECT
+          [T391].Area, MAX([T391].OriginalID)
+        FROM
+          (input1) AS [T391][OriginalID, Area]
+        GROUP BY
+          [T391].Area) AS [T392][Area, MAX-OriginalID] ) JOIN (
+      input1 )) AS [T393][Area, MAX-OriginalID, OriginalID, Area1]
+WHERE
+  [T393].Area == [T393].Area1
+   AND [T393].MAX-OriginalID <= [T393].OriginalID
+@anonymous
+[T393].MAX-OriginalID(NumberVal) | [T393].Area(StringVal) 
+3.0 | Abdomen 
+4.0 | Bottom 
+
+[No.16]===============================
+SELECT
+  [T270].OriginalID,[T270].Part
+FROM
+  (( (SELECT
+          [T268].Part, MAX([T268].OriginalID)
+        FROM
+          (input2) AS [T268][Part, OriginalID]
+        GROUP BY
+          [T268].Part) AS [T269][Part, MAX-OriginalID] ) JOIN (
+      input1 )) AS [T270][Part, MAX-OriginalID, OriginalID, Area]
+WHERE
+  [T270].Part == [T270].Area
+   AND [T270].MAX-OriginalID < [T270].OriginalID
+@anonymous
+[T270].OriginalID(NumberVal) | [T270].Part(StringVal) 
+3.0 | Abdomen 
+4.0 | Bottom 
+
+[No.15]===============================
+SELECT
+  [T288].MAX-OriginalID,[T288].Area
+FROM
+  (( (SELECT
+          [T286].Area, MAX([T286].OriginalID)
+        FROM
+          (input1) AS [T286][OriginalID, Area]
+        GROUP BY
+          [T286].Area) AS [T287][Area, MAX-OriginalID] ) JOIN (
+      input1 )) AS [T288][Area, MAX-OriginalID, OriginalID, Area1]
+WHERE
+  [T288].Area == [T288].Area1
+   AND [T288].MAX-OriginalID <= [T288].OriginalID
+@anonymous
+[T288].MAX-OriginalID(NumberVal) | [T288].Area(StringVal) 
+3.0 | Abdomen 
+4.0 | Bottom 
+
+[No.14]===============================
+SELECT
+  [T142].OriginalID,[T142].Part
+FROM
+  (( (SELECT
+          [T140].Part, MAX([T140].OriginalID)
+        FROM
+          (input2) AS [T140][Part, OriginalID]
+        GROUP BY
+          [T140].Part) AS [T141][Part, MAX-OriginalID] ) JOIN (
+      input1 )) AS [T142][Part, MAX-OriginalID, OriginalID, Area]
+WHERE
+  [T142].Part == [T142].Area
+   AND [T142].MAX-OriginalID < [T142].OriginalID
+@anonymous
+[T142].OriginalID(NumberVal) | [T142].Part(StringVal) 
+3.0 | Abdomen 
+4.0 | Bottom 
+
+[No.13]===============================
+SELECT
+  [T124].MAX-OriginalID,[T124].Area
+FROM
+  (( (SELECT
+          [T122].Area, MAX([T122].OriginalID)
+        FROM
+          (input1) AS [T122][OriginalID, Area]
+        GROUP BY
+          [T122].Area) AS [T123][Area, MAX-OriginalID] ) JOIN (
+      input1 )) AS [T124][Area, MAX-OriginalID, OriginalID, Area1]
+WHERE
+  [T124].Area == [T124].Area1
+   AND [T124].MAX-OriginalID <= [T124].OriginalID
+@anonymous
+[T124].MAX-OriginalID(NumberVal) | [T124].Area(StringVal) 
+3.0 | Abdomen 
+4.0 | Bottom 
+
+[No.12]===============================
+SELECT
+  [T221].OriginalID,[T221].Area
+FROM
+  (( (SELECT
+          [T219].Area, AVG([T219].OriginalID)
+        FROM
+          (input1) AS [T219][OriginalID, Area]
+        GROUP BY
+          [T219].Area) AS [T220][Area, AVG-OriginalID] ) JOIN (
+      SELECT
+        input1.OriginalID,input1.Area
+      FROM
+        input1
+      WHERE
+        True )) AS [T221][Area, AVG-OriginalID, OriginalID, Area1]
+WHERE
+  [T221].Area == [T221].Area1
+   AND [T221].AVG-OriginalID < [T221].OriginalID
+@anonymous
+[T221].OriginalID(NumberVal) | [T221].Area(StringVal) 
+3.0 | Abdomen 
+4.0 | Bottom 
+
+[No.11]===============================
+SELECT
+  [T387].MAX-OriginalID,[T387].Area
+FROM
+  (( (SELECT
+          [T385].Area, MAX([T385].OriginalID)
+        FROM
+          (input1) AS [T385][OriginalID, Area]
+        GROUP BY
+          [T385].Area) AS [T386][Area, MAX-OriginalID] ) JOIN (
+      SELECT
+        input1.OriginalID,input1.Area
+      FROM
+        input1
+      WHERE
+        True )) AS [T387][Area, MAX-OriginalID, OriginalID, Area1]
+WHERE
+  [T387].MAX-OriginalID == [T387].OriginalID
+   AND [T387].Area == [T387].Area1
+@anonymous
+[T387].MAX-OriginalID(NumberVal) | [T387].Area(StringVal) 
+3.0 | Abdomen 
+4.0 | Bottom 
+
+[No.10]===============================
+SELECT
+  [T282].MAX-OriginalID,[T282].Area
+FROM
+  (( (SELECT
+          [T280].Area, MAX([T280].OriginalID)
+        FROM
+          (input1) AS [T280][OriginalID, Area]
+        GROUP BY
+          [T280].Area) AS [T281][Area, MAX-OriginalID] ) JOIN (
+      SELECT
+        input1.OriginalID,input1.Area
+      FROM
+        input1
+      WHERE
+        True )) AS [T282][Area, MAX-OriginalID, OriginalID, Area1]
+WHERE
+  [T282].MAX-OriginalID == [T282].OriginalID
+   AND [T282].Area == [T282].Area1
+@anonymous
+[T282].MAX-OriginalID(NumberVal) | [T282].Area(StringVal) 
+3.0 | Abdomen 
+4.0 | Bottom 
+
+[No.9]===============================
+SELECT
+  [T118].MAX-OriginalID,[T118].Area
+FROM
+  (( (SELECT
+          [T116].Area, MAX([T116].OriginalID)
+        FROM
+          (input1) AS [T116][OriginalID, Area]
+        GROUP BY
+          [T116].Area) AS [T117][Area, MAX-OriginalID] ) JOIN (
+      SELECT
+        input1.OriginalID,input1.Area
+      FROM
+        input1
+      WHERE
+        True )) AS [T118][Area, MAX-OriginalID, OriginalID, Area1]
+WHERE
+  [T118].MAX-OriginalID == [T118].OriginalID
+   AND [T118].Area == [T118].Area1
+@anonymous
+[T118].MAX-OriginalID(NumberVal) | [T118].Area(StringVal) 
+3.0 | Abdomen 
+4.0 | Bottom 
+
+[No.8]===============================
+SELECT
+  [T227].OriginalID,[T227].Area
+FROM
+  (( (SELECT
+          [T225].Area, AVG([T225].OriginalID)
+        FROM
+          (input1) AS [T225][OriginalID, Area]
+        GROUP BY
+          [T225].Area) AS [T226][Area, AVG-OriginalID] ) JOIN (
+      input1 )) AS [T227][Area, AVG-OriginalID, OriginalID, Area1]
+WHERE
+  [T227].Area == [T227].Area1
+   AND [T227].AVG-OriginalID < [T227].OriginalID
+@anonymous
+[T227].OriginalID(NumberVal) | [T227].Area(StringVal) 
+3.0 | Abdomen 
+4.0 | Bottom 
+
+[No.7]===============================
+SELECT
+  [T399].MAX-OriginalID,[T399].Area
+FROM
+  (( (SELECT
+          [T397].Area, MAX([T397].OriginalID)
+        FROM
+          (input1) AS [T397][OriginalID, Area]
+        GROUP BY
+          [T397].Area) AS [T398][Area, MAX-OriginalID] ) JOIN (
+      input1 )) AS [T399][Area, MAX-OriginalID, OriginalID, Area1]
+WHERE
+  [T399].MAX-OriginalID == [T399].OriginalID
+   AND [T399].Area == [T399].Area1
+@anonymous
+[T399].MAX-OriginalID(NumberVal) | [T399].Area(StringVal) 
+3.0 | Abdomen 
+4.0 | Bottom 
+
+[No.6]===============================
+SELECT
+  [T294].MAX-OriginalID,[T294].Area
+FROM
+  (( (SELECT
+          [T292].Area, MAX([T292].OriginalID)
+        FROM
+          (input1) AS [T292][OriginalID, Area]
+        GROUP BY
+          [T292].Area) AS [T293][Area, MAX-OriginalID] ) JOIN (
+      input1 )) AS [T294][Area, MAX-OriginalID, OriginalID, Area1]
+WHERE
+  [T294].MAX-OriginalID == [T294].OriginalID
+   AND [T294].Area == [T294].Area1
+@anonymous
+[T294].MAX-OriginalID(NumberVal) | [T294].Area(StringVal) 
+3.0 | Abdomen 
+4.0 | Bottom 
+
+[No.5]===============================
+SELECT
+  [T130].MAX-OriginalID,[T130].Area
+FROM
+  (( (SELECT
+          [T128].Area, MAX([T128].OriginalID)
+        FROM
+          (input1) AS [T128][OriginalID, Area]
+        GROUP BY
+          [T128].Area) AS [T129][Area, MAX-OriginalID] ) JOIN (
+      input1 )) AS [T130][Area, MAX-OriginalID, OriginalID, Area1]
+WHERE
+  [T130].MAX-OriginalID == [T130].OriginalID
+   AND [T130].Area == [T130].Area1
+@anonymous
+[T130].MAX-OriginalID(NumberVal) | [T130].Area(StringVal) 
+3.0 | Abdomen 
+4.0 | Bottom 
+
+[No.4]===============================
+SELECT
+  [T340].MAX-OriginalID,[T340].Area
+FROM
+  (SELECT
+      [T339].Area, MAX([T339].OriginalID)
+    FROM
+      (input1) AS [T339][OriginalID, Area]
+    GROUP BY
+      [T339].Area) AS [T340][Area, MAX-OriginalID]
+
+@anonymous
+[T340].MAX-OriginalID(NumberVal) | [T340].Area(StringVal) 
+3.0 | Abdomen 
+4.0 | Bottom 
+
+[No.3]===============================
+SELECT
+  [T259].MAX-OriginalID,[T259].Area
+FROM
+  (SELECT
+      [T258].Area, MAX([T258].OriginalID)
+    FROM
+      (input1) AS [T258][OriginalID, Area]
+    GROUP BY
+      [T258].Area) AS [T259][Area, MAX-OriginalID]
+
+@anonymous
+[T259].MAX-OriginalID(NumberVal) | [T259].Area(StringVal) 
+3.0 | Abdomen 
+4.0 | Bottom 
+
+[No.2]===============================
+SELECT
+  [T107].MAX-OriginalID,[T107].Area
+FROM
+  (SELECT
+      [T106].Area, MAX([T106].OriginalID)
+    FROM
+      (input1) AS [T106][OriginalID, Area]
+    GROUP BY
+      [T106].Area) AS [T107][Area, MAX-OriginalID]
+
+@anonymous
+[T107].MAX-OriginalID(NumberVal) | [T107].Area(StringVal) 
+3.0 | Abdomen 
+4.0 | Bottom 
+
+[No.1]===============================
+SELECT
+  [T56].MAX-OriginalID,[T56].Area
+FROM
+  (SELECT
+      [T55].Area, MAX([T55].OriginalID)
+    FROM
+      (input1) AS [T55][OriginalID, Area]
+    GROUP BY
+      [T55].Area) AS [T56][Area, MAX-OriginalID]
+
+@anonymous
+[T56].MAX-OriginalID(NumberVal) | [T56].Area(StringVal) 
+3.0 | Abdomen 
+4.0 | Bottom 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.449s

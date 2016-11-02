@@ -1,0 +1,444 @@
+[[Synthesis start]]
+	File: ../data/recent_posts/028
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 81 [SymTable]: 82
+Candidate Tree Number: 14
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 12
+[EnumJoinOnAggr] level 1 [SymTable]: 48
+Candidate Tree Number: 16
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 10 [SymTable]: 11
+[JOIN] level 1 [SymTable]: 22
+[EnumJoinOnAggr] level 1 [SymTable]: 143
+Candidate Tree Number: 20
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 10 [SymTable]: 11
+[JOIN] level 1 [SymTable]: 22
+Candidate Tree Number: 17
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 10 [SymTable]: 11
+[JOIN] level 1 [SymTable]: 22
+Candidate Tree Number: 9
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 15 [SymTable]: 16
+[JOIN] level 1 [SymTable]: 32
+Candidate Tree Number: 17
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 26 [SymTable]: 27
+[JOIN] level 1 [SymTable]: 54
+Candidate Tree Number: 34
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T304].Member
+FROM
+  (( (SELECT
+          [T292].Member, FROM
+          (SELECT
+              input1.Member,input1.Element
+            FROM
+              input1
+            WHERE
+              input1.Member > 1.0) AS [T292][Member, Element]
+        GROUP BY
+          [T292].Member) AS [T293][Member] ) JOIN (
+      (SELECT
+          [T302].Member, FROM
+          (input1) AS [T302][Member, Element]
+        GROUP BY
+          [T302].Member) AS [T303][Member] )) AS [T304][Member, Member1]
+WHERE
+  [T304].Member < [T304].Member1
+@anonymous
+[T304].Member(NumberVal) 
+2.0 
+
+[No.19]===============================
+SELECT
+  [T240].Member1
+FROM
+  (( (SELECT
+          [T234].Member, FROM
+          (input1) AS [T234][Member, Element]
+        GROUP BY
+          [T234].Member) AS [T235][Member] ) JOIN (
+      (SELECT
+          [T238].Member, FROM
+          (SELECT
+              input1.Member,input1.Element
+            FROM
+              input1
+            WHERE
+              input1.Member > 1.0) AS [T238][Member, Element]
+        GROUP BY
+          [T238].Member) AS [T239][Member] )) AS [T240][Member, Member1]
+WHERE
+  [T240].Member > [T240].Member1
+@anonymous
+[T240].Member1(NumberVal) 
+2.0 
+
+[No.18]===============================
+SELECT
+  [T126].COUNT_DISTINCT-Element
+FROM
+  (SELECT
+      [T125].Member, COUNT_DISTINCT([T125].Element)
+    FROM
+      (SELECT
+          input1.Member,input1.Element
+        FROM
+          input1
+        WHERE
+          input1.Member > 1.0) AS [T125][Member, Element]
+    GROUP BY
+      [T125].Member) AS [T126][Member, COUNT_DISTINCT-Element]
+WHERE
+  [T126].COUNT_DISTINCT-Element < [T126].Member
+@anonymous
+[T126].COUNT_DISTINCT-Element(NumberVal) 
+2.0 
+
+[No.17]===============================
+SELECT
+  [T122].Member
+FROM
+  (SELECT
+      [T121].Member, COUNT_DISTINCT([T121].Element)
+    FROM
+      (SELECT
+          input1.Member,input1.Element
+        FROM
+          input1
+        WHERE
+          input1.Member > 1.0) AS [T121][Member, Element]
+    GROUP BY
+      [T121].Member) AS [T122][Member, COUNT_DISTINCT-Element]
+WHERE
+  [T122].COUNT_DISTINCT-Element > [T122].Member
+@anonymous
+[T122].Member(NumberVal) 
+2.0 
+
+[No.16]===============================
+SELECT
+  [T1315].MIN-Member
+FROM
+  (( SELECT
+        [T1314].Element,[T1314].MIN-Member
+      FROM
+        (SELECT
+            [T1313].Element, MIN([T1313].Member)
+          FROM
+            (input1) AS [T1313][Member, Element]
+          GROUP BY
+            [T1313].Element) AS [T1314][Element, MIN-Member]
+      WHERE
+        [T1314].MIN-Member > 1.0 ) JOIN (
+      input1 )) AS [T1315][Element, MIN-Member, Member, Element1]
+WHERE
+  [T1315].MIN-Member == [T1315].Member
+   AND [T1315].Element == [T1315].Element1
+@anonymous
+[T1315].MIN-Member(NumberVal) 
+2.0 
+
+[No.15]===============================
+SELECT
+  [T1303].MIN-Member
+FROM
+  (( (SELECT
+          [T1301].Element, MIN([T1301].Member)
+        FROM
+          (input1) AS [T1301][Member, Element]
+        GROUP BY
+          [T1301].Element) AS [T1302][Element, MIN-Member] ) JOIN (
+      SELECT
+        input1.Member,input1.Element
+      FROM
+        input1
+      WHERE
+        input1.Member > 1.0 )) AS [T1303][Element, MIN-Member, Member, Element1]
+WHERE
+  [T1303].MIN-Member == [T1303].Member
+   AND [T1303].Element == [T1303].Element1
+@anonymous
+[T1303].MIN-Member(NumberVal) 
+2.0 
+
+[No.14]===============================
+SELECT
+  [T1052].AVG-Member
+FROM
+  (( SELECT
+        [T1051].Element,[T1051].AVG-Member
+      FROM
+        (SELECT
+            [T1050].Element, AVG([T1050].Member)
+          FROM
+            (input1) AS [T1050][Member, Element]
+          GROUP BY
+            [T1050].Element) AS [T1051][Element, AVG-Member]
+      WHERE
+        [T1051].AVG-Member > 1.0 ) JOIN (
+      input1 )) AS [T1052][Element, AVG-Member, Member, Element1]
+WHERE
+  [T1052].Element == [T1052].Element1
+   AND [T1052].AVG-Member == [T1052].Member
+@anonymous
+[T1052].AVG-Member(NumberVal) 
+2.0 
+
+[No.13]===============================
+SELECT
+  [T1040].AVG-Member
+FROM
+  (( (SELECT
+          [T1038].Element, AVG([T1038].Member)
+        FROM
+          (input1) AS [T1038][Member, Element]
+        GROUP BY
+          [T1038].Element) AS [T1039][Element, AVG-Member] ) JOIN (
+      SELECT
+        input1.Member,input1.Element
+      FROM
+        input1
+      WHERE
+        input1.Member > 1.0 )) AS [T1040][Element, AVG-Member, Member, Element1]
+WHERE
+  [T1040].Element == [T1040].Element1
+   AND [T1040].AVG-Member == [T1040].Member
+@anonymous
+[T1040].AVG-Member(NumberVal) 
+2.0 
+
+[No.12]===============================
+SELECT
+  [T957].MIN-Member
+FROM
+  (( SELECT
+        [T956].Element,[T956].MIN-Member
+      FROM
+        (SELECT
+            [T955].Element, MIN([T955].Member)
+          FROM
+            (input1) AS [T955][Member, Element]
+          GROUP BY
+            [T955].Element) AS [T956][Element, MIN-Member]
+      WHERE
+        [T956].MIN-Member > 1.0 ) JOIN (
+      input1 )) AS [T957][Element, MIN-Member, Member, Element1]
+WHERE
+  [T957].MIN-Member == [T957].Member
+   AND [T957].Element == [T957].Element1
+@anonymous
+[T957].MIN-Member(NumberVal) 
+2.0 
+
+[No.11]===============================
+SELECT
+  [T945].MIN-Member
+FROM
+  (( (SELECT
+          [T943].Element, MIN([T943].Member)
+        FROM
+          (input1) AS [T943][Member, Element]
+        GROUP BY
+          [T943].Element) AS [T944][Element, MIN-Member] ) JOIN (
+      SELECT
+        input1.Member,input1.Element
+      FROM
+        input1
+      WHERE
+        input1.Member > 1.0 )) AS [T945][Element, MIN-Member, Member, Element1]
+WHERE
+  [T945].MIN-Member == [T945].Member
+   AND [T945].Element == [T945].Element1
+@anonymous
+[T945].MIN-Member(NumberVal) 
+2.0 
+
+[No.10]===============================
+SELECT
+  [T166].COUNT_DISTINCT-Element
+FROM
+  (SELECT
+      [T165].Member, COUNT_DISTINCT([T165].Element)
+    FROM
+      (input1) AS [T165][Member, Element]
+    GROUP BY
+      [T165].Member) AS [T166][Member, COUNT_DISTINCT-Element]
+WHERE
+  [T166].COUNT_DISTINCT-Element < [T166].Member
+@anonymous
+[T166].COUNT_DISTINCT-Element(NumberVal) 
+2.0 
+
+[No.9]===============================
+SELECT
+  [T1362].MIN-Member
+FROM
+  (SELECT
+      [T1361].Element, MIN([T1361].Member)
+    FROM
+      (input1) AS [T1361][Member, Element]
+    GROUP BY
+      [T1361].Element) AS [T1362][Element, MIN-Member]
+WHERE
+  [T1362].MIN-Member > 1.0
+@anonymous
+[T1362].MIN-Member(NumberVal) 
+2.0 
+
+[No.8]===============================
+(SELECT
+    MIN([T1171].Member)
+  FROM
+    (SELECT
+        input1.Member,input1.Element
+      FROM
+        input1
+      WHERE
+        input1.Member > 1.0) AS [T1171][Member, Element]) AS [T1172][MIN-Member]
+@anonymous
+[T1172].MIN-Member(NumberVal) 
+2.0 
+
+[No.7]===============================
+(SELECT
+    MIN([T1007].Member)
+  FROM
+    (SELECT
+        input1.Member,input1.Element
+      FROM
+        input1
+      WHERE
+        input1.Member > 1.0) AS [T1007][Member, Element]) AS [T1008][MIN-Member]
+@anonymous
+[T1008].MIN-Member(NumberVal) 
+2.0 
+
+[No.6]===============================
+SELECT
+  [T1004].MIN-Member
+FROM
+  (SELECT
+      [T1003].Element, MIN([T1003].Member)
+    FROM
+      (input1) AS [T1003][Member, Element]
+    GROUP BY
+      [T1003].Element) AS [T1004][Element, MIN-Member]
+WHERE
+  [T1004].MIN-Member > 1.0
+@anonymous
+[T1004].MIN-Member(NumberVal) 
+2.0 
+
+[No.5]===============================
+SELECT
+  [T156].MIN-Member
+FROM
+  (SELECT
+      [T155].Element, MIN([T155].Member)
+    FROM
+      (input1) AS [T155][Member, Element]
+    GROUP BY
+      [T155].Element) AS [T156][Element, MIN-Member]
+WHERE
+  [T156].MIN-Member > 1.0
+@anonymous
+[T156].MIN-Member(NumberVal) 
+2.0 
+
+[No.4]===============================
+(SELECT
+    MIN([T145].Member)
+  FROM
+    (SELECT
+        input1.Member,input1.Element
+      FROM
+        input1
+      WHERE
+        input1.Member > 1.0) AS [T145][Member, Element]) AS [T146][MIN-Member]
+@anonymous
+[T146].MIN-Member(NumberVal) 
+2.0 
+
+[No.3]===============================
+(SELECT
+    FIRST([T141].Member)
+  FROM
+    (SELECT
+        input1.Member,input1.Element
+      FROM
+        input1
+      WHERE
+        input1.Member > 1.0) AS [T141][Member, Element]) AS [T142][FIRST-Member]
+@anonymous
+[T142].FIRST-Member(NumberVal) 
+2.0 
+
+[No.2]===============================
+(SELECT
+    COUNT_DISTINCT([T137].Member)
+  FROM
+    (SELECT
+        input1.Member,input1.Element
+      FROM
+        input1
+      WHERE
+        input1.Member > 1.0) AS [T137][Member, Element]) AS [T138][COUNT_DISTINCT-Member]
+@anonymous
+[T138].COUNT_DISTINCT-Member(NumberVal) 
+2.0 
+
+[No.1]===============================
+SELECT
+  [T118].FIRST-Member
+FROM
+  (SELECT
+      [T117].Element, FIRST([T117].Member)
+    FROM
+      (input1) AS [T117][Member, Element]
+    GROUP BY
+      [T117].Element) AS [T118][Element, FIRST-Member]
+WHERE
+  [T118].FIRST-Member > 1.0
+@anonymous
+[T118].FIRST-Member(NumberVal) 
+2.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 1.848s

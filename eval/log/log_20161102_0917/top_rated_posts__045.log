@@ -1,0 +1,445 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/045
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 424 [SymTable]: 425
+Candidate Tree Number: 45
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 15 [SymTable]: 16
+[JOIN] level 1 [SymTable]: 32
+[EnumJoinOnAggr] level 1 [SymTable]: 288
+Candidate Tree Number: 64
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 60 [SymTable]: 61
+[JOIN] level 1 [SymTable]: 122
+[EnumJoinOnAggr] level 1 [SymTable]: 3843
+Candidate Tree Number: 1248
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 60 [SymTable]: 61
+[JOIN] level 1 [SymTable]: 122
+[EnumJoinOnAggr] level 1 [SymTable]: 3843
+Candidate Tree Number: 1264
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 60 [SymTable]: 61
+[JOIN] level 1 [SymTable]: 122
+[EnumJoinOnAggr] level 1 [SymTable]: 3843
+Candidate Tree Number: 1232
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 105 [SymTable]: 106
+[JOIN] level 1 [SymTable]: 212
+[EnumJoinOnAggr] level 1 [SymTable]: 11448
+Candidate Tree Number: 3986
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 124 [SymTable]: 125
+[JOIN] level 1 [SymTable]: 250
+Candidate Tree Number: 104
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T1322].user_id1,[T1322].user_id
+FROM
+  (( (SELECT
+          [T1316].user_id, [T1316].zip, [T1316].date, FROM
+          (input1) AS [T1316][user_id, account_no, zip, date]
+        GROUP BY
+          [T1316].user_id  [T1316].zip  [T1316].date) AS [T1317][user_id, zip, date] ) JOIN (
+      (SELECT
+          [T1320].user_id, FROM
+          (input1) AS [T1320][user_id, account_no, zip, date]
+        GROUP BY
+          [T1320].user_id) AS [T1321][user_id] )) AS [T1322][user_id, zip, date, user_id1]
+WHERE
+  [T1322].user_id > [T1322].user_id1
+@anonymous
+[T1322].user_id1(NumberVal) | [T1322].user_id(NumberVal) 
+1.0 | 2.0 
+
+[No.19]===============================
+SELECT
+  [T1272].user_id1,[T1272].user_id
+FROM
+  (( (SELECT
+          [T1266].user_id, FROM
+          (input1) AS [T1266][user_id, account_no, zip, date]
+        GROUP BY
+          [T1266].user_id) AS [T1267][user_id] ) JOIN (
+      (SELECT
+          [T1270].user_id, FROM
+          (input1) AS [T1270][user_id, account_no, zip, date]
+        GROUP BY
+          [T1270].user_id) AS [T1271][user_id] )) AS [T1272][user_id, user_id1]
+WHERE
+  [T1272].user_id > [T1272].user_id1
+@anonymous
+[T1272].user_id1(NumberVal) | [T1272].user_id(NumberVal) 
+1.0 | 2.0 
+
+[No.18]===============================
+SELECT
+  [T1232].user_id,[T1232].user_id1
+FROM
+  (( (SELECT
+          [T1226].user_id, FROM
+          (input1) AS [T1226][user_id, account_no, zip, date]
+        GROUP BY
+          [T1226].user_id) AS [T1227][user_id] ) JOIN (
+      (SELECT
+          [T1230].user_id, FROM
+          (input1) AS [T1230][user_id, account_no, zip, date]
+        GROUP BY
+          [T1230].user_id) AS [T1231][user_id] )) AS [T1232][user_id, user_id1]
+WHERE
+  [T1232].user_id < [T1232].user_id1
+@anonymous
+[T1232].user_id(NumberVal) | [T1232].user_id1(NumberVal) 
+1.0 | 2.0 
+
+[No.17]===============================
+SELECT
+  [T1172].user_id1,[T1172].user_id
+FROM
+  (( (SELECT
+          [T1166].user_id, [T1166].zip, FROM
+          (input1) AS [T1166][user_id, account_no, zip, date]
+        GROUP BY
+          [T1166].user_id  [T1166].zip) AS [T1167][user_id, zip] ) JOIN (
+      (SELECT
+          [T1170].user_id, [T1170].account_no, FROM
+          (input1) AS [T1170][user_id, account_no, zip, date]
+        GROUP BY
+          [T1170].user_id  [T1170].account_no) AS [T1171][user_id, account_no] )) AS [T1172][user_id, zip, user_id1, account_no]
+WHERE
+  [T1172].user_id > [T1172].user_id1
+@anonymous
+[T1172].user_id1(NumberVal) | [T1172].user_id(NumberVal) 
+1.0 | 2.0 
+
+[No.16]===============================
+SELECT
+  [T1142].user_id,[T1142].user_id1
+FROM
+  (( (SELECT
+          [T1136].user_id, FROM
+          (input1) AS [T1136][user_id, account_no, zip, date]
+        GROUP BY
+          [T1136].user_id) AS [T1137][user_id] ) JOIN (
+      (SELECT
+          [T1140].user_id, [T1140].date, FROM
+          (input1) AS [T1140][user_id, account_no, zip, date]
+        GROUP BY
+          [T1140].user_id  [T1140].date) AS [T1141][user_id, date] )) AS [T1142][user_id, user_id1, date]
+WHERE
+  [T1142].user_id < [T1142].user_id1
+@anonymous
+[T1142].user_id(NumberVal) | [T1142].user_id1(NumberVal) 
+1.0 | 2.0 
+
+[No.15]===============================
+SELECT
+  [T1102].user_id,[T1102].user_id1
+FROM
+  (( (SELECT
+          [T1096].user_id, [T1096].account_no, FROM
+          (input1) AS [T1096][user_id, account_no, zip, date]
+        GROUP BY
+          [T1096].user_id  [T1096].account_no) AS [T1097][user_id, account_no] ) JOIN (
+      (SELECT
+          [T1100].user_id, [T1100].date, FROM
+          (input1) AS [T1100][user_id, account_no, zip, date]
+        GROUP BY
+          [T1100].user_id  [T1100].date) AS [T1101][user_id, date] )) AS [T1102][user_id, account_no, user_id1, date]
+WHERE
+  [T1102].user_id < [T1102].user_id1
+@anonymous
+[T1102].user_id(NumberVal) | [T1102].user_id1(NumberVal) 
+1.0 | 2.0 
+
+[No.14]===============================
+SELECT
+  [T1062].user_id1,[T1062].user_id
+FROM
+  (( (SELECT
+          [T1056].user_id, [T1056].date, FROM
+          (input1) AS [T1056][user_id, account_no, zip, date]
+        GROUP BY
+          [T1056].user_id  [T1056].date) AS [T1057][user_id, date] ) JOIN (
+      (SELECT
+          [T1060].user_id, FROM
+          (input1) AS [T1060][user_id, account_no, zip, date]
+        GROUP BY
+          [T1060].user_id) AS [T1061][user_id] )) AS [T1062][user_id, date, user_id1]
+WHERE
+  [T1062].user_id > [T1062].user_id1
+@anonymous
+[T1062].user_id1(NumberVal) | [T1062].user_id(NumberVal) 
+1.0 | 2.0 
+
+[No.13]===============================
+SELECT
+  [T1012].user_id,[T1012].user_id1
+FROM
+  (( (SELECT
+          [T1006].user_id, FROM
+          (input1) AS [T1006][user_id, account_no, zip, date]
+        GROUP BY
+          [T1006].user_id) AS [T1007][user_id] ) JOIN (
+      (SELECT
+          [T1010].user_id, [T1010].zip, [T1010].date, FROM
+          (input1) AS [T1010][user_id, account_no, zip, date]
+        GROUP BY
+          [T1010].user_id  [T1010].zip  [T1010].date) AS [T1011][user_id, zip, date] )) AS [T1012][user_id, user_id1, zip, date]
+WHERE
+  [T1012].user_id < [T1012].user_id1
+@anonymous
+[T1012].user_id(NumberVal) | [T1012].user_id1(NumberVal) 
+1.0 | 2.0 
+
+[No.12]===============================
+SELECT
+  [T972].user_id1,[T972].user_id
+FROM
+  (( (SELECT
+          [T966].user_id, [T966].date, FROM
+          (input1) AS [T966][user_id, account_no, zip, date]
+        GROUP BY
+          [T966].user_id  [T966].date) AS [T967][user_id, date] ) JOIN (
+      (SELECT
+          [T970].user_id, [T970].account_no, FROM
+          (input1) AS [T970][user_id, account_no, zip, date]
+        GROUP BY
+          [T970].user_id  [T970].account_no) AS [T971][user_id, account_no] )) AS [T972][user_id, date, user_id1, account_no]
+WHERE
+  [T972].user_id > [T972].user_id1
+@anonymous
+[T972].user_id1(NumberVal) | [T972].user_id(NumberVal) 
+1.0 | 2.0 
+
+[No.11]===============================
+SELECT
+  [T942].user_id,[T942].user_id1
+FROM
+  (( (SELECT
+          [T936].user_id, [T936].account_no, FROM
+          (input1) AS [T936][user_id, account_no, zip, date]
+        GROUP BY
+          [T936].user_id  [T936].account_no) AS [T937][user_id, account_no] ) JOIN (
+      (SELECT
+          [T940].user_id, [T940].zip, [T940].date, FROM
+          (input1) AS [T940][user_id, account_no, zip, date]
+        GROUP BY
+          [T940].user_id  [T940].zip  [T940].date) AS [T941][user_id, zip, date] )) AS [T942][user_id, account_no, user_id1, zip, date]
+WHERE
+  [T942].user_id < [T942].user_id1
+@anonymous
+[T942].user_id(NumberVal) | [T942].user_id1(NumberVal) 
+1.0 | 2.0 
+
+[No.10]===============================
+SELECT
+  [T902].user_id,[T902].user_id1
+FROM
+  (( (SELECT
+          [T896].user_id, [T896].account_no, FROM
+          (input1) AS [T896][user_id, account_no, zip, date]
+        GROUP BY
+          [T896].user_id  [T896].account_no) AS [T897][user_id, account_no] ) JOIN (
+      (SELECT
+          [T900].user_id, [T900].zip, FROM
+          (input1) AS [T900][user_id, account_no, zip, date]
+        GROUP BY
+          [T900].user_id  [T900].zip) AS [T901][user_id, zip] )) AS [T902][user_id, account_no, user_id1, zip]
+WHERE
+  [T902].user_id < [T902].user_id1
+@anonymous
+[T902].user_id(NumberVal) | [T902].user_id1(NumberVal) 
+1.0 | 2.0 
+
+[No.9]===============================
+SELECT
+  [T862].user_id,[T862].user_id1
+FROM
+  (( (SELECT
+          [T856].user_id, FROM
+          (input1) AS [T856][user_id, account_no, zip, date]
+        GROUP BY
+          [T856].user_id) AS [T857][user_id] ) JOIN (
+      (SELECT
+          [T860].user_id, [T860].zip, FROM
+          (input1) AS [T860][user_id, account_no, zip, date]
+        GROUP BY
+          [T860].user_id  [T860].zip) AS [T861][user_id, zip] )) AS [T862][user_id, user_id1, zip]
+WHERE
+  [T862].user_id < [T862].user_id1
+@anonymous
+[T862].user_id(NumberVal) | [T862].user_id1(NumberVal) 
+1.0 | 2.0 
+
+[No.8]===============================
+SELECT
+  [T822].user_id1,[T822].user_id
+FROM
+  (( (SELECT
+          [T816].user_id, [T816].zip, FROM
+          (input1) AS [T816][user_id, account_no, zip, date]
+        GROUP BY
+          [T816].user_id  [T816].zip) AS [T817][user_id, zip] ) JOIN (
+      (SELECT
+          [T820].user_id, FROM
+          (input1) AS [T820][user_id, account_no, zip, date]
+        GROUP BY
+          [T820].user_id) AS [T821][user_id] )) AS [T822][user_id, zip, user_id1]
+WHERE
+  [T822].user_id > [T822].user_id1
+@anonymous
+[T822].user_id1(NumberVal) | [T822].user_id(NumberVal) 
+1.0 | 2.0 
+
+[No.7]===============================
+SELECT
+  [T782].user_id1,[T782].user_id
+FROM
+  (( (SELECT
+          [T776].user_id, [T776].zip, [T776].date, FROM
+          (input1) AS [T776][user_id, account_no, zip, date]
+        GROUP BY
+          [T776].user_id  [T776].zip  [T776].date) AS [T777][user_id, zip, date] ) JOIN (
+      (SELECT
+          [T780].user_id, [T780].account_no, FROM
+          (input1) AS [T780][user_id, account_no, zip, date]
+        GROUP BY
+          [T780].user_id  [T780].account_no) AS [T781][user_id, account_no] )) AS [T782][user_id, zip, date, user_id1, account_no]
+WHERE
+  [T782].user_id > [T782].user_id1
+@anonymous
+[T782].user_id1(NumberVal) | [T782].user_id(NumberVal) 
+1.0 | 2.0 
+
+[No.6]===============================
+SELECT
+  [T752].user_id,[T752].user_id1
+FROM
+  (( (SELECT
+          [T746].user_id, [T746].account_no, FROM
+          (input1) AS [T746][user_id, account_no, zip, date]
+        GROUP BY
+          [T746].user_id  [T746].account_no) AS [T747][user_id, account_no] ) JOIN (
+      (SELECT
+          [T750].user_id, FROM
+          (input1) AS [T750][user_id, account_no, zip, date]
+        GROUP BY
+          [T750].user_id) AS [T751][user_id] )) AS [T752][user_id, account_no, user_id1]
+WHERE
+  [T752].user_id < [T752].user_id1
+@anonymous
+[T752].user_id(NumberVal) | [T752].user_id1(NumberVal) 
+1.0 | 2.0 
+
+[No.5]===============================
+SELECT
+  [T595].COUNT_DISTINCT-user_id,[T595].user_id
+FROM
+  (SELECT
+      [T594].user_id, [T594].date, COUNT_DISTINCT([T594].user_id)
+    FROM
+      (input1) AS [T594][user_id, account_no, zip, date]
+    GROUP BY
+      [T594].user_id  [T594].date) AS [T595][user_id, date, COUNT_DISTINCT-user_id]
+WHERE
+  [T595].COUNT_DISTINCT-user_id < [T595].user_id
+@anonymous
+[T595].COUNT_DISTINCT-user_id(NumberVal) | [T595].user_id(NumberVal) 
+1.0 | 2.0 
+
+[No.4]===============================
+SELECT
+  [T539].COUNT_DISTINCT-user_id,[T539].user_id
+FROM
+  (SELECT
+      [T538].user_id, [T538].zip, COUNT_DISTINCT([T538].user_id)
+    FROM
+      (input1) AS [T538][user_id, account_no, zip, date]
+    GROUP BY
+      [T538].user_id  [T538].zip) AS [T539][user_id, zip, COUNT_DISTINCT-user_id]
+WHERE
+  [T539].COUNT_DISTINCT-user_id < [T539].user_id
+@anonymous
+[T539].COUNT_DISTINCT-user_id(NumberVal) | [T539].user_id(NumberVal) 
+1.0 | 2.0 
+
+[No.3]===============================
+SELECT
+  [T535].COUNT_DISTINCT-user_id,[T535].user_id
+FROM
+  (SELECT
+      [T534].user_id, [T534].zip, [T534].date, COUNT_DISTINCT([T534].user_id)
+    FROM
+      (input1) AS [T534][user_id, account_no, zip, date]
+    GROUP BY
+      [T534].user_id  [T534].zip  [T534].date) AS [T535][user_id, zip, date, COUNT_DISTINCT-user_id]
+WHERE
+  [T535].COUNT_DISTINCT-user_id < [T535].user_id
+@anonymous
+[T535].COUNT_DISTINCT-user_id(NumberVal) | [T535].user_id(NumberVal) 
+1.0 | 2.0 
+
+[No.2]===============================
+SELECT
+  [T88840].MIN-user_id,[T88840].MAX-user_id
+FROM
+  (( (SELECT
+          MAX([T88834].user_id)
+        FROM
+          (input1) AS [T88834][user_id, account_no, zip, date]) AS [T88835][MAX-user_id] ) JOIN (
+      (SELECT
+          MIN([T88838].user_id)
+        FROM
+          (input1) AS [T88838][user_id, account_no, zip, date]) AS [T88839][MIN-user_id] )) AS [T88840][MAX-user_id, MIN-user_id]
+
+@anonymous
+[T88840].MIN-user_id(NumberVal) | [T88840].MAX-user_id(NumberVal) 
+1.0 | 2.0 
+
+[No.1]===============================
+(( (SELECT
+        MIN([T82384].user_id)
+      FROM
+        (input1) AS [T82384][user_id, account_no, zip, date]) AS [T82385][MIN-user_id] ) JOIN (
+    (SELECT
+        MAX([T82388].user_id)
+      FROM
+        (input1) AS [T82388][user_id, account_no, zip, date]) AS [T82389][MAX-user_id] )) AS [T82390][MIN-user_id, MAX-user_id]
+@anonymous
+[T82390].MIN-user_id(NumberVal) | [T82390].MAX-user_id(NumberVal) 
+1.0 | 2.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 59.843s

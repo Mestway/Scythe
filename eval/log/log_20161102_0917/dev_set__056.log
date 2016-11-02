@@ -1,0 +1,360 @@
+[[Synthesis start]]
+	File: ../data/dev_set/056
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 71 [SymTable]: 73
+[NaturalJoin]: 1 [SymTable]: 73
+Candidate Tree Number: 2
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 2 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 12
+Candidate Tree Number: 33
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 9 [SymTable]: 11
+[JOIN] level 1 [SymTable]: 33
+Candidate Tree Number: 63
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 9 [SymTable]: 11
+[JOIN] level 1 [SymTable]: 33
+Candidate Tree Number: 54
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 9 [SymTable]: 11
+[JOIN] level 1 [SymTable]: 33
+Candidate Tree Number: 63
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 16 [SymTable]: 18
+[JOIN] level 1 [SymTable]: 54
+Candidate Tree Number: 84
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 21 [SymTable]: 23
+[JOIN] level 1 [SymTable]: 69
+Candidate Tree Number: 93
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T1256].fk_food
+FROM
+  (( (SELECT
+          [T1254].fk_food, MIN([T1254].suburb)
+        FROM
+          (input2) AS [T1254][suburb, client, fk_food]
+        GROUP BY
+          [T1254].fk_food) AS [T1255][fk_food, MIN-suburb] ) JOIN (
+      input2 )) AS [T1256][fk_food, MIN-suburb, suburb, client, fk_food1]
+WHERE
+  [T1256].fk_food < [T1256].fk_food1
+@anonymous
+[T1256].fk_food(NumberVal) 
+22.0 
+
+[No.19]===============================
+SELECT
+  [T1168].fk_food
+FROM
+  (( (SELECT
+          [T1166].fk_food, FROM
+          (input2) AS [T1166][suburb, client, fk_food]
+        GROUP BY
+          [T1166].fk_food) AS [T1167][fk_food] ) JOIN (
+      input2 )) AS [T1168][fk_food, suburb, client, fk_food1]
+WHERE
+  [T1168].fk_food < [T1168].fk_food1
+@anonymous
+[T1168].fk_food(NumberVal) 
+22.0 
+
+[No.18]===============================
+SELECT
+  [T903].fk_food
+FROM
+  (( (SELECT
+          [T901].fk_food, AVG([T901].suburb)
+        FROM
+          (input2) AS [T901][suburb, client, fk_food]
+        GROUP BY
+          [T901].fk_food) AS [T902][fk_food, AVG-suburb] ) JOIN (
+      input2 )) AS [T903][fk_food, AVG-suburb, suburb, client, fk_food1]
+WHERE
+  [T903].fk_food < [T903].fk_food1
+@anonymous
+[T903].fk_food(NumberVal) 
+22.0 
+
+[No.17]===============================
+SELECT
+  [T825].fk_food
+FROM
+  (( (SELECT
+          [T823].fk_food, FROM
+          (input2) AS [T823][suburb, client, fk_food]
+        GROUP BY
+          [T823].fk_food) AS [T824][fk_food] ) JOIN (
+      input2 )) AS [T825][fk_food, suburb, client, fk_food1]
+WHERE
+  [T825].fk_food < [T825].fk_food1
+@anonymous
+[T825].fk_food(NumberVal) 
+22.0 
+
+[No.16]===============================
+SELECT
+  [T669].fk_food
+FROM
+  (( (SELECT
+          [T667].fk_food, FROM
+          (input2) AS [T667][suburb, client, fk_food]
+        GROUP BY
+          [T667].fk_food) AS [T668][fk_food] ) JOIN (
+      input2 )) AS [T669][fk_food, suburb, client, fk_food1]
+WHERE
+  [T669].fk_food < [T669].fk_food1
+@anonymous
+[T669].fk_food(NumberVal) 
+22.0 
+
+[No.15]===============================
+SELECT
+  [T615].fk_food
+FROM
+  (( (SELECT
+          [T613].fk_food, MIN([T613].suburb)
+        FROM
+          (input2) AS [T613][suburb, client, fk_food]
+        GROUP BY
+          [T613].fk_food) AS [T614][fk_food, MIN-suburb] ) JOIN (
+      input2 )) AS [T615][fk_food, MIN-suburb, suburb, client, fk_food1]
+WHERE
+  [T615].fk_food < [T615].fk_food1
+@anonymous
+[T615].fk_food(NumberVal) 
+22.0 
+
+[No.14]===============================
+SELECT
+  [T499].MIN-fk_food
+FROM
+  (( (SELECT
+          MIN([T497].fk_food)
+        FROM
+          (input2) AS [T497][suburb, client, fk_food]) AS [T498][MIN-fk_food] ) JOIN (
+      input2 )) AS [T499][MIN-fk_food, suburb, client, fk_food]
+WHERE
+  [T499].MIN-fk_food <> [T499].fk_food
+@anonymous
+[T499].MIN-fk_food(NumberVal) 
+22.0 
+
+[No.13]===============================
+SELECT
+  [T438].fk_food
+FROM
+  (( (SELECT
+          [T436].fk_food, FROM
+          (input2) AS [T436][suburb, client, fk_food]
+        GROUP BY
+          [T436].fk_food) AS [T437][fk_food] ) JOIN (
+      input2 )) AS [T438][fk_food, suburb, client, fk_food1]
+WHERE
+  [T438].fk_food < [T438].fk_food1
+@anonymous
+[T438].fk_food(NumberVal) 
+22.0 
+
+[No.12]===============================
+SELECT
+  [T244].fk_food
+FROM
+  (( (SELECT
+          [T242].fk_food, MAX([T242].suburb)
+        FROM
+          (input2) AS [T242][suburb, client, fk_food]
+        GROUP BY
+          [T242].fk_food) AS [T243][fk_food, MAX-suburb] ) JOIN (
+      input2 )) AS [T244][fk_food, MAX-suburb, suburb, client, fk_food1]
+WHERE
+  [T244].fk_food < [T244].fk_food1
+@anonymous
+[T244].fk_food(NumberVal) 
+22.0 
+
+[No.11]===============================
+SELECT
+  [T148].fk_food
+FROM
+  (( (SELECT
+          [T146].fk_food, FROM
+          (input2) AS [T146][suburb, client, fk_food]
+        GROUP BY
+          [T146].fk_food) AS [T147][fk_food] ) JOIN (
+      input2 )) AS [T148][fk_food, suburb, client, fk_food1]
+WHERE
+  [T148].fk_food < [T148].fk_food1
+@anonymous
+[T148].fk_food(NumberVal) 
+22.0 
+
+[No.10]===============================
+SELECT
+  [T939].AVG-fk_food
+FROM
+  (( (SELECT
+          [T937].client, AVG([T937].fk_food)
+        FROM
+          (input2) AS [T937][suburb, client, fk_food]
+        GROUP BY
+          [T937].client) AS [T938][client, AVG-fk_food] ) JOIN (
+      input2 )) AS [T939][client, AVG-fk_food, suburb, client1, fk_food]
+WHERE
+  [T939].AVG-fk_food == [T939].fk_food
+   AND [T939].client == [T939].client1
+@anonymous
+[T939].AVG-fk_food(NumberVal) 
+22.0 
+
+[No.9]===============================
+SELECT
+  [T795].fk_food
+FROM
+  (( (SELECT
+          [T793].client, AVG([T793].suburb)
+        FROM
+          (input2) AS [T793][suburb, client, fk_food]
+        GROUP BY
+          [T793].client) AS [T794][client, AVG-suburb] ) JOIN (
+      input2 )) AS [T795][client, AVG-suburb, suburb, client1, fk_food]
+WHERE
+  [T795].AVG-suburb == [T795].suburb
+   AND [T795].client == [T795].client1
+@anonymous
+[T795].fk_food(NumberVal) 
+22.0 
+
+[No.8]===============================
+SELECT
+  [T1807].fk_food
+FROM
+  (( (SELECT
+          MAX([T1805].suburb)
+        FROM
+          (input2) AS [T1805][suburb, client, fk_food]) AS [T1806][MAX-suburb] ) JOIN (
+      input2 )) AS [T1807][MAX-suburb, suburb, client, fk_food]
+WHERE
+  [T1807].MAX-suburb == [T1807].suburb
+@anonymous
+[T1807].fk_food(NumberVal) 
+22.0 
+
+[No.7]===============================
+SELECT
+  [T1358].fk_food
+FROM
+  (( (SELECT
+          MAX([T1356].suburb)
+        FROM
+          (input2) AS [T1356][suburb, client, fk_food]) AS [T1357][MAX-suburb] ) JOIN (
+      input2 )) AS [T1358][MAX-suburb, suburb, client, fk_food]
+WHERE
+  [T1358].MAX-suburb == [T1358].suburb
+@anonymous
+[T1358].fk_food(NumberVal) 
+22.0 
+
+[No.6]===============================
+SELECT
+  [T783].fk_food
+FROM
+  (( (SELECT
+          [T781].client, AVG([T781].suburb)
+        FROM
+          (input2) AS [T781][suburb, client, fk_food]
+        GROUP BY
+          [T781].client) AS [T782][client, AVG-suburb] ) JOIN (
+      input2 )) AS [T783][client, AVG-suburb, suburb, client1, fk_food]
+WHERE
+  [T783].AVG-suburb == [T783].suburb
+@anonymous
+[T783].fk_food(NumberVal) 
+22.0 
+
+[No.5]===============================
+SELECT
+  [T208].fk_food
+FROM
+  (( (SELECT
+          MAX([T206].suburb)
+        FROM
+          (input2) AS [T206][suburb, client, fk_food]) AS [T207][MAX-suburb] ) JOIN (
+      input2 )) AS [T208][MAX-suburb, suburb, client, fk_food]
+WHERE
+  [T208].MAX-suburb == [T208].suburb
+@anonymous
+[T208].fk_food(NumberVal) 
+22.0 
+
+[No.4]===============================
+(SELECT
+    MIN([T1196].fk_food)
+  FROM
+    (input2) AS [T1196][suburb, client, fk_food]) AS [T1197][MIN-fk_food]
+@anonymous
+[T1197].MIN-fk_food(NumberVal) 
+22.0 
+
+[No.3]===============================
+(SELECT
+    MIN([T697].fk_food)
+  FROM
+    (input2) AS [T697][suburb, client, fk_food]) AS [T698][MIN-fk_food]
+@anonymous
+[T698].MIN-fk_food(NumberVal) 
+22.0 
+
+[No.2]===============================
+(SELECT
+    FIRST([T78].fk_food)
+  FROM
+    (input2) AS [T78][suburb, client, fk_food]) AS [T79][FIRST-fk_food]
+@anonymous
+[T79].FIRST-fk_food(NumberVal) 
+22.0 
+
+[No.1]===============================
+(SELECT
+    MIN([T74].fk_food)
+  FROM
+    (input2) AS [T74][suburb, client, fk_food]) AS [T75][MIN-fk_food]
+@anonymous
+[T75].MIN-fk_food(NumberVal) 
+22.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 1.415s

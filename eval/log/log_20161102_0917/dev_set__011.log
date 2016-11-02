@@ -1,0 +1,393 @@
+[[Synthesis start]]
+	File: ../data/dev_set/011
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 30 [SymTable]: 31
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 4
+[EnumJoinOnAggr] level 1 [SymTable]: 8
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 12
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 12
+[EnumJoinOnAggr] level 1 [SymTable]: 48
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 8
+[EnumJoinOnAggr] level 1 [SymTable]: 24
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 9 [SymTable]: 10
+[JOIN] level 1 [SymTable]: 20
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 11 [SymTable]: 12
+[JOIN] level 1 [SymTable]: 24
+Candidate Tree Number: 5
+[Enumeration Finished]
+[No.15]===============================
+SELECT
+  [T226].username,[T226].MAX-date,[T226].value
+FROM
+  (( (SELECT
+          [T224].username, MAX([T224].date)
+        FROM
+          (input1) AS [T224][username, date, value]
+        GROUP BY
+          [T224].username) AS [T225][username, MAX-date] ) JOIN (
+      input1 )) AS [T226][username, MAX-date, username1, date, value]
+WHERE
+  [T226].MAX-date == [T226].date
+   AND [T226].MAX-date >= [T226].date
+@anonymous
+[T226].username(StringVal) | [T226].MAX-date(DateVal) | [T226].value(NumberVal) 
+brad | Tue Feb 02 00:00:00 PST 2010 | 1.2 
+fred | Sun Jan 03 00:00:00 PST 2010 | 1.0 
+bob | Tue Aug 04 00:00:00 PDT 2009 | 1.5 
+
+[No.14]===============================
+SELECT
+  [T173].username,[T173].MAX-date,[T173].value
+FROM
+  (( (SELECT
+          [T171].username, MAX([T171].date)
+        FROM
+          (input1) AS [T171][username, date, value]
+        GROUP BY
+          [T171].username) AS [T172][username, MAX-date] ) JOIN (
+      input1 )) AS [T173][username, MAX-date, username1, date, value]
+WHERE
+  [T173].MAX-date == [T173].date
+   AND [T173].MAX-date >= [T173].date
+@anonymous
+[T173].username(StringVal) | [T173].MAX-date(DateVal) | [T173].value(NumberVal) 
+brad | Tue Feb 02 00:00:00 PST 2010 | 1.2 
+fred | Sun Jan 03 00:00:00 PST 2010 | 1.0 
+bob | Tue Aug 04 00:00:00 PDT 2009 | 1.5 
+
+[No.13]===============================
+SELECT
+  [T76].username,[T76].MAX-date,[T76].value
+FROM
+  (( (SELECT
+          [T74].username, MAX([T74].date)
+        FROM
+          (input1) AS [T74][username, date, value]
+        GROUP BY
+          [T74].username) AS [T75][username, MAX-date] ) JOIN (
+      input1 )) AS [T76][username, MAX-date, username1, date, value]
+WHERE
+  [T76].MAX-date == [T76].date
+   AND [T76].MAX-date >= [T76].date
+@anonymous
+[T76].username(StringVal) | [T76].MAX-date(DateVal) | [T76].value(NumberVal) 
+brad | Tue Feb 02 00:00:00 PST 2010 | 1.2 
+fred | Sun Jan 03 00:00:00 PST 2010 | 1.0 
+bob | Tue Aug 04 00:00:00 PDT 2009 | 1.5 
+
+[No.12]===============================
+SELECT
+  [T220].username,[T220].MAX-date,[T220].value
+FROM
+  (( (SELECT
+          [T218].username, MAX([T218].date)
+        FROM
+          (input1) AS [T218][username, date, value]
+        GROUP BY
+          [T218].username) AS [T219][username, MAX-date] ) JOIN (
+      SELECT
+        input1.username,input1.date,input1.value
+      FROM
+        input1
+      WHERE
+        True )) AS [T220][username, MAX-date, username1, date, value]
+WHERE
+  [T220].MAX-date == [T220].date
+   AND [T220].username == [T220].username1
+@anonymous
+[T220].username(StringVal) | [T220].MAX-date(DateVal) | [T220].value(NumberVal) 
+brad | Tue Feb 02 00:00:00 PST 2010 | 1.2 
+fred | Sun Jan 03 00:00:00 PST 2010 | 1.0 
+bob | Tue Aug 04 00:00:00 PDT 2009 | 1.5 
+
+[No.11]===============================
+SELECT
+  [T167].username,[T167].MAX-date,[T167].value
+FROM
+  (( (SELECT
+          [T165].username, MAX([T165].date)
+        FROM
+          (input1) AS [T165][username, date, value]
+        GROUP BY
+          [T165].username) AS [T166][username, MAX-date] ) JOIN (
+      SELECT
+        input1.username,input1.date,input1.value
+      FROM
+        input1
+      WHERE
+        True )) AS [T167][username, MAX-date, username1, date, value]
+WHERE
+  [T167].MAX-date == [T167].date
+   AND [T167].username == [T167].username1
+@anonymous
+[T167].username(StringVal) | [T167].MAX-date(DateVal) | [T167].value(NumberVal) 
+brad | Tue Feb 02 00:00:00 PST 2010 | 1.2 
+fred | Sun Jan 03 00:00:00 PST 2010 | 1.0 
+bob | Tue Aug 04 00:00:00 PDT 2009 | 1.5 
+
+[No.10]===============================
+SELECT
+  [T70].username,[T70].MAX-date,[T70].value
+FROM
+  (( (SELECT
+          [T68].username, MAX([T68].date)
+        FROM
+          (input1) AS [T68][username, date, value]
+        GROUP BY
+          [T68].username) AS [T69][username, MAX-date] ) JOIN (
+      SELECT
+        input1.username,input1.date,input1.value
+      FROM
+        input1
+      WHERE
+        True )) AS [T70][username, MAX-date, username1, date, value]
+WHERE
+  [T70].MAX-date == [T70].date
+   AND [T70].username == [T70].username1
+@anonymous
+[T70].username(StringVal) | [T70].MAX-date(DateVal) | [T70].value(NumberVal) 
+brad | Tue Feb 02 00:00:00 PST 2010 | 1.2 
+fred | Sun Jan 03 00:00:00 PST 2010 | 1.0 
+bob | Tue Aug 04 00:00:00 PDT 2009 | 1.5 
+
+[No.9]===============================
+SELECT
+  [T208].username,[T208].MAX-date,[T208].value
+FROM
+  (( (SELECT
+          [T206].username, MAX([T206].date)
+        FROM
+          (input1) AS [T206][username, date, value]
+        GROUP BY
+          [T206].username) AS [T207][username, MAX-date] ) JOIN (
+      SELECT
+        input1.username,input1.date,input1.value
+      FROM
+        input1
+      WHERE
+        True )) AS [T208][username, MAX-date, username1, date, value]
+WHERE
+  [T208].MAX-date == [T208].date
+@anonymous
+[T208].username(StringVal) | [T208].MAX-date(DateVal) | [T208].value(NumberVal) 
+brad | Tue Feb 02 00:00:00 PST 2010 | 1.2 
+fred | Sun Jan 03 00:00:00 PST 2010 | 1.0 
+bob | Tue Aug 04 00:00:00 PDT 2009 | 1.5 
+
+[No.8]===============================
+SELECT
+  [T155].username,[T155].MAX-date,[T155].value
+FROM
+  (( (SELECT
+          [T153].username, MAX([T153].date)
+        FROM
+          (input1) AS [T153][username, date, value]
+        GROUP BY
+          [T153].username) AS [T154][username, MAX-date] ) JOIN (
+      SELECT
+        input1.username,input1.date,input1.value
+      FROM
+        input1
+      WHERE
+        True )) AS [T155][username, MAX-date, username1, date, value]
+WHERE
+  [T155].MAX-date == [T155].date
+@anonymous
+[T155].username(StringVal) | [T155].MAX-date(DateVal) | [T155].value(NumberVal) 
+brad | Tue Feb 02 00:00:00 PST 2010 | 1.2 
+fred | Sun Jan 03 00:00:00 PST 2010 | 1.0 
+bob | Tue Aug 04 00:00:00 PDT 2009 | 1.5 
+
+[No.7]===============================
+SELECT
+  [T58].username,[T58].MAX-date,[T58].value
+FROM
+  (( (SELECT
+          [T56].username, MAX([T56].date)
+        FROM
+          (input1) AS [T56][username, date, value]
+        GROUP BY
+          [T56].username) AS [T57][username, MAX-date] ) JOIN (
+      SELECT
+        input1.username,input1.date,input1.value
+      FROM
+        input1
+      WHERE
+        True )) AS [T58][username, MAX-date, username1, date, value]
+WHERE
+  [T58].MAX-date == [T58].date
+@anonymous
+[T58].username(StringVal) | [T58].MAX-date(DateVal) | [T58].value(NumberVal) 
+brad | Tue Feb 02 00:00:00 PST 2010 | 1.2 
+fred | Sun Jan 03 00:00:00 PST 2010 | 1.0 
+bob | Tue Aug 04 00:00:00 PDT 2009 | 1.5 
+
+[No.6]===============================
+SELECT
+  [T214].username,[T214].MAX-date,[T214].value
+FROM
+  (( (SELECT
+          [T212].username, MAX([T212].date)
+        FROM
+          (input1) AS [T212][username, date, value]
+        GROUP BY
+          [T212].username) AS [T213][username, MAX-date] ) JOIN (
+      input1 )) AS [T214][username, MAX-date, username1, date, value]
+WHERE
+  [T214].MAX-date == [T214].date
+   AND [T214].username == [T214].username1
+@anonymous
+[T214].username(StringVal) | [T214].MAX-date(DateVal) | [T214].value(NumberVal) 
+brad | Tue Feb 02 00:00:00 PST 2010 | 1.2 
+fred | Sun Jan 03 00:00:00 PST 2010 | 1.0 
+bob | Tue Aug 04 00:00:00 PDT 2009 | 1.5 
+
+[No.5]===============================
+SELECT
+  [T161].username,[T161].MAX-date,[T161].value
+FROM
+  (( (SELECT
+          [T159].username, MAX([T159].date)
+        FROM
+          (input1) AS [T159][username, date, value]
+        GROUP BY
+          [T159].username) AS [T160][username, MAX-date] ) JOIN (
+      input1 )) AS [T161][username, MAX-date, username1, date, value]
+WHERE
+  [T161].MAX-date == [T161].date
+   AND [T161].username == [T161].username1
+@anonymous
+[T161].username(StringVal) | [T161].MAX-date(DateVal) | [T161].value(NumberVal) 
+brad | Tue Feb 02 00:00:00 PST 2010 | 1.2 
+fred | Sun Jan 03 00:00:00 PST 2010 | 1.0 
+bob | Tue Aug 04 00:00:00 PDT 2009 | 1.5 
+
+[No.4]===============================
+SELECT
+  [T64].username,[T64].MAX-date,[T64].value
+FROM
+  (( (SELECT
+          [T62].username, MAX([T62].date)
+        FROM
+          (input1) AS [T62][username, date, value]
+        GROUP BY
+          [T62].username) AS [T63][username, MAX-date] ) JOIN (
+      input1 )) AS [T64][username, MAX-date, username1, date, value]
+WHERE
+  [T64].MAX-date == [T64].date
+   AND [T64].username == [T64].username1
+@anonymous
+[T64].username(StringVal) | [T64].MAX-date(DateVal) | [T64].value(NumberVal) 
+brad | Tue Feb 02 00:00:00 PST 2010 | 1.2 
+fred | Sun Jan 03 00:00:00 PST 2010 | 1.0 
+bob | Tue Aug 04 00:00:00 PDT 2009 | 1.5 
+
+[No.3]===============================
+SELECT
+  [T202].username,[T202].MAX-date,[T202].value
+FROM
+  (( (SELECT
+          [T200].username, MAX([T200].date)
+        FROM
+          (input1) AS [T200][username, date, value]
+        GROUP BY
+          [T200].username) AS [T201][username, MAX-date] ) JOIN (
+      input1 )) AS [T202][username, MAX-date, username1, date, value]
+WHERE
+  [T202].MAX-date == [T202].date
+@anonymous
+[T202].username(StringVal) | [T202].MAX-date(DateVal) | [T202].value(NumberVal) 
+brad | Tue Feb 02 00:00:00 PST 2010 | 1.2 
+fred | Sun Jan 03 00:00:00 PST 2010 | 1.0 
+bob | Tue Aug 04 00:00:00 PDT 2009 | 1.5 
+
+[No.2]===============================
+SELECT
+  [T149].username,[T149].MAX-date,[T149].value
+FROM
+  (( (SELECT
+          [T147].username, MAX([T147].date)
+        FROM
+          (input1) AS [T147][username, date, value]
+        GROUP BY
+          [T147].username) AS [T148][username, MAX-date] ) JOIN (
+      input1 )) AS [T149][username, MAX-date, username1, date, value]
+WHERE
+  [T149].MAX-date == [T149].date
+@anonymous
+[T149].username(StringVal) | [T149].MAX-date(DateVal) | [T149].value(NumberVal) 
+brad | Tue Feb 02 00:00:00 PST 2010 | 1.2 
+fred | Sun Jan 03 00:00:00 PST 2010 | 1.0 
+bob | Tue Aug 04 00:00:00 PDT 2009 | 1.5 
+
+[No.1]===============================
+SELECT
+  [T52].username,[T52].MAX-date,[T52].value
+FROM
+  (( (SELECT
+          [T50].username, MAX([T50].date)
+        FROM
+          (input1) AS [T50][username, date, value]
+        GROUP BY
+          [T50].username) AS [T51][username, MAX-date] ) JOIN (
+      input1 )) AS [T52][username, MAX-date, username1, date, value]
+WHERE
+  [T52].MAX-date == [T52].date
+@anonymous
+[T52].username(StringVal) | [T52].MAX-date(DateVal) | [T52].value(NumberVal) 
+brad | Tue Feb 02 00:00:00 PST 2010 | 1.2 
+fred | Sun Jan 03 00:00:00 PST 2010 | 1.0 
+bob | Tue Aug 04 00:00:00 PDT 2009 | 1.5 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 2.746s

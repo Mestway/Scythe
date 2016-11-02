@@ -1,0 +1,417 @@
+[[Synthesis start]]
+	File: ../data/recent_posts/040
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 248 [SymTable]: 249
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 7 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 16
+Candidate Tree Number: 8
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 23 [SymTable]: 24
+[JOIN] level 1 [SymTable]: 48
+Candidate Tree Number: 16
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 23 [SymTable]: 24
+[JOIN] level 1 [SymTable]: 48
+Candidate Tree Number: 16
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 23 [SymTable]: 24
+[JOIN] level 1 [SymTable]: 48
+Candidate Tree Number: 26
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 39 [SymTable]: 40
+[JOIN] level 1 [SymTable]: 80
+Candidate Tree Number: 24
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 63 [SymTable]: 64
+[JOIN] level 1 [SymTable]: 128
+Candidate Tree Number: 96
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T606].c1,[T606].c2,[T606].c3,[T606].c4,[T606].c51
+FROM
+  (( (SELECT
+          [T604].c3, [T604].c4, [T604].c5, FROM
+          (input1) AS [T604][c1, c2, c3, c4, c5]
+        GROUP BY
+          [T604].c3  [T604].c4  [T604].c5) AS [T605][c3, c4, c5] ) JOIN (
+      input1 )) AS [T606][c3, c4, c5, c1, c2, c31, c41, c51]
+WHERE
+  [T606].c3 == [T606].c31
+   AND [T606].c5 <> [T606].c51
+@anonymous
+[T606].c1(NumberVal) | [T606].c2(NumberVal) | [T606].c3(StringVal) | [T606].c4(StringVal) | [T606].c51(StringVal) 
+2.0 | 8.12345222E8 | homer | simpson | watching tv 
+1.0 | 1.2545878E7 | homer | simpson | eating 
+
+[No.19]===============================
+SELECT
+  [T547].c1,[T547].c2,[T547].c3,[T547].c4,[T547].c51
+FROM
+  (( (SELECT
+          [T545].c3, [T545].c5, MIN([T545].c2)
+        FROM
+          (input1) AS [T545][c1, c2, c3, c4, c5]
+        GROUP BY
+          [T545].c3  [T545].c5) AS [T546][c3, c5, MIN-c2] ) JOIN (
+      input1 )) AS [T547][c3, c5, MIN-c2, c1, c2, c31, c4, c51]
+WHERE
+  [T547].c3 == [T547].c31
+   AND [T547].c5 <> [T547].c51
+@anonymous
+[T547].c1(NumberVal) | [T547].c2(NumberVal) | [T547].c3(StringVal) | [T547].c4(StringVal) | [T547].c51(StringVal) 
+2.0 | 8.12345222E8 | homer | simpson | watching tv 
+1.0 | 1.2545878E7 | homer | simpson | eating 
+
+[No.18]===============================
+SELECT
+  [T535].c1,[T535].c2,[T535].c3,[T535].c4,[T535].c51
+FROM
+  (( (SELECT
+          [T533].c3, [T533].c5, MIN([T533].c1)
+        FROM
+          (input1) AS [T533][c1, c2, c3, c4, c5]
+        GROUP BY
+          [T533].c3  [T533].c5) AS [T534][c3, c5, MIN-c1] ) JOIN (
+      input1 )) AS [T535][c3, c5, MIN-c1, c1, c2, c31, c4, c51]
+WHERE
+  [T535].c3 == [T535].c31
+   AND [T535].c5 <> [T535].c51
+@anonymous
+[T535].c1(NumberVal) | [T535].c2(NumberVal) | [T535].c3(StringVal) | [T535].c4(StringVal) | [T535].c51(StringVal) 
+2.0 | 8.12345222E8 | homer | simpson | watching tv 
+1.0 | 1.2545878E7 | homer | simpson | eating 
+
+[No.17]===============================
+SELECT
+  [T523].c1,[T523].c2,[T523].c3,[T523].c4,[T523].c51
+FROM
+  (( (SELECT
+          [T521].c3, [T521].c5, FROM
+          (input1) AS [T521][c1, c2, c3, c4, c5]
+        GROUP BY
+          [T521].c3  [T521].c5) AS [T522][c3, c5] ) JOIN (
+      input1 )) AS [T523][c3, c5, c1, c2, c31, c4, c51]
+WHERE
+  [T523].c3 == [T523].c31
+   AND [T523].c5 <> [T523].c51
+@anonymous
+[T523].c1(NumberVal) | [T523].c2(NumberVal) | [T523].c3(StringVal) | [T523].c4(StringVal) | [T523].c51(StringVal) 
+2.0 | 8.12345222E8 | homer | simpson | watching tv 
+1.0 | 1.2545878E7 | homer | simpson | eating 
+
+[No.16]===============================
+SELECT
+  [T511].c1,[T511].c2,[T511].c3,[T511].c4,[T511].c51
+FROM
+  (( (SELECT
+          [T509].c3, [T509].c4, [T509].c5, MIN([T509].c1)
+        FROM
+          (input1) AS [T509][c1, c2, c3, c4, c5]
+        GROUP BY
+          [T509].c3  [T509].c4  [T509].c5) AS [T510][c3, c4, c5, MIN-c1] ) JOIN (
+      input1 )) AS [T511][c3, c4, c5, MIN-c1, c1, c2, c31, c41, c51]
+WHERE
+  [T511].c3 == [T511].c31
+   AND [T511].c5 <> [T511].c51
+@anonymous
+[T511].c1(NumberVal) | [T511].c2(NumberVal) | [T511].c3(StringVal) | [T511].c4(StringVal) | [T511].c51(StringVal) 
+2.0 | 8.12345222E8 | homer | simpson | watching tv 
+1.0 | 1.2545878E7 | homer | simpson | eating 
+
+[No.15]===============================
+SELECT
+  [T499].c1,[T499].c2,[T499].c3,[T499].c4,[T499].c5
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T499][c1, c2, c3, c4, c5, c11, c21, c31, c41, c51]
+WHERE
+  [T499].c3 == [T499].c31
+   AND [T499].c5 <> [T499].c51
+@anonymous
+[T499].c1(NumberVal) | [T499].c2(NumberVal) | [T499].c3(StringVal) | [T499].c4(StringVal) | [T499].c5(StringVal) 
+1.0 | 1.2545878E7 | homer | simpson | eating 
+2.0 | 8.12345222E8 | homer | simpson | watching tv 
+
+[No.14]===============================
+SELECT
+  [T491].c1,[T491].c2,[T491].c3,[T491].c4,[T491].c51
+FROM
+  (( (SELECT
+          [T489].c3, [T489].c4, [T489].c5, FROM
+          (input1) AS [T489][c1, c2, c3, c4, c5]
+        GROUP BY
+          [T489].c3  [T489].c4  [T489].c5) AS [T490][c3, c4, c5] ) JOIN (
+      input1 )) AS [T491][c3, c4, c5, c1, c2, c31, c41, c51]
+WHERE
+  [T491].c3 == [T491].c31
+   AND [T491].c5 <> [T491].c51
+@anonymous
+[T491].c1(NumberVal) | [T491].c2(NumberVal) | [T491].c3(StringVal) | [T491].c4(StringVal) | [T491].c51(StringVal) 
+2.0 | 8.12345222E8 | homer | simpson | watching tv 
+1.0 | 1.2545878E7 | homer | simpson | eating 
+
+[No.13]===============================
+SELECT
+  [T479].c1,[T479].c2,[T479].c3,[T479].c4,[T479].c51
+FROM
+  (( (SELECT
+          [T477].c3, [T477].c4, [T477].c5, MIN([T477].c2)
+        FROM
+          (input1) AS [T477][c1, c2, c3, c4, c5]
+        GROUP BY
+          [T477].c3  [T477].c4  [T477].c5) AS [T478][c3, c4, c5, MIN-c2] ) JOIN (
+      input1 )) AS [T479][c3, c4, c5, MIN-c2, c1, c2, c31, c41, c51]
+WHERE
+  [T479].c3 == [T479].c31
+   AND [T479].c5 <> [T479].c51
+@anonymous
+[T479].c1(NumberVal) | [T479].c2(NumberVal) | [T479].c3(StringVal) | [T479].c4(StringVal) | [T479].c51(StringVal) 
+2.0 | 8.12345222E8 | homer | simpson | watching tv 
+1.0 | 1.2545878E7 | homer | simpson | eating 
+
+[No.12]===============================
+SELECT
+  [T420].c1,[T420].c2,[T420].c3,[T420].c4,[T420].c51
+FROM
+  (( (SELECT
+          [T418].c3, [T418].c4, [T418].c5, FROM
+          (input1) AS [T418][c1, c2, c3, c4, c5]
+        GROUP BY
+          [T418].c3  [T418].c4  [T418].c5) AS [T419][c3, c4, c5] ) JOIN (
+      input1 )) AS [T420][c3, c4, c5, c1, c2, c31, c41, c51]
+WHERE
+  [T420].c3 == [T420].c31
+   AND [T420].c5 <> [T420].c51
+@anonymous
+[T420].c1(NumberVal) | [T420].c2(NumberVal) | [T420].c3(StringVal) | [T420].c4(StringVal) | [T420].c51(StringVal) 
+2.0 | 8.12345222E8 | homer | simpson | watching tv 
+1.0 | 1.2545878E7 | homer | simpson | eating 
+
+[No.11]===============================
+SELECT
+  [T408].c1,[T408].c2,[T408].c3,[T408].c4,[T408].c51
+FROM
+  (( (SELECT
+          [T406].c3, [T406].c4, [T406].c5, MAX([T406].c1)
+        FROM
+          (input1) AS [T406][c1, c2, c3, c4, c5]
+        GROUP BY
+          [T406].c3  [T406].c4  [T406].c5) AS [T407][c3, c4, c5, MAX-c1] ) JOIN (
+      input1 )) AS [T408][c3, c4, c5, MAX-c1, c1, c2, c31, c41, c51]
+WHERE
+  [T408].c3 == [T408].c31
+   AND [T408].c5 <> [T408].c51
+@anonymous
+[T408].c1(NumberVal) | [T408].c2(NumberVal) | [T408].c3(StringVal) | [T408].c4(StringVal) | [T408].c51(StringVal) 
+2.0 | 8.12345222E8 | homer | simpson | watching tv 
+1.0 | 1.2545878E7 | homer | simpson | eating 
+
+[No.10]===============================
+SELECT
+  [T396].c1,[T396].c2,[T396].c3,[T396].c4,[T396].c51
+FROM
+  (( (SELECT
+          [T394].c3, [T394].c5, MAX([T394].c1)
+        FROM
+          (input1) AS [T394][c1, c2, c3, c4, c5]
+        GROUP BY
+          [T394].c3  [T394].c5) AS [T395][c3, c5, MAX-c1] ) JOIN (
+      input1 )) AS [T396][c3, c5, MAX-c1, c1, c2, c31, c4, c51]
+WHERE
+  [T396].c3 == [T396].c31
+   AND [T396].c5 <> [T396].c51
+@anonymous
+[T396].c1(NumberVal) | [T396].c2(NumberVal) | [T396].c3(StringVal) | [T396].c4(StringVal) | [T396].c51(StringVal) 
+2.0 | 8.12345222E8 | homer | simpson | watching tv 
+1.0 | 1.2545878E7 | homer | simpson | eating 
+
+[No.9]===============================
+SELECT
+  [T384].c1,[T384].c2,[T384].c3,[T384].c4,[T384].c5
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T384][c1, c2, c3, c4, c5, c11, c21, c31, c41, c51]
+WHERE
+  [T384].c3 == [T384].c31
+   AND [T384].c5 <> [T384].c51
+@anonymous
+[T384].c1(NumberVal) | [T384].c2(NumberVal) | [T384].c3(StringVal) | [T384].c4(StringVal) | [T384].c5(StringVal) 
+1.0 | 1.2545878E7 | homer | simpson | eating 
+2.0 | 8.12345222E8 | homer | simpson | watching tv 
+
+[No.8]===============================
+SELECT
+  [T376].c1,[T376].c2,[T376].c3,[T376].c4,[T376].c51
+FROM
+  (( (SELECT
+          [T374].c3, [T374].c5, MAX([T374].c2)
+        FROM
+          (input1) AS [T374][c1, c2, c3, c4, c5]
+        GROUP BY
+          [T374].c3  [T374].c5) AS [T375][c3, c5, MAX-c2] ) JOIN (
+      input1 )) AS [T376][c3, c5, MAX-c2, c1, c2, c31, c4, c51]
+WHERE
+  [T376].c3 == [T376].c31
+   AND [T376].c5 <> [T376].c51
+@anonymous
+[T376].c1(NumberVal) | [T376].c2(NumberVal) | [T376].c3(StringVal) | [T376].c4(StringVal) | [T376].c51(StringVal) 
+2.0 | 8.12345222E8 | homer | simpson | watching tv 
+1.0 | 1.2545878E7 | homer | simpson | eating 
+
+[No.7]===============================
+SELECT
+  [T364].c1,[T364].c2,[T364].c3,[T364].c4,[T364].c51
+FROM
+  (( (SELECT
+          [T362].c3, [T362].c5, FROM
+          (input1) AS [T362][c1, c2, c3, c4, c5]
+        GROUP BY
+          [T362].c3  [T362].c5) AS [T363][c3, c5] ) JOIN (
+      input1 )) AS [T364][c3, c5, c1, c2, c31, c4, c51]
+WHERE
+  [T364].c3 == [T364].c31
+   AND [T364].c5 <> [T364].c51
+@anonymous
+[T364].c1(NumberVal) | [T364].c2(NumberVal) | [T364].c3(StringVal) | [T364].c4(StringVal) | [T364].c51(StringVal) 
+2.0 | 8.12345222E8 | homer | simpson | watching tv 
+1.0 | 1.2545878E7 | homer | simpson | eating 
+
+[No.6]===============================
+SELECT
+  [T352].c1,[T352].c2,[T352].c3,[T352].c4,[T352].c51
+FROM
+  (( (SELECT
+          [T350].c3, [T350].c4, [T350].c5, MAX([T350].c2)
+        FROM
+          (input1) AS [T350][c1, c2, c3, c4, c5]
+        GROUP BY
+          [T350].c3  [T350].c4  [T350].c5) AS [T351][c3, c4, c5, MAX-c2] ) JOIN (
+      input1 )) AS [T352][c3, c4, c5, MAX-c2, c1, c2, c31, c41, c51]
+WHERE
+  [T352].c3 == [T352].c31
+   AND [T352].c5 <> [T352].c51
+@anonymous
+[T352].c1(NumberVal) | [T352].c2(NumberVal) | [T352].c3(StringVal) | [T352].c4(StringVal) | [T352].c51(StringVal) 
+2.0 | 8.12345222E8 | homer | simpson | watching tv 
+1.0 | 1.2545878E7 | homer | simpson | eating 
+
+[No.5]===============================
+SELECT
+  [T293].c1,[T293].c2,[T293].c3,[T293].c4,[T293].c51
+FROM
+  (( (SELECT
+          [T291].c3, [T291].c4, [T291].c5, FROM
+          (input1) AS [T291][c1, c2, c3, c4, c5]
+        GROUP BY
+          [T291].c3  [T291].c4  [T291].c5) AS [T292][c3, c4, c5] ) JOIN (
+      input1 )) AS [T293][c3, c4, c5, c1, c2, c31, c41, c51]
+WHERE
+  [T293].c3 == [T293].c31
+   AND [T293].c5 <> [T293].c51
+@anonymous
+[T293].c1(NumberVal) | [T293].c2(NumberVal) | [T293].c3(StringVal) | [T293].c4(StringVal) | [T293].c51(StringVal) 
+2.0 | 8.12345222E8 | homer | simpson | watching tv 
+1.0 | 1.2545878E7 | homer | simpson | eating 
+
+[No.4]===============================
+SELECT
+  [T281].c1,[T281].c2,[T281].c3,[T281].c4,[T281].c51
+FROM
+  (( (SELECT
+          [T279].c3, [T279].c5, FROM
+          (input1) AS [T279][c1, c2, c3, c4, c5]
+        GROUP BY
+          [T279].c3  [T279].c5) AS [T280][c3, c5] ) JOIN (
+      input1 )) AS [T281][c3, c5, c1, c2, c31, c4, c51]
+WHERE
+  [T281].c3 == [T281].c31
+   AND [T281].c5 <> [T281].c51
+@anonymous
+[T281].c1(NumberVal) | [T281].c2(NumberVal) | [T281].c3(StringVal) | [T281].c4(StringVal) | [T281].c51(StringVal) 
+2.0 | 8.12345222E8 | homer | simpson | watching tv 
+1.0 | 1.2545878E7 | homer | simpson | eating 
+
+[No.3]===============================
+SELECT
+  [T269].c1,[T269].c2,[T269].c3,[T269].c4,[T269].c5
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T269][c1, c2, c3, c4, c5, c11, c21, c31, c41, c51]
+WHERE
+  [T269].c3 == [T269].c31
+   AND [T269].c5 <> [T269].c51
+@anonymous
+[T269].c1(NumberVal) | [T269].c2(NumberVal) | [T269].c3(StringVal) | [T269].c4(StringVal) | [T269].c5(StringVal) 
+1.0 | 1.2545878E7 | homer | simpson | eating 
+2.0 | 8.12345222E8 | homer | simpson | watching tv 
+
+[No.2]===============================
+SELECT
+  [T678].c1,[T678].c2,[T678].c3,[T678].c4,[T678].c5
+FROM
+  (( (SELECT
+          [T676].c4, AVG([T676].c1)
+        FROM
+          (input1) AS [T676][c1, c2, c3, c4, c5]
+        GROUP BY
+          [T676].c4) AS [T677][c4, AVG-c1] ) JOIN (
+      input1 )) AS [T678][c4, AVG-c1, c1, c2, c3, c41, c5]
+WHERE
+  [T678].AVG-c1 > [T678].c1
+@anonymous
+[T678].c1(NumberVal) | [T678].c2(NumberVal) | [T678].c3(StringVal) | [T678].c4(StringVal) | [T678].c5(StringVal) 
+1.0 | 1.2545878E7 | homer | simpson | eating 
+2.0 | 8.12345222E8 | homer | simpson | watching tv 
+
+[No.1]===============================
+SELECT
+  [T624].c1,[T624].c2,[T624].c3,[T624].c4,[T624].c5
+FROM
+  (( (SELECT
+          AVG([T622].c1)
+        FROM
+          (input1) AS [T622][c1, c2, c3, c4, c5]) AS [T623][AVG-c1] ) JOIN (
+      input1 )) AS [T624][AVG-c1, c1, c2, c3, c4, c5]
+WHERE
+  [T624].AVG-c1 > [T624].c1
+@anonymous
+[T624].c1(NumberVal) | [T624].c2(NumberVal) | [T624].c3(StringVal) | [T624].c4(StringVal) | [T624].c5(StringVal) 
+1.0 | 1.2545878E7 | homer | simpson | eating 
+2.0 | 8.12345222E8 | homer | simpson | watching tv 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 1.742s

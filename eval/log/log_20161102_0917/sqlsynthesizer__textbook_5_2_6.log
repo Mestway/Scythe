@@ -1,0 +1,491 @@
+[[Synthesis start]]
+	File: ../data/sqlsynthesizer/textbook_5_2_6
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 115 [SymTable]: 117
+[NaturalJoin]: 1 [SymTable]: 117
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 5 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 21
+[EnumJoinOnAggr] level 1 [SymTable]: 70
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 10 [SymTable]: 12
+[JOIN] level 1 [SymTable]: 36
+[EnumJoinOnAggr] level 1 [SymTable]: 180
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 10 [SymTable]: 12
+[JOIN] level 1 [SymTable]: 36
+[EnumJoinOnAggr] level 1 [SymTable]: 180
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 10 [SymTable]: 12
+[JOIN] level 1 [SymTable]: 36
+[EnumJoinOnAggr] level 1 [SymTable]: 180
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 15 [SymTable]: 17
+[JOIN] level 1 [SymTable]: 51
+[EnumJoinOnAggr] level 1 [SymTable]: 340
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 558 [SymTable]: 560
+[JOIN] level 1 [SymTable]: 1680
+[EnumJoinOnAggr] level 1 [SymTable]: 315280
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 115 [SymTable]: 117
+[JOIN] level 1 [SymTable]: 351
+[EnumJoinOnAggr] level 1 [SymTable]: 14040
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 2
+@output
+part_key(StringVal) | sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P3 | SN4 
+P4 | SN1 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 5 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 21
+[JOIN] level 2 [SymTable]: 49
+[UNION] level 1 [SymTable]: 51
+[EnumLeftJoin] level 1 [SymTable]: 51
+[EnumLeftJoinWAggr] level 1 [SymTable]: 73
+[EnumAggrOnJoin] level 1 [SymTable]: 117
+[EnumJoinOnAggr] level 1 [SymTable]: 166
+[EnumJoinOnAggr] level 2 [SymTable]: 509
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 10 [SymTable]: 12
+[JOIN] level 1 [SymTable]: 36
+[JOIN] level 2 [SymTable]: 84
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 2368
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 458 [SymTable]: 460
+[NaturalJoin]: 1 [SymTable]: 460
+Candidate Tree Number: 5
+[Enumeration Finished]
+[No.10]===============================
+SELECT
+  [T34689].part_key,[T34689].sname
+FROM
+  (( SELECT
+        input1.sid,input1.part_key,input1.cost
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              [T31853].sid,[T31853].part_key,[T31853].cost
+            FROM
+              (input1) AS [T31853][sid, part_key, cost]
+            WHERE
+              input1.cost > [T31853].cost) AS [T31902][sid, part_key, cost])
+         AND NOT EXIST (
+          (SELECT
+              [T31853].sid,[T31853].part_key,[T31853].cost
+            FROM
+              (input1) AS [T31853][sid, part_key, cost]
+            WHERE
+              input1.part_key == [T31853].part_key
+               AND input1.cost < [T31853].cost) AS [T32102][sid, part_key, cost]) ) JOIN (
+      input2 )) AS [T34689][sid, part_key, cost, sid1, sname]
+WHERE
+  [T34689].sid == [T34689].sid1
+@anonymous
+[T34689].part_key(StringVal) | [T34689].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P4 | SN1 
+P3 | SN4 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[No.9]===============================
+SELECT
+  [T31851].part_key,[T31851].sname
+FROM
+  (( SELECT
+        [T31849].part_key,[T31849].MAX-cost,[T31849].sid,[T31849].part_key1,[T31849].cost
+      FROM
+        (( (SELECT
+                [T31847].part_key, MAX([T31847].cost)
+              FROM
+                (input1) AS [T31847][sid, part_key, cost]
+              GROUP BY
+                [T31847].part_key) AS [T31848][part_key, MAX-cost] ) JOIN (
+            input1 )) AS [T31849][part_key, MAX-cost, sid, part_key1, cost]
+      WHERE
+        [T31849].part_key == [T31849].part_key1
+         AND [T31849].MAX-cost <= [T31849].cost ) JOIN (
+      input2 )) AS [T31851][part_key, MAX-cost, sid, part_key1, cost, sid1, sname]
+WHERE
+  [T31851].sid == [T31851].sid1
+@anonymous
+[T31851].part_key(StringVal) | [T31851].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P3 | SN4 
+P4 | SN1 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[No.8]===============================
+SELECT
+  [T31843].part_key,[T31843].sname
+FROM
+  (( SELECT
+        [T31841].part_key,[T31841].MAX-cost,[T31841].sid,[T31841].part_key1,[T31841].cost
+      FROM
+        (( (SELECT
+                [T31839].part_key, MAX([T31839].cost)
+              FROM
+                (input1) AS [T31839][sid, part_key, cost]
+              GROUP BY
+                [T31839].part_key) AS [T31840][part_key, MAX-cost] ) JOIN (
+            SELECT
+              input1.sid,input1.part_key,input1.cost
+            FROM
+              input1
+            WHERE
+              True )) AS [T31841][part_key, MAX-cost, sid, part_key1, cost]
+      WHERE
+        [T31841].part_key == [T31841].part_key1
+         AND [T31841].MAX-cost == [T31841].cost ) JOIN (
+      SELECT
+        input2.sid,input2.sname
+      FROM
+        input2
+      WHERE
+        True )) AS [T31843][part_key, MAX-cost, sid, part_key1, cost, sid1, sname]
+WHERE
+  [T31843].sid == [T31843].sid1
+@anonymous
+[T31843].part_key(StringVal) | [T31843].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P3 | SN4 
+P4 | SN1 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[No.7]===============================
+SELECT
+  [T34687].part_key,[T34687].sname
+FROM
+  (( SELECT
+        input1.sid,input1.part_key,input1.cost
+      FROM
+        input1
+      WHERE
+        IS NULL input1.sid
+         OR NOT EXIST (
+          (SELECT
+              [T31853].sid,[T31853].part_key,[T31853].cost
+            FROM
+              (input1) AS [T31853][sid, part_key, cost]
+            WHERE
+              input1.part_key == [T31853].part_key
+               AND input1.cost < [T31853].cost) AS [T32102][sid, part_key, cost]) ) JOIN (
+      SELECT
+        input2.sid,input2.sname
+      FROM
+        input2
+      WHERE
+        True )) AS [T34687][sid, part_key, cost, sid1, sname]
+WHERE
+  [T34687].sid == [T34687].sid1
+@anonymous
+[T34687].part_key(StringVal) | [T34687].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P4 | SN1 
+P3 | SN4 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[No.6]===============================
+SELECT
+  [T34683].part_key,[T34683].sname
+FROM
+  (( SELECT
+        input1.sid,input1.part_key,input1.cost
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              [T31853].sid,[T31853].part_key,[T31853].cost
+            FROM
+              (input1) AS [T31853][sid, part_key, cost]
+            WHERE
+              input1.part_key == [T31853].part_key
+               AND input1.cost < [T31853].cost) AS [T32102][sid, part_key, cost]) ) JOIN (
+      SELECT
+        input2.sid,input2.sname
+      FROM
+        input2
+      WHERE
+        True )) AS [T34683][sid, part_key, cost, sid1, sname]
+WHERE
+  [T34683].sid == [T34683].sid1
+@anonymous
+[T34683].part_key(StringVal) | [T34683].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P4 | SN1 
+P3 | SN4 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[No.5]===============================
+SELECT
+  [T31835].part_key,[T31835].sname
+FROM
+  (( SELECT
+        [T31833].part_key,[T31833].MAX-cost,[T31833].sid,[T31833].part_key1,[T31833].cost
+      FROM
+        (( (SELECT
+                [T31831].part_key, MAX([T31831].cost)
+              FROM
+                (input1) AS [T31831][sid, part_key, cost]
+              GROUP BY
+                [T31831].part_key) AS [T31832][part_key, MAX-cost] ) JOIN (
+            input1 )) AS [T31833][part_key, MAX-cost, sid, part_key1, cost]
+      WHERE
+        [T31833].part_key == [T31833].part_key1
+         AND [T31833].MAX-cost == [T31833].cost ) JOIN (
+      SELECT
+        input2.sid,input2.sname
+      FROM
+        input2
+      WHERE
+        True )) AS [T31835][part_key, MAX-cost, sid, part_key1, cost, sid1, sname]
+WHERE
+  [T31835].sid == [T31835].sid1
+@anonymous
+[T31835].part_key(StringVal) | [T31835].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P3 | SN4 
+P4 | SN1 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[No.4]===============================
+SELECT
+  [T31827].part_key,[T31827].sname
+FROM
+  (( SELECT
+        [T31825].part_key,[T31825].MAX-cost,[T31825].sid,[T31825].part_key1,[T31825].cost
+      FROM
+        (( (SELECT
+                [T31823].part_key, MAX([T31823].cost)
+              FROM
+                (input1) AS [T31823][sid, part_key, cost]
+              GROUP BY
+                [T31823].part_key) AS [T31824][part_key, MAX-cost] ) JOIN (
+            SELECT
+              input1.sid,input1.part_key,input1.cost
+            FROM
+              input1
+            WHERE
+              True )) AS [T31825][part_key, MAX-cost, sid, part_key1, cost]
+      WHERE
+        [T31825].part_key == [T31825].part_key1
+         AND [T31825].MAX-cost == [T31825].cost ) JOIN (
+      input2 )) AS [T31827][part_key, MAX-cost, sid, part_key1, cost, sid1, sname]
+WHERE
+  [T31827].sid == [T31827].sid1
+@anonymous
+[T31827].part_key(StringVal) | [T31827].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P3 | SN4 
+P4 | SN1 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[No.3]===============================
+SELECT
+  [T34685].part_key,[T34685].sname
+FROM
+  (( SELECT
+        input1.sid,input1.part_key,input1.cost
+      FROM
+        input1
+      WHERE
+        IS NULL input1.sid
+         OR NOT EXIST (
+          (SELECT
+              [T31853].sid,[T31853].part_key,[T31853].cost
+            FROM
+              (input1) AS [T31853][sid, part_key, cost]
+            WHERE
+              input1.part_key == [T31853].part_key
+               AND input1.cost < [T31853].cost) AS [T32102][sid, part_key, cost]) ) JOIN (
+      input2 )) AS [T34685][sid, part_key, cost, sid1, sname]
+WHERE
+  [T34685].sid == [T34685].sid1
+@anonymous
+[T34685].part_key(StringVal) | [T34685].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P4 | SN1 
+P3 | SN4 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[No.2]===============================
+SELECT
+  [T34681].part_key,[T34681].sname
+FROM
+  (( SELECT
+        input1.sid,input1.part_key,input1.cost
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              [T31853].sid,[T31853].part_key,[T31853].cost
+            FROM
+              (input1) AS [T31853][sid, part_key, cost]
+            WHERE
+              input1.part_key == [T31853].part_key
+               AND input1.cost < [T31853].cost) AS [T32102][sid, part_key, cost]) ) JOIN (
+      input2 )) AS [T34681][sid, part_key, cost, sid1, sname]
+WHERE
+  [T34681].sid == [T34681].sid1
+@anonymous
+[T34681].part_key(StringVal) | [T34681].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P4 | SN1 
+P3 | SN4 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[No.1]===============================
+SELECT
+  [T31819].part_key,[T31819].sname
+FROM
+  (( SELECT
+        [T31817].part_key,[T31817].MAX-cost,[T31817].sid,[T31817].part_key1,[T31817].cost
+      FROM
+        (( (SELECT
+                [T31815].part_key, MAX([T31815].cost)
+              FROM
+                (input1) AS [T31815][sid, part_key, cost]
+              GROUP BY
+                [T31815].part_key) AS [T31816][part_key, MAX-cost] ) JOIN (
+            input1 )) AS [T31817][part_key, MAX-cost, sid, part_key1, cost]
+      WHERE
+        [T31817].part_key == [T31817].part_key1
+         AND [T31817].MAX-cost == [T31817].cost ) JOIN (
+      input2 )) AS [T31819][part_key, MAX-cost, sid, part_key1, cost, sid1, sname]
+WHERE
+  [T31819].sid == [T31819].sid1
+@anonymous
+[T31819].part_key(StringVal) | [T31819].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P3 | SN4 
+P4 | SN1 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 50.581s

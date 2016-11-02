@@ -1,0 +1,513 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/005
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 180 [SymTable]: 181
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 7 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 16
+[EnumJoinOnAggr] level 1 [SymTable]: 80
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 25 [SymTable]: 26
+[JOIN] level 1 [SymTable]: 52
+[EnumJoinOnAggr] level 1 [SymTable]: 728
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 25 [SymTable]: 26
+[JOIN] level 1 [SymTable]: 52
+[EnumJoinOnAggr] level 1 [SymTable]: 728
+Candidate Tree Number: 20
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 25 [SymTable]: 26
+[JOIN] level 1 [SymTable]: 52
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 43 [SymTable]: 44
+[JOIN] level 1 [SymTable]: 88
+[EnumJoinOnAggr] level 1 [SymTable]: 2024
+Candidate Tree Number: 60
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 55 [SymTable]: 56
+[JOIN] level 1 [SymTable]: 112
+Candidate Tree Number: 15
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T1671].total,[T1671].customer1,[T1671].total1
+FROM
+  (( (SELECT
+          [T1659].customer, [T1659].total, MAX([T1659].id)
+        FROM
+          (input1) AS [T1659][id, customer, total]
+        GROUP BY
+          [T1659].customer  [T1659].total) AS [T1660][customer, total, MAX-id] ) JOIN (
+      (SELECT
+          [T1669].customer, [T1669].total, MIN([T1669].id)
+        FROM
+          (input1) AS [T1669][id, customer, total]
+        GROUP BY
+          [T1669].customer  [T1669].total) AS [T1670][customer, total, MIN-id] )) AS [T1671][customer, total, MAX-id, customer1, total1, MIN-id]
+WHERE
+  [T1671].MAX-id <= [T1671].total1
+   AND [T1671].total == [T1671].MIN-id
+@anonymous
+[T1671].total(NumberVal) | [T1671].customer1(StringVal) | [T1671].total1(NumberVal) 
+5.0 | Sally | 3.0 
+2.0 | Joe | 6.0 
+
+[No.19]===============================
+SELECT
+  [T2537].MIN-id,[T2537].customer,[T2537].MAX-total
+FROM
+  (( (SELECT
+          [T2525].customer, MAX([T2525].total)
+        FROM
+          (input1) AS [T2525][id, customer, total]
+        GROUP BY
+          [T2525].customer) AS [T2526][customer, MAX-total] ) JOIN (
+      (SELECT
+          [T2535].customer, [T2535].total, MIN([T2535].id)
+        FROM
+          (input1) AS [T2535][id, customer, total]
+        GROUP BY
+          [T2535].customer  [T2535].total) AS [T2536][customer, total, MIN-id] )) AS [T2537][customer, MAX-total, customer1, total, MIN-id]
+WHERE
+  [T2537].MAX-total <= [T2537].total
+   AND [T2537].customer == [T2537].customer1
+@anonymous
+[T2537].MIN-id(NumberVal) | [T2537].customer(StringVal) | [T2537].MAX-total(NumberVal) 
+2.0 | Joe | 6.0 
+5.0 | Sally | 3.0 
+
+[No.18]===============================
+SELECT
+  [T2960].COUNT-total,[T2960].customer1,[T2960].total
+FROM
+  (( (SELECT
+          [T2958].customer, COUNT([T2958].total)
+        FROM
+          (input1) AS [T2958][id, customer, total]
+        GROUP BY
+          [T2958].customer) AS [T2959][customer, COUNT-total] ) JOIN (
+      input1 )) AS [T2960][customer, COUNT-total, id, customer1, total]
+WHERE
+  [T2960].COUNT-total == [T2960].id
+@anonymous
+[T2960].COUNT-total(NumberVal) | [T2960].customer1(StringVal) | [T2960].total(NumberVal) 
+5.0 | Sally | 3.0 
+2.0 | Joe | 6.0 
+
+[No.17]===============================
+SELECT
+  [T2840].COUNT-customer,[T2840].customer1,[T2840].total
+FROM
+  (( (SELECT
+          [T2838].customer, COUNT([T2838].customer)
+        FROM
+          (input1) AS [T2838][id, customer, total]
+        GROUP BY
+          [T2838].customer) AS [T2839][customer, COUNT-customer] ) JOIN (
+      input1 )) AS [T2840][customer, COUNT-customer, id, customer1, total]
+WHERE
+  [T2840].COUNT-customer == [T2840].id
+@anonymous
+[T2840].COUNT-customer(NumberVal) | [T2840].customer1(StringVal) | [T2840].total(NumberVal) 
+5.0 | Sally | 3.0 
+2.0 | Joe | 6.0 
+
+[No.16]===============================
+SELECT
+  [T2900].COUNT-id,[T2900].customer1,[T2900].total
+FROM
+  (( (SELECT
+          [T2898].customer, COUNT([T2898].id)
+        FROM
+          (input1) AS [T2898][id, customer, total]
+        GROUP BY
+          [T2898].customer) AS [T2899][customer, COUNT-id] ) JOIN (
+      input1 )) AS [T2900][customer, COUNT-id, id, customer1, total]
+WHERE
+  [T2900].COUNT-id == [T2900].id
+@anonymous
+[T2900].COUNT-id(NumberVal) | [T2900].customer1(StringVal) | [T2900].total(NumberVal) 
+5.0 | Sally | 3.0 
+2.0 | Joe | 6.0 
+
+[No.15]===============================
+SELECT
+  [T1107].AVG-total,[T1107].customer1,[T1107].total
+FROM
+  (( (SELECT
+          [T1105].customer, AVG([T1105].total)
+        FROM
+          (input1) AS [T1105][id, customer, total]
+        GROUP BY
+          [T1105].customer) AS [T1106][customer, AVG-total] ) JOIN (
+      SELECT
+        input1.id,input1.customer,input1.total
+      FROM
+        input1
+      WHERE
+        True )) AS [T1107][customer, AVG-total, id, customer1, total]
+WHERE
+  [T1107].AVG-total == [T1107].id
+@anonymous
+[T1107].AVG-total(NumberVal) | [T1107].customer1(StringVal) | [T1107].total(NumberVal) 
+5.0 | Sally | 3.0 
+2.0 | Joe | 6.0 
+
+[No.14]===============================
+SELECT
+  [T1095].AVG-total,[T1095].customer1,[T1095].total
+FROM
+  (( (SELECT
+          [T1093].customer, AVG([T1093].total)
+        FROM
+          (input1) AS [T1093][id, customer, total]
+        GROUP BY
+          [T1093].customer) AS [T1094][customer, AVG-total] ) JOIN (
+      SELECT
+        input1.id,input1.customer,input1.total
+      FROM
+        input1
+      WHERE
+        True )) AS [T1095][customer, AVG-total, id, customer1, total]
+WHERE
+  [T1095].AVG-total == [T1095].id
+@anonymous
+[T1095].AVG-total(NumberVal) | [T1095].customer1(StringVal) | [T1095].total(NumberVal) 
+5.0 | Sally | 3.0 
+2.0 | Joe | 6.0 
+
+[No.13]===============================
+SELECT
+  [T1083].AVG-total,[T1083].customer1,[T1083].total
+FROM
+  (( (SELECT
+          [T1081].customer, AVG([T1081].total)
+        FROM
+          (input1) AS [T1081][id, customer, total]
+        GROUP BY
+          [T1081].customer) AS [T1082][customer, AVG-total] ) JOIN (
+      SELECT
+        input1.id,input1.customer,input1.total
+      FROM
+        input1
+      WHERE
+        True )) AS [T1083][customer, AVG-total, id, customer1, total]
+WHERE
+  [T1083].AVG-total == [T1083].id
+@anonymous
+[T1083].AVG-total(NumberVal) | [T1083].customer1(StringVal) | [T1083].total(NumberVal) 
+5.0 | Sally | 3.0 
+2.0 | Joe | 6.0 
+
+[No.12]===============================
+SELECT
+  [T2515].MIN-id,[T2515].customer,[T2515].MAX-total
+FROM
+  (( (SELECT
+          [T2503].customer, MAX([T2503].total)
+        FROM
+          (input1) AS [T2503][id, customer, total]
+        GROUP BY
+          [T2503].customer) AS [T2504][customer, MAX-total] ) JOIN (
+      (SELECT
+          [T2513].customer, [T2513].total, MIN([T2513].id)
+        FROM
+          (input1) AS [T2513][id, customer, total]
+        GROUP BY
+          [T2513].customer  [T2513].total) AS [T2514][customer, total, MIN-id] )) AS [T2515][customer, MAX-total, customer1, total, MIN-id]
+WHERE
+  [T2515].MAX-total == [T2515].total
+   AND [T2515].MAX-total <> [T2515].MIN-id
+@anonymous
+[T2515].MIN-id(NumberVal) | [T2515].customer(StringVal) | [T2515].MAX-total(NumberVal) 
+2.0 | Joe | 6.0 
+5.0 | Sally | 3.0 
+
+[No.11]===============================
+SELECT
+  [T2405].MIN-id,[T2405].customer,[T2405].total
+FROM
+  (( (SELECT
+          [T2393].customer, [T2393].total, MIN([T2393].id)
+        FROM
+          (input1) AS [T2393][id, customer, total]
+        GROUP BY
+          [T2393].customer  [T2393].total) AS [T2394][customer, total, MIN-id] ) JOIN (
+      (SELECT
+          [T2403].customer, MAX([T2403].total)
+        FROM
+          (input1) AS [T2403][id, customer, total]
+        GROUP BY
+          [T2403].customer) AS [T2404][customer, MAX-total] )) AS [T2405][customer, total, MIN-id, customer1, MAX-total]
+WHERE
+  [T2405].total == [T2405].MAX-total
+   AND [T2405].MIN-id <> [T2405].MAX-total
+@anonymous
+[T2405].MIN-id(NumberVal) | [T2405].customer(StringVal) | [T2405].total(NumberVal) 
+2.0 | Joe | 6.0 
+5.0 | Sally | 3.0 
+
+[No.10]===============================
+SELECT
+  [T2225].MIN-id,[T2225].customer,[T2225].total
+FROM
+  (( (SELECT
+          [T2213].total, MIN([T2213].id)
+        FROM
+          (input1) AS [T2213][id, customer, total]
+        GROUP BY
+          [T2213].total) AS [T2214][total, MIN-id] ) JOIN (
+      (SELECT
+          [T2223].customer, MAX([T2223].total)
+        FROM
+          (input1) AS [T2223][id, customer, total]
+        GROUP BY
+          [T2223].customer) AS [T2224][customer, MAX-total] )) AS [T2225][total, MIN-id, customer, MAX-total]
+WHERE
+  [T2225].total == [T2225].MAX-total
+   AND [T2225].MIN-id <> [T2225].MAX-total
+@anonymous
+[T2225].MIN-id(NumberVal) | [T2225].customer(StringVal) | [T2225].total(NumberVal) 
+2.0 | Joe | 6.0 
+5.0 | Sally | 3.0 
+
+[No.9]===============================
+SELECT
+  [T2137].MIN-id,[T2137].customer,[T2137].MAX-total
+FROM
+  (( (SELECT
+          [T2125].customer, MAX([T2125].total)
+        FROM
+          (input1) AS [T2125][id, customer, total]
+        GROUP BY
+          [T2125].customer) AS [T2126][customer, MAX-total] ) JOIN (
+      (SELECT
+          [T2135].total, MIN([T2135].id)
+        FROM
+          (input1) AS [T2135][id, customer, total]
+        GROUP BY
+          [T2135].total) AS [T2136][total, MIN-id] )) AS [T2137][customer, MAX-total, total, MIN-id]
+WHERE
+  [T2137].MAX-total == [T2137].total
+   AND [T2137].MAX-total <> [T2137].MIN-id
+@anonymous
+[T2137].MIN-id(NumberVal) | [T2137].customer(StringVal) | [T2137].MAX-total(NumberVal) 
+2.0 | Joe | 6.0 
+5.0 | Sally | 3.0 
+
+[No.8]===============================
+SELECT
+  [T1119].AVG-total,[T1119].customer1,[T1119].total
+FROM
+  (( (SELECT
+          [T1117].customer, AVG([T1117].total)
+        FROM
+          (input1) AS [T1117][id, customer, total]
+        GROUP BY
+          [T1117].customer) AS [T1118][customer, AVG-total] ) JOIN (
+      input1 )) AS [T1119][customer, AVG-total, id, customer1, total]
+WHERE
+  [T1119].AVG-total == [T1119].id
+   AND [T1119].customer <> [T1119].customer1
+@anonymous
+[T1119].AVG-total(NumberVal) | [T1119].customer1(StringVal) | [T1119].total(NumberVal) 
+5.0 | Sally | 3.0 
+2.0 | Joe | 6.0 
+
+[No.7]===============================
+SELECT
+  [T2493].MIN-id,[T2493].customer,[T2493].MAX-total
+FROM
+  (( (SELECT
+          [T2481].customer, MAX([T2481].total)
+        FROM
+          (input1) AS [T2481][id, customer, total]
+        GROUP BY
+          [T2481].customer) AS [T2482][customer, MAX-total] ) JOIN (
+      (SELECT
+          [T2491].customer, [T2491].total, MIN([T2491].id)
+        FROM
+          (input1) AS [T2491][id, customer, total]
+        GROUP BY
+          [T2491].customer  [T2491].total) AS [T2492][customer, total, MIN-id] )) AS [T2493][customer, MAX-total, customer1, total, MIN-id]
+WHERE
+  [T2493].MAX-total == [T2493].total
+   AND [T2493].customer == [T2493].customer1
+@anonymous
+[T2493].MIN-id(NumberVal) | [T2493].customer(StringVal) | [T2493].MAX-total(NumberVal) 
+2.0 | Joe | 6.0 
+5.0 | Sally | 3.0 
+
+[No.6]===============================
+SELECT
+  [T2383].MIN-id,[T2383].customer,[T2383].total
+FROM
+  (( (SELECT
+          [T2371].customer, [T2371].total, MIN([T2371].id)
+        FROM
+          (input1) AS [T2371][id, customer, total]
+        GROUP BY
+          [T2371].customer  [T2371].total) AS [T2372][customer, total, MIN-id] ) JOIN (
+      (SELECT
+          [T2381].customer, MAX([T2381].total)
+        FROM
+          (input1) AS [T2381][id, customer, total]
+        GROUP BY
+          [T2381].customer) AS [T2382][customer, MAX-total] )) AS [T2383][customer, total, MIN-id, customer1, MAX-total]
+WHERE
+  [T2383].total == [T2383].MAX-total
+   AND [T2383].customer == [T2383].customer1
+@anonymous
+[T2383].MIN-id(NumberVal) | [T2383].customer(StringVal) | [T2383].total(NumberVal) 
+2.0 | Joe | 6.0 
+5.0 | Sally | 3.0 
+
+[No.5]===============================
+SELECT
+  [T2471].MIN-id,[T2471].customer,[T2471].MAX-total
+FROM
+  (( (SELECT
+          [T2459].customer, MAX([T2459].total)
+        FROM
+          (input1) AS [T2459][id, customer, total]
+        GROUP BY
+          [T2459].customer) AS [T2460][customer, MAX-total] ) JOIN (
+      (SELECT
+          [T2469].customer, [T2469].total, MIN([T2469].id)
+        FROM
+          (input1) AS [T2469][id, customer, total]
+        GROUP BY
+          [T2469].customer  [T2469].total) AS [T2470][customer, total, MIN-id] )) AS [T2471][customer, MAX-total, customer1, total, MIN-id]
+WHERE
+  [T2471].MAX-total == [T2471].total
+@anonymous
+[T2471].MIN-id(NumberVal) | [T2471].customer(StringVal) | [T2471].MAX-total(NumberVal) 
+2.0 | Joe | 6.0 
+5.0 | Sally | 3.0 
+
+[No.4]===============================
+SELECT
+  [T2361].MIN-id,[T2361].customer,[T2361].total
+FROM
+  (( (SELECT
+          [T2349].customer, [T2349].total, MIN([T2349].id)
+        FROM
+          (input1) AS [T2349][id, customer, total]
+        GROUP BY
+          [T2349].customer  [T2349].total) AS [T2350][customer, total, MIN-id] ) JOIN (
+      (SELECT
+          [T2359].customer, MAX([T2359].total)
+        FROM
+          (input1) AS [T2359][id, customer, total]
+        GROUP BY
+          [T2359].customer) AS [T2360][customer, MAX-total] )) AS [T2361][customer, total, MIN-id, customer1, MAX-total]
+WHERE
+  [T2361].total == [T2361].MAX-total
+@anonymous
+[T2361].MIN-id(NumberVal) | [T2361].customer(StringVal) | [T2361].total(NumberVal) 
+2.0 | Joe | 6.0 
+5.0 | Sally | 3.0 
+
+[No.3]===============================
+SELECT
+  [T2269].MIN-id,[T2269].customer,[T2269].total
+FROM
+  (( (SELECT
+          [T2257].total, MIN([T2257].id)
+        FROM
+          (input1) AS [T2257][id, customer, total]
+        GROUP BY
+          [T2257].total) AS [T2258][total, MIN-id] ) JOIN (
+      (SELECT
+          [T2267].customer, MAX([T2267].total)
+        FROM
+          (input1) AS [T2267][id, customer, total]
+        GROUP BY
+          [T2267].customer) AS [T2268][customer, MAX-total] )) AS [T2269][total, MIN-id, customer, MAX-total]
+WHERE
+  [T2269].total == [T2269].MAX-total
+@anonymous
+[T2269].MIN-id(NumberVal) | [T2269].customer(StringVal) | [T2269].total(NumberVal) 
+2.0 | Joe | 6.0 
+5.0 | Sally | 3.0 
+
+[No.2]===============================
+SELECT
+  [T2159].MIN-id,[T2159].customer,[T2159].MAX-total
+FROM
+  (( (SELECT
+          [T2147].customer, MAX([T2147].total)
+        FROM
+          (input1) AS [T2147][id, customer, total]
+        GROUP BY
+          [T2147].customer) AS [T2148][customer, MAX-total] ) JOIN (
+      (SELECT
+          [T2157].total, MIN([T2157].id)
+        FROM
+          (input1) AS [T2157][id, customer, total]
+        GROUP BY
+          [T2157].total) AS [T2158][total, MIN-id] )) AS [T2159][customer, MAX-total, total, MIN-id]
+WHERE
+  [T2159].MAX-total == [T2159].total
+@anonymous
+[T2159].MIN-id(NumberVal) | [T2159].customer(StringVal) | [T2159].MAX-total(NumberVal) 
+2.0 | Joe | 6.0 
+5.0 | Sally | 3.0 
+
+[No.1]===============================
+SELECT
+  [T1071].AVG-total,[T1071].customer1,[T1071].total
+FROM
+  (( (SELECT
+          [T1069].customer, AVG([T1069].total)
+        FROM
+          (input1) AS [T1069][id, customer, total]
+        GROUP BY
+          [T1069].customer) AS [T1070][customer, AVG-total] ) JOIN (
+      input1 )) AS [T1071][customer, AVG-total, id, customer1, total]
+WHERE
+  [T1071].AVG-total == [T1071].id
+@anonymous
+[T1071].AVG-total(NumberVal) | [T1071].customer1(StringVal) | [T1071].total(NumberVal) 
+5.0 | Sally | 3.0 
+2.0 | Joe | 6.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 2.924s

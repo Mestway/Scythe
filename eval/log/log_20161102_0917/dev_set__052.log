@@ -1,0 +1,557 @@
+[[Synthesis start]]
+	File: ../data/dev_set/052
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 385 [SymTable]: 386
+Candidate Tree Number: 1
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 21 [SymTable]: 22
+[JOIN] level 1 [SymTable]: 44
+[EnumJoinOnAggr] level 1 [SymTable]: 528
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 70 [SymTable]: 71
+[JOIN] level 1 [SymTable]: 142
+Candidate Tree Number: 85
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 70 [SymTable]: 71
+[JOIN] level 1 [SymTable]: 142
+Candidate Tree Number: 122
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 70 [SymTable]: 71
+[JOIN] level 1 [SymTable]: 142
+Candidate Tree Number: 57
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 119 [SymTable]: 120
+[JOIN] level 1 [SymTable]: 240
+Candidate Tree Number: 207
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 140 [SymTable]: 141
+[JOIN] level 1 [SymTable]: 282
+Candidate Tree Number: 1189
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T2931].StoreId
+FROM
+  (( (SELECT
+          AVG([T2921].StoreId)
+        FROM
+          (input1) AS [T2921][StoreId, ClientId]) AS [T2922][AVG-StoreId] ) JOIN (
+      SELECT
+        input1.StoreId,input1.ClientId
+      FROM
+        input1
+      WHERE
+        True )) AS [T2931][AVG-StoreId, StoreId, ClientId]
+WHERE
+  [T2931].AVG-StoreId < [T2931].StoreId
+@anonymous
+[T2931].StoreId(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.19]===============================
+SELECT
+  [T4074].StoreId1
+FROM
+  (( SELECT
+        [T4073].StoreId,[T4073].MIN-ClientId
+      FROM
+        (SELECT
+            [T4072].StoreId, MIN([T4072].ClientId)
+          FROM
+            (SELECT
+                input1.StoreId,input1.ClientId
+              FROM
+                input1
+              WHERE
+                input1.StoreId < input1.ClientId) AS [T4072][StoreId, ClientId]
+          GROUP BY
+            [T4072].StoreId) AS [T4073][StoreId, MIN-ClientId]
+      WHERE
+        [T4073].MIN-ClientId == 5.0 ) JOIN (
+      input1 )) AS [T4074][StoreId, MIN-ClientId, StoreId1, ClientId]
+WHERE
+  [T4074].StoreId < [T4074].StoreId1
+@anonymous
+[T4074].StoreId1(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.18]===============================
+SELECT
+  [T2290].StoreId1
+FROM
+  (( SELECT
+        [T2289].StoreId,[T2289].MIN-ClientId
+      FROM
+        (SELECT
+            [T2288].StoreId, MIN([T2288].ClientId)
+          FROM
+            (SELECT
+                input1.StoreId,input1.ClientId
+              FROM
+                input1
+              WHERE
+                input1.StoreId < input1.ClientId) AS [T2288][StoreId, ClientId]
+          GROUP BY
+            [T2288].StoreId) AS [T2289][StoreId, MIN-ClientId]
+      WHERE
+        [T2289].MIN-ClientId == 5.0 ) JOIN (
+      input1 )) AS [T2290][StoreId, MIN-ClientId, StoreId1, ClientId]
+WHERE
+  [T2290].StoreId < [T2290].StoreId1
+@anonymous
+[T2290].StoreId1(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.17]===============================
+SELECT
+  [T4790].StoreId1
+FROM
+  (( SELECT
+        [T4781].StoreId,[T4781].MIN-ClientId
+      FROM
+        (SELECT
+            [T4780].StoreId, MIN([T4780].ClientId)
+          FROM
+            (input1) AS [T4780][StoreId, ClientId]
+          GROUP BY
+            [T4780].StoreId) AS [T4781][StoreId, MIN-ClientId]
+      WHERE
+        [T4781].MIN-ClientId == 5.0 ) JOIN (
+      SELECT
+        input1.StoreId,input1.ClientId
+      FROM
+        input1
+      WHERE
+        input1.ClientId <> 5.0 )) AS [T4790][StoreId, MIN-ClientId, StoreId1, ClientId]
+WHERE
+  [T4790].StoreId < [T4790].StoreId1
+@anonymous
+[T4790].StoreId1(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.16]===============================
+SELECT
+  [T4014].StoreId1
+FROM
+  (( SELECT
+        [T4005].StoreId,[T4005].MIN-ClientId
+      FROM
+        (SELECT
+            [T4004].StoreId, MIN([T4004].ClientId)
+          FROM
+            (SELECT
+                input1.StoreId,input1.ClientId
+              FROM
+                input1
+              WHERE
+                input1.ClientId <= 5.0) AS [T4004][StoreId, ClientId]
+          GROUP BY
+            [T4004].StoreId) AS [T4005][StoreId, MIN-ClientId]
+      WHERE
+        [T4005].MIN-ClientId == 5.0 ) JOIN (
+      input1 )) AS [T4014][StoreId, MIN-ClientId, StoreId1, ClientId]
+WHERE
+  [T4014].StoreId < [T4014].StoreId1
+@anonymous
+[T4014].StoreId1(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.15]===============================
+SELECT
+  [T2859].StoreId1
+FROM
+  (( SELECT
+        [T2850].StoreId,[T2850].AVG-ClientId
+      FROM
+        (SELECT
+            [T2849].StoreId, AVG([T2849].ClientId)
+          FROM
+            (SELECT
+                input1.StoreId,input1.ClientId
+              FROM
+                input1
+              WHERE
+                input1.ClientId <= 5.0) AS [T2849][StoreId, ClientId]
+          GROUP BY
+            [T2849].StoreId) AS [T2850][StoreId, AVG-ClientId]
+      WHERE
+        [T2850].AVG-ClientId == 5.0 ) JOIN (
+      input1 )) AS [T2859][StoreId, AVG-ClientId, StoreId1, ClientId]
+WHERE
+  [T2859].StoreId < [T2859].StoreId1
+@anonymous
+[T2859].StoreId1(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.14]===============================
+SELECT
+  [T1814].StoreId1
+FROM
+  (( SELECT
+        [T1805].StoreId,[T1805].MIN-ClientId
+      FROM
+        (SELECT
+            [T1804].StoreId, MIN([T1804].ClientId)
+          FROM
+            (input1) AS [T1804][StoreId, ClientId]
+          GROUP BY
+            [T1804].StoreId) AS [T1805][StoreId, MIN-ClientId]
+      WHERE
+        [T1805].MIN-ClientId == 5.0 ) JOIN (
+      SELECT
+        input1.StoreId,input1.ClientId
+      FROM
+        input1
+      WHERE
+        input1.ClientId <> 5.0 )) AS [T1814][StoreId, MIN-ClientId, StoreId1, ClientId]
+WHERE
+  [T1814].StoreId < [T1814].StoreId1
+@anonymous
+[T1814].StoreId1(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.13]===============================
+SELECT
+  [T1718].StoreId1
+FROM
+  (( SELECT
+        [T1709].StoreId,[T1709].MIN-ClientId
+      FROM
+        (SELECT
+            [T1708].StoreId, MIN([T1708].ClientId)
+          FROM
+            (SELECT
+                input1.StoreId,input1.ClientId
+              FROM
+                input1
+              WHERE
+                input1.ClientId <= 5.0) AS [T1708][StoreId, ClientId]
+          GROUP BY
+            [T1708].StoreId) AS [T1709][StoreId, MIN-ClientId]
+      WHERE
+        [T1709].MIN-ClientId == 5.0 ) JOIN (
+      input1 )) AS [T1718][StoreId, MIN-ClientId, StoreId1, ClientId]
+WHERE
+  [T1718].StoreId < [T1718].StoreId1
+@anonymous
+[T1718].StoreId1(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.12]===============================
+SELECT
+  [T5006].StoreId1
+FROM
+  (( SELECT
+        [T4997].StoreId,[T4997].MIN-ClientId
+      FROM
+        (SELECT
+            [T4996].StoreId, MIN([T4996].ClientId)
+          FROM
+            (input1) AS [T4996][StoreId, ClientId]
+          GROUP BY
+            [T4996].StoreId) AS [T4997][StoreId, MIN-ClientId]
+      WHERE
+        [T4997].MIN-ClientId > 5.0 ) JOIN (
+      input1 )) AS [T5006][StoreId, MIN-ClientId, StoreId1, ClientId]
+WHERE
+  [T5006].StoreId <= [T5006].StoreId1
+@anonymous
+[T5006].StoreId1(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.11]===============================
+SELECT
+  [T3139].StoreId
+FROM
+  (( (SELECT
+          AVG([T3129].ClientId)
+        FROM
+          (SELECT
+              input1.StoreId,input1.ClientId
+            FROM
+              input1
+            WHERE
+              input1.ClientId < 5.0) AS [T3129][StoreId, ClientId]) AS [T3130][AVG-ClientId] ) JOIN (
+      input1 )) AS [T3139][AVG-ClientId, StoreId, ClientId]
+WHERE
+  [T3139].AVG-ClientId < [T3139].StoreId
+@anonymous
+[T3139].StoreId(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.10]===============================
+SELECT
+  [T3231].StoreId
+FROM
+  (( (SELECT
+          AVG([T3221].StoreId)
+        FROM
+          (SELECT
+              input1.StoreId,input1.ClientId
+            FROM
+              input1
+            WHERE
+              input1.ClientId < 5.0) AS [T3221][StoreId, ClientId]) AS [T3222][AVG-StoreId] ) JOIN (
+      input1 )) AS [T3231][AVG-StoreId, StoreId, ClientId]
+WHERE
+  [T3231].AVG-StoreId <= [T3231].StoreId
+@anonymous
+[T3231].StoreId(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.9]===============================
+SELECT
+  [T3039].StoreId
+FROM
+  (( (SELECT
+          AVG([T3029].StoreId)
+        FROM
+          (SELECT
+              input1.StoreId,input1.ClientId
+            FROM
+              input1
+            WHERE
+              input1.ClientId <> 5.0) AS [T3029][StoreId, ClientId]) AS [T3030][AVG-StoreId] ) JOIN (
+      input1 )) AS [T3039][AVG-StoreId, StoreId, ClientId]
+WHERE
+  [T3039].AVG-StoreId < [T3039].StoreId
+@anonymous
+[T3039].StoreId(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.8]===============================
+SELECT
+  [T2979].StoreId
+FROM
+  (( (SELECT
+          AVG([T2969].StoreId)
+        FROM
+          (SELECT
+              input1.StoreId,input1.ClientId
+            FROM
+              input1
+            WHERE
+              input1.ClientId > 5.0) AS [T2969][StoreId, ClientId]) AS [T2970][AVG-StoreId] ) JOIN (
+      input1 )) AS [T2979][AVG-StoreId, StoreId, ClientId]
+WHERE
+  [T2979].AVG-StoreId < [T2979].StoreId
+@anonymous
+[T2979].StoreId(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.7]===============================
+SELECT
+  [T2955].StoreId
+FROM
+  (( (SELECT
+          AVG([T2945].StoreId)
+        FROM
+          (input1) AS [T2945][StoreId, ClientId]) AS [T2946][AVG-StoreId] ) JOIN (
+      SELECT
+        input1.StoreId,input1.ClientId
+      FROM
+        input1
+      WHERE
+        input1.ClientId <> 5.0 )) AS [T2955][AVG-StoreId, StoreId, ClientId]
+WHERE
+  [T2955].AVG-StoreId < [T2955].StoreId
+@anonymous
+[T2955].StoreId(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.6]===============================
+SELECT
+  [T2799].StoreId
+FROM
+  (( (SELECT
+          AVG([T2789].StoreId)
+        FROM
+          (SELECT
+              input1.StoreId,input1.ClientId
+            FROM
+              input1
+            WHERE
+              input1.ClientId <= 5.0) AS [T2789][StoreId, ClientId]) AS [T2790][AVG-StoreId] ) JOIN (
+      input1 )) AS [T2799][AVG-StoreId, StoreId, ClientId]
+WHERE
+  [T2799].AVG-StoreId < [T2799].StoreId
+@anonymous
+[T2799].StoreId(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.5]===============================
+SELECT
+  [T2030].StoreId1
+FROM
+  (( SELECT
+        [T2021].StoreId,[T2021].MIN-ClientId
+      FROM
+        (SELECT
+            [T2020].StoreId, MIN([T2020].ClientId)
+          FROM
+            (input1) AS [T2020][StoreId, ClientId]
+          GROUP BY
+            [T2020].StoreId) AS [T2021][StoreId, MIN-ClientId]
+      WHERE
+        [T2021].MIN-ClientId > 5.0 ) JOIN (
+      input1 )) AS [T2030][StoreId, MIN-ClientId, StoreId1, ClientId]
+WHERE
+  [T2030].StoreId <= [T2030].StoreId1
+@anonymous
+[T2030].StoreId1(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.4]===============================
+SELECT
+  [T386].SUM-StoreId
+FROM
+  (SELECT
+      [T385].ClientId, SUM([T385].StoreId)
+    FROM
+      (SELECT
+          input1.StoreId,input1.ClientId
+        FROM
+          input1
+        WHERE
+          input1.ClientId == 5.0
+           OR input1.StoreId > input1.ClientId) AS [T385][StoreId, ClientId]
+    GROUP BY
+      [T385].ClientId) AS [T386][ClientId, SUM-StoreId]
+
+@anonymous
+[T386].SUM-StoreId(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.3]===============================
+SELECT
+  [T4754].StoreId1
+FROM
+  (( SELECT
+        [T4745].StoreId,[T4745].MIN-ClientId
+      FROM
+        (SELECT
+            [T4744].StoreId, MIN([T4744].ClientId)
+          FROM
+            (input1) AS [T4744][StoreId, ClientId]
+          GROUP BY
+            [T4744].StoreId) AS [T4745][StoreId, MIN-ClientId]
+      WHERE
+        [T4745].MIN-ClientId == 5.0 ) JOIN (
+      input1 )) AS [T4754][StoreId, MIN-ClientId, StoreId1, ClientId]
+WHERE
+  [T4754].StoreId < [T4754].StoreId1
+@anonymous
+[T4754].StoreId1(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.2]===============================
+SELECT
+  [T1778].StoreId1
+FROM
+  (( SELECT
+        [T1769].StoreId,[T1769].MIN-ClientId
+      FROM
+        (SELECT
+            [T1768].StoreId, MIN([T1768].ClientId)
+          FROM
+            (input1) AS [T1768][StoreId, ClientId]
+          GROUP BY
+            [T1768].StoreId) AS [T1769][StoreId, MIN-ClientId]
+      WHERE
+        [T1769].MIN-ClientId == 5.0 ) JOIN (
+      input1 )) AS [T1778][StoreId, MIN-ClientId, StoreId1, ClientId]
+WHERE
+  [T1778].StoreId < [T1778].StoreId1
+@anonymous
+[T1778].StoreId1(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[No.1]===============================
+SELECT
+  [T2919].StoreId
+FROM
+  (( (SELECT
+          AVG([T2909].StoreId)
+        FROM
+          (input1) AS [T2909][StoreId, ClientId]) AS [T2910][AVG-StoreId] ) JOIN (
+      input1 )) AS [T2919][AVG-StoreId, StoreId, ClientId]
+WHERE
+  [T2919].AVG-StoreId < [T2919].StoreId
+@anonymous
+[T2919].StoreId(NumberVal) 
+3.0 
+4.0 
+4.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 11.384s

@@ -1,0 +1,235 @@
+[[Synthesis start]]
+	File: ../data/sqlsynthesizer/textbook_5_2_9
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 3
+[Aggregation]: 172 [SymTable]: 175
+[NaturalJoin]: 1 [SymTable]: 175
+Candidate Tree Number: 4
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 3
+[Aggregation]: 8 [SymTable]: 11
+[JOIN] level 1 [SymTable]: 44
+[EnumJoinOnAggr] level 1 [SymTable]: 165
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 3
+[Aggregation]: 8 [SymTable]: 11
+[JOIN] level 1 [SymTable]: 44
+[EnumJoinOnAggr] level 1 [SymTable]: 165
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 3
+[Aggregation]: 8 [SymTable]: 11
+[JOIN] level 1 [SymTable]: 44
+[EnumJoinOnAggr] level 1 [SymTable]: 165
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 3
+[Aggregation]: 8 [SymTable]: 11
+[JOIN] level 1 [SymTable]: 44
+[EnumJoinOnAggr] level 1 [SymTable]: 165
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 3
+[Aggregation]: 8 [SymTable]: 11
+[JOIN] level 1 [SymTable]: 44
+[EnumJoinOnAggr] level 1 [SymTable]: 165
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 3
+[Aggregation]: 42 [SymTable]: 45
+[JOIN] level 1 [SymTable]: 180
+[EnumJoinOnAggr] level 1 [SymTable]: 2205
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[No.4]===============================
+SELECT
+  [T176].sname
+FROM
+  (( SELECT
+        [T174].supplier_key,[T174].part_id,[T174].part_id1,[T174].color
+      FROM
+        (( SELECT
+              input1.supplier_key,input1.part_id
+            FROM
+              input1
+            WHERE
+              True ) JOIN (
+            SELECT
+              input2.part_id,input2.color
+            FROM
+              input2
+            WHERE
+              input2.color == red
+               OR input2.color == green )) AS [T174][supplier_key, part_id, part_id1, color]
+      WHERE
+        [T174].part_id == [T174].part_id1 ) JOIN (
+      SELECT
+        input3.supplier_key,input3.sname
+      FROM
+        input3
+      WHERE
+        True )) AS [T176][supplier_key, part_id, part_id1, color, supplier_key1, sname]
+WHERE
+  [T176].supplier_key == [T176].supplier_key1
+@anonymous
+[T176].sname(StringVal) 
+SN1 
+SN1 
+SN1 
+SN2 
+SN3 
+SN5 
+SN5 
+SN6 
+SN8 
+SN8 
+SN9 
+SN9 
+
+[No.3]===============================
+SELECT
+  [T184].sname
+FROM
+  (( SELECT
+        [T182].supplier_key,[T182].part_id,[T182].part_id1,[T182].color
+      FROM
+        (( input1 ) JOIN (
+            SELECT
+              input2.part_id,input2.color
+            FROM
+              input2
+            WHERE
+              input2.color == red
+               OR input2.color == green )) AS [T182][supplier_key, part_id, part_id1, color]
+      WHERE
+        [T182].part_id == [T182].part_id1 ) JOIN (
+      SELECT
+        input3.supplier_key,input3.sname
+      FROM
+        input3
+      WHERE
+        True )) AS [T184][supplier_key, part_id, part_id1, color, supplier_key1, sname]
+WHERE
+  [T184].supplier_key == [T184].supplier_key1
+@anonymous
+[T184].sname(StringVal) 
+SN1 
+SN1 
+SN1 
+SN2 
+SN3 
+SN5 
+SN5 
+SN6 
+SN8 
+SN8 
+SN9 
+SN9 
+
+[No.2]===============================
+SELECT
+  [T180].sname
+FROM
+  (( SELECT
+        [T178].supplier_key,[T178].part_id,[T178].part_id1,[T178].color
+      FROM
+        (( SELECT
+              input1.supplier_key,input1.part_id
+            FROM
+              input1
+            WHERE
+              True ) JOIN (
+            SELECT
+              input2.part_id,input2.color
+            FROM
+              input2
+            WHERE
+              input2.color == red
+               OR input2.color == green )) AS [T178][supplier_key, part_id, part_id1, color]
+      WHERE
+        [T178].part_id == [T178].part_id1 ) JOIN (
+      input3 )) AS [T180][supplier_key, part_id, part_id1, color, supplier_key1, sname]
+WHERE
+  [T180].supplier_key == [T180].supplier_key1
+@anonymous
+[T180].sname(StringVal) 
+SN1 
+SN1 
+SN1 
+SN2 
+SN3 
+SN5 
+SN5 
+SN6 
+SN8 
+SN8 
+SN9 
+SN9 
+
+[No.1]===============================
+SELECT
+  [T188].sname
+FROM
+  (( SELECT
+        [T186].supplier_key,[T186].part_id,[T186].part_id1,[T186].color
+      FROM
+        (( input1 ) JOIN (
+            SELECT
+              input2.part_id,input2.color
+            FROM
+              input2
+            WHERE
+              input2.color == red
+               OR input2.color == green )) AS [T186][supplier_key, part_id, part_id1, color]
+      WHERE
+        [T186].part_id == [T186].part_id1 ) JOIN (
+      input3 )) AS [T188][supplier_key, part_id, part_id1, color, supplier_key1, sname]
+WHERE
+  [T188].supplier_key == [T188].supplier_key1
+@anonymous
+[T188].sname(StringVal) 
+SN1 
+SN1 
+SN1 
+SN2 
+SN3 
+SN5 
+SN5 
+SN6 
+SN8 
+SN8 
+SN9 
+SN9 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 2.477s
