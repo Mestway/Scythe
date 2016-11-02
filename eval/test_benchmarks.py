@@ -22,13 +22,10 @@ if __name__ == "__main__":
 
 	for benchmark_dir_suffix in benchmark_dir_list:
 
-		if not "sqlsynthesizer" in benchmark_dir_suffix:
-			continue
-
 		benchmark_dir = os.path.join(data_dir, benchmark_dir_suffix)
 
 		if not os.path.exists(benchmark_dir):
-			print "[[ERROR]] benchmark directory not exists: " + benchmark_dir 
+			print "[[ERROR]] benchmark directory not exists: " + benchmark_dir
 
 		files = [os.path.join(benchmark_dir, name) for name in os.listdir(benchmark_dir)
 																if os.path.isfile(os.path.join(benchmark_dir, name))]

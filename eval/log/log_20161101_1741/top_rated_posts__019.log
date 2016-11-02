@@ -1,0 +1,122 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/019
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 23 [SymTable]: 24
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 4
+[EnumLeftJoin] level 1 [SymTable]: 4
+[EnumJoinOnAggr] level 1 [SymTable]: 14
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 4 [SymTable]: 5
+[JOIN] level 1 [SymTable]: 10
+Candidate Tree Number: 4
+[Enumeration Finished]
+[No.4]===============================
+SELECT
+  [T49].id,[T49].age1,[T49].MAX-id
+FROM
+  (( (SELECT
+          [T47].age, MAX([T47].id)
+        FROM
+          (input1) AS [T47][id, age]
+        GROUP BY
+          [T47].age) AS [T48][age, MAX-id] ) JOIN (
+      SELECT
+        input1.id,input1.age
+      FROM
+        input1
+      WHERE
+        True )) AS [T49][age, MAX-id, id, age1]
+WHERE
+  [T49].age <> [T49].age1
+   AND [T49].MAX-id <> [T49].id
+@anonymous
+[T49].id(NumberVal) | [T49].age1(NumberVal) | [T49].MAX-id(NumberVal) 
+2.0 | 23.0 | 1.0 
+0.0 | 25.0 | 2.0 
+1.0 | 25.0 | 2.0 
+
+[No.3]===============================
+SELECT
+  [T43].id,[T43].age1,[T43].MAX-id
+FROM
+  (( (SELECT
+          [T41].age, MAX([T41].id)
+        FROM
+          (input1) AS [T41][id, age]
+        GROUP BY
+          [T41].age) AS [T42][age, MAX-id] ) JOIN (
+      SELECT
+        input1.id,input1.age
+      FROM
+        input1
+      WHERE
+        True )) AS [T43][age, MAX-id, id, age1]
+WHERE
+  [T43].age <> [T43].age1
+@anonymous
+[T43].id(NumberVal) | [T43].age1(NumberVal) | [T43].MAX-id(NumberVal) 
+2.0 | 23.0 | 1.0 
+0.0 | 25.0 | 2.0 
+1.0 | 25.0 | 2.0 
+
+[No.2]===============================
+SELECT
+  [T61].id,[T61].age1,[T61].MAX-id
+FROM
+  (( (SELECT
+          [T59].age, MAX([T59].id)
+        FROM
+          (input1) AS [T59][id, age]
+        GROUP BY
+          [T59].age) AS [T60][age, MAX-id] ) JOIN (
+      input1 )) AS [T61][age, MAX-id, id, age1]
+WHERE
+  [T61].age <> [T61].age1
+   AND [T61].MAX-id <> [T61].id
+@anonymous
+[T61].id(NumberVal) | [T61].age1(NumberVal) | [T61].MAX-id(NumberVal) 
+2.0 | 23.0 | 1.0 
+0.0 | 25.0 | 2.0 
+1.0 | 25.0 | 2.0 
+
+[No.1]===============================
+SELECT
+  [T55].id,[T55].age1,[T55].MAX-id
+FROM
+  (( (SELECT
+          [T53].age, MAX([T53].id)
+        FROM
+          (input1) AS [T53][id, age]
+        GROUP BY
+          [T53].age) AS [T54][age, MAX-id] ) JOIN (
+      input1 )) AS [T55][age, MAX-id, id, age1]
+WHERE
+  [T55].age <> [T55].age1
+@anonymous
+[T55].id(NumberVal) | [T55].age1(NumberVal) | [T55].MAX-id(NumberVal) 
+2.0 | 23.0 | 1.0 
+0.0 | 25.0 | 2.0 
+1.0 | 25.0 | 2.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.183s

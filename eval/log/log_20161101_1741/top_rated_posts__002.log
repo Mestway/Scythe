@@ -1,0 +1,492 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/002
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 138 [SymTable]: 139
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 14
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 14 [SymTable]: 15
+[JOIN] level 1 [SymTable]: 30
+Candidate Tree Number: 21
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T216].NAME1
+FROM
+  (( (SELECT
+          [T214].NAME, [T214].EMAIL, MAX([T214].ID)
+        FROM
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              input1.ID > 1.0) AS [T214][ID, NAME, EMAIL]
+        GROUP BY
+          [T214].NAME  [T214].EMAIL) AS [T215][NAME, EMAIL, MAX-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        True )) AS [T216][NAME, EMAIL, MAX-ID, ID, NAME1, EMAIL1]
+WHERE
+  [T216].EMAIL == [T216].EMAIL1
+   AND [T216].MAX-ID < [T216].ID
+@anonymous
+[T216].NAME1(StringVal) 
+Tom 
+Tom 
+
+[No.19]===============================
+SELECT
+  [T210].NAME1
+FROM
+  (( (SELECT
+          [T208].NAME, [T208].EMAIL, MAX([T208].ID)
+        FROM
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              input1.ID > 1.0) AS [T208][ID, NAME, EMAIL]
+        GROUP BY
+          [T208].NAME  [T208].EMAIL) AS [T209][NAME, EMAIL, MAX-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        True )) AS [T210][NAME, EMAIL, MAX-ID, ID, NAME1, EMAIL1]
+WHERE
+  [T210].EMAIL == [T210].EMAIL1
+   AND [T210].MAX-ID < [T210].ID
+@anonymous
+[T210].NAME1(StringVal) 
+Tom 
+Tom 
+
+[No.18]===============================
+SELECT
+  [T324].NAME
+FROM
+  (( SELECT
+        [T323].NAME,[T323].EMAIL,[T323].MAX-ID
+      FROM
+        (SELECT
+            [T322].NAME, [T322].EMAIL, MAX([T322].ID)
+          FROM
+            (input1) AS [T322][ID, NAME, EMAIL]
+          GROUP BY
+            [T322].NAME  [T322].EMAIL) AS [T323][NAME, EMAIL, MAX-ID]
+      WHERE
+        [T323].MAX-ID > 1.0 ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        input1.ID > 1.0 )) AS [T324][NAME, EMAIL, MAX-ID, ID, NAME1, EMAIL1]
+WHERE
+  [T324].EMAIL == [T324].EMAIL1
+   AND [T324].MAX-ID > [T324].ID
+@anonymous
+[T324].NAME(StringVal) 
+Tom 
+Tom 
+
+[No.17]===============================
+SELECT
+  [T288].NAME1
+FROM
+  (( SELECT
+        [T287].NAME,[T287].EMAIL,[T287].MAX-ID
+      FROM
+        (SELECT
+            [T286].NAME, [T286].EMAIL, MAX([T286].ID)
+          FROM
+            (input1) AS [T286][ID, NAME, EMAIL]
+          GROUP BY
+            [T286].NAME  [T286].EMAIL) AS [T287][NAME, EMAIL, MAX-ID]
+      WHERE
+        [T287].MAX-ID > 1.0 ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        input1.ID > 1.0 )) AS [T288][NAME, EMAIL, MAX-ID, ID, NAME1, EMAIL1]
+WHERE
+  [T288].MAX-ID < [T288].ID
+   AND [T288].EMAIL == [T288].EMAIL1
+@anonymous
+[T288].NAME1(StringVal) 
+Tom 
+Tom 
+
+[No.16]===============================
+SELECT
+  [T240].NAME
+FROM
+  (( (SELECT
+          [T238].NAME, [T238].EMAIL, MAX([T238].ID)
+        FROM
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              input1.ID > 1.0) AS [T238][ID, NAME, EMAIL]
+        GROUP BY
+          [T238].NAME  [T238].EMAIL) AS [T239][NAME, EMAIL, MAX-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        input1.ID > 1.0 )) AS [T240][NAME, EMAIL, MAX-ID, ID, NAME1, EMAIL1]
+WHERE
+  [T240].MAX-ID > [T240].ID
+   AND [T240].EMAIL == [T240].EMAIL1
+@anonymous
+[T240].NAME(StringVal) 
+Tom 
+Tom 
+
+[No.15]===============================
+SELECT
+  [T222].NAME1
+FROM
+  (( (SELECT
+          [T220].NAME, [T220].EMAIL, MAX([T220].ID)
+        FROM
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              input1.ID > 1.0) AS [T220][ID, NAME, EMAIL]
+        GROUP BY
+          [T220].NAME  [T220].EMAIL) AS [T221][NAME, EMAIL, MAX-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        input1.ID > 1.0 )) AS [T222][NAME, EMAIL, MAX-ID, ID, NAME1, EMAIL1]
+WHERE
+  [T222].EMAIL == [T222].EMAIL1
+   AND [T222].MAX-ID < [T222].ID
+@anonymous
+[T222].NAME1(StringVal) 
+Tom 
+Tom 
+
+[No.14]===============================
+SELECT
+  [T336].NAME
+FROM
+  (( (SELECT
+          [T334].NAME, [T334].EMAIL, MAX([T334].ID)
+        FROM
+          (input1) AS [T334][ID, NAME, EMAIL]
+        GROUP BY
+          [T334].NAME  [T334].EMAIL) AS [T335][NAME, EMAIL, MAX-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        IS NULL input1.EMAIL
+         OR input1.ID > 1.0 )) AS [T336][NAME, EMAIL, MAX-ID, ID, NAME1, EMAIL1]
+WHERE
+  [T336].EMAIL == [T336].EMAIL1
+   AND [T336].MAX-ID > [T336].ID
+@anonymous
+[T336].NAME(StringVal) 
+Tom 
+Tom 
+
+[No.13]===============================
+SELECT
+  [T348].NAME
+FROM
+  (( (SELECT
+          [T346].NAME, [T346].EMAIL, MAX([T346].ID)
+        FROM
+          (input1) AS [T346][ID, NAME, EMAIL]
+        GROUP BY
+          [T346].NAME  [T346].EMAIL) AS [T347][NAME, EMAIL, MAX-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        input1.ID > 1.0 )) AS [T348][NAME, EMAIL, MAX-ID, ID, NAME1, EMAIL1]
+WHERE
+  [T348].EMAIL == [T348].EMAIL1
+   AND [T348].MAX-ID > [T348].ID
+@anonymous
+[T348].NAME(StringVal) 
+Tom 
+Tom 
+
+[No.12]===============================
+SELECT
+  [T252].NAME1
+FROM
+  (( SELECT
+        [T251].NAME,[T251].EMAIL,[T251].MAX-ID
+      FROM
+        (SELECT
+            [T250].NAME, [T250].EMAIL, MAX([T250].ID)
+          FROM
+            (input1) AS [T250][ID, NAME, EMAIL]
+          GROUP BY
+            [T250].NAME  [T250].EMAIL) AS [T251][NAME, EMAIL, MAX-ID]
+      WHERE
+        [T251].MAX-ID > 1.0 ) JOIN (
+      input1 )) AS [T252][NAME, EMAIL, MAX-ID, ID, NAME1, EMAIL1]
+WHERE
+  [T252].MAX-ID < [T252].ID
+   AND [T252].EMAIL == [T252].EMAIL1
+@anonymous
+[T252].NAME1(StringVal) 
+Tom 
+Tom 
+
+[No.11]===============================
+SELECT
+  [T204].NAME1
+FROM
+  (( (SELECT
+          [T202].NAME, [T202].EMAIL, MAX([T202].ID)
+        FROM
+          (SELECT
+              input1.ID,input1.NAME,input1.EMAIL
+            FROM
+              input1
+            WHERE
+              input1.ID > 1.0) AS [T202][ID, NAME, EMAIL]
+        GROUP BY
+          [T202].NAME  [T202].EMAIL) AS [T203][NAME, EMAIL, MAX-ID] ) JOIN (
+      input1 )) AS [T204][NAME, EMAIL, MAX-ID, ID, NAME1, EMAIL1]
+WHERE
+  [T204].EMAIL == [T204].EMAIL1
+   AND [T204].MAX-ID < [T204].ID
+@anonymous
+[T204].NAME1(StringVal) 
+Tom 
+Tom 
+
+[No.10]===============================
+SELECT
+  [T196].NAME
+FROM
+  (( SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        True )) AS [T196][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+  [T196].ID <> [T196].ID1
+   AND [T196].NAME == [T196].NAME1
+@anonymous
+[T196].NAME(StringVal) 
+Tom 
+Tom 
+
+[No.9]===============================
+SELECT
+  [T157].NAME
+FROM
+  (( SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        True )) AS [T157][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+  [T157].ID <> [T157].ID1
+   AND [T157].NAME == [T157].NAME1
+@anonymous
+[T157].NAME(StringVal) 
+Tom 
+Tom 
+
+[No.8]===============================
+SELECT
+  [T198].NAME
+FROM
+  (( SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T198][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+  [T198].ID <> [T198].ID1
+   AND [T198].NAME == [T198].NAME1
+@anonymous
+[T198].NAME(StringVal) 
+Tom 
+Tom 
+
+[No.7]===============================
+SELECT
+  [T194].NAME
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        True )) AS [T194][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+  [T194].ID <> [T194].ID1
+   AND [T194].NAME == [T194].NAME1
+@anonymous
+[T194].NAME(StringVal) 
+Tom 
+Tom 
+
+[No.6]===============================
+SELECT
+  [T192].NAME
+FROM
+  (( SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T192][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+  [T192].ID <> [T192].ID1
+   AND [T192].NAME == [T192].NAME1
+@anonymous
+[T192].NAME(StringVal) 
+Tom 
+Tom 
+
+[No.5]===============================
+SELECT
+  [T159].NAME
+FROM
+  (( SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T159][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+  [T159].ID <> [T159].ID1
+   AND [T159].NAME == [T159].NAME1
+@anonymous
+[T159].NAME(StringVal) 
+Tom 
+Tom 
+
+[No.4]===============================
+SELECT
+  [T155].NAME
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        True )) AS [T155][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+  [T155].ID <> [T155].ID1
+   AND [T155].NAME == [T155].NAME1
+@anonymous
+[T155].NAME(StringVal) 
+Tom 
+Tom 
+
+[No.3]===============================
+SELECT
+  [T153].NAME
+FROM
+  (( SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T153][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+  [T153].ID <> [T153].ID1
+   AND [T153].NAME == [T153].NAME1
+@anonymous
+[T153].NAME(StringVal) 
+Tom 
+Tom 
+
+[No.2]===============================
+SELECT
+  [T190].NAME
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T190][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+  [T190].ID <> [T190].ID1
+   AND [T190].NAME == [T190].NAME1
+@anonymous
+[T190].NAME(StringVal) 
+Tom 
+Tom 
+
+[No.1]===============================
+SELECT
+  [T151].NAME
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T151][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+  [T151].ID <> [T151].ID1
+   AND [T151].NAME == [T151].NAME1
+@anonymous
+[T151].NAME(StringVal) 
+Tom 
+Tom 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.479s

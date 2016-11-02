@@ -1,0 +1,254 @@
+[[Synthesis start]]
+	File: ../data/dev_set/008
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 21 [SymTable]: 22
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 4
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 2 [SymTable]: 3
+[JOIN] level 1 [SymTable]: 6
+Candidate Tree Number: 7
+[Enumeration Finished]
+[No.12]===============================
+SELECT
+  [T87].a,[T87].b1
+FROM
+  (( (SELECT
+          [T85].b, FROM
+          (input1) AS [T85][a, b]
+        GROUP BY
+          [T85].b) AS [T86][b] ) JOIN (
+      input1 )) AS [T87][b, a, b1]
+WHERE
+  [T87].b < [T87].b1
+   AND [T87].b <> [T87].b1
+@anonymous
+[T87].a(StringVal) | [T87].b1(NumberVal) 
+ALA | 2.0 
+VAL | 2.0 
+
+[No.11]===============================
+SELECT
+  [T81].a,[T81].b1
+FROM
+  (( (SELECT
+          [T79].b, FROM
+          (input1) AS [T79][a, b]
+        GROUP BY
+          [T79].b) AS [T80][b] ) JOIN (
+      input1 )) AS [T81][b, a, b1]
+WHERE
+  [T81].b <= [T81].b1
+   AND [T81].b <> [T81].b1
+@anonymous
+[T81].a(StringVal) | [T81].b1(NumberVal) 
+ALA | 2.0 
+VAL | 2.0 
+
+[No.10]===============================
+SELECT
+  [T75].a,[T75].b1
+FROM
+  (( (SELECT
+          [T73].b, FROM
+          (input1) AS [T73][a, b]
+        GROUP BY
+          [T73].b) AS [T74][b] ) JOIN (
+      input1 )) AS [T75][b, a, b1]
+WHERE
+  [T75].b <= [T75].b1
+   AND [T75].b < [T75].b1
+@anonymous
+[T75].a(StringVal) | [T75].b1(NumberVal) 
+ALA | 2.0 
+VAL | 2.0 
+
+[No.9]===============================
+SELECT
+  [T52].a,[T52].b1
+FROM
+  (( (SELECT
+          [T50].b, FROM
+          (input1) AS [T50][a, b]
+        GROUP BY
+          [T50].b) AS [T51][b] ) JOIN (
+      input1 )) AS [T52][b, a, b1]
+WHERE
+  [T52].b < [T52].b1
+   AND [T52].b <> [T52].b1
+@anonymous
+[T52].a(StringVal) | [T52].b1(NumberVal) 
+ALA | 2.0 
+VAL | 2.0 
+
+[No.8]===============================
+SELECT
+  [T46].a,[T46].b1
+FROM
+  (( (SELECT
+          [T44].b, FROM
+          (input1) AS [T44][a, b]
+        GROUP BY
+          [T44].b) AS [T45][b] ) JOIN (
+      input1 )) AS [T46][b, a, b1]
+WHERE
+  [T46].b <= [T46].b1
+   AND [T46].b <> [T46].b1
+@anonymous
+[T46].a(StringVal) | [T46].b1(NumberVal) 
+ALA | 2.0 
+VAL | 2.0 
+
+[No.7]===============================
+SELECT
+  [T40].a,[T40].b1
+FROM
+  (( (SELECT
+          [T38].b, FROM
+          (input1) AS [T38][a, b]
+        GROUP BY
+          [T38].b) AS [T39][b] ) JOIN (
+      input1 )) AS [T40][b, a, b1]
+WHERE
+  [T40].b <= [T40].b1
+   AND [T40].b < [T40].b1
+@anonymous
+[T40].a(StringVal) | [T40].b1(NumberVal) 
+ALA | 2.0 
+VAL | 2.0 
+
+[No.6]===============================
+SELECT
+  [T69].a,[T69].b1
+FROM
+  (( (SELECT
+          [T67].b, FROM
+          (input1) AS [T67][a, b]
+        GROUP BY
+          [T67].b) AS [T68][b] ) JOIN (
+      SELECT
+        input1.a,input1.b
+      FROM
+        input1
+      WHERE
+        True )) AS [T69][b, a, b1]
+WHERE
+  [T69].b < [T69].b1
+@anonymous
+[T69].a(StringVal) | [T69].b1(NumberVal) 
+ALA | 2.0 
+VAL | 2.0 
+
+[No.5]===============================
+SELECT
+  [T34].a,[T34].b1
+FROM
+  (( (SELECT
+          [T32].b, FROM
+          (input1) AS [T32][a, b]
+        GROUP BY
+          [T32].b) AS [T33][b] ) JOIN (
+      SELECT
+        input1.a,input1.b
+      FROM
+        input1
+      WHERE
+        True )) AS [T34][b, a, b1]
+WHERE
+  [T34].b < [T34].b1
+@anonymous
+[T34].a(StringVal) | [T34].b1(NumberVal) 
+ALA | 2.0 
+VAL | 2.0 
+
+[No.4]===============================
+SELECT
+  [T93].a,[T93].MAX-b
+FROM
+  (( (SELECT
+          MAX([T91].b)
+        FROM
+          (input1) AS [T91][a, b]) AS [T92][MAX-b] ) JOIN (
+      SELECT
+        input1.a,input1.b
+      FROM
+        input1
+      WHERE
+        True )) AS [T93][MAX-b, a, b]
+WHERE
+  [T93].MAX-b == [T93].b
+@anonymous
+[T93].a(StringVal) | [T93].MAX-b(NumberVal) 
+ALA | 2.0 
+VAL | 2.0 
+
+[No.3]===============================
+SELECT
+  [T63].a,[T63].b1
+FROM
+  (( (SELECT
+          [T61].b, FROM
+          (input1) AS [T61][a, b]
+        GROUP BY
+          [T61].b) AS [T62][b] ) JOIN (
+      input1 )) AS [T63][b, a, b1]
+WHERE
+  [T63].b < [T63].b1
+@anonymous
+[T63].a(StringVal) | [T63].b1(NumberVal) 
+ALA | 2.0 
+VAL | 2.0 
+
+[No.2]===============================
+SELECT
+  [T28].a,[T28].b1
+FROM
+  (( (SELECT
+          [T26].b, FROM
+          (input1) AS [T26][a, b]
+        GROUP BY
+          [T26].b) AS [T27][b] ) JOIN (
+      input1 )) AS [T28][b, a, b1]
+WHERE
+  [T28].b < [T28].b1
+@anonymous
+[T28].a(StringVal) | [T28].b1(NumberVal) 
+ALA | 2.0 
+VAL | 2.0 
+
+[No.1]===============================
+SELECT
+  [T99].a,[T99].MAX-b
+FROM
+  (( (SELECT
+          MAX([T97].b)
+        FROM
+          (input1) AS [T97][a, b]) AS [T98][MAX-b] ) JOIN (
+      input1 )) AS [T99][MAX-b, a, b]
+WHERE
+  [T99].MAX-b == [T99].b
+@anonymous
+[T99].a(StringVal) | [T99].MAX-b(NumberVal) 
+ALA | 2.0 
+VAL | 2.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.237s
