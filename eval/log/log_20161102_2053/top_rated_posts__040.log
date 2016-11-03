@@ -1,0 +1,186 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/040
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 41 [SymTable]: 42
+Candidate Tree Number: 2
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 9
+[EnumJoinOnAggr] level 1 [SymTable]: 25
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 17 [SymTable]: 18
+[JOIN] level 1 [SymTable]: 37
+[EnumJoinOnAggr] level 1 [SymTable]: 361
+Candidate Tree Number: 176
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 9
+[EnumJoinOnAggr] level 1 [SymTable]: 25
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 9
+[EnumJoinOnAggr] level 1 [SymTable]: 25
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 9
+[EnumJoinOnAggr] level 1 [SymTable]: 25
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 9
+[EnumJoinOnAggr] level 1 [SymTable]: 25
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 9
+[EnumJoinOnAggr] level 1 [SymTable]: 25
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 11 [SymTable]: 12
+[JOIN] level 1 [SymTable]: 25
+[EnumJoinOnAggr] level 1 [SymTable]: 169
+Candidate Tree Number: 120
+[Enumeration Finished]
+[Query No.5]===============================
+SELECT
+  [T509].group,[T509].subGroup,[T509].COUNT-subGroup1
+FROM
+  (( (SELECT
+          COUNT([T503].subGroup)
+        FROM
+          (input1) AS [T503][group, subGroup]) AS [T504][COUNT-subGroup] ) JOIN (
+      (SELECT
+          [T507].group, [T507].subGroup, COUNT([T507].subGroup)
+        FROM
+          (input1) AS [T507][group, subGroup]
+        GROUP BY
+          [T507].group  [T507].subGroup) AS [T508][group, subGroup, COUNT-subGroup] )) AS [T509][COUNT-subGroup, group, subGroup, COUNT-subGroup1]
+
+@anonymous
+[T509].group(StringVal) | [T509].subGroup(StringVal) | [T509].COUNT-subGroup1(NumberVal) 
+grp-A | sub-A | 2.0 
+grp-A | sub-B | 1.0 
+grp-B | sub-A | 1.0 
+grp-B | sub-B | 2.0 
+
+[Query No.4]===============================
+SELECT
+  [T239].group,[T239].subGroup,[T239].COUNT-group
+FROM
+  (( (SELECT
+          COUNT([T233].subGroup)
+        FROM
+          (input1) AS [T233][group, subGroup]) AS [T234][COUNT-subGroup] ) JOIN (
+      (SELECT
+          [T237].group, [T237].subGroup, COUNT([T237].group)
+        FROM
+          (input1) AS [T237][group, subGroup]
+        GROUP BY
+          [T237].group  [T237].subGroup) AS [T238][group, subGroup, COUNT-group] )) AS [T239][COUNT-subGroup, group, subGroup, COUNT-group]
+
+@anonymous
+[T239].group(StringVal) | [T239].subGroup(StringVal) | [T239].COUNT-group(NumberVal) 
+grp-A | sub-A | 2.0 
+grp-A | sub-B | 1.0 
+grp-B | sub-A | 1.0 
+grp-B | sub-B | 2.0 
+
+[Query No.3]===============================
+SELECT
+  [T229].group,[T229].subGroup,[T229].COUNT-subGroup
+FROM
+  (( (SELECT
+          COUNT_DISTINCT([T223].subGroup)
+        FROM
+          (input1) AS [T223][group, subGroup]) AS [T224][COUNT_DISTINCT-subGroup] ) JOIN (
+      (SELECT
+          [T227].group, [T227].subGroup, COUNT([T227].subGroup)
+        FROM
+          (input1) AS [T227][group, subGroup]
+        GROUP BY
+          [T227].group  [T227].subGroup) AS [T228][group, subGroup, COUNT-subGroup] )) AS [T229][COUNT_DISTINCT-subGroup, group, subGroup, COUNT-subGroup]
+
+@anonymous
+[T229].group(StringVal) | [T229].subGroup(StringVal) | [T229].COUNT-subGroup(NumberVal) 
+grp-A | sub-A | 2.0 
+grp-A | sub-B | 1.0 
+grp-B | sub-A | 1.0 
+grp-B | sub-B | 2.0 
+
+[Query No.2]===============================
+(SELECT
+    [T47].group, [T47].subGroup, COUNT([T47].subGroup)
+  FROM
+    (input1) AS [T47][group, subGroup]
+  GROUP BY
+    [T47].group  [T47].subGroup) AS [T48][group, subGroup, COUNT-subGroup]
+@anonymous
+[T48].group(StringVal) | [T48].subGroup(StringVal) | [T48].COUNT-subGroup(NumberVal) 
+grp-A | sub-A | 2.0 
+grp-A | sub-B | 1.0 
+grp-B | sub-A | 1.0 
+grp-B | sub-B | 2.0 
+
+[Query No.1]===============================
+(SELECT
+    [T43].group, [T43].subGroup, COUNT([T43].group)
+  FROM
+    (input1) AS [T43][group, subGroup]
+  GROUP BY
+    [T43].group  [T43].subGroup) AS [T44][group, subGroup, COUNT-group]
+@anonymous
+[T44].group(StringVal) | [T44].subGroup(StringVal) | [T44].COUNT-group(NumberVal) 
+grp-A | sub-A | 2.0 
+grp-A | sub-B | 1.0 
+grp-B | sub-A | 1.0 
+grp-B | sub-B | 2.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 1.409s

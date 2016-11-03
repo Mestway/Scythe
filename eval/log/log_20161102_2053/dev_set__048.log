@@ -1,0 +1,349 @@
+[[Synthesis start]]
+	File: ../data/dev_set/048
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 92 [SymTable]: 93
+Candidate Tree Number: 32
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 9
+[EnumJoinOnAggr] level 1 [SymTable]: 25
+Candidate Tree Number: 19
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 15
+[EnumJoinOnAggr] level 1 [SymTable]: 64
+Candidate Tree Number: 93
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 15
+[EnumJoinOnAggr] level 1 [SymTable]: 64
+Candidate Tree Number: 93
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 15
+[EnumJoinOnAggr] level 1 [SymTable]: 64
+Candidate Tree Number: 93
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 9 [SymTable]: 10
+[JOIN] level 1 [SymTable]: 21
+[EnumJoinOnAggr] level 1 [SymTable]: 121
+Candidate Tree Number: 215
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 22 [SymTable]: 23
+[JOIN] level 1 [SymTable]: 47
+[EnumJoinOnAggr] level 1 [SymTable]: 576
+Candidate Tree Number: 805
+[Enumeration Finished]
+[Query No.15]===============================
+SELECT
+  [T249].Number,[T249].Value
+FROM
+  (( (SELECT
+          [T243].Number, [T243].Value, FROM
+          (input1) AS [T243][X, Y, Number, Value]
+        GROUP BY
+          [T243].Number  [T243].Value) AS [T244][Number, Value] ) JOIN (
+      (SELECT
+          [T247].Number, FROM
+          (input1) AS [T247][X, Y, Number, Value]
+        GROUP BY
+          [T247].Number) AS [T248][Number] )) AS [T249][Number, Value, Number1]
+WHERE
+  [T249].Number <> [T249].Number1
+@anonymous
+[T249].Number(NumberVal) | [T249].Value(StringVal) 
+1111.0 | A1 
+2222.0 | A2 
+
+[Query No.14]===============================
+SELECT
+  [T419].Number,[T419].Value
+FROM
+  (( (SELECT
+          [T413].Number, [T413].Value, FROM
+          (input1) AS [T413][X, Y, Number, Value]
+        GROUP BY
+          [T413].Number  [T413].Value) AS [T414][Number, Value] ) JOIN (
+      (SELECT
+          [T417].Number, [T417].Value, FROM
+          (input1) AS [T417][X, Y, Number, Value]
+        GROUP BY
+          [T417].Number  [T417].Value) AS [T418][Number, Value] )) AS [T419][Number, Value, Number1, Value1]
+WHERE
+  [T419].Number == [T419].Number1
+@anonymous
+[T419].Number(NumberVal) | [T419].Value(StringVal) 
+1111.0 | A1 
+2222.0 | A2 
+
+[Query No.13]===============================
+SELECT
+  [T379].Number,[T379].Value
+FROM
+  (( (SELECT
+          [T373].Value, FROM
+          (input1) AS [T373][X, Y, Number, Value]
+        GROUP BY
+          [T373].Value) AS [T374][Value] ) JOIN (
+      (SELECT
+          [T377].Number, [T377].Value, FROM
+          (input1) AS [T377][X, Y, Number, Value]
+        GROUP BY
+          [T377].Number  [T377].Value) AS [T378][Number, Value] )) AS [T379][Value, Number, Value1]
+WHERE
+  [T379].Value == [T379].Value1
+@anonymous
+[T379].Number(NumberVal) | [T379].Value(StringVal) 
+1111.0 | A1 
+2222.0 | A2 
+
+[Query No.12]===============================
+SELECT
+  [T349].Number,[T349].Value
+FROM
+  (( (SELECT
+          [T343].Number, FROM
+          (input1) AS [T343][X, Y, Number, Value]
+        GROUP BY
+          [T343].Number) AS [T344][Number] ) JOIN (
+      (SELECT
+          [T347].Number, [T347].Value, FROM
+          (input1) AS [T347][X, Y, Number, Value]
+        GROUP BY
+          [T347].Number  [T347].Value) AS [T348][Number, Value] )) AS [T349][Number, Number1, Value]
+WHERE
+  [T349].Number == [T349].Number1
+@anonymous
+[T349].Number(NumberVal) | [T349].Value(StringVal) 
+1111.0 | A1 
+2222.0 | A2 
+
+[Query No.11]===============================
+SELECT
+  [T309].Number,[T309].Value
+FROM
+  (( (SELECT
+          [T303].Number, [T303].Value, FROM
+          (input1) AS [T303][X, Y, Number, Value]
+        GROUP BY
+          [T303].Number  [T303].Value) AS [T304][Number, Value] ) JOIN (
+      (SELECT
+          [T307].Value, FROM
+          (input1) AS [T307][X, Y, Number, Value]
+        GROUP BY
+          [T307].Value) AS [T308][Value] )) AS [T309][Number, Value, Value1]
+WHERE
+  [T309].Value == [T309].Value1
+@anonymous
+[T309].Number(NumberVal) | [T309].Value(StringVal) 
+1111.0 | A1 
+2222.0 | A2 
+
+[Query No.10]===============================
+SELECT
+  [T279].Number,[T279].Value
+FROM
+  (( (SELECT
+          [T273].Number, [T273].Value, FROM
+          (input1) AS [T273][X, Y, Number, Value]
+        GROUP BY
+          [T273].Number  [T273].Value) AS [T274][Number, Value] ) JOIN (
+      (SELECT
+          [T277].Number, FROM
+          (input1) AS [T277][X, Y, Number, Value]
+        GROUP BY
+          [T277].Number) AS [T278][Number] )) AS [T279][Number, Value, Number1]
+WHERE
+  [T279].Number == [T279].Number1
+@anonymous
+[T279].Number(NumberVal) | [T279].Value(StringVal) 
+1111.0 | A1 
+2222.0 | A2 
+
+[Query No.9]===============================
+SELECT
+  [T1124].Number,[T1124].Value
+FROM
+  (( (SELECT
+          [T1118].Number, [T1118].Value, FROM
+          (input1) AS [T1118][X, Y, Number, Value]
+        GROUP BY
+          [T1118].Number  [T1118].Value) AS [T1119][Number, Value] ) JOIN (
+      (SELECT
+          MAX([T1122].Number)
+        FROM
+          (input1) AS [T1122][X, Y, Number, Value]) AS [T1123][MAX-Number] )) AS [T1124][Number, Value, MAX-Number]
+
+@anonymous
+[T1124].Number(NumberVal) | [T1124].Value(StringVal) 
+1111.0 | A1 
+2222.0 | A2 
+
+[Query No.8]===============================
+SELECT
+  [T1114].Number,[T1114].Value
+FROM
+  (( (SELECT
+          MAX([T1108].Number)
+        FROM
+          (input1) AS [T1108][X, Y, Number, Value]) AS [T1109][MAX-Number] ) JOIN (
+      (SELECT
+          [T1112].Number, [T1112].Value, MAX([T1112].Number)
+        FROM
+          (input1) AS [T1112][X, Y, Number, Value]
+        GROUP BY
+          [T1112].Number  [T1112].Value) AS [T1113][Number, Value, MAX-Number] )) AS [T1114][MAX-Number, Number, Value, MAX-Number1]
+
+@anonymous
+[T1114].Number(NumberVal) | [T1114].Value(StringVal) 
+1111.0 | A1 
+2222.0 | A2 
+
+[Query No.7]===============================
+SELECT
+  [T964].MAX-Number1,[T964].Value
+FROM
+  (( (SELECT
+          MAX([T958].Number)
+        FROM
+          (input1) AS [T958][X, Y, Number, Value]) AS [T959][MAX-Number] ) JOIN (
+      (SELECT
+          [T962].Value, MAX([T962].Number)
+        FROM
+          (input1) AS [T962][X, Y, Number, Value]
+        GROUP BY
+          [T962].Value) AS [T963][Value, MAX-Number] )) AS [T964][MAX-Number, Value, MAX-Number1]
+
+@anonymous
+[T964].MAX-Number1(NumberVal) | [T964].Value(StringVal) 
+1111.0 | A1 
+2222.0 | A2 
+
+[Query No.6]===============================
+SELECT
+  [T115].Number,[T115].Value
+FROM
+  (SELECT
+      [T114].Number, [T114].Value, COUNT_DISTINCT([T114].Number)
+    FROM
+      (input1) AS [T114][X, Y, Number, Value]
+    GROUP BY
+      [T114].Number  [T114].Value) AS [T115][Number, Value, COUNT_DISTINCT-Number]
+
+@anonymous
+[T115].Number(NumberVal) | [T115].Value(StringVal) 
+1111.0 | A1 
+2222.0 | A2 
+
+[Query No.5]===============================
+SELECT
+  [T111].Number,[T111].Value
+FROM
+  (SELECT
+      [T110].Number, [T110].Value, COUNT([T110].Y)
+    FROM
+      (input1) AS [T110][X, Y, Number, Value]
+    GROUP BY
+      [T110].Number  [T110].Value) AS [T111][Number, Value, COUNT-Y]
+
+@anonymous
+[T111].Number(NumberVal) | [T111].Value(StringVal) 
+1111.0 | A1 
+2222.0 | A2 
+
+[Query No.4]===============================
+SELECT
+  [T107].FIRST-Number,[T107].Value
+FROM
+  (SELECT
+      [T106].Value, FIRST([T106].Number)
+    FROM
+      (input1) AS [T106][X, Y, Number, Value]
+    GROUP BY
+      [T106].Value) AS [T107][Value, FIRST-Number]
+
+@anonymous
+[T107].FIRST-Number(NumberVal) | [T107].Value(StringVal) 
+1111.0 | A1 
+2222.0 | A2 
+
+[Query No.3]===============================
+SELECT
+  [T103].Number,[T103].Value
+FROM
+  (SELECT
+      [T102].Number, [T102].Value, CONCAT([T102].X)
+    FROM
+      (input1) AS [T102][X, Y, Number, Value]
+    GROUP BY
+      [T102].Number  [T102].Value) AS [T103][Number, Value, CONCAT-X]
+
+@anonymous
+[T103].Number(NumberVal) | [T103].Value(StringVal) 
+1111.0 | A1 
+2222.0 | A2 
+
+[Query No.2]===============================
+SELECT
+  [T99].Number,[T99].Value
+FROM
+  (SELECT
+      [T98].Number, [T98].Value, MIN([T98].Number)
+    FROM
+      (input1) AS [T98][X, Y, Number, Value]
+    GROUP BY
+      [T98].Number  [T98].Value) AS [T99][Number, Value, MIN-Number]
+
+@anonymous
+[T99].Number(NumberVal) | [T99].Value(StringVal) 
+1111.0 | A1 
+2222.0 | A2 
+
+[Query No.1]===============================
+SELECT
+  [T95].Number,[T95].Value
+FROM
+  (SELECT
+      [T94].Number, [T94].Value, COUNT([T94].Number)
+    FROM
+      (input1) AS [T94][X, Y, Number, Value]
+    GROUP BY
+      [T94].Number  [T94].Value) AS [T95][Number, Value, COUNT-Number]
+
+@anonymous
+[T95].Number(NumberVal) | [T95].Value(StringVal) 
+1111.0 | A1 
+2222.0 | A2 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 5.183s

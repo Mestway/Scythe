@@ -1,0 +1,156 @@
+[[Synthesis start]]
+	File: ../data/dev_set/012
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 83 [SymTable]: 85
+[NaturalJoin]: 1 [SymTable]: 86
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 2 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 13
+[EnumJoinOnAggr] level 1 [SymTable]: 29
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+Los Angeles, Houston
+New York, Seattle, Vancouver
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 12 [SymTable]: 14
+[JOIN] level 1 [SymTable]: 43
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 9 [SymTable]: 11
+[JOIN] level 1 [SymTable]: 34
+[EnumJoinOnAggr] level 1 [SymTable]: 155
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 9 [SymTable]: 11
+[JOIN] level 1 [SymTable]: 34
+[EnumJoinOnAggr] level 1 [SymTable]: 155
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 9 [SymTable]: 11
+[JOIN] level 1 [SymTable]: 34
+[EnumJoinOnAggr] level 1 [SymTable]: 155
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 9 [SymTable]: 11
+[JOIN] level 1 [SymTable]: 34
+[EnumJoinOnAggr] level 1 [SymTable]: 155
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 16 [SymTable]: 18
+[JOIN] level 1 [SymTable]: 55
+[EnumJoinOnAggr] level 1 [SymTable]: 379
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 123 [SymTable]: 125
+[JOIN] level 1 [SymTable]: 376
+[EnumJoinOnAggr] level 1 [SymTable]: 16001
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Query No.3]===============================
+SELECT
+  [T132].VehicleID,[T132].Name,[T132].CONCAT-City
+FROM
+  (( (SELECT
+          [T130].VehicleID, CONCAT([T130].City)
+        FROM
+          (input2) AS [T130][LocationID, VehicleID, City]
+        GROUP BY
+          [T130].VehicleID) AS [T131][VehicleID, CONCAT-City] ) JOIN (
+      input1 )) AS [T132][VehicleID, CONCAT-City, VehicleID1, Name]
+WHERE
+  [T132].VehicleID == [T132].VehicleID1
+   AND [T132].VehicleID <= [T132].VehicleID1
+@anonymous
+[T132].VehicleID(NumberVal) | [T132].Name(StringVal) | [T132].CONCAT-City(StringVal) 
+1.0 | Chuck | New York, Seattle, Vancouver 
+2.0 | Larry | Los Angeles, Houston 
+
+[Query No.2]===============================
+SELECT
+  [T120].VehicleID,[T120].Name,[T120].CONCAT-City
+FROM
+  (( (SELECT
+          [T118].VehicleID, CONCAT([T118].City)
+        FROM
+          (input2) AS [T118][LocationID, VehicleID, City]
+        GROUP BY
+          [T118].VehicleID) AS [T119][VehicleID, CONCAT-City] ) JOIN (
+      SELECT
+        input1.VehicleID,input1.Name
+      FROM
+        input1
+      WHERE
+        True )) AS [T120][VehicleID, CONCAT-City, VehicleID1, Name]
+WHERE
+  [T120].VehicleID == [T120].VehicleID1
+@anonymous
+[T120].VehicleID(NumberVal) | [T120].Name(StringVal) | [T120].CONCAT-City(StringVal) 
+1.0 | Chuck | New York, Seattle, Vancouver 
+2.0 | Larry | Los Angeles, Houston 
+
+[Query No.1]===============================
+SELECT
+  [T108].VehicleID,[T108].Name,[T108].CONCAT-City
+FROM
+  (( (SELECT
+          [T106].VehicleID, CONCAT([T106].City)
+        FROM
+          (input2) AS [T106][LocationID, VehicleID, City]
+        GROUP BY
+          [T106].VehicleID) AS [T107][VehicleID, CONCAT-City] ) JOIN (
+      input1 )) AS [T108][VehicleID, CONCAT-City, VehicleID1, Name]
+WHERE
+  [T108].VehicleID == [T108].VehicleID1
+@anonymous
+[T108].VehicleID(NumberVal) | [T108].Name(StringVal) | [T108].CONCAT-City(StringVal) 
+1.0 | Chuck | New York, Seattle, Vancouver 
+2.0 | Larry | Los Angeles, Houston 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.538s

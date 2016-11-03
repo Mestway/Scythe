@@ -1,0 +1,131 @@
+[[Synthesis start]]
+	File: ../data/recent_posts/005
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 395 [SymTable]: 396
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 11 [SymTable]: 12
+[JOIN] level 1 [SymTable]: 25
+[EnumJoinOnAggr] level 1 [SymTable]: 169
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 72 [SymTable]: 73
+[JOIN] level 1 [SymTable]: 147
+Candidate Tree Number: 45
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 72 [SymTable]: 73
+[JOIN] level 1 [SymTable]: 147
+[EnumJoinOnAggr] level 1 [SymTable]: 5476
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 54 [SymTable]: 55
+[JOIN] level 1 [SymTable]: 111
+Candidate Tree Number: 110
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 133 [SymTable]: 134
+[JOIN] level 1 [SymTable]: 269
+Candidate Tree Number: 45
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1296 [SymTable]: 1297
+[JOIN] level 1 [SymTable]: 2595
+Candidate Tree Number: 9789
+[Enumeration Finished]
+[Query No.3]===============================
+SELECT
+  [T2634].g_event_id,[T2634].AVG-prim_cid,[T2634].event_id,[T2634].event_time
+FROM
+  (( (SELECT
+          AVG([T2624].prim_cid)
+        FROM
+          (input1) AS [T2624][g_event_id, prim_cid, event_id, event_time]) AS [T2625][AVG-prim_cid] ) JOIN (
+      SELECT
+        input1.g_event_id,input1.prim_cid,input1.event_id,input1.event_time
+      FROM
+        input1
+      WHERE
+        input1.event_id == 17.0 )) AS [T2634][AVG-prim_cid, g_event_id, prim_cid, event_id, event_time]
+WHERE
+  [T2634].AVG-prim_cid == [T2634].prim_cid
+@anonymous
+[T2634].g_event_id(NumberVal) | [T2634].AVG-prim_cid(NumberVal) | [T2634].event_id(NumberVal) | [T2634].event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[Query No.2]===============================
+SELECT
+  [T716].g_event_id,[T716].prim_cid,[T716].event_id,[T716].MAX-event_time
+FROM
+  (( (SELECT
+          [T706].prim_cid, MAX([T706].event_time)
+        FROM
+          (input1) AS [T706][g_event_id, prim_cid, event_id, event_time]
+        GROUP BY
+          [T706].prim_cid) AS [T707][prim_cid, MAX-event_time] ) JOIN (
+      SELECT
+        input1.g_event_id,input1.prim_cid,input1.event_id,input1.event_time
+      FROM
+        input1
+      WHERE
+        input1.event_id == 17.0 )) AS [T716][prim_cid, MAX-event_time, g_event_id, prim_cid1, event_id, event_time]
+WHERE
+  [T716].MAX-event_time == [T716].event_time
+@anonymous
+[T716].g_event_id(NumberVal) | [T716].prim_cid(NumberVal) | [T716].event_id(NumberVal) | [T716].MAX-event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[Query No.1]===============================
+SELECT
+  [T656].MAX-g_event_id,[T656].prim_cid,[T656].event_id,[T656].event_time
+FROM
+  (( (SELECT
+          [T646].prim_cid, MAX([T646].g_event_id)
+        FROM
+          (input1) AS [T646][g_event_id, prim_cid, event_id, event_time]
+        GROUP BY
+          [T646].prim_cid) AS [T647][prim_cid, MAX-g_event_id] ) JOIN (
+      SELECT
+        input1.g_event_id,input1.prim_cid,input1.event_id,input1.event_time
+      FROM
+        input1
+      WHERE
+        input1.event_id == 17.0 )) AS [T656][prim_cid, MAX-g_event_id, g_event_id, prim_cid1, event_id, event_time]
+WHERE
+  [T656].MAX-g_event_id == [T656].g_event_id
+@anonymous
+[T656].MAX-g_event_id(NumberVal) | [T656].prim_cid(NumberVal) | [T656].event_id(NumberVal) | [T656].event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 71.527s

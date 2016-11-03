@@ -1,0 +1,141 @@
+[[Synthesis start]]
+	File: ../data/dev_set/035
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 75 [SymTable]: 76
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 9
+[EnumJoinOnAggr] level 1 [SymTable]: 25
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 13 [SymTable]: 14
+[JOIN] level 1 [SymTable]: 29
+[EnumJoinOnAggr] level 1 [SymTable]: 225
+Candidate Tree Number: 18
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 13 [SymTable]: 14
+[JOIN] level 1 [SymTable]: 29
+[EnumJoinOnAggr] level 1 [SymTable]: 225
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 13 [SymTable]: 14
+[JOIN] level 1 [SymTable]: 29
+[EnumJoinOnAggr] level 1 [SymTable]: 225
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 23 [SymTable]: 24
+[JOIN] level 1 [SymTable]: 49
+[EnumJoinOnAggr] level 1 [SymTable]: 625
+Candidate Tree Number: 18
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 162 [SymTable]: 163
+[JOIN] level 1 [SymTable]: 327
+[EnumJoinOnAggr] level 1 [SymTable]: 26896
+Candidate Tree Number: 356
+[Enumeration Finished]
+[Query No.3]===============================
+SELECT
+  [T291].number,[T291].MAX-quantity,[T291].MAX-retail_price
+FROM
+  (( (SELECT
+          [T285].number, MAX([T285].quantity)
+        FROM
+          (input1) AS [T285][number, quantity, retail_price]
+        GROUP BY
+          [T285].number) AS [T286][number, MAX-quantity] ) JOIN (
+      (SELECT
+          [T289].quantity, MAX([T289].retail_price)
+        FROM
+          (input1) AS [T289][number, quantity, retail_price]
+        GROUP BY
+          [T289].quantity) AS [T290][quantity, MAX-retail_price] )) AS [T291][number, MAX-quantity, quantity, MAX-retail_price]
+WHERE
+  [T291].MAX-quantity == [T291].quantity
+@anonymous
+[T291].number(NumberVal) | [T291].MAX-quantity(NumberVal) | [T291].MAX-retail_price(NumberVal) 
+1007.0 | 576.0 | 5.46 
+1006.0 | 500.0 | 5.01 
+
+[Query No.2]===============================
+SELECT
+  [T241].number,[T241].MAX-quantity,[T241].MAX-retail_price
+FROM
+  (( (SELECT
+          [T235].number, MAX([T235].quantity)
+        FROM
+          (input1) AS [T235][number, quantity, retail_price]
+        GROUP BY
+          [T235].number) AS [T236][number, MAX-quantity] ) JOIN (
+      (SELECT
+          [T239].number, [T239].quantity, MAX([T239].retail_price)
+        FROM
+          (input1) AS [T239][number, quantity, retail_price]
+        GROUP BY
+          [T239].number  [T239].quantity) AS [T240][number, quantity, MAX-retail_price] )) AS [T241][number, MAX-quantity, number1, quantity, MAX-retail_price]
+WHERE
+  [T241].MAX-quantity == [T241].quantity
+@anonymous
+[T241].number(NumberVal) | [T241].MAX-quantity(NumberVal) | [T241].MAX-retail_price(NumberVal) 
+1007.0 | 576.0 | 5.46 
+1006.0 | 500.0 | 5.01 
+
+[Query No.1]===============================
+SELECT
+  [T191].number,[T191].quantity,[T191].MAX-retail_price
+FROM
+  (( (SELECT
+          [T185].number, [T185].quantity, MAX([T185].retail_price)
+        FROM
+          (input1) AS [T185][number, quantity, retail_price]
+        GROUP BY
+          [T185].number  [T185].quantity) AS [T186][number, quantity, MAX-retail_price] ) JOIN (
+      (SELECT
+          [T189].number, MAX([T189].quantity)
+        FROM
+          (input1) AS [T189][number, quantity, retail_price]
+        GROUP BY
+          [T189].number) AS [T190][number, MAX-quantity] )) AS [T191][number, quantity, MAX-retail_price, number1, MAX-quantity]
+WHERE
+  [T191].quantity == [T191].MAX-quantity
+@anonymous
+[T191].number(NumberVal) | [T191].quantity(NumberVal) | [T191].MAX-retail_price(NumberVal) 
+1007.0 | 576.0 | 5.46 
+1006.0 | 500.0 | 5.01 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 10.859s
