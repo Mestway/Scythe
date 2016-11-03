@@ -39,7 +39,8 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         // build symbolic table for each input table, and store them in SymTables
         List<AbstractSummaryTable> inputSummary = EnumerationModules.enumFromInputTables(ec, true);
         summaryTables.addAll(inputSummary);
-        System.out.println("[Basic]: " + candidateCollector.getMemoizedTables().size() + " [SymTableForInputs]: Intermediate: " + inputSummary.size());
+        System.out.println("[Basic]: " + candidateCollector.getMemoizedTables().size()
+                + " [SymTableForInputs]: Intermediate: " + inputSummary.size());
 
         //##### Synthesize AGGR
         List<AbstractSummaryTable> aggrSummary = EnumerationModules.enumAggregation(inputSummary, ec);
@@ -53,7 +54,9 @@ public class StagedEnumerator extends AbstractTableEnumerator {
 
         //##### Synthesize natural join
         // Natural join all input summary tables
-        AbstractSummaryTable naturalJoinResult = EnumerationModules.naturalJoinWithUnused(Optional.empty(), inputSummary);
+        AbstractSummaryTable naturalJoinResult = EnumerationModules
+                .naturalJoinWithUnused(Optional.empty(), inputSummary);
+        summaryTables.add(naturalJoinResult);
 
         if (depth == 0) {
 
@@ -103,15 +106,15 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         // Try enumerating joining two tables from left-join
         stFromLastStage = inputSummary;
         for (int i = 1; i <= depth-1; i ++) {
-            System.out.println("[EnumLeftJoin] level " + i + " [SymTable]: " + summaryTables.size());
 
             List<AbstractSummaryTable> leftJoinSummary = EnumerationModules.enumLeftJoin(stFromLastStage, inputSummary, ec);
-            summaryTables.addAll(leftJoinSummary);
-
             List<AbstractSummaryTable> rightJoinSummary = EnumerationModules.enumLeftJoin(inputSummary, stFromLastStage, ec);
-            summaryTables.addAll(rightJoinSummary);
             leftJoinSummary.addAll(rightJoinSummary);
             stFromLastStage = leftJoinSummary;
+
+            summaryTables.addAll(stFromLastStage);
+
+            System.out.println("[EnumLeftJoin] level " + i + " [SymTable]: " + summaryTables.size());
         }
         if (!stFromLastStage.equals(inputSummary)) {
             tryEvalToOutput(stFromLastStage, ec, candidateCollector);
@@ -122,16 +125,18 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         stFromLastStage = aggrSummary;
         for (int i = 1; i <= depth-1; i ++) {
 
-            System.out.println("[EnumLeftJoinWAggr] level " + i + " [SymTable]: " + summaryTables.size());
+            List<AbstractSummaryTable> leftJoinSummary = EnumerationModules
+                    .enumLeftJoin(stFromLastStage, inputSummary, ec);
 
-            List<AbstractSummaryTable> leftJoinSummary = EnumerationModules.enumLeftJoin(stFromLastStage, inputSummary, ec);
-            summaryTables.addAll(leftJoinSummary);
-
-            List<AbstractSummaryTable> rightJoinSummary = EnumerationModules.enumLeftJoin(inputSummary, stFromLastStage, ec);
-            summaryTables.addAll(rightJoinSummary);
+            List<AbstractSummaryTable> rightJoinSummary = EnumerationModules
+                    .enumLeftJoin(inputSummary, stFromLastStage, ec);
 
             leftJoinSummary.addAll(rightJoinSummary);
             stFromLastStage = leftJoinSummary;
+
+            summaryTables.addAll(stFromLastStage);
+            System.out.println("[EnumLeftJoinWAggr] level " + i + " [SymTable]: " + summaryTables.size());
+
         }
         if (! stFromLastStage.equals(aggrSummary)) {
             tryEvalToOutput(stFromLastStage, ec, candidateCollector);
@@ -146,21 +151,25 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         // Enumerate aggregation on joined tables
         List<AbstractSummaryTable> simpleJoinSummary = inputSummary;
         for (int i = 1; i <= depth - 1; i ++) {
-            System.out.println("[EnumAggrOnJoin] level " + i + " [SymTable]: " + summaryTables.size());
-            simpleJoinSummary.addAll(EnumerationModules.enumJoin(simpleJoinSummary, inputSummary));
+            simpleJoinSummary = EnumerationModules.enumJoin(simpleJoinSummary, inputSummary);
+            summaryTables.addAll(simpleJoinSummary);
         }
         if (!simpleJoinSummary.equals(inputSummary)) {
             // also include natural join result for depth 2
             if (depth == 2)
                 simpleJoinSummary.add(naturalJoinResult);
             List<AbstractSummaryTable> aggrOnJoinSummary = EnumerationModules.enumAggregation(simpleJoinSummary, ec);
+            summaryTables.addAll(aggrOnJoinSummary);
 
             if (depth > 2) {
                 List<AbstractSummaryTable> joinAfterAggr = EnumerationModules.enumJoin(aggrOnJoinSummary, inputSummary);
+                summaryTables.addAll(joinAfterAggr);
                 tryEvalToOutput(joinAfterAggr, ec, candidateCollector);
             } else {
                 tryEvalToOutput(aggrOnJoinSummary, ec, candidateCollector);
             }
+
+            System.out.println("[EnumAggrOnJoin] " + " [SymTable]: " + summaryTables.size());
 
             if (candidateCollector.getAllCandidates().size() > 0)
                 return decodingToQueries(candidateCollector, ec);
@@ -186,6 +195,8 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         for (int i = 1; i <= depth - 1; i ++) {
             List<AbstractSummaryTable> tmp = EnumerationModules.enumJoin(aggrAggrSummary, basicAndAggr);
             aggrAggrSummary = tmp;
+            summaryTables.addAll(tmp);
+            System.out.println("[EnumAggrOnAggr Then Join] level " + i + " [SymTable]: " + summaryTables.size());
         }
         if (depth > 1) tryEvalToOutput(aggrAggrSummary, ec, candidateCollector);
 
@@ -216,8 +227,12 @@ public class StagedEnumerator extends AbstractTableEnumerator {
                     List<TableNode> ans = AggrEnumerator.enumAggrFromEC(ec, GlobalConfig.SIMPLIFY_AGGR_FIELD);
                     for (TableNode an : ans) {
                         try {
-                            // build symbolic tables out of aggregation table nodes, and store them for next stage enumeration
-                            result.add(new PrimitiveSummaryTable(an.eval(new Environment()), an, Arrays.asList(new Pair<>(st, p.getValue()))));
+                            // build symbolic tables out of aggregation table nodes,
+                            // and store them for next stage enumeration
+                            result.add(new PrimitiveSummaryTable(
+                                                an.eval(new Environment()),
+                                                an,
+                                                Arrays.asList(new Pair<>(st, p.getValue()))));
                         } catch (SQLEvalException e) {
                             e.printStackTrace();
                         }
@@ -237,7 +252,8 @@ public class StagedEnumerator extends AbstractTableEnumerator {
                 for (int l = 0; l < rightStList.size(); l ++) {
                     AbstractSummaryTable st1 = leftStList.get(k);
                     AbstractSummaryTable st2 = rightStList.get(l);
-                    CompoundSummaryTable sct = new CompoundSummaryTable(st1, st2, CompoundSummaryTable.CompositionType.join);
+                    CompoundSummaryTable sct = new CompoundSummaryTable(st1, st2,
+                                                        CompoundSummaryTable.CompositionType.join);
                     collector.add(sct);
                 }
             }
@@ -259,7 +275,8 @@ public class StagedEnumerator extends AbstractTableEnumerator {
                     if (! Table.schemaMatch(st1.getBaseTable(), st2.getBaseTable()))
                         continue;
 
-                    CompoundSummaryTable sct = new CompoundSummaryTable(st1, st2, CompoundSummaryTable.CompositionType.union);
+                    CompoundSummaryTable sct = new CompoundSummaryTable(st1, st2,
+                                                        CompoundSummaryTable.CompositionType.union);
                     collector.add(sct);
                 }
             }
@@ -271,9 +288,11 @@ public class StagedEnumerator extends AbstractTableEnumerator {
                 List<AbstractSummaryTable> rightStList,
                 EnumContext ec) {
 
-            // we don't filter left table since it will be filtered when inferring filtering on the primitive summary table
+            // we don't filter left table since it will be filtered
+            //      when inferring filtering on the primitive summary table
             List<Pair<Table, Pair<AbstractSummaryTable, BVFilter>>> leftTablePairs = leftStList.stream()
-                    .map(st -> new Pair<>(st.getBaseTable(), new Pair<>(st, BVFilter.genEmptyFilter(st.getBaseTable().getContent().size()))))
+                    .map(st -> new Pair<>(st.getBaseTable(),
+                                    new Pair<>(st, BVFilter.genEmptyFilter(st.getBaseTable().getContent().size()))))
                     .collect(Collectors.toList());
             List<Pair<Table, Pair<AbstractSummaryTable, BVFilter>>> rightTablePairs = rightStList.stream()
                     .flatMap(st -> st.instantiatedAllTablesWithBVFilters(ec)
@@ -352,7 +371,8 @@ public class StagedEnumerator extends AbstractTableEnumerator {
 
             AbstractSummaryTable naturalJoinResult = unusedSummary.get(0);
             for (int i = 1; i < unusedSummary.size(); i ++) {
-                naturalJoinResult = new CompoundSummaryTable(naturalJoinResult, unusedSummary.get(i), CompoundSummaryTable.CompositionType.join);
+                naturalJoinResult = new CompoundSummaryTable(naturalJoinResult, unusedSummary.get(i),
+                                                                CompoundSummaryTable.CompositionType.join);
             }
             return naturalJoinResult;
         }
@@ -401,12 +421,16 @@ public class StagedEnumerator extends AbstractTableEnumerator {
 
                 if ((tn instanceof SelectNode)) {
                     stn = new SelectNode(
-                            projectionIndexes.stream().map(x -> ((SelectNode) tn).getColumns().get(x)).collect(Collectors.toList()),
+                            projectionIndexes
+                                    .stream()
+                                    .map(x -> ((SelectNode) tn).getColumns().get(x)).collect(Collectors.toList()),
                             ((SelectNode) tn).getTableNode(),
                             ((SelectNode) tn).getFilter());
                 } else {
                     stn = new SelectNode(
-                            projectionIndexes.stream().map(x -> new NamedVal(tn.getSchema().get(x))).collect(Collectors.toList()),
+                            projectionIndexes
+                                    .stream()
+                                    .map(x -> new NamedVal(tn.getSchema().get(x))).collect(Collectors.toList()),
                             tn,
                             new EmptyFilter());
                 }

@@ -19,7 +19,7 @@ public class Main {
 
         String filename = args[0];
         String enumerator = args[1];
-        Synthesizer.Synthesize(filename, enumeratorSwitch(enumerator));
+        SynthesizerWAggrfun.Synthesize(filename, enumeratorSwitch(enumerator));
 
         // Statistics.printAllStatistics();
     }
