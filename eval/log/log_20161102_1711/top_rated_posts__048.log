@@ -1,0 +1,363 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/048
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 22 [SymTable]: 23
+[JOIN] level 1 [SymTable]: 47
+Candidate Tree Number: 15
+[Enumeration Finished]
+[No.15]===============================
+SELECT
+  [T200].CName,[T200].AddressID,[T200].AddressLine
+FROM
+  (( (SELECT
+          MAX([T198].AddressID)
+        FROM
+          (SELECT
+              input1.CName,input1.AddressID,input1.AddressLine
+            FROM
+              input1
+            WHERE
+              input1.AddressID > 2.0) AS [T198][CName, AddressID, AddressLine]) AS [T199][MAX-AddressID] ) JOIN (
+      SELECT
+        input1.CName,input1.AddressID,input1.AddressLine
+      FROM
+        input1
+      WHERE
+        True )) AS [T200][MAX-AddressID, CName, AddressID, AddressLine]
+WHERE
+  [T200].MAX-AddressID <> [T200].AddressID
+@anonymous
+[T200].CName(StringVal) | [T200].AddressID(NumberVal) | [T200].AddressLine(StringVal) 
+John Smith | 123.0 | Nowheresville 
+Jane Doe | 456.0 | Evergreen Terrace 
+Joe Bloggs | 1.0 | Second Ave 
+
+[No.14]===============================
+SELECT
+  [T194].CName,[T194].AddressID,[T194].AddressLine
+FROM
+  (( (SELECT
+          MAX([T192].AddressID)
+        FROM
+          (SELECT
+              input1.CName,input1.AddressID,input1.AddressLine
+            FROM
+              input1
+            WHERE
+              input1.AddressID > 2.0) AS [T192][CName, AddressID, AddressLine]) AS [T193][MAX-AddressID] ) JOIN (
+      SELECT
+        input1.CName,input1.AddressID,input1.AddressLine
+      FROM
+        input1
+      WHERE
+        input1.AddressID > 2.0
+         OR input1.AddressID < 2.0 )) AS [T194][MAX-AddressID, CName, AddressID, AddressLine]
+WHERE
+  [T194].MAX-AddressID <> [T194].AddressID
+@anonymous
+[T194].CName(StringVal) | [T194].AddressID(NumberVal) | [T194].AddressLine(StringVal) 
+John Smith | 123.0 | Nowheresville 
+Jane Doe | 456.0 | Evergreen Terrace 
+Joe Bloggs | 1.0 | Second Ave 
+
+[No.13]===============================
+SELECT
+  [T188].CName,[T188].AddressID,[T188].AddressLine
+FROM
+  (( (SELECT
+          MAX([T186].AddressID)
+        FROM
+          (SELECT
+              input1.CName,input1.AddressID,input1.AddressLine
+            FROM
+              input1
+            WHERE
+              input1.AddressID > 2.0) AS [T186][CName, AddressID, AddressLine]) AS [T187][MAX-AddressID] ) JOIN (
+      SELECT
+        input1.CName,input1.AddressID,input1.AddressLine
+      FROM
+        input1
+      WHERE
+        True )) AS [T188][MAX-AddressID, CName, AddressID, AddressLine]
+WHERE
+  [T188].MAX-AddressID <> [T188].AddressID
+@anonymous
+[T188].CName(StringVal) | [T188].AddressID(NumberVal) | [T188].AddressLine(StringVal) 
+John Smith | 123.0 | Nowheresville 
+Jane Doe | 456.0 | Evergreen Terrace 
+Joe Bloggs | 1.0 | Second Ave 
+
+[No.12]===============================
+SELECT
+  [T182].CName,[T182].AddressID,[T182].AddressLine
+FROM
+  (( (SELECT
+          MAX([T180].AddressID)
+        FROM
+          (SELECT
+              input1.CName,input1.AddressID,input1.AddressLine
+            FROM
+              input1
+            WHERE
+              input1.AddressID > 2.0) AS [T180][CName, AddressID, AddressLine]) AS [T181][MAX-AddressID] ) JOIN (
+      SELECT
+        input1.CName,input1.AddressID,input1.AddressLine
+      FROM
+        input1
+      WHERE
+        True )) AS [T182][MAX-AddressID, CName, AddressID, AddressLine]
+WHERE
+  [T182].MAX-AddressID <> [T182].AddressID
+@anonymous
+[T182].CName(StringVal) | [T182].AddressID(NumberVal) | [T182].AddressLine(StringVal) 
+John Smith | 123.0 | Nowheresville 
+Jane Doe | 456.0 | Evergreen Terrace 
+Joe Bloggs | 1.0 | Second Ave 
+
+[No.11]===============================
+SELECT
+  [T164].CName,[T164].AddressID,[T164].AddressLine
+FROM
+  (( (SELECT
+          MAX([T162].AddressID)
+        FROM
+          (input1) AS [T162][CName, AddressID, AddressLine]) AS [T163][MAX-AddressID] ) JOIN (
+      SELECT
+        input1.CName,input1.AddressID,input1.AddressLine
+      FROM
+        input1
+      WHERE
+        True )) AS [T164][MAX-AddressID, CName, AddressID, AddressLine]
+WHERE
+  [T164].MAX-AddressID <> [T164].AddressID
+@anonymous
+[T164].CName(StringVal) | [T164].AddressID(NumberVal) | [T164].AddressLine(StringVal) 
+John Smith | 123.0 | Nowheresville 
+Jane Doe | 456.0 | Evergreen Terrace 
+Joe Bloggs | 1.0 | Second Ave 
+
+[No.10]===============================
+SELECT
+  [T152].CName,[T152].AddressID,[T152].AddressLine
+FROM
+  (( (SELECT
+          MAX([T150].AddressID)
+        FROM
+          (input1) AS [T150][CName, AddressID, AddressLine]) AS [T151][MAX-AddressID] ) JOIN (
+      SELECT
+        input1.CName,input1.AddressID,input1.AddressLine
+      FROM
+        input1
+      WHERE
+        input1.AddressID > 2.0
+         OR input1.AddressID < 2.0 )) AS [T152][MAX-AddressID, CName, AddressID, AddressLine]
+WHERE
+  [T152].MAX-AddressID <> [T152].AddressID
+@anonymous
+[T152].CName(StringVal) | [T152].AddressID(NumberVal) | [T152].AddressLine(StringVal) 
+John Smith | 123.0 | Nowheresville 
+Jane Doe | 456.0 | Evergreen Terrace 
+Joe Bloggs | 1.0 | Second Ave 
+
+[No.9]===============================
+SELECT
+  [T140].CName,[T140].AddressID,[T140].AddressLine
+FROM
+  (( (SELECT
+          MAX([T138].AddressID)
+        FROM
+          (input1) AS [T138][CName, AddressID, AddressLine]) AS [T139][MAX-AddressID] ) JOIN (
+      SELECT
+        input1.CName,input1.AddressID,input1.AddressLine
+      FROM
+        input1
+      WHERE
+        True )) AS [T140][MAX-AddressID, CName, AddressID, AddressLine]
+WHERE
+  [T140].MAX-AddressID <> [T140].AddressID
+@anonymous
+[T140].CName(StringVal) | [T140].AddressID(NumberVal) | [T140].AddressLine(StringVal) 
+John Smith | 123.0 | Nowheresville 
+Jane Doe | 456.0 | Evergreen Terrace 
+Joe Bloggs | 1.0 | Second Ave 
+
+[No.8]===============================
+SELECT
+  [T128].CName,[T128].AddressID,[T128].AddressLine
+FROM
+  (( (SELECT
+          MAX([T126].AddressID)
+        FROM
+          (input1) AS [T126][CName, AddressID, AddressLine]) AS [T127][MAX-AddressID] ) JOIN (
+      SELECT
+        input1.CName,input1.AddressID,input1.AddressLine
+      FROM
+        input1
+      WHERE
+        True )) AS [T128][MAX-AddressID, CName, AddressID, AddressLine]
+WHERE
+  [T128].MAX-AddressID <> [T128].AddressID
+@anonymous
+[T128].CName(StringVal) | [T128].AddressID(NumberVal) | [T128].AddressLine(StringVal) 
+John Smith | 123.0 | Nowheresville 
+Jane Doe | 456.0 | Evergreen Terrace 
+Joe Bloggs | 1.0 | Second Ave 
+
+[No.7]===============================
+SELECT
+  [T104].CName,[T104].MIN-AddressID,[T104].AddressLine
+FROM
+  (( (SELECT
+          [T102].CName, MIN([T102].AddressID)
+        FROM
+          (input1) AS [T102][CName, AddressID, AddressLine]
+        GROUP BY
+          [T102].CName) AS [T103][CName, MIN-AddressID] ) JOIN (
+      SELECT
+        input1.CName,input1.AddressID,input1.AddressLine
+      FROM
+        input1
+      WHERE
+        True )) AS [T104][CName, MIN-AddressID, CName1, AddressID, AddressLine]
+WHERE
+  [T104].CName == [T104].CName1
+   AND [T104].MIN-AddressID == [T104].AddressID
+@anonymous
+[T104].CName(StringVal) | [T104].MIN-AddressID(NumberVal) | [T104].AddressLine(StringVal) 
+John Smith | 123.0 | Nowheresville 
+Jane Doe | 456.0 | Evergreen Terrace 
+Joe Bloggs | 1.0 | Second Ave 
+
+[No.6]===============================
+SELECT
+  [T206].CName,[T206].AddressID,[T206].AddressLine
+FROM
+  (( (SELECT
+          MAX([T204].AddressID)
+        FROM
+          (SELECT
+              input1.CName,input1.AddressID,input1.AddressLine
+            FROM
+              input1
+            WHERE
+              input1.AddressID > 2.0) AS [T204][CName, AddressID, AddressLine]) AS [T205][MAX-AddressID] ) JOIN (
+      input1 )) AS [T206][MAX-AddressID, CName, AddressID, AddressLine]
+WHERE
+  [T206].MAX-AddressID <> [T206].AddressID
+@anonymous
+[T206].CName(StringVal) | [T206].AddressID(NumberVal) | [T206].AddressLine(StringVal) 
+John Smith | 123.0 | Nowheresville 
+Jane Doe | 456.0 | Evergreen Terrace 
+Joe Bloggs | 1.0 | Second Ave 
+
+[No.5]===============================
+SELECT
+  [T116].CName,[T116].MIN-AddressID,[T116].AddressLine
+FROM
+  (( (SELECT
+          [T114].CName, MIN([T114].AddressID)
+        FROM
+          (input1) AS [T114][CName, AddressID, AddressLine]
+        GROUP BY
+          [T114].CName) AS [T115][CName, MIN-AddressID] ) JOIN (
+      SELECT
+        input1.CName,input1.AddressID,input1.AddressLine
+      FROM
+        input1
+      WHERE
+        True )) AS [T116][CName, MIN-AddressID, CName1, AddressID, AddressLine]
+WHERE
+  [T116].MIN-AddressID == [T116].AddressID
+@anonymous
+[T116].CName(StringVal) | [T116].MIN-AddressID(NumberVal) | [T116].AddressLine(StringVal) 
+John Smith | 123.0 | Nowheresville 
+Jane Doe | 456.0 | Evergreen Terrace 
+Joe Bloggs | 1.0 | Second Ave 
+
+[No.4]===============================
+SELECT
+  [T80].CName,[T80].MIN-AddressID,[T80].AddressLine
+FROM
+  (( (SELECT
+          [T78].CName, MIN([T78].AddressID)
+        FROM
+          (input1) AS [T78][CName, AddressID, AddressLine]
+        GROUP BY
+          [T78].CName) AS [T79][CName, MIN-AddressID] ) JOIN (
+      SELECT
+        input1.CName,input1.AddressID,input1.AddressLine
+      FROM
+        input1
+      WHERE
+        True )) AS [T80][CName, MIN-AddressID, CName1, AddressID, AddressLine]
+WHERE
+  [T80].MIN-AddressID == [T80].AddressID
+@anonymous
+[T80].CName(StringVal) | [T80].MIN-AddressID(NumberVal) | [T80].AddressLine(StringVal) 
+John Smith | 123.0 | Nowheresville 
+Jane Doe | 456.0 | Evergreen Terrace 
+Joe Bloggs | 1.0 | Second Ave 
+
+[No.3]===============================
+SELECT
+  [T176].CName,[T176].AddressID,[T176].AddressLine
+FROM
+  (( (SELECT
+          MAX([T174].AddressID)
+        FROM
+          (input1) AS [T174][CName, AddressID, AddressLine]) AS [T175][MAX-AddressID] ) JOIN (
+      input1 )) AS [T176][MAX-AddressID, CName, AddressID, AddressLine]
+WHERE
+  [T176].MAX-AddressID <> [T176].AddressID
+@anonymous
+[T176].CName(StringVal) | [T176].AddressID(NumberVal) | [T176].AddressLine(StringVal) 
+John Smith | 123.0 | Nowheresville 
+Jane Doe | 456.0 | Evergreen Terrace 
+Joe Bloggs | 1.0 | Second Ave 
+
+[No.2]===============================
+SELECT
+  [T92].CName,[T92].MIN-AddressID,[T92].AddressLine
+FROM
+  (( (SELECT
+          [T90].CName, MIN([T90].AddressID)
+        FROM
+          (input1) AS [T90][CName, AddressID, AddressLine]
+        GROUP BY
+          [T90].CName) AS [T91][CName, MIN-AddressID] ) JOIN (
+      input1 )) AS [T92][CName, MIN-AddressID, CName1, AddressID, AddressLine]
+WHERE
+  [T92].CName == [T92].CName1
+   AND [T92].MIN-AddressID == [T92].AddressID
+@anonymous
+[T92].CName(StringVal) | [T92].MIN-AddressID(NumberVal) | [T92].AddressLine(StringVal) 
+John Smith | 123.0 | Nowheresville 
+Jane Doe | 456.0 | Evergreen Terrace 
+Joe Bloggs | 1.0 | Second Ave 
+
+[No.1]===============================
+SELECT
+  [T68].CName,[T68].MIN-AddressID,[T68].AddressLine
+FROM
+  (( (SELECT
+          [T66].CName, MIN([T66].AddressID)
+        FROM
+          (input1) AS [T66][CName, AddressID, AddressLine]
+        GROUP BY
+          [T66].CName) AS [T67][CName, MIN-AddressID] ) JOIN (
+      input1 )) AS [T68][CName, MIN-AddressID, CName1, AddressID, AddressLine]
+WHERE
+  [T68].MIN-AddressID == [T68].AddressID
+@anonymous
+[T68].CName(StringVal) | [T68].MIN-AddressID(NumberVal) | [T68].AddressLine(StringVal) 
+John Smith | 123.0 | Nowheresville 
+Jane Doe | 456.0 | Evergreen Terrace 
+Joe Bloggs | 1.0 | Second Ave 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.351s

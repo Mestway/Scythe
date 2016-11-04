@@ -1,0 +1,265 @@
+[[Synthesis start]]
+	File: ../data/dev_set/018
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 548 [SymTable]: 549
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 18 [SymTable]: 19
+[JOIN] level 1 [SymTable]: 38
+Candidate Tree Number: 20
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 42 [SymTable]: 43
+[JOIN] level 1 [SymTable]: 86
+Candidate Tree Number: 20
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 42 [SymTable]: 43
+[JOIN] level 1 [SymTable]: 86
+Candidate Tree Number: 20
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 42 [SymTable]: 43
+[JOIN] level 1 [SymTable]: 86
+Candidate Tree Number: 35
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 66 [SymTable]: 67
+[JOIN] level 1 [SymTable]: 134
+Candidate Tree Number: 20
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 138 [SymTable]: 139
+[JOIN] level 1 [SymTable]: 278
+Candidate Tree Number: 20
+[Enumeration Finished]
+[Query No.9]===============================
+SELECT
+  [T607].Id,[T607].Plan,[T607].Attributes,[T607].Value
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+      WHERE
+        input1.Plan == True
+         OR input1.Value == True )) AS [T607][Id, Plan, Attributes, Value, Id1, Plan1, Attributes1, Value1]
+WHERE
+  [T607].Plan == [T607].Plan1
+@anonymous
+[T607].Id(NumberVal) | [T607].Plan(StringVal) | [T607].Attributes(StringVal) | [T607].Value(StringVal) 
+1.0 | A | Name | AAA 
+2.0 | A | Class | P 
+3.0 | A | IsActive | True 
+7.0 | C | Name | CCC 
+8.0 | C | Class | R 
+9.0 | C | IsActive | True 
+
+[Query No.8]===============================
+SELECT
+  [T597].Id1,[T597].Plan,[T597].Attributes1,[T597].Value1
+FROM
+  (( SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+      WHERE
+        input1.Plan == True
+         OR input1.Value == True ) JOIN (
+      input1 )) AS [T597][Id, Plan, Attributes, Value, Id1, Plan1, Attributes1, Value1]
+WHERE
+  [T597].Plan == [T597].Plan1
+@anonymous
+[T597].Id1(NumberVal) | [T597].Plan(StringVal) | [T597].Attributes1(StringVal) | [T597].Value1(StringVal) 
+1.0 | A | Name | AAA 
+2.0 | A | Class | P 
+3.0 | A | IsActive | True 
+7.0 | C | Name | CCC 
+8.0 | C | Class | R 
+9.0 | C | IsActive | True 
+
+[Query No.7]===============================
+SELECT
+  [T609].Id,[T609].Plan,[T609].Attributes,[T609].Value
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+      WHERE
+        input1.Attributes == IsActive
+         AND input1.Value == True )) AS [T609][Id, Plan, Attributes, Value, Id1, Plan1, Attributes1, Value1]
+WHERE
+  [T609].Plan == [T609].Plan1
+@anonymous
+[T609].Id(NumberVal) | [T609].Plan(StringVal) | [T609].Attributes(StringVal) | [T609].Value(StringVal) 
+1.0 | A | Name | AAA 
+2.0 | A | Class | P 
+3.0 | A | IsActive | True 
+7.0 | C | Name | CCC 
+8.0 | C | Class | R 
+9.0 | C | IsActive | True 
+
+[Query No.6]===============================
+SELECT
+  [T599].Id1,[T599].Plan,[T599].Attributes1,[T599].Value1
+FROM
+  (( SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+      WHERE
+        input1.Attributes == IsActive
+         AND input1.Value == True ) JOIN (
+      input1 )) AS [T599][Id, Plan, Attributes, Value, Id1, Plan1, Attributes1, Value1]
+WHERE
+  [T599].Plan == [T599].Plan1
+@anonymous
+[T599].Id1(NumberVal) | [T599].Plan(StringVal) | [T599].Attributes1(StringVal) | [T599].Value1(StringVal) 
+1.0 | A | Name | AAA 
+2.0 | A | Class | P 
+3.0 | A | IsActive | True 
+7.0 | C | Name | CCC 
+8.0 | C | Class | R 
+9.0 | C | IsActive | True 
+
+[Query No.5]===============================
+SELECT
+  [T845].Id1,[T845].Plan,[T845].Attributes1,[T845].Value1
+FROM
+  (( SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+      WHERE
+        input1.Value == True ) JOIN (
+      input1 )) AS [T845][Id, Plan, Attributes, Value, Id1, Plan1, Attributes1, Value1]
+WHERE
+  [T845].Plan == [T845].Plan1
+@anonymous
+[T845].Id1(NumberVal) | [T845].Plan(StringVal) | [T845].Attributes1(StringVal) | [T845].Value1(StringVal) 
+1.0 | A | Name | AAA 
+2.0 | A | Class | P 
+3.0 | A | IsActive | True 
+7.0 | C | Name | CCC 
+8.0 | C | Class | R 
+9.0 | C | IsActive | True 
+
+[Query No.4]===============================
+SELECT
+  [T730].Id,[T730].Plan,[T730].Attributes,[T730].Value
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+      WHERE
+        input1.Value == True )) AS [T730][Id, Plan, Attributes, Value, Id1, Plan1, Attributes1, Value1]
+WHERE
+  [T730].Plan == [T730].Plan1
+@anonymous
+[T730].Id(NumberVal) | [T730].Plan(StringVal) | [T730].Attributes(StringVal) | [T730].Value(StringVal) 
+1.0 | A | Name | AAA 
+2.0 | A | Class | P 
+3.0 | A | IsActive | True 
+7.0 | C | Name | CCC 
+8.0 | C | Class | R 
+9.0 | C | IsActive | True 
+
+[Query No.3]===============================
+SELECT
+  [T720].Id1,[T720].Plan,[T720].Attributes1,[T720].Value1
+FROM
+  (( SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+      WHERE
+        input1.Value == True ) JOIN (
+      input1 )) AS [T720][Id, Plan, Attributes, Value, Id1, Plan1, Attributes1, Value1]
+WHERE
+  [T720].Plan == [T720].Plan1
+@anonymous
+[T720].Id1(NumberVal) | [T720].Plan(StringVal) | [T720].Attributes1(StringVal) | [T720].Value1(StringVal) 
+1.0 | A | Name | AAA 
+2.0 | A | Class | P 
+3.0 | A | IsActive | True 
+7.0 | C | Name | CCC 
+8.0 | C | Class | R 
+9.0 | C | IsActive | True 
+
+[Query No.2]===============================
+SELECT
+  [T605].Id,[T605].Plan,[T605].Attributes,[T605].Value
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+      WHERE
+        input1.Value == True )) AS [T605][Id, Plan, Attributes, Value, Id1, Plan1, Attributes1, Value1]
+WHERE
+  [T605].Plan == [T605].Plan1
+@anonymous
+[T605].Id(NumberVal) | [T605].Plan(StringVal) | [T605].Attributes(StringVal) | [T605].Value(StringVal) 
+1.0 | A | Name | AAA 
+2.0 | A | Class | P 
+3.0 | A | IsActive | True 
+7.0 | C | Name | CCC 
+8.0 | C | Class | R 
+9.0 | C | IsActive | True 
+
+[Query No.1]===============================
+SELECT
+  [T595].Id1,[T595].Plan,[T595].Attributes1,[T595].Value1
+FROM
+  (( SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+      WHERE
+        input1.Value == True ) JOIN (
+      input1 )) AS [T595][Id, Plan, Attributes, Value, Id1, Plan1, Attributes1, Value1]
+WHERE
+  [T595].Plan == [T595].Plan1
+@anonymous
+[T595].Id1(NumberVal) | [T595].Plan(StringVal) | [T595].Attributes1(StringVal) | [T595].Value1(StringVal) 
+1.0 | A | Name | AAA 
+2.0 | A | Class | P 
+3.0 | A | IsActive | True 
+7.0 | C | Name | CCC 
+8.0 | C | Class | R 
+9.0 | C | IsActive | True 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 2.478s

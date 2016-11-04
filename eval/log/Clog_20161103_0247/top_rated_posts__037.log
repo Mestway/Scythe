@@ -1,0 +1,181 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/037
+	Enumerator: CanonicalTableEnumeratorOnTheFly
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 12
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 21
+	Avg table size: 3
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 12
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 2
+	Avg table size: 7
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 21
+	Avg table size: 35
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 12
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 4
+	Avg table size: 5
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 37
+	Avg table size: 29
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 12
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 4
+	Avg table size: 5
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 37
+	Avg table size: 29
+Total Tree Count: 1
+Total Query Count: 600
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 12
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 4
+	Avg table size: 5
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 42
+	Avg table size: 27
+Total Tree Count: 1
+Total Query Count: 20
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 12
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 6
+	Avg table size: 4
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 52
+	Avg table size: 27
+Total Tree Count: 1
+Total Query Count: 600
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 7
+	Avg table size: 6
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 17
+	Avg table size: 4
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 298
+	Avg table size: 24
+Total Tree Count: 72
+Total Query Count: -1906230100
+[Enumeration Finished]
+[Query No.3]===============================
+SELECT
+  [T4690].MIN-c1,[T4690].c21,[T4690].c3
+FROM
+  (SELECT
+      [T3861].c2,[T3861].MIN-c1,[T3861].c1,[T3861].c21,[T3861].c3
+    FROM
+      (( ((SELECT
+                input1.c2, MIN(input1.c1)
+              FROM
+                input1
+              GROUP BY
+                input1.c2) AS [T3867][c2, MIN-c1]) AS [T3881][c2, MIN-c1] ) JOIN (
+          input1 )) AS [T3861][c2, MIN-c1, c1, c21, c3]
+    WHERE
+      [T3861].MIN-c1 == [T3861].c1) AS [T4690][c2, MIN-c1, c1, c21, c3]
+
+@anonymous
+[T4690].MIN-c1(NumberVal) | [T4690].c21(StringVal) | [T4690].c3(StringVal) 
+1.0 | item1 | data1 
+3.0 | item2 | data3 
+4.0 | item3 | data4 
+
+[Query No.2]===============================
+SELECT
+  [T4681].MIN-c1,[T4681].c2,[T4681].c3
+FROM
+  (SELECT
+      [T3861].c2,[T3861].MIN-c1,[T3861].c1,[T3861].c21,[T3861].c3
+    FROM
+      (( ((SELECT
+                input1.c2, MIN(input1.c1)
+              FROM
+                input1
+              GROUP BY
+                input1.c2) AS [T3867][c2, MIN-c1]) AS [T3881][c2, MIN-c1] ) JOIN (
+          input1 )) AS [T3861][c2, MIN-c1, c1, c21, c3]
+    WHERE
+      [T3861].MIN-c1 == [T3861].c1) AS [T4681][c2, MIN-c1, c1, c21, c3]
+
+@anonymous
+[T4681].MIN-c1(NumberVal) | [T4681].c2(StringVal) | [T4681].c3(StringVal) 
+1.0 | item1 | data1 
+3.0 | item2 | data3 
+4.0 | item3 | data4 
+
+[Query No.1]===============================
+SELECT
+  [T4680].MIN-c1,[T4680].c2,[T4680].c3
+FROM
+  (SELECT
+      [T3861].c2,[T3861].MIN-c1,[T3861].c1,[T3861].c21,[T3861].c3
+    FROM
+      (( ((SELECT
+                input1.c2, MIN(input1.c1)
+              FROM
+                input1
+              GROUP BY
+                input1.c2) AS [T3867][c2, MIN-c1]) AS [T3881][c2, MIN-c1] ) JOIN (
+          input1 )) AS [T3861][c2, MIN-c1, c1, c21, c3]
+    WHERE
+      [T3861].MIN-c1 == [T3861].c1) AS [T4680][c2, MIN-c1, c1, c21, c3]
+
+@anonymous
+[T4680].MIN-c1(NumberVal) | [T4680].c2(StringVal) | [T4680].c3(StringVal) 
+1.0 | item1 | data1 
+3.0 | item2 | data3 
+4.0 | item3 | data4 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 188.901s

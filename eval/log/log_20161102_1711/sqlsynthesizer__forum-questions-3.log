@@ -1,0 +1,479 @@
+[[Synthesis start]]
+	File: ../data/sqlsynthesizer/forum-questions-3
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 27 [SymTable]: 28
+[JOIN] level 1 [SymTable]: 57
+[EnumJoinOnAggr] level 1 [SymTable]: 841
+Candidate Tree Number: 366
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T1362].loginid
+FROM
+  (( SELECT
+        [T1357].loginid,[T1357].COUNT-loginid
+      FROM
+        (SELECT
+            [T1356].loginid, COUNT([T1356].loginid)
+          FROM
+            (input1) AS [T1356][loginid, provider, city]
+          GROUP BY
+            [T1356].loginid) AS [T1357][loginid, COUNT-loginid]
+      WHERE
+        [T1357].COUNT-loginid > 5.0 ) JOIN (
+      (SELECT
+          COUNT([T1360].city)
+        FROM
+          (input1) AS [T1360][loginid, provider, city]) AS [T1361][COUNT-city] )) AS [T1362][loginid, COUNT-loginid, COUNT-city]
+
+@anonymous
+[T1362].loginid(StringVal) 
+l1 
+l6 
+
+[No.19]===============================
+SELECT
+  [T742].loginid
+FROM
+  (( (SELECT
+          COUNT([T736].city)
+        FROM
+          (input1) AS [T736][loginid, provider, city]) AS [T737][COUNT-city] ) JOIN (
+      SELECT
+        [T741].loginid,[T741].COUNT-city
+      FROM
+        (SELECT
+            [T740].loginid, COUNT([T740].city)
+          FROM
+            (input1) AS [T740][loginid, provider, city]
+          GROUP BY
+            [T740].loginid) AS [T741][loginid, COUNT-city]
+      WHERE
+        [T741].COUNT-city > 5.0 )) AS [T742][COUNT-city, loginid, COUNT-city1]
+
+@anonymous
+[T742].loginid(StringVal) 
+l1 
+l6 
+
+[No.18]===============================
+SELECT
+  [T3622].loginid
+FROM
+  (( (SELECT
+          [T3616].provider, COUNT([T3616].city)
+        FROM
+          (input1) AS [T3616][loginid, provider, city]
+        GROUP BY
+          [T3616].provider) AS [T3617][provider, COUNT-city] ) JOIN (
+      (SELECT
+          [T3620].loginid, COUNT([T3620].provider)
+        FROM
+          (input1) AS [T3620][loginid, provider, city]
+        GROUP BY
+          [T3620].loginid) AS [T3621][loginid, COUNT-provider] )) AS [T3622][provider, COUNT-city, loginid, COUNT-provider]
+WHERE
+  [T3622].COUNT-city == [T3622].COUNT-provider
+@anonymous
+[T3622].loginid(StringVal) 
+l1 
+l6 
+
+[No.17]===============================
+SELECT
+  [T3572].loginid
+FROM
+  (( (SELECT
+          [T3566].provider, COUNT([T3566].provider)
+        FROM
+          (input1) AS [T3566][loginid, provider, city]
+        GROUP BY
+          [T3566].provider) AS [T3567][provider, COUNT-provider] ) JOIN (
+      (SELECT
+          [T3570].loginid, COUNT([T3570].city)
+        FROM
+          (input1) AS [T3570][loginid, provider, city]
+        GROUP BY
+          [T3570].loginid) AS [T3571][loginid, COUNT-city] )) AS [T3572][provider, COUNT-provider, loginid, COUNT-city]
+WHERE
+  [T3572].COUNT-provider == [T3572].COUNT-city
+@anonymous
+[T3572].loginid(StringVal) 
+l1 
+l6 
+
+[No.16]===============================
+SELECT
+  [T3442].loginid
+FROM
+  (( (SELECT
+          [T3436].loginid, COUNT([T3436].loginid)
+        FROM
+          (input1) AS [T3436][loginid, provider, city]
+        GROUP BY
+          [T3436].loginid) AS [T3437][loginid, COUNT-loginid] ) JOIN (
+      (SELECT
+          [T3440].provider, COUNT([T3440].city)
+        FROM
+          (input1) AS [T3440][loginid, provider, city]
+        GROUP BY
+          [T3440].provider) AS [T3441][provider, COUNT-city] )) AS [T3442][loginid, COUNT-loginid, provider, COUNT-city]
+WHERE
+  [T3442].COUNT-loginid == [T3442].COUNT-city
+@anonymous
+[T3442].loginid(StringVal) 
+l1 
+l6 
+
+[No.15]===============================
+SELECT
+  [T2262].loginid
+FROM
+  (( (SELECT
+          [T2256].provider, COUNT([T2256].loginid)
+        FROM
+          (input1) AS [T2256][loginid, provider, city]
+        GROUP BY
+          [T2256].provider) AS [T2257][provider, COUNT-loginid] ) JOIN (
+      (SELECT
+          [T2260].loginid, COUNT([T2260].provider)
+        FROM
+          (input1) AS [T2260][loginid, provider, city]
+        GROUP BY
+          [T2260].loginid) AS [T2261][loginid, COUNT-provider] )) AS [T2262][provider, COUNT-loginid, loginid, COUNT-provider]
+WHERE
+  [T2262].COUNT-loginid == [T2262].COUNT-provider
+@anonymous
+[T2262].loginid(StringVal) 
+l1 
+l6 
+
+[No.14]===============================
+SELECT
+  [T1962].loginid
+FROM
+  (( (SELECT
+          [T1956].provider, COUNT([T1956].provider)
+        FROM
+          (input1) AS [T1956][loginid, provider, city]
+        GROUP BY
+          [T1956].provider) AS [T1957][provider, COUNT-provider] ) JOIN (
+      (SELECT
+          [T1960].loginid, COUNT([T1960].loginid)
+        FROM
+          (input1) AS [T1960][loginid, provider, city]
+        GROUP BY
+          [T1960].loginid) AS [T1961][loginid, COUNT-loginid] )) AS [T1962][provider, COUNT-provider, loginid, COUNT-loginid]
+WHERE
+  [T1962].COUNT-provider == [T1962].COUNT-loginid
+@anonymous
+[T1962].loginid(StringVal) 
+l1 
+l6 
+
+[No.13]===============================
+SELECT
+  [T1622].loginid
+FROM
+  (( (SELECT
+          [T1616].provider, COUNT([T1616].loginid)
+        FROM
+          (input1) AS [T1616][loginid, provider, city]
+        GROUP BY
+          [T1616].provider) AS [T1617][provider, COUNT-loginid] ) JOIN (
+      (SELECT
+          [T1620].loginid, COUNT([T1620].city)
+        FROM
+          (input1) AS [T1620][loginid, provider, city]
+        GROUP BY
+          [T1620].loginid) AS [T1621][loginid, COUNT-city] )) AS [T1622][provider, COUNT-loginid, loginid, COUNT-city]
+WHERE
+  [T1622].COUNT-loginid == [T1622].COUNT-city
+@anonymous
+[T1622].loginid(StringVal) 
+l1 
+l6 
+
+[No.12]===============================
+SELECT
+  [T1432].loginid
+FROM
+  (( (SELECT
+          [T1426].provider, COUNT([T1426].city)
+        FROM
+          (input1) AS [T1426][loginid, provider, city]
+        GROUP BY
+          [T1426].provider) AS [T1427][provider, COUNT-city] ) JOIN (
+      (SELECT
+          [T1430].loginid, COUNT([T1430].loginid)
+        FROM
+          (input1) AS [T1430][loginid, provider, city]
+        GROUP BY
+          [T1430].loginid) AS [T1431][loginid, COUNT-loginid] )) AS [T1432][provider, COUNT-city, loginid, COUNT-loginid]
+WHERE
+  [T1432].COUNT-city == [T1432].COUNT-loginid
+@anonymous
+[T1432].loginid(StringVal) 
+l1 
+l6 
+
+[No.11]===============================
+SELECT
+  [T1382].loginid
+FROM
+  (( (SELECT
+          [T1376].loginid, COUNT([T1376].city)
+        FROM
+          (input1) AS [T1376][loginid, provider, city]
+        GROUP BY
+          [T1376].loginid) AS [T1377][loginid, COUNT-city] ) JOIN (
+      (SELECT
+          [T1380].provider, COUNT([T1380].provider)
+        FROM
+          (input1) AS [T1380][loginid, provider, city]
+        GROUP BY
+          [T1380].provider) AS [T1381][provider, COUNT-provider] )) AS [T1382][loginid, COUNT-city, provider, COUNT-provider]
+WHERE
+  [T1382].COUNT-city == [T1382].COUNT-provider
+@anonymous
+[T1382].loginid(StringVal) 
+l1 
+l6 
+
+[No.10]===============================
+SELECT
+  [T1292].loginid
+FROM
+  (( (SELECT
+          [T1286].loginid, COUNT([T1286].provider)
+        FROM
+          (input1) AS [T1286][loginid, provider, city]
+        GROUP BY
+          [T1286].loginid) AS [T1287][loginid, COUNT-provider] ) JOIN (
+      (SELECT
+          [T1290].provider, COUNT([T1290].loginid)
+        FROM
+          (input1) AS [T1290][loginid, provider, city]
+        GROUP BY
+          [T1290].provider) AS [T1291][provider, COUNT-loginid] )) AS [T1292][loginid, COUNT-provider, provider, COUNT-loginid]
+WHERE
+  [T1292].COUNT-provider == [T1292].COUNT-loginid
+@anonymous
+[T1292].loginid(StringVal) 
+l1 
+l6 
+
+[No.9]===============================
+SELECT
+  [T802].loginid
+FROM
+  (( (SELECT
+          [T796].loginid, COUNT([T796].loginid)
+        FROM
+          (input1) AS [T796][loginid, provider, city]
+        GROUP BY
+          [T796].loginid) AS [T797][loginid, COUNT-loginid] ) JOIN (
+      (SELECT
+          [T800].provider, COUNT([T800].provider)
+        FROM
+          (input1) AS [T800][loginid, provider, city]
+        GROUP BY
+          [T800].provider) AS [T801][provider, COUNT-provider] )) AS [T802][loginid, COUNT-loginid, provider, COUNT-provider]
+WHERE
+  [T802].COUNT-loginid == [T802].COUNT-provider
+@anonymous
+[T802].loginid(StringVal) 
+l1 
+l6 
+
+[No.8]===============================
+SELECT
+  [T672].loginid
+FROM
+  (( (SELECT
+          [T666].loginid, COUNT([T666].provider)
+        FROM
+          (input1) AS [T666][loginid, provider, city]
+        GROUP BY
+          [T666].loginid) AS [T667][loginid, COUNT-provider] ) JOIN (
+      (SELECT
+          [T670].provider, COUNT([T670].city)
+        FROM
+          (input1) AS [T670][loginid, provider, city]
+        GROUP BY
+          [T670].provider) AS [T671][provider, COUNT-city] )) AS [T672][loginid, COUNT-provider, provider, COUNT-city]
+WHERE
+  [T672].COUNT-provider == [T672].COUNT-city
+@anonymous
+[T672].loginid(StringVal) 
+l1 
+l6 
+
+[No.7]===============================
+SELECT
+  [T622].loginid
+FROM
+  (( (SELECT
+          [T616].loginid, COUNT([T616].city)
+        FROM
+          (input1) AS [T616][loginid, provider, city]
+        GROUP BY
+          [T616].loginid) AS [T617][loginid, COUNT-city] ) JOIN (
+      (SELECT
+          [T620].provider, COUNT([T620].loginid)
+        FROM
+          (input1) AS [T620][loginid, provider, city]
+        GROUP BY
+          [T620].provider) AS [T621][provider, COUNT-loginid] )) AS [T622][loginid, COUNT-city, provider, COUNT-loginid]
+WHERE
+  [T622].COUNT-city == [T622].COUNT-loginid
+@anonymous
+[T622].loginid(StringVal) 
+l1 
+l6 
+
+[No.6]===============================
+SELECT
+  [T3992].loginid
+FROM
+  (( (SELECT
+          [T3986].loginid, COUNT([T3986].provider)
+        FROM
+          (input1) AS [T3986][loginid, provider, city]
+        GROUP BY
+          [T3986].loginid) AS [T3987][loginid, COUNT-provider] ) JOIN (
+      (SELECT
+          [T3990].provider, COUNT([T3990].provider)
+        FROM
+          (input1) AS [T3990][loginid, provider, city]
+        GROUP BY
+          [T3990].provider) AS [T3991][provider, COUNT-provider] )) AS [T3992][loginid, COUNT-provider, provider, COUNT-provider1]
+WHERE
+  [T3992].COUNT-provider == [T3992].COUNT-provider1
+@anonymous
+[T3992].loginid(StringVal) 
+l1 
+l6 
+
+[No.5]===============================
+SELECT
+  [T2792].loginid
+FROM
+  (( (SELECT
+          [T2786].provider, COUNT([T2786].loginid)
+        FROM
+          (input1) AS [T2786][loginid, provider, city]
+        GROUP BY
+          [T2786].provider) AS [T2787][provider, COUNT-loginid] ) JOIN (
+      (SELECT
+          [T2790].loginid, COUNT([T2790].loginid)
+        FROM
+          (input1) AS [T2790][loginid, provider, city]
+        GROUP BY
+          [T2790].loginid) AS [T2791][loginid, COUNT-loginid] )) AS [T2792][provider, COUNT-loginid, loginid, COUNT-loginid1]
+WHERE
+  [T2792].COUNT-loginid == [T2792].COUNT-loginid1
+@anonymous
+[T2792].loginid(StringVal) 
+l1 
+l6 
+
+[No.4]===============================
+SELECT
+  [T2012].loginid
+FROM
+  (( (SELECT
+          [T2006].provider, COUNT([T2006].city)
+        FROM
+          (input1) AS [T2006][loginid, provider, city]
+        GROUP BY
+          [T2006].provider) AS [T2007][provider, COUNT-city] ) JOIN (
+      (SELECT
+          [T2010].loginid, COUNT([T2010].city)
+        FROM
+          (input1) AS [T2010][loginid, provider, city]
+        GROUP BY
+          [T2010].loginid) AS [T2011][loginid, COUNT-city] )) AS [T2012][provider, COUNT-city, loginid, COUNT-city1]
+WHERE
+  [T2012].COUNT-city == [T2012].COUNT-city1
+@anonymous
+[T2012].loginid(StringVal) 
+l1 
+l6 
+
+[No.3]===============================
+SELECT
+  [T1912].loginid
+FROM
+  (( (SELECT
+          [T1906].loginid, COUNT([T1906].city)
+        FROM
+          (input1) AS [T1906][loginid, provider, city]
+        GROUP BY
+          [T1906].loginid) AS [T1907][loginid, COUNT-city] ) JOIN (
+      (SELECT
+          [T1910].provider, COUNT([T1910].city)
+        FROM
+          (input1) AS [T1910][loginid, provider, city]
+        GROUP BY
+          [T1910].provider) AS [T1911][provider, COUNT-city] )) AS [T1912][loginid, COUNT-city, provider, COUNT-city1]
+WHERE
+  [T1912].COUNT-city == [T1912].COUNT-city1
+@anonymous
+[T1912].loginid(StringVal) 
+l1 
+l6 
+
+[No.2]===============================
+SELECT
+  [T1532].loginid
+FROM
+  (( (SELECT
+          [T1526].provider, COUNT([T1526].provider)
+        FROM
+          (input1) AS [T1526][loginid, provider, city]
+        GROUP BY
+          [T1526].provider) AS [T1527][provider, COUNT-provider] ) JOIN (
+      (SELECT
+          [T1530].loginid, COUNT([T1530].provider)
+        FROM
+          (input1) AS [T1530][loginid, provider, city]
+        GROUP BY
+          [T1530].loginid) AS [T1531][loginid, COUNT-provider] )) AS [T1532][provider, COUNT-provider, loginid, COUNT-provider1]
+WHERE
+  [T1532].COUNT-provider == [T1532].COUNT-provider1
+@anonymous
+[T1532].loginid(StringVal) 
+l1 
+l6 
+
+[No.1]===============================
+SELECT
+  [T1482].loginid
+FROM
+  (( (SELECT
+          [T1476].loginid, COUNT([T1476].loginid)
+        FROM
+          (input1) AS [T1476][loginid, provider, city]
+        GROUP BY
+          [T1476].loginid) AS [T1477][loginid, COUNT-loginid] ) JOIN (
+      (SELECT
+          [T1480].provider, COUNT([T1480].loginid)
+        FROM
+          (input1) AS [T1480][loginid, provider, city]
+        GROUP BY
+          [T1480].provider) AS [T1481][provider, COUNT-loginid] )) AS [T1482][loginid, COUNT-loginid, provider, COUNT-loginid1]
+WHERE
+  [T1482].COUNT-loginid == [T1482].COUNT-loginid1
+@anonymous
+[T1482].loginid(StringVal) 
+l1 
+l6 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 12.517s

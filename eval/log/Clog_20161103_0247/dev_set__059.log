@@ -1,0 +1,317 @@
+[[Synthesis start]]
+	File: ../data/dev_set/059
+	Enumerator: CanonicalTableEnumeratorOnTheFly
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 2
+	Avg table size: 16
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 66
+	Avg table size: 8
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 2
+	Avg table size: 16
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 6
+	Avg table size: 9
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 133
+	Avg table size: 84
+Total Tree Count: 2
+Total Query Count: 56
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 2
+	Avg table size: 16
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 11
+	Avg table size: 8
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 218
+	Avg table size: 74
+Total Tree Count: 2
+Total Query Count: 56
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 2
+	Avg table size: 16
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 11
+	Avg table size: 8
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 224
+	Avg table size: 73
+Total Tree Count: 2
+Total Query Count: 56
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 2
+	Avg table size: 16
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 11
+	Avg table size: 8
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 219
+	Avg table size: 74
+Total Tree Count: 2
+Total Query Count: 56
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 2
+	Avg table size: 16
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 15
+	Avg table size: 7
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 276
+	Avg table size: 66
+Total Tree Count: 2
+Total Query Count: 56
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 2
+	Avg table size: 16
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 17
+	Avg table size: 8
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 284
+	Avg table size: 76
+Total Tree Count: 2
+Total Query Count: 56
+[Enumeration Finished]
+[Query No.9]===============================
+SELECT
+  [T14709].SchoolAvg,[T14709].NationalAvg,[T14709].exams_description1,[T14709].School
+FROM
+  (SELECT
+      [T14694].NationalAvg,[T14694].exams_description,[T14694].SchoolAvg,[T14694].exams_description1,[T14694].School
+    FROM
+      (( input1 ) JOIN (
+          input2 )) AS [T14694][NationalAvg, exams_description, SchoolAvg, exams_description1, School]
+    WHERE
+      [T14694].exams_description == [T14694].exams_description1) AS [T14709][NationalAvg, exams_description, SchoolAvg, exams_description1, School]
+
+@anonymous
+[T14709].SchoolAvg(NumberVal) | [T14709].NationalAvg(NumberVal) | [T14709].exams_description1(StringVal) | [T14709].School(StringVal) 
+0.9 | 0.78 | Medical Asst.Exam | School A 
+0.93 | 0.78 | Medical Asst.Exam | School B 
+0.88 | 0.9 | Health Exam | School A 
+0.79 | 0.9 | Health Exam | School B 
+0.65 | 0.79 | EKG Exam | School A 
+0.82 | 0.79 | EKG Exam | School B 
+0.76 | 0.81 | Phlebotomy | School A 
+0.76 | 0.81 | Phlebotomy | School B 
+
+[Query No.8]===============================
+SELECT
+  [T14700].SchoolAvg,[T14700].NationalAvg,[T14700].exams_description,[T14700].School
+FROM
+  (SELECT
+      [T14694].NationalAvg,[T14694].exams_description,[T14694].SchoolAvg,[T14694].exams_description1,[T14694].School
+    FROM
+      (( input1 ) JOIN (
+          input2 )) AS [T14694][NationalAvg, exams_description, SchoolAvg, exams_description1, School]
+    WHERE
+      [T14694].exams_description == [T14694].exams_description1) AS [T14700][NationalAvg, exams_description, SchoolAvg, exams_description1, School]
+
+@anonymous
+[T14700].SchoolAvg(NumberVal) | [T14700].NationalAvg(NumberVal) | [T14700].exams_description(StringVal) | [T14700].School(StringVal) 
+0.9 | 0.78 | Medical Asst.Exam | School A 
+0.93 | 0.78 | Medical Asst.Exam | School B 
+0.88 | 0.9 | Health Exam | School A 
+0.79 | 0.9 | Health Exam | School B 
+0.65 | 0.79 | EKG Exam | School A 
+0.82 | 0.79 | EKG Exam | School B 
+0.76 | 0.81 | Phlebotomy | School A 
+0.76 | 0.81 | Phlebotomy | School B 
+
+[Query No.7]===============================
+SELECT
+  [T14699].SchoolAvg,[T14699].NationalAvg,[T14699].exams_description,[T14699].School
+FROM
+  (SELECT
+      [T14694].NationalAvg,[T14694].exams_description,[T14694].SchoolAvg,[T14694].exams_description1,[T14694].School
+    FROM
+      (( input1 ) JOIN (
+          input2 )) AS [T14694][NationalAvg, exams_description, SchoolAvg, exams_description1, School]
+    WHERE
+      [T14694].exams_description == [T14694].exams_description1) AS [T14699][NationalAvg, exams_description, SchoolAvg, exams_description1, School]
+
+@anonymous
+[T14699].SchoolAvg(NumberVal) | [T14699].NationalAvg(NumberVal) | [T14699].exams_description(StringVal) | [T14699].School(StringVal) 
+0.9 | 0.78 | Medical Asst.Exam | School A 
+0.93 | 0.78 | Medical Asst.Exam | School B 
+0.88 | 0.9 | Health Exam | School A 
+0.79 | 0.9 | Health Exam | School B 
+0.65 | 0.79 | EKG Exam | School A 
+0.82 | 0.79 | EKG Exam | School B 
+0.76 | 0.81 | Phlebotomy | School A 
+0.76 | 0.81 | Phlebotomy | School B 
+
+[Query No.6]===============================
+SELECT
+  [T6770].SchoolAvg,[T6770].NationalAvg,[T6770].exams_description,[T6770].School
+FROM
+  (SELECT
+      [T6765].SchoolAvg,[T6765].exams_description,[T6765].School,[T6765].NationalAvg,[T6765].exams_description1
+    FROM
+      (( input2 ) JOIN (
+          input1 )) AS [T6765][SchoolAvg, exams_description, School, NationalAvg, exams_description1]
+    WHERE
+      [T6765].exams_description == [T6765].exams_description1) AS [T6770][SchoolAvg, exams_description, School, NationalAvg, exams_description1]
+
+@anonymous
+[T6770].SchoolAvg(NumberVal) | [T6770].NationalAvg(NumberVal) | [T6770].exams_description(StringVal) | [T6770].School(StringVal) 
+0.9 | 0.78 | Medical Asst.Exam | School A 
+0.88 | 0.9 | Health Exam | School A 
+0.65 | 0.79 | EKG Exam | School A 
+0.76 | 0.81 | Phlebotomy | School A 
+0.93 | 0.78 | Medical Asst.Exam | School B 
+0.79 | 0.9 | Health Exam | School B 
+0.82 | 0.79 | EKG Exam | School B 
+0.76 | 0.81 | Phlebotomy | School B 
+
+[Query No.5]===============================
+SELECT
+  [T6769].SchoolAvg,[T6769].NationalAvg,[T6769].exams_description,[T6769].School
+FROM
+  (SELECT
+      [T6765].SchoolAvg,[T6765].exams_description,[T6765].School,[T6765].NationalAvg,[T6765].exams_description1
+    FROM
+      (( input2 ) JOIN (
+          input1 )) AS [T6765][SchoolAvg, exams_description, School, NationalAvg, exams_description1]
+    WHERE
+      [T6765].exams_description == [T6765].exams_description1) AS [T6769][SchoolAvg, exams_description, School, NationalAvg, exams_description1]
+
+@anonymous
+[T6769].SchoolAvg(NumberVal) | [T6769].NationalAvg(NumberVal) | [T6769].exams_description(StringVal) | [T6769].School(StringVal) 
+0.9 | 0.78 | Medical Asst.Exam | School A 
+0.88 | 0.9 | Health Exam | School A 
+0.65 | 0.79 | EKG Exam | School A 
+0.76 | 0.81 | Phlebotomy | School A 
+0.93 | 0.78 | Medical Asst.Exam | School B 
+0.79 | 0.9 | Health Exam | School B 
+0.82 | 0.79 | EKG Exam | School B 
+0.76 | 0.81 | Phlebotomy | School B 
+
+[Query No.4]===============================
+SELECT
+  [T6461].SchoolAvg,[T6461].NationalAvg,[T6461].exams_description1,[T6461].School
+FROM
+  (SELECT
+      [T6445].NationalAvg,[T6445].exams_description,[T6445].SchoolAvg,[T6445].exams_description1,[T6445].School
+    FROM
+      (( input1 ) JOIN (
+          input2 )) AS [T6445][NationalAvg, exams_description, SchoolAvg, exams_description1, School]
+    WHERE
+      [T6445].exams_description == [T6445].exams_description1) AS [T6461][NationalAvg, exams_description, SchoolAvg, exams_description1, School]
+
+@anonymous
+[T6461].SchoolAvg(NumberVal) | [T6461].NationalAvg(NumberVal) | [T6461].exams_description1(StringVal) | [T6461].School(StringVal) 
+0.9 | 0.78 | Medical Asst.Exam | School A 
+0.93 | 0.78 | Medical Asst.Exam | School B 
+0.88 | 0.9 | Health Exam | School A 
+0.79 | 0.9 | Health Exam | School B 
+0.65 | 0.79 | EKG Exam | School A 
+0.82 | 0.79 | EKG Exam | School B 
+0.76 | 0.81 | Phlebotomy | School A 
+0.76 | 0.81 | Phlebotomy | School B 
+
+[Query No.3]===============================
+SELECT
+  [T6460].SchoolAvg,[T6460].NationalAvg,[T6460].exams_description1,[T6460].School
+FROM
+  (SELECT
+      [T6445].NationalAvg,[T6445].exams_description,[T6445].SchoolAvg,[T6445].exams_description1,[T6445].School
+    FROM
+      (( input1 ) JOIN (
+          input2 )) AS [T6445][NationalAvg, exams_description, SchoolAvg, exams_description1, School]
+    WHERE
+      [T6445].exams_description == [T6445].exams_description1) AS [T6460][NationalAvg, exams_description, SchoolAvg, exams_description1, School]
+
+@anonymous
+[T6460].SchoolAvg(NumberVal) | [T6460].NationalAvg(NumberVal) | [T6460].exams_description1(StringVal) | [T6460].School(StringVal) 
+0.9 | 0.78 | Medical Asst.Exam | School A 
+0.93 | 0.78 | Medical Asst.Exam | School B 
+0.88 | 0.9 | Health Exam | School A 
+0.79 | 0.9 | Health Exam | School B 
+0.65 | 0.79 | EKG Exam | School A 
+0.82 | 0.79 | EKG Exam | School B 
+0.76 | 0.81 | Phlebotomy | School A 
+0.76 | 0.81 | Phlebotomy | School B 
+
+[Query No.2]===============================
+SELECT
+  [T6451].SchoolAvg,[T6451].NationalAvg,[T6451].exams_description,[T6451].School
+FROM
+  (SELECT
+      [T6445].NationalAvg,[T6445].exams_description,[T6445].SchoolAvg,[T6445].exams_description1,[T6445].School
+    FROM
+      (( input1 ) JOIN (
+          input2 )) AS [T6445][NationalAvg, exams_description, SchoolAvg, exams_description1, School]
+    WHERE
+      [T6445].exams_description == [T6445].exams_description1) AS [T6451][NationalAvg, exams_description, SchoolAvg, exams_description1, School]
+
+@anonymous
+[T6451].SchoolAvg(NumberVal) | [T6451].NationalAvg(NumberVal) | [T6451].exams_description(StringVal) | [T6451].School(StringVal) 
+0.9 | 0.78 | Medical Asst.Exam | School A 
+0.93 | 0.78 | Medical Asst.Exam | School B 
+0.88 | 0.9 | Health Exam | School A 
+0.79 | 0.9 | Health Exam | School B 
+0.65 | 0.79 | EKG Exam | School A 
+0.82 | 0.79 | EKG Exam | School B 
+0.76 | 0.81 | Phlebotomy | School A 
+0.76 | 0.81 | Phlebotomy | School B 
+
+[Query No.1]===============================
+SELECT
+  [T6450].SchoolAvg,[T6450].NationalAvg,[T6450].exams_description,[T6450].School
+FROM
+  (SELECT
+      [T6445].NationalAvg,[T6445].exams_description,[T6445].SchoolAvg,[T6445].exams_description1,[T6445].School
+    FROM
+      (( input1 ) JOIN (
+          input2 )) AS [T6445][NationalAvg, exams_description, SchoolAvg, exams_description1, School]
+    WHERE
+      [T6445].exams_description == [T6445].exams_description1) AS [T6450][NationalAvg, exams_description, SchoolAvg, exams_description1, School]
+
+@anonymous
+[T6450].SchoolAvg(NumberVal) | [T6450].NationalAvg(NumberVal) | [T6450].exams_description(StringVal) | [T6450].School(StringVal) 
+0.9 | 0.78 | Medical Asst.Exam | School A 
+0.93 | 0.78 | Medical Asst.Exam | School B 
+0.88 | 0.9 | Health Exam | School A 
+0.79 | 0.9 | Health Exam | School B 
+0.65 | 0.79 | EKG Exam | School A 
+0.82 | 0.79 | EKG Exam | School B 
+0.76 | 0.81 | Phlebotomy | School A 
+0.76 | 0.81 | Phlebotomy | School B 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 14.708s

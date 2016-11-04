@@ -1,0 +1,203 @@
+[[Synthesis start]]
+	File: ../data/recent_posts/031
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 106 [SymTable]: 108
+[NaturalJoin]: 1 [SymTable]: 108
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 4 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 18
+Candidate Tree Number: 30
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 13 [SymTable]: 15
+[JOIN] level 1 [SymTable]: 45
+Candidate Tree Number: 79
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 13 [SymTable]: 15
+[JOIN] level 1 [SymTable]: 45
+Candidate Tree Number: 66
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 13 [SymTable]: 15
+[JOIN] level 1 [SymTable]: 45
+Candidate Tree Number: 88
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 22 [SymTable]: 24
+[JOIN] level 1 [SymTable]: 72
+Candidate Tree Number: 115
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 31 [SymTable]: 33
+[JOIN] level 1 [SymTable]: 99
+Candidate Tree Number: 175
+[Enumeration Finished]
+[Query No.9]===============================
+SELECT
+  [T177].channelID,[T177].accountID1,[T177].role1
+FROM
+  (( (SELECT
+          [T175].accountID, [T175].role, FROM
+          (input1) AS [T175][channelID, accountID, role]
+        GROUP BY
+          [T175].accountID  [T175].role) AS [T176][accountID, role] ) JOIN (
+      input1 )) AS [T177][accountID, role, channelID, accountID1, role1]
+WHERE
+  [T177].accountID <> [T177].accountID1
+   AND [T177].role <= [T177].role1
+@anonymous
+[T177].channelID(NumberVal) | [T177].accountID1(StringVal) | [T177].role1(NumberVal) 
+1.0 | Dave | 101.0 
+
+[Query No.8]===============================
+SELECT
+  [T165].channelID,[T165].accountID1,[T165].role1
+FROM
+  (( (SELECT
+          [T163].accountID, [T163].role, FROM
+          (input1) AS [T163][channelID, accountID, role]
+        GROUP BY
+          [T163].accountID  [T163].role) AS [T164][accountID, role] ) JOIN (
+      input1 )) AS [T165][accountID, role, channelID, accountID1, role1]
+WHERE
+  [T165].role < [T165].role1
+   AND [T165].accountID <> [T165].accountID1
+@anonymous
+[T165].channelID(NumberVal) | [T165].accountID1(StringVal) | [T165].role1(NumberVal) 
+1.0 | Dave | 101.0 
+
+[Query No.7]===============================
+SELECT
+  [T199].channelID,[T199].accountID,[T199].role
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T199][channelID, accountID, role, channelID1, accountID1, role1]
+WHERE
+  [T199].role > [T199].role1
+   AND [T199].channelID == [T199].channelID1
+@anonymous
+[T199].channelID(NumberVal) | [T199].accountID(StringVal) | [T199].role(NumberVal) 
+1.0 | Dave | 101.0 
+
+[Query No.6]===============================
+SELECT
+  [T179].channelID,[T179].accountID1,[T179].role1
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T179][channelID, accountID, role, channelID1, accountID1, role1]
+WHERE
+  [T179].role < [T179].role1
+   AND [T179].channelID == [T179].channelID1
+@anonymous
+[T179].channelID(NumberVal) | [T179].accountID1(StringVal) | [T179].role1(NumberVal) 
+1.0 | Dave | 101.0 
+
+[Query No.5]===============================
+SELECT
+  [T153].channelID,[T153].accountID1,[T153].role1
+FROM
+  (( (SELECT
+          [T151].accountID, [T151].role, FROM
+          (input1) AS [T151][channelID, accountID, role]
+        GROUP BY
+          [T151].accountID  [T151].role) AS [T152][accountID, role] ) JOIN (
+      input1 )) AS [T153][accountID, role, channelID, accountID1, role1]
+WHERE
+  [T153].role < [T153].role1
+@anonymous
+[T153].channelID(NumberVal) | [T153].accountID1(StringVal) | [T153].role1(NumberVal) 
+1.0 | Dave | 101.0 
+
+[Query No.4]===============================
+SELECT
+  [T123].channelID,[T123].accountID,[T123].role1
+FROM
+  (( (SELECT
+          [T121].role, FROM
+          (input1) AS [T121][channelID, accountID, role]
+        GROUP BY
+          [T121].role) AS [T122][role] ) JOIN (
+      input1 )) AS [T123][role, channelID, accountID, role1]
+WHERE
+  [T123].role < [T123].role1
+@anonymous
+[T123].channelID(NumberVal) | [T123].accountID(StringVal) | [T123].role1(NumberVal) 
+1.0 | Dave | 101.0 
+
+[Query No.3]===============================
+SELECT
+  [T1906].channelID,[T1906].accountID,[T1906].MAX-role
+FROM
+  (( (SELECT
+          MAX([T1904].role)
+        FROM
+          (input1) AS [T1904][channelID, accountID, role]) AS [T1905][MAX-role] ) JOIN (
+      input1 )) AS [T1906][MAX-role, channelID, accountID, role]
+WHERE
+  [T1906].MAX-role == [T1906].role
+@anonymous
+[T1906].channelID(NumberVal) | [T1906].accountID(StringVal) | [T1906].MAX-role(NumberVal) 
+1.0 | Dave | 101.0 
+
+[Query No.2]===============================
+SELECT
+  [T1188].AVG-channelID,[T1188].accountID,[T1188].role
+FROM
+  (( (SELECT
+          [T1186].accountID, [T1186].role, AVG([T1186].channelID)
+        FROM
+          (input1) AS [T1186][channelID, accountID, role]
+        GROUP BY
+          [T1186].accountID  [T1186].role) AS [T1187][accountID, role, AVG-channelID] ) JOIN (
+      input2 )) AS [T1188][accountID, role, AVG-channelID, channelID, channelName, type]
+WHERE
+  [T1188].AVG-channelID == [T1188].channelID
+@anonymous
+[T1188].AVG-channelID(NumberVal) | [T1188].accountID(StringVal) | [T1188].role(NumberVal) 
+1.0 | Dave | 101.0 
+
+[Query No.1]===============================
+SELECT
+  [T514].channelID,[T514].accountID,[T514].MAX-role
+FROM
+  (( (SELECT
+          MAX([T512].role)
+        FROM
+          (input1) AS [T512][channelID, accountID, role]) AS [T513][MAX-role] ) JOIN (
+      input1 )) AS [T514][MAX-role, channelID, accountID, role]
+WHERE
+  [T514].MAX-role == [T514].role
+@anonymous
+[T514].channelID(NumberVal) | [T514].accountID(StringVal) | [T514].MAX-role(NumberVal) 
+1.0 | Dave | 101.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 1.809s

@@ -1,0 +1,261 @@
+[[Synthesis start]]
+	File: ../data/dev_set/019
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 285 [SymTable]: 286
+Candidate Tree Number: 25
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 19 [SymTable]: 20
+[JOIN] level 1 [SymTable]: 40
+[EnumJoinOnAggr] level 1 [SymTable]: 440
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 38 [SymTable]: 39
+[JOIN] level 1 [SymTable]: 78
+[EnumJoinOnAggr] level 1 [SymTable]: 1599
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 38 [SymTable]: 39
+[JOIN] level 1 [SymTable]: 78
+[EnumJoinOnAggr] level 1 [SymTable]: 1599
+Candidate Tree Number: 2
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 38 [SymTable]: 39
+[JOIN] level 1 [SymTable]: 78
+[EnumJoinOnAggr] level 1 [SymTable]: 1599
+Candidate Tree Number: 330
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 57 [SymTable]: 58
+[JOIN] level 1 [SymTable]: 116
+[EnumJoinOnAggr] level 1 [SymTable]: 3480
+Candidate Tree Number: 2
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 90 [SymTable]: 91
+[JOIN] level 1 [SymTable]: 182
+Candidate Tree Number: 10
+[Enumeration Finished]
+[Query No.9]===============================
+SELECT
+  [T3646].AVG-Team
+FROM
+  (( (SELECT
+          [T3626].Player, AVG([T3626].Team)
+        FROM
+          (input1) AS [T3626][Team, Player]
+        GROUP BY
+          [T3626].Player) AS [T3627][Player, AVG-Team] ) JOIN (
+      (SELECT
+          [T3642].Team, [T3642].Player, FROM
+          (SELECT
+              input1.Team,input1.Player
+            FROM
+              input1
+            WHERE
+              input1.Team > 2.0) AS [T3642][Team, Player]
+        GROUP BY
+          [T3642].Team  [T3642].Player) AS [T3643][Team, Player] )) AS [T3646][Player, AVG-Team, Team, Player1]
+WHERE
+  [T3646].Player == [T3646].Player1
+@anonymous
+[T3646].AVG-Team(NumberVal) 
+2.0 
+4.0 
+
+[Query No.8]===============================
+SELECT
+  [T3338].AVG-Team
+FROM
+  (( (SELECT
+          [T3318].Player, AVG([T3318].Team)
+        FROM
+          (input1) AS [T3318][Team, Player]
+        GROUP BY
+          [T3318].Player) AS [T3319][Player, AVG-Team] ) JOIN (
+      (SELECT
+          [T3334].Team, [T3334].Player, AVG([T3334].Team)
+        FROM
+          (SELECT
+              input1.Team,input1.Player
+            FROM
+              input1
+            WHERE
+              input1.Team > 2.0) AS [T3334][Team, Player]
+        GROUP BY
+          [T3334].Team  [T3334].Player) AS [T3335][Team, Player, AVG-Team] )) AS [T3338][Player, AVG-Team, Team, Player1, AVG-Team1]
+WHERE
+  [T3338].Player == [T3338].Player1
+@anonymous
+[T3338].AVG-Team(NumberVal) 
+2.0 
+4.0 
+
+[Query No.7]===============================
+SELECT
+  [T3184].AVG-Team
+FROM
+  (( (SELECT
+          [T3164].Player, AVG([T3164].Team)
+        FROM
+          (input1) AS [T3164][Team, Player]
+        GROUP BY
+          [T3164].Player) AS [T3165][Player, AVG-Team] ) JOIN (
+      (SELECT
+          [T3180].Player, FROM
+          (SELECT
+              input1.Team,input1.Player
+            FROM
+              input1
+            WHERE
+              input1.Team > 2.0) AS [T3180][Team, Player]
+        GROUP BY
+          [T3180].Player) AS [T3181][Player] )) AS [T3184][Player, AVG-Team, Player1]
+WHERE
+  [T3184].Player == [T3184].Player1
+@anonymous
+[T3184].AVG-Team(NumberVal) 
+2.0 
+4.0 
+
+[Query No.6]===============================
+SELECT
+  [T426].Team
+FROM
+  (SELECT
+      [T425].Team, [T425].Player, SUM([T425].Team)
+    FROM
+      (input1) AS [T425][Team, Player]
+    GROUP BY
+      [T425].Team  [T425].Player) AS [T426][Team, Player, SUM-Team]
+WHERE
+  [T426].SUM-Team > [T426].Team
+@anonymous
+[T426].Team(NumberVal) 
+2.0 
+4.0 
+
+[Query No.5]===============================
+SELECT
+  [T406].Team
+FROM
+  (SELECT
+      [T405].Team, [T405].Player, CONCAT([T405].Player)
+    FROM
+      (input1) AS [T405][Team, Player]
+    GROUP BY
+      [T405].Team  [T405].Player) AS [T406][Team, Player, CONCAT-Player]
+WHERE
+  [T406].CONCAT-Player <> [T406].Player
+@anonymous
+[T406].Team(NumberVal) 
+2.0 
+4.0 
+
+[Query No.4]===============================
+SELECT
+  [T384].COUNT-Player
+FROM
+  (SELECT
+      [T383].Team, COUNT([T383].Player)
+    FROM
+      (SELECT
+          input1.Team,input1.Player
+        FROM
+          input1
+        WHERE
+          input1.Team <= 2.0) AS [T383][Team, Player]
+    GROUP BY
+      [T383].Team) AS [T384][Team, COUNT-Player]
+
+@anonymous
+[T384].COUNT-Player(NumberVal) 
+2.0 
+4.0 
+
+[Query No.3]===============================
+SELECT
+  [T364].COUNT-Team
+FROM
+  (SELECT
+      [T363].Team, COUNT([T363].Team)
+    FROM
+      (SELECT
+          input1.Team,input1.Player
+        FROM
+          input1
+        WHERE
+          input1.Team <= 2.0) AS [T363][Team, Player]
+    GROUP BY
+      [T363].Team) AS [T364][Team, COUNT-Team]
+
+@anonymous
+[T364].COUNT-Team(NumberVal) 
+2.0 
+4.0 
+
+[Query No.2]===============================
+SELECT
+  [T316].Team
+FROM
+  (SELECT
+      [T315].Team, [T315].Player, COUNT([T315].Player)
+    FROM
+      (input1) AS [T315][Team, Player]
+    GROUP BY
+      [T315].Team  [T315].Player) AS [T316][Team, Player, COUNT-Player]
+WHERE
+  [T316].COUNT-Player >= 2.0
+@anonymous
+[T316].Team(NumberVal) 
+2.0 
+4.0 
+
+[Query No.1]===============================
+SELECT
+  [T296].Team
+FROM
+  (SELECT
+      [T295].Team, [T295].Player, COUNT([T295].Team)
+    FROM
+      (input1) AS [T295][Team, Player]
+    GROUP BY
+      [T295].Team  [T295].Player) AS [T296][Team, Player, COUNT-Team]
+WHERE
+  [T296].COUNT-Team >= 2.0
+@anonymous
+[T296].Team(NumberVal) 
+2.0 
+4.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 7.526s

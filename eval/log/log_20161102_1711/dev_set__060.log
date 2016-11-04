@@ -1,0 +1,424 @@
+[[Synthesis start]]
+	File: ../data/dev_set/060
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 13
+Candidate Tree Number: 51
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T293].GroupNumber,[T293].FirstName
+FROM
+  (( (SELECT
+          [T291].GroupNumber, FROM
+          (input1) AS [T291][ID, GroupNumber, FirstName]
+        GROUP BY
+          [T291].GroupNumber) AS [T292][GroupNumber] ) JOIN (
+      input1 )) AS [T293][GroupNumber, ID, GroupNumber1, FirstName]
+WHERE
+  [T293].GroupNumber == [T293].GroupNumber1
+   AND [T293].GroupNumber < [T293].ID
+@anonymous
+[T293].GroupNumber(NumberVal) | [T293].FirstName(StringVal) 
+1.0 | Bob 
+1.0 | Peter 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[No.19]===============================
+SELECT
+  [T281].GroupNumber,[T281].FirstName
+FROM
+  (( (SELECT
+          [T279].GroupNumber, FROM
+          (input1) AS [T279][ID, GroupNumber, FirstName]
+        GROUP BY
+          [T279].GroupNumber) AS [T280][GroupNumber] ) JOIN (
+      SELECT
+        input1.ID,input1.GroupNumber,input1.FirstName
+      FROM
+        input1
+      WHERE
+        input1.ID > input1.GroupNumber )) AS [T281][GroupNumber, ID, GroupNumber1, FirstName]
+WHERE
+  [T281].GroupNumber == [T281].GroupNumber1
+@anonymous
+[T281].GroupNumber(NumberVal) | [T281].FirstName(StringVal) 
+1.0 | Bob 
+1.0 | Peter 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[No.18]===============================
+SELECT
+  [T251].GroupNumber,[T251].FirstName
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.ID,input1.GroupNumber,input1.FirstName
+      FROM
+        input1
+      WHERE
+        input1.ID == input1.GroupNumber )) AS [T251][ID, GroupNumber, FirstName, ID1, GroupNumber1, FirstName1]
+WHERE
+  [T251].ID > [T251].ID1
+@anonymous
+[T251].GroupNumber(NumberVal) | [T251].FirstName(StringVal) 
+1.0 | Bob 
+1.0 | Peter 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[No.17]===============================
+SELECT
+  [T249].GroupNumber,[T249].FirstName
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.ID,input1.GroupNumber,input1.FirstName
+      FROM
+        input1
+      WHERE
+        input1.ID == input1.GroupNumber )) AS [T249][ID, GroupNumber, FirstName, ID1, GroupNumber1, FirstName1]
+WHERE
+  [T249].ID <> [T249].ID1
+@anonymous
+[T249].GroupNumber(NumberVal) | [T249].FirstName(StringVal) 
+1.0 | Bob 
+1.0 | Peter 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[No.16]===============================
+SELECT
+  [T241].GroupNumber,[T241].FirstName
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T241][ID, GroupNumber, FirstName, ID1, GroupNumber1, FirstName1]
+WHERE
+  [T241].ID <> [T241].ID1
+   AND [T241].GroupNumber == [T241].ID1
+@anonymous
+[T241].GroupNumber(NumberVal) | [T241].FirstName(StringVal) 
+1.0 | Bob 
+1.0 | Peter 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[No.15]===============================
+SELECT
+  [T239].GroupNumber,[T239].FirstName
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T239][ID, GroupNumber, FirstName, ID1, GroupNumber1, FirstName1]
+WHERE
+  [T239].ID > [T239].ID1
+   AND [T239].GroupNumber == [T239].ID1
+@anonymous
+[T239].GroupNumber(NumberVal) | [T239].FirstName(StringVal) 
+1.0 | Bob 
+1.0 | Peter 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[No.14]===============================
+SELECT
+  [T231].GroupNumber1,[T231].FirstName1
+FROM
+  (( SELECT
+        input1.ID,input1.GroupNumber,input1.FirstName
+      FROM
+        input1
+      WHERE
+        input1.ID == input1.GroupNumber ) JOIN (
+      input1 )) AS [T231][ID, GroupNumber, FirstName, ID1, GroupNumber1, FirstName1]
+WHERE
+  [T231].ID <> [T231].ID1
+@anonymous
+[T231].GroupNumber1(NumberVal) | [T231].FirstName1(StringVal) 
+1.0 | Bob 
+1.0 | Peter 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[No.13]===============================
+SELECT
+  [T229].GroupNumber1,[T229].FirstName1
+FROM
+  (( SELECT
+        input1.ID,input1.GroupNumber,input1.FirstName
+      FROM
+        input1
+      WHERE
+        input1.ID == input1.GroupNumber ) JOIN (
+      input1 )) AS [T229][ID, GroupNumber, FirstName, ID1, GroupNumber1, FirstName1]
+WHERE
+  [T229].ID < [T229].ID1
+@anonymous
+[T229].GroupNumber1(NumberVal) | [T229].FirstName1(StringVal) 
+1.0 | Bob 
+1.0 | Peter 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[No.12]===============================
+SELECT
+  [T227].GroupNumber,[T227].FirstName
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T227][ID, GroupNumber, FirstName, ID1, GroupNumber1, FirstName1]
+WHERE
+  [T227].ID > [T227].GroupNumber1
+   AND [T227].ID == [T227].ID1
+@anonymous
+[T227].GroupNumber(NumberVal) | [T227].FirstName(StringVal) 
+1.0 | Bob 
+1.0 | Peter 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[No.11]===============================
+SELECT
+  [T225].GroupNumber,[T225].FirstName
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T225][ID, GroupNumber, FirstName, ID1, GroupNumber1, FirstName1]
+WHERE
+  [T225].GroupNumber <> [T225].ID1
+   AND [T225].ID == [T225].ID1
+@anonymous
+[T225].GroupNumber(NumberVal) | [T225].FirstName(StringVal) 
+1.0 | Bob 
+1.0 | Peter 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[No.10]===============================
+SELECT
+  [T223].GroupNumber,[T223].FirstName
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T223][ID, GroupNumber, FirstName, ID1, GroupNumber1, FirstName1]
+WHERE
+  [T223].ID == [T223].ID1
+   AND [T223].GroupNumber < [T223].ID1
+@anonymous
+[T223].GroupNumber(NumberVal) | [T223].FirstName(StringVal) 
+1.0 | Bob 
+1.0 | Peter 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[No.9]===============================
+SELECT
+  [T221].GroupNumber,[T221].FirstName
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.ID,input1.GroupNumber,input1.FirstName
+      FROM
+        input1
+      WHERE
+        input1.ID > input1.GroupNumber )) AS [T221][ID, GroupNumber, FirstName, ID1, GroupNumber1, FirstName1]
+WHERE
+  [T221].ID == [T221].ID1
+@anonymous
+[T221].GroupNumber(NumberVal) | [T221].FirstName(StringVal) 
+1.0 | Bob 
+1.0 | Peter 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[No.8]===============================
+SELECT
+  [T219].GroupNumber,[T219].FirstName
+FROM
+  (( SELECT
+        input1.ID,input1.GroupNumber,input1.FirstName
+      FROM
+        input1
+      WHERE
+        input1.ID > input1.GroupNumber ) JOIN (
+      input1 )) AS [T219][ID, GroupNumber, FirstName, ID1, GroupNumber1, FirstName1]
+WHERE
+  [T219].ID == [T219].ID1
+@anonymous
+[T219].GroupNumber(NumberVal) | [T219].FirstName(StringVal) 
+1.0 | Bob 
+1.0 | Peter 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[No.7]===============================
+SELECT
+  [T211].ID,[T211].FirstName1
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T211][ID, GroupNumber, FirstName, ID1, GroupNumber1, FirstName1]
+WHERE
+  [T211].ID == [T211].GroupNumber1
+   AND [T211].ID < [T211].ID1
+@anonymous
+[T211].ID(NumberVal) | [T211].FirstName1(StringVal) 
+1.0 | Bob 
+1.0 | Peter 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[No.6]===============================
+SELECT
+  [T209].ID,[T209].FirstName1
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T209][ID, GroupNumber, FirstName, ID1, GroupNumber1, FirstName1]
+WHERE
+  [T209].ID == [T209].GroupNumber1
+   AND [T209].ID <> [T209].ID1
+@anonymous
+[T209].ID(NumberVal) | [T209].FirstName1(StringVal) 
+1.0 | Bob 
+1.0 | Peter 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[No.5]===============================
+SELECT
+  [T141].GroupNumber,[T141].FirstName
+FROM
+  (( (SELECT
+          [T139].GroupNumber, [T139].FirstName, FROM
+          (input1) AS [T139][ID, GroupNumber, FirstName]
+        GROUP BY
+          [T139].GroupNumber  [T139].FirstName) AS [T140][GroupNumber, FirstName] ) JOIN (
+      SELECT
+        input1.ID,input1.GroupNumber,input1.FirstName
+      FROM
+        input1
+      WHERE
+        input1.ID == input1.GroupNumber )) AS [T141][GroupNumber, FirstName, ID, GroupNumber1, FirstName1]
+WHERE
+  [T141].GroupNumber >= [T141].GroupNumber1
+@anonymous
+[T141].GroupNumber(NumberVal) | [T141].FirstName(StringVal) 
+1.0 | Peter 
+1.0 | Bob 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[No.4]===============================
+SELECT
+  [T33].GroupNumber,[T33].FirstName
+FROM
+  (( (SELECT
+          [T31].FirstName, FROM
+          (input1) AS [T31][ID, GroupNumber, FirstName]
+        GROUP BY
+          [T31].FirstName) AS [T32][FirstName] ) JOIN (
+      SELECT
+        input1.ID,input1.GroupNumber,input1.FirstName
+      FROM
+        input1
+      WHERE
+        input1.ID > input1.GroupNumber )) AS [T33][FirstName, ID, GroupNumber, FirstName1]
+WHERE
+  [T33].FirstName == [T33].FirstName1
+@anonymous
+[T33].GroupNumber(NumberVal) | [T33].FirstName(StringVal) 
+1.0 | Peter 
+3.0 | Peter 
+1.0 | Bob 
+2.0 | Rosemary 
+2.0 | Jamie 
+
+[No.3]===============================
+SELECT
+  [T117].GroupNumber,[T117].FirstName
+FROM
+  (( (SELECT
+          [T115].GroupNumber, [T115].FirstName, FROM
+          (input1) AS [T115][ID, GroupNumber, FirstName]
+        GROUP BY
+          [T115].GroupNumber  [T115].FirstName) AS [T116][GroupNumber, FirstName] ) JOIN (
+      SELECT
+        input1.ID,input1.GroupNumber,input1.FirstName
+      FROM
+        input1
+      WHERE
+        IS NULL input1.FirstName
+         OR input1.ID == input1.GroupNumber )) AS [T117][GroupNumber, FirstName, ID, GroupNumber1, FirstName1]
+
+@anonymous
+[T117].GroupNumber(NumberVal) | [T117].FirstName(StringVal) 
+1.0 | Peter 
+1.0 | Bob 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[No.2]===============================
+SELECT
+  [T105].GroupNumber,[T105].FirstName
+FROM
+  (( (SELECT
+          [T103].GroupNumber, [T103].FirstName, FROM
+          (input1) AS [T103][ID, GroupNumber, FirstName]
+        GROUP BY
+          [T103].GroupNumber  [T103].FirstName) AS [T104][GroupNumber, FirstName] ) JOIN (
+      SELECT
+        input1.ID,input1.GroupNumber,input1.FirstName
+      FROM
+        input1
+      WHERE
+        input1.ID == input1.GroupNumber )) AS [T105][GroupNumber, FirstName, ID, GroupNumber1, FirstName1]
+
+@anonymous
+[T105].GroupNumber(NumberVal) | [T105].FirstName(StringVal) 
+1.0 | Peter 
+1.0 | Bob 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[No.1]===============================
+SELECT
+  [T45].GroupNumber,[T45].FirstName
+FROM
+  (( (SELECT
+          [T43].GroupNumber, [T43].FirstName, FROM
+          (input1) AS [T43][ID, GroupNumber, FirstName]
+        GROUP BY
+          [T43].GroupNumber  [T43].FirstName) AS [T44][GroupNumber, FirstName] ) JOIN (
+      input1 )) AS [T45][GroupNumber, FirstName, ID, GroupNumber1, FirstName1]
+WHERE
+  [T45].GroupNumber == [T45].ID
+@anonymous
+[T45].GroupNumber(NumberVal) | [T45].FirstName(StringVal) 
+1.0 | Peter 
+1.0 | Bob 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 2.152s

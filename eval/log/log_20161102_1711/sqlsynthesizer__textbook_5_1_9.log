@@ -1,0 +1,615 @@
+[[Synthesis start]]
+	File: ../data/sqlsynthesizer/textbook_5_1_9
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 41 [SymTable]: 42
+[JOIN] level 1 [SymTable]: 85
+[EnumJoinOnAggr] level 1 [SymTable]: 1849
+Candidate Tree Number: 72
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T1395].ID_key,[T1395].COUNT-room
+FROM
+  (( (SELECT
+          [T1389].ID_key, COUNT([T1389].room)
+        FROM
+          (input1) AS [T1389][ID_class, ID_key, room]
+        GROUP BY
+          [T1389].ID_key) AS [T1390][ID_key, COUNT-room] ) JOIN (
+      (SELECT
+          [T1393].ID_key, COUNT([T1393].ID_class)
+        FROM
+          (SELECT
+              input1.ID_class,input1.ID_key,input1.room
+            FROM
+              input1
+            WHERE
+              input1.room == R128) AS [T1393][ID_class, ID_key, room]
+        GROUP BY
+          [T1393].ID_key) AS [T1394][ID_key, COUNT-ID_class] )) AS [T1395][ID_key, COUNT-room, ID_key1, COUNT-ID_class]
+WHERE
+  [T1395].COUNT-room == [T1395].COUNT-ID_class
+   AND [T1395].ID_key == [T1395].ID_key1
+@anonymous
+[T1395].ID_key(StringVal) | [T1395].COUNT-room(NumberVal) 
+F4 | 2.0 
+F5 | 3.0 
+F9 | 1.0 
+
+[No.19]===============================
+SELECT
+  [T1331].ID_key,[T1331].COUNT-room
+FROM
+  (( (SELECT
+          [T1325].ID_key, COUNT([T1325].room)
+        FROM
+          (input1) AS [T1325][ID_class, ID_key, room]
+        GROUP BY
+          [T1325].ID_key) AS [T1326][ID_key, COUNT-room] ) JOIN (
+      (SELECT
+          [T1329].ID_key, [T1329].room, COUNT([T1329].ID_class)
+        FROM
+          (SELECT
+              input1.ID_class,input1.ID_key,input1.room
+            FROM
+              input1
+            WHERE
+              input1.room == R128) AS [T1329][ID_class, ID_key, room]
+        GROUP BY
+          [T1329].ID_key  [T1329].room) AS [T1330][ID_key, room, COUNT-ID_class] )) AS [T1331][ID_key, COUNT-room, ID_key1, room, COUNT-ID_class]
+WHERE
+  [T1331].COUNT-room == [T1331].COUNT-ID_class
+   AND [T1331].ID_key == [T1331].ID_key1
+@anonymous
+[T1331].ID_key(StringVal) | [T1331].COUNT-room(NumberVal) 
+F4 | 2.0 
+F5 | 3.0 
+F9 | 1.0 
+
+[No.18]===============================
+SELECT
+  [T1267].ID_key,[T1267].COUNT-ID_class
+FROM
+  (( (SELECT
+          [T1261].ID_key, COUNT([T1261].ID_class)
+        FROM
+          (input1) AS [T1261][ID_class, ID_key, room]
+        GROUP BY
+          [T1261].ID_key) AS [T1262][ID_key, COUNT-ID_class] ) JOIN (
+      (SELECT
+          [T1265].ID_key, COUNT([T1265].room)
+        FROM
+          (SELECT
+              input1.ID_class,input1.ID_key,input1.room
+            FROM
+              input1
+            WHERE
+              input1.room == R128) AS [T1265][ID_class, ID_key, room]
+        GROUP BY
+          [T1265].ID_key) AS [T1266][ID_key, COUNT-room] )) AS [T1267][ID_key, COUNT-ID_class, ID_key1, COUNT-room]
+WHERE
+  [T1267].COUNT-ID_class == [T1267].COUNT-room
+   AND [T1267].ID_key == [T1267].ID_key1
+@anonymous
+[T1267].ID_key(StringVal) | [T1267].COUNT-ID_class(NumberVal) 
+F4 | 2.0 
+F5 | 3.0 
+F9 | 1.0 
+
+[No.17]===============================
+SELECT
+  [T1123].ID_key,[T1123].COUNT-ID_key
+FROM
+  (( (SELECT
+          [T1111].ID_key, COUNT([T1111].ID_key)
+        FROM
+          (SELECT
+              input1.ID_class,input1.ID_key,input1.room
+            FROM
+              input1
+            WHERE
+              input1.room == R128) AS [T1111][ID_class, ID_key, room]
+        GROUP BY
+          [T1111].ID_key) AS [T1112][ID_key, COUNT-ID_key] ) JOIN (
+      (SELECT
+          [T1121].ID_key, COUNT([T1121].ID_class)
+        FROM
+          (input1) AS [T1121][ID_class, ID_key, room]
+        GROUP BY
+          [T1121].ID_key) AS [T1122][ID_key, COUNT-ID_class] )) AS [T1123][ID_key, COUNT-ID_key, ID_key1, COUNT-ID_class]
+WHERE
+  [T1123].COUNT-ID_key == [T1123].COUNT-ID_class
+   AND [T1123].ID_key == [T1123].ID_key1
+@anonymous
+[T1123].ID_key(StringVal) | [T1123].COUNT-ID_key(NumberVal) 
+F4 | 2.0 
+F5 | 3.0 
+F9 | 1.0 
+
+[No.16]===============================
+SELECT
+  [T1059].ID_key,[T1059].COUNT-room
+FROM
+  (( (SELECT
+          [T1047].ID_key, [T1047].room, COUNT([T1047].room)
+        FROM
+          (SELECT
+              input1.ID_class,input1.ID_key,input1.room
+            FROM
+              input1
+            WHERE
+              input1.room == R128) AS [T1047][ID_class, ID_key, room]
+        GROUP BY
+          [T1047].ID_key  [T1047].room) AS [T1048][ID_key, room, COUNT-room] ) JOIN (
+      (SELECT
+          [T1057].ID_key, COUNT([T1057].ID_class)
+        FROM
+          (input1) AS [T1057][ID_class, ID_key, room]
+        GROUP BY
+          [T1057].ID_key) AS [T1058][ID_key, COUNT-ID_class] )) AS [T1059][ID_key, room, COUNT-room, ID_key1, COUNT-ID_class]
+WHERE
+  [T1059].COUNT-room == [T1059].COUNT-ID_class
+   AND [T1059].ID_key == [T1059].ID_key1
+@anonymous
+[T1059].ID_key(StringVal) | [T1059].COUNT-room(NumberVal) 
+F4 | 2.0 
+F5 | 3.0 
+F9 | 1.0 
+
+[No.15]===============================
+SELECT
+  [T1043].ID_key,[T1043].COUNT-ID_key
+FROM
+  (( (SELECT
+          [T1037].ID_key, COUNT([T1037].ID_key)
+        FROM
+          (input1) AS [T1037][ID_class, ID_key, room]
+        GROUP BY
+          [T1037].ID_key) AS [T1038][ID_key, COUNT-ID_key] ) JOIN (
+      (SELECT
+          [T1041].ID_key, COUNT([T1041].room)
+        FROM
+          (SELECT
+              input1.ID_class,input1.ID_key,input1.room
+            FROM
+              input1
+            WHERE
+              input1.room == R128) AS [T1041][ID_class, ID_key, room]
+        GROUP BY
+          [T1041].ID_key) AS [T1042][ID_key, COUNT-room] )) AS [T1043][ID_key, COUNT-ID_key, ID_key1, COUNT-room]
+WHERE
+  [T1043].COUNT-ID_key == [T1043].COUNT-room
+   AND [T1043].ID_key == [T1043].ID_key1
+@anonymous
+[T1043].ID_key(StringVal) | [T1043].COUNT-ID_key(NumberVal) 
+F4 | 2.0 
+F5 | 3.0 
+F9 | 1.0 
+
+[No.14]===============================
+SELECT
+  [T1011].ID_key,[T1011].COUNT-ID_class
+FROM
+  (( (SELECT
+          [T1005].ID_key, COUNT([T1005].ID_class)
+        FROM
+          (input1) AS [T1005][ID_class, ID_key, room]
+        GROUP BY
+          [T1005].ID_key) AS [T1006][ID_key, COUNT-ID_class] ) JOIN (
+      (SELECT
+          [T1009].ID_key, [T1009].room, COUNT([T1009].ID_key)
+        FROM
+          (SELECT
+              input1.ID_class,input1.ID_key,input1.room
+            FROM
+              input1
+            WHERE
+              input1.room == R128) AS [T1009][ID_class, ID_key, room]
+        GROUP BY
+          [T1009].ID_key  [T1009].room) AS [T1010][ID_key, room, COUNT-ID_key] )) AS [T1011][ID_key, COUNT-ID_class, ID_key1, room, COUNT-ID_key]
+WHERE
+  [T1011].COUNT-ID_class == [T1011].COUNT-ID_key
+   AND [T1011].ID_key == [T1011].ID_key1
+@anonymous
+[T1011].ID_key(StringVal) | [T1011].COUNT-ID_class(NumberVal) 
+F4 | 2.0 
+F5 | 3.0 
+F9 | 1.0 
+
+[No.13]===============================
+SELECT
+  [T931].ID_key,[T931].COUNT-ID_class
+FROM
+  (( (SELECT
+          [T919].ID_key, COUNT([T919].ID_class)
+        FROM
+          (SELECT
+              input1.ID_class,input1.ID_key,input1.room
+            FROM
+              input1
+            WHERE
+              input1.room == R128) AS [T919][ID_class, ID_key, room]
+        GROUP BY
+          [T919].ID_key) AS [T920][ID_key, COUNT-ID_class] ) JOIN (
+      (SELECT
+          [T929].ID_key, COUNT([T929].room)
+        FROM
+          (input1) AS [T929][ID_class, ID_key, room]
+        GROUP BY
+          [T929].ID_key) AS [T930][ID_key, COUNT-room] )) AS [T931][ID_key, COUNT-ID_class, ID_key1, COUNT-room]
+WHERE
+  [T931].COUNT-ID_class == [T931].COUNT-room
+   AND [T931].ID_key == [T931].ID_key1
+@anonymous
+[T931].ID_key(StringVal) | [T931].COUNT-ID_class(NumberVal) 
+F4 | 2.0 
+F5 | 3.0 
+F9 | 1.0 
+
+[No.12]===============================
+SELECT
+  [T1955].ID_key,[T1955].COUNT-ID_key
+FROM
+  (( (SELECT
+          [T1943].ID_key, [T1943].room, COUNT([T1943].ID_key)
+        FROM
+          (SELECT
+              input1.ID_class,input1.ID_key,input1.room
+            FROM
+              input1
+            WHERE
+              input1.room == R128) AS [T1943][ID_class, ID_key, room]
+        GROUP BY
+          [T1943].ID_key  [T1943].room) AS [T1944][ID_key, room, COUNT-ID_key] ) JOIN (
+      (SELECT
+          [T1953].ID_key, COUNT([T1953].ID_key)
+        FROM
+          (input1) AS [T1953][ID_class, ID_key, room]
+        GROUP BY
+          [T1953].ID_key) AS [T1954][ID_key, COUNT-ID_key] )) AS [T1955][ID_key, room, COUNT-ID_key, ID_key1, COUNT-ID_key1]
+WHERE
+  [T1955].COUNT-ID_key == [T1955].COUNT-ID_key1
+   AND [T1955].ID_key == [T1955].ID_key1
+@anonymous
+[T1955].ID_key(StringVal) | [T1955].COUNT-ID_key(NumberVal) 
+F4 | 2.0 
+F5 | 3.0 
+F9 | 1.0 
+
+[No.11]===============================
+SELECT
+  [T1907].ID_key,[T1907].COUNT-room
+FROM
+  (( (SELECT
+          [T1901].ID_key, COUNT([T1901].room)
+        FROM
+          (input1) AS [T1901][ID_class, ID_key, room]
+        GROUP BY
+          [T1901].ID_key) AS [T1902][ID_key, COUNT-room] ) JOIN (
+      (SELECT
+          [T1905].ID_key, [T1905].room, COUNT([T1905].room)
+        FROM
+          (SELECT
+              input1.ID_class,input1.ID_key,input1.room
+            FROM
+              input1
+            WHERE
+              input1.room == R128) AS [T1905][ID_class, ID_key, room]
+        GROUP BY
+          [T1905].ID_key  [T1905].room) AS [T1906][ID_key, room, COUNT-room] )) AS [T1907][ID_key, COUNT-room, ID_key1, room, COUNT-room1]
+WHERE
+  [T1907].COUNT-room == [T1907].COUNT-room1
+   AND [T1907].ID_key == [T1907].ID_key1
+@anonymous
+[T1907].ID_key(StringVal) | [T1907].COUNT-room(NumberVal) 
+F4 | 2.0 
+F5 | 3.0 
+F9 | 1.0 
+
+[No.10]===============================
+SELECT
+  [T1731].ID_key,[T1731].COUNT-ID_class
+FROM
+  (( (SELECT
+          [T1719].ID_key, [T1719].room, COUNT([T1719].ID_class)
+        FROM
+          (SELECT
+              input1.ID_class,input1.ID_key,input1.room
+            FROM
+              input1
+            WHERE
+              input1.room == R128) AS [T1719][ID_class, ID_key, room]
+        GROUP BY
+          [T1719].ID_key  [T1719].room) AS [T1720][ID_key, room, COUNT-ID_class] ) JOIN (
+      (SELECT
+          [T1729].ID_key, COUNT([T1729].ID_class)
+        FROM
+          (input1) AS [T1729][ID_class, ID_key, room]
+        GROUP BY
+          [T1729].ID_key) AS [T1730][ID_key, COUNT-ID_class] )) AS [T1731][ID_key, room, COUNT-ID_class, ID_key1, COUNT-ID_class1]
+WHERE
+  [T1731].COUNT-ID_class == [T1731].COUNT-ID_class1
+   AND [T1731].ID_key == [T1731].ID_key1
+@anonymous
+[T1731].ID_key(StringVal) | [T1731].COUNT-ID_class(NumberVal) 
+F4 | 2.0 
+F5 | 3.0 
+F9 | 1.0 
+
+[No.9]===============================
+SELECT
+  [T1699].ID_key,[T1699].COUNT-ID_key
+FROM
+  (( (SELECT
+          [T1687].ID_key, COUNT([T1687].ID_key)
+        FROM
+          (SELECT
+              input1.ID_class,input1.ID_key,input1.room
+            FROM
+              input1
+            WHERE
+              input1.room == R128) AS [T1687][ID_class, ID_key, room]
+        GROUP BY
+          [T1687].ID_key) AS [T1688][ID_key, COUNT-ID_key] ) JOIN (
+      (SELECT
+          [T1697].ID_key, COUNT([T1697].ID_key)
+        FROM
+          (input1) AS [T1697][ID_class, ID_key, room]
+        GROUP BY
+          [T1697].ID_key) AS [T1698][ID_key, COUNT-ID_key] )) AS [T1699][ID_key, COUNT-ID_key, ID_key1, COUNT-ID_key1]
+WHERE
+  [T1699].COUNT-ID_key == [T1699].COUNT-ID_key1
+   AND [T1699].ID_key == [T1699].ID_key1
+@anonymous
+[T1699].ID_key(StringVal) | [T1699].COUNT-ID_key(NumberVal) 
+F4 | 2.0 
+F5 | 3.0 
+F9 | 1.0 
+
+[No.8]===============================
+SELECT
+  [T1619].ID_key,[T1619].COUNT-ID_key
+FROM
+  (( (SELECT
+          [T1613].ID_key, COUNT([T1613].ID_key)
+        FROM
+          (input1) AS [T1613][ID_class, ID_key, room]
+        GROUP BY
+          [T1613].ID_key) AS [T1614][ID_key, COUNT-ID_key] ) JOIN (
+      (SELECT
+          [T1617].ID_key, [T1617].room, COUNT([T1617].ID_key)
+        FROM
+          (SELECT
+              input1.ID_class,input1.ID_key,input1.room
+            FROM
+              input1
+            WHERE
+              input1.room == R128) AS [T1617][ID_class, ID_key, room]
+        GROUP BY
+          [T1617].ID_key  [T1617].room) AS [T1618][ID_key, room, COUNT-ID_key] )) AS [T1619][ID_key, COUNT-ID_key, ID_key1, room, COUNT-ID_key1]
+WHERE
+  [T1619].COUNT-ID_key == [T1619].COUNT-ID_key1
+   AND [T1619].ID_key == [T1619].ID_key1
+@anonymous
+[T1619].ID_key(StringVal) | [T1619].COUNT-ID_key(NumberVal) 
+F4 | 2.0 
+F5 | 3.0 
+F9 | 1.0 
+
+[No.7]===============================
+SELECT
+  [T1347].ID_key,[T1347].COUNT-room
+FROM
+  (( (SELECT
+          [T1335].ID_key, [T1335].room, COUNT([T1335].room)
+        FROM
+          (SELECT
+              input1.ID_class,input1.ID_key,input1.room
+            FROM
+              input1
+            WHERE
+              input1.room == R128) AS [T1335][ID_class, ID_key, room]
+        GROUP BY
+          [T1335].ID_key  [T1335].room) AS [T1336][ID_key, room, COUNT-room] ) JOIN (
+      (SELECT
+          [T1345].ID_key, COUNT([T1345].room)
+        FROM
+          (input1) AS [T1345][ID_class, ID_key, room]
+        GROUP BY
+          [T1345].ID_key) AS [T1346][ID_key, COUNT-room] )) AS [T1347][ID_key, room, COUNT-room, ID_key1, COUNT-room1]
+WHERE
+  [T1347].COUNT-room == [T1347].COUNT-room1
+   AND [T1347].ID_key == [T1347].ID_key1
+@anonymous
+[T1347].ID_key(StringVal) | [T1347].COUNT-room(NumberVal) 
+F4 | 2.0 
+F5 | 3.0 
+F9 | 1.0 
+
+[No.6]===============================
+SELECT
+  [T1283].ID_key,[T1283].COUNT-room
+FROM
+  (( (SELECT
+          [T1271].ID_key, COUNT([T1271].room)
+        FROM
+          (SELECT
+              input1.ID_class,input1.ID_key,input1.room
+            FROM
+              input1
+            WHERE
+              input1.room == R128) AS [T1271][ID_class, ID_key, room]
+        GROUP BY
+          [T1271].ID_key) AS [T1272][ID_key, COUNT-room] ) JOIN (
+      (SELECT
+          [T1281].ID_key, COUNT([T1281].room)
+        FROM
+          (input1) AS [T1281][ID_class, ID_key, room]
+        GROUP BY
+          [T1281].ID_key) AS [T1282][ID_key, COUNT-room] )) AS [T1283][ID_key, COUNT-room, ID_key1, COUNT-room1]
+WHERE
+  [T1283].COUNT-room == [T1283].COUNT-room1
+   AND [T1283].ID_key == [T1283].ID_key1
+@anonymous
+[T1283].ID_key(StringVal) | [T1283].COUNT-room(NumberVal) 
+F4 | 2.0 
+F5 | 3.0 
+F9 | 1.0 
+
+[No.5]===============================
+SELECT
+  [T1235].ID_key,[T1235].COUNT-ID_class
+FROM
+  (( (SELECT
+          [T1229].ID_key, COUNT([T1229].ID_class)
+        FROM
+          (input1) AS [T1229][ID_class, ID_key, room]
+        GROUP BY
+          [T1229].ID_key) AS [T1230][ID_key, COUNT-ID_class] ) JOIN (
+      (SELECT
+          [T1233].ID_key, COUNT([T1233].ID_class)
+        FROM
+          (SELECT
+              input1.ID_class,input1.ID_key,input1.room
+            FROM
+              input1
+            WHERE
+              input1.room == R128) AS [T1233][ID_class, ID_key, room]
+        GROUP BY
+          [T1233].ID_key) AS [T1234][ID_key, COUNT-ID_class] )) AS [T1235][ID_key, COUNT-ID_class, ID_key1, COUNT-ID_class1]
+WHERE
+  [T1235].COUNT-ID_class == [T1235].COUNT-ID_class1
+   AND [T1235].ID_key == [T1235].ID_key1
+@anonymous
+[T1235].ID_key(StringVal) | [T1235].COUNT-ID_class(NumberVal) 
+F4 | 2.0 
+F5 | 3.0 
+F9 | 1.0 
+
+[No.4]===============================
+SELECT
+  [T1203].ID_key,[T1203].COUNT-ID_class
+FROM
+  (( (SELECT
+          [T1197].ID_key, COUNT([T1197].ID_class)
+        FROM
+          (input1) AS [T1197][ID_class, ID_key, room]
+        GROUP BY
+          [T1197].ID_key) AS [T1198][ID_key, COUNT-ID_class] ) JOIN (
+      (SELECT
+          [T1201].ID_key, [T1201].room, COUNT([T1201].ID_class)
+        FROM
+          (SELECT
+              input1.ID_class,input1.ID_key,input1.room
+            FROM
+              input1
+            WHERE
+              input1.room == R128) AS [T1201][ID_class, ID_key, room]
+        GROUP BY
+          [T1201].ID_key  [T1201].room) AS [T1202][ID_key, room, COUNT-ID_class] )) AS [T1203][ID_key, COUNT-ID_class, ID_key1, room, COUNT-ID_class1]
+WHERE
+  [T1203].COUNT-ID_class == [T1203].COUNT-ID_class1
+   AND [T1203].ID_key == [T1203].ID_key1
+@anonymous
+[T1203].ID_key(StringVal) | [T1203].COUNT-ID_class(NumberVal) 
+F4 | 2.0 
+F5 | 3.0 
+F9 | 1.0 
+
+[No.3]===============================
+SELECT
+  [T1171].ID_key,[T1171].COUNT-room
+FROM
+  (( (SELECT
+          [T1165].ID_key, COUNT([T1165].room)
+        FROM
+          (input1) AS [T1165][ID_class, ID_key, room]
+        GROUP BY
+          [T1165].ID_key) AS [T1166][ID_key, COUNT-room] ) JOIN (
+      (SELECT
+          [T1169].ID_key, COUNT([T1169].room)
+        FROM
+          (SELECT
+              input1.ID_class,input1.ID_key,input1.room
+            FROM
+              input1
+            WHERE
+              input1.room == R128) AS [T1169][ID_class, ID_key, room]
+        GROUP BY
+          [T1169].ID_key) AS [T1170][ID_key, COUNT-room] )) AS [T1171][ID_key, COUNT-room, ID_key1, COUNT-room1]
+WHERE
+  [T1171].COUNT-room == [T1171].COUNT-room1
+   AND [T1171].ID_key == [T1171].ID_key1
+@anonymous
+[T1171].ID_key(StringVal) | [T1171].COUNT-room(NumberVal) 
+F4 | 2.0 
+F5 | 3.0 
+F9 | 1.0 
+
+[No.2]===============================
+SELECT
+  [T1091].ID_key,[T1091].COUNT-ID_class
+FROM
+  (( (SELECT
+          [T1079].ID_key, COUNT([T1079].ID_class)
+        FROM
+          (SELECT
+              input1.ID_class,input1.ID_key,input1.room
+            FROM
+              input1
+            WHERE
+              input1.room == R128) AS [T1079][ID_class, ID_key, room]
+        GROUP BY
+          [T1079].ID_key) AS [T1080][ID_key, COUNT-ID_class] ) JOIN (
+      (SELECT
+          [T1089].ID_key, COUNT([T1089].ID_class)
+        FROM
+          (input1) AS [T1089][ID_class, ID_key, room]
+        GROUP BY
+          [T1089].ID_key) AS [T1090][ID_key, COUNT-ID_class] )) AS [T1091][ID_key, COUNT-ID_class, ID_key1, COUNT-ID_class1]
+WHERE
+  [T1091].COUNT-ID_class == [T1091].COUNT-ID_class1
+   AND [T1091].ID_key == [T1091].ID_key1
+@anonymous
+[T1091].ID_key(StringVal) | [T1091].COUNT-ID_class(NumberVal) 
+F4 | 2.0 
+F5 | 3.0 
+F9 | 1.0 
+
+[No.1]===============================
+SELECT
+  [T979].ID_key,[T979].COUNT-ID_key
+FROM
+  (( (SELECT
+          [T973].ID_key, COUNT([T973].ID_key)
+        FROM
+          (input1) AS [T973][ID_class, ID_key, room]
+        GROUP BY
+          [T973].ID_key) AS [T974][ID_key, COUNT-ID_key] ) JOIN (
+      (SELECT
+          [T977].ID_key, COUNT([T977].ID_key)
+        FROM
+          (SELECT
+              input1.ID_class,input1.ID_key,input1.room
+            FROM
+              input1
+            WHERE
+              input1.room == R128) AS [T977][ID_class, ID_key, room]
+        GROUP BY
+          [T977].ID_key) AS [T978][ID_key, COUNT-ID_key] )) AS [T979][ID_key, COUNT-ID_key, ID_key1, COUNT-ID_key1]
+WHERE
+  [T979].COUNT-ID_key == [T979].COUNT-ID_key1
+   AND [T979].ID_key == [T979].ID_key1
+@anonymous
+[T979].ID_key(StringVal) | [T979].COUNT-ID_key(NumberVal) 
+F4 | 2.0 
+F5 | 3.0 
+F9 | 1.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 3.811s

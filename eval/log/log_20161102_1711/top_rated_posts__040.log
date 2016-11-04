@@ -1,0 +1,487 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/040
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 11 [SymTable]: 12
+[JOIN] level 1 [SymTable]: 25
+[EnumJoinOnAggr] level 1 [SymTable]: 169
+Candidate Tree Number: 120
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T635].group,[T635].subGroup,[T635].COUNT-group
+FROM
+  (( (SELECT
+          [T629].group, COUNT([T629].subGroup)
+        FROM
+          (input1) AS [T629][group, subGroup]
+        GROUP BY
+          [T629].group) AS [T630][group, COUNT-subGroup] ) JOIN (
+      (SELECT
+          [T633].group, [T633].subGroup, COUNT([T633].group)
+        FROM
+          (input1) AS [T633][group, subGroup]
+        GROUP BY
+          [T633].group  [T633].subGroup) AS [T634][group, subGroup, COUNT-group] )) AS [T635][group, COUNT-subGroup, group1, subGroup, COUNT-group]
+WHERE
+  [T635].group == [T635].group1
+@anonymous
+[T635].group(StringVal) | [T635].subGroup(StringVal) | [T635].COUNT-group(NumberVal) 
+grp-A | sub-A | 2.0 
+grp-A | sub-B | 1.0 
+grp-B | sub-A | 1.0 
+grp-B | sub-B | 2.0 
+
+[No.19]===============================
+SELECT
+  [T475].group,[T475].subGroup,[T475].COUNT-subGroup
+FROM
+  (( (SELECT
+          [T469].group, FROM
+          (input1) AS [T469][group, subGroup]
+        GROUP BY
+          [T469].group) AS [T470][group] ) JOIN (
+      (SELECT
+          [T473].group, [T473].subGroup, COUNT([T473].subGroup)
+        FROM
+          (input1) AS [T473][group, subGroup]
+        GROUP BY
+          [T473].group  [T473].subGroup) AS [T474][group, subGroup, COUNT-subGroup] )) AS [T475][group, group1, subGroup, COUNT-subGroup]
+WHERE
+  [T475].group == [T475].group1
+@anonymous
+[T475].group(StringVal) | [T475].subGroup(StringVal) | [T475].COUNT-subGroup(NumberVal) 
+grp-A | sub-A | 2.0 
+grp-A | sub-B | 1.0 
+grp-B | sub-A | 1.0 
+grp-B | sub-B | 2.0 
+
+[No.18]===============================
+SELECT
+  [T455].group,[T455].subGroup,[T455].COUNT-subGroup
+FROM
+  (( (SELECT
+          [T449].subGroup, COUNT([T449].group)
+        FROM
+          (input1) AS [T449][group, subGroup]
+        GROUP BY
+          [T449].subGroup) AS [T450][subGroup, COUNT-group] ) JOIN (
+      (SELECT
+          [T453].group, [T453].subGroup, COUNT([T453].subGroup)
+        FROM
+          (input1) AS [T453][group, subGroup]
+        GROUP BY
+          [T453].group  [T453].subGroup) AS [T454][group, subGroup, COUNT-subGroup] )) AS [T455][subGroup, COUNT-group, group, subGroup1, COUNT-subGroup]
+WHERE
+  [T455].subGroup == [T455].subGroup1
+@anonymous
+[T455].group(StringVal) | [T455].subGroup(StringVal) | [T455].COUNT-subGroup(NumberVal) 
+grp-A | sub-A | 2.0 
+grp-B | sub-A | 1.0 
+grp-A | sub-B | 1.0 
+grp-B | sub-B | 2.0 
+
+[No.17]===============================
+SELECT
+  [T425].group,[T425].subGroup,[T425].COUNT-subGroup
+FROM
+  (( (SELECT
+          [T419].group, [T419].subGroup, COUNT([T419].subGroup)
+        FROM
+          (input1) AS [T419][group, subGroup]
+        GROUP BY
+          [T419].group  [T419].subGroup) AS [T420][group, subGroup, COUNT-subGroup] ) JOIN (
+      (SELECT
+          [T423].subGroup, FROM
+          (input1) AS [T423][group, subGroup]
+        GROUP BY
+          [T423].subGroup) AS [T424][subGroup] )) AS [T425][group, subGroup, COUNT-subGroup, subGroup1]
+WHERE
+  [T425].subGroup == [T425].subGroup1
+@anonymous
+[T425].group(StringVal) | [T425].subGroup(StringVal) | [T425].COUNT-subGroup(NumberVal) 
+grp-A | sub-A | 2.0 
+grp-A | sub-B | 1.0 
+grp-B | sub-A | 1.0 
+grp-B | sub-B | 2.0 
+
+[No.16]===============================
+SELECT
+  [T395].group,[T395].subGroup,[T395].COUNT-subGroup
+FROM
+  (( (SELECT
+          [T389].group, [T389].subGroup, COUNT([T389].subGroup)
+        FROM
+          (input1) AS [T389][group, subGroup]
+        GROUP BY
+          [T389].group  [T389].subGroup) AS [T390][group, subGroup, COUNT-subGroup] ) JOIN (
+      (SELECT
+          [T393].subGroup, COUNT([T393].group)
+        FROM
+          (input1) AS [T393][group, subGroup]
+        GROUP BY
+          [T393].subGroup) AS [T394][subGroup, COUNT-group] )) AS [T395][group, subGroup, COUNT-subGroup, subGroup1, COUNT-group]
+WHERE
+  [T395].subGroup == [T395].subGroup1
+@anonymous
+[T395].group(StringVal) | [T395].subGroup(StringVal) | [T395].COUNT-subGroup(NumberVal) 
+grp-A | sub-A | 2.0 
+grp-A | sub-B | 1.0 
+grp-B | sub-A | 1.0 
+grp-B | sub-B | 2.0 
+
+[No.15]===============================
+SELECT
+  [T375].group,[T375].subGroup,[T375].COUNT-group1
+FROM
+  (( (SELECT
+          [T369].subGroup, COUNT([T369].group)
+        FROM
+          (input1) AS [T369][group, subGroup]
+        GROUP BY
+          [T369].subGroup) AS [T370][subGroup, COUNT-group] ) JOIN (
+      (SELECT
+          [T373].group, [T373].subGroup, COUNT([T373].group)
+        FROM
+          (input1) AS [T373][group, subGroup]
+        GROUP BY
+          [T373].group  [T373].subGroup) AS [T374][group, subGroup, COUNT-group] )) AS [T375][subGroup, COUNT-group, group, subGroup1, COUNT-group1]
+WHERE
+  [T375].subGroup == [T375].subGroup1
+@anonymous
+[T375].group(StringVal) | [T375].subGroup(StringVal) | [T375].COUNT-group1(NumberVal) 
+grp-A | sub-A | 2.0 
+grp-B | sub-A | 1.0 
+grp-A | sub-B | 1.0 
+grp-B | sub-B | 2.0 
+
+[No.14]===============================
+SELECT
+  [T175].group,[T175].subGroup,[T175].COUNT-subGroup
+FROM
+  (( (SELECT
+          [T169].group, [T169].subGroup, COUNT([T169].subGroup)
+        FROM
+          (input1) AS [T169][group, subGroup]
+        GROUP BY
+          [T169].group  [T169].subGroup) AS [T170][group, subGroup, COUNT-subGroup] ) JOIN (
+      (SELECT
+          [T173].group, COUNT([T173].group)
+        FROM
+          (input1) AS [T173][group, subGroup]
+        GROUP BY
+          [T173].group) AS [T174][group, COUNT-group] )) AS [T175][group, subGroup, COUNT-subGroup, group1, COUNT-group]
+WHERE
+  [T175].group == [T175].group1
+@anonymous
+[T175].group(StringVal) | [T175].subGroup(StringVal) | [T175].COUNT-subGroup(NumberVal) 
+grp-A | sub-A | 2.0 
+grp-A | sub-B | 1.0 
+grp-B | sub-A | 1.0 
+grp-B | sub-B | 2.0 
+
+[No.13]===============================
+SELECT
+  [T155].group,[T155].subGroup,[T155].COUNT-group
+FROM
+  (( (SELECT
+          [T149].group, [T149].subGroup, COUNT([T149].group)
+        FROM
+          (input1) AS [T149][group, subGroup]
+        GROUP BY
+          [T149].group  [T149].subGroup) AS [T150][group, subGroup, COUNT-group] ) JOIN (
+      (SELECT
+          [T153].subGroup, COUNT([T153].subGroup)
+        FROM
+          (input1) AS [T153][group, subGroup]
+        GROUP BY
+          [T153].subGroup) AS [T154][subGroup, COUNT-subGroup] )) AS [T155][group, subGroup, COUNT-group, subGroup1, COUNT-subGroup]
+WHERE
+  [T155].subGroup == [T155].subGroup1
+@anonymous
+[T155].group(StringVal) | [T155].subGroup(StringVal) | [T155].COUNT-group(NumberVal) 
+grp-A | sub-A | 2.0 
+grp-A | sub-B | 1.0 
+grp-B | sub-A | 1.0 
+grp-B | sub-B | 2.0 
+
+[No.12]===============================
+SELECT
+  [T135].group,[T135].subGroup,[T135].COUNT-subGroup
+FROM
+  (( (SELECT
+          [T129].group, [T129].subGroup, COUNT([T129].subGroup)
+        FROM
+          (input1) AS [T129][group, subGroup]
+        GROUP BY
+          [T129].group  [T129].subGroup) AS [T130][group, subGroup, COUNT-subGroup] ) JOIN (
+      (SELECT
+          [T133].subGroup, COUNT([T133].subGroup)
+        FROM
+          (input1) AS [T133][group, subGroup]
+        GROUP BY
+          [T133].subGroup) AS [T134][subGroup, COUNT-subGroup] )) AS [T135][group, subGroup, COUNT-subGroup, subGroup1, COUNT-subGroup1]
+WHERE
+  [T135].subGroup == [T135].subGroup1
+@anonymous
+[T135].group(StringVal) | [T135].subGroup(StringVal) | [T135].COUNT-subGroup(NumberVal) 
+grp-A | sub-A | 2.0 
+grp-A | sub-B | 1.0 
+grp-B | sub-A | 1.0 
+grp-B | sub-B | 2.0 
+
+[No.11]===============================
+SELECT
+  [T115].group,[T115].subGroup,[T115].COUNT-group
+FROM
+  (( (SELECT
+          [T109].group, [T109].subGroup, COUNT([T109].group)
+        FROM
+          (input1) AS [T109][group, subGroup]
+        GROUP BY
+          [T109].group  [T109].subGroup) AS [T110][group, subGroup, COUNT-group] ) JOIN (
+      (SELECT
+          [T113].group, FROM
+          (input1) AS [T113][group, subGroup]
+        GROUP BY
+          [T113].group) AS [T114][group] )) AS [T115][group, subGroup, COUNT-group, group1]
+WHERE
+  [T115].group == [T115].group1
+@anonymous
+[T115].group(StringVal) | [T115].subGroup(StringVal) | [T115].COUNT-group(NumberVal) 
+grp-A | sub-A | 2.0 
+grp-A | sub-B | 1.0 
+grp-B | sub-A | 1.0 
+grp-B | sub-B | 2.0 
+
+[No.10]===============================
+SELECT
+  [T95].group,[T95].subGroup,[T95].COUNT-group
+FROM
+  (( (SELECT
+          [T89].group, [T89].subGroup, COUNT([T89].group)
+        FROM
+          (input1) AS [T89][group, subGroup]
+        GROUP BY
+          [T89].group  [T89].subGroup) AS [T90][group, subGroup, COUNT-group] ) JOIN (
+      (SELECT
+          [T93].group, COUNT([T93].subGroup)
+        FROM
+          (input1) AS [T93][group, subGroup]
+        GROUP BY
+          [T93].group) AS [T94][group, COUNT-subGroup] )) AS [T95][group, subGroup, COUNT-group, group1, COUNT-subGroup]
+WHERE
+  [T95].group == [T95].group1
+@anonymous
+[T95].group(StringVal) | [T95].subGroup(StringVal) | [T95].COUNT-group(NumberVal) 
+grp-A | sub-A | 2.0 
+grp-A | sub-B | 1.0 
+grp-B | sub-A | 1.0 
+grp-B | sub-B | 2.0 
+
+[No.9]===============================
+SELECT
+  [T75].group,[T75].subGroup,[T75].COUNT-subGroup
+FROM
+  (( (SELECT
+          [T69].subGroup, FROM
+          (input1) AS [T69][group, subGroup]
+        GROUP BY
+          [T69].subGroup) AS [T70][subGroup] ) JOIN (
+      (SELECT
+          [T73].group, [T73].subGroup, COUNT([T73].subGroup)
+        FROM
+          (input1) AS [T73][group, subGroup]
+        GROUP BY
+          [T73].group  [T73].subGroup) AS [T74][group, subGroup, COUNT-subGroup] )) AS [T75][subGroup, group, subGroup1, COUNT-subGroup]
+WHERE
+  [T75].subGroup == [T75].subGroup1
+@anonymous
+[T75].group(StringVal) | [T75].subGroup(StringVal) | [T75].COUNT-subGroup(NumberVal) 
+grp-A | sub-A | 2.0 
+grp-B | sub-A | 1.0 
+grp-A | sub-B | 1.0 
+grp-B | sub-B | 2.0 
+
+[No.8]===============================
+SELECT
+  [T1255].group,[T1255].subGroup,[T1255].COUNT-group
+FROM
+  (( (SELECT
+          [T1249].group, [T1249].subGroup, COUNT([T1249].group)
+        FROM
+          (input1) AS [T1249][group, subGroup]
+        GROUP BY
+          [T1249].group  [T1249].subGroup) AS [T1250][group, subGroup, COUNT-group] ) JOIN (
+      (SELECT
+          COUNT([T1253].group)
+        FROM
+          (input1) AS [T1253][group, subGroup]) AS [T1254][COUNT-group] )) AS [T1255][group, subGroup, COUNT-group, COUNT-group1]
+
+@anonymous
+[T1255].group(StringVal) | [T1255].subGroup(StringVal) | [T1255].COUNT-group(NumberVal) 
+grp-A | sub-A | 2.0 
+grp-A | sub-B | 1.0 
+grp-B | sub-A | 1.0 
+grp-B | sub-B | 2.0 
+
+[No.7]===============================
+SELECT
+  [T665].group,[T665].subGroup,[T665].COUNT-group
+FROM
+  (( (SELECT
+          COUNT([T659].subGroup)
+        FROM
+          (input1) AS [T659][group, subGroup]) AS [T660][COUNT-subGroup] ) JOIN (
+      (SELECT
+          [T663].group, [T663].subGroup, COUNT([T663].group)
+        FROM
+          (input1) AS [T663][group, subGroup]
+        GROUP BY
+          [T663].group  [T663].subGroup) AS [T664][group, subGroup, COUNT-group] )) AS [T665][COUNT-subGroup, group, subGroup, COUNT-group]
+
+@anonymous
+[T665].group(StringVal) | [T665].subGroup(StringVal) | [T665].COUNT-group(NumberVal) 
+grp-A | sub-A | 2.0 
+grp-A | sub-B | 1.0 
+grp-B | sub-A | 1.0 
+grp-B | sub-B | 2.0 
+
+[No.6]===============================
+SELECT
+  [T615].group,[T615].subGroup,[T615].COUNT-subGroup
+FROM
+  (( (SELECT
+          [T609].group, [T609].subGroup, COUNT([T609].subGroup)
+        FROM
+          (input1) AS [T609][group, subGroup]
+        GROUP BY
+          [T609].group  [T609].subGroup) AS [T610][group, subGroup, COUNT-subGroup] ) JOIN (
+      (SELECT
+          COUNT([T613].subGroup)
+        FROM
+          (input1) AS [T613][group, subGroup]) AS [T614][COUNT-subGroup] )) AS [T615][group, subGroup, COUNT-subGroup, COUNT-subGroup1]
+
+@anonymous
+[T615].group(StringVal) | [T615].subGroup(StringVal) | [T615].COUNT-subGroup(NumberVal) 
+grp-A | sub-A | 2.0 
+grp-A | sub-B | 1.0 
+grp-B | sub-A | 1.0 
+grp-B | sub-B | 2.0 
+
+[No.5]===============================
+SELECT
+  [T485].group,[T485].subGroup,[T485].COUNT-group
+FROM
+  (( (SELECT
+          [T479].group, [T479].subGroup, COUNT([T479].group)
+        FROM
+          (input1) AS [T479][group, subGroup]
+        GROUP BY
+          [T479].group  [T479].subGroup) AS [T480][group, subGroup, COUNT-group] ) JOIN (
+      (SELECT
+          COUNT([T483].subGroup)
+        FROM
+          (input1) AS [T483][group, subGroup]) AS [T484][COUNT-subGroup] )) AS [T485][group, subGroup, COUNT-group, COUNT-subGroup]
+
+@anonymous
+[T485].group(StringVal) | [T485].subGroup(StringVal) | [T485].COUNT-group(NumberVal) 
+grp-A | sub-A | 2.0 
+grp-A | sub-B | 1.0 
+grp-B | sub-A | 1.0 
+grp-B | sub-B | 2.0 
+
+[No.4]===============================
+SELECT
+  [T435].group,[T435].subGroup,[T435].COUNT-subGroup
+FROM
+  (( (SELECT
+          COUNT([T429].group)
+        FROM
+          (input1) AS [T429][group, subGroup]) AS [T430][COUNT-group] ) JOIN (
+      (SELECT
+          [T433].group, [T433].subGroup, COUNT([T433].subGroup)
+        FROM
+          (input1) AS [T433][group, subGroup]
+        GROUP BY
+          [T433].group  [T433].subGroup) AS [T434][group, subGroup, COUNT-subGroup] )) AS [T435][COUNT-group, group, subGroup, COUNT-subGroup]
+
+@anonymous
+[T435].group(StringVal) | [T435].subGroup(StringVal) | [T435].COUNT-subGroup(NumberVal) 
+grp-A | sub-A | 2.0 
+grp-A | sub-B | 1.0 
+grp-B | sub-A | 1.0 
+grp-B | sub-B | 2.0 
+
+[No.3]===============================
+SELECT
+  [T405].group,[T405].subGroup,[T405].COUNT-subGroup1
+FROM
+  (( (SELECT
+          COUNT([T399].subGroup)
+        FROM
+          (input1) AS [T399][group, subGroup]) AS [T400][COUNT-subGroup] ) JOIN (
+      (SELECT
+          [T403].group, [T403].subGroup, COUNT([T403].subGroup)
+        FROM
+          (input1) AS [T403][group, subGroup]
+        GROUP BY
+          [T403].group  [T403].subGroup) AS [T404][group, subGroup, COUNT-subGroup] )) AS [T405][COUNT-subGroup, group, subGroup, COUNT-subGroup1]
+
+@anonymous
+[T405].group(StringVal) | [T405].subGroup(StringVal) | [T405].COUNT-subGroup1(NumberVal) 
+grp-A | sub-A | 2.0 
+grp-A | sub-B | 1.0 
+grp-B | sub-A | 1.0 
+grp-B | sub-B | 2.0 
+
+[No.2]===============================
+SELECT
+  [T355].group,[T355].subGroup,[T355].COUNT-subGroup
+FROM
+  (( (SELECT
+          [T349].group, [T349].subGroup, COUNT([T349].subGroup)
+        FROM
+          (input1) AS [T349][group, subGroup]
+        GROUP BY
+          [T349].group  [T349].subGroup) AS [T350][group, subGroup, COUNT-subGroup] ) JOIN (
+      (SELECT
+          COUNT([T353].group)
+        FROM
+          (input1) AS [T353][group, subGroup]) AS [T354][COUNT-group] )) AS [T355][group, subGroup, COUNT-subGroup, COUNT-group]
+
+@anonymous
+[T355].group(StringVal) | [T355].subGroup(StringVal) | [T355].COUNT-subGroup(NumberVal) 
+grp-A | sub-A | 2.0 
+grp-A | sub-B | 1.0 
+grp-B | sub-A | 1.0 
+grp-B | sub-B | 2.0 
+
+[No.1]===============================
+SELECT
+  [T345].group,[T345].subGroup,[T345].COUNT-group1
+FROM
+  (( (SELECT
+          COUNT([T339].group)
+        FROM
+          (input1) AS [T339][group, subGroup]) AS [T340][COUNT-group] ) JOIN (
+      (SELECT
+          [T343].group, [T343].subGroup, COUNT([T343].group)
+        FROM
+          (input1) AS [T343][group, subGroup]
+        GROUP BY
+          [T343].group  [T343].subGroup) AS [T344][group, subGroup, COUNT-group] )) AS [T345][COUNT-group, group, subGroup, COUNT-group1]
+
+@anonymous
+[T345].group(StringVal) | [T345].subGroup(StringVal) | [T345].COUNT-group1(NumberVal) 
+grp-A | sub-A | 2.0 
+grp-A | sub-B | 1.0 
+grp-B | sub-A | 1.0 
+grp-B | sub-B | 2.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.787s

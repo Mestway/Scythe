@@ -1,0 +1,412 @@
+[[Synthesis start]]
+	File: ../data/dev_set/013
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 690 [SymTable]: 691
+[JOIN] level 1 [SymTable]: 1383
+Candidate Tree Number: 270
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T1845].date,[T1845].deviceid,[T1845].COUNT_DISTINCT-value
+FROM
+  (( (SELECT
+          [T1843].licenseid, [T1843].deviceid, COUNT_DISTINCT([T1843].value)
+        FROM
+          (input1) AS [T1843][id, date, time_stamp, licenseid, storeid, deviceid, value]
+        GROUP BY
+          [T1843].licenseid  [T1843].deviceid) AS [T1844][licenseid, deviceid, COUNT_DISTINCT-value] ) JOIN (
+      input1 )) AS [T1845][licenseid, deviceid, COUNT_DISTINCT-value, id, date, time_stamp, licenseid1, storeid, deviceid1, value]
+WHERE
+  [T1845].COUNT_DISTINCT-value == [T1845].id
+   AND [T1845].licenseid == [T1845].licenseid1
+@anonymous
+[T1845].date(DateVal) | [T1845].deviceid(StringVal) | [T1845].COUNT_DISTINCT-value(NumberVal) 
+Fri Jun 12 00:00:00 PDT 2015 | 0add | 2.0 
+Fri Jun 12 00:00:00 PDT 2015 | 0bdd | 1.0 
+
+[No.19]===============================
+SELECT
+  [T1785].date,[T1785].deviceid,[T1785].COUNT_DISTINCT-value
+FROM
+  (( (SELECT
+          [T1783].licenseid, [T1783].deviceid, COUNT_DISTINCT([T1783].value)
+        FROM
+          (input1) AS [T1783][id, date, time_stamp, licenseid, storeid, deviceid, value]
+        GROUP BY
+          [T1783].licenseid  [T1783].deviceid) AS [T1784][licenseid, deviceid, COUNT_DISTINCT-value] ) JOIN (
+      SELECT
+        input1.id,input1.date,input1.time_stamp,input1.licenseid,input1.storeid,input1.deviceid,input1.value
+      FROM
+        input1
+      WHERE
+        input1.id == input1.storeid )) AS [T1785][licenseid, deviceid, COUNT_DISTINCT-value, id, date, time_stamp, licenseid1, storeid, deviceid1, value]
+WHERE
+  [T1785].licenseid == [T1785].licenseid1
+@anonymous
+[T1785].date(DateVal) | [T1785].deviceid(StringVal) | [T1785].COUNT_DISTINCT-value(NumberVal) 
+Fri Jun 12 00:00:00 PDT 2015 | 0add | 2.0 
+Fri Jun 12 00:00:00 PDT 2015 | 0bdd | 1.0 
+
+[No.18]===============================
+SELECT
+  [T1497].date,[T1497].deviceid,[T1497].COUNT_DISTINCT-id
+FROM
+  (( (SELECT
+          [T1495].date, [T1495].licenseid, [T1495].deviceid, COUNT_DISTINCT([T1495].id)
+        FROM
+          (input1) AS [T1495][id, date, time_stamp, licenseid, storeid, deviceid, value]
+        GROUP BY
+          [T1495].date  [T1495].licenseid  [T1495].deviceid) AS [T1496][date, licenseid, deviceid, COUNT_DISTINCT-id] ) JOIN (
+      SELECT
+        input1.id,input1.date,input1.time_stamp,input1.licenseid,input1.storeid,input1.deviceid,input1.value
+      FROM
+        input1
+      WHERE
+        input1.id == input1.storeid )) AS [T1497][date, licenseid, deviceid, COUNT_DISTINCT-id, id, date1, time_stamp, licenseid1, storeid, deviceid1, value]
+WHERE
+  [T1497].licenseid == [T1497].licenseid1
+@anonymous
+[T1497].date(DateVal) | [T1497].deviceid(StringVal) | [T1497].COUNT_DISTINCT-id(NumberVal) 
+Fri Jun 12 00:00:00 PDT 2015 | 0add | 2.0 
+Fri Jun 12 00:00:00 PDT 2015 | 0bdd | 1.0 
+
+[No.17]===============================
+SELECT
+  [T1353].date,[T1353].deviceid,[T1353].COUNT_DISTINCT-time_stamp
+FROM
+  (( (SELECT
+          [T1351].licenseid, [T1351].storeid, [T1351].deviceid, COUNT_DISTINCT([T1351].time_stamp)
+        FROM
+          (input1) AS [T1351][id, date, time_stamp, licenseid, storeid, deviceid, value]
+        GROUP BY
+          [T1351].licenseid  [T1351].storeid  [T1351].deviceid) AS [T1352][licenseid, storeid, deviceid, COUNT_DISTINCT-time_stamp] ) JOIN (
+      input1 )) AS [T1353][licenseid, storeid, deviceid, COUNT_DISTINCT-time_stamp, id, date, time_stamp, licenseid1, storeid1, deviceid1, value]
+WHERE
+  [T1353].storeid == [T1353].id
+   AND [T1353].licenseid == [T1353].licenseid1
+@anonymous
+[T1353].date(DateVal) | [T1353].deviceid(StringVal) | [T1353].COUNT_DISTINCT-time_stamp(NumberVal) 
+Fri Jun 12 00:00:00 PDT 2015 | 0add | 2.0 
+Fri Jun 12 00:00:00 PDT 2015 | 0bdd | 1.0 
+
+[No.16]===============================
+SELECT
+  [T1341].date,[T1341].deviceid,[T1341].COUNT_DISTINCT-time_stamp
+FROM
+  (( (SELECT
+          [T1339].licenseid, [T1339].storeid, [T1339].deviceid, COUNT_DISTINCT([T1339].time_stamp)
+        FROM
+          (input1) AS [T1339][id, date, time_stamp, licenseid, storeid, deviceid, value]
+        GROUP BY
+          [T1339].licenseid  [T1339].storeid  [T1339].deviceid) AS [T1340][licenseid, storeid, deviceid, COUNT_DISTINCT-time_stamp] ) JOIN (
+      SELECT
+        input1.id,input1.date,input1.time_stamp,input1.licenseid,input1.storeid,input1.deviceid,input1.value
+      FROM
+        input1
+      WHERE
+        input1.id == input1.storeid )) AS [T1341][licenseid, storeid, deviceid, COUNT_DISTINCT-time_stamp, id, date, time_stamp, licenseid1, storeid1, deviceid1, value]
+WHERE
+  [T1341].licenseid == [T1341].licenseid1
+@anonymous
+[T1341].date(DateVal) | [T1341].deviceid(StringVal) | [T1341].COUNT_DISTINCT-time_stamp(NumberVal) 
+Fri Jun 12 00:00:00 PDT 2015 | 0add | 2.0 
+Fri Jun 12 00:00:00 PDT 2015 | 0bdd | 1.0 
+
+[No.15]===============================
+SELECT
+  [T1329].date,[T1329].deviceid,[T1329].COUNT_DISTINCT-time_stamp
+FROM
+  (( (SELECT
+          [T1327].licenseid, [T1327].storeid, [T1327].deviceid, COUNT_DISTINCT([T1327].time_stamp)
+        FROM
+          (input1) AS [T1327][id, date, time_stamp, licenseid, storeid, deviceid, value]
+        GROUP BY
+          [T1327].licenseid  [T1327].storeid  [T1327].deviceid) AS [T1328][licenseid, storeid, deviceid, COUNT_DISTINCT-time_stamp] ) JOIN (
+      input1 )) AS [T1329][licenseid, storeid, deviceid, COUNT_DISTINCT-time_stamp, id, date, time_stamp, licenseid1, storeid1, deviceid1, value]
+WHERE
+  [T1329].COUNT_DISTINCT-time_stamp == [T1329].id
+   AND [T1329].licenseid == [T1329].licenseid1
+@anonymous
+[T1329].date(DateVal) | [T1329].deviceid(StringVal) | [T1329].COUNT_DISTINCT-time_stamp(NumberVal) 
+Fri Jun 12 00:00:00 PDT 2015 | 0add | 2.0 
+Fri Jun 12 00:00:00 PDT 2015 | 0bdd | 1.0 
+
+[No.14]===============================
+SELECT
+  [T3567].date,[T3567].deviceid,[T3567].COUNT_DISTINCT-id
+FROM
+  (( (SELECT
+          [T3565].licenseid, [T3565].storeid, [T3565].deviceid, COUNT_DISTINCT([T3565].id)
+        FROM
+          (input1) AS [T3565][id, date, time_stamp, licenseid, storeid, deviceid, value]
+        GROUP BY
+          [T3565].licenseid  [T3565].storeid  [T3565].deviceid) AS [T3566][licenseid, storeid, deviceid, COUNT_DISTINCT-id] ) JOIN (
+      input1 )) AS [T3567][licenseid, storeid, deviceid, COUNT_DISTINCT-id, id, date, time_stamp, licenseid1, storeid1, deviceid1, value]
+WHERE
+  [T3567].COUNT_DISTINCT-id == [T3567].id
+   AND [T3567].licenseid == [T3567].licenseid1
+@anonymous
+[T3567].date(DateVal) | [T3567].deviceid(StringVal) | [T3567].COUNT_DISTINCT-id(NumberVal) 
+Fri Jun 12 00:00:00 PDT 2015 | 0add | 2.0 
+Fri Jun 12 00:00:00 PDT 2015 | 0bdd | 1.0 
+
+[No.13]===============================
+SELECT
+  [T3111].date,[T3111].deviceid,[T3111].COUNT_DISTINCT-id
+FROM
+  (( (SELECT
+          [T3109].licenseid, [T3109].deviceid, COUNT_DISTINCT([T3109].id)
+        FROM
+          (input1) AS [T3109][id, date, time_stamp, licenseid, storeid, deviceid, value]
+        GROUP BY
+          [T3109].licenseid  [T3109].deviceid) AS [T3110][licenseid, deviceid, COUNT_DISTINCT-id] ) JOIN (
+      input1 )) AS [T3111][licenseid, deviceid, COUNT_DISTINCT-id, id, date, time_stamp, licenseid1, storeid, deviceid1, value]
+WHERE
+  [T3111].COUNT_DISTINCT-id == [T3111].id
+   AND [T3111].licenseid == [T3111].licenseid1
+@anonymous
+[T3111].date(DateVal) | [T3111].deviceid(StringVal) | [T3111].COUNT_DISTINCT-id(NumberVal) 
+Fri Jun 12 00:00:00 PDT 2015 | 0add | 2.0 
+Fri Jun 12 00:00:00 PDT 2015 | 0bdd | 1.0 
+
+[No.12]===============================
+SELECT
+  [T2775].date,[T2775].deviceid,[T2775].COUNT_DISTINCT-id
+FROM
+  (( (SELECT
+          [T2773].date, [T2773].licenseid, [T2773].storeid, [T2773].deviceid, COUNT_DISTINCT([T2773].id)
+        FROM
+          (input1) AS [T2773][id, date, time_stamp, licenseid, storeid, deviceid, value]
+        GROUP BY
+          [T2773].date  [T2773].licenseid  [T2773].storeid  [T2773].deviceid) AS [T2774][date, licenseid, storeid, deviceid, COUNT_DISTINCT-id] ) JOIN (
+      input1 )) AS [T2775][date, licenseid, storeid, deviceid, COUNT_DISTINCT-id, id, date1, time_stamp, licenseid1, storeid1, deviceid1, value]
+WHERE
+  [T2775].COUNT_DISTINCT-id == [T2775].id
+   AND [T2775].licenseid == [T2775].licenseid1
+@anonymous
+[T2775].date(DateVal) | [T2775].deviceid(StringVal) | [T2775].COUNT_DISTINCT-id(NumberVal) 
+Fri Jun 12 00:00:00 PDT 2015 | 0add | 2.0 
+Fri Jun 12 00:00:00 PDT 2015 | 0bdd | 1.0 
+
+[No.11]===============================
+SELECT
+  [T1449].date,[T1449].deviceid,[T1449].COUNT_DISTINCT-id
+FROM
+  (( (SELECT
+          [T1447].date, [T1447].licenseid, [T1447].deviceid, COUNT_DISTINCT([T1447].id)
+        FROM
+          (input1) AS [T1447][id, date, time_stamp, licenseid, storeid, deviceid, value]
+        GROUP BY
+          [T1447].date  [T1447].licenseid  [T1447].deviceid) AS [T1448][date, licenseid, deviceid, COUNT_DISTINCT-id] ) JOIN (
+      input1 )) AS [T1449][date, licenseid, deviceid, COUNT_DISTINCT-id, id, date1, time_stamp, licenseid1, storeid, deviceid1, value]
+WHERE
+  [T1449].COUNT_DISTINCT-id == [T1449].id
+   AND [T1449].licenseid == [T1449].licenseid1
+@anonymous
+[T1449].date(DateVal) | [T1449].deviceid(StringVal) | [T1449].COUNT_DISTINCT-id(NumberVal) 
+Fri Jun 12 00:00:00 PDT 2015 | 0add | 2.0 
+Fri Jun 12 00:00:00 PDT 2015 | 0bdd | 1.0 
+
+[No.10]===============================
+SELECT
+  [T3399].date,[T3399].deviceid,[T3399].COUNT_DISTINCT-time_stamp
+FROM
+  (( (SELECT
+          [T3397].deviceid, COUNT_DISTINCT([T3397].time_stamp)
+        FROM
+          (input1) AS [T3397][id, date, time_stamp, licenseid, storeid, deviceid, value]
+        GROUP BY
+          [T3397].deviceid) AS [T3398][deviceid, COUNT_DISTINCT-time_stamp] ) JOIN (
+      input1 )) AS [T3399][deviceid, COUNT_DISTINCT-time_stamp, id, date, time_stamp, licenseid, storeid, deviceid1, value]
+WHERE
+  [T3399].COUNT_DISTINCT-time_stamp == [T3399].id
+@anonymous
+[T3399].date(DateVal) | [T3399].deviceid(StringVal) | [T3399].COUNT_DISTINCT-time_stamp(NumberVal) 
+Fri Jun 12 00:00:00 PDT 2015 | 0add | 2.0 
+Fri Jun 12 00:00:00 PDT 2015 | 0bdd | 1.0 
+
+[No.9]===============================
+SELECT
+  [T3387].date,[T3387].deviceid,[T3387].COUNT_DISTINCT-time_stamp
+FROM
+  (( (SELECT
+          [T3385].deviceid, COUNT_DISTINCT([T3385].time_stamp)
+        FROM
+          (input1) AS [T3385][id, date, time_stamp, licenseid, storeid, deviceid, value]
+        GROUP BY
+          [T3385].deviceid) AS [T3386][deviceid, COUNT_DISTINCT-time_stamp] ) JOIN (
+      SELECT
+        input1.id,input1.date,input1.time_stamp,input1.licenseid,input1.storeid,input1.deviceid,input1.value
+      FROM
+        input1
+      WHERE
+        input1.id == input1.storeid )) AS [T3387][deviceid, COUNT_DISTINCT-time_stamp, id, date, time_stamp, licenseid, storeid, deviceid1, value]
+
+@anonymous
+[T3387].date(DateVal) | [T3387].deviceid(StringVal) | [T3387].COUNT_DISTINCT-time_stamp(NumberVal) 
+Fri Jun 12 00:00:00 PDT 2015 | 0add | 2.0 
+Fri Jun 12 00:00:00 PDT 2015 | 0bdd | 1.0 
+
+[No.8]===============================
+SELECT
+  [T2895].date,[T2895].deviceid,[T2895].COUNT_DISTINCT-time_stamp
+FROM
+  (( (SELECT
+          [T2893].date, [T2893].deviceid, COUNT_DISTINCT([T2893].time_stamp)
+        FROM
+          (input1) AS [T2893][id, date, time_stamp, licenseid, storeid, deviceid, value]
+        GROUP BY
+          [T2893].date  [T2893].deviceid) AS [T2894][date, deviceid, COUNT_DISTINCT-time_stamp] ) JOIN (
+      input1 )) AS [T2895][date, deviceid, COUNT_DISTINCT-time_stamp, id, date1, time_stamp, licenseid, storeid, deviceid1, value]
+WHERE
+  [T2895].COUNT_DISTINCT-time_stamp == [T2895].id
+@anonymous
+[T2895].date(DateVal) | [T2895].deviceid(StringVal) | [T2895].COUNT_DISTINCT-time_stamp(NumberVal) 
+Fri Jun 12 00:00:00 PDT 2015 | 0add | 2.0 
+Fri Jun 12 00:00:00 PDT 2015 | 0bdd | 1.0 
+
+[No.7]===============================
+SELECT
+  [T2883].date,[T2883].deviceid,[T2883].COUNT_DISTINCT-time_stamp
+FROM
+  (( (SELECT
+          [T2881].date, [T2881].deviceid, COUNT_DISTINCT([T2881].time_stamp)
+        FROM
+          (input1) AS [T2881][id, date, time_stamp, licenseid, storeid, deviceid, value]
+        GROUP BY
+          [T2881].date  [T2881].deviceid) AS [T2882][date, deviceid, COUNT_DISTINCT-time_stamp] ) JOIN (
+      SELECT
+        input1.id,input1.date,input1.time_stamp,input1.licenseid,input1.storeid,input1.deviceid,input1.value
+      FROM
+        input1
+      WHERE
+        input1.id == input1.storeid )) AS [T2883][date, deviceid, COUNT_DISTINCT-time_stamp, id, date1, time_stamp, licenseid, storeid, deviceid1, value]
+
+@anonymous
+[T2883].date(DateVal) | [T2883].deviceid(StringVal) | [T2883].COUNT_DISTINCT-time_stamp(NumberVal) 
+Fri Jun 12 00:00:00 PDT 2015 | 0add | 2.0 
+Fri Jun 12 00:00:00 PDT 2015 | 0bdd | 1.0 
+
+[No.6]===============================
+SELECT
+  [T2379].date,[T2379].deviceid,[T2379].COUNT_DISTINCT-time_stamp
+FROM
+  (( (SELECT
+          [T2377].date, [T2377].storeid, [T2377].deviceid, COUNT_DISTINCT([T2377].time_stamp)
+        FROM
+          (input1) AS [T2377][id, date, time_stamp, licenseid, storeid, deviceid, value]
+        GROUP BY
+          [T2377].date  [T2377].storeid  [T2377].deviceid) AS [T2378][date, storeid, deviceid, COUNT_DISTINCT-time_stamp] ) JOIN (
+      input1 )) AS [T2379][date, storeid, deviceid, COUNT_DISTINCT-time_stamp, id, date1, time_stamp, licenseid, storeid1, deviceid1, value]
+WHERE
+  [T2379].COUNT_DISTINCT-time_stamp == [T2379].id
+@anonymous
+[T2379].date(DateVal) | [T2379].deviceid(StringVal) | [T2379].COUNT_DISTINCT-time_stamp(NumberVal) 
+Fri Jun 12 00:00:00 PDT 2015 | 0add | 2.0 
+Fri Jun 12 00:00:00 PDT 2015 | 0bdd | 1.0 
+
+[No.5]===============================
+SELECT
+  [T2331].date,[T2331].deviceid,[T2331].COUNT_DISTINCT-time_stamp
+FROM
+  (( (SELECT
+          [T2329].date, [T2329].storeid, [T2329].deviceid, COUNT_DISTINCT([T2329].time_stamp)
+        FROM
+          (input1) AS [T2329][id, date, time_stamp, licenseid, storeid, deviceid, value]
+        GROUP BY
+          [T2329].date  [T2329].storeid  [T2329].deviceid) AS [T2330][date, storeid, deviceid, COUNT_DISTINCT-time_stamp] ) JOIN (
+      SELECT
+        input1.id,input1.date,input1.time_stamp,input1.licenseid,input1.storeid,input1.deviceid,input1.value
+      FROM
+        input1
+      WHERE
+        input1.id == input1.storeid )) AS [T2331][date, storeid, deviceid, COUNT_DISTINCT-time_stamp, id, date1, time_stamp, licenseid, storeid1, deviceid1, value]
+
+@anonymous
+[T2331].date(DateVal) | [T2331].deviceid(StringVal) | [T2331].COUNT_DISTINCT-time_stamp(NumberVal) 
+Fri Jun 12 00:00:00 PDT 2015 | 0add | 2.0 
+Fri Jun 12 00:00:00 PDT 2015 | 0bdd | 1.0 
+
+[No.4]===============================
+SELECT
+  [T2319].date,[T2319].deviceid,[T2319].COUNT_DISTINCT-time_stamp
+FROM
+  (( (SELECT
+          [T2317].date, [T2317].storeid, [T2317].deviceid, COUNT_DISTINCT([T2317].time_stamp)
+        FROM
+          (input1) AS [T2317][id, date, time_stamp, licenseid, storeid, deviceid, value]
+        GROUP BY
+          [T2317].date  [T2317].storeid  [T2317].deviceid) AS [T2318][date, storeid, deviceid, COUNT_DISTINCT-time_stamp] ) JOIN (
+      input1 )) AS [T2319][date, storeid, deviceid, COUNT_DISTINCT-time_stamp, id, date1, time_stamp, licenseid, storeid1, deviceid1, value]
+WHERE
+  [T2319].storeid == [T2319].id
+@anonymous
+[T2319].date(DateVal) | [T2319].deviceid(StringVal) | [T2319].COUNT_DISTINCT-time_stamp(NumberVal) 
+Fri Jun 12 00:00:00 PDT 2015 | 0add | 2.0 
+Fri Jun 12 00:00:00 PDT 2015 | 0bdd | 1.0 
+
+[No.3]===============================
+SELECT
+  [T1629].date,[T1629].deviceid,[T1629].COUNT_DISTINCT-time_stamp
+FROM
+  (( (SELECT
+          [T1627].storeid, [T1627].deviceid, COUNT_DISTINCT([T1627].time_stamp)
+        FROM
+          (input1) AS [T1627][id, date, time_stamp, licenseid, storeid, deviceid, value]
+        GROUP BY
+          [T1627].storeid  [T1627].deviceid) AS [T1628][storeid, deviceid, COUNT_DISTINCT-time_stamp] ) JOIN (
+      input1 )) AS [T1629][storeid, deviceid, COUNT_DISTINCT-time_stamp, id, date, time_stamp, licenseid, storeid1, deviceid1, value]
+WHERE
+  [T1629].COUNT_DISTINCT-time_stamp == [T1629].id
+@anonymous
+[T1629].date(DateVal) | [T1629].deviceid(StringVal) | [T1629].COUNT_DISTINCT-time_stamp(NumberVal) 
+Fri Jun 12 00:00:00 PDT 2015 | 0add | 2.0 
+Fri Jun 12 00:00:00 PDT 2015 | 0bdd | 1.0 
+
+[No.2]===============================
+SELECT
+  [T1581].date,[T1581].deviceid,[T1581].COUNT_DISTINCT-time_stamp
+FROM
+  (( (SELECT
+          [T1579].storeid, [T1579].deviceid, COUNT_DISTINCT([T1579].time_stamp)
+        FROM
+          (input1) AS [T1579][id, date, time_stamp, licenseid, storeid, deviceid, value]
+        GROUP BY
+          [T1579].storeid  [T1579].deviceid) AS [T1580][storeid, deviceid, COUNT_DISTINCT-time_stamp] ) JOIN (
+      SELECT
+        input1.id,input1.date,input1.time_stamp,input1.licenseid,input1.storeid,input1.deviceid,input1.value
+      FROM
+        input1
+      WHERE
+        input1.id == input1.storeid )) AS [T1581][storeid, deviceid, COUNT_DISTINCT-time_stamp, id, date, time_stamp, licenseid, storeid1, deviceid1, value]
+
+@anonymous
+[T1581].date(DateVal) | [T1581].deviceid(StringVal) | [T1581].COUNT_DISTINCT-time_stamp(NumberVal) 
+Fri Jun 12 00:00:00 PDT 2015 | 0add | 2.0 
+Fri Jun 12 00:00:00 PDT 2015 | 0bdd | 1.0 
+
+[No.1]===============================
+SELECT
+  [T1569].date,[T1569].deviceid,[T1569].COUNT_DISTINCT-time_stamp
+FROM
+  (( (SELECT
+          [T1567].storeid, [T1567].deviceid, COUNT_DISTINCT([T1567].time_stamp)
+        FROM
+          (input1) AS [T1567][id, date, time_stamp, licenseid, storeid, deviceid, value]
+        GROUP BY
+          [T1567].storeid  [T1567].deviceid) AS [T1568][storeid, deviceid, COUNT_DISTINCT-time_stamp] ) JOIN (
+      input1 )) AS [T1569][storeid, deviceid, COUNT_DISTINCT-time_stamp, id, date, time_stamp, licenseid, storeid1, deviceid1, value]
+WHERE
+  [T1569].storeid == [T1569].id
+@anonymous
+[T1569].date(DateVal) | [T1569].deviceid(StringVal) | [T1569].COUNT_DISTINCT-time_stamp(NumberVal) 
+Fri Jun 12 00:00:00 PDT 2015 | 0add | 2.0 
+Fri Jun 12 00:00:00 PDT 2015 | 0bdd | 1.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 12.220s

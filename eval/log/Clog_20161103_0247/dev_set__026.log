@@ -1,0 +1,184 @@
+[[Synthesis start]]
+	File: ../data/dev_set/026
+	Enumerator: CanonicalTableEnumeratorOnTheFly
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 20
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 146
+	Avg table size: 7
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 20
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 10
+	Avg table size: 7
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 155
+	Avg table size: 59
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 20
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 42
+	Avg table size: 8
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 683
+	Avg table size: 55
+Total Tree Count: 2
+Total Query Count: 1456
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 20
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 42
+	Avg table size: 8
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 702
+	Avg table size: 55
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 20
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 37
+	Avg table size: 8
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 696
+	Avg table size: 53
+Total Tree Count: 2
+Total Query Count: 364
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 20
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 60
+	Avg table size: 8
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 1018
+	Avg table size: 54
+Total Tree Count: 2
+Total Query Count: 1456
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 3
+	Avg table size: 13
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 144
+	Avg table size: 6
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 2310
+	Avg table size: 49
+Total Tree Count: 2
+Total Query Count: 11216
+[Enumeration Finished]
+[Query No.3]===============================
+SELECT
+  [T78632].acct_id1,[T78632].Bill_Id,[T78632].Bill_dt,[T78632].MAX-alt_bill_id
+FROM
+  (SELECT
+      [T70761].acct_id,[T70761].MAX-alt_bill_id,[T70761].acct_id1,[T70761].Bill_Id,[T70761].Bill_dt,[T70761].alt_bill_id
+    FROM
+      (( ((SELECT
+                input1.acct_id, MAX(input1.alt_bill_id)
+              FROM
+                input1
+              GROUP BY
+                input1.acct_id) AS [T70768][acct_id, MAX-alt_bill_id]) AS [T70932][acct_id, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T70761][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+    WHERE
+      [T70761].acct_id == [T70761].acct_id1
+       AND [T70761].MAX-alt_bill_id == [T70761].alt_bill_id) AS [T78632][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+
+@anonymous
+[T78632].acct_id1(NumberVal) | [T78632].Bill_Id(NumberVal) | [T78632].Bill_dt(DateVal) | [T78632].MAX-alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[Query No.2]===============================
+SELECT
+  [T78622].acct_id,[T78622].Bill_Id,[T78622].Bill_dt,[T78622].alt_bill_id
+FROM
+  (SELECT
+      [T70761].acct_id,[T70761].MAX-alt_bill_id,[T70761].acct_id1,[T70761].Bill_Id,[T70761].Bill_dt,[T70761].alt_bill_id
+    FROM
+      (( ((SELECT
+                input1.acct_id, MAX(input1.alt_bill_id)
+              FROM
+                input1
+              GROUP BY
+                input1.acct_id) AS [T70768][acct_id, MAX-alt_bill_id]) AS [T70932][acct_id, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T70761][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+    WHERE
+      [T70761].acct_id == [T70761].acct_id1
+       AND [T70761].MAX-alt_bill_id == [T70761].alt_bill_id) AS [T78622][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+
+@anonymous
+[T78622].acct_id(NumberVal) | [T78622].Bill_Id(NumberVal) | [T78622].Bill_dt(DateVal) | [T78622].alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[Query No.1]===============================
+SELECT
+  [T78612].acct_id,[T78612].Bill_Id,[T78612].Bill_dt,[T78612].MAX-alt_bill_id
+FROM
+  (SELECT
+      [T70761].acct_id,[T70761].MAX-alt_bill_id,[T70761].acct_id1,[T70761].Bill_Id,[T70761].Bill_dt,[T70761].alt_bill_id
+    FROM
+      (( ((SELECT
+                input1.acct_id, MAX(input1.alt_bill_id)
+              FROM
+                input1
+              GROUP BY
+                input1.acct_id) AS [T70768][acct_id, MAX-alt_bill_id]) AS [T70932][acct_id, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T70761][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+    WHERE
+      [T70761].acct_id == [T70761].acct_id1
+       AND [T70761].MAX-alt_bill_id == [T70761].alt_bill_id) AS [T78612][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+
+@anonymous
+[T78612].acct_id(NumberVal) | [T78612].Bill_Id(NumberVal) | [T78612].Bill_dt(DateVal) | [T78612].MAX-alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 118.844s

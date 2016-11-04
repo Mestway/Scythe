@@ -1,0 +1,122 @@
+[[Synthesis start]]
+	File: ../data/dev_set/006
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1268 [SymTable]: 1269
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 35 [SymTable]: 36
+[JOIN] level 1 [SymTable]: 72
+[EnumJoinOnAggr] level 1 [SymTable]: 1368
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 148 [SymTable]: 149
+[JOIN] level 1 [SymTable]: 298
+Candidate Tree Number: 50
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 148 [SymTable]: 149
+[JOIN] level 1 [SymTable]: 298
+Candidate Tree Number: 72
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 148 [SymTable]: 149
+[JOIN] level 1 [SymTable]: 298
+Candidate Tree Number: 126
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 261 [SymTable]: 262
+[JOIN] level 1 [SymTable]: 524
+Candidate Tree Number: 122
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1104 [SymTable]: 1105
+[JOIN] level 1 [SymTable]: 2210
+Candidate Tree Number: 7549
+[Enumeration Finished]
+[Query No.3]===============================
+SELECT
+  [T5591].MIN-message_id,[T5591].conversation_id,[T5591].from_user,[T5591].timestamp,[T5591].message
+FROM
+  (( (SELECT
+          [T5581].conversation_id, [T5581].message, MIN([T5581].message_id)
+        FROM
+          (input1) AS [T5581][message_id, conversation_id, from_user, timestamp, message]
+        GROUP BY
+          [T5581].conversation_id  [T5581].message) AS [T5582][conversation_id, message, MIN-message_id] ) JOIN (
+      input1 )) AS [T5591][conversation_id, message, MIN-message_id, message_id, conversation_id1, from_user, timestamp, message1]
+WHERE
+  [T5591].MIN-message_id == [T5591].message_id
+@anonymous
+[T5591].MIN-message_id(NumberVal) | [T5591].conversation_id(NumberVal) | [T5591].from_user(StringVal) | [T5591].timestamp(NumberVal) | [T5591].message(StringVal) 
+1.0 | 145.0 | xxx | 11000.0 | message 
+5.0 | 1743.0 | yyy | 999.0 | message 
+7.0 | 14.0 | bbb | 899.0 | message 
+
+[Query No.2]===============================
+SELECT
+  [T3067].MIN-message_id,[T3067].conversation_id,[T3067].from_user,[T3067].timestamp,[T3067].message
+FROM
+  (( (SELECT
+          [T3057].conversation_id, MIN([T3057].message_id)
+        FROM
+          (input1) AS [T3057][message_id, conversation_id, from_user, timestamp, message]
+        GROUP BY
+          [T3057].conversation_id) AS [T3058][conversation_id, MIN-message_id] ) JOIN (
+      input1 )) AS [T3067][conversation_id, MIN-message_id, message_id, conversation_id1, from_user, timestamp, message]
+WHERE
+  [T3067].MIN-message_id == [T3067].message_id
+@anonymous
+[T3067].MIN-message_id(NumberVal) | [T3067].conversation_id(NumberVal) | [T3067].from_user(StringVal) | [T3067].timestamp(NumberVal) | [T3067].message(StringVal) 
+1.0 | 145.0 | xxx | 11000.0 | message 
+5.0 | 1743.0 | yyy | 999.0 | message 
+7.0 | 14.0 | bbb | 899.0 | message 
+
+[Query No.1]===============================
+SELECT
+  [T2983].MIN-message_id,[T2983].conversation_id,[T2983].from_user,[T2983].timestamp,[T2983].message
+FROM
+  (( (SELECT
+          [T2973].conversation_id, [T2973].message, MIN([T2973].message_id)
+        FROM
+          (input1) AS [T2973][message_id, conversation_id, from_user, timestamp, message]
+        GROUP BY
+          [T2973].conversation_id  [T2973].message) AS [T2974][conversation_id, message, MIN-message_id] ) JOIN (
+      input1 )) AS [T2983][conversation_id, message, MIN-message_id, message_id, conversation_id1, from_user, timestamp, message1]
+WHERE
+  [T2983].MIN-message_id == [T2983].message_id
+@anonymous
+[T2983].MIN-message_id(NumberVal) | [T2983].conversation_id(NumberVal) | [T2983].from_user(StringVal) | [T2983].timestamp(NumberVal) | [T2983].message(StringVal) 
+1.0 | 145.0 | xxx | 11000.0 | message 
+5.0 | 1743.0 | yyy | 999.0 | message 
+7.0 | 14.0 | bbb | 899.0 | message 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 58.554s

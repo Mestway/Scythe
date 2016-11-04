@@ -1,0 +1,546 @@
+[[Synthesis start]]
+	File: ../data/recent_posts/036
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 4 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 19
+[EnumJoinOnAggr] level 1 [SymTable]: 55
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+  [Try decomposition] 
+@output
+Account(NumberVal) | Name(StringVal) 
+1234.0 | Box 
+
+@output
+Account(NumberVal) | Name(StringVal) 
+1235.0 | Box 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 4 [SymTable]: 6
+[NaturalJoin]: 1 [SymTable]: 7
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 4 [SymTable]: 6
+[NaturalJoin]: 1 [SymTable]: 7
+Candidate Tree Number: 5
+[Enumeration Finished]
+  [Try decomposition] 
+@output
+Account(NumberVal) | Name(StringVal) 
+1235.0 | Box 
+
+@output
+Account(NumberVal) | Name(StringVal) 
+1234.0 | Box 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 4 [SymTable]: 6
+[NaturalJoin]: 1 [SymTable]: 7
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 4 [SymTable]: 6
+[NaturalJoin]: 1 [SymTable]: 7
+Candidate Tree Number: 5
+[Enumeration Finished]
+[No.18]===============================
+( SELECT
+    [T45].Account,[T45].Name
+  FROM
+    (( SELECT
+          input1.Account,input1.Sen1,input1.Sen2
+        FROM
+          input1
+        WHERE
+          True ) JOIN (
+        input2 )) AS [T45][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T45].Sen2 == [T45].ID ) UNION ALL (
+  SELECT
+    [T60].Account,[T60].Name
+  FROM
+    (( SELECT
+          input1.Account,input1.Sen1,input1.Sen2
+        FROM
+          input1
+        WHERE
+          True ) JOIN (
+        input2 )) AS [T60][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T60].Sen1 == [T60].ID )
+@anonymous
+[T45].Account(NumberVal) | [T45].Name(StringVal) 
+1235.0 | Box 
+1234.0 | Box 
+
+[No.17]===============================
+( SELECT
+    [T15].Account,[T15].Name
+  FROM
+    (( SELECT
+          input1.Account,input1.Sen1,input1.Sen2
+        FROM
+          input1
+        WHERE
+          True ) JOIN (
+        input2 )) AS [T15][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T15].Sen1 == [T15].ID ) UNION ALL (
+  SELECT
+    [T30].Account,[T30].Name
+  FROM
+    (( SELECT
+          input1.Account,input1.Sen1,input1.Sen2
+        FROM
+          input1
+        WHERE
+          True ) JOIN (
+        input2 )) AS [T30][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T30].Sen2 == [T30].ID )
+@anonymous
+[T15].Account(NumberVal) | [T15].Name(StringVal) 
+1234.0 | Box 
+1235.0 | Box 
+
+[No.16]===============================
+( SELECT
+    [T45].Account,[T45].Name
+  FROM
+    (( SELECT
+          input1.Account,input1.Sen1,input1.Sen2
+        FROM
+          input1
+        WHERE
+          True ) JOIN (
+        input2 )) AS [T45][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T45].Sen2 == [T45].ID ) UNION ALL (
+  SELECT
+    [T66].Account,[T66].Name
+  FROM
+    (( SELECT
+          input1.Account,input1.Sen1,input1.Sen2
+        FROM
+          input1
+        WHERE
+          input1.Sen1 > input1.Sen2 ) JOIN (
+        input2 )) AS [T66][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T66].Sen1 == [T66].ID )
+@anonymous
+[T45].Account(NumberVal) | [T45].Name(StringVal) 
+1235.0 | Box 
+1234.0 | Box 
+
+[No.15]===============================
+( SELECT
+    [T51].Account,[T51].Name
+  FROM
+    (( SELECT
+          input1.Account,input1.Sen1,input1.Sen2
+        FROM
+          input1
+        WHERE
+          input1.Sen1 < input1.Sen2 ) JOIN (
+        input2 )) AS [T51][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T51].Sen2 == [T51].ID ) UNION ALL (
+  SELECT
+    [T60].Account,[T60].Name
+  FROM
+    (( SELECT
+          input1.Account,input1.Sen1,input1.Sen2
+        FROM
+          input1
+        WHERE
+          True ) JOIN (
+        input2 )) AS [T60][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T60].Sen1 == [T60].ID )
+@anonymous
+[T51].Account(NumberVal) | [T51].Name(StringVal) 
+1235.0 | Box 
+1234.0 | Box 
+
+[No.14]===============================
+( SELECT
+    [T15].Account,[T15].Name
+  FROM
+    (( SELECT
+          input1.Account,input1.Sen1,input1.Sen2
+        FROM
+          input1
+        WHERE
+          True ) JOIN (
+        input2 )) AS [T15][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T15].Sen1 == [T15].ID ) UNION ALL (
+  SELECT
+    [T36].Account,[T36].Name
+  FROM
+    (( SELECT
+          input1.Account,input1.Sen1,input1.Sen2
+        FROM
+          input1
+        WHERE
+          input1.Sen1 < input1.Sen2 ) JOIN (
+        input2 )) AS [T36][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T36].Sen2 == [T36].ID )
+@anonymous
+[T15].Account(NumberVal) | [T15].Name(StringVal) 
+1234.0 | Box 
+1235.0 | Box 
+
+[No.13]===============================
+( SELECT
+    [T21].Account,[T21].Name
+  FROM
+    (( SELECT
+          input1.Account,input1.Sen1,input1.Sen2
+        FROM
+          input1
+        WHERE
+          input1.Sen1 > input1.Sen2 ) JOIN (
+        input2 )) AS [T21][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T21].Sen1 == [T21].ID ) UNION ALL (
+  SELECT
+    [T30].Account,[T30].Name
+  FROM
+    (( SELECT
+          input1.Account,input1.Sen1,input1.Sen2
+        FROM
+          input1
+        WHERE
+          True ) JOIN (
+        input2 )) AS [T30][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T30].Sen2 == [T30].ID )
+@anonymous
+[T21].Account(NumberVal) | [T21].Name(StringVal) 
+1234.0 | Box 
+1235.0 | Box 
+
+[No.12]===============================
+( SELECT
+    [T51].Account,[T51].Name
+  FROM
+    (( SELECT
+          input1.Account,input1.Sen1,input1.Sen2
+        FROM
+          input1
+        WHERE
+          input1.Sen1 < input1.Sen2 ) JOIN (
+        input2 )) AS [T51][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T51].Sen2 == [T51].ID ) UNION ALL (
+  SELECT
+    [T66].Account,[T66].Name
+  FROM
+    (( SELECT
+          input1.Account,input1.Sen1,input1.Sen2
+        FROM
+          input1
+        WHERE
+          input1.Sen1 > input1.Sen2 ) JOIN (
+        input2 )) AS [T66][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T66].Sen1 == [T66].ID )
+@anonymous
+[T51].Account(NumberVal) | [T51].Name(StringVal) 
+1235.0 | Box 
+1234.0 | Box 
+
+[No.11]===============================
+( SELECT
+    [T21].Account,[T21].Name
+  FROM
+    (( SELECT
+          input1.Account,input1.Sen1,input1.Sen2
+        FROM
+          input1
+        WHERE
+          input1.Sen1 > input1.Sen2 ) JOIN (
+        input2 )) AS [T21][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T21].Sen1 == [T21].ID ) UNION ALL (
+  SELECT
+    [T36].Account,[T36].Name
+  FROM
+    (( SELECT
+          input1.Account,input1.Sen1,input1.Sen2
+        FROM
+          input1
+        WHERE
+          input1.Sen1 < input1.Sen2 ) JOIN (
+        input2 )) AS [T36][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T36].Sen2 == [T36].ID )
+@anonymous
+[T21].Account(NumberVal) | [T21].Name(StringVal) 
+1234.0 | Box 
+1235.0 | Box 
+
+[No.10]===============================
+( SELECT
+    [T45].Account,[T45].Name
+  FROM
+    (( SELECT
+          input1.Account,input1.Sen1,input1.Sen2
+        FROM
+          input1
+        WHERE
+          True ) JOIN (
+        input2 )) AS [T45][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T45].Sen2 == [T45].ID ) UNION ALL (
+  SELECT
+    [T58].Account,[T58].Name
+  FROM
+    (( input1 ) JOIN (
+        input2 )) AS [T58][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T58].Sen1 == [T58].ID )
+@anonymous
+[T45].Account(NumberVal) | [T45].Name(StringVal) 
+1235.0 | Box 
+1234.0 | Box 
+
+[No.9]===============================
+( SELECT
+    [T43].Account,[T43].Name
+  FROM
+    (( input1 ) JOIN (
+        input2 )) AS [T43][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T43].Sen2 == [T43].ID ) UNION ALL (
+  SELECT
+    [T60].Account,[T60].Name
+  FROM
+    (( SELECT
+          input1.Account,input1.Sen1,input1.Sen2
+        FROM
+          input1
+        WHERE
+          True ) JOIN (
+        input2 )) AS [T60][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T60].Sen1 == [T60].ID )
+@anonymous
+[T43].Account(NumberVal) | [T43].Name(StringVal) 
+1235.0 | Box 
+1234.0 | Box 
+
+[No.8]===============================
+( SELECT
+    [T15].Account,[T15].Name
+  FROM
+    (( SELECT
+          input1.Account,input1.Sen1,input1.Sen2
+        FROM
+          input1
+        WHERE
+          True ) JOIN (
+        input2 )) AS [T15][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T15].Sen1 == [T15].ID ) UNION ALL (
+  SELECT
+    [T28].Account,[T28].Name
+  FROM
+    (( input1 ) JOIN (
+        input2 )) AS [T28][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T28].Sen2 == [T28].ID )
+@anonymous
+[T15].Account(NumberVal) | [T15].Name(StringVal) 
+1234.0 | Box 
+1235.0 | Box 
+
+[No.7]===============================
+( SELECT
+    [T13].Account,[T13].Name
+  FROM
+    (( input1 ) JOIN (
+        input2 )) AS [T13][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T13].Sen1 == [T13].ID ) UNION ALL (
+  SELECT
+    [T30].Account,[T30].Name
+  FROM
+    (( SELECT
+          input1.Account,input1.Sen1,input1.Sen2
+        FROM
+          input1
+        WHERE
+          True ) JOIN (
+        input2 )) AS [T30][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T30].Sen2 == [T30].ID )
+@anonymous
+[T13].Account(NumberVal) | [T13].Name(StringVal) 
+1234.0 | Box 
+1235.0 | Box 
+
+[No.6]===============================
+( SELECT
+    [T51].Account,[T51].Name
+  FROM
+    (( SELECT
+          input1.Account,input1.Sen1,input1.Sen2
+        FROM
+          input1
+        WHERE
+          input1.Sen1 < input1.Sen2 ) JOIN (
+        input2 )) AS [T51][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T51].Sen2 == [T51].ID ) UNION ALL (
+  SELECT
+    [T58].Account,[T58].Name
+  FROM
+    (( input1 ) JOIN (
+        input2 )) AS [T58][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T58].Sen1 == [T58].ID )
+@anonymous
+[T51].Account(NumberVal) | [T51].Name(StringVal) 
+1235.0 | Box 
+1234.0 | Box 
+
+[No.5]===============================
+( SELECT
+    [T43].Account,[T43].Name
+  FROM
+    (( input1 ) JOIN (
+        input2 )) AS [T43][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T43].Sen2 == [T43].ID ) UNION ALL (
+  SELECT
+    [T66].Account,[T66].Name
+  FROM
+    (( SELECT
+          input1.Account,input1.Sen1,input1.Sen2
+        FROM
+          input1
+        WHERE
+          input1.Sen1 > input1.Sen2 ) JOIN (
+        input2 )) AS [T66][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T66].Sen1 == [T66].ID )
+@anonymous
+[T43].Account(NumberVal) | [T43].Name(StringVal) 
+1235.0 | Box 
+1234.0 | Box 
+
+[No.4]===============================
+( SELECT
+    [T21].Account,[T21].Name
+  FROM
+    (( SELECT
+          input1.Account,input1.Sen1,input1.Sen2
+        FROM
+          input1
+        WHERE
+          input1.Sen1 > input1.Sen2 ) JOIN (
+        input2 )) AS [T21][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T21].Sen1 == [T21].ID ) UNION ALL (
+  SELECT
+    [T28].Account,[T28].Name
+  FROM
+    (( input1 ) JOIN (
+        input2 )) AS [T28][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T28].Sen2 == [T28].ID )
+@anonymous
+[T21].Account(NumberVal) | [T21].Name(StringVal) 
+1234.0 | Box 
+1235.0 | Box 
+
+[No.3]===============================
+( SELECT
+    [T13].Account,[T13].Name
+  FROM
+    (( input1 ) JOIN (
+        input2 )) AS [T13][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T13].Sen1 == [T13].ID ) UNION ALL (
+  SELECT
+    [T36].Account,[T36].Name
+  FROM
+    (( SELECT
+          input1.Account,input1.Sen1,input1.Sen2
+        FROM
+          input1
+        WHERE
+          input1.Sen1 < input1.Sen2 ) JOIN (
+        input2 )) AS [T36][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T36].Sen2 == [T36].ID )
+@anonymous
+[T13].Account(NumberVal) | [T13].Name(StringVal) 
+1234.0 | Box 
+1235.0 | Box 
+
+[No.2]===============================
+( SELECT
+    [T43].Account,[T43].Name
+  FROM
+    (( input1 ) JOIN (
+        input2 )) AS [T43][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T43].Sen2 == [T43].ID ) UNION ALL (
+  SELECT
+    [T58].Account,[T58].Name
+  FROM
+    (( input1 ) JOIN (
+        input2 )) AS [T58][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T58].Sen1 == [T58].ID )
+@anonymous
+[T43].Account(NumberVal) | [T43].Name(StringVal) 
+1235.0 | Box 
+1234.0 | Box 
+
+[No.1]===============================
+( SELECT
+    [T13].Account,[T13].Name
+  FROM
+    (( input1 ) JOIN (
+        input2 )) AS [T13][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T13].Sen1 == [T13].ID ) UNION ALL (
+  SELECT
+    [T28].Account,[T28].Name
+  FROM
+    (( input1 ) JOIN (
+        input2 )) AS [T28][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T28].Sen2 == [T28].ID )
+@anonymous
+[T13].Account(NumberVal) | [T13].Name(StringVal) 
+1234.0 | Box 
+1235.0 | Box 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.242s

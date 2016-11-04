@@ -1,0 +1,390 @@
+[[Synthesis start]]
+	File: ../data/dev_set/058
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 7 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 17
+Candidate Tree Number: 20
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T73].app_name,[T73].app_platform,[T73].post_created,[T73].MAX-post_id
+FROM
+  (( (SELECT
+          [T71].app_platform, MAX([T71].post_id)
+        FROM
+          (input1) AS [T71][app_name, app_platform, post_created, post_id]
+        GROUP BY
+          [T71].app_platform) AS [T72][app_platform, MAX-post_id] ) JOIN (
+      input1 )) AS [T73][app_platform, MAX-post_id, app_name, app_platform1, post_created, post_id]
+WHERE
+  [T73].app_platform == [T73].app_platform1
+   AND [T73].MAX-post_id <= [T73].post_id
+@anonymous
+[T73].app_name(StringVal) | [T73].app_platform(StringVal) | [T73].post_created(StringVal) | [T73].MAX-post_id(NumberVal) 
+Photoshop | Windows | Dec. 1, 2009 | 3.0 
+Photoshop | Macintosh | Nov. 10th, 2009 | 2.0 
+
+[No.19]===============================
+SELECT
+  [T43].app_name,[T43].app_platform,[T43].post_created,[T43].MAX-post_id
+FROM
+  (( (SELECT
+          [T41].app_name, [T41].app_platform, MAX([T41].post_id)
+        FROM
+          (input1) AS [T41][app_name, app_platform, post_created, post_id]
+        GROUP BY
+          [T41].app_name  [T41].app_platform) AS [T42][app_name, app_platform, MAX-post_id] ) JOIN (
+      input1 )) AS [T43][app_name, app_platform, MAX-post_id, app_name1, app_platform1, post_created, post_id]
+WHERE
+  [T43].app_platform == [T43].app_platform1
+   AND [T43].MAX-post_id <= [T43].post_id
+@anonymous
+[T43].app_name(StringVal) | [T43].app_platform(StringVal) | [T43].post_created(StringVal) | [T43].MAX-post_id(NumberVal) 
+Photoshop | Windows | Dec. 1, 2009 | 3.0 
+Photoshop | Macintosh | Nov. 10th, 2009 | 2.0 
+
+[No.18]===============================
+SELECT
+  [T93].app_name,[T93].app_platform1,[T93].post_created1,[T93].post_id1
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.app_name,input1.app_platform,input1.post_created,input1.post_id
+      FROM
+        input1
+      WHERE
+        True )) AS [T93][app_name, app_platform, post_created, post_id, app_name1, app_platform1, post_created1, post_id1]
+WHERE
+  [T93].app_platform <> [T93].app_platform1
+   AND [T93].post_id <= [T93].post_id1
+@anonymous
+[T93].app_name(StringVal) | [T93].app_platform1(StringVal) | [T93].post_created1(StringVal) | [T93].post_id1(NumberVal) 
+Photoshop | Macintosh | Nov. 10th, 2009 | 2.0 
+Photoshop | Windows | Dec. 1, 2009 | 3.0 
+
+[No.17]===============================
+SELECT
+  [T91].app_name,[T91].app_platform1,[T91].post_created1,[T91].post_id1
+FROM
+  (( SELECT
+        input1.app_name,input1.app_platform,input1.post_created,input1.post_id
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T91][app_name, app_platform, post_created, post_id, app_name1, app_platform1, post_created1, post_id1]
+WHERE
+  [T91].app_platform <> [T91].app_platform1
+   AND [T91].post_id < [T91].post_id1
+@anonymous
+[T91].app_name(StringVal) | [T91].app_platform1(StringVal) | [T91].post_created1(StringVal) | [T91].post_id1(NumberVal) 
+Photoshop | Macintosh | Nov. 10th, 2009 | 2.0 
+Photoshop | Windows | Dec. 1, 2009 | 3.0 
+
+[No.16]===============================
+SELECT
+  [T89].app_name,[T89].app_platform1,[T89].post_created1,[T89].post_id1
+FROM
+  (( SELECT
+        input1.app_name,input1.app_platform,input1.post_created,input1.post_id
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T89][app_name, app_platform, post_created, post_id, app_name1, app_platform1, post_created1, post_id1]
+WHERE
+  [T89].app_platform <> [T89].app_platform1
+   AND [T89].post_id <= [T89].post_id1
+@anonymous
+[T89].app_name(StringVal) | [T89].app_platform1(StringVal) | [T89].post_created1(StringVal) | [T89].post_id1(NumberVal) 
+Photoshop | Macintosh | Nov. 10th, 2009 | 2.0 
+Photoshop | Windows | Dec. 1, 2009 | 3.0 
+
+[No.15]===============================
+SELECT
+  [T83].app_name,[T83].app_platform,[T83].post_created,[T83].post_id
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.app_name,input1.app_platform,input1.post_created,input1.post_id
+      FROM
+        input1
+      WHERE
+        True )) AS [T83][app_name, app_platform, post_created, post_id, app_name1, app_platform1, post_created1, post_id1]
+WHERE
+  [T83].app_platform <> [T83].app_platform1
+   AND [T83].post_id > [T83].post_id1
+@anonymous
+[T83].app_name(StringVal) | [T83].app_platform(StringVal) | [T83].post_created(StringVal) | [T83].post_id(NumberVal) 
+Photoshop | Windows | Dec. 1, 2009 | 3.0 
+Photoshop | Macintosh | Nov. 10th, 2009 | 2.0 
+
+[No.14]===============================
+SELECT
+  [T81].app_name,[T81].app_platform,[T81].post_created,[T81].post_id
+FROM
+  (( SELECT
+        input1.app_name,input1.app_platform,input1.post_created,input1.post_id
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T81][app_name, app_platform, post_created, post_id, app_name1, app_platform1, post_created1, post_id1]
+WHERE
+  [T81].app_platform <> [T81].app_platform1
+   AND [T81].post_id >= [T81].post_id1
+@anonymous
+[T81].app_name(StringVal) | [T81].app_platform(StringVal) | [T81].post_created(StringVal) | [T81].post_id(NumberVal) 
+Photoshop | Windows | Dec. 1, 2009 | 3.0 
+Photoshop | Macintosh | Nov. 10th, 2009 | 2.0 
+
+[No.13]===============================
+SELECT
+  [T79].app_name,[T79].app_platform,[T79].post_created,[T79].post_id
+FROM
+  (( SELECT
+        input1.app_name,input1.app_platform,input1.post_created,input1.post_id
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T79][app_name, app_platform, post_created, post_id, app_name1, app_platform1, post_created1, post_id1]
+WHERE
+  [T79].app_platform <> [T79].app_platform1
+   AND [T79].post_id > [T79].post_id1
+@anonymous
+[T79].app_name(StringVal) | [T79].app_platform(StringVal) | [T79].post_created(StringVal) | [T79].post_id(NumberVal) 
+Photoshop | Windows | Dec. 1, 2009 | 3.0 
+Photoshop | Macintosh | Nov. 10th, 2009 | 2.0 
+
+[No.12]===============================
+SELECT
+  [T87].app_name,[T87].app_platform1,[T87].post_created1,[T87].post_id1
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T87][app_name, app_platform, post_created, post_id, app_name1, app_platform1, post_created1, post_id1]
+WHERE
+  [T87].app_platform <> [T87].app_platform1
+   AND [T87].post_id < [T87].post_id1
+@anonymous
+[T87].app_name(StringVal) | [T87].app_platform1(StringVal) | [T87].post_created1(StringVal) | [T87].post_id1(NumberVal) 
+Photoshop | Macintosh | Nov. 10th, 2009 | 2.0 
+Photoshop | Windows | Dec. 1, 2009 | 3.0 
+
+[No.11]===============================
+SELECT
+  [T85].app_name,[T85].app_platform1,[T85].post_created1,[T85].post_id1
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T85][app_name, app_platform, post_created, post_id, app_name1, app_platform1, post_created1, post_id1]
+WHERE
+  [T85].app_platform <> [T85].app_platform1
+   AND [T85].post_id <= [T85].post_id1
+@anonymous
+[T85].app_name(StringVal) | [T85].app_platform1(StringVal) | [T85].post_created1(StringVal) | [T85].post_id1(NumberVal) 
+Photoshop | Macintosh | Nov. 10th, 2009 | 2.0 
+Photoshop | Windows | Dec. 1, 2009 | 3.0 
+
+[No.10]===============================
+SELECT
+  [T77].app_name,[T77].app_platform,[T77].post_created,[T77].post_id
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T77][app_name, app_platform, post_created, post_id, app_name1, app_platform1, post_created1, post_id1]
+WHERE
+  [T77].app_platform <> [T77].app_platform1
+   AND [T77].post_id >= [T77].post_id1
+@anonymous
+[T77].app_name(StringVal) | [T77].app_platform(StringVal) | [T77].post_created(StringVal) | [T77].post_id(NumberVal) 
+Photoshop | Windows | Dec. 1, 2009 | 3.0 
+Photoshop | Macintosh | Nov. 10th, 2009 | 2.0 
+
+[No.9]===============================
+SELECT
+  [T75].app_name,[T75].app_platform,[T75].post_created,[T75].post_id
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T75][app_name, app_platform, post_created, post_id, app_name1, app_platform1, post_created1, post_id1]
+WHERE
+  [T75].app_platform <> [T75].app_platform1
+   AND [T75].post_id > [T75].post_id1
+@anonymous
+[T75].app_name(StringVal) | [T75].app_platform(StringVal) | [T75].post_created(StringVal) | [T75].post_id(NumberVal) 
+Photoshop | Windows | Dec. 1, 2009 | 3.0 
+Photoshop | Macintosh | Nov. 10th, 2009 | 2.0 
+
+[No.8]===============================
+SELECT
+  [T67].app_name,[T67].app_platform,[T67].post_created,[T67].MAX-post_id
+FROM
+  (( (SELECT
+          [T65].app_platform, MAX([T65].post_id)
+        FROM
+          (input1) AS [T65][app_name, app_platform, post_created, post_id]
+        GROUP BY
+          [T65].app_platform) AS [T66][app_platform, MAX-post_id] ) JOIN (
+      SELECT
+        input1.app_name,input1.app_platform,input1.post_created,input1.post_id
+      FROM
+        input1
+      WHERE
+        True )) AS [T67][app_platform, MAX-post_id, app_name, app_platform1, post_created, post_id]
+WHERE
+  [T67].app_platform == [T67].app_platform1
+   AND [T67].MAX-post_id == [T67].post_id
+@anonymous
+[T67].app_name(StringVal) | [T67].app_platform(StringVal) | [T67].post_created(StringVal) | [T67].MAX-post_id(NumberVal) 
+Photoshop | Windows | Dec. 1, 2009 | 3.0 
+Photoshop | Macintosh | Nov. 10th, 2009 | 2.0 
+
+[No.7]===============================
+SELECT
+  [T37].app_name,[T37].app_platform,[T37].post_created,[T37].MAX-post_id
+FROM
+  (( (SELECT
+          [T35].app_name, [T35].app_platform, MAX([T35].post_id)
+        FROM
+          (input1) AS [T35][app_name, app_platform, post_created, post_id]
+        GROUP BY
+          [T35].app_name  [T35].app_platform) AS [T36][app_name, app_platform, MAX-post_id] ) JOIN (
+      SELECT
+        input1.app_name,input1.app_platform,input1.post_created,input1.post_id
+      FROM
+        input1
+      WHERE
+        True )) AS [T37][app_name, app_platform, MAX-post_id, app_name1, app_platform1, post_created, post_id]
+WHERE
+  [T37].app_platform == [T37].app_platform1
+   AND [T37].MAX-post_id == [T37].post_id
+@anonymous
+[T37].app_name(StringVal) | [T37].app_platform(StringVal) | [T37].post_created(StringVal) | [T37].MAX-post_id(NumberVal) 
+Photoshop | Windows | Dec. 1, 2009 | 3.0 
+Photoshop | Macintosh | Nov. 10th, 2009 | 2.0 
+
+[No.6]===============================
+SELECT
+  [T55].app_name,[T55].app_platform,[T55].post_created,[T55].MAX-post_id
+FROM
+  (( (SELECT
+          [T53].app_platform, MAX([T53].post_id)
+        FROM
+          (input1) AS [T53][app_name, app_platform, post_created, post_id]
+        GROUP BY
+          [T53].app_platform) AS [T54][app_platform, MAX-post_id] ) JOIN (
+      SELECT
+        input1.app_name,input1.app_platform,input1.post_created,input1.post_id
+      FROM
+        input1
+      WHERE
+        True )) AS [T55][app_platform, MAX-post_id, app_name, app_platform1, post_created, post_id]
+WHERE
+  [T55].MAX-post_id == [T55].post_id
+@anonymous
+[T55].app_name(StringVal) | [T55].app_platform(StringVal) | [T55].post_created(StringVal) | [T55].MAX-post_id(NumberVal) 
+Photoshop | Windows | Dec. 1, 2009 | 3.0 
+Photoshop | Macintosh | Nov. 10th, 2009 | 2.0 
+
+[No.5]===============================
+SELECT
+  [T25].app_name,[T25].app_platform,[T25].post_created,[T25].MAX-post_id
+FROM
+  (( (SELECT
+          [T23].app_name, [T23].app_platform, MAX([T23].post_id)
+        FROM
+          (input1) AS [T23][app_name, app_platform, post_created, post_id]
+        GROUP BY
+          [T23].app_name  [T23].app_platform) AS [T24][app_name, app_platform, MAX-post_id] ) JOIN (
+      SELECT
+        input1.app_name,input1.app_platform,input1.post_created,input1.post_id
+      FROM
+        input1
+      WHERE
+        True )) AS [T25][app_name, app_platform, MAX-post_id, app_name1, app_platform1, post_created, post_id]
+WHERE
+  [T25].MAX-post_id == [T25].post_id
+@anonymous
+[T25].app_name(StringVal) | [T25].app_platform(StringVal) | [T25].post_created(StringVal) | [T25].MAX-post_id(NumberVal) 
+Photoshop | Windows | Dec. 1, 2009 | 3.0 
+Photoshop | Macintosh | Nov. 10th, 2009 | 2.0 
+
+[No.4]===============================
+SELECT
+  [T61].app_name,[T61].app_platform,[T61].post_created,[T61].MAX-post_id
+FROM
+  (( (SELECT
+          [T59].app_platform, MAX([T59].post_id)
+        FROM
+          (input1) AS [T59][app_name, app_platform, post_created, post_id]
+        GROUP BY
+          [T59].app_platform) AS [T60][app_platform, MAX-post_id] ) JOIN (
+      input1 )) AS [T61][app_platform, MAX-post_id, app_name, app_platform1, post_created, post_id]
+WHERE
+  [T61].app_platform == [T61].app_platform1
+   AND [T61].MAX-post_id == [T61].post_id
+@anonymous
+[T61].app_name(StringVal) | [T61].app_platform(StringVal) | [T61].post_created(StringVal) | [T61].MAX-post_id(NumberVal) 
+Photoshop | Windows | Dec. 1, 2009 | 3.0 
+Photoshop | Macintosh | Nov. 10th, 2009 | 2.0 
+
+[No.3]===============================
+SELECT
+  [T31].app_name,[T31].app_platform,[T31].post_created,[T31].MAX-post_id
+FROM
+  (( (SELECT
+          [T29].app_name, [T29].app_platform, MAX([T29].post_id)
+        FROM
+          (input1) AS [T29][app_name, app_platform, post_created, post_id]
+        GROUP BY
+          [T29].app_name  [T29].app_platform) AS [T30][app_name, app_platform, MAX-post_id] ) JOIN (
+      input1 )) AS [T31][app_name, app_platform, MAX-post_id, app_name1, app_platform1, post_created, post_id]
+WHERE
+  [T31].app_platform == [T31].app_platform1
+   AND [T31].MAX-post_id == [T31].post_id
+@anonymous
+[T31].app_name(StringVal) | [T31].app_platform(StringVal) | [T31].post_created(StringVal) | [T31].MAX-post_id(NumberVal) 
+Photoshop | Windows | Dec. 1, 2009 | 3.0 
+Photoshop | Macintosh | Nov. 10th, 2009 | 2.0 
+
+[No.2]===============================
+SELECT
+  [T49].app_name,[T49].app_platform,[T49].post_created,[T49].MAX-post_id
+FROM
+  (( (SELECT
+          [T47].app_platform, MAX([T47].post_id)
+        FROM
+          (input1) AS [T47][app_name, app_platform, post_created, post_id]
+        GROUP BY
+          [T47].app_platform) AS [T48][app_platform, MAX-post_id] ) JOIN (
+      input1 )) AS [T49][app_platform, MAX-post_id, app_name, app_platform1, post_created, post_id]
+WHERE
+  [T49].MAX-post_id == [T49].post_id
+@anonymous
+[T49].app_name(StringVal) | [T49].app_platform(StringVal) | [T49].post_created(StringVal) | [T49].MAX-post_id(NumberVal) 
+Photoshop | Windows | Dec. 1, 2009 | 3.0 
+Photoshop | Macintosh | Nov. 10th, 2009 | 2.0 
+
+[No.1]===============================
+SELECT
+  [T19].app_name,[T19].app_platform,[T19].post_created,[T19].MAX-post_id
+FROM
+  (( (SELECT
+          [T17].app_name, [T17].app_platform, MAX([T17].post_id)
+        FROM
+          (input1) AS [T17][app_name, app_platform, post_created, post_id]
+        GROUP BY
+          [T17].app_name  [T17].app_platform) AS [T18][app_name, app_platform, MAX-post_id] ) JOIN (
+      input1 )) AS [T19][app_name, app_platform, MAX-post_id, app_name1, app_platform1, post_created, post_id]
+WHERE
+  [T19].MAX-post_id == [T19].post_id
+@anonymous
+[T19].app_name(StringVal) | [T19].app_platform(StringVal) | [T19].post_created(StringVal) | [T19].MAX-post_id(NumberVal) 
+Photoshop | Windows | Dec. 1, 2009 | 3.0 
+Photoshop | Macintosh | Nov. 10th, 2009 | 2.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.271s

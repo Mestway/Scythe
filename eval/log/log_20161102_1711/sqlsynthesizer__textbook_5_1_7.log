@@ -1,0 +1,104 @@
+[[Synthesis start]]
+	File: ../data/sqlsynthesizer/textbook_5_1_7
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 15
+Candidate Tree Number: 4
+[Enumeration Finished]
+[No.4]===============================
+SELECT
+  [T17].level,[T17].AVG-age
+FROM
+  (( (SELECT
+          [T15].level, AVG([T15].age)
+        FROM
+          (input1) AS [T15][S_key, level, age]
+        GROUP BY
+          [T15].level) AS [T16][level, AVG-age] ) JOIN (
+      SELECT
+        input1.S_key,input1.level,input1.age
+      FROM
+        input1
+      WHERE
+        True )) AS [T17][level, AVG-age, S_key, level1, age]
+WHERE
+  [T17].level == [T17].level1
+   AND [T17].AVG-age <= [T17].age
+@anonymous
+[T17].level(StringVal) | [T17].AVG-age(NumberVal) 
+JR | 19.0 
+SR | 23.0 
+SO | 21.0 
+
+[No.3]===============================
+SELECT
+  [T11].level,[T11].AVG-age
+FROM
+  (( (SELECT
+          [T9].level, AVG([T9].age)
+        FROM
+          (input1) AS [T9][S_key, level, age]
+        GROUP BY
+          [T9].level) AS [T10][level, AVG-age] ) JOIN (
+      SELECT
+        input1.S_key,input1.level,input1.age
+      FROM
+        input1
+      WHERE
+        True )) AS [T11][level, AVG-age, S_key, level1, age]
+WHERE
+  [T11].level == [T11].level1
+   AND [T11].AVG-age < [T11].age
+@anonymous
+[T11].level(StringVal) | [T11].AVG-age(NumberVal) 
+JR | 19.0 
+SR | 23.0 
+SO | 21.0 
+
+[No.2]===============================
+SELECT
+  [T29].level,[T29].AVG-age
+FROM
+  (( (SELECT
+          [T27].level, AVG([T27].age)
+        FROM
+          (input1) AS [T27][S_key, level, age]
+        GROUP BY
+          [T27].level) AS [T28][level, AVG-age] ) JOIN (
+      input1 )) AS [T29][level, AVG-age, S_key, level1, age]
+WHERE
+  [T29].level == [T29].level1
+   AND [T29].AVG-age <= [T29].age
+@anonymous
+[T29].level(StringVal) | [T29].AVG-age(NumberVal) 
+JR | 19.0 
+SR | 23.0 
+SO | 21.0 
+
+[No.1]===============================
+SELECT
+  [T23].level,[T23].AVG-age
+FROM
+  (( (SELECT
+          [T21].level, AVG([T21].age)
+        FROM
+          (input1) AS [T21][S_key, level, age]
+        GROUP BY
+          [T21].level) AS [T22][level, AVG-age] ) JOIN (
+      input1 )) AS [T23][level, AVG-age, S_key, level1, age]
+WHERE
+  [T23].level == [T23].level1
+   AND [T23].AVG-age < [T23].age
+@anonymous
+[T23].level(StringVal) | [T23].AVG-age(NumberVal) 
+JR | 19.0 
+SR | 23.0 
+SO | 21.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.159s

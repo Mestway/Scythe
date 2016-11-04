@@ -1,0 +1,158 @@
+[[Synthesis start]]
+	File: ../data/dev_set/016
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 100 [SymTable]: 102
+[NaturalJoin]: 1 [SymTable]: 102
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 3 [SymTable]: 5
+[JOIN] level 1 [SymTable]: 15
+[EnumJoinOnAggr] level 1 [SymTable]: 40
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 33 [SymTable]: 35
+[JOIN] level 1 [SymTable]: 105
+[EnumJoinOnAggr] level 1 [SymTable]: 1330
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 14 [SymTable]: 16
+[JOIN] level 1 [SymTable]: 48
+[EnumJoinOnAggr] level 1 [SymTable]: 304
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 14 [SymTable]: 16
+[JOIN] level 1 [SymTable]: 48
+[EnumJoinOnAggr] level 1 [SymTable]: 304
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 14 [SymTable]: 16
+[JOIN] level 1 [SymTable]: 48
+[EnumJoinOnAggr] level 1 [SymTable]: 304
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 14 [SymTable]: 16
+[JOIN] level 1 [SymTable]: 48
+[EnumJoinOnAggr] level 1 [SymTable]: 304
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 25 [SymTable]: 27
+[JOIN] level 1 [SymTable]: 81
+[EnumJoinOnAggr] level 1 [SymTable]: 810
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 30 [SymTable]: 32
+[JOIN] level 1 [SymTable]: 96
+[EnumJoinOnAggr] level 1 [SymTable]: 1120
+Candidate Tree Number: 96
+[Enumeration Finished]
+[Query No.3]===============================
+SELECT
+  [T510].school_id,[T510].COUNT-school_id,[T510].MAX-wage
+FROM
+  (( (SELECT
+          [T504].forename, [T504].school_id, MAX([T504].wage)
+        FROM
+          (input2) AS [T504][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T504].forename  [T504].school_id) AS [T505][forename, school_id, MAX-wage] ) JOIN (
+      (SELECT
+          [T508].forename, COUNT([T508].school_id)
+        FROM
+          (input2) AS [T508][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T508].forename) AS [T509][forename, COUNT-school_id] )) AS [T510][forename, school_id, MAX-wage, forename1, COUNT-school_id]
+
+@anonymous
+[T510].school_id(NumberVal) | [T510].COUNT-school_id(NumberVal) | [T510].MAX-wage(NumberVal) 
+400.0 | 2.0 | 5000.0 
+
+[Query No.2]===============================
+SELECT
+  [T500].school_id,[T500].COUNT-forename,[T500].MAX-wage
+FROM
+  (( (SELECT
+          [T494].forename, [T494].school_id, MAX([T494].wage)
+        FROM
+          (input2) AS [T494][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T494].forename  [T494].school_id) AS [T495][forename, school_id, MAX-wage] ) JOIN (
+      (SELECT
+          [T498].forename, COUNT([T498].forename)
+        FROM
+          (input2) AS [T498][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T498].forename) AS [T499][forename, COUNT-forename] )) AS [T500][forename, school_id, MAX-wage, forename1, COUNT-forename]
+
+@anonymous
+[T500].school_id(NumberVal) | [T500].COUNT-forename(NumberVal) | [T500].MAX-wage(NumberVal) 
+400.0 | 2.0 | 5000.0 
+
+[Query No.1]===============================
+SELECT
+  [T490].school_id,[T490].COUNT-wage,[T490].MAX-wage
+FROM
+  (( (SELECT
+          [T484].school_id, MAX([T484].wage)
+        FROM
+          (input2) AS [T484][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T484].school_id) AS [T485][school_id, MAX-wage] ) JOIN (
+      (SELECT
+          [T488].school_id, COUNT([T488].wage)
+        FROM
+          (input2) AS [T488][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T488].school_id) AS [T489][school_id, COUNT-wage] )) AS [T490][school_id, MAX-wage, school_id1, COUNT-wage]
+
+@anonymous
+[T490].school_id(NumberVal) | [T490].COUNT-wage(NumberVal) | [T490].MAX-wage(NumberVal) 
+400.0 | 2.0 | 5000.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.801s

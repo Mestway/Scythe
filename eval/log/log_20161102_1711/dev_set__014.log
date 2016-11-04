@@ -1,0 +1,558 @@
+[[Synthesis start]]
+	File: ../data/dev_set/014
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 97 [SymTable]: 98
+[JOIN] level 1 [SymTable]: 197
+Candidate Tree Number: 144
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T503].COUNT-Status,[T503].Content_type
+FROM
+  (( (SELECT
+          [T501].Name, [T501].Status, [T501].Content_type, COUNT([T501].Status)
+        FROM
+          (SELECT
+              input1.Id,input1.Name,input1.Status,input1.Content_type
+            FROM
+              input1
+            WHERE
+              input1.Status == Error) AS [T501][Id, Name, Status, Content_type]
+        GROUP BY
+          [T501].Name  [T501].Status  [T501].Content_type) AS [T502][Name, Status, Content_type, COUNT-Status] ) JOIN (
+      input1 )) AS [T503][Name, Status, Content_type, COUNT-Status, Id, Name1, Status1, Content_type1]
+WHERE
+  [T503].Status <> [T503].Status1
+   AND [T503].Content_type == [T503].Content_type1
+@anonymous
+[T503].COUNT-Status(NumberVal) | [T503].Content_type(StringVal) 
+1.0 | general_url 
+2.0 | document 
+
+[No.19]===============================
+SELECT
+  [T419].COUNT-Status,[T419].Content_type
+FROM
+  (( (SELECT
+          [T417].Status, [T417].Content_type, COUNT([T417].Status)
+        FROM
+          (SELECT
+              input1.Id,input1.Name,input1.Status,input1.Content_type
+            FROM
+              input1
+            WHERE
+              input1.Status == Error) AS [T417][Id, Name, Status, Content_type]
+        GROUP BY
+          [T417].Status  [T417].Content_type) AS [T418][Status, Content_type, COUNT-Status] ) JOIN (
+      input1 )) AS [T419][Status, Content_type, COUNT-Status, Id, Name, Status1, Content_type1]
+WHERE
+  [T419].Status <> [T419].Status1
+   AND [T419].Content_type == [T419].Content_type1
+@anonymous
+[T419].COUNT-Status(NumberVal) | [T419].Content_type(StringVal) 
+1.0 | general_url 
+2.0 | document 
+
+[No.18]===============================
+SELECT
+  [T359].COUNT-Content_type,[T359].Content_type
+FROM
+  (( (SELECT
+          [T357].Name, [T357].Status, [T357].Content_type, COUNT([T357].Content_type)
+        FROM
+          (SELECT
+              input1.Id,input1.Name,input1.Status,input1.Content_type
+            FROM
+              input1
+            WHERE
+              input1.Status == Error) AS [T357][Id, Name, Status, Content_type]
+        GROUP BY
+          [T357].Name  [T357].Status  [T357].Content_type) AS [T358][Name, Status, Content_type, COUNT-Content_type] ) JOIN (
+      input1 )) AS [T359][Name, Status, Content_type, COUNT-Content_type, Id, Name1, Status1, Content_type1]
+WHERE
+  [T359].Status <> [T359].Status1
+   AND [T359].Content_type == [T359].Content_type1
+@anonymous
+[T359].COUNT-Content_type(NumberVal) | [T359].Content_type(StringVal) 
+1.0 | general_url 
+2.0 | document 
+
+[No.17]===============================
+SELECT
+  [T251].COUNT-Id,[T251].Content_type
+FROM
+  (( (SELECT
+          [T249].Status, [T249].Content_type, COUNT([T249].Id)
+        FROM
+          (SELECT
+              input1.Id,input1.Name,input1.Status,input1.Content_type
+            FROM
+              input1
+            WHERE
+              input1.Status == Error) AS [T249][Id, Name, Status, Content_type]
+        GROUP BY
+          [T249].Status  [T249].Content_type) AS [T250][Status, Content_type, COUNT-Id] ) JOIN (
+      input1 )) AS [T251][Status, Content_type, COUNT-Id, Id, Name, Status1, Content_type1]
+WHERE
+  [T251].Status <> [T251].Status1
+   AND [T251].Content_type == [T251].Content_type1
+@anonymous
+[T251].COUNT-Id(NumberVal) | [T251].Content_type(StringVal) 
+1.0 | general_url 
+2.0 | document 
+
+[No.16]===============================
+SELECT
+  [T1091].COUNT-Status,[T1091].Content_type
+FROM
+  (( (SELECT
+          [T1089].Content_type, COUNT([T1089].Status)
+        FROM
+          (SELECT
+              input1.Id,input1.Name,input1.Status,input1.Content_type
+            FROM
+              input1
+            WHERE
+              input1.Status == Error) AS [T1089][Id, Name, Status, Content_type]
+        GROUP BY
+          [T1089].Content_type) AS [T1090][Content_type, COUNT-Status] ) JOIN (
+      SELECT
+        input1.Id,input1.Name,input1.Status,input1.Content_type
+      FROM
+        input1
+      WHERE
+        input1.Status <> Error )) AS [T1091][Content_type, COUNT-Status, Id, Name, Status, Content_type1]
+WHERE
+  [T1091].Content_type == [T1091].Content_type1
+@anonymous
+[T1091].COUNT-Status(NumberVal) | [T1091].Content_type(StringVal) 
+1.0 | general_url 
+2.0 | document 
+
+[No.15]===============================
+SELECT
+  [T1019].COUNT-Status,[T1019].Content_type
+FROM
+  (( (SELECT
+          [T1017].Name, [T1017].Content_type, COUNT([T1017].Status)
+        FROM
+          (SELECT
+              input1.Id,input1.Name,input1.Status,input1.Content_type
+            FROM
+              input1
+            WHERE
+              input1.Status == Error) AS [T1017][Id, Name, Status, Content_type]
+        GROUP BY
+          [T1017].Name  [T1017].Content_type) AS [T1018][Name, Content_type, COUNT-Status] ) JOIN (
+      SELECT
+        input1.Id,input1.Name,input1.Status,input1.Content_type
+      FROM
+        input1
+      WHERE
+        input1.Status <> Error )) AS [T1019][Name, Content_type, COUNT-Status, Id, Name1, Status, Content_type1]
+WHERE
+  [T1019].Content_type == [T1019].Content_type1
+@anonymous
+[T1019].COUNT-Status(NumberVal) | [T1019].Content_type(StringVal) 
+1.0 | general_url 
+2.0 | document 
+
+[No.14]===============================
+SELECT
+  [T947].COUNT-Content_type,[T947].Content_type
+FROM
+  (( (SELECT
+          [T945].Content_type, COUNT([T945].Content_type)
+        FROM
+          (SELECT
+              input1.Id,input1.Name,input1.Status,input1.Content_type
+            FROM
+              input1
+            WHERE
+              input1.Status == Error) AS [T945][Id, Name, Status, Content_type]
+        GROUP BY
+          [T945].Content_type) AS [T946][Content_type, COUNT-Content_type] ) JOIN (
+      SELECT
+        input1.Id,input1.Name,input1.Status,input1.Content_type
+      FROM
+        input1
+      WHERE
+        input1.Status <> Error )) AS [T947][Content_type, COUNT-Content_type, Id, Name, Status, Content_type1]
+WHERE
+  [T947].Content_type == [T947].Content_type1
+@anonymous
+[T947].COUNT-Content_type(NumberVal) | [T947].Content_type(StringVal) 
+1.0 | general_url 
+2.0 | document 
+
+[No.13]===============================
+SELECT
+  [T899].COUNT-Id,[T899].Content_type
+FROM
+  (( (SELECT
+          [T897].Name, [T897].Status, [T897].Content_type, COUNT([T897].Id)
+        FROM
+          (SELECT
+              input1.Id,input1.Name,input1.Status,input1.Content_type
+            FROM
+              input1
+            WHERE
+              input1.Status == Error) AS [T897][Id, Name, Status, Content_type]
+        GROUP BY
+          [T897].Name  [T897].Status  [T897].Content_type) AS [T898][Name, Status, Content_type, COUNT-Id] ) JOIN (
+      SELECT
+        input1.Id,input1.Name,input1.Status,input1.Content_type
+      FROM
+        input1
+      WHERE
+        input1.Status <> Error )) AS [T899][Name, Status, Content_type, COUNT-Id, Id, Name1, Status1, Content_type1]
+WHERE
+  [T899].Content_type == [T899].Content_type1
+@anonymous
+[T899].COUNT-Id(NumberVal) | [T899].Content_type(StringVal) 
+1.0 | general_url 
+2.0 | document 
+
+[No.12]===============================
+SELECT
+  [T863].COUNT-Id,[T863].Content_type
+FROM
+  (( (SELECT
+          [T861].Name, [T861].Content_type, COUNT([T861].Id)
+        FROM
+          (SELECT
+              input1.Id,input1.Name,input1.Status,input1.Content_type
+            FROM
+              input1
+            WHERE
+              input1.Status == Error) AS [T861][Id, Name, Status, Content_type]
+        GROUP BY
+          [T861].Name  [T861].Content_type) AS [T862][Name, Content_type, COUNT-Id] ) JOIN (
+      SELECT
+        input1.Id,input1.Name,input1.Status,input1.Content_type
+      FROM
+        input1
+      WHERE
+        input1.Status <> Error )) AS [T863][Name, Content_type, COUNT-Id, Id, Name1, Status, Content_type1]
+WHERE
+  [T863].Content_type == [T863].Content_type1
+@anonymous
+[T863].COUNT-Id(NumberVal) | [T863].Content_type(StringVal) 
+1.0 | general_url 
+2.0 | document 
+
+[No.11]===============================
+SELECT
+  [T767].COUNT-Name,[T767].Content_type
+FROM
+  (( (SELECT
+          [T765].Status, [T765].Content_type, COUNT([T765].Name)
+        FROM
+          (SELECT
+              input1.Id,input1.Name,input1.Status,input1.Content_type
+            FROM
+              input1
+            WHERE
+              input1.Status == Error) AS [T765][Id, Name, Status, Content_type]
+        GROUP BY
+          [T765].Status  [T765].Content_type) AS [T766][Status, Content_type, COUNT-Name] ) JOIN (
+      SELECT
+        input1.Id,input1.Name,input1.Status,input1.Content_type
+      FROM
+        input1
+      WHERE
+        input1.Status <> Error )) AS [T767][Status, Content_type, COUNT-Name, Id, Name, Status1, Content_type1]
+WHERE
+  [T767].Content_type == [T767].Content_type1
+@anonymous
+[T767].COUNT-Name(NumberVal) | [T767].Content_type(StringVal) 
+1.0 | general_url 
+2.0 | document 
+
+[No.10]===============================
+SELECT
+  [T707].COUNT-Name,[T707].Content_type
+FROM
+  (( (SELECT
+          [T705].Name, [T705].Status, [T705].Content_type, COUNT([T705].Name)
+        FROM
+          (SELECT
+              input1.Id,input1.Name,input1.Status,input1.Content_type
+            FROM
+              input1
+            WHERE
+              input1.Status == Error) AS [T705][Id, Name, Status, Content_type]
+        GROUP BY
+          [T705].Name  [T705].Status  [T705].Content_type) AS [T706][Name, Status, Content_type, COUNT-Name] ) JOIN (
+      SELECT
+        input1.Id,input1.Name,input1.Status,input1.Content_type
+      FROM
+        input1
+      WHERE
+        input1.Status <> Error )) AS [T707][Name, Status, Content_type, COUNT-Name, Id, Name1, Status1, Content_type1]
+WHERE
+  [T707].Content_type == [T707].Content_type1
+@anonymous
+[T707].COUNT-Name(NumberVal) | [T707].Content_type(StringVal) 
+1.0 | general_url 
+2.0 | document 
+
+[No.9]===============================
+SELECT
+  [T647].COUNT-Content_type,[T647].Content_type
+FROM
+  (( (SELECT
+          [T645].Status, [T645].Content_type, COUNT([T645].Content_type)
+        FROM
+          (SELECT
+              input1.Id,input1.Name,input1.Status,input1.Content_type
+            FROM
+              input1
+            WHERE
+              input1.Status == Error) AS [T645][Id, Name, Status, Content_type]
+        GROUP BY
+          [T645].Status  [T645].Content_type) AS [T646][Status, Content_type, COUNT-Content_type] ) JOIN (
+      SELECT
+        input1.Id,input1.Name,input1.Status,input1.Content_type
+      FROM
+        input1
+      WHERE
+        input1.Status <> Error )) AS [T647][Status, Content_type, COUNT-Content_type, Id, Name, Status1, Content_type1]
+WHERE
+  [T647].Content_type == [T647].Content_type1
+@anonymous
+[T647].COUNT-Content_type(NumberVal) | [T647].Content_type(StringVal) 
+1.0 | general_url 
+2.0 | document 
+
+[No.8]===============================
+SELECT
+  [T611].COUNT-Id,[T611].Content_type
+FROM
+  (( (SELECT
+          [T609].Content_type, COUNT([T609].Id)
+        FROM
+          (SELECT
+              input1.Id,input1.Name,input1.Status,input1.Content_type
+            FROM
+              input1
+            WHERE
+              input1.Status == Error) AS [T609][Id, Name, Status, Content_type]
+        GROUP BY
+          [T609].Content_type) AS [T610][Content_type, COUNT-Id] ) JOIN (
+      SELECT
+        input1.Id,input1.Name,input1.Status,input1.Content_type
+      FROM
+        input1
+      WHERE
+        input1.Status <> Error )) AS [T611][Content_type, COUNT-Id, Id, Name, Status, Content_type1]
+WHERE
+  [T611].Content_type == [T611].Content_type1
+@anonymous
+[T611].COUNT-Id(NumberVal) | [T611].Content_type(StringVal) 
+1.0 | general_url 
+2.0 | document 
+
+[No.7]===============================
+SELECT
+  [T539].COUNT-Name,[T539].Content_type
+FROM
+  (( (SELECT
+          [T537].Name, [T537].Content_type, COUNT([T537].Name)
+        FROM
+          (SELECT
+              input1.Id,input1.Name,input1.Status,input1.Content_type
+            FROM
+              input1
+            WHERE
+              input1.Status == Error) AS [T537][Id, Name, Status, Content_type]
+        GROUP BY
+          [T537].Name  [T537].Content_type) AS [T538][Name, Content_type, COUNT-Name] ) JOIN (
+      SELECT
+        input1.Id,input1.Name,input1.Status,input1.Content_type
+      FROM
+        input1
+      WHERE
+        input1.Status <> Error )) AS [T539][Name, Content_type, COUNT-Name, Id, Name1, Status, Content_type1]
+WHERE
+  [T539].Content_type == [T539].Content_type1
+@anonymous
+[T539].COUNT-Name(NumberVal) | [T539].Content_type(StringVal) 
+1.0 | general_url 
+2.0 | document 
+
+[No.6]===============================
+SELECT
+  [T491].COUNT-Status,[T491].Content_type
+FROM
+  (( (SELECT
+          [T489].Name, [T489].Status, [T489].Content_type, COUNT([T489].Status)
+        FROM
+          (SELECT
+              input1.Id,input1.Name,input1.Status,input1.Content_type
+            FROM
+              input1
+            WHERE
+              input1.Status == Error) AS [T489][Id, Name, Status, Content_type]
+        GROUP BY
+          [T489].Name  [T489].Status  [T489].Content_type) AS [T490][Name, Status, Content_type, COUNT-Status] ) JOIN (
+      SELECT
+        input1.Id,input1.Name,input1.Status,input1.Content_type
+      FROM
+        input1
+      WHERE
+        input1.Status <> Error )) AS [T491][Name, Status, Content_type, COUNT-Status, Id, Name1, Status1, Content_type1]
+WHERE
+  [T491].Content_type == [T491].Content_type1
+@anonymous
+[T491].COUNT-Status(NumberVal) | [T491].Content_type(StringVal) 
+1.0 | general_url 
+2.0 | document 
+
+[No.5]===============================
+SELECT
+  [T455].COUNT-Content_type,[T455].Content_type
+FROM
+  (( (SELECT
+          [T453].Name, [T453].Content_type, COUNT([T453].Content_type)
+        FROM
+          (SELECT
+              input1.Id,input1.Name,input1.Status,input1.Content_type
+            FROM
+              input1
+            WHERE
+              input1.Status == Error) AS [T453][Id, Name, Status, Content_type]
+        GROUP BY
+          [T453].Name  [T453].Content_type) AS [T454][Name, Content_type, COUNT-Content_type] ) JOIN (
+      SELECT
+        input1.Id,input1.Name,input1.Status,input1.Content_type
+      FROM
+        input1
+      WHERE
+        input1.Status <> Error )) AS [T455][Name, Content_type, COUNT-Content_type, Id, Name1, Status, Content_type1]
+WHERE
+  [T455].Content_type == [T455].Content_type1
+@anonymous
+[T455].COUNT-Content_type(NumberVal) | [T455].Content_type(StringVal) 
+1.0 | general_url 
+2.0 | document 
+
+[No.4]===============================
+SELECT
+  [T407].COUNT-Status,[T407].Content_type
+FROM
+  (( (SELECT
+          [T405].Status, [T405].Content_type, COUNT([T405].Status)
+        FROM
+          (SELECT
+              input1.Id,input1.Name,input1.Status,input1.Content_type
+            FROM
+              input1
+            WHERE
+              input1.Status == Error) AS [T405][Id, Name, Status, Content_type]
+        GROUP BY
+          [T405].Status  [T405].Content_type) AS [T406][Status, Content_type, COUNT-Status] ) JOIN (
+      SELECT
+        input1.Id,input1.Name,input1.Status,input1.Content_type
+      FROM
+        input1
+      WHERE
+        input1.Status <> Error )) AS [T407][Status, Content_type, COUNT-Status, Id, Name, Status1, Content_type1]
+WHERE
+  [T407].Content_type == [T407].Content_type1
+@anonymous
+[T407].COUNT-Status(NumberVal) | [T407].Content_type(StringVal) 
+1.0 | general_url 
+2.0 | document 
+
+[No.3]===============================
+SELECT
+  [T347].COUNT-Content_type,[T347].Content_type
+FROM
+  (( (SELECT
+          [T345].Name, [T345].Status, [T345].Content_type, COUNT([T345].Content_type)
+        FROM
+          (SELECT
+              input1.Id,input1.Name,input1.Status,input1.Content_type
+            FROM
+              input1
+            WHERE
+              input1.Status == Error) AS [T345][Id, Name, Status, Content_type]
+        GROUP BY
+          [T345].Name  [T345].Status  [T345].Content_type) AS [T346][Name, Status, Content_type, COUNT-Content_type] ) JOIN (
+      SELECT
+        input1.Id,input1.Name,input1.Status,input1.Content_type
+      FROM
+        input1
+      WHERE
+        input1.Status <> Error )) AS [T347][Name, Status, Content_type, COUNT-Content_type, Id, Name1, Status1, Content_type1]
+WHERE
+  [T347].Content_type == [T347].Content_type1
+@anonymous
+[T347].COUNT-Content_type(NumberVal) | [T347].Content_type(StringVal) 
+1.0 | general_url 
+2.0 | document 
+
+[No.2]===============================
+SELECT
+  [T239].COUNT-Id,[T239].Content_type
+FROM
+  (( (SELECT
+          [T237].Status, [T237].Content_type, COUNT([T237].Id)
+        FROM
+          (SELECT
+              input1.Id,input1.Name,input1.Status,input1.Content_type
+            FROM
+              input1
+            WHERE
+              input1.Status == Error) AS [T237][Id, Name, Status, Content_type]
+        GROUP BY
+          [T237].Status  [T237].Content_type) AS [T238][Status, Content_type, COUNT-Id] ) JOIN (
+      SELECT
+        input1.Id,input1.Name,input1.Status,input1.Content_type
+      FROM
+        input1
+      WHERE
+        input1.Status <> Error )) AS [T239][Status, Content_type, COUNT-Id, Id, Name, Status1, Content_type1]
+WHERE
+  [T239].Content_type == [T239].Content_type1
+@anonymous
+[T239].COUNT-Id(NumberVal) | [T239].Content_type(StringVal) 
+1.0 | general_url 
+2.0 | document 
+
+[No.1]===============================
+SELECT
+  [T155].COUNT-Name,[T155].Content_type
+FROM
+  (( (SELECT
+          [T153].Content_type, COUNT([T153].Name)
+        FROM
+          (SELECT
+              input1.Id,input1.Name,input1.Status,input1.Content_type
+            FROM
+              input1
+            WHERE
+              input1.Status == Error) AS [T153][Id, Name, Status, Content_type]
+        GROUP BY
+          [T153].Content_type) AS [T154][Content_type, COUNT-Name] ) JOIN (
+      SELECT
+        input1.Id,input1.Name,input1.Status,input1.Content_type
+      FROM
+        input1
+      WHERE
+        input1.Status <> Error )) AS [T155][Content_type, COUNT-Name, Id, Name, Status, Content_type1]
+WHERE
+  [T155].Content_type == [T155].Content_type1
+@anonymous
+[T155].COUNT-Name(NumberVal) | [T155].Content_type(StringVal) 
+1.0 | general_url 
+2.0 | document 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 1.010s
