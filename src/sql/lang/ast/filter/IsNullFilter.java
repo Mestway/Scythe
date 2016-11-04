@@ -10,6 +10,7 @@ import sql.lang.exception.SQLEvalException;
 import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -70,6 +71,11 @@ public class IsNullFilter implements Filter {
     @Override
     public List<Hole> getAllHoles() {
         return arg.getAllHoles();
+    }
+
+    @Override
+    public List<Value> getAllConstatnts() {
+        return new ArrayList<>();
     }
 
     @Override

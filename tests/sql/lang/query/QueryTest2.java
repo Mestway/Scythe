@@ -21,7 +21,7 @@ import java.util.Arrays;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Case 002 in benchmark
+ * Case 002M in benchmark
  * Created by clwang on 12/23/15.
  */
 public class QueryTest2 {

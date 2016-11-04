@@ -8,6 +8,7 @@ import sql.lang.ast.Environment;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.table.UnionNode;
 import sql.lang.datatype.NumberVal;
+import sql.lang.datatype.Value;
 import sql.lang.exception.SQLEvalException;
 import util.Pair;
 
@@ -45,53 +46,53 @@ public class SynthesizerWAggrfun {
         Set<NumberVal> guessedNumConstants = SynthesizerHelper.guessExtraConstants(config.getAggrFuns(), inputs);
         config.addConstVals(guessedNumConstants.stream().collect(Collectors.toSet()));
 
-        int maxDepth = 1;
+        int depth = 0;
         while (timeUsed < SynthesizerWAggrfun.TimeOut) {
-            System.out.println("[[Retry]] Maximum Depth: " + maxDepth);
+            System.out.println("[[Retry]] Depth: " + depth);
 
-            if (maxDepth == 2)
+            if (depth == 2)
                 System.out.println(output);
 
             //##### Synthesis
-            config.setMaxDepth(maxDepth);
+            config.setMaxDepth(depth);
             candidates.addAll(enumerator.enumProgramWithIO(inputs, output, config));
-            if (containsDesirableCandidate(candidates)) break;
+            if (depth > 0 && containsDesirableCandidate(candidates, config.getUserProvidedConstValues())) break;
 
-
-            if (maxDepth == 1) {
+            if (depth == 1) {
                 // try decompose tables
                 if (GlobalConfig.TRY_DECOMPOSITION
                         && exampleDS.output.getContent().size() <= GlobalConfig.TRY_DECOMPOSE_ROW_NUM) {
                     candidates.addAll(SynthesizerHelper.synthesizeWithDecomposition(inputs, output, config, enumerator,1));
                     config.setMaxDepth(1);
                 }
-                if (containsDesirableCandidate(candidates)) break;
+                if (containsDesirableCandidate(candidates, config.getUserProvidedConstValues())) break;
             }
 
             // backtrack on aggregation functions
             //exampleDS.enumConfig.setAggrFunctions(new ArrayList<>());
 
-            if (maxDepth == 2) {
+            if (depth == 2) {
                 // try synthesizing queries with Exists-clauses
                 for (Table existsCore : exampleDS.inputs) {
                     config.setExistsCore(2, Arrays.asList(existsCore));
                     config.setMaxDepth(0);
 
                     candidates.addAll(enumerator.enumProgramWithIO(exampleDS.inputs, exampleDS.output, exampleDS.enumConfig));
-                    if (containsDesirableCandidate(candidates)) break;
+                    if (containsDesirableCandidate(candidates, config.getUserProvidedConstValues())) break;
                 }
             }
 
             exampleDS.enumConfig.setExistsCore(0, new ArrayList<>());
-            exampleDS.enumConfig.setMaxDepth(maxDepth);
+            exampleDS.enumConfig.setMaxDepth(depth);
 
             timeUsed = System.currentTimeMillis() - timeStart;
-            maxDepth ++;
+            depth ++;
 
-            if (containsDesirableCandidate(candidates)) break;
+            if (depth > 1 && containsDesirableCandidate(candidates, config.getUserProvidedConstValues())) break;
         }
 
-        candidates.sort((tn1, tn2) -> Double.compare(tn1.estimateAllFilterCost(), tn2.estimateAllFilterCost()));
+        candidates.sort((tn1, tn2) -> Double.compare(tn1.estimateTotalScore(config.getUserProvidedConstValues()),
+                                                     tn2.estimateTotalScore(config.getUserProvidedConstValues())));
         int lastIndex = GlobalConfig.MAXIMUM_QUERY_KEPT > candidates.size() ? candidates.size() - 1
                 : GlobalConfig.MAXIMUM_QUERY_KEPT - 1;
         for (int i = lastIndex; i >= 0; i --) {
@@ -126,10 +127,11 @@ public class SynthesizerWAggrfun {
      * @param candidates the set of candidate queries to be checked
      * @return whether a desirable one is contained.
      */
-    public static boolean containsDesirableCandidate(List<TableNode> candidates) {
+    public static boolean containsDesirableCandidate(List<TableNode> candidates, List<Value> constValues) {
         if (! candidates.isEmpty()) {
-            candidates.sort((tn1, tn2) -> Double.compare(tn1.estimateAllFilterCost(), tn2.estimateAllFilterCost()));
-            if (candidates.get(0).estimateAllFilterCost() < 10) {
+            candidates.sort((tn1, tn2) -> Double.compare(tn1.estimateTotalScore(constValues),
+                    tn2.estimateTotalScore(constValues)));
+            if (candidates.get(0).estimateTotalScore(constValues) < 10) {
                 // go to print the output example only if we have already found a pretty satisfying example.
                 return true;
             }

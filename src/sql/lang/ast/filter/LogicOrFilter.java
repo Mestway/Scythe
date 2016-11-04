@@ -3,6 +3,7 @@ package sql.lang.ast.filter;
 import forward_enumeration.primitive.parameterized.InstantiateEnv;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
+import sql.lang.datatype.Value;
 import sql.lang.exception.SQLEvalException;
 import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;
@@ -57,6 +58,13 @@ public class LogicOrFilter implements Filter {
         List<Hole> result = f1.getAllHoles();
         result.addAll(f2.getAllHoles());
         return result;
+    }
+
+    @Override
+    public List<Value> getAllConstatnts() {
+        List<Value> list =  f1.getAllConstatnts();
+        list.addAll(f2.getAllConstatnts());
+        return list;
     }
 
     @Override

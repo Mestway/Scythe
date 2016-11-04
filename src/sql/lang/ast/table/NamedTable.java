@@ -1,6 +1,7 @@
 package sql.lang.ast.table;
 
 import forward_enumeration.primitive.parameterized.InstantiateEnv;
+import sql.lang.datatype.Value;
 import util.Pair;
 import sql.lang.datatype.ValType;
 import sql.lang.Table;
@@ -109,6 +110,11 @@ public class NamedTable extends TableNode {
     @Override
     public double estimateAllFilterCost() {
         return 0;
+    }
+
+    @Override
+    public List<Value> getAllConstants() {
+        return new ArrayList<>();
     }
 
     @Override

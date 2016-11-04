@@ -14,6 +14,7 @@ import util.Pair;
 import util.RenameTNWrapper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -226,6 +227,14 @@ public class LeftJoinNode extends TableNode {
     @Override
     public double estimateAllFilterCost() {
         return tn1.estimateAllFilterCost() + tn2.estimateAllFilterCost();
+    }
+
+    @Override
+    public List<Value> getAllConstants() {
+        List<Value> result = new ArrayList<>();
+        result.addAll(tn1.getAllConstants());
+        result.addAll(tn2.getAllConstants());
+        return result;
     }
 
     @Override

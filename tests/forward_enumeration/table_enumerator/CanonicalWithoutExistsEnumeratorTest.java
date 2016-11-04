@@ -10,12 +10,12 @@ public class CanonicalWithoutExistsEnumeratorTest {
 
     @Test
     public void test1() {
-        Synthesizer.Synthesize("data//StackOverflow//001", new CanonicalWithoutExistsEnumerator());
+        Synthesizer.Synthesize("data//StackOverflow//001R", new CanonicalWithoutExistsEnumerator());
     }
 
     @Test
     public void test2() {
-        Synthesizer.Synthesize("data//StackOverflow//002", new CanonicalWithoutExistsEnumerator());
+        Synthesizer.Synthesize("data//StackOverflow//002M", new CanonicalWithoutExistsEnumerator());
     }
 
     @Test
@@ -24,5 +24,5 @@ public class CanonicalWithoutExistsEnumeratorTest {
     }
 
     @Test
-    public void test4() { Synthesizer.Synthesize("data//StackOverflow//022", new CanonicalWithoutExistsEnumerator()); }
+    public void test4() { Synthesizer.Synthesize("data//StackOverflow//022M", new CanonicalWithoutExistsEnumerator()); }
 }

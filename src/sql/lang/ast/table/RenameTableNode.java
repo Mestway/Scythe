@@ -1,6 +1,7 @@
 package sql.lang.ast.table;
 
 import forward_enumeration.primitive.parameterized.InstantiateEnv;
+import sql.lang.datatype.Value;
 import util.Pair;
 import sql.lang.datatype.ValType;
 import sql.lang.Table;
@@ -161,6 +162,11 @@ public class RenameTableNode extends TableNode {
     @Override
     public double estimateAllFilterCost() {
         return this.tableNode.estimateAllFilterCost();
+    }
+
+    @Override
+    public List<Value> getAllConstants() {
+        return tableNode.getAllConstants();
     }
 
     @Override

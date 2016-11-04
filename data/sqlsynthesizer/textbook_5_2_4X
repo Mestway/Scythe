@@ -44,9 +44,24 @@ pname
 PN3
 PN6
 PN9
+PN9
 
 #constraint
 {
 	"constants": ["AWS"],
 	"aggregation_functions": [ ]
 }
+
+#solution
+
+requires exists on join table
+
+select t2.pname
+from t1 T1
+where not exists
+        (select *
+         from (select * from t1 where id = T1.id)
+         join (select * from t3 where t3.sname <> "AWS")
+         on t1.sid = t3.sid)
+join t2
+on T1.part_key = t2.part_key

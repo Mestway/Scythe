@@ -34,13 +34,16 @@ public class EnumLeftJoin {
                 List<LeftJoinNode> ljns = LeftJoinEnumerator.enumLeftJoin(leftSet.get(i), rightSet.get(j));
 
                 for (TableNode ljn : ljns) {
-                    qc.insertQuery(ljn);
                     try {
-                        Table ljnt = qc.getRepresentative(ljn.eval(new Environment()));
-                        qc.getTableLinks().insertEdge(
-                                qc.getRepresentative(leftSet.get(i).eval(new Environment())),
-                                qc.getRepresentative(rightSet.get(j).eval(new Environment())),
-                                ljnt);
+                        Table ljnt = ljn.eval(new Environment());
+                        if (qc != null) {
+                            ljnt = qc.getRepresentative(ljnt);
+                            qc.insertQuery(ljn);
+                            qc.getTableLinks().insertEdge(
+                                    qc.getRepresentative(leftSet.get(i).eval(new Environment())),
+                                    qc.getRepresentative(rightSet.get(j).eval(new Environment())),
+                                    ljnt);
+                        }
                         newlyGeneratedTable.add(ljnt);
                     } catch (SQLEvalException e) {
                         e.printStackTrace();

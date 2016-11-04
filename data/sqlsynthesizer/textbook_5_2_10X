@@ -57,3 +57,17 @@ SN11,2
 	"constants": ["green"],
 	"aggregation_functions": [ "count" ]
 }
+
+#solution
+
+select *
+from T1 t1
+where not exists (
+    select *
+    from  (select * from T1 where id = t1.id)
+    join  (select * from T2 where color <> "green")
+    on    (t1.part_id = t2.part_id)
+) join (select id, count(part_id)
+        from T1
+        group by id) t3
+on t3.id = t1.id

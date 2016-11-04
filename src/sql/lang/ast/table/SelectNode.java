@@ -298,6 +298,14 @@ public class SelectNode extends TableNode {
         return cost + filterCost;
     }
 
+    @Override
+    public List<Value> getAllConstants() {
+        List<Value> list = new ArrayList<>();
+        list.addAll(tableNode.getAllConstants());
+        list.addAll(filter.getAllConstatnts());
+        return list;
+    }
+
 
     public String getQuerySkeleton() {
         return "(S " + tableNode.getQuerySkeleton() + ")";

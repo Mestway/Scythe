@@ -29,6 +29,7 @@ public class ExampleDS {
             fileContent = Files.readAllLines(Paths.get(path)).stream().filter(t -> !t.startsWith("//")).collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
 
         int i = 0;

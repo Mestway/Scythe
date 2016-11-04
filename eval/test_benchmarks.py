@@ -4,13 +4,21 @@ import sys
 import time
 import os
 
-logging = True
+logging = False
 timeout = 600
 
 scythe = os.path.join("..", "out", "artifacts", "Scythe_jar", "Scythe.jar")
 
-if __name__ == "__main__":
+def run_scythe(output_stream, timeout, with_aggr):
+	try:
+		args = ['java', '-jar', scythe, f,'StagedEnumerator']
+		if with_aggr:
+			aggrs.append('-aggr')
+		subprocess32.call(args, stdout=output_stream, timeout=timeout)
+	except:
+		print "  [FAIL] timeout"
 
+if __name__ == "__main__":
 
 	data_dir = os.path.join("..", "data")
 
@@ -31,21 +39,17 @@ if __name__ == "__main__":
 																if os.path.isfile(os.path.join(benchmark_dir, name))]
 
 		for f in files:
+
+			with_aggr = False
 			if (f.endswith("X")):
 				continue
+			if ("A" in f):
+				with_aggr = True
 
 			print "[[Running]] " + f
-
 			if logging:
 				log_file = os.path.join(log_dir, benchmark_dir_suffix + "__" + os.path.basename(f) + ".log")
-				output = open(log_file, "w")
-				try:
-					subprocess32.call(['java', '-jar', scythe, f,'StagedEnumerator'], stdout=output, timeout=timeout)
-				except:
-					print "  [FAIL] timeout"
+				run_scythe(open(log_file, "w"), timeout, with_aggr)
 			else:
-				try:
-					FNULL = open(os.devnull, 'w')
-					subprocess32.call(['java', '-jar', scythe, f,'StagedEnumerator'], stdout=FNULL, timeout=timeout)
-				except:
-					print "  [FAIL] timeout"
+				run_scythe(open(os.devnull, 'w'), timeout, with_aggr)
+

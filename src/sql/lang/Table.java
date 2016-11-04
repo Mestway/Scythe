@@ -280,7 +280,7 @@ public class Table {
         return hash;
         // another hash function
         /*return this.getContent().parallelStream()
-                .map(tr -> tr.getValues().parallelStream().map(t -> t.getVal().hashCode())
+                .map(tr -> tr.getUserProvidedConstValues().parallelStream().map(t -> t.getVal().hashCode())
                         .reduce(0, (a, b) -> (a + b) % prime))
                 .reduce(0, (x, y) -> (x + y) % prime );*/
     }

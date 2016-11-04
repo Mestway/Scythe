@@ -86,5 +86,6 @@ public class QueryContainer {
     public Set<Pair<AbstractSummaryTable, BVFilter>> getAllCandidates() {
         return this.candidates;
     }
+    public List<AbstractSummaryTable> allSummaryTables;
 
 }

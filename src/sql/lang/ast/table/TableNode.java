@@ -1,6 +1,7 @@
 package sql.lang.ast.table;
 
 import forward_enumeration.primitive.parameterized.InstantiateEnv;
+import sql.lang.datatype.Value;
 import util.Pair;
 import sql.lang.datatype.ValType;
 import sql.lang.Table;
@@ -61,6 +62,24 @@ public abstract class TableNode implements Node {
     }
 
     public abstract double estimateAllFilterCost();
+    public abstract List<Value> getAllConstants();
+
+    public double estimateTotalScore(List<Value> constants) {
+
+        double penalty = 0;
+        List<Value> valuesInTheQuery = this.getAllConstants();
+        for (Value v : constants) {
+            int cnt = 0;
+            for (Value x : valuesInTheQuery) {
+                if (x.equals(v)) cnt ++;
+            }
+            if (cnt == 0) penalty += 1;
+            else {
+                //penalty += cnt - 1;
+            }
+        }
+        return penalty + estimateAllFilterCost();
+    }
 
     // Obtain the skeleton of a SQL query, the skeleton describes what does the query looks like,
     // this string can be used to distinguish query structure information

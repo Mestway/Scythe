@@ -1,6 +1,9 @@
+### Cases that we cannot solve:
+
 dev_set:
 	032X: require using row_number() and LIMIT
 	046X: unable to properly modify the example to match user's intent
+	055X: unable to rank
 	067X: does not scale well, union after join
 
 recent_posts
@@ -49,7 +52,70 @@ sqlsynthesizer:
 	5-1-2: unable to disambiguate
 	5-1-4: does not scale
 	5-1-5: unsupported EXCEPT
-	5-2-10: high nested level
+	5-2-10: high nested level (possibly solvable with join inside exists)
 	5-2-11: unable to scale
-	5-2-3: unable to scale
+	5-2-3: unable to scale 
+	5-2-4: unable to scale (possibly solvable with join inside exists)
+	5-2-7: EXCEPT (possibly solvable with join inside exists)
 	5-2-8: high nested level
+
+### Cases that needs modification:
+
+##### Cases needs new examples:
+
+Below we shows cases that needs new examples, and the number of cells needed to be added to the new example.
+
+dev-set:
+	002M: 4
+	006M: 5
+	019M: 2
+	026M: 4
+	042M: 3
+	047M: 3
+	053M: 4
+	058M: 8
+	065M: 7
+
+recent-posts:
+	005M: 9
+	016M: 2
+	021M: 16
+	022M: 17
+	032M: 10
+	044M: 8
+
+top-rated-posts:
+	007M: 2
+	010M: 12
+	018M: 13
+	021M: 3
+	030M: 6
+	043M: 4
+
+##### Cases needs specifying aggregation functions
+
+	dev-set: 2
+	sql-synthesizer: 1
+	recent-posts: 4
+	top-rated: 0
+
+##### Cases that ASE13 paper mis-reported
+
+	textbook_5_1_3: require union and exists
+	textbook_5_1_5: require exits and except operator
+	textbook_5_2_4: require join inside exists
+	textbook_5_2_7: 
+	textbook_5_2_10
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -5,6 +5,7 @@ import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.datatype.ValType;
+import sql.lang.datatype.Value;
 import sql.lang.exception.SQLEvalException;
 import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;
@@ -127,4 +128,12 @@ public class UnionNode extends TableNode {
         return "(U" + tableNodes.stream().map(tn -> tn.getQuerySkeleton()).reduce("", (x,y)-> (x + " " + y)) + ")";
     }
 
+    @Override
+    public List<Value> getAllConstants() {
+        List<Value> result = new ArrayList<>();
+        for (TableNode tn : tableNodes) {
+            result.addAll(tn.getAllConstants());
+        }
+        return result;
+    }
 }

@@ -34,6 +34,8 @@ public class StagedEnumerator extends AbstractTableEnumerator {
 
         // construct symbolic table for each named table.
         QueryContainer candidateCollector = new QueryContainer(QueryContainer.ContainerType.SummaryTableWBV);
+        // add a reference
+        candidateCollector.allSummaryTables = summaryTables;
 
         //##### Synthesize SPJ queries
         // build symbolic table for each input table, and store them in SymTables
@@ -380,6 +382,8 @@ public class StagedEnumerator extends AbstractTableEnumerator {
 
     public List<TableNode> decodingToQueries(QueryContainer qc, EnumContext ec) {
 
+        System.out.println("[Total Number of Intermediate] " + qc.allSummaryTables.size());
+
         List<TableNode> decodeResult = new ArrayList<>();
 
         // Extract the filters to be decoded for each AbstractSymbolicTable from qc
@@ -405,11 +409,15 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         List<TableNode> treeDecodeResult = new ArrayList<>();
         for (BVFilterCompTree t : candidateTrees) {
             List<TableNode> temp = t.translateToTopSQL(ec);
-            treeDecodeResult.addAll(temp);
+            temp.sort((x,y) -> (Double.compare(x.estimateTotalScore(ec.getUserProvidedConstValues()),
+                            y.estimateTotalScore(ec.getUserProvidedConstValues()))));
+            treeDecodeResult.addAll(temp.subList(0, temp.size() > 3 ? 3 : temp.size()));
         }
 
-        treeDecodeResult.sort((x,y) -> (x.estimateAllFilterCost() <= y.estimateAllFilterCost() ?
-                (x.estimateAllFilterCost() < y.estimateAllFilterCost() ? -1 : 0) : 1));
+        treeDecodeResult.sort((x,y) -> (
+                Double.compare(x.estimateTotalScore(ec.getUserProvidedConstValues()),
+                               y.estimateTotalScore(ec.getUserProvidedConstValues()))));
+        treeDecodeResult = treeDecodeResult.subList(0, treeDecodeResult.size() > 30 ? 30 : treeDecodeResult.size());
 
         for (TableNode tn : treeDecodeResult) {
             try {

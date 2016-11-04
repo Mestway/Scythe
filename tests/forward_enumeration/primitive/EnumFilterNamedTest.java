@@ -19,7 +19,7 @@ public class EnumFilterNamedTest {
 
     @Test
     public void test() {
-        ExampleDS exampleDS = ExampleDS.readFromFile("data//StackOverflow//001");
+        ExampleDS exampleDS = ExampleDS.readFromFile("data//StackOverflow//001R");
 
         QueryContainer qc = QueryContainer.initWithInputTables(exampleDS.inputs, QueryContainer.ContainerType.None);
         EnumContext ec = new EnumContext(exampleDS.inputs, exampleDS.enumConfig);

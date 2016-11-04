@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 public class Synthesizer {
 
     public static long TimeOut = 600000;
-    public static int maxCandidateKeptEachStage = 3;
+    public static int maxCandidateKeptEachStage = 5;
 
     public static List<TableNode> Synthesize(String exampleFilePath, AbstractTableEnumerator enumerator) {
 
@@ -61,7 +61,9 @@ public class Synthesizer {
             //##### Synthesis
             config.setMaxDepth(depth);
             List<TableNode> synthesisResult = enumerator.enumProgramWithIO(inputs, output, config);
-            candidates.addAll(SynthesizerHelper.findTopK(synthesisResult, maxCandidateKeptEachStage * 2));
+            candidates.addAll(SynthesizerHelper.findTopK(synthesisResult,
+                                                         maxCandidateKeptEachStage * 2,
+                                                         config.getUserProvidedConstValues()));
             config.setAggrFunctions(new ArrayList<>());
 
             if (depth == 1) {
@@ -74,10 +76,11 @@ public class Synthesizer {
                     config.setAggrFunctions(funcSet);
 
                     EnumConfig tempConfig = config.deepCopy();
-                    if (!containsDesirableCandidate(candidates)) {
+                    if (!containsDesirableCandidate(candidates, config.getUserProvidedConstValues())) {
                         // guess constants
                         Set<NumberVal> guessedNumConstants = SynthesizerHelper.guessExtraConstants(config.getAggrFuns(), inputs);
                         tempConfig.addConstVals(guessedNumConstants.stream().collect(Collectors.toSet()));
+                        tempConfig.containsDerivedConstants = true;
                     }
 
                     synthesisResult.addAll(enumerator.enumProgramWithIO(inputs, output, tempConfig));
@@ -85,8 +88,10 @@ public class Synthesizer {
                     //if (containsDesirableCandidate(candidates)) break;
                     config.setAggrFunctions(new ArrayList<>());
                 }
-                candidates.addAll(SynthesizerHelper.findTopK(synthesisResult, maxCandidateKeptEachStage));
-                if (containsDesirableCandidate(candidates)) break;
+                candidates.addAll(SynthesizerHelper.findTopK(synthesisResult,
+                                                             maxCandidateKeptEachStage,
+                                                             config.getUserProvidedConstValues()));
+                if (containsDesirableCandidate(candidates, config.getUserProvidedConstValues())) break;
 
                 //##### Try decompose tables
                 if (GlobalConfig.TRY_DECOMPOSITION
@@ -98,38 +103,41 @@ public class Synthesizer {
                     synthesisResult = SynthesizerHelper.synthesizeWithDecomposition(inputs, output, config, enumerator, 1);
 
                     System.out.println(" [Finished Decomposition Synthesis]");
-                    candidates.addAll(SynthesizerHelper.findTopK(synthesisResult, maxCandidateKeptEachStage));
+                    candidates.addAll(SynthesizerHelper.findTopK(synthesisResult,
+                            maxCandidateKeptEachStage, config.getUserProvidedConstValues()));
                     config.setMaxDepth(1);
                 }
-                if (containsDesirableCandidate(candidates)) break;
+                if (containsDesirableCandidate(candidates, config.getUserProvidedConstValues())) break;
 
                 //##### try synthesis with all aggregation functions
                 config.setAggrFunctions(AggregationNode.getAllAggrFunctions());
                 synthesisResult = enumerator.enumProgramWithIO(inputs, output, config);
-                candidates.addAll(SynthesizerHelper.findTopK(synthesisResult, maxCandidateKeptEachStage));
+                candidates.addAll(SynthesizerHelper.findTopK(synthesisResult,
+                        maxCandidateKeptEachStage, config.getUserProvidedConstValues()));
 
-                if (containsDesirableCandidate(candidates)) break;
+                if (containsDesirableCandidate(candidates, config.getUserProvidedConstValues())) break;
                 config.setAggrFunctions(new ArrayList<>());
             }
 
             if (depth == 2) {
 
-                if (containsDesirableCandidate(candidates)) break;
+                if (containsDesirableCandidate(candidates, config.getUserProvidedConstValues())) break;
 
                 List<Set<Function<List<Value>, Value>>> aggreFunctions =
                         SynthesizerHelper.rankAggrFunctions(config.getConstValues(), inputs, output);
 
                 for (Set<Function<List<Value>, Value>> funcSet : aggreFunctions) {
                     // guess constants
-                    if (!containsDesirableCandidate(candidates)) {
+                    if (!containsDesirableCandidate(candidates, config.getUserProvidedConstValues())) {
                         Set<NumberVal> guessedNumConstants = SynthesizerHelper.guessExtraConstants(config.getAggrFuns(), inputs);
                         config.addConstVals(guessedNumConstants.stream().collect(Collectors.toSet()));
                     }
                     config.setAggrFunctions(funcSet);
                     synthesisResult = enumerator.enumProgramWithIO(inputs, output, config);
-                    candidates.addAll(SynthesizerHelper.findTopK(synthesisResult, maxCandidateKeptEachStage));
+                    candidates.addAll(SynthesizerHelper.findTopK(synthesisResult,
+                                                maxCandidateKeptEachStage, config.getUserProvidedConstValues()));
 
-                    if (containsDesirableCandidate(candidates)) break;
+                    if (containsDesirableCandidate(candidates, config.getUserProvidedConstValues())) break;
                     config.setAggrFunctions(new ArrayList<>());
                 }
 
@@ -139,9 +147,10 @@ public class Synthesizer {
                     config.setMaxDepth(0);
 
                     synthesisResult = enumerator.enumProgramWithIO(inputs, output, config);
-                    candidates.addAll(SynthesizerHelper.findTopK(synthesisResult, maxCandidateKeptEachStage));
+                    candidates.addAll(SynthesizerHelper.findTopK(synthesisResult,
+                                                maxCandidateKeptEachStage, config.getUserProvidedConstValues()));
 
-                    if (containsDesirableCandidate(candidates)) break;
+                    if (containsDesirableCandidate(candidates, config.getUserProvidedConstValues())) break;
                 }
                 config.setExistsCore(0, new ArrayList<>());
             }
@@ -151,10 +160,11 @@ public class Synthesizer {
             timeUsed = System.currentTimeMillis() - timeStart;
             depth ++;
 
-            if (depth > 1 && containsDesirableCandidate(candidates)) break;
+            if (depth > 1 && containsDesirableCandidate(candidates, config.getUserProvidedConstValues())) break;
         }
 
-        List<TableNode> topCandidates = SynthesizerHelper.findTopK(candidates, GlobalConfig.MAXIMUM_QUERY_KEPT);
+        List<TableNode> topCandidates = SynthesizerHelper.findTopK(candidates,
+                GlobalConfig.MAXIMUM_QUERY_KEPT, config.getUserProvidedConstValues());
 
         for (int i = topCandidates.size() - 1; i >= 0; i --) {
             TableNode tn = candidates.get(i);
@@ -188,9 +198,9 @@ public class Synthesizer {
      * @param candidates the set of candidate queries to be checked
      * @return whether a desirable one is contained.
      */
-    public static boolean containsDesirableCandidate(List<TableNode> candidates) {
+    public static boolean containsDesirableCandidate(List<TableNode> candidates, List<Value> constants) {
         if (! candidates.isEmpty()) {
-            candidates.sort((tn1, tn2) -> Double.compare(tn1.estimateAllFilterCost(), tn2.estimateAllFilterCost()));
+            candidates.sort((tn1, tn2) -> Double.compare(tn1.estimateTotalScore(constants), tn2.estimateTotalScore(constants)));
             if (candidates.get(0).estimateAllFilterCost() < 10) {
                 // go to print the output example only if we have already found a pretty satisfying example.
                 return true;
