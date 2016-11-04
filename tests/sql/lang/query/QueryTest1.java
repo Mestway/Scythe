@@ -19,7 +19,7 @@ import java.util.concurrent.SynchronousQueue;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Case 001 in the benchmark
+ * Case 001R in the benchmark
  * Created by clwang on 12/23/15.
  */
 public class QueryTest1 {

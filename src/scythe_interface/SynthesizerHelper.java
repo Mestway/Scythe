@@ -50,8 +50,8 @@ public class SynthesizerHelper {
             }
             if (right.isEmpty()) continue;
 
-            left = findTopK(left, 3);
-            right = findTopK(right, 3);
+            left = findTopK(left, 3, config.getUserProvidedConstValues());
+            right = findTopK(right, 3, config.getUserProvidedConstValues());
 
             for (TableNode tn1 : left) {
                 for (TableNode tn2 : right) {
@@ -59,7 +59,9 @@ public class SynthesizerHelper {
                 }
             }
             if (candidates.size() > GlobalConfig.MAXIMUM_QUERY_KEPT) {
-                candidates.sort((tn1, tn2) -> Double.compare(tn1.estimateAllFilterCost(), tn2.estimateAllFilterCost()));
+                candidates.sort((tn1, tn2)
+                        -> Double.compare(tn1.estimateTotalScore(config.getUserProvidedConstValues()),
+                                          tn2.estimateTotalScore(config.getUserProvidedConstValues())));
                 candidates = candidates.subList(0, GlobalConfig.MAXIMUM_QUERY_KEPT);
             }
         }
@@ -72,6 +74,8 @@ public class SynthesizerHelper {
 
         Set<NumberVal> iSet = new HashSet<>();
 
+        int maxInputTableSize = input.stream().map(i -> i.getContent().size()).reduce(0, (x,y)->(x>y?x:y));
+
         if (aggrFunctions.contains(AggregationNode.AggrCount)
                 && aggrFunctions.contains(AggregationNode.AggrMax))  {
             for (TableNode tn : input.stream().map(t -> new NamedTable(t)).collect(Collectors.toSet())) {
@@ -83,7 +87,8 @@ public class SynthesizerHelper {
                     for (TableNode tttn : maxResult) {
                         try {
                             Table t = tttn.eval(new Environment());
-                            if (t.getContent().size() == 1 && (t.getContent().get(0).getValue(0) instanceof NumberVal)) {
+                            if (t.getContent().size() == 1 && (t.getContent().get(0).getValue(0) instanceof NumberVal)
+                                    && ((NumberVal)t.getContent().get(0).getValue(0)).getVal() <= maxInputTableSize) {
                                 iSet.add(((NumberVal)t.getContent().get(0).getValue(0)));
                             }
                         } catch (SQLEvalException e) {
@@ -204,11 +209,11 @@ public class SynthesizerHelper {
     }
 
     //Rank the candidates and returns only top k of them
-    public static List<TableNode> findTopK(List<TableNode> candidates, int k) {
+    public static List<TableNode> findTopK(List<TableNode> candidates, int k, List<Value> constValues) {
         if (candidates.isEmpty())
             return candidates;
         else {
-            candidates.sort((tn1, tn2) -> Double.compare(tn1.estimateAllFilterCost(), tn2.estimateAllFilterCost()));
+            candidates.sort((tn1, tn2) -> Double.compare(tn1.estimateTotalScore(constValues), tn2.estimateTotalScore(constValues)));
             return candidates.subList(0, candidates.size() > k ? k : candidates.size());
         }
     }

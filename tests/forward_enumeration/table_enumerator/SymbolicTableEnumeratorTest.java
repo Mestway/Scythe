@@ -9,7 +9,7 @@ import scythe_interface.Synthesizer;
 public class SymbolicTableEnumeratorTest {
     @Test
     public void test1() {
-        Synthesizer.Synthesize("data//StackOverflow//002", new StagedEnumerator());
+        Synthesizer.Synthesize("data//StackOverflow//002M", new StagedEnumerator());
     }
 
 }

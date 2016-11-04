@@ -583,6 +583,11 @@ public class AggregationNode extends TableNode {
     }
 
     @Override
+    public List<Value> getAllConstants() {
+        return tn.getAllConstants();
+    }
+
+    @Override
     public String getQuerySkeleton() {
         return "(A " + this.tn.getQuerySkeleton() + ")";
     }

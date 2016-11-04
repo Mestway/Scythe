@@ -30,8 +30,10 @@ public class EnumConfig {
     int numberOfParam = 0;
     List<Table> existsCore = new ArrayList<>();
 
-    public EnumConfig deepCopy() {
+    // determine whether user provided constants are included in the result constValNodes
+    public boolean containsDerivedConstants = false;
 
+    public EnumConfig deepCopy() {
         List<Value> constants = new ArrayList<>();
         constants.addAll(this.getConstValues());
         List<Function<List<Value>, Value>> aggrFuns = new ArrayList<>();
@@ -59,6 +61,10 @@ public class EnumConfig {
         this.existsCore.addAll(existsCore);
     }
 
+    public List<Value> getUserProvidedConstValues() {
+        if (containsDerivedConstants) return new ArrayList<>();
+        return this.constValNodes.stream().map(vn -> ((ConstantVal)vn).getValue()).collect(Collectors.toList());
+    }
     public List<Value> getConstValues() {
         return this.constValNodes.stream().map(vn -> ((ConstantVal)vn).getValue()).collect(Collectors.toList());
     }

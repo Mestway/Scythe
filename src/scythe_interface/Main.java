@@ -19,7 +19,19 @@ public class Main {
 
         String filename = args[0];
         String enumerator = args[1];
-        Synthesizer.Synthesize(filename, enumeratorSwitch(enumerator));
+
+        boolean synthesizeWAggr = false;
+
+        if (args.length >= 3) {
+            String extraFlag = args[2];
+            if (extraFlag.equals("-aggr"))
+                synthesizeWAggr = true;
+        }
+
+        if (synthesizeWAggr)
+            SynthesizerWAggrfun.Synthesize(filename, enumeratorSwitch(enumerator));
+        else
+            Synthesizer.Synthesize(filename, enumeratorSwitch(enumerator));
 
         // Statistics.printAllStatistics();
     }

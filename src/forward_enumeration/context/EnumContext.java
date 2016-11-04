@@ -1,6 +1,7 @@
 package forward_enumeration.context;
 
 import global.GlobalConfig;
+import sql.lang.ast.val.ConstantVal;
 import sql.lang.datatype.ValType;
 import sql.lang.datatype.Value;
 import sql.lang.Table;
@@ -50,6 +51,17 @@ public class EnumContext {
     }
 
     public void setValNodes(List<ValNode> vns) { this.valNodes = vns; }
+
+    boolean containDerivedConstant = false;
+    public void setConstProvidedByUser() {
+        containDerivedConstant = true;
+    }
+    public List<Value> getUserProvidedConstValues() {
+        if (! containDerivedConstant)
+            return this.valNodes.stream().map(vn -> ((ConstantVal)vn).getValue()).collect(Collectors.toList());
+        else
+            return new ArrayList<>();
+    }
 
     // set and get the number of maximum filter length
     public void setMaxFilterLength(int maxLength) { this.maxFilterLength = maxLength; }

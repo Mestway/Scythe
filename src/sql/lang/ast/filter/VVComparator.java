@@ -1,6 +1,7 @@
 package sql.lang.ast.filter;
 
 import forward_enumeration.primitive.parameterized.InstantiateEnv;
+import sql.lang.ast.val.ConstantVal;
 import sql.lang.datatype.*;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
@@ -127,6 +128,17 @@ public class VVComparator implements Filter {
         List<Hole> result = new ArrayList<>();
         this.args.forEach(vn -> result.addAll(vn.getAllHoles()));
         return result;
+    }
+
+    @Override
+    public List<Value> getAllConstatnts() {
+        List<Value> values = new ArrayList<>();
+        for (ValNode vn : this.args) {
+            if (vn instanceof ConstantVal) {
+                values.add(((ConstantVal) vn).getValue());
+            }
+        }
+        return values;
     }
 
     @Override

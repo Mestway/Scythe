@@ -43,3 +43,26 @@ P9,SN3
 	"constants": [],
 	"aggregation_functions": [ "max" ]
 }
+
+#solution
+
+//argmax
+SELECT
+  [T144].part_key,[T144].sname
+FROM
+  (( SELECT
+        [T142].part_key,[T142].MAX-cost,[T142].sid,[T142].part_key1,[T142].cost
+      FROM
+        (( (SELECT
+                [T140].part_key, MAX([T140].cost)
+              FROM
+                (input1) AS [T140][sid, part_key, cost]
+              GROUP BY
+                [T140].part_key) AS [T141][part_key, MAX-cost] ) JOIN (
+            input1 )) AS [T142][part_key, MAX-cost, sid, part_key1, cost]
+      WHERE
+        [T142].part_key == [T142].part_key1
+         AND [T142].MAX-cost == [T142].cost ) JOIN (
+      input2 )) AS [T144][part_key, MAX-cost, sid, part_key1, cost, sid1, sname]
+WHERE
+  [T144].sid == [T144].sid1

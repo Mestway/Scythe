@@ -3,6 +3,7 @@ package sql.lang.ast.filter;
 import forward_enumeration.primitive.parameterized.InstantiateEnv;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
+import sql.lang.datatype.Value;
 import sql.lang.exception.SQLEvalException;
 import sql.lang.trans.ValNodeSubstBinding;
 
@@ -41,6 +42,11 @@ public class EmptyFilter implements Filter {
 
     @Override
     public List<Hole> getAllHoles() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<Value> getAllConstatnts() {
         return new ArrayList<>();
     }
 

@@ -1,6 +1,7 @@
 package sql.lang.ast.table;
 
 import forward_enumeration.primitive.parameterized.InstantiateEnv;
+import sql.lang.datatype.Value;
 import util.Pair;
 import sql.lang.datatype.ValType;
 import sql.lang.Table;
@@ -134,6 +135,16 @@ public class JoinNode extends TableNode {
     @Override
     public double estimateAllFilterCost() {
         return tableNodes.stream().map(tn -> tn.estimateAllFilterCost()).reduce(0., (x,y) -> (x + y));
+    }
+
+    @Override
+    public List<Value> getAllConstants() {
+        List<Value> result = new ArrayList<>();
+        for (TableNode tn : tableNodes) {
+            result.addAll(tn.getAllConstants());
+        }
+
+        return result;
     }
 
     @Override

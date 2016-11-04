@@ -37,3 +37,15 @@ S8
 	"constants": ["red"],
 	"aggregation_functions": [ ]
 }
+
+#solution
+
+select t2.pname
+from t1 T1
+where not exists
+        (select *
+         from (select * from t1 where id = T1.id)
+         join (select * from t3 where t3.sname <> "red")
+         on t1.sid = t3.sid)
+join t2
+on T1.part_key = t2.part_key

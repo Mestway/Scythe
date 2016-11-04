@@ -6,7 +6,6 @@ import sql.lang.datatype.StringVal;
 import sql.lang.SQLQuery;
 import sql.lang.Table;
 import sql.lang.ast.filter.LogicAndFilter;
-import sql.lang.ast.filter.LogicNegFilter;
 import sql.lang.ast.filter.VVComparator;
 import sql.lang.ast.table.*;
 import sql.lang.ast.val.ConstantVal;
@@ -57,14 +56,12 @@ public class QueryTest8 {
                         new NamedVal("table1.message")
                     ),
                     new NamedTable(input),
-                    new LogicNegFilter(
-                        new VVComparator(
-                            Arrays.asList(
-                                new NamedVal("table1.from_user"),
-                                new ConstantVal(new StringVal("me"))
-                            ),
-                            VVComparator.eq
-                        )
+                    new VVComparator(
+                        Arrays.asList(
+                            new NamedVal("table1.from_user"),
+                            new ConstantVal(new StringVal("me"))
+                        ),
+                        VVComparator.neq
                     )
                 )
             );

@@ -27,6 +27,8 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
 
         enumTableWithoutProj(ec, qc, depth); // all intermediate result are stored in qc
 
+        System.out.println("[Total Number of Intermediate Result] " + qc.getRepresentativeTableNodes().size() );
+
         EnumProjection.emitEnumProjection(qc.getRepresentativeTableNodes(), ec.getOutputTable(), qc);
 
         // this is not always enabled, as this export algorithm is only designed for canonical SQL enumerator
@@ -50,11 +52,7 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
             System.out.println("Total Query Count: " + totalQueryCount);
         }
 
-        result.sort((o1, o2) -> {
-            double c1 = o1.estimateAllFilterCost();
-            double c2 = o2.estimateAllFilterCost();
-            return (c1 - c2 > 0) ? 1 : (c1 == c2 ? 0 : -1);
-        });
+        result.sort((x,y)->Double.compare(x.estimateTotalScore(ec.getUserProvidedConstValues()), y.estimateTotalScore(ec.getUserProvidedConstValues())));
 
         return result;
     }
@@ -108,9 +106,9 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
             //System.out.println("[Level] " + i);
 
             // check whether a result can be obtained by projection
-            List<TableNode> tns = EnumProjection.enumProjection(leftSet, ec.getOutputTable());
-            if (i >= 2 && ! tns.isEmpty())
-                break;
+            //List<TableNode> tns = EnumProjection.enumProjection(leftSet, ec.getOutputTable());
+            //if (i >= 2 && ! tns.isEmpty())
+             //   break;
 
             leftSet = EnumJoinTableNodes.generalEmitEnumJoin(leftSet, basic, ec, qc)
                     .stream().map(t -> new NamedTable(t)).collect(Collectors.toList());
@@ -121,15 +119,16 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
                     + "Total table by now: " + qc.getMemoizedTables().size() + "\n\t"
                     + "Avg table size: " + qc.getMemoizedTables().stream().map(t -> t.getContent().size() * t.getSchema().size()).reduce((x,y)-> x + y).get() / qc.getMemoizedTables().size());
         }
+        if (! leftSet.equals(basicAndAggr))
+            if (EnumProjection.enumProjection(leftSet, ec.getOutputTable()).size() > 0)
+                return;
 
-        if (EnumProjection.enumProjection(qc.getRepresentativeTableNodes(), ec.getOutputTable()).size() > 0) return;
-
-        /*//##### Synthesize Union
+        //##### Synthesize Union
         leftSet = basic;
         for (int i = 1; i <= depth-1; i ++) {
 
             // check whether a result can be obtained by projection, return if so
-            if (EnumProjection.enumProjection(qc.getRepresentativeTableNodes(), ec.getOutputTable()).size() > 0) return;
+            // if (EnumProjection.enumProjection(qc.getRepresentativeTableNodes(), ec.getOutputTable()).size() > 0) return;
 
             leftSet = EnumUnion.emitEnumerateUnion(leftSet, basic, qc)
                     .stream().map(t -> new NamedTable(t)).collect(Collectors.toList());
@@ -140,17 +139,20 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
                     + "Total Table by now: " + qc.getRepresentativeTableNodes().size());
         }
 
-        if (EnumProjection.enumProjection(qc.getRepresentativeTableNodes(), ec.getOutputTable()).size() > 0) return;
+        if (!leftSet.equals(basic)) {
+            if (EnumProjection.enumProjection(leftSet, ec.getOutputTable()).size() > 0)
+                return;
+        }
 
         //##### Synthesize LeftJoin
         leftSet = basic;
         for (int i = 1; i <= depth-1; i ++) {
 
             // check whether a result can be obtained by projection
-            if (EnumProjection.enumProjection(qc.getRepresentativeTableNodes(), ec.getOutputTable()).size() > 0) return;
+            // if (EnumProjection.enumProjection(qc.getRepresentativeTableNodes(), ec.getOutputTable()).size() > 0) return;
 
             leftSet = EnumLeftJoin.emitEnumLeftJoin(leftSet, basic, qc)
-                    .stream().map(t -> new NamedTable(t)).collect(Collectors.toList());
+                        .stream().map(t -> new NamedTable(t)).collect(Collectors.toList());
 
             //System.out.println("after enumJoinWithFilter: " + qc.getRepresentativeTableNodes().size() + " tables");
             System.out.println("[Stage " + (2 + i) + "] EnumUnion" + i + " \n\t"
@@ -158,15 +160,42 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
                     + "Total Table by now: " + qc.getRepresentativeTableNodes().size());
         }
 
-        if (EnumProjection.enumProjection(qc.getRepresentativeTableNodes(), ec.getOutputTable()).size() > 0) return;
-        */
-        //##### Synthesize Join on more than one aggr
-        leftSet = basicAndAggr;
+        if (! leftSet.equals(basic)) {
+            if (EnumProjection.enumProjection(leftSet, ec.getOutputTable()).size() > 0)
+                return;
+        }
+
+        //##### Synthesize Aggregation on Join
+        leftSet = basic;
         for (int i = 1; i <= depth-1; i ++) {
+            // check whether a result can be obtained by projection
+            //if (EnumProjection.enumProjection(qc.getRepresentativeTableNodes(), ec.getOutputTable()).size() > 0) return;
+            leftSet = EnumJoinTableNodes.generalEmitEnumJoin(leftSet, basic, ec, qc)
+                    .stream().map(t -> new NamedTable(t)).collect(Collectors.toList());
+
+            //System.out.println("after enumJoinWithFilter: " + qc.getRepresentativeTableNodes().size() + " tables");
+            System.out.println("[Stage " + (2 + i) + "] EnumJoinOnAggrAndBasic" + i + " \n\t"
+                    // + "Tables generated: " + (qc.tracked.size()) + "\n\t"
+                    + "Total Table by now: " + qc.getRepresentativeTableNodes().size() + "\n\t"
+                    + "Avg table size: " + qc.getMemoizedTables()
+                    .stream()
+                    .map(t -> t.getContent().size() * t.getSchema().size()).reduce((x,y)-> x + y).get() / qc.getMemoizedTables().size());
+        }
+        if (leftSet != basic) {
+            ec.setTableNodes(leftSet);
+            List<TableNode> tmp = EnumAggrTableNode.emitEnumAggrNodeWFilter(ec, qc).stream()
+                    .map(t -> new NamedTable(t)).collect(Collectors.toList());
+            if (EnumProjection.enumProjection(tmp, ec.getOutputTable()).size() > 0) return;
+        }
+
+
+        //##### Synthesize join with aggregation result
+        leftSet = basicAndAggr;
+        for (int i = 1; i <= depth; i ++) {
             //System.out.println("[Level] " + i);
 
             // check whether a result can be obtained by projection
-            if (EnumProjection.enumProjection(qc.getRepresentativeTableNodes(), ec.getOutputTable()).size() > 0) return;
+            // if (EnumProjection.enumProjection(qc.getRepresentativeTableNodes(), ec.getOutputTable()).size() > 0) return;
 
             leftSet = EnumJoinTableNodes.generalEmitEnumJoin(leftSet, basicAndAggr, ec, qc)
                     .stream().map(t -> new NamedTable(t)).collect(Collectors.toList());
@@ -177,46 +206,22 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
                     + "Total Table by now: " + qc.getRepresentativeTableNodes().size() + "\n\t"
                     + "Avg table size: " + qc.getMemoizedTables().stream().map(t -> t.getContent().size() * t.getSchema().size()).reduce((x,y)-> x + y).get() / qc.getMemoizedTables().size());
         }
-
-        if (EnumProjection.enumProjection(qc.getRepresentativeTableNodes(), ec.getOutputTable()).size() > 0) return;
-
-        //##### Synthesize Join then Aggr
-        leftSet = basic;
-        for (int i = 1; i <= depth-1; i ++) {
-
-            // check whether a result can be obtained by projection
-            if (EnumProjection.enumProjection(qc.getRepresentativeTableNodes(), ec.getOutputTable()).size() > 0) return;
-
-            leftSet = EnumJoinTableNodes.generalEmitEnumJoin(leftSet, basic, ec, qc)
-                    .stream().map(t -> new NamedTable(t)).collect(Collectors.toList());
-
-            //System.out.println("after enumJoinWithFilter: " + qc.getRepresentativeTableNodes().size() + " tables");
-            System.out.println("[Stage " + (2 + i) + "] EnumJoinOnAggrAndBasic" + i + " \n\t"
-                    // + "Tables generated: " + (qc.tracked.size()) + "\n\t"
-                    + "Total Table by now: " + qc.getRepresentativeTableNodes().size() + "\n\t"
-                    + "Avg table size: " + qc.getMemoizedTables()
-                                            .stream()
-                                            .map(t -> t.getContent().size() * t.getSchema().size()).reduce((x,y)-> x + y).get() / qc.getMemoizedTables().size());
+        if (!leftSet.equals(basicAndAggr)) {
+            if (EnumProjection.enumProjection(leftSet, ec.getOutputTable()).size() > 0)
+                return;
         }
-        ec.setTableNodes(leftSet);
-        EnumAggrTableNode.emitEnumAggrNodeWFilter(ec, qc);
-
-        if (EnumProjection.enumProjection(qc.getRepresentativeTableNodes(), ec.getOutputTable()).size() > 0) return;
 
         //##### Synthesize Aggr after Aggr
         ec.setTableNodes(aggr);
         List<TableNode> aggrAfterAggr = EnumAggrTableNode.emitEnumAggrNodeWFilter(ec, qc)
                 .stream().map(t -> new NamedTable(t)).collect(Collectors.toList());
         leftSet = aggrAfterAggr;
-
         for (int i = 1; i <= depth-1; i ++) {
-
             // check whether a result can be obtained by projection
-            if (EnumProjection.enumProjection(qc.getRepresentativeTableNodes(), ec.getOutputTable()).size() > 0) return;
+            //if (EnumProjection.enumProjection(qc.getRepresentativeTableNodes(), ec.getOutputTable()).size() > 0) return;
 
             leftSet = EnumJoinTableNodes.generalEmitEnumJoin(leftSet, basic, ec, qc)
                     .stream().map(t -> new NamedTable(t)).collect(Collectors.toList());
-
             System.out.println("[Stage " + (2 + i) + "] EnumJoinOnAggrAggr" + i + " \n\t"
                     + "Total Table by now: " + qc.getRepresentativeTableNodes().size() + "\n\t"
                     + qc.getMemoizedTables().stream()

@@ -3,9 +3,11 @@ package sql.lang.ast.filter;
 import forward_enumeration.primitive.parameterized.InstantiateEnv;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
+import sql.lang.datatype.Value;
 import sql.lang.exception.SQLEvalException;
 import sql.lang.trans.ValNodeSubstBinding;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,6 +44,11 @@ public class FilterHole implements Filter, Hole {
     @Override
     public List<Hole> getAllHoles() {
         return Arrays.asList(this);
+    }
+
+    @Override
+    public List<Value> getAllConstatnts() {
+        return new ArrayList<>();
     }
 
     @Override

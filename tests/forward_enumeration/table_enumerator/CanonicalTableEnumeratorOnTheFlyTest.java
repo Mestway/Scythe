@@ -6,7 +6,7 @@ package forward_enumeration.table_enumerator;
 public class CanonicalTableEnumeratorOnTheFlyTest {
 
     public void test1() {
-        //Synthesizer.Synthesize("data//StackOverflow//001", new CanonicalTableEnumeratorOnTheFly());
+        //Synthesizer.Synthesize("data//StackOverflow//001R", new CanonicalTableEnumeratorOnTheFly());
         for (int i = 1; i <= 63; i ++ ) {
             String s = "";
             if (i <= 9) s = "00" + i;

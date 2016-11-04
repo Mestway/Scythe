@@ -3,6 +3,7 @@ package sql.lang.ast.filter;
 import forward_enumeration.primitive.parameterized.InstantiateEnv;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
+import sql.lang.datatype.Value;
 import sql.lang.exception.SQLEvalException;
 import sql.lang.trans.ValNodeSubstBinding;
 
@@ -26,6 +27,7 @@ public interface Filter {
     // we also consider same as "exclusive"
     boolean containsExclusiveFilter(Filter f);
     List<Hole> getAllHoles();
+    List<Value> getAllConstatnts();
     Filter instantiate(InstantiateEnv env);
     Filter substNamedVal(ValNodeSubstBinding vnsb);
 }
