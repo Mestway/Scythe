@@ -28,10 +28,13 @@ public class Main {
                 synthesizeWAggr = true;
         }
 
-        if (synthesizeWAggr)
+        if (synthesizeWAggr) {
+            System.out.println("[[Synthesizing With Aggregation Functions]]");
             SynthesizerWAggrfun.Synthesize(filename, enumeratorSwitch(enumerator));
-        else
+        } else {
+            System.out.println("[[Synthesizing]]");
             Synthesizer.Synthesize(filename, enumeratorSwitch(enumerator));
+        }
 
         // Statistics.printAllStatistics();
     }

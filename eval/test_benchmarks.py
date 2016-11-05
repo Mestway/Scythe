@@ -15,7 +15,7 @@ def run_scythe(output_stream, timeout, with_aggr):
 	try:
 		args = ['java', '-jar', scythe, f, synthesis_algorithm]
 		if with_aggr:
-			aggrs.append('-aggr')
+			args.append('-aggr')
 		subprocess32.call(args, stdout=output_stream, timeout=timeout)
 	except:
 		print "  [FAIL] timeout"

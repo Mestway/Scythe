@@ -74,6 +74,7 @@ public class Synthesizer {
                         : SynthesizerHelper.getRelatedFunctions(config.getConstValues(), inputs, output)) {
 
                     config.setAggrFunctions(funcSet);
+                    System.out.println("    [AggrFun] " + funcSet.stream().map(f -> AggregationNode.FuncName(f)).reduce(String::concat));
 
                     EnumConfig tempConfig = config.deepCopy();
                     if (!containsDesirableCandidate(candidates, config.getUserProvidedConstValues())) {
