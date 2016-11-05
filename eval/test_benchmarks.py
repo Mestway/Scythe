@@ -4,9 +4,10 @@ import sys
 import time
 import os
 
-logging = False
+logging = True
 timeout = 600
-synthesis_algorithm = "CanonicalEnumeratorOnTheFly"
+#synthesis_algorithm = "CanonicalEnumeratorOnTheFly"
+synthesis_algorithm = "StagedEnumerator"
 
 scythe = os.path.join("..", "out", "artifacts", "Scythe_jar", "Scythe.jar")
 

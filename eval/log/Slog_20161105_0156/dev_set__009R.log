@@ -1,0 +1,449 @@
+[[Synthesis start]]
+	File: ../data/dev_set/009R
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 138 [SymTable]: 139
+[Total Number of Intermediate] 140
+Candidate Tree Number: 24
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 15
+[Total Number of Intermediate] 15
+Candidate Tree Number: 10
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 14 [SymTable]: 15
+[JOIN] level 1 [SymTable]: 31
+[Total Number of Intermediate] 31
+Candidate Tree Number: 68
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 14 [SymTable]: 15
+[JOIN] level 1 [SymTable]: 31
+[Total Number of Intermediate] 31
+Candidate Tree Number: 50
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 14 [SymTable]: 15
+[JOIN] level 1 [SymTable]: 31
+[Total Number of Intermediate] 31
+Candidate Tree Number: 78
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 22 [SymTable]: 23
+[JOIN] level 1 [SymTable]: 47
+[Total Number of Intermediate] 47
+Candidate Tree Number: 108
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 38 [SymTable]: 39
+[JOIN] level 1 [SymTable]: 79
+[Total Number of Intermediate] 79
+Candidate Tree Number: 278
+[Enumeration Finished]
+[Query No.20]===============================
+SELECT
+  [T331].NAME
+FROM
+  (( SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T331][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+  [T331].ID > [T331].ID1
+   AND [T331].NAME == [T331].NAME1
+@anonymous
+[T331].NAME(StringVal) 
+Tom 
+
+[Query No.19]===============================
+SELECT
+  [T323].NAME
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        True )) AS [T323][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+  [T323].ID < [T323].ID1
+   AND [T323].NAME == [T323].NAME1
+@anonymous
+[T323].NAME(StringVal) 
+Tom 
+
+[Query No.18]===============================
+SELECT
+  [T321].NAME
+FROM
+  (( SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T321][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+  [T321].ID < [T321].ID1
+   AND [T321].NAME == [T321].NAME1
+@anonymous
+[T321].NAME(StringVal) 
+Tom 
+
+[Query No.17]===============================
+SELECT
+  [T329].NAME
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T329][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+  [T329].ID > [T329].ID1
+   AND [T329].NAME == [T329].NAME1
+@anonymous
+[T329].NAME(StringVal) 
+Tom 
+
+[Query No.16]===============================
+SELECT
+  [T319].NAME
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T319][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+  [T319].ID < [T319].ID1
+   AND [T319].NAME == [T319].NAME1
+@anonymous
+[T319].NAME(StringVal) 
+Tom 
+
+[Query No.15]===============================
+SELECT
+  [T169].NAME
+FROM
+  (SELECT
+      [T168].NAME, COUNT([T168].EMAIL)
+    FROM
+      (SELECT
+          input1.ID,input1.NAME,input1.EMAIL
+        FROM
+          input1
+        WHERE
+          input1.ID > 1.0) AS [T168][ID, NAME, EMAIL]
+    GROUP BY
+      [T168].NAME) AS [T169][NAME, COUNT-EMAIL]
+WHERE
+  [T169].COUNT-EMAIL > 1.0
+@anonymous
+[T169].NAME(StringVal) 
+Tom 
+
+[Query No.14]===============================
+SELECT
+  [T165].NAME
+FROM
+  (SELECT
+      [T164].NAME, [T164].EMAIL, COUNT([T164].NAME)
+    FROM
+      (SELECT
+          input1.ID,input1.NAME,input1.EMAIL
+        FROM
+          input1
+        WHERE
+          input1.ID > 1.0) AS [T164][ID, NAME, EMAIL]
+    GROUP BY
+      [T164].NAME  [T164].EMAIL) AS [T165][NAME, EMAIL, COUNT-NAME]
+WHERE
+  [T165].COUNT-NAME > 1.0
+@anonymous
+[T165].NAME(StringVal) 
+Tom 
+
+[Query No.13]===============================
+SELECT
+  [T4526].NAME
+FROM
+  (( SELECT
+        [T4525].NAME,[T4525].COUNT-ID
+      FROM
+        (SELECT
+            [T4524].NAME, COUNT([T4524].ID)
+          FROM
+            (input1) AS [T4524][ID, NAME, EMAIL]
+          GROUP BY
+            [T4524].NAME) AS [T4525][NAME, COUNT-ID]
+      WHERE
+        [T4525].COUNT-ID > 1.0 ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        input1.ID == 1.0 )) AS [T4526][NAME, COUNT-ID, ID, NAME1, EMAIL]
+
+@anonymous
+[T4526].NAME(StringVal) 
+Tom 
+
+[Query No.12]===============================
+SELECT
+  [T4172].NAME
+FROM
+  (( SELECT
+        [T4171].NAME,[T4171].EMAIL,[T4171].COUNT-EMAIL
+      FROM
+        (SELECT
+            [T4170].NAME, [T4170].EMAIL, COUNT([T4170].EMAIL)
+          FROM
+            (input1) AS [T4170][ID, NAME, EMAIL]
+          GROUP BY
+            [T4170].NAME  [T4170].EMAIL) AS [T4171][NAME, EMAIL, COUNT-EMAIL]
+      WHERE
+        [T4171].COUNT-EMAIL > 1.0 ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        input1.ID == 1.0 )) AS [T4172][NAME, EMAIL, COUNT-EMAIL, ID, NAME1, EMAIL1]
+
+@anonymous
+[T4172].NAME(StringVal) 
+Tom 
+
+[Query No.11]===============================
+SELECT
+  [T3812].NAME
+FROM
+  (( SELECT
+        [T3811].NAME,[T3811].EMAIL,[T3811].COUNT-NAME
+      FROM
+        (SELECT
+            [T3810].NAME, [T3810].EMAIL, COUNT([T3810].NAME)
+          FROM
+            (input1) AS [T3810][ID, NAME, EMAIL]
+          GROUP BY
+            [T3810].NAME  [T3810].EMAIL) AS [T3811][NAME, EMAIL, COUNT-NAME]
+      WHERE
+        [T3811].COUNT-NAME > 1.0 ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        input1.ID == 1.0 )) AS [T3812][NAME, EMAIL, COUNT-NAME, ID, NAME1, EMAIL1]
+
+@anonymous
+[T3812].NAME(StringVal) 
+Tom 
+
+[Query No.10]===============================
+SELECT
+  [T3692].NAME
+FROM
+  (( SELECT
+        [T3691].NAME,[T3691].EMAIL,[T3691].COUNT-ID
+      FROM
+        (SELECT
+            [T3690].NAME, [T3690].EMAIL, COUNT([T3690].ID)
+          FROM
+            (input1) AS [T3690][ID, NAME, EMAIL]
+          GROUP BY
+            [T3690].NAME  [T3690].EMAIL) AS [T3691][NAME, EMAIL, COUNT-ID]
+      WHERE
+        [T3691].COUNT-ID > 1.0 ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        input1.ID == 1.0 )) AS [T3692][NAME, EMAIL, COUNT-ID, ID, NAME1, EMAIL1]
+
+@anonymous
+[T3692].NAME(StringVal) 
+Tom 
+
+[Query No.9]===============================
+SELECT
+  [T3002].NAME
+FROM
+  (( SELECT
+        [T3001].NAME,[T3001].COUNT-NAME
+      FROM
+        (SELECT
+            [T3000].NAME, COUNT([T3000].NAME)
+          FROM
+            (input1) AS [T3000][ID, NAME, EMAIL]
+          GROUP BY
+            [T3000].NAME) AS [T3001][NAME, COUNT-NAME]
+      WHERE
+        [T3001].COUNT-NAME > 1.0 ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        input1.ID == 1.0 )) AS [T3002][NAME, COUNT-NAME, ID, NAME1, EMAIL]
+
+@anonymous
+[T3002].NAME(StringVal) 
+Tom 
+
+[Query No.8]===============================
+SELECT
+  [T301].NAME
+FROM
+  (SELECT
+      [T300].NAME, COUNT([T300].ID)
+    FROM
+      (input1) AS [T300][ID, NAME, EMAIL]
+    GROUP BY
+      [T300].NAME) AS [T301][NAME, COUNT-ID]
+WHERE
+  [T301].COUNT-ID > 1.0
+@anonymous
+[T301].NAME(StringVal) 
+Tom 
+
+[Query No.7]===============================
+SELECT
+  [T277].NAME
+FROM
+  (SELECT
+      [T276].NAME, [T276].EMAIL, COUNT_DISTINCT([T276].ID)
+    FROM
+      (input1) AS [T276][ID, NAME, EMAIL]
+    GROUP BY
+      [T276].NAME  [T276].EMAIL) AS [T277][NAME, EMAIL, COUNT_DISTINCT-ID]
+WHERE
+  [T277].COUNT_DISTINCT-ID > 1.0
+@anonymous
+[T277].NAME(StringVal) 
+Tom 
+
+[Query No.6]===============================
+SELECT
+  [T267].NAME
+FROM
+  (SELECT
+      [T266].NAME, COUNT([T266].EMAIL)
+    FROM
+      (input1) AS [T266][ID, NAME, EMAIL]
+    GROUP BY
+      [T266].NAME) AS [T267][NAME, COUNT-EMAIL]
+WHERE
+  [T267].COUNT-EMAIL > 1.0
+@anonymous
+[T267].NAME(StringVal) 
+Tom 
+
+[Query No.5]===============================
+SELECT
+  [T239].NAME
+FROM
+  (SELECT
+      [T238].NAME, [T238].EMAIL, COUNT([T238].EMAIL)
+    FROM
+      (input1) AS [T238][ID, NAME, EMAIL]
+    GROUP BY
+      [T238].NAME  [T238].EMAIL) AS [T239][NAME, EMAIL, COUNT-EMAIL]
+WHERE
+  [T239].COUNT-EMAIL > 1.0
+@anonymous
+[T239].NAME(StringVal) 
+Tom 
+
+[Query No.4]===============================
+SELECT
+  [T211].NAME
+FROM
+  (SELECT
+      [T210].NAME, COUNT_DISTINCT([T210].ID)
+    FROM
+      (input1) AS [T210][ID, NAME, EMAIL]
+    GROUP BY
+      [T210].NAME) AS [T211][NAME, COUNT_DISTINCT-ID]
+WHERE
+  [T211].COUNT_DISTINCT-ID > 1.0
+@anonymous
+[T211].NAME(StringVal) 
+Tom 
+
+[Query No.3]===============================
+SELECT
+  [T201].NAME
+FROM
+  (SELECT
+      [T200].NAME, [T200].EMAIL, COUNT([T200].ID)
+    FROM
+      (input1) AS [T200][ID, NAME, EMAIL]
+    GROUP BY
+      [T200].NAME  [T200].EMAIL) AS [T201][NAME, EMAIL, COUNT-ID]
+WHERE
+  [T201].COUNT-ID > 1.0
+@anonymous
+[T201].NAME(StringVal) 
+Tom 
+
+[Query No.2]===============================
+SELECT
+  [T161].NAME
+FROM
+  (SELECT
+      [T160].NAME, [T160].EMAIL, COUNT([T160].NAME)
+    FROM
+      (input1) AS [T160][ID, NAME, EMAIL]
+    GROUP BY
+      [T160].NAME  [T160].EMAIL) AS [T161][NAME, EMAIL, COUNT-NAME]
+WHERE
+  [T161].COUNT-NAME > 1.0
+@anonymous
+[T161].NAME(StringVal) 
+Tom 
+
+[Query No.1]===============================
+SELECT
+  [T151].NAME
+FROM
+  (SELECT
+      [T150].NAME, COUNT([T150].NAME)
+    FROM
+      (input1) AS [T150][ID, NAME, EMAIL]
+    GROUP BY
+      [T150].NAME) AS [T151][NAME, COUNT-NAME]
+WHERE
+  [T151].COUNT-NAME > 1.0
+@anonymous
+[T151].NAME(StringVal) 
+Tom 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 1.826s

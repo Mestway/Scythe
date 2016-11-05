@@ -1,0 +1,169 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/047
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 150 [SymTable]: 151
+[Total Number of Intermediate] 152
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 13
+[EnumJoinOnAggr] level 1 [SymTable]: 49
+[Total Number of Intermediate] 49
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 21 [SymTable]: 22
+[JOIN] level 1 [SymTable]: 45
+[Total Number of Intermediate] 45
+Candidate Tree Number: 10
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 21 [SymTable]: 22
+[JOIN] level 1 [SymTable]: 45
+[Total Number of Intermediate] 45
+Candidate Tree Number: 8
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 21 [SymTable]: 22
+[JOIN] level 1 [SymTable]: 45
+[Total Number of Intermediate] 45
+Candidate Tree Number: 12
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 37 [SymTable]: 38
+[JOIN] level 1 [SymTable]: 77
+[Total Number of Intermediate] 77
+Candidate Tree Number: 18
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 640 [SymTable]: 641
+[JOIN] level 1 [SymTable]: 1283
+[Total Number of Intermediate] 1283
+Candidate Tree Number: 4517
+[Enumeration Finished]
+[Query No.5]===============================
+SELECT
+  [T264].MAX-id,[T264].user,[T264].time,[T264].io
+FROM
+  (( (SELECT
+          [T262].user, MAX([T262].id)
+        FROM
+          (input1) AS [T262][id, user, time, io]
+        GROUP BY
+          [T262].user) AS [T263][user, MAX-id] ) JOIN (
+      input1 )) AS [T264][user, MAX-id, id, user1, time, io]
+WHERE
+  [T264].user == [T264].user1
+   AND [T264].MAX-id == [T264].id
+@anonymous
+[T264].MAX-id(NumberVal) | [T264].user(NumberVal) | [T264].time(NumberVal) | [T264].io(StringVal) 
+2.0 | 9.0 | 1.370931664E9 | out 
+3.0 | 6.0 | 1.370932128E9 | out 
+5.0 | 12.0 | 1.370933037E9 | in 
+
+[Query No.4]===============================
+SELECT
+  [T222].id,[T222].user,[T222].MAX-time,[T222].io
+FROM
+  (( (SELECT
+          [T220].user, MAX([T220].time)
+        FROM
+          (input1) AS [T220][id, user, time, io]
+        GROUP BY
+          [T220].user) AS [T221][user, MAX-time] ) JOIN (
+      input1 )) AS [T222][user, MAX-time, id, user1, time, io]
+WHERE
+  [T222].user == [T222].user1
+   AND [T222].MAX-time == [T222].time
+@anonymous
+[T222].id(NumberVal) | [T222].user(NumberVal) | [T222].MAX-time(NumberVal) | [T222].io(StringVal) 
+2.0 | 9.0 | 1.370931664E9 | out 
+3.0 | 6.0 | 1.370932128E9 | out 
+5.0 | 12.0 | 1.370933037E9 | in 
+
+[Query No.3]===============================
+SELECT
+  [T21314].MAX-id,[T21314].user,[T21314].time,[T21314].io
+FROM
+  (( (SELECT
+          [T21304].user, MAX([T21304].id)
+        FROM
+          (input1) AS [T21304][id, user, time, io]
+        GROUP BY
+          [T21304].user) AS [T21305][user, MAX-id] ) JOIN (
+      input1 )) AS [T21314][user, MAX-id, id, user1, time, io]
+WHERE
+  [T21314].MAX-id == [T21314].id
+@anonymous
+[T21314].MAX-id(NumberVal) | [T21314].user(NumberVal) | [T21314].time(NumberVal) | [T21314].io(StringVal) 
+2.0 | 9.0 | 1.370931664E9 | out 
+3.0 | 6.0 | 1.370932128E9 | out 
+5.0 | 12.0 | 1.370933037E9 | in 
+
+[Query No.2]===============================
+SELECT
+  [T617].MAX-id,[T617].user,[T617].time,[T617].io
+FROM
+  (( (SELECT
+          [T615].user, MAX([T615].id)
+        FROM
+          (input1) AS [T615][id, user, time, io]
+        GROUP BY
+          [T615].user) AS [T616][user, MAX-id] ) JOIN (
+      input1 )) AS [T617][user, MAX-id, id, user1, time, io]
+WHERE
+  [T617].MAX-id == [T617].id
+@anonymous
+[T617].MAX-id(NumberVal) | [T617].user(NumberVal) | [T617].time(NumberVal) | [T617].io(StringVal) 
+2.0 | 9.0 | 1.370931664E9 | out 
+3.0 | 6.0 | 1.370932128E9 | out 
+5.0 | 12.0 | 1.370933037E9 | in 
+
+[Query No.1]===============================
+SELECT
+  [T252].MAX-id,[T252].user,[T252].time,[T252].io
+FROM
+  (( (SELECT
+          [T250].user, MAX([T250].id)
+        FROM
+          (input1) AS [T250][id, user, time, io]
+        GROUP BY
+          [T250].user) AS [T251][user, MAX-id] ) JOIN (
+      input1 )) AS [T252][user, MAX-id, id, user1, time, io]
+WHERE
+  [T252].MAX-id == [T252].id
+@anonymous
+[T252].MAX-id(NumberVal) | [T252].user(NumberVal) | [T252].time(NumberVal) | [T252].io(StringVal) 
+2.0 | 9.0 | 1.370931664E9 | out 
+3.0 | 6.0 | 1.370932128E9 | out 
+5.0 | 12.0 | 1.370933037E9 | in 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 14.935s

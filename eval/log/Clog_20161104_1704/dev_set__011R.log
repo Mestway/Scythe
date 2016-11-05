@@ -1,0 +1,244 @@
+[[Synthesis start]]
+	File: ../data/dev_set/011R
+	Enumerator: CanonicalTableEnumeratorOnTheFly
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 15
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 21
+	Avg table size: 3
+[Total Number of Intermediate Result] 21
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 15
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 2
+	Avg table size: 9
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 39
+	Avg table size: 50
+[Stage 3] EnumJoinTwoAggr1 
+	Total Table by now: 45
+	Avg table size: 47
+[Total Number of Intermediate Result] 45
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 15
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 6
+	Avg table size: 5
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 71
+	Avg table size: 40
+[Total Number of Intermediate Result] 71
+Total Tree Count: 1
+Total Query Count: 560
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 15
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 6
+	Avg table size: 5
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 71
+	Avg table size: 40
+[Stage 3] EnumJoinTwoAggr1 
+	Total Table by now: 161
+	Avg table size: 29
+[Total Number of Intermediate Result] 161
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 15
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 4
+	Avg table size: 6
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 60
+	Avg table size: 42
+[Stage 3] EnumJoinTwoAggr1 
+	Total Table by now: 112
+	Avg table size: 32
+[Total Number of Intermediate Result] 114
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 15
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 10
+	Avg table size: 4
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 103
+	Avg table size: 37
+[Total Number of Intermediate Result] 103
+Total Tree Count: 1
+Total Query Count: 560
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 15
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 10
+	Avg table size: 4
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 92
+	Avg table size: 37
+[Total Number of Intermediate Result] 92
+Total Tree Count: 1
+Total Query Count: 900
+[Enumeration Finished]
+[Query No.5]===============================
+SELECT
+  [T4009].username1,[T4009].date,[T4009].value
+FROM
+  (SELECT
+      [T3138].username,[T3138].MAX-date,[T3138].username1,[T3138].date,[T3138].value
+    FROM
+      (( ((SELECT
+                input1.username, MAX(input1.date)
+              FROM
+                input1
+              GROUP BY
+                input1.username) AS [T3143][username, MAX-date]) AS [T3159][username, MAX-date] ) JOIN (
+          input1 )) AS [T3138][username, MAX-date, username1, date, value]
+    WHERE
+      [T3138].MAX-date == [T3138].date) AS [T4009][username, MAX-date, username1, date, value]
+
+@anonymous
+[T4009].username1(StringVal) | [T4009].date(DateVal) | [T4009].value(NumberVal) 
+brad | Tue Feb 02 00:00:00 PST 2010 | 1.2 
+fred | Sun Jan 03 00:00:00 PST 2010 | 1.0 
+bob | Tue Aug 04 00:00:00 PDT 2009 | 1.5 
+
+[Query No.4]===============================
+SELECT
+  [T4000].username,[T4000].MAX-date,[T4000].value
+FROM
+  (SELECT
+      [T3138].username,[T3138].MAX-date,[T3138].username1,[T3138].date,[T3138].value
+    FROM
+      (( ((SELECT
+                input1.username, MAX(input1.date)
+              FROM
+                input1
+              GROUP BY
+                input1.username) AS [T3143][username, MAX-date]) AS [T3159][username, MAX-date] ) JOIN (
+          input1 )) AS [T3138][username, MAX-date, username1, date, value]
+    WHERE
+      [T3138].MAX-date == [T3138].date) AS [T4000][username, MAX-date, username1, date, value]
+
+@anonymous
+[T4000].username(StringVal) | [T4000].MAX-date(DateVal) | [T4000].value(NumberVal) 
+brad | Tue Feb 02 00:00:00 PST 2010 | 1.2 
+fred | Sun Jan 03 00:00:00 PST 2010 | 1.0 
+bob | Tue Aug 04 00:00:00 PDT 2009 | 1.5 
+
+[Query No.3]===============================
+SELECT
+  [T3999].username,[T3999].MAX-date,[T3999].value
+FROM
+  (SELECT
+      [T3138].username,[T3138].MAX-date,[T3138].username1,[T3138].date,[T3138].value
+    FROM
+      (( ((SELECT
+                input1.username, MAX(input1.date)
+              FROM
+                input1
+              GROUP BY
+                input1.username) AS [T3143][username, MAX-date]) AS [T3159][username, MAX-date] ) JOIN (
+          input1 )) AS [T3138][username, MAX-date, username1, date, value]
+    WHERE
+      [T3138].MAX-date == [T3138].date) AS [T3999][username, MAX-date, username1, date, value]
+
+@anonymous
+[T3999].username(StringVal) | [T3999].MAX-date(DateVal) | [T3999].value(NumberVal) 
+brad | Tue Feb 02 00:00:00 PST 2010 | 1.2 
+fred | Sun Jan 03 00:00:00 PST 2010 | 1.0 
+bob | Tue Aug 04 00:00:00 PDT 2009 | 1.5 
+
+[Query No.2]===============================
+SELECT
+  [T3990].username,[T3990].date,[T3990].value
+FROM
+  (SELECT
+      [T3138].username,[T3138].MAX-date,[T3138].username1,[T3138].date,[T3138].value
+    FROM
+      (( ((SELECT
+                input1.username, MAX(input1.date)
+              FROM
+                input1
+              GROUP BY
+                input1.username) AS [T3143][username, MAX-date]) AS [T3159][username, MAX-date] ) JOIN (
+          input1 )) AS [T3138][username, MAX-date, username1, date, value]
+    WHERE
+      [T3138].MAX-date == [T3138].date) AS [T3990][username, MAX-date, username1, date, value]
+
+@anonymous
+[T3990].username(StringVal) | [T3990].date(DateVal) | [T3990].value(NumberVal) 
+brad | Tue Feb 02 00:00:00 PST 2010 | 1.2 
+fred | Sun Jan 03 00:00:00 PST 2010 | 1.0 
+bob | Tue Aug 04 00:00:00 PDT 2009 | 1.5 
+
+[Query No.1]===============================
+SELECT
+  [T3989].username,[T3989].date,[T3989].value
+FROM
+  (SELECT
+      [T3138].username,[T3138].MAX-date,[T3138].username1,[T3138].date,[T3138].value
+    FROM
+      (( ((SELECT
+                input1.username, MAX(input1.date)
+              FROM
+                input1
+              GROUP BY
+                input1.username) AS [T3143][username, MAX-date]) AS [T3159][username, MAX-date] ) JOIN (
+          input1 )) AS [T3138][username, MAX-date, username1, date, value]
+    WHERE
+      [T3138].MAX-date == [T3138].date) AS [T3989][username, MAX-date, username1, date, value]
+
+@anonymous
+[T3989].username(StringVal) | [T3989].date(DateVal) | [T3989].value(NumberVal) 
+brad | Tue Feb 02 00:00:00 PST 2010 | 1.2 
+fred | Sun Jan 03 00:00:00 PST 2010 | 1.0 
+bob | Tue Aug 04 00:00:00 PDT 2009 | 1.5 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 4.150s

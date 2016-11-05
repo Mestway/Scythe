@@ -1,0 +1,171 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/021M
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 110 [SymTable]: 111
+[Total Number of Intermediate] 112
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 4 [SymTable]: 5
+[JOIN] level 1 [SymTable]: 11
+[EnumJoinOnAggr] level 1 [SymTable]: 36
+[Total Number of Intermediate] 36
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 17 [SymTable]: 18
+[JOIN] level 1 [SymTable]: 37
+[Total Number of Intermediate] 37
+Candidate Tree Number: 14
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 17 [SymTable]: 18
+[JOIN] level 1 [SymTable]: 37
+[EnumJoinOnAggr] level 1 [SymTable]: 361
+[Total Number of Intermediate] 361
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 13 [SymTable]: 14
+[JOIN] level 1 [SymTable]: 29
+[EnumJoinOnAggr] level 1 [SymTable]: 225
+[Total Number of Intermediate] 225
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 30 [SymTable]: 31
+[JOIN] level 1 [SymTable]: 63
+[Total Number of Intermediate] 63
+Candidate Tree Number: 14
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 797 [SymTable]: 798
+[JOIN] level 1 [SymTable]: 1597
+[Total Number of Intermediate] 1597
+Candidate Tree Number: 604
+[Enumeration Finished]
+[Query No.5]===============================
+SELECT
+  [T524].ID,[T524].CHARGEID,[T524].CHARGETYPE,[T524].MAX-SERVICEMONTH
+FROM
+  (( (SELECT
+          [T522].CHARGETYPE, MAX([T522].SERVICEMONTH)
+        FROM
+          (input1) AS [T522][ID, CHARGEID, CHARGETYPE, SERVICEMONTH]
+        GROUP BY
+          [T522].CHARGETYPE) AS [T523][CHARGETYPE, MAX-SERVICEMONTH] ) JOIN (
+      input1 )) AS [T524][CHARGETYPE, MAX-SERVICEMONTH, ID, CHARGEID, CHARGETYPE1, SERVICEMONTH]
+WHERE
+  [T524].MAX-SERVICEMONTH == [T524].SERVICEMONTH
+   AND [T524].CHARGETYPE == [T524].CHARGETYPE1
+@anonymous
+[T524].ID(NumberVal) | [T524].CHARGEID(NumberVal) | [T524].CHARGETYPE(StringVal) | [T524].MAX-SERVICEMONTH(DateVal) 
+3.0 | 101.0 | R | Fri Aug 01 00:00:00 PDT 2008 
+2.0 | 161.0 | N | Fri Feb 01 00:00:00 PST 2008 
+
+[Query No.4]===============================
+SELECT
+  [T476].ID,[T476].CHARGEID,[T476].CHARGETYPE,[T476].MAX-SERVICEMONTH
+FROM
+  (( (SELECT
+          [T474].CHARGEID, [T474].CHARGETYPE, MAX([T474].SERVICEMONTH)
+        FROM
+          (input1) AS [T474][ID, CHARGEID, CHARGETYPE, SERVICEMONTH]
+        GROUP BY
+          [T474].CHARGEID  [T474].CHARGETYPE) AS [T475][CHARGEID, CHARGETYPE, MAX-SERVICEMONTH] ) JOIN (
+      input1 )) AS [T476][CHARGEID, CHARGETYPE, MAX-SERVICEMONTH, ID, CHARGEID1, CHARGETYPE1, SERVICEMONTH]
+WHERE
+  [T476].MAX-SERVICEMONTH == [T476].SERVICEMONTH
+   AND [T476].CHARGEID == [T476].CHARGEID1
+@anonymous
+[T476].ID(NumberVal) | [T476].CHARGEID(NumberVal) | [T476].CHARGETYPE(StringVal) | [T476].MAX-SERVICEMONTH(DateVal) 
+3.0 | 101.0 | R | Fri Aug 01 00:00:00 PDT 2008 
+2.0 | 161.0 | N | Fri Feb 01 00:00:00 PST 2008 
+
+[Query No.3]===============================
+SELECT
+  [T221].ID,[T221].CHARGEID,[T221].CHARGETYPE,[T221].MAX-SERVICEMONTH
+FROM
+  (( (SELECT
+          [T219].CHARGEID, [T219].CHARGETYPE, MAX([T219].SERVICEMONTH)
+        FROM
+          (input1) AS [T219][ID, CHARGEID, CHARGETYPE, SERVICEMONTH]
+        GROUP BY
+          [T219].CHARGEID  [T219].CHARGETYPE) AS [T220][CHARGEID, CHARGETYPE, MAX-SERVICEMONTH] ) JOIN (
+      input1 )) AS [T221][CHARGEID, CHARGETYPE, MAX-SERVICEMONTH, ID, CHARGEID1, CHARGETYPE1, SERVICEMONTH]
+WHERE
+  [T221].MAX-SERVICEMONTH == [T221].SERVICEMONTH
+   AND [T221].CHARGEID == [T221].CHARGEID1
+@anonymous
+[T221].ID(NumberVal) | [T221].CHARGEID(NumberVal) | [T221].CHARGETYPE(StringVal) | [T221].MAX-SERVICEMONTH(DateVal) 
+3.0 | 101.0 | R | Fri Aug 01 00:00:00 PDT 2008 
+2.0 | 161.0 | N | Fri Feb 01 00:00:00 PST 2008 
+
+[Query No.2]===============================
+SELECT
+  [T215].ID,[T215].CHARGEID,[T215].CHARGETYPE,[T215].MAX-SERVICEMONTH
+FROM
+  (( (SELECT
+          [T213].CHARGETYPE, MAX([T213].SERVICEMONTH)
+        FROM
+          (input1) AS [T213][ID, CHARGEID, CHARGETYPE, SERVICEMONTH]
+        GROUP BY
+          [T213].CHARGETYPE) AS [T214][CHARGETYPE, MAX-SERVICEMONTH] ) JOIN (
+      input1 )) AS [T215][CHARGETYPE, MAX-SERVICEMONTH, ID, CHARGEID, CHARGETYPE1, SERVICEMONTH]
+WHERE
+  [T215].MAX-SERVICEMONTH == [T215].SERVICEMONTH
+   AND [T215].CHARGETYPE == [T215].CHARGETYPE1
+@anonymous
+[T215].ID(NumberVal) | [T215].CHARGEID(NumberVal) | [T215].CHARGETYPE(StringVal) | [T215].MAX-SERVICEMONTH(DateVal) 
+3.0 | 101.0 | R | Fri Aug 01 00:00:00 PDT 2008 
+2.0 | 161.0 | N | Fri Feb 01 00:00:00 PST 2008 
+
+[Query No.1]===============================
+SELECT
+  [T167].ID,[T167].CHARGEID,[T167].CHARGETYPE,[T167].MAX-SERVICEMONTH
+FROM
+  (( (SELECT
+          [T165].CHARGEID, MAX([T165].SERVICEMONTH)
+        FROM
+          (input1) AS [T165][ID, CHARGEID, CHARGETYPE, SERVICEMONTH]
+        GROUP BY
+          [T165].CHARGEID) AS [T166][CHARGEID, MAX-SERVICEMONTH] ) JOIN (
+      input1 )) AS [T167][CHARGEID, MAX-SERVICEMONTH, ID, CHARGEID1, CHARGETYPE, SERVICEMONTH]
+WHERE
+  [T167].MAX-SERVICEMONTH == [T167].SERVICEMONTH
+   AND [T167].CHARGEID == [T167].CHARGEID1
+@anonymous
+[T167].ID(NumberVal) | [T167].CHARGEID(NumberVal) | [T167].CHARGETYPE(StringVal) | [T167].MAX-SERVICEMONTH(DateVal) 
+3.0 | 101.0 | R | Fri Aug 01 00:00:00 PDT 2008 
+2.0 | 161.0 | N | Fri Feb 01 00:00:00 PST 2008 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 5.946s

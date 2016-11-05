@@ -1,0 +1,457 @@
+[[Synthesis start]]
+	File: ../data/dev_set/033
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 522 [SymTable]: 523
+[Total Number of Intermediate] 524
+Candidate Tree Number: 2
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 24 [SymTable]: 25
+[JOIN] level 1 [SymTable]: 51
+[Total Number of Intermediate] 51
+Candidate Tree Number: 10
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 72 [SymTable]: 73
+[JOIN] level 1 [SymTable]: 147
+[Total Number of Intermediate] 147
+Candidate Tree Number: 50
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 72 [SymTable]: 73
+[JOIN] level 1 [SymTable]: 147
+[Total Number of Intermediate] 147
+Candidate Tree Number: 75
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 72 [SymTable]: 73
+[JOIN] level 1 [SymTable]: 147
+[Total Number of Intermediate] 147
+Candidate Tree Number: 50
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 120 [SymTable]: 121
+[JOIN] level 1 [SymTable]: 243
+[Total Number of Intermediate] 243
+Candidate Tree Number: 115
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 162 [SymTable]: 163
+[JOIN] level 1 [SymTable]: 327
+[Total Number of Intermediate] 327
+Candidate Tree Number: 50
+[Enumeration Finished]
+[Query No.17]===============================
+SELECT
+  [T609].zone_id,[T609].zone_name,[T609].time_start1
+FROM
+  (( SELECT
+        input1.zone_id,input1.zone_name,input1.time_start
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      SELECT
+        input1.zone_id,input1.zone_name,input1.time_start
+      FROM
+        input1
+      WHERE
+        input1.time_start <= 1.4258124E9 )) AS [T609][zone_id, zone_name, time_start, zone_id1, zone_name1, time_start1]
+WHERE
+  [T609].zone_id == [T609].zone_id1
+   AND [T609].time_start < [T609].time_start1
+@anonymous
+[T609].zone_id(NumberVal) | [T609].zone_name(StringVal) | [T609].time_start1(NumberVal) 
+391.0 | America/Los_Angeles | 1.4258088E9 
+392.0 | America/Metlakatla | 4.363524E8 
+393.0 | America/Anchorage | 1.4258124E9 
+
+[Query No.16]===============================
+SELECT
+  [T599].zone_id,[T599].zone_name,[T599].time_start
+FROM
+  (( SELECT
+        input1.zone_id,input1.zone_name,input1.time_start
+      FROM
+        input1
+      WHERE
+        input1.time_start <= 1.4258124E9 ) JOIN (
+      SELECT
+        input1.zone_id,input1.zone_name,input1.time_start
+      FROM
+        input1
+      WHERE
+        True )) AS [T599][zone_id, zone_name, time_start, zone_id1, zone_name1, time_start1]
+WHERE
+  [T599].zone_id == [T599].zone_id1
+   AND [T599].time_start > [T599].time_start1
+@anonymous
+[T599].zone_id(NumberVal) | [T599].zone_name(StringVal) | [T599].time_start(NumberVal) 
+391.0 | America/Los_Angeles | 1.4258088E9 
+392.0 | America/Metlakatla | 4.363524E8 
+393.0 | America/Anchorage | 1.4258124E9 
+
+[Query No.15]===============================
+SELECT
+  [T597].zone_id,[T597].zone_name,[T597].time_start
+FROM
+  (( SELECT
+        input1.zone_id,input1.zone_name,input1.time_start
+      FROM
+        input1
+      WHERE
+        input1.time_start <= 1.4258124E9 ) JOIN (
+      SELECT
+        input1.zone_id,input1.zone_name,input1.time_start
+      FROM
+        input1
+      WHERE
+        True )) AS [T597][zone_id, zone_name, time_start, zone_id1, zone_name1, time_start1]
+WHERE
+  [T597].zone_id == [T597].zone_id1
+   AND [T597].time_start > [T597].time_start1
+@anonymous
+[T597].zone_id(NumberVal) | [T597].zone_name(StringVal) | [T597].time_start(NumberVal) 
+391.0 | America/Los_Angeles | 1.4258088E9 
+392.0 | America/Metlakatla | 4.363524E8 
+393.0 | America/Anchorage | 1.4258124E9 
+
+[Query No.14]===============================
+SELECT
+  [T607].zone_id,[T607].zone_name,[T607].time_start1
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.zone_id,input1.zone_name,input1.time_start
+      FROM
+        input1
+      WHERE
+        input1.time_start < 1.4258124E9
+         OR input1.time_start == 1.4258124E9 )) AS [T607][zone_id, zone_name, time_start, zone_id1, zone_name1, time_start1]
+WHERE
+  [T607].zone_id == [T607].zone_id1
+   AND [T607].time_start < [T607].time_start1
+@anonymous
+[T607].zone_id(NumberVal) | [T607].zone_name(StringVal) | [T607].time_start1(NumberVal) 
+391.0 | America/Los_Angeles | 1.4258088E9 
+392.0 | America/Metlakatla | 4.363524E8 
+393.0 | America/Anchorage | 1.4258124E9 
+
+[Query No.13]===============================
+SELECT
+  [T605].zone_id,[T605].zone_name,[T605].time_start1
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.zone_id,input1.zone_name,input1.time_start
+      FROM
+        input1
+      WHERE
+        input1.time_start <= 1.4258124E9
+         OR input1.time_start == 1.4258124E9 )) AS [T605][zone_id, zone_name, time_start, zone_id1, zone_name1, time_start1]
+WHERE
+  [T605].zone_id == [T605].zone_id1
+   AND [T605].time_start < [T605].time_start1
+@anonymous
+[T605].zone_id(NumberVal) | [T605].zone_name(StringVal) | [T605].time_start1(NumberVal) 
+391.0 | America/Los_Angeles | 1.4258088E9 
+392.0 | America/Metlakatla | 4.363524E8 
+393.0 | America/Anchorage | 1.4258124E9 
+
+[Query No.12]===============================
+SELECT
+  [T603].zone_id,[T603].zone_name,[T603].time_start1
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.zone_id,input1.zone_name,input1.time_start
+      FROM
+        input1
+      WHERE
+        input1.zone_id == 1.4258124E9
+         OR input1.time_start <= 1.4258124E9 )) AS [T603][zone_id, zone_name, time_start, zone_id1, zone_name1, time_start1]
+WHERE
+  [T603].zone_id == [T603].zone_id1
+   AND [T603].time_start < [T603].time_start1
+@anonymous
+[T603].zone_id(NumberVal) | [T603].zone_name(StringVal) | [T603].time_start1(NumberVal) 
+391.0 | America/Los_Angeles | 1.4258088E9 
+392.0 | America/Metlakatla | 4.363524E8 
+393.0 | America/Anchorage | 1.4258124E9 
+
+[Query No.11]===============================
+SELECT
+  [T595].zone_id,[T595].zone_name,[T595].time_start
+FROM
+  (( SELECT
+        input1.zone_id,input1.zone_name,input1.time_start
+      FROM
+        input1
+      WHERE
+        input1.time_start <= 1.4258124E9
+         OR input1.time_start == 1.4258124E9 ) JOIN (
+      input1 )) AS [T595][zone_id, zone_name, time_start, zone_id1, zone_name1, time_start1]
+WHERE
+  [T595].zone_id == [T595].zone_id1
+   AND [T595].time_start > [T595].time_start1
+@anonymous
+[T595].zone_id(NumberVal) | [T595].zone_name(StringVal) | [T595].time_start(NumberVal) 
+391.0 | America/Los_Angeles | 1.4258088E9 
+392.0 | America/Metlakatla | 4.363524E8 
+393.0 | America/Anchorage | 1.4258124E9 
+
+[Query No.10]===============================
+SELECT
+  [T593].zone_id,[T593].zone_name,[T593].time_start
+FROM
+  (( SELECT
+        input1.zone_id,input1.zone_name,input1.time_start
+      FROM
+        input1
+      WHERE
+        input1.zone_id == 1.4258124E9
+         OR input1.time_start <= 1.4258124E9 ) JOIN (
+      input1 )) AS [T593][zone_id, zone_name, time_start, zone_id1, zone_name1, time_start1]
+WHERE
+  [T593].zone_id == [T593].zone_id1
+   AND [T593].time_start > [T593].time_start1
+@anonymous
+[T593].zone_id(NumberVal) | [T593].zone_name(StringVal) | [T593].time_start(NumberVal) 
+391.0 | America/Los_Angeles | 1.4258088E9 
+392.0 | America/Metlakatla | 4.363524E8 
+393.0 | America/Anchorage | 1.4258124E9 
+
+[Query No.9]===============================
+SELECT
+  [T601].zone_id,[T601].zone_name,[T601].time_start1
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.zone_id,input1.zone_name,input1.time_start
+      FROM
+        input1
+      WHERE
+        input1.time_start <= 1.4258124E9 )) AS [T601][zone_id, zone_name, time_start, zone_id1, zone_name1, time_start1]
+WHERE
+  [T601].zone_id == [T601].zone_id1
+   AND [T601].time_start < [T601].time_start1
+@anonymous
+[T601].zone_id(NumberVal) | [T601].zone_name(StringVal) | [T601].time_start1(NumberVal) 
+391.0 | America/Los_Angeles | 1.4258088E9 
+392.0 | America/Metlakatla | 4.363524E8 
+393.0 | America/Anchorage | 1.4258124E9 
+
+[Query No.8]===============================
+SELECT
+  [T591].zone_id,[T591].zone_name,[T591].time_start
+FROM
+  (( SELECT
+        input1.zone_id,input1.zone_name,input1.time_start
+      FROM
+        input1
+      WHERE
+        input1.time_start <= 1.4258124E9 ) JOIN (
+      input1 )) AS [T591][zone_id, zone_name, time_start, zone_id1, zone_name1, time_start1]
+WHERE
+  [T591].zone_id == [T591].zone_id1
+   AND [T591].time_start > [T591].time_start1
+@anonymous
+[T591].zone_id(NumberVal) | [T591].zone_name(StringVal) | [T591].time_start(NumberVal) 
+391.0 | America/Los_Angeles | 1.4258088E9 
+392.0 | America/Metlakatla | 4.363524E8 
+393.0 | America/Anchorage | 1.4258124E9 
+
+[Query No.7]===============================
+SELECT
+  [T886].zone_id,[T886].zone_name,[T886].MAX-time_start
+FROM
+  (( (SELECT
+          [T882].zone_id, [T882].zone_name, MAX([T882].time_start)
+        FROM
+          (SELECT
+              input1.zone_id,input1.zone_name,input1.time_start
+            FROM
+              input1
+            WHERE
+              input1.time_start <= 1.4258124E9) AS [T882][zone_id, zone_name, time_start]
+        GROUP BY
+          [T882].zone_id  [T882].zone_name) AS [T883][zone_id, zone_name, MAX-time_start] ) JOIN (
+      input1 )) AS [T886][zone_id, zone_name, MAX-time_start, zone_id1, zone_name1, time_start]
+WHERE
+  [T886].MAX-time_start == [T886].time_start
+@anonymous
+[T886].zone_id(NumberVal) | [T886].zone_name(StringVal) | [T886].MAX-time_start(NumberVal) 
+391.0 | America/Los_Angeles | 1.4258088E9 
+392.0 | America/Metlakatla | 4.363524E8 
+393.0 | America/Anchorage | 1.4258124E9 
+
+[Query No.6]===============================
+SELECT
+  [T766].zone_id,[T766].zone_name,[T766].MAX-time_start
+FROM
+  (( (SELECT
+          [T762].zone_name, MAX([T762].time_start)
+        FROM
+          (SELECT
+              input1.zone_id,input1.zone_name,input1.time_start
+            FROM
+              input1
+            WHERE
+              input1.time_start <= 1.4258124E9) AS [T762][zone_id, zone_name, time_start]
+        GROUP BY
+          [T762].zone_name) AS [T763][zone_name, MAX-time_start] ) JOIN (
+      input1 )) AS [T766][zone_name, MAX-time_start, zone_id, zone_name1, time_start]
+WHERE
+  [T766].MAX-time_start == [T766].time_start
+@anonymous
+[T766].zone_id(NumberVal) | [T766].zone_name(StringVal) | [T766].MAX-time_start(NumberVal) 
+391.0 | America/Los_Angeles | 1.4258088E9 
+392.0 | America/Metlakatla | 4.363524E8 
+393.0 | America/Anchorage | 1.4258124E9 
+
+[Query No.5]===============================
+SELECT
+  [T4962].zone_id,[T4962].zone_name,[T4962].MAX-time_start
+FROM
+  (( (SELECT
+          [T4958].zone_id, [T4958].zone_name, MAX([T4958].time_start)
+        FROM
+          (SELECT
+              input1.zone_id,input1.zone_name,input1.time_start
+            FROM
+              input1
+            WHERE
+              input1.time_start <= 1.4258124E9) AS [T4958][zone_id, zone_name, time_start]
+        GROUP BY
+          [T4958].zone_id  [T4958].zone_name) AS [T4959][zone_id, zone_name, MAX-time_start] ) JOIN (
+      SELECT
+        input1.zone_id,input1.zone_name,input1.time_start
+      FROM
+        input1
+      WHERE
+        input1.time_start == 1.4258124E9 )) AS [T4962][zone_id, zone_name, MAX-time_start, zone_id1, zone_name1, time_start]
+
+@anonymous
+[T4962].zone_id(NumberVal) | [T4962].zone_name(StringVal) | [T4962].MAX-time_start(NumberVal) 
+391.0 | America/Los_Angeles | 1.4258088E9 
+392.0 | America/Metlakatla | 4.363524E8 
+393.0 | America/Anchorage | 1.4258124E9 
+
+[Query No.4]===============================
+SELECT
+  [T3457].zone_id,[T3457].zone_name,[T3457].MAX-time_start
+FROM
+  (( (SELECT
+          [T3453].zone_id, [T3453].zone_name, MAX([T3453].time_start)
+        FROM
+          (SELECT
+              input1.zone_id,input1.zone_name,input1.time_start
+            FROM
+              input1
+            WHERE
+              input1.time_start <= 1.4258124E9) AS [T3453][zone_id, zone_name, time_start]
+        GROUP BY
+          [T3453].zone_id  [T3453].zone_name) AS [T3454][zone_id, zone_name, MAX-time_start] ) JOIN (
+      SELECT
+        input1.zone_id,input1.zone_name,input1.time_start
+      FROM
+        input1
+      WHERE
+        input1.time_start == 1.4258124E9 )) AS [T3457][zone_id, zone_name, MAX-time_start, zone_id1, zone_name1, time_start]
+
+@anonymous
+[T3457].zone_id(NumberVal) | [T3457].zone_name(StringVal) | [T3457].MAX-time_start(NumberVal) 
+391.0 | America/Los_Angeles | 1.4258088E9 
+392.0 | America/Metlakatla | 4.363524E8 
+393.0 | America/Anchorage | 1.4258124E9 
+
+[Query No.3]===============================
+SELECT
+  [T946].zone_id,[T946].zone_name,[T946].MAX-time_start
+FROM
+  (( (SELECT
+          [T942].zone_id, [T942].zone_name, MAX([T942].time_start)
+        FROM
+          (SELECT
+              input1.zone_id,input1.zone_name,input1.time_start
+            FROM
+              input1
+            WHERE
+              input1.time_start <= 1.4258124E9) AS [T942][zone_id, zone_name, time_start]
+        GROUP BY
+          [T942].zone_id  [T942].zone_name) AS [T943][zone_id, zone_name, MAX-time_start] ) JOIN (
+      SELECT
+        input1.zone_id,input1.zone_name,input1.time_start
+      FROM
+        input1
+      WHERE
+        input1.time_start == 1.4258124E9 )) AS [T946][zone_id, zone_name, MAX-time_start, zone_id1, zone_name1, time_start]
+
+@anonymous
+[T946].zone_id(NumberVal) | [T946].zone_name(StringVal) | [T946].MAX-time_start(NumberVal) 
+391.0 | America/Los_Angeles | 1.4258088E9 
+392.0 | America/Metlakatla | 4.363524E8 
+393.0 | America/Anchorage | 1.4258124E9 
+
+[Query No.2]===============================
+(SELECT
+    [T538].zone_id, [T538].zone_name, FIRST([T538].time_start)
+  FROM
+    (SELECT
+        input1.zone_id,input1.zone_name,input1.time_start
+      FROM
+        input1
+      WHERE
+        input1.time_start <= 1.4258124E9) AS [T538][zone_id, zone_name, time_start]
+  GROUP BY
+    [T538].zone_id  [T538].zone_name) AS [T539][zone_id, zone_name, FIRST-time_start]
+@anonymous
+[T539].zone_id(NumberVal) | [T539].zone_name(StringVal) | [T539].FIRST-time_start(NumberVal) 
+391.0 | America/Los_Angeles | 1.4258088E9 
+392.0 | America/Metlakatla | 4.363524E8 
+393.0 | America/Anchorage | 1.4258124E9 
+
+[Query No.1]===============================
+(SELECT
+    [T528].zone_id, [T528].zone_name, MAX([T528].time_start)
+  FROM
+    (SELECT
+        input1.zone_id,input1.zone_name,input1.time_start
+      FROM
+        input1
+      WHERE
+        input1.time_start <= 1.4258124E9) AS [T528][zone_id, zone_name, time_start]
+  GROUP BY
+    [T528].zone_id  [T528].zone_name) AS [T529][zone_id, zone_name, MAX-time_start]
+@anonymous
+[T529].zone_id(NumberVal) | [T529].zone_name(StringVal) | [T529].MAX-time_start(NumberVal) 
+391.0 | America/Los_Angeles | 1.4258088E9 
+392.0 | America/Metlakatla | 4.363524E8 
+393.0 | America/Anchorage | 1.4258124E9 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 4.509s

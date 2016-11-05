@@ -1,0 +1,499 @@
+[[Synthesis start]]
+	File: ../data/dev_set/005
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 232 [SymTable]: 233
+[Total Number of Intermediate] 234
+Candidate Tree Number: 5
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 7 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 17
+[Total Number of Intermediate] 17
+Candidate Tree Number: 69
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 7 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 17
+[Total Number of Intermediate] 17
+Candidate Tree Number: 69
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 39 [SymTable]: 40
+[JOIN] level 1 [SymTable]: 81
+[Total Number of Intermediate] 81
+Candidate Tree Number: 265
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 39 [SymTable]: 40
+[JOIN] level 1 [SymTable]: 81
+[Total Number of Intermediate] 81
+Candidate Tree Number: 283
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 7 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 17
+[Total Number of Intermediate] 17
+Candidate Tree Number: 69
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 71 [SymTable]: 72
+[JOIN] level 1 [SymTable]: 145
+[Total Number of Intermediate] 145
+Candidate Tree Number: 479
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 93 [SymTable]: 94
+[JOIN] level 1 [SymTable]: 189
+[Total Number of Intermediate] 189
+Candidate Tree Number: 385
+[Enumeration Finished]
+[Query No.20]===============================
+SELECT
+  [T233].yrq
+FROM
+  (SELECT
+      [T232].yrq, MIN([T232].end_date)
+    FROM
+      (input1) AS [T232][yrq, start_date, end_date]
+    GROUP BY
+      [T232].yrq) AS [T233][yrq, MIN-end_date]
+WHERE
+  [T233].MIN-end_date > Fri Feb 01 00:00:00 PST 2013
+   AND [T233].MIN-end_date > Fri Feb 15 00:00:00 PST 2013
+@anonymous
+[T233].yrq(StringVal) 
+B233 
+B235 
+
+[Query No.19]===============================
+SELECT
+  [T361].yrq1
+FROM
+  (( SELECT
+        input1.yrq,input1.start_date,input1.end_date
+      FROM
+        input1
+      WHERE
+        input1.start_date > Fri Feb 01 00:00:00 PST 2013 ) JOIN (
+      SELECT
+        input1.yrq,input1.start_date,input1.end_date
+      FROM
+        input1
+      WHERE
+        input1.end_date > Fri Feb 15 00:00:00 PST 2013
+         AND input1.start_date < Fri Feb 01 00:00:00 PST 2013 )) AS [T361][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+
+@anonymous
+[T361].yrq1(StringVal) 
+B233 
+B235 
+
+[Query No.18]===============================
+SELECT
+  [T351].yrq
+FROM
+  (( SELECT
+        input1.yrq,input1.start_date,input1.end_date
+      FROM
+        input1
+      WHERE
+        input1.end_date > Fri Feb 15 00:00:00 PST 2013
+         AND input1.start_date < Fri Feb 01 00:00:00 PST 2013 ) JOIN (
+      SELECT
+        input1.yrq,input1.start_date,input1.end_date
+      FROM
+        input1
+      WHERE
+        input1.start_date > Fri Feb 01 00:00:00 PST 2013 )) AS [T351][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+
+@anonymous
+[T351].yrq(StringVal) 
+B233 
+B235 
+
+[Query No.17]===============================
+SELECT
+  [T499].yrq
+FROM
+  (( (SELECT
+          [T489].start_date, FROM
+          (input1) AS [T489][yrq, start_date, end_date]
+        GROUP BY
+          [T489].start_date) AS [T490][start_date] ) JOIN (
+      SELECT
+        input1.yrq,input1.start_date,input1.end_date
+      FROM
+        input1
+      WHERE
+        input1.end_date > Fri Feb 15 00:00:00 PST 2013
+         AND input1.start_date < Fri Feb 01 00:00:00 PST 2013 )) AS [T499][start_date, yrq, start_date1, end_date]
+WHERE
+  [T499].start_date == [T499].start_date1
+@anonymous
+[T499].yrq(StringVal) 
+B233 
+B235 
+
+[Query No.16]===============================
+SELECT
+  [T423].yrq
+FROM
+  (( (SELECT
+          [T413].yrq, FROM
+          (input1) AS [T413][yrq, start_date, end_date]
+        GROUP BY
+          [T413].yrq) AS [T414][yrq] ) JOIN (
+      SELECT
+        input1.yrq,input1.start_date,input1.end_date
+      FROM
+        input1
+      WHERE
+        input1.end_date > Fri Feb 15 00:00:00 PST 2013
+         AND input1.start_date < Fri Feb 01 00:00:00 PST 2013 )) AS [T423][yrq, yrq1, start_date, end_date]
+WHERE
+  [T423].yrq == [T423].yrq1
+@anonymous
+[T423].yrq(StringVal) 
+B233 
+B235 
+
+[Query No.15]===============================
+SELECT
+  [T371].yrq
+FROM
+  (( (SELECT
+          [T365].start_date, FROM
+          (SELECT
+              input1.yrq,input1.start_date,input1.end_date
+            FROM
+              input1
+            WHERE
+              input1.start_date < Fri Feb 01 00:00:00 PST 2013) AS [T365][yrq, start_date, end_date]
+        GROUP BY
+          [T365].start_date) AS [T366][start_date] ) JOIN (
+      SELECT
+        input1.yrq,input1.start_date,input1.end_date
+      FROM
+        input1
+      WHERE
+        input1.end_date > Fri Feb 15 00:00:00 PST 2013 )) AS [T371][start_date, yrq, start_date1, end_date]
+WHERE
+  [T371].start_date == [T371].start_date1
+@anonymous
+[T371].yrq(StringVal) 
+B233 
+B235 
+
+[Query No.14]===============================
+SELECT
+  [T331].yrq
+FROM
+  (( SELECT
+        input1.yrq,input1.start_date,input1.end_date
+      FROM
+        input1
+      WHERE
+        input1.end_date > Fri Feb 15 00:00:00 PST 2013
+         AND input1.start_date < Fri Feb 01 00:00:00 PST 2013 ) JOIN (
+      input1 )) AS [T331][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+WHERE
+  [T331].end_date == [T331].end_date1
+@anonymous
+[T331].yrq(StringVal) 
+B233 
+B235 
+
+[Query No.13]===============================
+SELECT
+  [T329].yrq
+FROM
+  (( SELECT
+        input1.yrq,input1.start_date,input1.end_date
+      FROM
+        input1
+      WHERE
+        input1.end_date > Fri Feb 15 00:00:00 PST 2013
+         AND input1.start_date < Fri Feb 01 00:00:00 PST 2013 ) JOIN (
+      input1 )) AS [T329][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+WHERE
+  [T329].yrq == [T329].yrq1
+@anonymous
+[T329].yrq(StringVal) 
+B233 
+B235 
+
+[Query No.12]===============================
+SELECT
+  [T327].yrq
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.yrq,input1.start_date,input1.end_date
+      FROM
+        input1
+      WHERE
+        input1.end_date > Fri Feb 15 00:00:00 PST 2013
+         AND input1.start_date < Fri Feb 01 00:00:00 PST 2013 )) AS [T327][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+WHERE
+  [T327].end_date == [T327].end_date1
+@anonymous
+[T327].yrq(StringVal) 
+B233 
+B235 
+
+[Query No.11]===============================
+SELECT
+  [T325].yrq
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.yrq,input1.start_date,input1.end_date
+      FROM
+        input1
+      WHERE
+        input1.end_date > Fri Feb 15 00:00:00 PST 2013
+         AND input1.start_date < Fri Feb 01 00:00:00 PST 2013 )) AS [T325][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+WHERE
+  [T325].yrq == [T325].yrq1
+@anonymous
+[T325].yrq(StringVal) 
+B233 
+B235 
+
+[Query No.10]===============================
+SELECT
+  [T323].yrq
+FROM
+  (( SELECT
+        input1.yrq,input1.start_date,input1.end_date
+      FROM
+        input1
+      WHERE
+        input1.end_date > Fri Feb 15 00:00:00 PST 2013 ) JOIN (
+      SELECT
+        input1.yrq,input1.start_date,input1.end_date
+      FROM
+        input1
+      WHERE
+        input1.start_date < Fri Feb 01 00:00:00 PST 2013 )) AS [T323][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+WHERE
+  [T323].end_date == [T323].end_date1
+@anonymous
+[T323].yrq(StringVal) 
+B233 
+B235 
+
+[Query No.9]===============================
+SELECT
+  [T267].yrq
+FROM
+  (SELECT
+      [T266].yrq, MAX([T266].start_date)
+    FROM
+      (SELECT
+          input1.yrq,input1.start_date,input1.end_date
+        FROM
+          input1
+        WHERE
+          input1.end_date > Fri Feb 01 00:00:00 PST 2013) AS [T266][yrq, start_date, end_date]
+    GROUP BY
+      [T266].yrq) AS [T267][yrq, MAX-start_date]
+WHERE
+  [T267].MAX-start_date < Fri Feb 01 00:00:00 PST 2013
+@anonymous
+[T267].yrq(StringVal) 
+B233 
+B235 
+
+[Query No.8]===============================
+SELECT
+  [T3844].yrq
+FROM
+  (( (SELECT
+          MIN([T3834].start_date)
+        FROM
+          (input1) AS [T3834][yrq, start_date, end_date]) AS [T3835][MIN-start_date] ) JOIN (
+      SELECT
+        input1.yrq,input1.start_date,input1.end_date
+      FROM
+        input1
+      WHERE
+        input1.end_date > Fri Feb 15 00:00:00 PST 2013
+         AND input1.start_date < Fri Feb 01 00:00:00 PST 2013 )) AS [T3844][MIN-start_date, yrq, start_date, end_date]
+
+@anonymous
+[T3844].yrq(StringVal) 
+B233 
+B235 
+
+[Query No.7]===============================
+SELECT
+  [T3610].yrq
+FROM
+  (( SELECT
+        [T3601].yrq,[T3601].MIN-end_date
+      FROM
+        (SELECT
+            [T3600].yrq, MIN([T3600].end_date)
+          FROM
+            (input1) AS [T3600][yrq, start_date, end_date]
+          GROUP BY
+            [T3600].yrq) AS [T3601][yrq, MIN-end_date]
+      WHERE
+        [T3601].MIN-end_date > Fri Feb 15 00:00:00 PST 2013 ) JOIN (
+      SELECT
+        input1.yrq,input1.start_date,input1.end_date
+      FROM
+        input1
+      WHERE
+        input1.start_date > Fri Feb 01 00:00:00 PST 2013 )) AS [T3610][yrq, MIN-end_date, yrq1, start_date, end_date]
+
+@anonymous
+[T3610].yrq(StringVal) 
+B233 
+B235 
+
+[Query No.6]===============================
+SELECT
+  [T3358].yrq
+FROM
+  (( (SELECT
+          MIN([T3348].end_date)
+        FROM
+          (input1) AS [T3348][yrq, start_date, end_date]) AS [T3349][MIN-end_date] ) JOIN (
+      SELECT
+        input1.yrq,input1.start_date,input1.end_date
+      FROM
+        input1
+      WHERE
+        input1.end_date > Fri Feb 15 00:00:00 PST 2013
+         AND input1.start_date < Fri Feb 01 00:00:00 PST 2013 )) AS [T3358][MIN-end_date, yrq, start_date, end_date]
+
+@anonymous
+[T3358].yrq(StringVal) 
+B233 
+B235 
+
+[Query No.5]===============================
+SELECT
+  [T1443].yrq
+FROM
+  (( (SELECT
+          MAX([T1433].start_date)
+        FROM
+          (input1) AS [T1433][yrq, start_date, end_date]) AS [T1434][MAX-start_date] ) JOIN (
+      SELECT
+        input1.yrq,input1.start_date,input1.end_date
+      FROM
+        input1
+      WHERE
+        input1.end_date > Fri Feb 15 00:00:00 PST 2013
+         AND input1.start_date < Fri Feb 01 00:00:00 PST 2013 )) AS [T1443][MAX-start_date, yrq, start_date, end_date]
+
+@anonymous
+[T1443].yrq(StringVal) 
+B233 
+B235 
+
+[Query No.4]===============================
+SELECT
+  [T1431].yrq
+FROM
+  (( (SELECT
+          MAX([T1421].end_date)
+        FROM
+          (input1) AS [T1421][yrq, start_date, end_date]) AS [T1422][MAX-end_date] ) JOIN (
+      SELECT
+        input1.yrq,input1.start_date,input1.end_date
+      FROM
+        input1
+      WHERE
+        input1.end_date > Fri Feb 15 00:00:00 PST 2013
+         AND input1.start_date < Fri Feb 01 00:00:00 PST 2013 )) AS [T1431][MAX-end_date, yrq, start_date, end_date]
+
+@anonymous
+[T1431].yrq(StringVal) 
+B233 
+B235 
+
+[Query No.3]===============================
+SELECT
+  input1.yrq
+FROM
+  input1
+WHERE
+  input1.end_date > Fri Feb 15 00:00:00 PST 2013
+   AND input1.start_date < Fri Feb 01 00:00:00 PST 2013
+@anonymous
+input1.yrq(StringVal) 
+B233 
+B235 
+
+[Query No.2]===============================
+SELECT
+  [T259].yrq
+FROM
+  (SELECT
+      [T258].yrq, MIN([T258].end_date)
+    FROM
+      (SELECT
+          input1.yrq,input1.start_date,input1.end_date
+        FROM
+          input1
+        WHERE
+          input1.end_date > Fri Feb 01 00:00:00 PST 2013) AS [T258][yrq, start_date, end_date]
+    GROUP BY
+      [T258].yrq) AS [T259][yrq, MIN-end_date]
+WHERE
+  [T259].MIN-end_date > Fri Feb 15 00:00:00 PST 2013
+@anonymous
+[T259].yrq(StringVal) 
+B233 
+B235 
+
+[Query No.1]===============================
+SELECT
+  [T243].yrq
+FROM
+  (SELECT
+      [T242].yrq, MIN([T242].end_date)
+    FROM
+      (input1) AS [T242][yrq, start_date, end_date]
+    GROUP BY
+      [T242].yrq) AS [T243][yrq, MIN-end_date]
+WHERE
+  [T243].MIN-end_date > Fri Feb 15 00:00:00 PST 2013
+@anonymous
+[T243].yrq(StringVal) 
+B233 
+B235 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 13.012s

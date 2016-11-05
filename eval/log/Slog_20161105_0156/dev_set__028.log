@@ -1,0 +1,443 @@
+[[Synthesis start]]
+	File: ../data/dev_set/028
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 2268 [SymTable]: 2269
+[Total Number of Intermediate] 2270
+Candidate Tree Number: 1
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 71 [SymTable]: 72
+[JOIN] level 1 [SymTable]: 145
+[Total Number of Intermediate] 145
+Candidate Tree Number: 623
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 315 [SymTable]: 316
+[JOIN] level 1 [SymTable]: 633
+[Total Number of Intermediate] 633
+Candidate Tree Number: 3276
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 315 [SymTable]: 316
+[JOIN] level 1 [SymTable]: 633
+[Total Number of Intermediate] 633
+Candidate Tree Number: 3069
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 315 [SymTable]: 316
+[JOIN] level 1 [SymTable]: 633
+[Total Number of Intermediate] 633
+Candidate Tree Number: 2818
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 559 [SymTable]: 560
+[JOIN] level 1 [SymTable]: 1121
+[Total Number of Intermediate] 1121
+Candidate Tree Number: 5722
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 683 [SymTable]: 684
+[JOIN] level 1 [SymTable]: 1369
+[Total Number of Intermediate] 1369
+Candidate Tree Number: 8556
+[Enumeration Finished]
+[Query No.16]===============================
+SELECT
+  [T3571].id,[T3571].productId,[T3571].orderIndex,[T3571].rejected
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.rejected == false )) AS [T3571][id, productId, orderIndex, rejected, id1, productId1, orderIndex1, rejected1]
+WHERE
+  [T3571].orderIndex <= [T3571].productId1
+   AND [T3571].id == [T3571].id1
+@anonymous
+[T3571].id(NumberVal) | [T3571].productId(NumberVal) | [T3571].orderIndex(NumberVal) | [T3571].rejected(StringVal) 
+2.0 | 1.0 | 1.0 | false 
+4.0 | 2.0 | 0.0 | false 
+6.0 | 3.0 | 0.0 | false 
+
+[Query No.15]===============================
+SELECT
+  [T3569].id,[T3569].productId,[T3569].orderIndex,[T3569].rejected
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.rejected == false )) AS [T3569][id, productId, orderIndex, rejected, id1, productId1, orderIndex1, rejected1]
+WHERE
+  [T3569].productId >= [T3569].orderIndex1
+   AND [T3569].id == [T3569].id1
+@anonymous
+[T3569].id(NumberVal) | [T3569].productId(NumberVal) | [T3569].orderIndex(NumberVal) | [T3569].rejected(StringVal) 
+2.0 | 1.0 | 1.0 | false 
+4.0 | 2.0 | 0.0 | false 
+6.0 | 3.0 | 0.0 | false 
+
+[Query No.14]===============================
+SELECT
+  [T3567].id,[T3567].productId,[T3567].orderIndex,[T3567].rejected
+FROM
+  (( SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.productId >= input1.orderIndex ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.rejected == false )) AS [T3567][id, productId, orderIndex, rejected, id1, productId1, orderIndex1, rejected1]
+WHERE
+  [T3567].id == [T3567].id1
+@anonymous
+[T3567].id(NumberVal) | [T3567].productId(NumberVal) | [T3567].orderIndex(NumberVal) | [T3567].rejected(StringVal) 
+2.0 | 1.0 | 1.0 | false 
+4.0 | 2.0 | 0.0 | false 
+6.0 | 3.0 | 0.0 | false 
+
+[Query No.13]===============================
+SELECT
+  [T3465].id1,[T3465].productId1,[T3465].orderIndex1,[T3465].rejected
+FROM
+  (( SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.productId == input1.orderIndex ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.rejected == false )) AS [T3465][id, productId, orderIndex, rejected, id1, productId1, orderIndex1, rejected1]
+WHERE
+  [T3465].orderIndex >= [T3465].orderIndex1
+@anonymous
+[T3465].id1(NumberVal) | [T3465].productId1(NumberVal) | [T3465].orderIndex1(NumberVal) | [T3465].rejected(StringVal) 
+2.0 | 1.0 | 1.0 | false 
+4.0 | 2.0 | 0.0 | false 
+6.0 | 3.0 | 0.0 | false 
+
+[Query No.12]===============================
+SELECT
+  [T3025].id,[T3025].productId,[T3025].orderIndex,[T3025].rejected
+FROM
+  (( (SELECT
+          [T3015].productId, FROM
+          (input1) AS [T3015][id, productId, orderIndex, rejected]
+        GROUP BY
+          [T3015].productId) AS [T3016][productId] ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.rejected == false )) AS [T3025][productId, id, productId1, orderIndex, rejected]
+WHERE
+  [T3025].productId == [T3025].productId1
+   AND [T3025].productId >= [T3025].orderIndex
+@anonymous
+[T3025].id(NumberVal) | [T3025].productId(NumberVal) | [T3025].orderIndex(NumberVal) | [T3025].rejected(StringVal) 
+2.0 | 1.0 | 1.0 | false 
+4.0 | 2.0 | 0.0 | false 
+6.0 | 3.0 | 0.0 | false 
+
+[Query No.11]===============================
+SELECT
+  [T3013].id,[T3013].productId,[T3013].orderIndex,[T3013].rejected
+FROM
+  (( (SELECT
+          [T3003].productId, FROM
+          (input1) AS [T3003][id, productId, orderIndex, rejected]
+        GROUP BY
+          [T3003].productId) AS [T3004][productId] ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.productId >= input1.orderIndex
+         AND input1.rejected == false )) AS [T3013][productId, id, productId1, orderIndex, rejected]
+WHERE
+  [T3013].productId == [T3013].productId1
+@anonymous
+[T3013].id(NumberVal) | [T3013].productId(NumberVal) | [T3013].orderIndex(NumberVal) | [T3013].rejected(StringVal) 
+2.0 | 1.0 | 1.0 | false 
+4.0 | 2.0 | 0.0 | false 
+6.0 | 3.0 | 0.0 | false 
+
+[Query No.10]===============================
+SELECT
+  [T2461].id,[T2461].productId,[T2461].orderIndex,[T2461].rejected
+FROM
+  (( (SELECT
+          [T2451].orderIndex, FROM
+          (SELECT
+              input1.id,input1.productId,input1.orderIndex,input1.rejected
+            FROM
+              input1
+            WHERE
+              input1.productId > input1.orderIndex) AS [T2451][id, productId, orderIndex, rejected]
+        GROUP BY
+          [T2451].orderIndex) AS [T2452][orderIndex] ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.rejected == false )) AS [T2461][orderIndex, id, productId, orderIndex1, rejected]
+WHERE
+  [T2461].orderIndex == [T2461].orderIndex1
+@anonymous
+[T2461].id(NumberVal) | [T2461].productId(NumberVal) | [T2461].orderIndex(NumberVal) | [T2461].rejected(StringVal) 
+4.0 | 2.0 | 0.0 | false 
+6.0 | 3.0 | 0.0 | false 
+2.0 | 1.0 | 1.0 | false 
+
+[Query No.9]===============================
+SELECT
+  [T3617].id,[T3617].productId,[T3617].orderIndex,[T3617].rejected
+FROM
+  (( SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.rejected == false ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.rejected <> false )) AS [T3617][id, productId, orderIndex, rejected, id1, productId1, orderIndex1, rejected1]
+WHERE
+  [T3617].orderIndex == [T3617].orderIndex1
+@anonymous
+[T3617].id(NumberVal) | [T3617].productId(NumberVal) | [T3617].orderIndex(NumberVal) | [T3617].rejected(StringVal) 
+2.0 | 1.0 | 1.0 | false 
+4.0 | 2.0 | 0.0 | false 
+6.0 | 3.0 | 0.0 | false 
+
+[Query No.8]===============================
+SELECT
+  [T3517].id1,[T3517].productId1,[T3517].orderIndex,[T3517].rejected1
+FROM
+  (( SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.rejected <> false ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.rejected == false )) AS [T3517][id, productId, orderIndex, rejected, id1, productId1, orderIndex1, rejected1]
+WHERE
+  [T3517].orderIndex == [T3517].orderIndex1
+@anonymous
+[T3517].id1(NumberVal) | [T3517].productId1(NumberVal) | [T3517].orderIndex(NumberVal) | [T3517].rejected1(StringVal) 
+4.0 | 2.0 | 0.0 | false 
+6.0 | 3.0 | 0.0 | false 
+2.0 | 1.0 | 1.0 | false 
+
+[Query No.7]===============================
+SELECT
+  [T4063].id,[T4063].productId,[T4063].orderIndex,[T4063].rejected
+FROM
+  (( (SELECT
+          [T4053].rejected, FROM
+          (SELECT
+              input1.id,input1.productId,input1.orderIndex,input1.rejected
+            FROM
+              input1
+            WHERE
+              input1.rejected == false) AS [T4053][id, productId, orderIndex, rejected]
+        GROUP BY
+          [T4053].rejected) AS [T4054][rejected] ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.productId >= input1.orderIndex
+         AND input1.rejected == false )) AS [T4063][rejected, id, productId, orderIndex, rejected1]
+
+@anonymous
+[T4063].id(NumberVal) | [T4063].productId(NumberVal) | [T4063].orderIndex(NumberVal) | [T4063].rejected(StringVal) 
+2.0 | 1.0 | 1.0 | false 
+4.0 | 2.0 | 0.0 | false 
+6.0 | 3.0 | 0.0 | false 
+
+[Query No.6]===============================
+SELECT
+  input1.id,input1.productId,input1.orderIndex,input1.rejected
+FROM
+  input1
+WHERE
+  input1.productId >= input1.orderIndex
+   AND input1.rejected == false
+@anonymous
+input1.id(NumberVal) | input1.productId(NumberVal) | input1.orderIndex(NumberVal) | input1.rejected(StringVal) 
+2.0 | 1.0 | 1.0 | false 
+4.0 | 2.0 | 0.0 | false 
+6.0 | 3.0 | 0.0 | false 
+
+[Query No.5]===============================
+SELECT
+  [T100295].MIN-id,[T100295].productId,[T100295].orderIndex,[T100295].rejected
+FROM
+  (( (SELECT
+          [T100285].productId, [T100285].rejected, MIN([T100285].id)
+        FROM
+          (input1) AS [T100285][id, productId, orderIndex, rejected]
+        GROUP BY
+          [T100285].productId  [T100285].rejected) AS [T100286][productId, rejected, MIN-id] ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.rejected == false )) AS [T100295][productId, rejected, MIN-id, id, productId1, orderIndex, rejected1]
+WHERE
+  [T100295].MIN-id == [T100295].id
+@anonymous
+[T100295].MIN-id(NumberVal) | [T100295].productId(NumberVal) | [T100295].orderIndex(NumberVal) | [T100295].rejected(StringVal) 
+2.0 | 1.0 | 1.0 | false 
+4.0 | 2.0 | 0.0 | false 
+6.0 | 3.0 | 0.0 | false 
+
+[Query No.4]===============================
+SELECT
+  [T66778].id,[T66778].productId1,[T66778].AVG-orderIndex,[T66778].rejected
+FROM
+  (( (SELECT
+          [T66768].productId, AVG([T66768].orderIndex)
+        FROM
+          (input1) AS [T66768][id, productId, orderIndex, rejected]
+        GROUP BY
+          [T66768].productId) AS [T66769][productId, AVG-orderIndex] ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.rejected == false )) AS [T66778][productId, AVG-orderIndex, id, productId1, orderIndex, rejected]
+WHERE
+  [T66778].AVG-orderIndex == [T66778].orderIndex
+@anonymous
+[T66778].id(NumberVal) | [T66778].productId1(NumberVal) | [T66778].AVG-orderIndex(NumberVal) | [T66778].rejected(StringVal) 
+2.0 | 1.0 | 1.0 | false 
+4.0 | 2.0 | 0.0 | false 
+6.0 | 3.0 | 0.0 | false 
+
+[Query No.3]===============================
+SELECT
+  [T51957].MIN-id,[T51957].productId,[T51957].orderIndex,[T51957].rejected
+FROM
+  (( (SELECT
+          [T51947].productId, [T51947].rejected, MIN([T51947].id)
+        FROM
+          (SELECT
+              input1.id,input1.productId,input1.orderIndex,input1.rejected
+            FROM
+              input1
+            WHERE
+              input1.rejected == false) AS [T51947][id, productId, orderIndex, rejected]
+        GROUP BY
+          [T51947].productId  [T51947].rejected) AS [T51948][productId, rejected, MIN-id] ) JOIN (
+      input1 )) AS [T51957][productId, rejected, MIN-id, id, productId1, orderIndex, rejected1]
+WHERE
+  [T51957].MIN-id == [T51957].id
+@anonymous
+[T51957].MIN-id(NumberVal) | [T51957].productId(NumberVal) | [T51957].orderIndex(NumberVal) | [T51957].rejected(StringVal) 
+2.0 | 1.0 | 1.0 | false 
+4.0 | 2.0 | 0.0 | false 
+6.0 | 3.0 | 0.0 | false 
+
+[Query No.2]===============================
+SELECT
+  [T51341].MIN-id,[T51341].productId,[T51341].orderIndex,[T51341].rejected
+FROM
+  (( (SELECT
+          [T51331].productId, [T51331].rejected, MIN([T51331].id)
+        FROM
+          (input1) AS [T51331][id, productId, orderIndex, rejected]
+        GROUP BY
+          [T51331].productId  [T51331].rejected) AS [T51332][productId, rejected, MIN-id] ) JOIN (
+      SELECT
+        input1.id,input1.productId,input1.orderIndex,input1.rejected
+      FROM
+        input1
+      WHERE
+        input1.rejected == false )) AS [T51341][productId, rejected, MIN-id, id, productId1, orderIndex, rejected1]
+WHERE
+  [T51341].MIN-id == [T51341].id
+@anonymous
+[T51341].MIN-id(NumberVal) | [T51341].productId(NumberVal) | [T51341].orderIndex(NumberVal) | [T51341].rejected(StringVal) 
+2.0 | 1.0 | 1.0 | false 
+4.0 | 2.0 | 0.0 | false 
+6.0 | 3.0 | 0.0 | false 
+
+[Query No.1]===============================
+SELECT
+  [T49777].MIN-id,[T49777].productId,[T49777].orderIndex,[T49777].rejected
+FROM
+  (( (SELECT
+          [T49767].productId, MIN([T49767].id)
+        FROM
+          (SELECT
+              input1.id,input1.productId,input1.orderIndex,input1.rejected
+            FROM
+              input1
+            WHERE
+              input1.rejected == false) AS [T49767][id, productId, orderIndex, rejected]
+        GROUP BY
+          [T49767].productId) AS [T49768][productId, MIN-id] ) JOIN (
+      input1 )) AS [T49777][productId, MIN-id, id, productId1, orderIndex, rejected]
+WHERE
+  [T49777].MIN-id == [T49777].id
+@anonymous
+[T49777].MIN-id(NumberVal) | [T49777].productId(NumberVal) | [T49777].orderIndex(NumberVal) | [T49777].rejected(StringVal) 
+2.0 | 1.0 | 1.0 | false 
+4.0 | 2.0 | 0.0 | false 
+6.0 | 3.0 | 0.0 | false 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 119.674s

@@ -1,0 +1,226 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/038
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 69 [SymTable]: 70
+[Total Number of Intermediate] 71
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 9
+[EnumJoinOnAggr] level 1 [SymTable]: 25
+[Total Number of Intermediate] 25
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 25 [SymTable]: 26
+[JOIN] level 1 [SymTable]: 53
+[Total Number of Intermediate] 53
+Candidate Tree Number: 24
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 7 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 17
+[Total Number of Intermediate] 17
+Candidate Tree Number: 8
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 7 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 17
+[EnumJoinOnAggr] level 1 [SymTable]: 81
+[Total Number of Intermediate] 81
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 7 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 17
+[EnumJoinOnAggr] level 1 [SymTable]: 81
+[Total Number of Intermediate] 81
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 7 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 17
+[Total Number of Intermediate] 17
+Candidate Tree Number: 4
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 11 [SymTable]: 12
+[JOIN] level 1 [SymTable]: 25
+[EnumJoinOnAggr] level 1 [SymTable]: 169
+[Total Number of Intermediate] 169
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 19 [SymTable]: 20
+[JOIN] level 1 [SymTable]: 41
+[Total Number of Intermediate] 41
+Candidate Tree Number: 18
+[Enumeration Finished]
+[Query No.5]===============================
+SELECT
+  [T229].id,[T229].name,[T229].city
+FROM
+  (( SELECT
+        [T228].name,[T228].COUNT_DISTINCT-id
+      FROM
+        (SELECT
+            [T227].name, COUNT_DISTINCT([T227].id)
+          FROM
+            (input1) AS [T227][id, name, city]
+          GROUP BY
+            [T227].name) AS [T228][name, COUNT_DISTINCT-id]
+      WHERE
+        [T228].COUNT_DISTINCT-id > 1.0 ) JOIN (
+      input1 )) AS [T229][name, COUNT_DISTINCT-id, id, name1, city]
+WHERE
+  [T229].name == [T229].name1
+@anonymous
+[T229].id(NumberVal) | [T229].name(StringVal) | [T229].city(StringVal) 
+904834.0 | jim | London 
+904835.0 | jim | London 
+90145.0 | Fred | Paris 
+90132.0 | Fred | Paris 
+90133.0 | Fred | Paris 
+
+[Query No.4]===============================
+SELECT
+  [T211].id,[T211].name,[T211].city
+FROM
+  (( SELECT
+        [T210].name,[T210].city,[T210].COUNT_DISTINCT-id
+      FROM
+        (SELECT
+            [T209].name, [T209].city, COUNT_DISTINCT([T209].id)
+          FROM
+            (input1) AS [T209][id, name, city]
+          GROUP BY
+            [T209].name  [T209].city) AS [T210][name, city, COUNT_DISTINCT-id]
+      WHERE
+        [T210].COUNT_DISTINCT-id > 1.0 ) JOIN (
+      input1 )) AS [T211][name, city, COUNT_DISTINCT-id, id, name1, city1]
+WHERE
+  [T211].name == [T211].name1
+@anonymous
+[T211].id(NumberVal) | [T211].name(StringVal) | [T211].city(StringVal) 
+904834.0 | jim | London 
+904835.0 | jim | London 
+90145.0 | Fred | Paris 
+90132.0 | Fred | Paris 
+90133.0 | Fred | Paris 
+
+[Query No.3]===============================
+SELECT
+  [T187].id,[T187].name,[T187].city
+FROM
+  (( SELECT
+        [T186].name,[T186].city,[T186].COUNT-id
+      FROM
+        (SELECT
+            [T185].name, [T185].city, COUNT([T185].id)
+          FROM
+            (input1) AS [T185][id, name, city]
+          GROUP BY
+            [T185].name  [T185].city) AS [T186][name, city, COUNT-id]
+      WHERE
+        [T186].COUNT-id > 1.0 ) JOIN (
+      input1 )) AS [T187][name, city, COUNT-id, id, name1, city1]
+WHERE
+  [T187].name == [T187].name1
+@anonymous
+[T187].id(NumberVal) | [T187].name(StringVal) | [T187].city(StringVal) 
+904834.0 | jim | London 
+904835.0 | jim | London 
+90145.0 | Fred | Paris 
+90132.0 | Fred | Paris 
+90133.0 | Fred | Paris 
+
+[Query No.2]===============================
+SELECT
+  [T163].id,[T163].name,[T163].city
+FROM
+  (( SELECT
+        [T162].name,[T162].city,[T162].COUNT-name
+      FROM
+        (SELECT
+            [T161].name, [T161].city, COUNT([T161].name)
+          FROM
+            (input1) AS [T161][id, name, city]
+          GROUP BY
+            [T161].name  [T161].city) AS [T162][name, city, COUNT-name]
+      WHERE
+        [T162].COUNT-name > 1.0 ) JOIN (
+      input1 )) AS [T163][name, city, COUNT-name, id, name1, city1]
+WHERE
+  [T163].name == [T163].name1
+@anonymous
+[T163].id(NumberVal) | [T163].name(StringVal) | [T163].city(StringVal) 
+904834.0 | jim | London 
+904835.0 | jim | London 
+90145.0 | Fred | Paris 
+90132.0 | Fred | Paris 
+90133.0 | Fred | Paris 
+
+[Query No.1]===============================
+SELECT
+  [T145].id,[T145].name,[T145].city
+FROM
+  (( SELECT
+        [T144].name,[T144].COUNT-id
+      FROM
+        (SELECT
+            [T143].name, COUNT([T143].id)
+          FROM
+            (input1) AS [T143][id, name, city]
+          GROUP BY
+            [T143].name) AS [T144][name, COUNT-id]
+      WHERE
+        [T144].COUNT-id > 1.0 ) JOIN (
+      input1 )) AS [T145][name, COUNT-id, id, name1, city]
+WHERE
+  [T145].name == [T145].name1
+@anonymous
+[T145].id(NumberVal) | [T145].name(StringVal) | [T145].city(StringVal) 
+904834.0 | jim | London 
+904835.0 | jim | London 
+90145.0 | Fred | Paris 
+90132.0 | Fred | Paris 
+90133.0 | Fred | Paris 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 1.187s
