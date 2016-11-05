@@ -47,6 +47,8 @@ if __name__ == "__main__":
 				continue
 			if ("A" in f):
 				with_aggr = True
+			if ("R" in f):
+				continue
 
 			print "[[Running]] " + f
 			if logging:
