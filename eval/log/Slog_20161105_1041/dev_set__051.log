@@ -1,0 +1,477 @@
+[[Synthesizing]]
+[[Synthesis start]]
+	File: ../data/dev_set/051
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 216 [SymTable]: 217
+[Total Number of Intermediate] 218
+Candidate Tree Number: 20
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 9 [SymTable]: 10
+[JOIN] level 1 [SymTable]: 21
+[Total Number of Intermediate] 21
+Candidate Tree Number: 25
+[Enumeration Finished]
+    [AggrFun] Optional[MAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 30 [SymTable]: 31
+[JOIN] level 1 [SymTable]: 63
+[Total Number of Intermediate] 63
+Candidate Tree Number: 99
+[Enumeration Finished]
+    [AggrFun] Optional[MIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 30 [SymTable]: 31
+[JOIN] level 1 [SymTable]: 63
+[Total Number of Intermediate] 63
+Candidate Tree Number: 65
+[Enumeration Finished]
+    [AggrFun] Optional[AVG]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 30 [SymTable]: 31
+[JOIN] level 1 [SymTable]: 63
+[Total Number of Intermediate] 63
+Candidate Tree Number: 113
+[Enumeration Finished]
+    [AggrFun] Optional[MAXMIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 51 [SymTable]: 52
+[JOIN] level 1 [SymTable]: 105
+[Total Number of Intermediate] 105
+Candidate Tree Number: 139
+[Enumeration Finished]
+    [AggrFun] Optional[MAXCOUNT]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 66 [SymTable]: 67
+[JOIN] level 1 [SymTable]: 135
+[Total Number of Intermediate] 135
+Candidate Tree Number: 234
+[Enumeration Finished]
+[Query No.20]===============================
+SELECT
+  [T471].P_Id
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.ID,input1.P_Id,input1.room
+      FROM
+        input1
+      WHERE
+        input1.room == B )) AS [T471][ID, P_Id, room, ID1, P_Id1, room1]
+WHERE
+  [T471].ID > [T471].ID1
+   AND [T471].P_Id == [T471].P_Id1
+@anonymous
+[T471].P_Id(NumberVal) 
+9.0 
+
+[Query No.19]===============================
+SELECT
+  [T433].P_Id
+FROM
+  (( (SELECT
+          [T431].P_Id, [T431].room, FROM
+          (input1) AS [T431][ID, P_Id, room]
+        GROUP BY
+          [T431].P_Id  [T431].room) AS [T432][P_Id, room] ) JOIN (
+      SELECT
+        input1.ID,input1.P_Id,input1.room
+      FROM
+        input1
+      WHERE
+        input1.room == B )) AS [T433][P_Id, room, ID, P_Id1, room1]
+WHERE
+  [T433].P_Id > [T433].P_Id1
+   AND [T433].room == [T433].room1
+@anonymous
+[T433].P_Id(NumberVal) 
+9.0 
+
+[Query No.18]===============================
+SELECT
+  [T397].P_Id
+FROM
+  (( (SELECT
+          [T395].P_Id, [T395].room, FROM
+          (SELECT
+              input1.ID,input1.P_Id,input1.room
+            FROM
+              input1
+            WHERE
+              input1.room == B) AS [T395][ID, P_Id, room]
+        GROUP BY
+          [T395].P_Id  [T395].room) AS [T396][P_Id, room] ) JOIN (
+      input1 )) AS [T397][P_Id, room, ID, P_Id1, room1]
+WHERE
+  [T397].P_Id > [T397].P_Id1
+   AND [T397].room == [T397].room1
+@anonymous
+[T397].P_Id(NumberVal) 
+9.0 
+
+[Query No.17]===============================
+SELECT
+  [T495].P_Id
+FROM
+  (( (SELECT
+          [T493].P_Id, FROM
+          (SELECT
+              input1.ID,input1.P_Id,input1.room
+            FROM
+              input1
+            WHERE
+              input1.room == B) AS [T493][ID, P_Id, room]
+        GROUP BY
+          [T493].P_Id) AS [T494][P_Id] ) JOIN (
+      SELECT
+        input1.ID,input1.P_Id,input1.room
+      FROM
+        input1
+      WHERE
+        input1.room == B )) AS [T495][P_Id, ID, P_Id1, room]
+WHERE
+  [T495].P_Id > [T495].P_Id1
+@anonymous
+[T495].P_Id(NumberVal) 
+9.0 
+
+[Query No.16]===============================
+SELECT
+  [T385].P_Id
+FROM
+  (( (SELECT
+          [T383].P_Id, [T383].room, FROM
+          (SELECT
+              input1.ID,input1.P_Id,input1.room
+            FROM
+              input1
+            WHERE
+              input1.room == B) AS [T383][ID, P_Id, room]
+        GROUP BY
+          [T383].P_Id  [T383].room) AS [T384][P_Id, room] ) JOIN (
+      SELECT
+        input1.ID,input1.P_Id,input1.room
+      FROM
+        input1
+      WHERE
+        input1.room == B )) AS [T385][P_Id, room, ID, P_Id1, room1]
+WHERE
+  [T385].P_Id > [T385].P_Id1
+@anonymous
+[T385].P_Id(NumberVal) 
+9.0 
+
+[Query No.15]===============================
+SELECT
+  [T289].P_Id
+FROM
+  (SELECT
+      [T288].P_Id, [T288].room, CONCAT([T288].room)
+    FROM
+      (SELECT
+          input1.ID,input1.P_Id,input1.room
+        FROM
+          input1
+        WHERE
+          input1.room == B) AS [T288][ID, P_Id, room]
+    GROUP BY
+      [T288].P_Id  [T288].room) AS [T289][P_Id, room, CONCAT-room]
+WHERE
+  [T289].CONCAT-room <> B
+@anonymous
+[T289].P_Id(NumberVal) 
+9.0 
+
+[Query No.14]===============================
+SELECT
+  [T285].P_Id
+FROM
+  (SELECT
+      [T284].P_Id, [T284].room, CONCAT([T284].room)
+    FROM
+      (SELECT
+          input1.ID,input1.P_Id,input1.room
+        FROM
+          input1
+        WHERE
+          input1.room == B) AS [T284][ID, P_Id, room]
+    GROUP BY
+      [T284].P_Id  [T284].room) AS [T285][P_Id, room, CONCAT-room]
+WHERE
+  [T285].CONCAT-room <> B
+@anonymous
+[T285].P_Id(NumberVal) 
+9.0 
+
+[Query No.13]===============================
+SELECT
+  [T237].P_Id
+FROM
+  (SELECT
+      [T236].P_Id, CONCAT([T236].room)
+    FROM
+      (SELECT
+          input1.ID,input1.P_Id,input1.room
+        FROM
+          input1
+        WHERE
+          input1.room == B) AS [T236][ID, P_Id, room]
+    GROUP BY
+      [T236].P_Id) AS [T237][P_Id, CONCAT-room]
+WHERE
+  [T237].CONCAT-room <> B
+@anonymous
+[T237].P_Id(NumberVal) 
+9.0 
+
+[Query No.12]===============================
+SELECT
+  [T1936].P_Id
+FROM
+  (( (SELECT
+          [T1934].room, AVG([T1934].ID)
+        FROM
+          (SELECT
+              input1.ID,input1.P_Id,input1.room
+            FROM
+              input1
+            WHERE
+              input1.room == B) AS [T1934][ID, P_Id, room]
+        GROUP BY
+          [T1934].room) AS [T1935][room, AVG-ID] ) JOIN (
+      input1 )) AS [T1936][room, AVG-ID, ID, P_Id, room1]
+WHERE
+  [T1936].AVG-ID == [T1936].ID
+@anonymous
+[T1936].P_Id(NumberVal) 
+9.0 
+
+[Query No.11]===============================
+SELECT
+  [T1821].P_Id
+FROM
+  (( (SELECT
+          [T1819].P_Id, MIN([T1819].ID)
+        FROM
+          (input1) AS [T1819][ID, P_Id, room]
+        GROUP BY
+          [T1819].P_Id) AS [T1820][P_Id, MIN-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.P_Id,input1.room
+      FROM
+        input1
+      WHERE
+        input1.room == B )) AS [T1821][P_Id, MIN-ID, ID, P_Id1, room]
+WHERE
+  [T1821].MIN-ID == [T1821].ID
+@anonymous
+[T1821].P_Id(NumberVal) 
+9.0 
+
+[Query No.10]===============================
+SELECT
+  [T1006].P_Id
+FROM
+  (( (SELECT
+          MAX([T1004].ID)
+        FROM
+          (SELECT
+              input1.ID,input1.P_Id,input1.room
+            FROM
+              input1
+            WHERE
+              input1.room == B) AS [T1004][ID, P_Id, room]) AS [T1005][MAX-ID] ) JOIN (
+      input1 )) AS [T1006][MAX-ID, ID, P_Id, room]
+WHERE
+  [T1006].MAX-ID == [T1006].ID
+@anonymous
+[T1006].P_Id(NumberVal) 
+9.0 
+
+[Query No.9]===============================
+SELECT
+  [T706].P_Id
+FROM
+  (( (SELECT
+          [T704].room, MAX([T704].ID)
+        FROM
+          (SELECT
+              input1.ID,input1.P_Id,input1.room
+            FROM
+              input1
+            WHERE
+              input1.room == B) AS [T704][ID, P_Id, room]
+        GROUP BY
+          [T704].room) AS [T705][room, MAX-ID] ) JOIN (
+      input1 )) AS [T706][room, MAX-ID, ID, P_Id, room1]
+WHERE
+  [T706].MAX-ID == [T706].ID
+@anonymous
+[T706].P_Id(NumberVal) 
+9.0 
+
+[Query No.8]===============================
+SELECT
+  [T652].P_Id
+FROM
+  (( (SELECT
+          [T650].room, MAX([T650].ID)
+        FROM
+          (input1) AS [T650][ID, P_Id, room]
+        GROUP BY
+          [T650].room) AS [T651][room, MAX-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.P_Id,input1.room
+      FROM
+        input1
+      WHERE
+        input1.room == B )) AS [T652][room, MAX-ID, ID, P_Id, room1]
+WHERE
+  [T652].MAX-ID == [T652].ID
+@anonymous
+[T652].P_Id(NumberVal) 
+9.0 
+
+[Query No.7]===============================
+SELECT
+  [T303].P_Id
+FROM
+  (SELECT
+      [T302].P_Id, [T302].room, SUM([T302].ID)
+    FROM
+      (SELECT
+          input1.ID,input1.P_Id,input1.room
+        FROM
+          input1
+        WHERE
+          input1.room == B) AS [T302][ID, P_Id, room]
+    GROUP BY
+      [T302].P_Id  [T302].room) AS [T303][P_Id, room, SUM-ID]
+WHERE
+  [T303].SUM-ID == [T303].P_Id
+@anonymous
+[T303].P_Id(NumberVal) 
+9.0 
+
+[Query No.6]===============================
+SELECT
+  [T229].P_Id
+FROM
+  (SELECT
+      [T228].P_Id, SUM([T228].ID)
+    FROM
+      (SELECT
+          input1.ID,input1.P_Id,input1.room
+        FROM
+          input1
+        WHERE
+          input1.room == B) AS [T228][ID, P_Id, room]
+    GROUP BY
+      [T228].P_Id) AS [T229][P_Id, SUM-ID]
+WHERE
+  [T229].SUM-ID == [T229].P_Id
+@anonymous
+[T229].P_Id(NumberVal) 
+9.0 
+
+[Query No.5]===============================
+(SELECT
+    AVG([T298].P_Id)
+  FROM
+    (input1) AS [T298][ID, P_Id, room]) AS [T299][AVG-P_Id]
+@anonymous
+[T299].AVG-P_Id(NumberVal) 
+9.0 
+
+[Query No.4]===============================
+SELECT
+  [T357].P_Id
+FROM
+  (SELECT
+      [T356].P_Id, FIRST([T356].room)
+    FROM
+      (input1) AS [T356][ID, P_Id, room]
+    GROUP BY
+      [T356].P_Id) AS [T357][P_Id, FIRST-room]
+WHERE
+  [T357].FIRST-room == B
+@anonymous
+[T357].P_Id(NumberVal) 
+9.0 
+
+[Query No.3]===============================
+(SELECT
+    MAX([T306].P_Id)
+  FROM
+    (SELECT
+        input1.ID,input1.P_Id,input1.room
+      FROM
+        input1
+      WHERE
+        input1.room == B) AS [T306][ID, P_Id, room]) AS [T307][MAX-P_Id]
+@anonymous
+[T307].MAX-P_Id(NumberVal) 
+9.0 
+
+[Query No.2]===============================
+SELECT
+  [T241].MAX-P_Id
+FROM
+  (SELECT
+      [T240].room, MAX([T240].P_Id)
+    FROM
+      (SELECT
+          input1.ID,input1.P_Id,input1.room
+        FROM
+          input1
+        WHERE
+          input1.room == B) AS [T240][ID, P_Id, room]
+    GROUP BY
+      [T240].room) AS [T241][room, MAX-P_Id]
+
+@anonymous
+[T241].MAX-P_Id(NumberVal) 
+9.0 
+
+[Query No.1]===============================
+SELECT
+  [T225].P_Id
+FROM
+  (SELECT
+      [T224].P_Id, FIRST([T224].room)
+    FROM
+      (input1) AS [T224][ID, P_Id, room]
+    GROUP BY
+      [T224].P_Id) AS [T225][P_Id, FIRST-room]
+WHERE
+  [T225].FIRST-room == B
+@anonymous
+[T225].P_Id(NumberVal) 
+9.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 2.848s

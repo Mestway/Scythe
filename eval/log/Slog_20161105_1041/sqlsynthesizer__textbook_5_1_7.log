@@ -1,0 +1,200 @@
+[[Synthesizing]]
+[[Synthesis start]]
+	File: ../data/sqlsynthesizer/textbook_5_1_7
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 68 [SymTable]: 69
+[Total Number of Intermediate] 70
+Candidate Tree Number: 1
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 9
+[EnumJoinOnAggr] level 1 [SymTable]: 25
+[Total Number of Intermediate] 25
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[SUM]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 15
+[EnumJoinOnAggr] level 1 [SymTable]: 64
+[Total Number of Intermediate] 64
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 15
+[EnumJoinOnAggr] level 1 [SymTable]: 64
+[Total Number of Intermediate] 64
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 15
+[EnumJoinOnAggr] level 1 [SymTable]: 64
+[Total Number of Intermediate] 64
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[AVG]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 15
+[Total Number of Intermediate] 15
+Candidate Tree Number: 4
+[Enumeration Finished]
+    [AggrFun] Optional[MINMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 9 [SymTable]: 10
+[JOIN] level 1 [SymTable]: 21
+[EnumJoinOnAggr] level 1 [SymTable]: 121
+[Total Number of Intermediate] 121
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[COUNTMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 18 [SymTable]: 19
+[JOIN] level 1 [SymTable]: 39
+[EnumJoinOnAggr] level 1 [SymTable]: 400
+[Total Number of Intermediate] 400
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Query No.5]===============================
+SELECT
+  [T178].level,[T178].AVG-age
+FROM
+  (( (SELECT
+          [T176].level, AVG([T176].age)
+        FROM
+          (input1) AS [T176][S_key, level, age]
+        GROUP BY
+          [T176].level) AS [T177][level, AVG-age] ) JOIN (
+      SELECT
+        input1.S_key,input1.level,input1.age
+      FROM
+        input1
+      WHERE
+        True )) AS [T178][level, AVG-age, S_key, level1, age]
+WHERE
+  [T178].level == [T178].level1
+   AND [T178].AVG-age <= [T178].age
+@anonymous
+[T178].level(StringVal) | [T178].AVG-age(NumberVal) 
+JR | 19.0 
+SR | 23.0 
+SO | 21.0 
+
+[Query No.4]===============================
+SELECT
+  [T172].level,[T172].AVG-age
+FROM
+  (( (SELECT
+          [T170].level, AVG([T170].age)
+        FROM
+          (input1) AS [T170][S_key, level, age]
+        GROUP BY
+          [T170].level) AS [T171][level, AVG-age] ) JOIN (
+      SELECT
+        input1.S_key,input1.level,input1.age
+      FROM
+        input1
+      WHERE
+        True )) AS [T172][level, AVG-age, S_key, level1, age]
+WHERE
+  [T172].level == [T172].level1
+   AND [T172].AVG-age < [T172].age
+@anonymous
+[T172].level(StringVal) | [T172].AVG-age(NumberVal) 
+JR | 19.0 
+SR | 23.0 
+SO | 21.0 
+
+[Query No.3]===============================
+SELECT
+  [T190].level,[T190].AVG-age
+FROM
+  (( (SELECT
+          [T188].level, AVG([T188].age)
+        FROM
+          (input1) AS [T188][S_key, level, age]
+        GROUP BY
+          [T188].level) AS [T189][level, AVG-age] ) JOIN (
+      input1 )) AS [T190][level, AVG-age, S_key, level1, age]
+WHERE
+  [T190].level == [T190].level1
+   AND [T190].AVG-age <= [T190].age
+@anonymous
+[T190].level(StringVal) | [T190].AVG-age(NumberVal) 
+JR | 19.0 
+SR | 23.0 
+SO | 21.0 
+
+[Query No.2]===============================
+SELECT
+  [T184].level,[T184].AVG-age
+FROM
+  (( (SELECT
+          [T182].level, AVG([T182].age)
+        FROM
+          (input1) AS [T182][S_key, level, age]
+        GROUP BY
+          [T182].level) AS [T183][level, AVG-age] ) JOIN (
+      input1 )) AS [T184][level, AVG-age, S_key, level1, age]
+WHERE
+  [T184].level == [T184].level1
+   AND [T184].AVG-age < [T184].age
+@anonymous
+[T184].level(StringVal) | [T184].AVG-age(NumberVal) 
+JR | 19.0 
+SR | 23.0 
+SO | 21.0 
+
+[Query No.1]===============================
+(SELECT
+    [T70].level, AVG([T70].age)
+  FROM
+    (input1) AS [T70][S_key, level, age]
+  GROUP BY
+    [T70].level) AS [T71][level, AVG-age]
+@anonymous
+[T71].level(StringVal) | [T71].AVG-age(NumberVal) 
+JR | 19.0 
+SR | 23.0 
+SO | 21.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.301s

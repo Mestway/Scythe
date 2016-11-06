@@ -1,0 +1,185 @@
+[[Synthesizing]]
+[[Synthesis start]]
+	File: ../data/top_rated_posts/012
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 458 [SymTable]: 459
+[Total Number of Intermediate] 460
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 18 [SymTable]: 19
+[JOIN] level 1 [SymTable]: 39
+[EnumJoinOnAggr] level 1 [SymTable]: 400
+[Total Number of Intermediate] 400
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 72 [SymTable]: 73
+[JOIN] level 1 [SymTable]: 147
+[Total Number of Intermediate] 147
+Candidate Tree Number: 20
+[Enumeration Finished]
+    [AggrFun] Optional[MIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 72 [SymTable]: 73
+[JOIN] level 1 [SymTable]: 147
+[EnumJoinOnAggr] level 1 [SymTable]: 5476
+[Total Number of Intermediate] 5476
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[AVG]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 54 [SymTable]: 55
+[JOIN] level 1 [SymTable]: 111
+[Total Number of Intermediate] 111
+Candidate Tree Number: 10
+[Enumeration Finished]
+    [AggrFun] Optional[MINMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 126 [SymTable]: 127
+[JOIN] level 1 [SymTable]: 255
+[Total Number of Intermediate] 255
+Candidate Tree Number: 20
+[Enumeration Finished]
+    [AggrFun] Optional[COUNTMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3046 [SymTable]: 3047
+[JOIN] level 1 [SymTable]: 6095
+[Total Number of Intermediate] 6095
+Candidate Tree Number: 40878
+[Enumeration Finished]
+[Query No.5]===============================
+SELECT
+  [T215352].DocumentID,[T215352].Status,[T215352].DateCreated
+FROM
+  (( (SELECT
+          MAX([T215342].ID)
+        FROM
+          (input1) AS [T215342][ID, DocumentID, Status, DateCreated]) AS [T215343][MAX-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+      FROM
+        input1
+      WHERE
+        input1.ID > 4.0 )) AS [T215352][MAX-ID, ID, DocumentID, Status, DateCreated]
+
+@anonymous
+[T215352].DocumentID(NumberVal) | [T215352].Status(StringVal) | [T215352].DateCreated(DateVal) 
+1.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+2.0 | S3 | Mon Aug 01 00:00:00 PDT 2011 
+3.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+
+[Query No.4]===============================
+SELECT
+  [T205580].DocumentID,[T205580].Status,[T205580].DateCreated
+FROM
+  (( (SELECT
+          COUNT([T205570].Status)
+        FROM
+          (input1) AS [T205570][ID, DocumentID, Status, DateCreated]) AS [T205571][COUNT-Status] ) JOIN (
+      SELECT
+        input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+      FROM
+        input1
+      WHERE
+        input1.ID > 4.0 )) AS [T205580][COUNT-Status, ID, DocumentID, Status, DateCreated]
+
+@anonymous
+[T205580].DocumentID(NumberVal) | [T205580].Status(StringVal) | [T205580].DateCreated(DateVal) 
+1.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+2.0 | S3 | Mon Aug 01 00:00:00 PDT 2011 
+3.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+
+[Query No.3]===============================
+SELECT
+  [T197162].DocumentID,[T197162].Status,[T197162].DateCreated
+FROM
+  (( (SELECT
+          MAX([T197152].DateCreated)
+        FROM
+          (input1) AS [T197152][ID, DocumentID, Status, DateCreated]) AS [T197153][MAX-DateCreated] ) JOIN (
+      SELECT
+        input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+      FROM
+        input1
+      WHERE
+        input1.ID > 4.0 )) AS [T197162][MAX-DateCreated, ID, DocumentID, Status, DateCreated]
+
+@anonymous
+[T197162].DocumentID(NumberVal) | [T197162].Status(StringVal) | [T197162].DateCreated(DateVal) 
+1.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+2.0 | S3 | Mon Aug 01 00:00:00 PDT 2011 
+3.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+
+[Query No.2]===============================
+SELECT
+  [T168154].DocumentID,[T168154].Status,[T168154].DateCreated
+FROM
+  (( (SELECT
+          COUNT([T168144].DateCreated)
+        FROM
+          (input1) AS [T168144][ID, DocumentID, Status, DateCreated]) AS [T168145][COUNT-DateCreated] ) JOIN (
+      SELECT
+        input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+      FROM
+        input1
+      WHERE
+        input1.ID > 4.0 )) AS [T168154][COUNT-DateCreated, ID, DocumentID, Status, DateCreated]
+
+@anonymous
+[T168154].DocumentID(NumberVal) | [T168154].Status(StringVal) | [T168154].DateCreated(DateVal) 
+1.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+2.0 | S3 | Mon Aug 01 00:00:00 PDT 2011 
+3.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+
+[Query No.1]===============================
+SELECT
+  [T99740].DocumentID,[T99740].Status,[T99740].DateCreated
+FROM
+  (( (SELECT
+          MAX([T99730].DocumentID)
+        FROM
+          (input1) AS [T99730][ID, DocumentID, Status, DateCreated]) AS [T99731][MAX-DocumentID] ) JOIN (
+      SELECT
+        input1.ID,input1.DocumentID,input1.Status,input1.DateCreated
+      FROM
+        input1
+      WHERE
+        input1.ID > 4.0 )) AS [T99740][MAX-DocumentID, ID, DocumentID, Status, DateCreated]
+
+@anonymous
+[T99740].DocumentID(NumberVal) | [T99740].Status(StringVal) | [T99740].DateCreated(DateVal) 
+1.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+2.0 | S3 | Mon Aug 01 00:00:00 PDT 2011 
+3.0 | S1 | Tue Aug 02 00:00:00 PDT 2011 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 451.759s

@@ -1,0 +1,476 @@
+[[Synthesizing]]
+[[Synthesis start]]
+	File: ../data/dev_set/037
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 44 [SymTable]: 45
+[Total Number of Intermediate] 46
+Candidate Tree Number: 16
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 9
+[EnumJoinOnAggr] level 1 [SymTable]: 25
+[Total Number of Intermediate] 25
+Candidate Tree Number: 15
+[Enumeration Finished]
+    [AggrFun] Optional[MAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 15
+[EnumJoinOnAggr] level 1 [SymTable]: 64
+[Total Number of Intermediate] 64
+Candidate Tree Number: 52
+[Enumeration Finished]
+    [AggrFun] Optional[MIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 15
+[EnumJoinOnAggr] level 1 [SymTable]: 64
+[Total Number of Intermediate] 64
+Candidate Tree Number: 52
+[Enumeration Finished]
+    [AggrFun] Optional[AVG]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 15
+[EnumJoinOnAggr] level 1 [SymTable]: 64
+[Total Number of Intermediate] 64
+Candidate Tree Number: 48
+[Enumeration Finished]
+    [AggrFun] Optional[MINMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 9 [SymTable]: 10
+[JOIN] level 1 [SymTable]: 21
+[EnumJoinOnAggr] level 1 [SymTable]: 121
+[Total Number of Intermediate] 121
+Candidate Tree Number: 111
+[Enumeration Finished]
+    [AggrFun] Optional[COUNTMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 14 [SymTable]: 15
+[JOIN] level 1 [SymTable]: 31
+[EnumJoinOnAggr] level 1 [SymTable]: 256
+[Total Number of Intermediate] 256
+Candidate Tree Number: 256
+[Enumeration Finished]
+[Query No.20]===============================
+SELECT
+  [T277].chapterid,[T277].xmlfile
+FROM
+  (( (SELECT
+          [T271].chapterid, [T271].xmlfile, FROM
+          (input1) AS [T271][chapterid, xmlfile]
+        GROUP BY
+          [T271].chapterid  [T271].xmlfile) AS [T272][chapterid, xmlfile] ) JOIN (
+      (SELECT
+          [T275].xmlfile, FROM
+          (input1) AS [T275][chapterid, xmlfile]
+        GROUP BY
+          [T275].xmlfile) AS [T276][xmlfile] )) AS [T277][chapterid, xmlfile, xmlfile1]
+WHERE
+  [T277].xmlfile == [T277].xmlfile1
+@anonymous
+[T277].chapterid(NumberVal) | [T277].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[Query No.19]===============================
+SELECT
+  [T257].chapterid,[T257].xmlfile
+FROM
+  (( (SELECT
+          [T251].chapterid, [T251].xmlfile, FROM
+          (input1) AS [T251][chapterid, xmlfile]
+        GROUP BY
+          [T251].chapterid  [T251].xmlfile) AS [T252][chapterid, xmlfile] ) JOIN (
+      (SELECT
+          [T255].chapterid, FROM
+          (input1) AS [T255][chapterid, xmlfile]
+        GROUP BY
+          [T255].chapterid) AS [T256][chapterid] )) AS [T257][chapterid, xmlfile, chapterid1]
+WHERE
+  [T257].chapterid == [T257].chapterid1
+@anonymous
+[T257].chapterid(NumberVal) | [T257].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[Query No.18]===============================
+SELECT
+  [T227].chapterid,[T227].xmlfile
+FROM
+  (( (SELECT
+          [T221].xmlfile, FROM
+          (input1) AS [T221][chapterid, xmlfile]
+        GROUP BY
+          [T221].xmlfile) AS [T222][xmlfile] ) JOIN (
+      (SELECT
+          [T225].chapterid, [T225].xmlfile, FROM
+          (input1) AS [T225][chapterid, xmlfile]
+        GROUP BY
+          [T225].chapterid  [T225].xmlfile) AS [T226][chapterid, xmlfile] )) AS [T227][xmlfile, chapterid, xmlfile1]
+WHERE
+  [T227].xmlfile == [T227].xmlfile1
+@anonymous
+[T227].chapterid(NumberVal) | [T227].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[Query No.17]===============================
+SELECT
+  [T197].chapterid,[T197].xmlfile
+FROM
+  (( (SELECT
+          [T191].chapterid, [T191].xmlfile, FROM
+          (input1) AS [T191][chapterid, xmlfile]
+        GROUP BY
+          [T191].chapterid  [T191].xmlfile) AS [T192][chapterid, xmlfile] ) JOIN (
+      (SELECT
+          [T195].chapterid, [T195].xmlfile, FROM
+          (input1) AS [T195][chapterid, xmlfile]
+        GROUP BY
+          [T195].chapterid  [T195].xmlfile) AS [T196][chapterid, xmlfile] )) AS [T197][chapterid, xmlfile, chapterid1, xmlfile1]
+WHERE
+  [T197].chapterid == [T197].chapterid1
+@anonymous
+[T197].chapterid(NumberVal) | [T197].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[Query No.16]===============================
+SELECT
+  [T157].chapterid,[T157].xmlfile
+FROM
+  (( (SELECT
+          [T151].chapterid, FROM
+          (input1) AS [T151][chapterid, xmlfile]
+        GROUP BY
+          [T151].chapterid) AS [T152][chapterid] ) JOIN (
+      (SELECT
+          [T155].chapterid, [T155].xmlfile, FROM
+          (input1) AS [T155][chapterid, xmlfile]
+        GROUP BY
+          [T155].chapterid  [T155].xmlfile) AS [T156][chapterid, xmlfile] )) AS [T157][chapterid, chapterid1, xmlfile]
+WHERE
+  [T157].chapterid == [T157].chapterid1
+@anonymous
+[T157].chapterid(NumberVal) | [T157].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[Query No.15]===============================
+SELECT
+  [T937].chapterid,[T937].xmlfile
+FROM
+  (( (SELECT
+          MIN([T931].chapterid)
+        FROM
+          (input1) AS [T931][chapterid, xmlfile]) AS [T932][MIN-chapterid] ) JOIN (
+      (SELECT
+          [T935].chapterid, [T935].xmlfile, MIN([T935].chapterid)
+        FROM
+          (input1) AS [T935][chapterid, xmlfile]
+        GROUP BY
+          [T935].chapterid  [T935].xmlfile) AS [T936][chapterid, xmlfile, MIN-chapterid] )) AS [T937][MIN-chapterid, chapterid, xmlfile, MIN-chapterid1]
+
+@anonymous
+[T937].chapterid(NumberVal) | [T937].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[Query No.14]===============================
+SELECT
+  [T827].chapterid,[T827].xmlfile
+FROM
+  (( (SELECT
+          [T821].chapterid, [T821].xmlfile, FROM
+          (input1) AS [T821][chapterid, xmlfile]
+        GROUP BY
+          [T821].chapterid  [T821].xmlfile) AS [T822][chapterid, xmlfile] ) JOIN (
+      (SELECT
+          MAX([T825].chapterid)
+        FROM
+          (input1) AS [T825][chapterid, xmlfile]) AS [T826][MAX-chapterid] )) AS [T827][chapterid, xmlfile, MAX-chapterid]
+
+@anonymous
+[T827].chapterid(NumberVal) | [T827].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[Query No.13]===============================
+SELECT
+  [T727].chapterid,[T727].xmlfile
+FROM
+  (( (SELECT
+          [T721].chapterid, [T721].xmlfile, MAX([T721].chapterid)
+        FROM
+          (input1) AS [T721][chapterid, xmlfile]
+        GROUP BY
+          [T721].chapterid  [T721].xmlfile) AS [T722][chapterid, xmlfile, MAX-chapterid] ) JOIN (
+      (SELECT
+          MAX([T725].chapterid)
+        FROM
+          (input1) AS [T725][chapterid, xmlfile]) AS [T726][MAX-chapterid] )) AS [T727][chapterid, xmlfile, MAX-chapterid, MAX-chapterid1]
+
+@anonymous
+[T727].chapterid(NumberVal) | [T727].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[Query No.12]===============================
+SELECT
+  [T547].chapterid,[T547].xmlfile
+FROM
+  (( (SELECT
+          MAX([T541].chapterid)
+        FROM
+          (input1) AS [T541][chapterid, xmlfile]) AS [T542][MAX-chapterid] ) JOIN (
+      (SELECT
+          [T545].chapterid, [T545].xmlfile, FROM
+          (input1) AS [T545][chapterid, xmlfile]
+        GROUP BY
+          [T545].chapterid  [T545].xmlfile) AS [T546][chapterid, xmlfile] )) AS [T547][MAX-chapterid, chapterid, xmlfile]
+
+@anonymous
+[T547].chapterid(NumberVal) | [T547].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[Query No.11]===============================
+SELECT
+  [T527].chapterid,[T527].xmlfile
+FROM
+  (( (SELECT
+          MAX([T521].chapterid)
+        FROM
+          (input1) AS [T521][chapterid, xmlfile]) AS [T522][MAX-chapterid] ) JOIN (
+      (SELECT
+          [T525].chapterid, [T525].xmlfile, MAX([T525].chapterid)
+        FROM
+          (input1) AS [T525][chapterid, xmlfile]
+        GROUP BY
+          [T525].chapterid  [T525].xmlfile) AS [T526][chapterid, xmlfile, MAX-chapterid] )) AS [T527][MAX-chapterid, chapterid, xmlfile, MAX-chapterid1]
+
+@anonymous
+[T527].chapterid(NumberVal) | [T527].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[Query No.10]===============================
+SELECT
+  [T83].chapterid,[T83].xmlfile
+FROM
+  (SELECT
+      [T82].chapterid, [T82].xmlfile, CONCAT([T82].xmlfile)
+    FROM
+      (input1) AS [T82][chapterid, xmlfile]
+    GROUP BY
+      [T82].chapterid  [T82].xmlfile) AS [T83][chapterid, xmlfile, CONCAT-xmlfile]
+
+@anonymous
+[T83].chapterid(NumberVal) | [T83].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[Query No.9]===============================
+SELECT
+  [T79].chapterid,[T79].xmlfile
+FROM
+  (SELECT
+      [T78].chapterid, [T78].xmlfile, MIN([T78].chapterid)
+    FROM
+      (input1) AS [T78][chapterid, xmlfile]
+    GROUP BY
+      [T78].chapterid  [T78].xmlfile) AS [T79][chapterid, xmlfile, MIN-chapterid]
+
+@anonymous
+[T79].chapterid(NumberVal) | [T79].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[Query No.8]===============================
+(SELECT
+    [T74].chapterid, FIRST([T74].xmlfile)
+  FROM
+    (input1) AS [T74][chapterid, xmlfile]
+  GROUP BY
+    [T74].chapterid) AS [T75][chapterid, FIRST-xmlfile]
+@anonymous
+[T75].chapterid(NumberVal) | [T75].FIRST-xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[Query No.7]===============================
+SELECT
+  [T71].chapterid,[T71].xmlfile
+FROM
+  (SELECT
+      [T70].chapterid, [T70].xmlfile, MAX([T70].chapterid)
+    FROM
+      (input1) AS [T70][chapterid, xmlfile]
+    GROUP BY
+      [T70].chapterid  [T70].xmlfile) AS [T71][chapterid, xmlfile, MAX-chapterid]
+
+@anonymous
+[T71].chapterid(NumberVal) | [T71].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[Query No.6]===============================
+SELECT
+  [T67].chapterid,[T67].xmlfile
+FROM
+  (SELECT
+      [T66].chapterid, [T66].xmlfile, COUNT_DISTINCT([T66].xmlfile)
+    FROM
+      (input1) AS [T66][chapterid, xmlfile]
+    GROUP BY
+      [T66].chapterid  [T66].xmlfile) AS [T67][chapterid, xmlfile, COUNT_DISTINCT-xmlfile]
+
+@anonymous
+[T67].chapterid(NumberVal) | [T67].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[Query No.5]===============================
+SELECT
+  [T63].chapterid,[T63].xmlfile
+FROM
+  (SELECT
+      [T62].chapterid, [T62].xmlfile, COUNT([T62].xmlfile)
+    FROM
+      (input1) AS [T62][chapterid, xmlfile]
+    GROUP BY
+      [T62].chapterid  [T62].xmlfile) AS [T63][chapterid, xmlfile, COUNT-xmlfile]
+
+@anonymous
+[T63].chapterid(NumberVal) | [T63].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[Query No.4]===============================
+SELECT
+  [T59].chapterid,[T59].xmlfile
+FROM
+  (SELECT
+      [T58].chapterid, [T58].xmlfile, CONCAT([T58].xmlfile)
+    FROM
+      (input1) AS [T58][chapterid, xmlfile]
+    GROUP BY
+      [T58].chapterid  [T58].xmlfile) AS [T59][chapterid, xmlfile, CONCAT-xmlfile]
+
+@anonymous
+[T59].chapterid(NumberVal) | [T59].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[Query No.3]===============================
+SELECT
+  [T55].chapterid,[T55].xmlfile
+FROM
+  (SELECT
+      [T54].chapterid, [T54].xmlfile, COUNT_DISTINCT([T54].chapterid)
+    FROM
+      (input1) AS [T54][chapterid, xmlfile]
+    GROUP BY
+      [T54].chapterid  [T54].xmlfile) AS [T55][chapterid, xmlfile, COUNT_DISTINCT-chapterid]
+
+@anonymous
+[T55].chapterid(NumberVal) | [T55].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[Query No.2]===============================
+(SELECT
+    [T50].chapterid, FIRST([T50].xmlfile)
+  FROM
+    (input1) AS [T50][chapterid, xmlfile]
+  GROUP BY
+    [T50].chapterid) AS [T51][chapterid, FIRST-xmlfile]
+@anonymous
+[T51].chapterid(NumberVal) | [T51].FIRST-xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[Query No.1]===============================
+SELECT
+  [T47].chapterid,[T47].xmlfile
+FROM
+  (SELECT
+      [T46].chapterid, [T46].xmlfile, FIRST([T46].chapterid)
+    FROM
+      (input1) AS [T46][chapterid, xmlfile]
+    GROUP BY
+      [T46].chapterid  [T46].xmlfile) AS [T47][chapterid, xmlfile, FIRST-chapterid]
+
+@anonymous
+[T47].chapterid(NumberVal) | [T47].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 2.755s

@@ -1,0 +1,288 @@
+[[Synthesizing]]
+[[Synthesis start]]
+	File: ../data/top_rated_posts/018M
+	Enumerator: CanonicalTableEnumeratorOnTheFly
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 7
+	Avg table size: 13
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 106
+	Avg table size: 3
+[Total Number of Intermediate Result] 106
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 7
+	Avg table size: 13
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 13
+	Avg table size: 8
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 366
+	Avg table size: 91
+[Stage 3] EnumJoinTwoAggr1 
+	Total Table by now: 538
+	Avg table size: 68
+[Total Number of Intermediate Result] 538
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 7
+	Avg table size: 13
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 23
+	Avg table size: 5
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 610
+	Avg table size: 68
+[Stage 3] EnumJoinTwoAggr1 
+	Total Table by now: 1396
+	Avg table size: 41
+[Total Number of Intermediate Result] 1396
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 7
+	Avg table size: 13
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 21
+	Avg table size: 6
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 576
+	Avg table size: 71
+[Stage 3] EnumJoinTwoAggr1 
+	Total Table by now: 1259
+	Avg table size: 43
+[Total Number of Intermediate Result] 1259
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[AVG]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 7
+	Avg table size: 13
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 29
+	Avg table size: 4
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 634
+	Avg table size: 65
+[Total Number of Intermediate Result] 634
+Total Tree Count: 1
+Total Query Count: 240
+[Enumeration Finished]
+    [AggrFun] Optional[MINMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 7
+	Avg table size: 13
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 31
+	Avg table size: 5
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 810
+	Avg table size: 60
+[Stage 3] EnumJoinTwoAggr1 
+	Total Table by now: 2354
+	Avg table size: 33
+[Total Number of Intermediate Result] 2354
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MAXCOUNT]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 7
+	Avg table size: 13
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 34
+	Avg table size: 4
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 781
+	Avg table size: 62
+[Stage 3] EnumJoinTwoAggr1 
+	Total Table by now: 2655
+	Avg table size: 30
+[Total Number of Intermediate Result] 2655
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Query No.5]===============================
+SELECT
+  [T484049].id,[T484049].section_id,[T484049].name
+FROM
+  (SELECT
+      [T482298].section_id,[T482298].AVG-id,[T482298].id,[T482298].section_id1,[T482298].name
+    FROM
+      (( (SELECT
+              [T482304].section_id,[T482304].AVG-id
+            FROM
+              (SELECT
+                  input1.section_id, AVG(input1.id)
+                FROM
+                  input1
+                GROUP BY
+                  input1.section_id) AS [T482304][section_id, AVG-id]
+            WHERE
+              IS NOT NULL [T482304].section_id) AS [T482338][section_id, AVG-id] ) JOIN (
+          input1 )) AS [T482298][section_id, AVG-id, id, section_id1, name]
+    WHERE
+      [T482298].section_id == [T482298].section_id1
+       AND [T482298].AVG-id >= [T482298].id) AS [T484049][section_id, AVG-id, id, section_id1, name]
+
+@anonymous
+[T484049].id(NumberVal) | [T484049].section_id(NumberVal) | [T484049].name(StringVal) 
+11.0 | 1.0 | A 
+12.0 | 1.0 | B 
+15.0 | 2.0 | E 
+16.0 | 2.0 | F 
+17.0 | 3.0 | G 
+
+[Query No.4]===============================
+SELECT
+  [T484048].id,[T484048].section_id,[T484048].name
+FROM
+  (SELECT
+      [T482298].section_id,[T482298].AVG-id,[T482298].id,[T482298].section_id1,[T482298].name
+    FROM
+      (( (SELECT
+              [T482304].section_id,[T482304].AVG-id
+            FROM
+              (SELECT
+                  input1.section_id, AVG(input1.id)
+                FROM
+                  input1
+                GROUP BY
+                  input1.section_id) AS [T482304][section_id, AVG-id]
+            WHERE
+              IS NOT NULL 2.0) AS [T482336][section_id, AVG-id] ) JOIN (
+          input1 )) AS [T482298][section_id, AVG-id, id, section_id1, name]
+    WHERE
+      [T482298].section_id == [T482298].section_id1
+       AND [T482298].AVG-id >= [T482298].id) AS [T484048][section_id, AVG-id, id, section_id1, name]
+
+@anonymous
+[T484048].id(NumberVal) | [T484048].section_id(NumberVal) | [T484048].name(StringVal) 
+11.0 | 1.0 | A 
+12.0 | 1.0 | B 
+15.0 | 2.0 | E 
+16.0 | 2.0 | F 
+17.0 | 3.0 | G 
+
+[Query No.3]===============================
+SELECT
+  [T484047].id,[T484047].section_id,[T484047].name
+FROM
+  (SELECT
+      [T482298].section_id,[T482298].AVG-id,[T482298].id,[T482298].section_id1,[T482298].name
+    FROM
+      (( (SELECT
+              [T482304].section_id,[T482304].AVG-id
+            FROM
+              (SELECT
+                  input1.section_id, AVG(input1.id)
+                FROM
+                  input1
+                GROUP BY
+                  input1.section_id) AS [T482304][section_id, AVG-id]
+            WHERE
+              IS NOT NULL [T482304].AVG-id) AS [T482334][section_id, AVG-id] ) JOIN (
+          input1 )) AS [T482298][section_id, AVG-id, id, section_id1, name]
+    WHERE
+      [T482298].section_id == [T482298].section_id1
+       AND [T482298].AVG-id >= [T482298].id) AS [T484047][section_id, AVG-id, id, section_id1, name]
+
+@anonymous
+[T484047].id(NumberVal) | [T484047].section_id(NumberVal) | [T484047].name(StringVal) 
+11.0 | 1.0 | A 
+12.0 | 1.0 | B 
+15.0 | 2.0 | E 
+16.0 | 2.0 | F 
+17.0 | 3.0 | G 
+
+[Query No.2]===============================
+SELECT
+  [T484056].id,[T484056].section_id1,[T484056].name
+FROM
+  (SELECT
+      [T482298].section_id,[T482298].AVG-id,[T482298].id,[T482298].section_id1,[T482298].name
+    FROM
+      (( ((SELECT
+                input1.section_id, AVG(input1.id)
+              FROM
+                input1
+              GROUP BY
+                input1.section_id) AS [T482304][section_id, AVG-id]) AS [T482342][section_id, AVG-id] ) JOIN (
+          input1 )) AS [T482298][section_id, AVG-id, id, section_id1, name]
+    WHERE
+      [T482298].section_id == [T482298].section_id1
+       AND [T482298].AVG-id >= [T482298].id) AS [T484056][section_id, AVG-id, id, section_id1, name]
+
+@anonymous
+[T484056].id(NumberVal) | [T484056].section_id1(NumberVal) | [T484056].name(StringVal) 
+11.0 | 1.0 | A 
+12.0 | 1.0 | B 
+15.0 | 2.0 | E 
+16.0 | 2.0 | F 
+17.0 | 3.0 | G 
+
+[Query No.1]===============================
+SELECT
+  [T484046].id,[T484046].section_id,[T484046].name
+FROM
+  (SELECT
+      [T482298].section_id,[T482298].AVG-id,[T482298].id,[T482298].section_id1,[T482298].name
+    FROM
+      (( ((SELECT
+                input1.section_id, AVG(input1.id)
+              FROM
+                input1
+              GROUP BY
+                input1.section_id) AS [T482304][section_id, AVG-id]) AS [T482342][section_id, AVG-id] ) JOIN (
+          input1 )) AS [T482298][section_id, AVG-id, id, section_id1, name]
+    WHERE
+      [T482298].section_id == [T482298].section_id1
+       AND [T482298].AVG-id >= [T482298].id) AS [T484046][section_id, AVG-id, id, section_id1, name]
+
+@anonymous
+[T484046].id(NumberVal) | [T484046].section_id(NumberVal) | [T484046].name(StringVal) 
+11.0 | 1.0 | A 
+12.0 | 1.0 | B 
+15.0 | 2.0 | E 
+16.0 | 2.0 | F 
+17.0 | 3.0 | G 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 128.864s

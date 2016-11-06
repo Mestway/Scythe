@@ -1,0 +1,225 @@
+[[Synthesizing]]
+[[Synthesis start]]
+	File: ../data/top_rated_posts/014
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 21 [SymTable]: 22
+[Total Number of Intermediate] 23
+Candidate Tree Number: 1
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 5
+[EnumJoinOnAggr] level 1 [SymTable]: 9
+[Total Number of Intermediate] 9
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+A, B
+    [AggrFun] Optional[CONCATCONCAT]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 13
+[EnumJoinOnAggr] level 1 [SymTable]: 49
+[Total Number of Intermediate] 49
+Candidate Tree Number: 33
+[Enumeration Finished]
+    [AggrFun] Optional[SUM]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 2 [SymTable]: 3
+[JOIN] level 1 [SymTable]: 7
+[EnumJoinOnAggr] level 1 [SymTable]: 16
+[Total Number of Intermediate] 16
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 2 [SymTable]: 3
+[JOIN] level 1 [SymTable]: 7
+[EnumJoinOnAggr] level 1 [SymTable]: 16
+[Total Number of Intermediate] 16
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 2 [SymTable]: 3
+[JOIN] level 1 [SymTable]: 7
+[EnumJoinOnAggr] level 1 [SymTable]: 16
+[Total Number of Intermediate] 16
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[AVG]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 2 [SymTable]: 3
+[JOIN] level 1 [SymTable]: 7
+[EnumJoinOnAggr] level 1 [SymTable]: 16
+[Total Number of Intermediate] 16
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MINMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 9
+[EnumJoinOnAggr] level 1 [SymTable]: 25
+[Total Number of Intermediate] 25
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[COUNTMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 15
+[EnumJoinOnAggr] level 1 [SymTable]: 64
+[Total Number of Intermediate] 64
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Query No.6]===============================
+SELECT
+  [T81].id,[T81].CONCAT-string
+FROM
+  (( (SELECT
+          [T75].id, FROM
+          (input1) AS [T75][id, string]
+        GROUP BY
+          [T75].id) AS [T76][id] ) JOIN (
+      (SELECT
+          [T79].id, CONCAT([T79].string)
+        FROM
+          (input1) AS [T79][id, string]
+        GROUP BY
+          [T79].id) AS [T80][id, CONCAT-string] )) AS [T81][id, id1, CONCAT-string]
+WHERE
+  [T81].id == [T81].id1
+@anonymous
+[T81].id(NumberVal) | [T81].CONCAT-string(StringVal) 
+1.0 | A, B 
+2.0 | C 
+
+[Query No.5]===============================
+SELECT
+  [T371].id,[T371].CONCAT-string
+FROM
+  (( (SELECT
+          [T365].id, CONCAT([T365].string)
+        FROM
+          (input1) AS [T365][id, string]
+        GROUP BY
+          [T365].id) AS [T366][id, CONCAT-string] ) JOIN (
+      (SELECT
+          CONCAT([T369].string)
+        FROM
+          (input1) AS [T369][id, string]) AS [T370][CONCAT-string] )) AS [T371][id, CONCAT-string, CONCAT-string1]
+
+@anonymous
+[T371].id(NumberVal) | [T371].CONCAT-string(StringVal) 
+1.0 | A, B 
+2.0 | C 
+
+[Query No.4]===============================
+SELECT
+  [T361].id,[T361].CONCAT-string1
+FROM
+  (( (SELECT
+          CONCAT([T355].string)
+        FROM
+          (input1) AS [T355][id, string]) AS [T356][CONCAT-string] ) JOIN (
+      (SELECT
+          [T359].id, CONCAT([T359].string)
+        FROM
+          (input1) AS [T359][id, string]
+        GROUP BY
+          [T359].id) AS [T360][id, CONCAT-string] )) AS [T361][CONCAT-string, id, CONCAT-string1]
+
+@anonymous
+[T361].id(NumberVal) | [T361].CONCAT-string1(StringVal) 
+1.0 | A, B 
+2.0 | C 
+
+[Query No.3]===============================
+SELECT
+  [T351].id,[T351].CONCAT-string1
+FROM
+  (( (SELECT
+          CONCAT([T345].string)
+        FROM
+          (input1) AS [T345][id, string]) AS [T346][CONCAT-string] ) JOIN (
+      (SELECT
+          [T349].id, CONCAT([T349].string)
+        FROM
+          (input1) AS [T349][id, string]
+        GROUP BY
+          [T349].id) AS [T350][id, CONCAT-string] )) AS [T351][CONCAT-string, id, CONCAT-string1]
+
+@anonymous
+[T351].id(NumberVal) | [T351].CONCAT-string1(StringVal) 
+1.0 | A, B 
+2.0 | C 
+
+[Query No.2]===============================
+SELECT
+  [T241].id,[T241].CONCAT-string
+FROM
+  (( (SELECT
+          [T235].id, CONCAT([T235].string)
+        FROM
+          (input1) AS [T235][id, string]
+        GROUP BY
+          [T235].id) AS [T236][id, CONCAT-string] ) JOIN (
+      (SELECT
+          CONCAT([T239].string)
+        FROM
+          (input1) AS [T239][id, string]) AS [T240][CONCAT-string] )) AS [T241][id, CONCAT-string, CONCAT-string1]
+
+@anonymous
+[T241].id(NumberVal) | [T241].CONCAT-string(StringVal) 
+1.0 | A, B 
+2.0 | C 
+
+[Query No.1]===============================
+(SELECT
+    [T23].id, CONCAT([T23].string)
+  FROM
+    (input1) AS [T23][id, string]
+  GROUP BY
+    [T23].id) AS [T24][id, CONCAT-string]
+@anonymous
+[T24].id(NumberVal) | [T24].CONCAT-string(StringVal) 
+1.0 | A, B 
+2.0 | C 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.290s

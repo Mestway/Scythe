@@ -1,0 +1,259 @@
+[[Synthesizing]]
+[[Synthesis start]]
+	File: ../data/recent_posts/036
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 34 [SymTable]: 36
+[NaturalJoin]: 1 [SymTable]: 37
+[Total Number of Intermediate] 37
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 0 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 7
+[EnumJoinOnAggr] level 1 [SymTable]: 11
+[Total Number of Intermediate] 11
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 4 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 19
+[EnumJoinOnAggr] level 1 [SymTable]: 55
+[Total Number of Intermediate] 55
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 4 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 19
+[EnumJoinOnAggr] level 1 [SymTable]: 55
+[Total Number of Intermediate] 55
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[AVG]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 4 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 19
+[EnumJoinOnAggr] level 1 [SymTable]: 55
+[Total Number of Intermediate] 55
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MAXMIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 8 [SymTable]: 10
+[JOIN] level 1 [SymTable]: 31
+[EnumJoinOnAggr] level 1 [SymTable]: 131
+[Total Number of Intermediate] 131
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MAXCOUNT]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 9 [SymTable]: 11
+[JOIN] level 1 [SymTable]: 34
+[EnumJoinOnAggr] level 1 [SymTable]: 155
+[Total Number of Intermediate] 155
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+  [Try decomposition] 
+@output
+Account(NumberVal) | Name(StringVal) 
+1234.0 | Box 
+
+@output
+Account(NumberVal) | Name(StringVal) 
+1235.0 | Box 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 8 [SymTable]: 10
+[NaturalJoin]: 1 [SymTable]: 11
+[Total Number of Intermediate] 11
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 8 [SymTable]: 10
+[NaturalJoin]: 1 [SymTable]: 11
+[Total Number of Intermediate] 11
+Candidate Tree Number: 5
+[Enumeration Finished]
+  [Try decomposition] 
+@output
+Account(NumberVal) | Name(StringVal) 
+1235.0 | Box 
+
+@output
+Account(NumberVal) | Name(StringVal) 
+1234.0 | Box 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 8 [SymTable]: 10
+[NaturalJoin]: 1 [SymTable]: 11
+[Total Number of Intermediate] 11
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 8 [SymTable]: 10
+[NaturalJoin]: 1 [SymTable]: 11
+[Total Number of Intermediate] 11
+Candidate Tree Number: 5
+[Enumeration Finished]
+ [Finished Decomposition Synthesis]
+[Query No.5]===============================
+( SELECT
+    [T140].Account,[T140].Name
+  FROM
+    (( input1 ) JOIN (
+        input2 )) AS [T140][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T140].Sen2 == [T140].ID ) UNION ALL (
+  SELECT
+    [T167].Account,[T167].Name
+  FROM
+    (( SELECT
+          input1.Account,input1.Sen1,input1.Sen2
+        FROM
+          input1
+        WHERE
+          input1.Sen1 > input1.Sen2 ) JOIN (
+        input2 )) AS [T167][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T167].Sen1 == [T167].ID )
+@anonymous
+[T140].Account(NumberVal) | [T140].Name(StringVal) 
+1235.0 | Box 
+1234.0 | Box 
+
+[Query No.4]===============================
+( SELECT
+    [T110].Account,[T110].Name
+  FROM
+    (( SELECT
+          input1.Account,input1.Sen1,input1.Sen2
+        FROM
+          input1
+        WHERE
+          input1.Sen1 > input1.Sen2 ) JOIN (
+        input2 )) AS [T110][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T110].Sen1 == [T110].ID ) UNION ALL (
+  SELECT
+    [T121].Account,[T121].Name
+  FROM
+    (( input1 ) JOIN (
+        input2 )) AS [T121][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T121].Sen2 == [T121].ID )
+@anonymous
+[T110].Account(NumberVal) | [T110].Name(StringVal) 
+1234.0 | Box 
+1235.0 | Box 
+
+[Query No.3]===============================
+( SELECT
+    [T102].Account,[T102].Name
+  FROM
+    (( input1 ) JOIN (
+        input2 )) AS [T102][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T102].Sen1 == [T102].ID ) UNION ALL (
+  SELECT
+    [T129].Account,[T129].Name
+  FROM
+    (( SELECT
+          input1.Account,input1.Sen1,input1.Sen2
+        FROM
+          input1
+        WHERE
+          input1.Sen1 < input1.Sen2 ) JOIN (
+        input2 )) AS [T129][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T129].Sen2 == [T129].ID )
+@anonymous
+[T102].Account(NumberVal) | [T102].Name(StringVal) 
+1234.0 | Box 
+1235.0 | Box 
+
+[Query No.2]===============================
+( SELECT
+    [T140].Account,[T140].Name
+  FROM
+    (( input1 ) JOIN (
+        input2 )) AS [T140][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T140].Sen2 == [T140].ID ) UNION ALL (
+  SELECT
+    [T159].Account,[T159].Name
+  FROM
+    (( input1 ) JOIN (
+        input2 )) AS [T159][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T159].Sen1 == [T159].ID )
+@anonymous
+[T140].Account(NumberVal) | [T140].Name(StringVal) 
+1235.0 | Box 
+1234.0 | Box 
+
+[Query No.1]===============================
+( SELECT
+    [T102].Account,[T102].Name
+  FROM
+    (( input1 ) JOIN (
+        input2 )) AS [T102][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T102].Sen1 == [T102].ID ) UNION ALL (
+  SELECT
+    [T121].Account,[T121].Name
+  FROM
+    (( input1 ) JOIN (
+        input2 )) AS [T121][Account, Sen1, Sen2, ID, Name]
+  WHERE
+    [T121].Sen2 == [T121].ID )
+@anonymous
+[T102].Account(NumberVal) | [T102].Name(StringVal) 
+1234.0 | Box 
+1235.0 | Box 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.335s

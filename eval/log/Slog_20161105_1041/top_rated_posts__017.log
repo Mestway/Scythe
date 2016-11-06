@@ -1,0 +1,179 @@
+[[Synthesizing]]
+[[Synthesis start]]
+	File: ../data/top_rated_posts/017
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 34 [SymTable]: 35
+[Total Number of Intermediate] 36
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 5
+[EnumJoinOnAggr] level 1 [SymTable]: 9
+[Total Number of Intermediate] 9
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 9
+[EnumJoinOnAggr] level 1 [SymTable]: 25
+[Total Number of Intermediate] 25
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 9
+[Total Number of Intermediate] 9
+Candidate Tree Number: 5
+[Enumeration Finished]
+    [AggrFun] Optional[AVG]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 9
+[EnumJoinOnAggr] level 1 [SymTable]: 25
+[Total Number of Intermediate] 25
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MINMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 13
+[Total Number of Intermediate] 13
+Candidate Tree Number: 5
+[Enumeration Finished]
+    [AggrFun] Optional[COUNTMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 40 [SymTable]: 41
+[JOIN] level 1 [SymTable]: 83
+[Total Number of Intermediate] 83
+Candidate Tree Number: 90
+[Enumeration Finished]
+[Query No.5]===============================
+SELECT
+  [T72].MIN-ID,[T72].SKU,[T72].PRODUCT
+FROM
+  (( (SELECT
+          [T70].PRODUCT, MIN([T70].ID)
+        FROM
+          (input1) AS [T70][ID, SKU, PRODUCT]
+        GROUP BY
+          [T70].PRODUCT) AS [T71][PRODUCT, MIN-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.SKU,input1.PRODUCT
+      FROM
+        input1
+      WHERE
+        True )) AS [T72][PRODUCT, MIN-ID, ID, SKU, PRODUCT1]
+WHERE
+  [T72].MIN-ID == [T72].ID
+@anonymous
+[T72].MIN-ID(NumberVal) | [T72].SKU(StringVal) | [T72].PRODUCT(StringVal) 
+1.0 | FOO-23 | Orange 
+3.0 | FOO-24 | Apple 
+
+[Query No.4]===============================
+SELECT
+  [T134].MIN-ID,[T134].SKU,[T134].PRODUCT
+FROM
+  (( (SELECT
+          [T132].PRODUCT, MIN([T132].ID)
+        FROM
+          (input1) AS [T132][ID, SKU, PRODUCT]
+        GROUP BY
+          [T132].PRODUCT) AS [T133][PRODUCT, MIN-ID] ) JOIN (
+      input1 )) AS [T134][PRODUCT, MIN-ID, ID, SKU, PRODUCT1]
+WHERE
+  [T134].PRODUCT == [T134].PRODUCT1
+   AND [T134].MIN-ID == [T134].ID
+@anonymous
+[T134].MIN-ID(NumberVal) | [T134].SKU(StringVal) | [T134].PRODUCT(StringVal) 
+1.0 | FOO-23 | Orange 
+3.0 | FOO-24 | Apple 
+
+[Query No.3]===============================
+SELECT
+  [T78].MIN-ID,[T78].SKU,[T78].PRODUCT
+FROM
+  (( (SELECT
+          [T76].PRODUCT, MIN([T76].ID)
+        FROM
+          (input1) AS [T76][ID, SKU, PRODUCT]
+        GROUP BY
+          [T76].PRODUCT) AS [T77][PRODUCT, MIN-ID] ) JOIN (
+      input1 )) AS [T78][PRODUCT, MIN-ID, ID, SKU, PRODUCT1]
+WHERE
+  [T78].PRODUCT == [T78].PRODUCT1
+   AND [T78].MIN-ID == [T78].ID
+@anonymous
+[T78].MIN-ID(NumberVal) | [T78].SKU(StringVal) | [T78].PRODUCT(StringVal) 
+1.0 | FOO-23 | Orange 
+3.0 | FOO-24 | Apple 
+
+[Query No.2]===============================
+SELECT
+  [T122].MIN-ID,[T122].SKU,[T122].PRODUCT
+FROM
+  (( (SELECT
+          [T120].PRODUCT, MIN([T120].ID)
+        FROM
+          (input1) AS [T120][ID, SKU, PRODUCT]
+        GROUP BY
+          [T120].PRODUCT) AS [T121][PRODUCT, MIN-ID] ) JOIN (
+      input1 )) AS [T122][PRODUCT, MIN-ID, ID, SKU, PRODUCT1]
+WHERE
+  [T122].MIN-ID == [T122].ID
+@anonymous
+[T122].MIN-ID(NumberVal) | [T122].SKU(StringVal) | [T122].PRODUCT(StringVal) 
+1.0 | FOO-23 | Orange 
+3.0 | FOO-24 | Apple 
+
+[Query No.1]===============================
+SELECT
+  [T66].MIN-ID,[T66].SKU,[T66].PRODUCT
+FROM
+  (( (SELECT
+          [T64].PRODUCT, MIN([T64].ID)
+        FROM
+          (input1) AS [T64][ID, SKU, PRODUCT]
+        GROUP BY
+          [T64].PRODUCT) AS [T65][PRODUCT, MIN-ID] ) JOIN (
+      input1 )) AS [T66][PRODUCT, MIN-ID, ID, SKU, PRODUCT1]
+WHERE
+  [T66].MIN-ID == [T66].ID
+@anonymous
+[T66].MIN-ID(NumberVal) | [T66].SKU(StringVal) | [T66].PRODUCT(StringVal) 
+1.0 | FOO-23 | Orange 
+3.0 | FOO-24 | Apple 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.624s
