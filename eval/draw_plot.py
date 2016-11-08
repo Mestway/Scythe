@@ -8,6 +8,8 @@ import matplotlib.patches as mpatches
 
 from matplotlib.ticker import EngFormatter
 from matplotlib.ticker import FuncFormatter, MaxNLocator
+from matplotlib.font_manager import FontProperties
+
 
 # parse a log file to obtain running time
 def parse_log_file(content):
@@ -41,8 +43,8 @@ def collect_time(log_dir):
 
 	for fname in files:
 		with open(fname) as f:
-			if not "sql" in fname:
-				continue
+			#if not "sql" in fname:
+			#	continue
 			synthesis_time = parse_log_file(f.readlines())
 			print fname, synthesis_time
 			benchmark_time.append(synthesis_time)
@@ -77,8 +79,12 @@ def draw_plot(benchmark_time1, benchmark_time2):
 					yticks[i].label1.set_visible(False)
       #xticks[-1].label1.set_visible(False)
 
-	plt.figtext(0.04, 0.5, 'Synthesis time (seconds)', horizontalalignment='center', rotation='vertical') 
-	plt.figtext(0.5, 0.01, 'The number of benchmarks solved', horizontalalignment='center') 
+	font = FontProperties()
+	font.set_family('sans-serif')
+	font.set_weight("bold")
+	font.set_size('large')
+	plt.figtext(0.04, 0.5, 'Time (seconds)', horizontalalignment='center', rotation='vertical', fontproperties=font) 
+	plt.figtext(0.5, 0.01, 'Number of Solved Benchmarks', horizontalalignment='center', fontproperties=font) 
 
 	plt.show()
 

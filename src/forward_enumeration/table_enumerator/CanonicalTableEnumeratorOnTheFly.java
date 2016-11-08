@@ -28,6 +28,13 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
         enumTableWithoutProj(ec, qc, depth); // all intermediate result are stored in qc
 
         System.out.println("[Total Number of Intermediate Result] " + qc.getRepresentativeTableNodes().size() );
+        double tableSizeSum = 0;
+        for (TableNode tn : qc.getRepresentativeTableNodes()) {
+            tableSizeSum += ((NamedTable)tn).getTable().getContent().size()
+                    *  ((NamedTable)tn).getTable().getContent().get(0).getValues().size();
+        }
+        System.out.println("[Average Size of the tables] " + tableSizeSum / (qc.getRepresentativeTableNodes().size()));
+        System.out.println("[Sum Size of the tables] " + tableSizeSum);
 
         EnumProjection.emitEnumProjection(qc.getRepresentativeTableNodes(), ec.getOutputTable(), qc);
 
@@ -122,6 +129,9 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
         if (! leftSet.equals(basicAndAggr))
             if (EnumProjection.enumProjection(leftSet, ec.getOutputTable()).size() > 0)
                 return;
+
+        //if (1 == 1)
+        //    return;
 
         //##### Synthesize Union
         leftSet = basic;
