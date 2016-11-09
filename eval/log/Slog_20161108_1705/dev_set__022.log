@@ -1,0 +1,381 @@
+[[Synthesizing]]
+[[Synthesis start]]
+	File: ../data/dev_set/022
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Filter Reduction Rate] 105.0
+[Aggregation]: 30 [SymTable]: 31
+[SummaryTableNumber] 32
+[SummaryTableTotalSize] 179
+[Total Number of Intermediate] 32
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Filter Reduction Rate] 105.0
+[Aggregation]: 2 [SymTable]: 3
+[JOIN] level 1 [SymTable]: 7
+[CFilter Reduction Rate] 31.90909090909091
+[Filter Reduction Rate] 18.0
+[CFilter Reduction Rate] 52.5
+[SummaryTableNumber] 7
+[SummaryTableTotalSize] 584
+[Total Number of Intermediate] 7
+Candidate Tree Number: 8
+[Enumeration Finished]
+    [AggrFun] Optional[MAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Filter Reduction Rate] 105.0
+[Aggregation]: 4 [SymTable]: 5
+[JOIN] level 1 [SymTable]: 11
+[CFilter Reduction Rate] 31.90909090909091
+[Filter Reduction Rate] 18.0
+[CFilter Reduction Rate] 52.5
+[Filter Reduction Rate] 68.0
+[CFilter Reduction Rate] 41.294117647058826
+[SummaryTableNumber] 11
+[SummaryTableTotalSize] 802
+[Total Number of Intermediate] 11
+Candidate Tree Number: 12
+[Enumeration Finished]
+    [AggrFun] Optional[MIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Filter Reduction Rate] 105.0
+[Aggregation]: 4 [SymTable]: 5
+[JOIN] level 1 [SymTable]: 11
+[CFilter Reduction Rate] 31.90909090909091
+[Filter Reduction Rate] 18.0
+[CFilter Reduction Rate] 52.5
+[Filter Reduction Rate] 68.0
+[CFilter Reduction Rate] 41.294117647058826
+[SummaryTableNumber] 11
+[SummaryTableTotalSize] 802
+[Total Number of Intermediate] 11
+Candidate Tree Number: 12
+[Enumeration Finished]
+    [AggrFun] Optional[AVG]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Filter Reduction Rate] 105.0
+[Aggregation]: 4 [SymTable]: 5
+[JOIN] level 1 [SymTable]: 11
+[CFilter Reduction Rate] 31.90909090909091
+[Filter Reduction Rate] 18.0
+[CFilter Reduction Rate] 52.5
+[SummaryTableNumber] 11
+[SummaryTableTotalSize] 802
+[Total Number of Intermediate] 11
+Candidate Tree Number: 8
+[Enumeration Finished]
+    [AggrFun] Optional[MINMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Filter Reduction Rate] 105.0
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 15
+[CFilter Reduction Rate] 31.90909090909091
+[Filter Reduction Rate] 18.0
+[CFilter Reduction Rate] 52.5
+[Filter Reduction Rate] 68.0
+[CFilter Reduction Rate] 41.294117647058826
+[Filter Reduction Rate] 68.0
+[CFilter Reduction Rate] 41.294117647058826
+[SummaryTableNumber] 15
+[SummaryTableTotalSize] 1020
+[Total Number of Intermediate] 15
+Candidate Tree Number: 16
+[Enumeration Finished]
+    [AggrFun] Optional[MAXCOUNT]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Filter Reduction Rate] 105.0
+[Aggregation]: 10 [SymTable]: 11
+[JOIN] level 1 [SymTable]: 23
+[CFilter Reduction Rate] 31.90909090909091
+[Filter Reduction Rate] 18.0
+[CFilter Reduction Rate] 52.5
+[Filter Reduction Rate] 101.5
+[CFilter Reduction Rate] 33.214285714285715
+[Filter Reduction Rate] 101.5
+[CFilter Reduction Rate] 33.214285714285715
+[Filter Reduction Rate] 68.0
+[CFilter Reduction Rate] 31.90909090909091
+[Filter Reduction Rate] 68.0
+[CFilter Reduction Rate] 41.294117647058826
+[Filter Reduction Rate] 68.0
+[CFilter Reduction Rate] 31.90909090909091
+[SummaryTableNumber] 23
+[SummaryTableTotalSize] 1466
+[Total Number of Intermediate] 23
+Candidate Tree Number: 12
+[Enumeration Finished]
+[Query No.13]===============================
+SELECT
+  [T42].ID,[T42].ID1,[T42].Fruit
+FROM
+  (( SELECT
+        input1.ID,input1.Fruit
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      SELECT
+        input1.ID,input1.Fruit
+      FROM
+        input1
+      WHERE
+        True )) AS [T42][ID, Fruit, ID1, Fruit1]
+WHERE
+  [T42].Fruit == [T42].Fruit1
+   AND [T42].ID < [T42].ID1
+@anonymous
+[T42].ID(NumberVal) | [T42].ID1(NumberVal) | [T42].Fruit(StringVal) 
+1.0 | 2.0 | apples 
+1.0 | 3.0 | bananas 
+2.0 | 3.0 | cherries 
+2.0 | 3.0 | lychees 
+
+[Query No.12]===============================
+SELECT
+  [T34].ID1,[T34].ID,[T34].Fruit
+FROM
+  (( SELECT
+        input1.ID,input1.Fruit
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      SELECT
+        input1.ID,input1.Fruit
+      FROM
+        input1
+      WHERE
+        True )) AS [T34][ID, Fruit, ID1, Fruit1]
+WHERE
+  [T34].Fruit == [T34].Fruit1
+   AND [T34].ID > [T34].ID1
+@anonymous
+[T34].ID1(NumberVal) | [T34].ID(NumberVal) | [T34].Fruit(StringVal) 
+1.0 | 2.0 | apples 
+1.0 | 3.0 | bananas 
+2.0 | 3.0 | cherries 
+2.0 | 3.0 | lychees 
+
+[Query No.11]===============================
+SELECT
+  [T46].ID,[T46].ID1,[T46].Fruit
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.ID,input1.Fruit
+      FROM
+        input1
+      WHERE
+        True )) AS [T46][ID, Fruit, ID1, Fruit1]
+WHERE
+  [T46].Fruit == [T46].Fruit1
+   AND [T46].ID < [T46].ID1
+@anonymous
+[T46].ID(NumberVal) | [T46].ID1(NumberVal) | [T46].Fruit(StringVal) 
+1.0 | 2.0 | apples 
+1.0 | 3.0 | bananas 
+2.0 | 3.0 | cherries 
+2.0 | 3.0 | lychees 
+
+[Query No.10]===============================
+SELECT
+  [T44].ID,[T44].ID1,[T44].Fruit
+FROM
+  (( SELECT
+        input1.ID,input1.Fruit
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T44][ID, Fruit, ID1, Fruit1]
+WHERE
+  [T44].Fruit == [T44].Fruit1
+   AND [T44].ID < [T44].ID1
+@anonymous
+[T44].ID(NumberVal) | [T44].ID1(NumberVal) | [T44].Fruit(StringVal) 
+1.0 | 2.0 | apples 
+1.0 | 3.0 | bananas 
+2.0 | 3.0 | cherries 
+2.0 | 3.0 | lychees 
+
+[Query No.9]===============================
+SELECT
+  [T38].ID1,[T38].ID,[T38].Fruit
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.ID,input1.Fruit
+      FROM
+        input1
+      WHERE
+        True )) AS [T38][ID, Fruit, ID1, Fruit1]
+WHERE
+  [T38].Fruit == [T38].Fruit1
+   AND [T38].ID > [T38].ID1
+@anonymous
+[T38].ID1(NumberVal) | [T38].ID(NumberVal) | [T38].Fruit(StringVal) 
+1.0 | 2.0 | apples 
+1.0 | 3.0 | bananas 
+2.0 | 3.0 | cherries 
+2.0 | 3.0 | lychees 
+
+[Query No.8]===============================
+SELECT
+  [T36].ID1,[T36].ID,[T36].Fruit
+FROM
+  (( SELECT
+        input1.ID,input1.Fruit
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T36][ID, Fruit, ID1, Fruit1]
+WHERE
+  [T36].Fruit == [T36].Fruit1
+   AND [T36].ID > [T36].ID1
+@anonymous
+[T36].ID1(NumberVal) | [T36].ID(NumberVal) | [T36].Fruit(StringVal) 
+1.0 | 2.0 | apples 
+1.0 | 3.0 | bananas 
+2.0 | 3.0 | cherries 
+2.0 | 3.0 | lychees 
+
+[Query No.7]===============================
+SELECT
+  [T156].ID,[T156].ID1,[T156].Fruit
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T156][ID, Fruit, ID1, Fruit1]
+WHERE
+  [T156].Fruit == [T156].Fruit1
+   AND [T156].ID < [T156].ID1
+@anonymous
+[T156].ID(NumberVal) | [T156].ID1(NumberVal) | [T156].Fruit(StringVal) 
+1.0 | 2.0 | apples 
+1.0 | 3.0 | bananas 
+2.0 | 3.0 | cherries 
+2.0 | 3.0 | lychees 
+
+[Query No.6]===============================
+SELECT
+  [T118].ID1,[T118].ID,[T118].Fruit
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T118][ID, Fruit, ID1, Fruit1]
+WHERE
+  [T118].Fruit == [T118].Fruit1
+   AND [T118].ID > [T118].ID1
+@anonymous
+[T118].ID1(NumberVal) | [T118].ID(NumberVal) | [T118].Fruit(StringVal) 
+1.0 | 2.0 | apples 
+1.0 | 3.0 | bananas 
+2.0 | 3.0 | cherries 
+2.0 | 3.0 | lychees 
+
+[Query No.5]===============================
+SELECT
+  [T110].ID,[T110].ID1,[T110].Fruit
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T110][ID, Fruit, ID1, Fruit1]
+WHERE
+  [T110].Fruit == [T110].Fruit1
+   AND [T110].ID < [T110].ID1
+@anonymous
+[T110].ID(NumberVal) | [T110].ID1(NumberVal) | [T110].Fruit(StringVal) 
+1.0 | 2.0 | apples 
+1.0 | 3.0 | bananas 
+2.0 | 3.0 | cherries 
+2.0 | 3.0 | lychees 
+
+[Query No.4]===============================
+SELECT
+  [T71].ID,[T71].ID1,[T71].Fruit
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T71][ID, Fruit, ID1, Fruit1]
+WHERE
+  [T71].Fruit == [T71].Fruit1
+   AND [T71].ID < [T71].ID1
+@anonymous
+[T71].ID(NumberVal) | [T71].ID1(NumberVal) | [T71].Fruit(StringVal) 
+1.0 | 2.0 | apples 
+1.0 | 3.0 | bananas 
+2.0 | 3.0 | cherries 
+2.0 | 3.0 | lychees 
+
+[Query No.3]===============================
+SELECT
+  [T63].ID1,[T63].ID,[T63].Fruit
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T63][ID, Fruit, ID1, Fruit1]
+WHERE
+  [T63].Fruit == [T63].Fruit1
+   AND [T63].ID > [T63].ID1
+@anonymous
+[T63].ID1(NumberVal) | [T63].ID(NumberVal) | [T63].Fruit(StringVal) 
+1.0 | 2.0 | apples 
+1.0 | 3.0 | bananas 
+2.0 | 3.0 | cherries 
+2.0 | 3.0 | lychees 
+
+[Query No.2]===============================
+SELECT
+  [T48].ID,[T48].ID1,[T48].Fruit
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T48][ID, Fruit, ID1, Fruit1]
+WHERE
+  [T48].Fruit == [T48].Fruit1
+   AND [T48].ID < [T48].ID1
+@anonymous
+[T48].ID(NumberVal) | [T48].ID1(NumberVal) | [T48].Fruit(StringVal) 
+1.0 | 2.0 | apples 
+1.0 | 3.0 | bananas 
+2.0 | 3.0 | cherries 
+2.0 | 3.0 | lychees 
+
+[Query No.1]===============================
+SELECT
+  [T40].ID1,[T40].ID,[T40].Fruit
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T40][ID, Fruit, ID1, Fruit1]
+WHERE
+  [T40].Fruit == [T40].Fruit1
+   AND [T40].ID > [T40].ID1
+@anonymous
+[T40].ID1(NumberVal) | [T40].ID(NumberVal) | [T40].Fruit(StringVal) 
+1.0 | 2.0 | apples 
+1.0 | 3.0 | bananas 
+2.0 | 3.0 | cherries 
+2.0 | 3.0 | lychees 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.557s
