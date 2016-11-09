@@ -5,6 +5,11 @@ package global;
  */
 public class Statistics {
 
+
+
+    public static int TotalTableTryEvaluated = 0;
+    public static int PrunedAbstractTableCount = 0;
+
     // The following two is to demonstrate the effectiveness
 
     // To calculate the average reduction rate of primitive filters (in different syntax form) to their bitvector representations.

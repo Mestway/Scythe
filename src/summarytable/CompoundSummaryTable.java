@@ -116,6 +116,8 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
                 validLRFilters.add(sf);
         }
 
+        int STATSvisitedCount = 0;
+
         for (BVFilter f1 : promotedFilters1.keySet()) {
             for (BVFilter f2 : promotedFilters2.keySet()) {
 
@@ -126,6 +128,8 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
                     continue;
 
                 for (BVFilter lrf : validLRFilters) {
+
+                    STATSvisitedCount ++;
 
                     BVFilter mergef1f2lr = BVFilter.mergeFilterConj(
                             mergef1f2, lrf);
@@ -138,6 +142,11 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
                     }
                 }
             }
+        }
+
+        if (GlobalConfig.STAT_MODE) {
+            System.out.println("[Backward Prune Effectiveness] "
+                    + ((double) st1Filters.size() * st2Filters.size() * lrFilters.size()) / STATSvisitedCount);
         }
     }
 

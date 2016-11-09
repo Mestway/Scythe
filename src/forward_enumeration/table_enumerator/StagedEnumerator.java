@@ -6,6 +6,7 @@ import forward_enumeration.primitive.AggrEnumerator;
 import forward_enumeration.primitive.LeftJoinEnumerator;
 import global.GlobalConfig;
 import backward_inference.MappingInference;
+import global.Statistics;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.filter.EmptyFilter;
@@ -497,9 +498,13 @@ public class StagedEnumerator extends AbstractTableEnumerator {
             }
         };
 
+        Statistics.TotalTableTryEvaluated ++;
+
         MappingInference mi = MappingInference.buildMapping(st.getBaseTable(), ec.getOutputTable());
-        if (! mi.everyCellHasImage())
+        if (! mi.everyCellHasImage()) {
+            Statistics.PrunedAbstractTableCount ++;
             return;
+        }
 
         st.emitFinalVisitAllTables(mi, ec, f);
     }

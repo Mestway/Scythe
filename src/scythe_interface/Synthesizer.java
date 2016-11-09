@@ -3,7 +3,9 @@ package scythe_interface;
 import forward_enumeration.context.EnumConfig;
 import forward_enumeration.primitive.AggrEnumerator;
 import forward_enumeration.table_enumerator.AbstractTableEnumerator;
+import forward_enumeration.table_enumerator.StagedEnumerator;
 import global.GlobalConfig;
+import global.Statistics;
 import sql.lang.Table;
 import sql.lang.TableRow;
 import sql.lang.ast.Environment;
@@ -167,6 +169,11 @@ public class Synthesizer {
         List<TableNode> topCandidates = SynthesizerHelper.findTopK(candidates,
                 GlobalConfig.MAXIMUM_QUERY_KEPT, config.getUserProvidedConstValues());
 
+        if (GlobalConfig.STAT_MODE) {
+            if (enumerator instanceof StagedEnumerator) {
+                System.out.println("[AbstractSearchPrunedCount] " + ((double)Statistics.PrunedAbstractTableCount)/((double)Statistics.TotalTableTryEvaluated));
+            }
+        }
         for (int i = topCandidates.size() - 1; i >= 0; i --) {
             TableNode tn = candidates.get(i);
             try {
