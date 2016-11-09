@@ -386,9 +386,18 @@ public class StagedEnumerator extends AbstractTableEnumerator {
 
     public List<TableNode> decodingToQueries(QueryContainer qc, EnumContext ec) {
 
-        System.out.println("[Total Number of Intermediate] " + qc.allSummaryTables.size());
-        System.out.println("[SumTableSize] " + qc.allSummaryTables.stream()
-                .map(st -> st.getBaseTable().getContent().size() * st.getBaseTable().getContent().get(0).getValues().size()).reduce(Integer::sum).get());
+        if (GlobalConfig.STAT_MODE) {
+            Set<Table> tables = new HashSet<>();
+
+            for (AbstractSummaryTable st : qc.allSummaryTables) {
+                tables.add(st.getBaseTable());
+            }
+
+            System.out.println("[Total Number of Intermediate] " + tables.size());
+            System.out.println("[SumTableSize] " + tables.stream()
+                    .map(st -> st.getContent().size() * st.getContent().get(0).getValues().size()).reduce(Integer::sum).get());
+        }
+
 
         List<TableNode> decodeResult = new ArrayList<>();
 
