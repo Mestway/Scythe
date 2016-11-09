@@ -70,6 +70,11 @@ public class StagedEnumerator extends AbstractTableEnumerator {
                 tryEvalToOutput(naturalJoinResult, ec, candidateCollector);
             }
 
+            if (GlobalConfig.STAT_MODE) {
+                System.out.println("[SummaryTableNumber] " + summaryTables.size());
+                System.out.println("[SummaryTableTotalSize] " + summaryTables.stream()
+                        .map(t -> t.getBaseTable().getContent().size()* t.getBaseTable().getContent().get(0).getValues().size()).reduce(Integer::sum).get());
+            }
             return decodingToQueries(candidateCollector, ec);
         }
 
@@ -87,8 +92,14 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         // only try eval the queries at this depth
         if (!stFromLastStage.equals(basicAndAggr))
             tryEvalToOutput(stFromLastStage, ec, candidateCollector);
-        if (candidateCollector.getAllCandidates().size() > 0)
+        if (candidateCollector.getAllCandidates().size() > 0) {
+            if (GlobalConfig.STAT_MODE) {
+                System.out.println("[SummaryTableNumber] " + summaryTables.size());
+                System.out.println("[SummaryTableTotalSize] " + summaryTables.stream()
+                        .map(t -> t.getBaseTable().getContent().size()* t.getBaseTable().getContent().get(0).getValues().size()).reduce(Integer::sum).get());
+            }
             return decodingToQueries(candidateCollector, ec);
+        }
 
         //##### Synthesize UNION
         List<AbstractSummaryTable> unionSummary;
@@ -101,9 +112,14 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         }
         if (!stFromLastStage.equals(inputSummary))
             tryEvalToOutput(stFromLastStage, ec, candidateCollector);
-        if (candidateCollector.getAllCandidates().size() > 0)
+        if (candidateCollector.getAllCandidates().size() > 0) {
+            if (GlobalConfig.STAT_MODE) {
+                System.out.println("[SummaryTableNumber] " + summaryTables.size());
+                System.out.println("[SummaryTableTotalSize] " + summaryTables.stream()
+                        .map(t -> t.getBaseTable().getContent().size()* t.getBaseTable().getContent().get(0).getValues().size()).reduce(Integer::sum).get());
+            }
             return decodingToQueries(candidateCollector, ec);
-
+        }
         //##### Synthesize LEFT-JOIN
         // Try enumerating joining two tables from left-join
         stFromLastStage = inputSummary;
@@ -120,8 +136,14 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         }
         if (!stFromLastStage.equals(inputSummary)) {
             tryEvalToOutput(stFromLastStage, ec, candidateCollector);
-            if (candidateCollector.getAllCandidates().size() > 0)
+            if (candidateCollector.getAllCandidates().size() > 0) {
+                if (GlobalConfig.STAT_MODE) {
+                    System.out.println("[SummaryTableNumber] " + summaryTables.size());
+                    System.out.println("[SummaryTableTotalSize] " + summaryTables.stream()
+                            .map(t -> t.getBaseTable().getContent().size()* t.getBaseTable().getContent().get(0).getValues().size()).reduce(Integer::sum).get());
+                }
                 return decodingToQueries(candidateCollector, ec);
+            }
         }
         // Try enumerating joining two tables from left-join with aggregation
         stFromLastStage = aggrSummary;
@@ -142,13 +164,24 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         }
         if (! stFromLastStage.equals(aggrSummary)) {
             tryEvalToOutput(stFromLastStage, ec, candidateCollector);
-            if (candidateCollector.getAllCandidates().size() > 0)
+            if (candidateCollector.getAllCandidates().size() > 0) {
+                if (GlobalConfig.STAT_MODE) {
+                    System.out.println("[SummaryTableNumber] " + summaryTables.size());
+                    System.out.println("[SummaryTableTotalSize] " + summaryTables.stream()
+                            .map(t -> t.getBaseTable().getContent().size()* t.getBaseTable().getContent().get(0).getValues().size()).reduce(Integer::sum).get());
+                }
                 return decodingToQueries(candidateCollector, ec);
+            }
         }
 
-        if (candidateCollector.getAllCandidates().size() > 0)
+        if (candidateCollector.getAllCandidates().size() > 0) {
+            if (GlobalConfig.STAT_MODE) {
+                System.out.println("[SummaryTableNumber] " + summaryTables.size());
+                System.out.println("[SummaryTableTotalSize] " + summaryTables.stream()
+                        .map(t -> t.getBaseTable().getContent().size()* t.getBaseTable().getContent().get(0).getValues().size()).reduce(Integer::sum).get());
+            }
             return decodingToQueries(candidateCollector, ec);
-
+        }
         //##### Synthesize aggregation on join
         // Enumerate aggregation on joined tables
         List<AbstractSummaryTable> simpleJoinSummary = inputSummary;
@@ -173,8 +206,14 @@ public class StagedEnumerator extends AbstractTableEnumerator {
 
             System.out.println("[EnumAggrOnJoin] " + " [SymTable]: " + summaryTables.size());
 
-            if (candidateCollector.getAllCandidates().size() > 0)
+            if (candidateCollector.getAllCandidates().size() > 0) {
+                if (GlobalConfig.STAT_MODE) {
+                    System.out.println("[SummaryTableNumber] " + summaryTables.size());
+                    System.out.println("[SummaryTableTotalSize] " + summaryTables.stream()
+                            .map(t -> t.getBaseTable().getContent().size()* t.getBaseTable().getContent().get(0).getValues().size()).reduce(Integer::sum).get());
+                }
                 return decodingToQueries(candidateCollector, ec);
+            }
         }
 
         //##### Synthesize join with aggregation result
@@ -188,8 +227,14 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         }
         if (!stFromLastStage.equals(basicAndAggr)) {
             tryEvalToOutput(stFromLastStage, ec, candidateCollector);
-            if (candidateCollector.getAllCandidates().size() > 0)
+            if (candidateCollector.getAllCandidates().size() > 0) {
+                if (GlobalConfig.STAT_MODE) {
+                    System.out.println("[SummaryTableNumber] " + summaryTables.size());
+                    System.out.println("[SummaryTableTotalSize] " + summaryTables.stream()
+                            .map(t -> t.getBaseTable().getContent().size()* t.getBaseTable().getContent().get(0).getValues().size()).reduce(Integer::sum).get());
+                }
                 return decodingToQueries(candidateCollector, ec);
+            }
         }
 
         //##### Synthesizing aggregation on aggregation
@@ -202,6 +247,11 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         }
         if (depth > 1) tryEvalToOutput(aggrAggrSummary, ec, candidateCollector);
 
+        if (GlobalConfig.STAT_MODE) {
+            System.out.println("[SummaryTableNumber] " + summaryTables.size());
+            System.out.println("[SummaryTableTotalSize] " + summaryTables.stream()
+                    .map(t -> t.getBaseTable().getContent().size()* t.getBaseTable().getContent().get(0).getValues().size()).reduce(Integer::sum).get());
+        }
         return decodingToQueries(candidateCollector, ec);
     }
 
