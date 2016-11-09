@@ -51,6 +51,17 @@ def parse_log_dir(log_dir):
 			#print fname, ":", synthesis_time 
 	return result
 
+def update_avg_min_max_cnt(triple, v):
+	if v < 0:
+		return triple
+	triple[0] += v
+	if triple[1] > v:
+		triple[1] = v
+	if triple[2] < v:
+		triple[2] = v
+	triple[3] += 1
+	return triple
+
 def find_reduction_rate(log_dir):
 	print log_dir
 	result = {}
@@ -59,32 +70,67 @@ def find_reduction_rate(log_dir):
 	max_red_rate = 0
 	min_red_rate = 999999
 	avg_red_count = 0
+
+	filter_red = [0,9999999,0,0]
+	bw_ratio = [0,9999999,0,0]
+	abstract_search_prune = [0,9999999,0,0]
+
 	for fname in files:
 		with open(fname) as f:
+
+			#predicate redcution rate
 			sum_reduction_rate = 0
 			cnt = 0
+
+			# abstract search effectiveness
+			abstractSearchPrunedCountSum = 0
+			abscnt = 0
+
+			# backward search prune effectiveness
+			backwardPrunedEffectiveness = 0
+			bwcnt = 0
+
 			for l in f.readlines():
 				if l.startswith("[Filter Reduction Rate] "):
 					sum_reduction_rate += float(l[len("[Filter Reduction Rate] "):-1].strip())
 					cnt += 1
+				elif l.startswith("[CFilter Reduction Rate] "):
+					sum_reduction_rate += float(l[len("[CFilter Reduction Rate] "):-1].strip())
+					cnt += 1
+				elif l.startswith("[AbstractSearchPrunedCount]"):
+					abstractSearchPrunedCountSum += float(l[len("[AbstractSearchPrunedCount] "):-1].strip())
+					abscnt += 1
+				elif l.startswith("[Backward Prune Effectiveness]"):
+					backwardPrunedEffectiveness = float(l[len("[Backward Prune Effectiveness] "):-1].strip())
+					bwcnt += 1
 
-			print sum_reduction_rate
-			print "~",cnt 
-			if sum_reduction_rate < 0:
-				print "~~~",sum_reduction_rate
-				continue
-			if min_red_rate > sum_reduction_rate / cnt:
-				min_red_rate = sum_reduction_rate / cnt
-			if max_red_rate < sum_reduction_rate / cnt:
-				max_red_rate = sum_reduction_rate / cnt
-			if sum_avg_red_rate < 0:
-				continue
-			sum_avg_red_rate += sum_reduction_rate / cnt
-			avg_red_count += 1
+			avgpred = sum_reduction_rate / cnt
+			avgbw = backwardPrunedEffectiveness / bwcnt
+			avgabstr = abstractSearchPrunedCountSum / abscnt
+
+			filter_red = update_avg_min_max_cnt(filter_red, avgpred)
+			bw_ratio = update_avg_min_max_cnt(bw_ratio, avgbw)
+			abstract_search_prune = update_avg_min_max_cnt(abstract_search_prune, avgabstr)
+
+			#if avgpred < 0:
+		#		continue
+		#	if min_red_rate > avgpred:
+	#			min_red_rate = avgpred
+#			if max_red_rate < avgpred:
+			#	max_red_rate = avgpred
+			#sum_avg_red_rate += sum_reduction_rate / cnt
+			#avg_red_count += 1
+
+
 			#print fname, ":", synthesis_time 
-	print "Max:", max_red_rate
-	print "Min:", min_red_rate
-	print "Avg:", sum_avg_red_rate / avg_red_count
+	#print "Max:", max_red_rate
+	#print "Min:", min_red_rate
+	#print "Avg:", sum_avg_red_rate / avg_red_count
+
+	print "Filter Reduction: ", filter_red, filter_red[0]/filter_red[3]
+	print "Backward Prune Ratio: ", bw_ratio, bw_ratio[0]/bw_ratio[3]
+	print "Abstract Search Prune Ratio: ", abstract_search_prune, abstract_search_prune[0]/abstract_search_prune[3]
+
 	return sum_avg_red_rate / avg_red_count
 
 def main():
