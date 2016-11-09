@@ -1,8 +1,8 @@
 import sys
 import os
 
-
-totalSize = True
+onlyMeasureFirstStage = False
+totalSize = False
 
 # parse a log file to obtain running time
 def parse_Clog_file(content):
@@ -12,14 +12,18 @@ def parse_Clog_file(content):
 		if l.startswith("[[Synthesis Time]] "):
 			time = float(l[len("[[Synthesis Time]] "):-2].strip())
 		if totalSize:
+			if onlyMeasureFirstStage and size > 0:
+				break
 			if l.startswith("[Sum Size of the tables] "):
 				size += float(l[len("[Sum Size of the tables] "):-1].strip())
 		else:
+			if onlyMeasureFirstStage and size > 0:
+				break
 			if l.startswith("[Total Number of Intermediate Result] "):
 				size += float(l[len("[Total Number of Intermediate Result] "):-1].strip())
 	if time > 630:
-		return None
-	return size
+		return size,False
+	return size,True
 
 def parse_Slog_file(content):
 	time = 999999
@@ -27,15 +31,20 @@ def parse_Slog_file(content):
 	for l in content:
 		if l.startswith("[[Synthesis Time]] "):
 			time = float(l[len("[[Synthesis Time]] "):-2].strip())
+
 		if totalSize:
-			if l.startswith("[SummaryTableTotalSize]"):
-				size += float(l[len("[SummaryTableTotalSize]"):-1].strip())
+			if onlyMeasureFirstStage and size > 0:
+				break
+			if l.startswith("[SumTableSize] "):
+				size += float(l[len("[SumTableSize] "):-1].strip())
 		else:
-			if l.startswith("[SummaryTableNumber] "):
-				size += float(l[len("[SummaryTableNumber] "):-1].strip())
+			if onlyMeasureFirstStage and size > 0:
+				break
+			if l.startswith("[Total Number of Intermediate] "):
+				size += float(l[len("[Total Number of Intermediate] "):-1].strip())
 	if time > 630:
-		return None
-	return size
+		return size, False
+	return size,True
 
 def parse_log_dir(log_dir):
 	print log_dir
@@ -44,10 +53,10 @@ def parse_log_dir(log_dir):
 	for fname in files:
 		with open(fname) as f:
 			if "S" in log_dir:
-				size = parse_Slog_file(f.readlines())
+				size,status = parse_Slog_file(f.readlines())
 			elif "C" in log_dir:
-				size = parse_Clog_file(f.readlines())
-			result[os.path.basename(fname)] = size
+				size,status = parse_Clog_file(f.readlines())
+			result[os.path.basename(fname)] = [size, status]
 			#print fname, ":", synthesis_time 
 	return result
 
@@ -60,6 +69,7 @@ def update_avg_min_max_cnt(triple, v):
 	if triple[2] < v:
 		triple[2] = v
 	triple[3] += 1
+	triple[4] = triple[0]/triple[3]
 	return triple
 
 def find_reduction_rate(log_dir):
@@ -71,11 +81,13 @@ def find_reduction_rate(log_dir):
 	min_red_rate = 999999
 	avg_red_count = 0
 
-	filter_red = [0,9999999,0,0]
-	bw_ratio = [0,9999999,0,0]
-	abstract_search_prune = [0,9999999,0,0]
+	filter_red = [0,9999999,0,0,-1]
+	bw_ratio = [0,9999999,0,0,-1]
+	abstract_search_prune = [0,9999999,0,0,-1]
 
 	for fname in files:
+		if "A" in fname:
+			continue
 		with open(fname) as f:
 
 			#predicate redcution rate
@@ -98,11 +110,15 @@ def find_reduction_rate(log_dir):
 					sum_reduction_rate += float(l[len("[CFilter Reduction Rate] "):-1].strip())
 					cnt += 1
 				elif l.startswith("[AbstractSearchPrunedCount]"):
-					abstractSearchPrunedCountSum += float(l[len("[AbstractSearchPrunedCount] "):-1].strip())
+					abstractSearchPrunedCountSum += 1 / (1 - float(l[len("[AbstractSearchPrunedCount]"):-1].strip()))
 					abscnt += 1
 				elif l.startswith("[Backward Prune Effectiveness]"):
-					backwardPrunedEffectiveness = float(l[len("[Backward Prune Effectiveness] "):-1].strip())
+					backwardPrunedEffectiveness += float(l[len("[Backward Prune Effectiveness] "):-1].strip())
 					bwcnt += 1
+
+			if (bwcnt == 0 or cnt == 0 or abscnt == 0):
+				print fname
+				continue
 
 			avgpred = sum_reduction_rate / cnt
 			avgbw = backwardPrunedEffectiveness / bwcnt
@@ -131,24 +147,29 @@ def find_reduction_rate(log_dir):
 	print "Backward Prune Ratio: ", bw_ratio, bw_ratio[0]/bw_ratio[3]
 	print "Abstract Search Prune Ratio: ", abstract_search_prune, abstract_search_prune[0]/abstract_search_prune[3]
 
-	return sum_avg_red_rate / avg_red_count
+	return -1
 
 def main():
 
 	if len(sys.argv) == 3:
-		print "[ERROR] Not enough arguments provided."
-		sys.exit(-1)
+		#print "[ERROR] Not enough arguments provided."
+		#sys.exit(-1)
 		log_dir1 = sys.argv[1]
 		log_dir2 = sys.argv[2]
 
 		dict1 = parse_log_dir(log_dir1)
 		dict2 = parse_log_dir(log_dir2)
 
+		measure = [0,99999,0,0,0]
+
 		for key in dict1:
 			v1 = dict1[key]
 			v2 = dict2[key]
-			if (v1 != None and v2 != None):
-				print v1 / v2
+			print v1, v2
+			if (v1[1] == True and v2[1] == True):
+				measure = update_avg_min_max_cnt(measure, v1[0]/v2[0])
+
+		print measure
 
 	elif len(sys.argv) == 2:
 		log_dir1 = sys.argv[1]

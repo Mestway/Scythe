@@ -67,7 +67,7 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
     public static void enumTableWithoutProj(EnumContext ec, QueryContainer qc, int depth) {
 
         //##### Synthesize natural join, for
-        if (GlobalConfig.TRY_NATURAL_JOIN && false) {
+        if (GlobalConfig.TRY_NATURAL_JOIN && GlobalConfig.STAT_MODE) {
             List<List<TableNode>> filterNamed = new ArrayList<>();
             for (Table t : ec.getInputs()) {
                 ec.setTableNodes(Arrays.asList(new NamedTable(t)));
