@@ -1,0 +1,265 @@
+[[Synthesizing]]
+[[Synthesis start]]
+	File: ../data/dev_set/026M
+	Enumerator: CanonicalTableEnumeratorOnTheFly
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 20
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 146
+	Avg table size: 7
+[Total Number of Intermediate Result] 146
+[Average Size of the tables] 7.890410958904109
+[Sum Size of the tables] 1152.0
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 20
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 10
+	Avg table size: 7
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 155
+	Avg table size: 59
+[Stage 3] EnumJoinTwoAggr1 
+	Total Table by now: 556
+	Avg table size: 42
+[Total Number of Intermediate Result] 556
+[Average Size of the tables] 42.56115107913669
+[Sum Size of the tables] 23664.0
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 20
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 42
+	Avg table size: 8
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 683
+	Avg table size: 55
+[Total Number of Intermediate Result] 683
+[Average Size of the tables] 55.94436310395315
+[Sum Size of the tables] 38210.0
+Total Tree Count: 2
+Total Query Count: 1456
+[Enumeration Finished]
+    [AggrFun] Optional[MIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 20
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 42
+	Avg table size: 8
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 702
+	Avg table size: 55
+[Stage 3] EnumJoinTwoAggr1 
+	Total Table by now: 10823
+	Avg table size: 41
+[Total Number of Intermediate Result] 10838
+[Average Size of the tables] 41.9435320169773
+[Sum Size of the tables] 454584.0
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[AVG]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 20
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 37
+	Avg table size: 8
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 696
+	Avg table size: 53
+[Total Number of Intermediate Result] 696
+[Average Size of the tables] 53.020114942528735
+[Sum Size of the tables] 36902.0
+Total Tree Count: 2
+Total Query Count: 364
+[Enumeration Finished]
+    [AggrFun] Optional[MINMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 20
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 60
+	Avg table size: 8
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 1018
+	Avg table size: 54
+[Total Number of Intermediate Result] 1018
+[Average Size of the tables] 54.50884086444008
+[Sum Size of the tables] 55490.0
+Total Tree Count: 2
+Total Query Count: 1456
+[Enumeration Finished]
+    [AggrFun] Optional[COUNTMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 20
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 68
+	Avg table size: 7
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 915
+	Avg table size: 53
+[Total Number of Intermediate Result] 915
+[Average Size of the tables] 53.30273224043716
+[Sum Size of the tables] 48772.0
+Total Tree Count: 2
+Total Query Count: 3264
+[Enumeration Finished]
+[Query No.5]===============================
+SELECT
+  [T104886].acct_id,[T104886].Bill_Id,[T104886].Bill_dt,[T104886].MAX-alt_bill_id
+FROM
+  (SELECT
+      [T97034].acct_id,[T97034].Bill_dt,[T97034].MAX-alt_bill_id,[T97034].acct_id1,[T97034].Bill_Id,[T97034].Bill_dt1,[T97034].alt_bill_id
+    FROM
+      (( ((SELECT
+                input1.acct_id, input1.Bill_dt, MAX(input1.alt_bill_id)
+              FROM
+                input1
+              GROUP BY
+                input1.acct_id  input1.Bill_dt) AS [T97064][acct_id, Bill_dt, MAX-alt_bill_id]) AS [T98739][acct_id, Bill_dt, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T97034][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
+    WHERE
+      [T97034].acct_id == [T97034].acct_id1
+       AND [T97034].MAX-alt_bill_id == [T97034].alt_bill_id) AS [T104886][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, alt_bill_id]
+
+@anonymous
+[T104886].acct_id(NumberVal) | [T104886].Bill_Id(NumberVal) | [T104886].Bill_dt(DateVal) | [T104886].MAX-alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[Query No.4]===============================
+SELECT
+  [T95803].acct_id1,[T95803].Bill_Id,[T95803].Bill_dt,[T95803].alt_bill_id
+FROM
+  (SELECT
+      [T87922].acct_id,[T87922].MAX-alt_bill_id,[T87922].acct_id1,[T87922].Bill_Id,[T87922].Bill_dt,[T87922].alt_bill_id
+    FROM
+      (( ((SELECT
+                input1.acct_id, MAX(input1.alt_bill_id)
+              FROM
+                input1
+              GROUP BY
+                input1.acct_id) AS [T87929][acct_id, MAX-alt_bill_id]) AS [T88093][acct_id, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T87922][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+    WHERE
+      [T87922].acct_id == [T87922].acct_id1
+       AND [T87922].MAX-alt_bill_id == [T87922].alt_bill_id) AS [T95803][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+
+@anonymous
+[T95803].acct_id1(NumberVal) | [T95803].Bill_Id(NumberVal) | [T95803].Bill_dt(DateVal) | [T95803].alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[Query No.3]===============================
+SELECT
+  [T95793].acct_id1,[T95793].Bill_Id,[T95793].Bill_dt,[T95793].MAX-alt_bill_id
+FROM
+  (SELECT
+      [T87922].acct_id,[T87922].MAX-alt_bill_id,[T87922].acct_id1,[T87922].Bill_Id,[T87922].Bill_dt,[T87922].alt_bill_id
+    FROM
+      (( ((SELECT
+                input1.acct_id, MAX(input1.alt_bill_id)
+              FROM
+                input1
+              GROUP BY
+                input1.acct_id) AS [T87929][acct_id, MAX-alt_bill_id]) AS [T88093][acct_id, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T87922][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+    WHERE
+      [T87922].acct_id == [T87922].acct_id1
+       AND [T87922].MAX-alt_bill_id == [T87922].alt_bill_id) AS [T95793][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+
+@anonymous
+[T95793].acct_id1(NumberVal) | [T95793].Bill_Id(NumberVal) | [T95793].Bill_dt(DateVal) | [T95793].MAX-alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[Query No.2]===============================
+SELECT
+  [T95783].acct_id,[T95783].Bill_Id,[T95783].Bill_dt,[T95783].alt_bill_id
+FROM
+  (SELECT
+      [T87922].acct_id,[T87922].MAX-alt_bill_id,[T87922].acct_id1,[T87922].Bill_Id,[T87922].Bill_dt,[T87922].alt_bill_id
+    FROM
+      (( ((SELECT
+                input1.acct_id, MAX(input1.alt_bill_id)
+              FROM
+                input1
+              GROUP BY
+                input1.acct_id) AS [T87929][acct_id, MAX-alt_bill_id]) AS [T88093][acct_id, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T87922][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+    WHERE
+      [T87922].acct_id == [T87922].acct_id1
+       AND [T87922].MAX-alt_bill_id == [T87922].alt_bill_id) AS [T95783][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+
+@anonymous
+[T95783].acct_id(NumberVal) | [T95783].Bill_Id(NumberVal) | [T95783].Bill_dt(DateVal) | [T95783].alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[Query No.1]===============================
+SELECT
+  [T95773].acct_id,[T95773].Bill_Id,[T95773].Bill_dt,[T95773].MAX-alt_bill_id
+FROM
+  (SELECT
+      [T87922].acct_id,[T87922].MAX-alt_bill_id,[T87922].acct_id1,[T87922].Bill_Id,[T87922].Bill_dt,[T87922].alt_bill_id
+    FROM
+      (( ((SELECT
+                input1.acct_id, MAX(input1.alt_bill_id)
+              FROM
+                input1
+              GROUP BY
+                input1.acct_id) AS [T87929][acct_id, MAX-alt_bill_id]) AS [T88093][acct_id, MAX-alt_bill_id] ) JOIN (
+          input1 )) AS [T87922][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+    WHERE
+      [T87922].acct_id == [T87922].acct_id1
+       AND [T87922].MAX-alt_bill_id == [T87922].alt_bill_id) AS [T95773][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, alt_bill_id]
+
+@anonymous
+[T95773].acct_id(NumberVal) | [T95773].Bill_Id(NumberVal) | [T95773].Bill_dt(DateVal) | [T95773].MAX-alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 157.979s

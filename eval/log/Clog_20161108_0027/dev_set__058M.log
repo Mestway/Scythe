@@ -1,0 +1,261 @@
+[[Synthesizing]]
+[[Synthesis start]]
+	File: ../data/dev_set/058M
+	Enumerator: CanonicalTableEnumeratorOnTheFly
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 16
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 121
+	Avg table size: 5
+[Total Number of Intermediate Result] 121
+[Average Size of the tables] 5.776859504132231
+[Sum Size of the tables] 699.0
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 16
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 8
+	Avg table size: 5
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 95
+	Avg table size: 40
+[Stage 3] EnumJoinTwoAggr1 
+	Total Table by now: 232
+	Avg table size: 29
+[Total Number of Intermediate Result] 232
+[Average Size of the tables] 29.92241379310345
+[Sum Size of the tables] 6942.0
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 16
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 22
+	Avg table size: 5
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 293
+	Avg table size: 34
+[Total Number of Intermediate Result] 293
+[Average Size of the tables] 34.563139931740615
+[Sum Size of the tables] 10127.0
+Total Tree Count: 6
+Total Query Count: 960
+[Enumeration Finished]
+    [AggrFun] Optional[MIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 16
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 22
+	Avg table size: 5
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 293
+	Avg table size: 34
+[Total Number of Intermediate Result] 293
+[Average Size of the tables] 34.6518771331058
+[Sum Size of the tables] 10153.0
+Total Tree Count: 2
+Total Query Count: 784
+[Enumeration Finished]
+    [AggrFun] Optional[AVG]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 16
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 15
+	Avg table size: 5
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 211
+	Avg table size: 34
+[Total Number of Intermediate Result] 211
+[Average Size of the tables] 34.388625592417064
+[Sum Size of the tables] 7256.0
+Total Tree Count: 2
+Total Query Count: 80
+[Enumeration Finished]
+    [AggrFun] Optional[MINMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 16
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 34
+	Avg table size: 5
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 465
+	Avg table size: 33
+[Total Number of Intermediate Result] 465
+[Average Size of the tables] 33.593548387096774
+[Sum Size of the tables] 15621.0
+Total Tree Count: 8
+Total Query Count: 1744
+[Enumeration Finished]
+    [AggrFun] Optional[MAXCOUNT]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 7
+	Avg table size: 9
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 109
+	Avg table size: 4
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 2538
+	Avg table size: 27
+[Total Number of Intermediate Result] 2538
+[Average Size of the tables] 27.016942474389282
+[Sum Size of the tables] 68569.0
+Total Tree Count: 30
+Total Query Count: 2051036
+[Enumeration Finished]
+[Query No.5]===============================
+SELECT
+  [T25270].app_name1,[T25270].app_platform,[T25270].post_created,[T25270].MAX-post_id
+FROM
+  (SELECT
+      [T23150].app_name,[T23150].app_platform,[T23150].MAX-post_id,[T23150].app_name1,[T23150].app_platform1,[T23150].post_created,[T23150].post_id
+    FROM
+      (( ((SELECT
+                input1.app_name, input1.app_platform, MAX(input1.post_id)
+              FROM
+                input1
+              GROUP BY
+                input1.app_name  input1.app_platform) AS [T23166][app_name, app_platform, MAX-post_id]) AS [T23435][app_name, app_platform, MAX-post_id] ) JOIN (
+          input1 )) AS [T23150][app_name, app_platform, MAX-post_id, app_name1, app_platform1, post_created, post_id]
+    WHERE
+      [T23150].app_platform == [T23150].app_platform1
+       AND [T23150].MAX-post_id == [T23150].post_id) AS [T25270][app_name, app_platform, MAX-post_id, app_name1, app_platform1, post_created, post_id]
+
+@anonymous
+[T25270].app_name1(StringVal) | [T25270].app_platform(StringVal) | [T25270].post_created(DateVal) | [T25270].MAX-post_id(NumberVal) 
+Photoshop | Windows | Tue Dec 01 00:00:00 PST 2009 | 3.0 
+Photoshop | Macintosh | Tue Nov 10 00:00:00 PST 2009 | 2.0 
+Photoshop | Linux | Tue Nov 10 00:00:00 PST 2009 | 1.0 
+
+[Query No.4]===============================
+SELECT
+  [T25260].app_name,[T25260].app_platform1,[T25260].post_created,[T25260].post_id
+FROM
+  (SELECT
+      [T23150].app_name,[T23150].app_platform,[T23150].MAX-post_id,[T23150].app_name1,[T23150].app_platform1,[T23150].post_created,[T23150].post_id
+    FROM
+      (( ((SELECT
+                input1.app_name, input1.app_platform, MAX(input1.post_id)
+              FROM
+                input1
+              GROUP BY
+                input1.app_name  input1.app_platform) AS [T23166][app_name, app_platform, MAX-post_id]) AS [T23435][app_name, app_platform, MAX-post_id] ) JOIN (
+          input1 )) AS [T23150][app_name, app_platform, MAX-post_id, app_name1, app_platform1, post_created, post_id]
+    WHERE
+      [T23150].app_platform == [T23150].app_platform1
+       AND [T23150].MAX-post_id == [T23150].post_id) AS [T25260][app_name, app_platform, MAX-post_id, app_name1, app_platform1, post_created, post_id]
+
+@anonymous
+[T25260].app_name(StringVal) | [T25260].app_platform1(StringVal) | [T25260].post_created(DateVal) | [T25260].post_id(NumberVal) 
+Photoshop | Windows | Tue Dec 01 00:00:00 PST 2009 | 3.0 
+Photoshop | Macintosh | Tue Nov 10 00:00:00 PST 2009 | 2.0 
+Photoshop | Linux | Tue Nov 10 00:00:00 PST 2009 | 1.0 
+
+[Query No.3]===============================
+SELECT
+  [T25250].app_name,[T25250].app_platform1,[T25250].post_created,[T25250].MAX-post_id
+FROM
+  (SELECT
+      [T23150].app_name,[T23150].app_platform,[T23150].MAX-post_id,[T23150].app_name1,[T23150].app_platform1,[T23150].post_created,[T23150].post_id
+    FROM
+      (( ((SELECT
+                input1.app_name, input1.app_platform, MAX(input1.post_id)
+              FROM
+                input1
+              GROUP BY
+                input1.app_name  input1.app_platform) AS [T23166][app_name, app_platform, MAX-post_id]) AS [T23435][app_name, app_platform, MAX-post_id] ) JOIN (
+          input1 )) AS [T23150][app_name, app_platform, MAX-post_id, app_name1, app_platform1, post_created, post_id]
+    WHERE
+      [T23150].app_platform == [T23150].app_platform1
+       AND [T23150].MAX-post_id == [T23150].post_id) AS [T25250][app_name, app_platform, MAX-post_id, app_name1, app_platform1, post_created, post_id]
+
+@anonymous
+[T25250].app_name(StringVal) | [T25250].app_platform1(StringVal) | [T25250].post_created(DateVal) | [T25250].MAX-post_id(NumberVal) 
+Photoshop | Windows | Tue Dec 01 00:00:00 PST 2009 | 3.0 
+Photoshop | Macintosh | Tue Nov 10 00:00:00 PST 2009 | 2.0 
+Photoshop | Linux | Tue Nov 10 00:00:00 PST 2009 | 1.0 
+
+[Query No.2]===============================
+SELECT
+  [T25240].app_name,[T25240].app_platform,[T25240].post_created,[T25240].post_id
+FROM
+  (SELECT
+      [T23150].app_name,[T23150].app_platform,[T23150].MAX-post_id,[T23150].app_name1,[T23150].app_platform1,[T23150].post_created,[T23150].post_id
+    FROM
+      (( ((SELECT
+                input1.app_name, input1.app_platform, MAX(input1.post_id)
+              FROM
+                input1
+              GROUP BY
+                input1.app_name  input1.app_platform) AS [T23166][app_name, app_platform, MAX-post_id]) AS [T23435][app_name, app_platform, MAX-post_id] ) JOIN (
+          input1 )) AS [T23150][app_name, app_platform, MAX-post_id, app_name1, app_platform1, post_created, post_id]
+    WHERE
+      [T23150].app_platform == [T23150].app_platform1
+       AND [T23150].MAX-post_id == [T23150].post_id) AS [T25240][app_name, app_platform, MAX-post_id, app_name1, app_platform1, post_created, post_id]
+
+@anonymous
+[T25240].app_name(StringVal) | [T25240].app_platform(StringVal) | [T25240].post_created(DateVal) | [T25240].post_id(NumberVal) 
+Photoshop | Windows | Tue Dec 01 00:00:00 PST 2009 | 3.0 
+Photoshop | Macintosh | Tue Nov 10 00:00:00 PST 2009 | 2.0 
+Photoshop | Linux | Tue Nov 10 00:00:00 PST 2009 | 1.0 
+
+[Query No.1]===============================
+SELECT
+  [T25230].app_name,[T25230].app_platform,[T25230].post_created,[T25230].MAX-post_id
+FROM
+  (SELECT
+      [T23150].app_name,[T23150].app_platform,[T23150].MAX-post_id,[T23150].app_name1,[T23150].app_platform1,[T23150].post_created,[T23150].post_id
+    FROM
+      (( ((SELECT
+                input1.app_name, input1.app_platform, MAX(input1.post_id)
+              FROM
+                input1
+              GROUP BY
+                input1.app_name  input1.app_platform) AS [T23166][app_name, app_platform, MAX-post_id]) AS [T23435][app_name, app_platform, MAX-post_id] ) JOIN (
+          input1 )) AS [T23150][app_name, app_platform, MAX-post_id, app_name1, app_platform1, post_created, post_id]
+    WHERE
+      [T23150].app_platform == [T23150].app_platform1
+       AND [T23150].MAX-post_id == [T23150].post_id) AS [T25230][app_name, app_platform, MAX-post_id, app_name1, app_platform1, post_created, post_id]
+
+@anonymous
+[T25230].app_name(StringVal) | [T25230].app_platform(StringVal) | [T25230].post_created(DateVal) | [T25230].MAX-post_id(NumberVal) 
+Photoshop | Windows | Tue Dec 01 00:00:00 PST 2009 | 3.0 
+Photoshop | Macintosh | Tue Nov 10 00:00:00 PST 2009 | 2.0 
+Photoshop | Linux | Tue Nov 10 00:00:00 PST 2009 | 1.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 113.261s
