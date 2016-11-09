@@ -2,6 +2,7 @@ package summarytable;
 
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.primitive.FilterEnumerator;
+import global.GlobalConfig;
 import global.Statistics;
 import backward_inference.CellToCellMap;
 import backward_inference.MappingInference;
@@ -297,6 +298,13 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
         Statistics.sum_red_syn_to_bv += ((float)filters.size()) / (this.primitives.size());
         Statistics.sum_red_syn_to_bv ++;
 
+
+        if (GlobalConfig.STAT_MODE) {
+            Set<BVFilter> conj = AbstractSummaryTable.genConjunctiveFilters(this, this.primitiveBVFilters.stream().collect(Collectors.toList()));
+            Set<BVFilter> disj = AbstractSummaryTable.genDisjunctiveFilters(this, this.primitiveBVFilters.stream().collect(Collectors.toList()));
+            conj.addAll(disj);
+            System.out.println("[Filter Reduction Rate] " + ((double) (filters.size() * filters.size() * 2 + filters.size())) / conj.size());
+        }
     }
 
     @Override

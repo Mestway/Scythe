@@ -1,6 +1,7 @@
 package sql.lang.ast.table;
 
 import forward_enumeration.primitive.parameterized.InstantiateEnv;
+import sql.lang.ast.val.NamedVal;
 import util.Pair;
 import sql.lang.datatype.*;
 import sql.lang.Table;
@@ -519,7 +520,34 @@ public class AggregationNode extends TableNode {
 
     @Override
     public TableNode tableSubst(List<Pair<TableNode,TableNode>> pairs) {
-        return this;
+
+
+        TableNode core = this.tn.tableSubst(pairs);
+
+        List<String> currentSchema = tn.getSchema();
+        List<String> newSchema = core.getSchema();
+
+        Map<String, String> nameMapping = new HashMap<>();
+        for (int i = 0; i < currentSchema.size(); i++) {
+            nameMapping.put(
+                    currentSchema.get(i),
+                    newSchema.get(i));
+        }
+
+        List<String> newGroupbyColumns = new ArrayList<String>();
+        for (String s : groupbyColumns) {
+            newGroupbyColumns.add(nameMapping.get(s));
+        }
+        List<Pair<String, Function<List<Value>, Value>>> newTargets = new ArrayList<>();
+        for (Pair<String, Function<List<Value>, Value>> p : targets) {
+            newTargets.add(new Pair<>(nameMapping.get(p.getKey()), p.getValue()));
+        }
+
+        TableNode an = new AggregationNode(
+                core,
+                newGroupbyColumns, newTargets);
+
+        return an;
     }
 
     public TableNode substCoreTable(TableNode newCore) {

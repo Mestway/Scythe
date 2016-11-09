@@ -25,4 +25,6 @@ public final class GlobalConfig {
 
     public static final Integer DESIRABLE_CANDIDATE_QUERY_SCORE = 10;
 
+    public static final boolean STAT_MODE = true;
+
 }

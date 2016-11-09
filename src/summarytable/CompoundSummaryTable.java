@@ -2,6 +2,7 @@ package summarytable;
 
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.primitive.FilterEnumerator;
+import global.GlobalConfig;
 import global.Statistics;
 import backward_inference.CellToCellMap;
 import backward_inference.MappingInference;
@@ -140,7 +141,6 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
         }
     }
 
-
     @Override
     public Set<BVFilter> instantiateAllFilters() {
 
@@ -239,6 +239,7 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
             this.primitiveFiltersEvaluated = true;
             this.primitiveBitVecFilterCount = this.filtersLR.size();
             this.primitiveSynFilterCount = filters.size();
+
             return;
         } else if (this.compositionType == CompositionType.join) {
 
@@ -290,6 +291,11 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
             this.primitiveFiltersEvaluated = true;
             this.primitiveBitVecFilterCount = this.filtersLR.size();
             this.primitiveSynFilterCount = filters.size();
+
+            if (GlobalConfig.STAT_MODE) {
+                Set<BVFilter> conj = AbstractSummaryTable.genConjunctiveFilters(this, this.filtersLR.stream().collect(Collectors.toList()));
+                System.out.println("[CFilter Reduction Rate] " + ((double) (filters.size() * filters.size() + filters.size())) / conj.size());
+            }
 
             // calculating the reduction rate from bit vector to syntax filters
             // System.out.println("#(BitVec)/#(SynFilter): " + this.filtersLR.size() + " / " + filters.size() + " = " + (((float)filtersLR.size()) / filters.size()));

@@ -90,7 +90,6 @@ public class EnumFilterNamed {
             for (Filter f : filters) {
                 TableNode sn = new SelectNode(vals, tn, f);
                 // when a table is generated, emit it to the query chest
-                qc.insertQuery(RenameTNWrapper.tryRename(sn));
                 // inserting an edge from eval(tn) --> eval(sn)
 
                 if (qc.getContainerType() == QueryContainer.ContainerType.TableLinks) {
@@ -103,6 +102,7 @@ public class EnumFilterNamed {
                         if (src.getContent().size() == 0 || dst.getContent().size() == 0)
                             continue;
 
+                        qc.insertQuery(RenameTNWrapper.tryRename(sn));
                         qc.getTableLinks().insertEdge(
                                 qc.getRepresentative(src),
                                 qc.getRepresentative(dst));

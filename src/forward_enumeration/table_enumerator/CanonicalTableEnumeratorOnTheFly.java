@@ -43,7 +43,7 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
 
             Set<Table> leafNodes = new HashSet<>();
             leafNodes.addAll(ec.getInputs());
-            List<TableTreeNode> trees = qc.getTableLinks().findTableTrees(ec.getOutputTable(), leafNodes, 4);
+            List<TableTreeNode> trees = qc.getTableLinks().findTableTrees(ec.getOutputTable(), leafNodes, 5);
 
             int totalQueryCount = 0;
             for (TableTreeNode t : trees) {

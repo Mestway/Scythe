@@ -85,6 +85,7 @@ public class TableTreeNode {
         for (TableTreeNode ttn : this.children) {
             ttn.inferQuery(ec);
         }
+
     }
 
     public int countQueryNum() {
@@ -100,6 +101,7 @@ public class TableTreeNode {
     // NOTE: this method can be very expensive,
     // as all possible combinations of generating the query will be expanded
     public List<TableNode> treeToQuery() {
+
         List<TableNode> result = new ArrayList<>();
 
         List<List<TableNode>> horizontalSelections = new ArrayList<>();
@@ -133,6 +135,7 @@ public class TableTreeNode {
             result.sort((tn1, tn2) ->
                 Double.compare(tn1.estimateAllFilterCost(), tn2.estimateAllFilterCost())
             );
+
             return result.subList(0, GlobalConfig.MAXIMUM_BEAM_SIZE);
         }
 
