@@ -167,7 +167,8 @@ def main():
 			v2 = dict2[key]
 			print v1, v2
 			if (v1[1] == True and v2[1] == True):
-				measure = update_avg_min_max_cnt(measure, v1[0]/v2[0])
+				red = v1[0]/v2[0]
+				measure = update_avg_min_max_cnt(measure, v2[0])
 
 		print measure
 

@@ -6,8 +6,11 @@ import forward_enumeration.container.QueryContainer;
 import forward_enumeration.canonical_enum.datastructure.TableTreeNode;
 import global.GlobalConfig;
 import sql.lang.Table;
+import sql.lang.ast.Environment;
+import sql.lang.ast.table.JoinNode;
 import sql.lang.ast.table.NamedTable;
 import sql.lang.ast.table.TableNode;
+import sql.lang.exception.SQLEvalException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -67,7 +70,7 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
     public static void enumTableWithoutProj(EnumContext ec, QueryContainer qc, int depth) {
 
         //##### Synthesize natural join, for
-        if (GlobalConfig.TRY_NATURAL_JOIN && GlobalConfig.STAT_MODE) {
+        if (GlobalConfig.TRY_NATURAL_JOIN && false) {
             List<List<TableNode>> filterNamed = new ArrayList<>();
             for (Table t : ec.getInputs()) {
                 ec.setTableNodes(Arrays.asList(new NamedTable(t)));
@@ -87,6 +90,8 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
         ec.setTableNodes(ec.getInputs().stream().map(t -> new NamedTable(t)).collect(Collectors.toList()));
         List<TableNode> basic = EnumFilterNamed.emitEnumFilterNamed(ec, qc, true)
                 .stream().map(t -> new NamedTable(t)).collect(Collectors.toList());
+
+        System.out.println("[Per Stage Reduction Rate] " + ((double)qc.getRepresentativeTableNodes().size()) / ec.getInputs().size());
 
         System.out.println("[Stage 1] EnumFilterNamed: \n\t"
                 + "Total Table by now: " + qc.getRepresentativeTableNodes().size() + "\n\t"
@@ -117,6 +122,8 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
             //if (i >= 2 && ! tns.isEmpty())
              //   break;
 
+            List<TableNode> oldLeft = leftSet;
+
             leftSet = EnumJoinTableNodes.generalEmitEnumJoin(leftSet, basic, ec, qc)
                     .stream().map(t -> new NamedTable(t)).collect(Collectors.toList());
 
@@ -125,6 +132,30 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
                    // + "Tables generated: " + (qc.tracked.size()) + "\n\t"
                     + "Total table by now: " + qc.getMemoizedTables().size() + "\n\t"
                     + "Avg table size: " + qc.getMemoizedTables().stream().map(t -> t.getContent().size() * t.getSchema().size()).reduce((x,y)-> x + y).get() / qc.getMemoizedTables().size());
+
+            if (GlobalConfig.STAT_MODE) {
+                Set<Table> tables = new HashSet<>();
+                for (TableNode tn : leftSet) {
+                    try {
+                        tables.add(tn.eval(new Environment()));
+                    } catch (SQLEvalException e) {
+                    }
+                }
+                Set<Table> t2 = new HashSet<>();
+                for (TableNode tn1 : oldLeft) {
+                    for (TableNode tn2 : basic) {
+                        try {
+                            t2.add(new JoinNode(Arrays.asList(tn1, tn2)).eval(new Environment()));
+                        } catch (SQLEvalException e) {
+                        }
+                    }
+                }
+
+                System.out.println("[JPer Stage Reduction Rate] " + ((double) tables.size()) / (t2.size()));
+            }
+
+            //System.out.println("[Join Per Stage Reduction Rate] " + ((double)qc.getRepresentativeTableNodes().size()) / ec.getInputs().size());
+
         }
         if (! leftSet.equals(basicAndAggr))
             if (EnumProjection.enumProjection(leftSet, ec.getOutputTable()).size() > 0)

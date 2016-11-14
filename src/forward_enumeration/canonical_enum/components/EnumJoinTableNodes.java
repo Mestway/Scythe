@@ -74,7 +74,7 @@ public class EnumJoinTableNodes {
             QueryContainer qc) {
 
         List<Table> newlyGeneratedTable = new ArrayList<>();
-
+        
         for (TableNode ti : leftSet) {
             for (TableNode tj : rightSet) {
 
@@ -97,6 +97,7 @@ public class EnumJoinTableNodes {
 
                 List<Filter> filters = FilterEnumerator.enumCanonicalFilterJoinNode(rt, ec);
                 for (Filter f : filters) {
+
                     // the selection args are complete
                     List<ValNode> vals = rt.getSchema().stream()
                             .map(s -> new NamedVal(s))
@@ -126,6 +127,7 @@ public class EnumJoinTableNodes {
                 }
             }
         }
+
         return newlyGeneratedTable;
     }
 

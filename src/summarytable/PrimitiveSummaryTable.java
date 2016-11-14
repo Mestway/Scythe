@@ -303,6 +303,7 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
             Set<BVFilter> conj = AbstractSummaryTable.genConjunctiveFilters(this, this.primitiveBVFilters.stream().collect(Collectors.toList()));
             Set<BVFilter> disj = AbstractSummaryTable.genDisjunctiveFilters(this, this.primitiveBVFilters.stream().collect(Collectors.toList()));
             conj.addAll(disj);
+            System.out.println("[Syn Filter Size]" + (filters.size() * filters.size() * 2 + filters.size()));
             System.out.println("[Filter Reduction Rate] " + ((double) (filters.size() * filters.size() * 2 + filters.size())) / conj.size());
         }
     }

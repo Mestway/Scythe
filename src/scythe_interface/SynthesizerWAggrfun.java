@@ -2,7 +2,9 @@ package scythe_interface;
 
 import forward_enumeration.context.EnumConfig;
 import forward_enumeration.table_enumerator.AbstractTableEnumerator;
+import forward_enumeration.table_enumerator.StagedEnumerator;
 import global.GlobalConfig;
+import global.Statistics;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.table.TableNode;
@@ -104,6 +106,12 @@ public class SynthesizerWAggrfun {
                 System.out.println(t);
             } catch (SQLEvalException e) {
                 e.printStackTrace();
+            }
+        }
+
+        if (GlobalConfig.STAT_MODE) {
+            if (enumerator instanceof StagedEnumerator) {
+                System.out.println("[AbstractSearchPrunedCount] " + ((double) Statistics.PrunedAbstractTableCount)/((double)Statistics.TotalTableTryEvaluated));
             }
         }
 
