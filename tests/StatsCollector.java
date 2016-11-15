@@ -11,7 +11,7 @@ import java.io.IOException;
 public class StatsCollector {
     @Test
     public void calculate() {
-        String path = "data/sqlsynthesizer/";
+        String path = "data/dev_set/";
 
         File dir = new File(path);
         File[] directoryListing = dir.listFiles();

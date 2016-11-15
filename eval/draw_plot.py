@@ -21,9 +21,9 @@ def parse_log_file(content):
 
 #threashold_list = [0, 1, 2, 5, 10, 20, 30, 60, 120, 240, 600]
 #threashold_list = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360]
-visable_ticks = [5, 10, 30, 60, 120, 180, 300, 450, 600]
+visable_ticks = [5, 10, 60, 120, 180, 300, 450, 600]
 threashold_list = []
-for i in range(0, 630, 10):
+for i in range(0, 610, 10):
 	threashold_list.append(i)
 #threashold_list.append(120)
 #threashold_list.append(300)
@@ -44,7 +44,7 @@ def collect_time(log_dir):
 	for fname in files:
 		with open(fname) as f:
 			#if not "sql" in fname:
-			#	continue
+		#		continue
 			synthesis_time = parse_log_file(f.readlines())
 			print fname, synthesis_time
 			benchmark_time.append(synthesis_time)
@@ -59,32 +59,47 @@ def draw_plot(benchmark_time1, benchmark_time2):
 
 	wierd_scale = range(len(threashold_list));
 
+	percentage_tick = []
+	for i in range(0, 110, 10):
+		percentage_tick.append(i/100.)
+	percentage_tick_label = []
+	for i in range(0, 110, 10):
+		percentage_tick_label.append(str(i)+"%")
+
 	fig, ax = plt.subplots()
 
-	ys = wierd_scale
-	xs1 = map(lambda x: count_le(benchmark_time1, threashold_list[x]), wierd_scale)
-	xs2 = map(lambda x: count_le(benchmark_time2, threashold_list[x]), wierd_scale)
+	xs = wierd_scale
+	ys1 = map(lambda x: (count_le(benchmark_time1, threashold_list[x]) / 143.), wierd_scale)
+	ys2 = map(lambda x: (count_le(benchmark_time2, threashold_list[x]) / 143.), wierd_scale)
 
-	scythe, = ax.plot(xs1, ys, 'g', label="Scythe", linewidth=1.5)
-	enum, = ax.plot(xs2, ys, '--', label="Enum", linewidth=1.5)
+	print ys1
+	print ys2
 
-	plt.legend([scythe, enum], ['Scythe', 'Enum'], 'upper left')
-	plt.yticks(wierd_scale, threashold_list)
+	scythe, = ax.plot(xs, ys1, 'g', label="Scythe", linewidth=1.8)
+	enum, = ax.plot(xs, ys2, '--', label="Enum", linewidth=1.8)
+
+	plt.legend([scythe, enum], ['Scythe', 'Enum'], 'lower right')
+	plt.xticks(wierd_scale, threashold_list)
+	plt.yticks(percentage_tick, percentage_tick_label)
+
+	ax.axhline(y=0.5,xmin=0,xmax=3,c="grey",linewidth=0.5,zorder=0)
 
 	make_invisible = True
 	if (make_invisible):
-			yticks = ax.yaxis.get_major_ticks()
-			for i in range(0, 63):
+			xticks = ax.xaxis.get_major_ticks()
+			for i in range(0, 61):
 				if (not (i * 10) in visable_ticks):
-					yticks[i].label1.set_visible(False)
+					xticks[i].label1.set_visible(False)
+			yticks = ax.yaxis.get_major_ticks()
+			#	yticks[-1].label1.set_visible(False)
       #xticks[-1].label1.set_visible(False)
 
 	font = FontProperties()
 	font.set_family('sans-serif')
 	font.set_weight("bold")
 	font.set_size('large')
-	plt.figtext(0.04, 0.5, 'Time (seconds)', horizontalalignment='center', rotation='vertical', fontproperties=font) 
-	plt.figtext(0.5, 0.01, 'Number of Solved Benchmarks', horizontalalignment='center', fontproperties=font) 
+	plt.figtext(0.04, 0.8, 'Percentage of solved cases (out of 143)', horizontalalignment='center', rotation='vertical', fontproperties=font) 
+	plt.figtext(0.5, 0.01, 'Time (seconds)', horizontalalignment='center', fontproperties=font) 
 
 	plt.show()
 
@@ -108,6 +123,8 @@ def main():
 	min_speedup = 99999
 
 	print len(benchmark_time2), len(benchmark_time1)
+	print count_le(benchmark_time2, 10), count_le(benchmark_time1, 10)
+	print count_le(benchmark_time2, 630), count_le(benchmark_time1, 630)
 	for i in range(0, len(benchmark_time1)):
 		if benchmark_time1[i] <= 630 and benchmark_time2[i] <= 630:
 			speedup = benchmark_time2[i] / benchmark_time1[i]
@@ -117,6 +134,7 @@ def main():
 			if min_speedup > speedup:
 				min_speedup = speedup
 			cnt += 1
+
 	print "average speedup", (sum_speedup / cnt)
 	print "min speedup", min_speedup
 	print "max speedup", max_speedup

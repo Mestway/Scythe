@@ -1,0 +1,585 @@
+[[Synthesizing With Aggregation Functions]]
+[[Synthesis start]]
+	File: data/dev_set/055AM
+	Enumerator: StagedEnumerator
+[[Retry]] Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 46 [SymTable]: 47
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 46 [SymTable]: 47
+[JOIN] level 1 [SymTable]: 95
+[EnumJoinOnAggr] level 1 [SymTable]: 2304
+Candidate Tree Number: 88
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T3666].Product_ID
+FROM
+  (( (SELECT
+          [T3646].Product_ID, [T3646].Client_ID, COUNT([T3646].Product_ID)
+        FROM
+          (input1) AS [T3646][Product_ID, Client_ID]
+        GROUP BY
+          [T3646].Product_ID  [T3646].Client_ID) AS [T3647][Product_ID, Client_ID, COUNT-Product_ID] ) JOIN (
+      (SELECT
+          [T3656].Product_ID, COUNT([T3656].Product_ID)
+        FROM
+          (input1) AS [T3656][Product_ID, Client_ID]
+        GROUP BY
+          [T3656].Product_ID) AS [T3657][Product_ID, COUNT-Product_ID] )) AS [T3666][Product_ID, Client_ID, COUNT-Product_ID, Product_ID1, COUNT-Product_ID1]
+WHERE
+  [T3666].COUNT-Product_ID == [T3666].COUNT-Product_ID1
+   AND [T3666].Product_ID == [T3666].Product_ID1
+@anonymous
+[T3666].Product_ID(NumberVal) 
+22.0 
+23.0 
+
+[No.19]===============================
+SELECT
+  [T3358].Product_ID
+FROM
+  (( (SELECT
+          [T3338].Product_ID, COUNT([T3338].Client_ID)
+        FROM
+          (input1) AS [T3338][Product_ID, Client_ID]
+        GROUP BY
+          [T3338].Product_ID) AS [T3339][Product_ID, COUNT-Client_ID] ) JOIN (
+      (SELECT
+          [T3348].Product_ID, [T3348].Client_ID, COUNT([T3348].Client_ID)
+        FROM
+          (input1) AS [T3348][Product_ID, Client_ID]
+        GROUP BY
+          [T3348].Product_ID  [T3348].Client_ID) AS [T3349][Product_ID, Client_ID, COUNT-Client_ID] )) AS [T3358][Product_ID, COUNT-Client_ID, Product_ID1, Client_ID, COUNT-Client_ID1]
+WHERE
+  [T3358].Product_ID == [T3358].Product_ID1
+   AND [T3358].COUNT-Client_ID == [T3358].COUNT-Client_ID1
+@anonymous
+[T3358].Product_ID(NumberVal) 
+22.0 
+23.0 
+
+[No.18]===============================
+SELECT
+  [T3314].Product_ID
+FROM
+  (( (SELECT
+          [T3294].Product_ID, COUNT([T3294].Product_ID)
+        FROM
+          (input1) AS [T3294][Product_ID, Client_ID]
+        GROUP BY
+          [T3294].Product_ID) AS [T3295][Product_ID, COUNT-Product_ID] ) JOIN (
+      (SELECT
+          [T3304].Product_ID, [T3304].Client_ID, COUNT([T3304].Product_ID)
+        FROM
+          (input1) AS [T3304][Product_ID, Client_ID]
+        GROUP BY
+          [T3304].Product_ID  [T3304].Client_ID) AS [T3305][Product_ID, Client_ID, COUNT-Product_ID] )) AS [T3314][Product_ID, COUNT-Product_ID, Product_ID1, Client_ID, COUNT-Product_ID1]
+WHERE
+  [T3314].Product_ID == [T3314].Product_ID1
+   AND [T3314].COUNT-Product_ID == [T3314].COUNT-Product_ID1
+@anonymous
+[T3314].Product_ID(NumberVal) 
+22.0 
+23.0 
+
+[No.17]===============================
+SELECT
+  [T2786].Product_ID
+FROM
+  (( (SELECT
+          [T2766].Product_ID, [T2766].Client_ID, COUNT([T2766].Client_ID)
+        FROM
+          (input1) AS [T2766][Product_ID, Client_ID]
+        GROUP BY
+          [T2766].Product_ID  [T2766].Client_ID) AS [T2767][Product_ID, Client_ID, COUNT-Client_ID] ) JOIN (
+      (SELECT
+          [T2776].Product_ID, COUNT([T2776].Client_ID)
+        FROM
+          (input1) AS [T2776][Product_ID, Client_ID]
+        GROUP BY
+          [T2776].Product_ID) AS [T2777][Product_ID, COUNT-Client_ID] )) AS [T2786][Product_ID, Client_ID, COUNT-Client_ID, Product_ID1, COUNT-Client_ID1]
+WHERE
+  [T2786].COUNT-Client_ID == [T2786].COUNT-Client_ID1
+   AND [T2786].Product_ID == [T2786].Product_ID1
+@anonymous
+[T2786].Product_ID(NumberVal) 
+22.0 
+23.0 
+
+[No.16]===============================
+SELECT
+  [T3424].Product_ID
+FROM
+  (( (SELECT
+          [T3404].Product_ID, COUNT([T3404].Client_ID)
+        FROM
+          (input1) AS [T3404][Product_ID, Client_ID]
+        GROUP BY
+          [T3404].Product_ID) AS [T3405][Product_ID, COUNT-Client_ID] ) JOIN (
+      (SELECT
+          [T3416].Product_ID, [T3416].Client_ID, COUNT([T3416].Product_ID)
+        FROM
+          (SELECT
+              input1.Product_ID,input1.Client_ID
+            FROM
+              input1
+            WHERE
+              input1.Client_ID == 233.0) AS [T3416][Product_ID, Client_ID]
+        GROUP BY
+          [T3416].Product_ID  [T3416].Client_ID) AS [T3417][Product_ID, Client_ID, COUNT-Product_ID] )) AS [T3424][Product_ID, COUNT-Client_ID, Product_ID1, Client_ID, COUNT-Product_ID]
+WHERE
+  [T3424].COUNT-Client_ID == [T3424].COUNT-Product_ID
+   AND [T3424].Product_ID == [T3424].Product_ID1
+@anonymous
+[T3424].Product_ID(NumberVal) 
+22.0 
+23.0 
+
+[No.15]===============================
+SELECT
+  [T3028].Product_ID
+FROM
+  (( (SELECT
+          [T3008].Product_ID, COUNT([T3008].Product_ID)
+        FROM
+          (input1) AS [T3008][Product_ID, Client_ID]
+        GROUP BY
+          [T3008].Product_ID) AS [T3009][Product_ID, COUNT-Product_ID] ) JOIN (
+      (SELECT
+          [T3020].Product_ID, COUNT([T3020].Client_ID)
+        FROM
+          (SELECT
+              input1.Product_ID,input1.Client_ID
+            FROM
+              input1
+            WHERE
+              input1.Client_ID == 233.0) AS [T3020][Product_ID, Client_ID]
+        GROUP BY
+          [T3020].Product_ID) AS [T3021][Product_ID, COUNT-Client_ID] )) AS [T3028][Product_ID, COUNT-Product_ID, Product_ID1, COUNT-Client_ID]
+WHERE
+  [T3028].COUNT-Product_ID == [T3028].COUNT-Client_ID
+   AND [T3028].Product_ID == [T3028].Product_ID1
+@anonymous
+[T3028].Product_ID(NumberVal) 
+22.0 
+23.0 
+
+[No.14]===============================
+SELECT
+  [T2940].Product_ID
+FROM
+  (( (SELECT
+          [T2922].Product_ID, COUNT([T2922].Product_ID)
+        FROM
+          (SELECT
+              input1.Product_ID,input1.Client_ID
+            FROM
+              input1
+            WHERE
+              input1.Client_ID == 233.0) AS [T2922][Product_ID, Client_ID]
+        GROUP BY
+          [T2922].Product_ID) AS [T2923][Product_ID, COUNT-Product_ID] ) JOIN (
+      (SELECT
+          [T2930].Product_ID, COUNT([T2930].Client_ID)
+        FROM
+          (input1) AS [T2930][Product_ID, Client_ID]
+        GROUP BY
+          [T2930].Product_ID) AS [T2931][Product_ID, COUNT-Client_ID] )) AS [T2940][Product_ID, COUNT-Product_ID, Product_ID1, COUNT-Client_ID]
+WHERE
+  [T2940].COUNT-Product_ID == [T2940].COUNT-Client_ID
+   AND [T2940].Product_ID == [T2940].Product_ID1
+@anonymous
+[T2940].Product_ID(NumberVal) 
+22.0 
+23.0 
+
+[No.13]===============================
+SELECT
+  [T2676].Product_ID
+FROM
+  (( (SELECT
+          [T2658].Product_ID, [T2658].Client_ID, COUNT([T2658].Client_ID)
+        FROM
+          (SELECT
+              input1.Product_ID,input1.Client_ID
+            FROM
+              input1
+            WHERE
+              input1.Client_ID == 233.0) AS [T2658][Product_ID, Client_ID]
+        GROUP BY
+          [T2658].Product_ID  [T2658].Client_ID) AS [T2659][Product_ID, Client_ID, COUNT-Client_ID] ) JOIN (
+      (SELECT
+          [T2666].Product_ID, COUNT([T2666].Product_ID)
+        FROM
+          (input1) AS [T2666][Product_ID, Client_ID]
+        GROUP BY
+          [T2666].Product_ID) AS [T2667][Product_ID, COUNT-Product_ID] )) AS [T2676][Product_ID, Client_ID, COUNT-Client_ID, Product_ID1, COUNT-Product_ID]
+WHERE
+  [T2676].COUNT-Client_ID == [T2676].COUNT-Product_ID
+   AND [T2676].Product_ID == [T2676].Product_ID1
+@anonymous
+[T2676].Product_ID(NumberVal) 
+22.0 
+23.0 
+
+[No.12]===============================
+SELECT
+  [T2500].Product_ID
+FROM
+  (( (SELECT
+          [T2482].Product_ID, COUNT([T2482].Client_ID)
+        FROM
+          (SELECT
+              input1.Product_ID,input1.Client_ID
+            FROM
+              input1
+            WHERE
+              input1.Client_ID == 233.0) AS [T2482][Product_ID, Client_ID]
+        GROUP BY
+          [T2482].Product_ID) AS [T2483][Product_ID, COUNT-Client_ID] ) JOIN (
+      (SELECT
+          [T2490].Product_ID, COUNT([T2490].Product_ID)
+        FROM
+          (input1) AS [T2490][Product_ID, Client_ID]
+        GROUP BY
+          [T2490].Product_ID) AS [T2491][Product_ID, COUNT-Product_ID] )) AS [T2500][Product_ID, COUNT-Client_ID, Product_ID1, COUNT-Product_ID]
+WHERE
+  [T2500].COUNT-Client_ID == [T2500].COUNT-Product_ID
+   AND [T2500].Product_ID == [T2500].Product_ID1
+@anonymous
+[T2500].Product_ID(NumberVal) 
+22.0 
+23.0 
+
+[No.11]===============================
+SELECT
+  [T2346].Product_ID
+FROM
+  (( (SELECT
+          [T2326].Product_ID, COUNT([T2326].Client_ID)
+        FROM
+          (input1) AS [T2326][Product_ID, Client_ID]
+        GROUP BY
+          [T2326].Product_ID) AS [T2327][Product_ID, COUNT-Client_ID] ) JOIN (
+      (SELECT
+          [T2338].Product_ID, COUNT([T2338].Product_ID)
+        FROM
+          (SELECT
+              input1.Product_ID,input1.Client_ID
+            FROM
+              input1
+            WHERE
+              input1.Client_ID == 233.0) AS [T2338][Product_ID, Client_ID]
+        GROUP BY
+          [T2338].Product_ID) AS [T2339][Product_ID, COUNT-Product_ID] )) AS [T2346][Product_ID, COUNT-Client_ID, Product_ID1, COUNT-Product_ID]
+WHERE
+  [T2346].COUNT-Client_ID == [T2346].COUNT-Product_ID
+   AND [T2346].Product_ID == [T2346].Product_ID1
+@anonymous
+[T2346].Product_ID(NumberVal) 
+22.0 
+23.0 
+
+[No.10]===============================
+SELECT
+  [T2302].Product_ID
+FROM
+  (( (SELECT
+          [T2284].Product_ID, [T2284].Client_ID, COUNT([T2284].Product_ID)
+        FROM
+          (SELECT
+              input1.Product_ID,input1.Client_ID
+            FROM
+              input1
+            WHERE
+              input1.Client_ID == 233.0) AS [T2284][Product_ID, Client_ID]
+        GROUP BY
+          [T2284].Product_ID  [T2284].Client_ID) AS [T2285][Product_ID, Client_ID, COUNT-Product_ID] ) JOIN (
+      (SELECT
+          [T2292].Product_ID, COUNT([T2292].Client_ID)
+        FROM
+          (input1) AS [T2292][Product_ID, Client_ID]
+        GROUP BY
+          [T2292].Product_ID) AS [T2293][Product_ID, COUNT-Client_ID] )) AS [T2302][Product_ID, Client_ID, COUNT-Product_ID, Product_ID1, COUNT-Client_ID]
+WHERE
+  [T2302].COUNT-Product_ID == [T2302].COUNT-Client_ID
+   AND [T2302].Product_ID == [T2302].Product_ID1
+@anonymous
+[T2302].Product_ID(NumberVal) 
+22.0 
+23.0 
+
+[No.9]===============================
+SELECT
+  [T1972].Product_ID
+FROM
+  (( (SELECT
+          [T1952].Product_ID, COUNT([T1952].Product_ID)
+        FROM
+          (input1) AS [T1952][Product_ID, Client_ID]
+        GROUP BY
+          [T1952].Product_ID) AS [T1953][Product_ID, COUNT-Product_ID] ) JOIN (
+      (SELECT
+          [T1964].Product_ID, [T1964].Client_ID, COUNT([T1964].Client_ID)
+        FROM
+          (SELECT
+              input1.Product_ID,input1.Client_ID
+            FROM
+              input1
+            WHERE
+              input1.Client_ID == 233.0) AS [T1964][Product_ID, Client_ID]
+        GROUP BY
+          [T1964].Product_ID  [T1964].Client_ID) AS [T1965][Product_ID, Client_ID, COUNT-Client_ID] )) AS [T1972][Product_ID, COUNT-Product_ID, Product_ID1, Client_ID, COUNT-Client_ID]
+WHERE
+  [T1972].COUNT-Product_ID == [T1972].COUNT-Client_ID
+   AND [T1972].Product_ID == [T1972].Product_ID1
+@anonymous
+[T1972].Product_ID(NumberVal) 
+22.0 
+23.0 
+
+[No.8]===============================
+SELECT
+  [T3798].Product_ID
+FROM
+  (( (SELECT
+          [T3780].Product_ID, COUNT([T3780].Product_ID)
+        FROM
+          (SELECT
+              input1.Product_ID,input1.Client_ID
+            FROM
+              input1
+            WHERE
+              input1.Client_ID == 233.0) AS [T3780][Product_ID, Client_ID]
+        GROUP BY
+          [T3780].Product_ID) AS [T3781][Product_ID, COUNT-Product_ID] ) JOIN (
+      (SELECT
+          [T3788].Product_ID, COUNT([T3788].Product_ID)
+        FROM
+          (input1) AS [T3788][Product_ID, Client_ID]
+        GROUP BY
+          [T3788].Product_ID) AS [T3789][Product_ID, COUNT-Product_ID] )) AS [T3798][Product_ID, COUNT-Product_ID, Product_ID1, COUNT-Product_ID1]
+WHERE
+  [T3798].COUNT-Product_ID == [T3798].COUNT-Product_ID1
+   AND [T3798].Product_ID == [T3798].Product_ID1
+@anonymous
+[T3798].Product_ID(NumberVal) 
+22.0 
+23.0 
+
+[No.7]===============================
+SELECT
+  [T3578].Product_ID
+FROM
+  (( (SELECT
+          [T3560].Product_ID, [T3560].Client_ID, COUNT([T3560].Client_ID)
+        FROM
+          (SELECT
+              input1.Product_ID,input1.Client_ID
+            FROM
+              input1
+            WHERE
+              input1.Client_ID == 233.0) AS [T3560][Product_ID, Client_ID]
+        GROUP BY
+          [T3560].Product_ID  [T3560].Client_ID) AS [T3561][Product_ID, Client_ID, COUNT-Client_ID] ) JOIN (
+      (SELECT
+          [T3568].Product_ID, COUNT([T3568].Client_ID)
+        FROM
+          (input1) AS [T3568][Product_ID, Client_ID]
+        GROUP BY
+          [T3568].Product_ID) AS [T3569][Product_ID, COUNT-Client_ID] )) AS [T3578][Product_ID, Client_ID, COUNT-Client_ID, Product_ID1, COUNT-Client_ID1]
+WHERE
+  [T3578].COUNT-Client_ID == [T3578].COUNT-Client_ID1
+   AND [T3578].Product_ID == [T3578].Product_ID1
+@anonymous
+[T3578].Product_ID(NumberVal) 
+22.0 
+23.0 
+
+[No.6]===============================
+SELECT
+  [T3248].Product_ID
+FROM
+  (( (SELECT
+          [T3230].Product_ID, COUNT([T3230].Client_ID)
+        FROM
+          (SELECT
+              input1.Product_ID,input1.Client_ID
+            FROM
+              input1
+            WHERE
+              input1.Client_ID == 233.0) AS [T3230][Product_ID, Client_ID]
+        GROUP BY
+          [T3230].Product_ID) AS [T3231][Product_ID, COUNT-Client_ID] ) JOIN (
+      (SELECT
+          [T3238].Product_ID, COUNT([T3238].Client_ID)
+        FROM
+          (input1) AS [T3238][Product_ID, Client_ID]
+        GROUP BY
+          [T3238].Product_ID) AS [T3239][Product_ID, COUNT-Client_ID] )) AS [T3248][Product_ID, COUNT-Client_ID, Product_ID1, COUNT-Client_ID1]
+WHERE
+  [T3248].COUNT-Client_ID == [T3248].COUNT-Client_ID1
+   AND [T3248].Product_ID == [T3248].Product_ID1
+@anonymous
+[T3248].Product_ID(NumberVal) 
+22.0 
+23.0 
+
+[No.5]===============================
+SELECT
+  [T3204].Product_ID
+FROM
+  (( (SELECT
+          [T3184].Product_ID, COUNT([T3184].Client_ID)
+        FROM
+          (input1) AS [T3184][Product_ID, Client_ID]
+        GROUP BY
+          [T3184].Product_ID) AS [T3185][Product_ID, COUNT-Client_ID] ) JOIN (
+      (SELECT
+          [T3196].Product_ID, [T3196].Client_ID, COUNT([T3196].Client_ID)
+        FROM
+          (SELECT
+              input1.Product_ID,input1.Client_ID
+            FROM
+              input1
+            WHERE
+              input1.Client_ID == 233.0) AS [T3196][Product_ID, Client_ID]
+        GROUP BY
+          [T3196].Product_ID  [T3196].Client_ID) AS [T3197][Product_ID, Client_ID, COUNT-Client_ID] )) AS [T3204][Product_ID, COUNT-Client_ID, Product_ID1, Client_ID, COUNT-Client_ID1]
+WHERE
+  [T3204].COUNT-Client_ID == [T3204].COUNT-Client_ID1
+   AND [T3204].Product_ID == [T3204].Product_ID1
+@anonymous
+[T3204].Product_ID(NumberVal) 
+22.0 
+23.0 
+
+[No.4]===============================
+SELECT
+  [T3160].Product_ID
+FROM
+  (( (SELECT
+          [T3140].Product_ID, COUNT([T3140].Product_ID)
+        FROM
+          (input1) AS [T3140][Product_ID, Client_ID]
+        GROUP BY
+          [T3140].Product_ID) AS [T3141][Product_ID, COUNT-Product_ID] ) JOIN (
+      (SELECT
+          [T3152].Product_ID, COUNT([T3152].Product_ID)
+        FROM
+          (SELECT
+              input1.Product_ID,input1.Client_ID
+            FROM
+              input1
+            WHERE
+              input1.Client_ID == 233.0) AS [T3152][Product_ID, Client_ID]
+        GROUP BY
+          [T3152].Product_ID) AS [T3153][Product_ID, COUNT-Product_ID] )) AS [T3160][Product_ID, COUNT-Product_ID, Product_ID1, COUNT-Product_ID1]
+WHERE
+  [T3160].COUNT-Product_ID == [T3160].COUNT-Product_ID1
+   AND [T3160].Product_ID == [T3160].Product_ID1
+@anonymous
+[T3160].Product_ID(NumberVal) 
+22.0 
+23.0 
+
+[No.3]===============================
+SELECT
+  [T2896].Product_ID
+FROM
+  (( (SELECT
+          [T2876].Product_ID, COUNT([T2876].Product_ID)
+        FROM
+          (input1) AS [T2876][Product_ID, Client_ID]
+        GROUP BY
+          [T2876].Product_ID) AS [T2877][Product_ID, COUNT-Product_ID] ) JOIN (
+      (SELECT
+          [T2888].Product_ID, [T2888].Client_ID, COUNT([T2888].Product_ID)
+        FROM
+          (SELECT
+              input1.Product_ID,input1.Client_ID
+            FROM
+              input1
+            WHERE
+              input1.Client_ID == 233.0) AS [T2888][Product_ID, Client_ID]
+        GROUP BY
+          [T2888].Product_ID  [T2888].Client_ID) AS [T2889][Product_ID, Client_ID, COUNT-Product_ID] )) AS [T2896][Product_ID, COUNT-Product_ID, Product_ID1, Client_ID, COUNT-Product_ID1]
+WHERE
+  [T2896].COUNT-Product_ID == [T2896].COUNT-Product_ID1
+   AND [T2896].Product_ID == [T2896].Product_ID1
+@anonymous
+[T2896].Product_ID(NumberVal) 
+22.0 
+23.0 
+
+[No.2]===============================
+SELECT
+  [T2632].Product_ID
+FROM
+  (( (SELECT
+          [T2614].Product_ID, [T2614].Client_ID, COUNT([T2614].Product_ID)
+        FROM
+          (SELECT
+              input1.Product_ID,input1.Client_ID
+            FROM
+              input1
+            WHERE
+              input1.Client_ID == 233.0) AS [T2614][Product_ID, Client_ID]
+        GROUP BY
+          [T2614].Product_ID  [T2614].Client_ID) AS [T2615][Product_ID, Client_ID, COUNT-Product_ID] ) JOIN (
+      (SELECT
+          [T2622].Product_ID, COUNT([T2622].Product_ID)
+        FROM
+          (input1) AS [T2622][Product_ID, Client_ID]
+        GROUP BY
+          [T2622].Product_ID) AS [T2623][Product_ID, COUNT-Product_ID] )) AS [T2632][Product_ID, Client_ID, COUNT-Product_ID, Product_ID1, COUNT-Product_ID1]
+WHERE
+  [T2632].COUNT-Product_ID == [T2632].COUNT-Product_ID1
+   AND [T2632].Product_ID == [T2632].Product_ID1
+@anonymous
+[T2632].Product_ID(NumberVal) 
+22.0 
+23.0 
+
+[No.1]===============================
+SELECT
+  [T2390].Product_ID
+FROM
+  (( (SELECT
+          [T2370].Product_ID, COUNT([T2370].Client_ID)
+        FROM
+          (input1) AS [T2370][Product_ID, Client_ID]
+        GROUP BY
+          [T2370].Product_ID) AS [T2371][Product_ID, COUNT-Client_ID] ) JOIN (
+      (SELECT
+          [T2382].Product_ID, COUNT([T2382].Client_ID)
+        FROM
+          (SELECT
+              input1.Product_ID,input1.Client_ID
+            FROM
+              input1
+            WHERE
+              input1.Client_ID == 233.0) AS [T2382][Product_ID, Client_ID]
+        GROUP BY
+          [T2382].Product_ID) AS [T2383][Product_ID, COUNT-Client_ID] )) AS [T2390][Product_ID, COUNT-Client_ID, Product_ID1, COUNT-Client_ID1]
+WHERE
+  [T2390].COUNT-Client_ID == [T2390].COUNT-Client_ID1
+   AND [T2390].Product_ID == [T2390].Product_ID1
+@anonymous
+[T2390].Product_ID(NumberVal) 
+22.0 
+23.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 5.961s
