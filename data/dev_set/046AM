@@ -1,0 +1,45 @@
+//http://stackoverflow.com/questions/37946089/fetching-same-rows-that-has-multiple-columns-along-with-other-rows/37946292#37946292
+
+#input
+
+| comp | Sub-comp | Lognum | id   | Firname | LAstname   |
+|----------------------------------------------------|
+| AK   | AK-G     | NULL[str]      | 3897 |   ABC   |   DEF   |
+| AB   | AK-G     | NULL[str]      | 5432 |   mark  |   ray      |
+| MC   | MC-A     | NULL[str]      | 1234 |   john  |   steve   |
+| MC   | MC-A     | NULL[str]      | 5678 |   dan   |   pitcher   |
+| MC   | MC-A     | NULL[str]      | 9843 |   james |   robin   |
+| MC   | MC-A     | "83"     | 1234 |   john  |   steve   |
+| MC   | MC-A     | "84"     | 5678 |   dan   |   pitcher   |
+| MC   | MC-A     | "85"     | 9843 |   james |   robin   |
+
+#output
+
+| comp | Sub-comp | Lognum | id   | Firname | LAstname   |
+|----------------------------------------------------|
+| AK   | AK-G     | NULL[str]      | 3897 |   ABC   |   DEF   |
+| AB   | AK-G     | NULL[str]      | 5432 |   mark  |   ray      |
+| MC   | MC-A     | "83"     | 1234 |   john  |   steve   |
+| MC   | MC-A     | "84"     | 5678 |   dan   |   pitcher   |
+| MC   | MC-A     | "85"     | 9843 |   james |   robin   |
+
+#constraint
+
+{
+	"constants": [],
+	"aggregation_functions": []
+}
+
+#solution
+
+(select *
+from t 
+where t.Lognum=84)
+union
+(select *
+ from t
+ where not exists (
+ 	select *
+ 	from t x
+ 	where x.id=t.id and x.Lognum=84
+ ))

@@ -303,6 +303,7 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
 
             if (GlobalConfig.STAT_MODE) {
                 Set<BVFilter> conj = AbstractSummaryTable.genConjunctiveFilters(this, this.filtersLR.stream().collect(Collectors.toList()));
+                System.out.println("Origin: " + ((filters.size() * filters.size() + filters.size())) + "   Now: " + conj.size());
                 System.out.println("[CFilter Reduction Rate] " + ((double) (filters.size() * filters.size() + filters.size())) / conj.size());
             }
 
