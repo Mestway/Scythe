@@ -21,7 +21,7 @@ public final class GlobalConfig {
     public static final boolean TRY_DECOMPOSITION = true;
     public static final Integer TRY_DECOMPOSE_ROW_NUM = 8;
 
-    public static final Integer MAXIMUM_QUERY_KEPT = 20;
+    public static final Integer MAXIMUM_QUERY_KEPT = 3;
 
     public static final Integer DESIRABLE_CANDIDATE_QUERY_SCORE = 10;
 

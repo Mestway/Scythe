@@ -11,7 +11,7 @@ import java.io.IOException;
 public class StatsCollector {
     @Test
     public void calculate() {
-        String path = "data/dev_set/";
+        String path = "data/sqlsynthesizer/";
 
         File dir = new File(path);
         File[] directoryListing = dir.listFiles();
@@ -19,8 +19,17 @@ public class StatsCollector {
         int sumSize = 0;
         int maxSize = 0;
         int minSize = 9999;
+
+        int const1 = 0;
+        int const2 = 0;
+        int const3 = 0;
+        int big3 = 0;
+
         if (directoryListing != null) {
             for (File child : directoryListing) {
+
+                if (child.toString().contains("R")) continue;
+
                 ExampleDS ds = null;
 
                 if (child.isDirectory()) continue;
@@ -28,6 +37,12 @@ public class StatsCollector {
 
                 if (ds != null) {
                     if (ds.inputs == null || ds.output == null || ds.enumConfig == null) continue;
+
+                    if (ds.enumConfig.getConstValues().size() == 1) const1 ++;
+                    if (ds.enumConfig.getConstValues().size() == 2) const2 ++;
+                    if (ds.enumConfig.getConstValues().size() == 3) const3 ++;
+                    if (ds.enumConfig.getConstValues().size() > 3) big3 ++;
+
                     int size = 0;
                     for (Table t : ds.inputs) {
                         size += t.getContent().size() * t.getContent().get(0).getValues().size();
@@ -50,6 +65,7 @@ public class StatsCollector {
             System.out.println("[max] " + maxSize);
             System.out.println("[min] " + minSize);
 
+            System.out.println("[cont123] " + const1 + " " + const2 + " " + const3 + "  " + big3);
 
         } else {
             // Handle the case where dir is not really a directory.
