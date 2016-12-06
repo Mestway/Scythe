@@ -4,6 +4,7 @@ import enumerator.tableenumerator.AbstractTableEnumerator;
 import enumerator.tableenumerator.CanonicalTableEnumeratorOnTheFly;
 import enumerator.tableenumerator.CanonicalWithoutExistsEnumerator;
 import enumerator.tableenumerator.SymbolicTableEnumerator;
+import global.Statistics;
 
 public class Main {
 
@@ -19,10 +20,12 @@ public class Main {
         String enumerator = args[1];
         int maxDepth = Integer.parseInt(args[2]);
         Synthesizer.Synthesize(filename, maxDepth, enumeratorSwitch(enumerator));
+
+        Statistics.printAllStatistics();
     }
 
     public static AbstractTableEnumerator enumeratorSwitch(String name) {
-        if (name.equals("SymbolicTableEnumerator"))
+        if (name.equals("SymbolicEnumerator"))
             return new SymbolicTableEnumerator();
         else if (name.equals("CanonicalEnumeratorOnTheFly"))
             return new CanonicalTableEnumeratorOnTheFly();

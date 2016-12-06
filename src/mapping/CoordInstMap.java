@@ -3,7 +3,9 @@ package mapping;
 import sun.plugin.dom.core.CoreConstants;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by clwang on 2/17/16.
@@ -16,6 +18,14 @@ public class CoordInstMap {
     public List<List<Coordinate>> getMap() { return map; }
     public int maxR() { return maxR; }
     public int maxC() { return maxC; }
+
+    public Set<Integer> rowsInvolved() {
+        Set<Integer> rowsInvolved = new HashSet<>();
+        for (int i = 0; i < maxR; i ++) {
+            rowsInvolved.add(map.get(i).get(0).r());
+        }
+        return rowsInvolved;
+    }
 
     public void initialize(int maxR, int maxC) {
         this.maxR = maxR;

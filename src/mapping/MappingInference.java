@@ -15,6 +15,7 @@ import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.ConstantVal;
 import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
+import util.CombinationGenerator;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -77,6 +78,8 @@ public class MappingInference {
     // think carefully, we can either refine them into an approximate
     // set or instantiate them fully into concrete mappings,
     // how does this affect the result?
+    // Refine mapping is an approximate process, as it is simply trying to remove invalid mappings
+    // TODO: calculate the complexity of this algorithm
     // TODO: refind mapping is now integrated into building process
     private void refineMapping() {
         boolean stable = false;
@@ -132,6 +135,38 @@ public class MappingInference {
         return true;
     }
 
+    // We can have some interesting property here:
+    //      The column inference result can be obtained even if we only apply the inference on the first row
+    // the result is a list of set:
+    //      result.get(c) represents the image sef ot c in the mapping
+    public List<Set<Integer>> genColumnMappingInstances() {
+        List<Set<Integer>> columnMapping = new ArrayList<>();
+        for (int c = 0; c < maxC; c ++) {
+            Set<Integer> destination = new HashSet<>();
+            for (int i = 0; i < map.getImage(0, c).size(); i ++) {
+                destination.add(map.getImage(0, c).get(i).c());
+            }
+            columnMapping.add(destination);
+        }
+        return columnMapping;
+    }
+
+    // We can have some interesting property here:
+    //      The row inference result can be obtained even if we only apply the inference on the first column
+    // the result is a list of set:
+    //      result.get(r) represents the image set of r in the mapping
+    public List<Set<Integer>> genRowMappingInstances() {
+        List<Set<Integer>> rowMapping = new ArrayList<>();
+        for (int r = 0; r < maxR; r ++) {
+            Set<Integer> destination = new HashSet<>();
+            for (int i = 0; i < map.getImage(r, 0).size(); i ++) {
+                destination.add(map.getImage(r, 0).get(i).r());
+            }
+            rowMapping.add(destination);
+        }
+        return rowMapping;
+    }
+
     // a mapping instance will map each coordinate in output table to a coordinate in input table
     // the mapping instance is generated through the refined map
     // in the result table, each list in quick coord table should have length 1.
@@ -140,6 +175,8 @@ public class MappingInference {
         instance.initialize(maxR, maxC);
         List<CoordInstMap> resultCollector = new ArrayList<>();
         dfsMappingSearch(0, 0, maxR, maxC, instance, resultCollector, this.map);
+
+        //System.out.println("[MappingInfernce] mapping size " + resultCollector.size());
         return resultCollector;
     }
 
@@ -173,6 +210,90 @@ public class MappingInference {
         }
     }
 
+    /**
+     * A variant of genMapping Instances,
+     * requiring mapping images appear in each range.
+     * @param columnRightBoundaries
+     *          the set of boundries to test,
+     *          e.g. [1 3 5] is asking to find mappings such that [0-1) [1-3) [3-5) have columns inside
+     * @return
+     */
+    public List<CoordInstMap> genMappingInstancesWColumnBarrier(List<Integer> columnRightBoundaries) {
+
+        List<Set<Integer>> columnMapping = this.genColumnMappingInstances();
+        List<List<Integer>> listRepColMapping = new ArrayList<>();
+        for (int i = 0; i < columnMapping.size(); i ++) {
+            listRepColMapping.add(columnMapping.get(i).stream().collect(Collectors.toList()));
+        }
+
+        List<List<Integer>> targetsToSearch = CombinationGenerator.rotateList(listRepColMapping);
+
+        List<CoordInstMap> resultCollector = new ArrayList<>();
+        for (List<Integer> target : targetsToSearch) {
+
+            List<Boolean> inRange = columnRightBoundaries.stream().map(x -> false).collect(Collectors.toList());
+
+            for (Integer t : target) {
+                for (int k = 0; k < columnRightBoundaries.size(); k ++) {
+                    if (t < columnRightBoundaries.get(k)) {
+                        inRange.set(k, true);
+                        break;
+                    }
+                }
+            }
+
+            boolean flag = true;
+            for (int k = 0; k < inRange.size(); k ++) {
+                flag = flag && inRange.get(k);
+            }
+            if (! flag)
+                continue;
+            CoordInstMap instance = new CoordInstMap();
+            instance.initialize(maxR, maxC);
+            dfsMappingSearchWithFixedColumns(0, 0, maxR, maxC, instance, resultCollector, this.map, target);
+        }
+
+
+
+        return resultCollector;
+    }
+
+    // in this version
+    private void dfsMappingSearchWithFixedColumns(
+            int i, int j,
+            int maxI, int maxJ,
+            CoordInstMap currentMap,
+            List<CoordInstMap> resultCollector,
+            QuickCoordMap candidatePool,
+            List<Integer> columnRestriction) {
+
+        // when dfs reaches its goal
+        if (i >= maxI || j >= maxJ) {
+            resultCollector.add(currentMap);
+            return;
+        }
+
+        for (Coordinate coord : candidatePool.getImage(i,j)) {
+            if (coord.c() != columnRestriction.get(j))
+                continue;
+
+            if (currentMap.validCheck(new Coordinate(i,j), coord)) {
+                CoordInstMap nextMap = currentMap.deepCopy();
+                nextMap.addMap(new Coordinate(i,j), coord);
+                int nextI = i, nextJ = j + 1;
+                if (nextJ >= maxJ) {
+                    nextJ = nextJ % maxJ;
+                    nextI ++;
+                }
+                dfsMappingSearchWithFixedColumns(
+                        nextI, nextJ,
+                        maxI, maxJ,
+                        nextMap, resultCollector,
+                        candidatePool, columnRestriction);
+            }
+        }
+    }
+
     // key: a row number in the output table
     // value: a row number in the input table
     public static Map<Integer, Integer> rowMappingInference(CoordInstMap cim) {
@@ -189,46 +310,6 @@ public class MappingInference {
             columnMap.put(j, cim.getMap().get(0).get(j).c());
         }
         return columnMap;
-    }
-
-    public List<Filter> atomicFilterEnum(List<Value> constants, int paramNum) {
-        List<Filter> filters = new ArrayList<>();
-
-        List<ValNode> vns = constants.stream().map(c -> new ConstantVal(c)).collect(Collectors.toList());
-
-        // the named table comes from input
-        List<TableNode> baseTables = new ArrayList<>();
-        baseTables.add(new NamedTable(input));
-
-        List<TableNode> parameterizedTables = new ArrayList<>();
-        for (int k = 1; k <= paramNum; k ++) {
-             parameterizedTables.addAll(EnumParamTN
-                    .enumParameterizedTableNodes(
-                            baseTables,
-                            vns,
-                            k));
-        }
-
-        System.out.println("Parameterized table enum Done.");
-
-        EnumContext ec = new EnumContext(Arrays.asList(input), new Constraint(1, constants,new ArrayList<>(), paramNum));
-        ec.setParameterizedTables(parameterizedTables);
-
-        // the size of the table should be 1
-        assert (ec.getTableNodes().size() == 1);
-
-        TableNode tn = ec.getTableNodes().get(0);
-        Map<String, ValType> typeMap = new HashMap<>();
-        for (int i = 0; i < tn.getSchema().size(); i ++) {
-            typeMap.put(tn.getSchema().get(i), tn.getSchemaType().get(i));
-        }
-        // enum filters
-        EnumContext ec2 = EnumContext.extendTypeMap(ec, typeMap);
-        filters.addAll(FilterEnumerator.enumAtomicFilter(ec2));
-
-        System.out.println("Arrive checkpoint 3");
-
-        return filters;
     }
 
     public static List<BitSet> bulkBitEncodingFilter(Table table, List<Filter> filters) {
@@ -358,6 +439,38 @@ public class MappingInference {
                     + listString.substring(listString.indexOf("(")) + "]\n";
         }
         return s;
+    }
+
+    // TODO: PLEASE DOUBlE CHECK
+    public boolean isValidMapping() {
+        for (int i = 0; i < map.maxR(); i ++)
+            for (int j = 0; j < map.maxC(); j++)
+                if (map.getImage(i,j).isEmpty())
+                    return false;
+        return true;
+    }
+
+    public static void printColumnMapping(List<Set<Integer>> columnMapping) {
+        String s = "";
+        for (int k = 0; k < columnMapping.size(); k ++) {
+            Set<Integer> imgSet = columnMapping.get(k);
+            String eString = "";
+            eString = k + " -> ";
+            String img = "[";
+            boolean isFirst = true;
+            for (int i : imgSet) {
+                if (isFirst) {
+                    img += i;
+                    isFirst = false;
+                } else {
+                    img += ", " + i;
+                }
+            }
+            img += "]";
+            eString += img;
+            s += eString + "\n";
+        }
+        System.out.println(s);
     }
 
 }

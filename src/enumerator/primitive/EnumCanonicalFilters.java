@@ -38,7 +38,8 @@ public class EnumCanonicalFilters {
         // enum filters
         EnumContext ec2 = EnumContext.extendTypeMap(ec, typeMap);
 
-        return FilterEnumerator.enumFiltersLR(vals, ec2.getValNodes(), ec2);
+        boolean allowExists = true;
+        return FilterEnumerator.enumFiltersLR(vals, ec2.getValNodes(), ec2, allowExists);
     }
 
     // Generated filters are used for filtering the renamed table rt
@@ -74,10 +75,11 @@ public class EnumCanonicalFilters {
                 for (int k = tableBoundaryIndex.get(j); k < tableBoundaryIndex.get(j+1); k ++) {
                     R.add(new NamedVal(rt.getSchema().get(k)));
                 }
-                filters.addAll(FilterEnumerator.enumFiltersLR(L, R, ec));
+
+                boolean allowExists = false;
+                filters.addAll(FilterEnumerator.enumFiltersLR(L, R, ec, allowExists));
             }
         }
-
         return filters;
     }
 
@@ -93,6 +95,8 @@ public class EnumCanonicalFilters {
 
         // extend the type information to contain values inside enumcontext
         Map<String, ValType> typeMap = new HashMap<>();
+        if (rt.getSchema().size() != rt.getSchemaType().size())
+            System.out.println(rt.getSchema().size() + " ~ " + rt.getSchemaType().size());
         for (int i = 0; i < rt.getSchema().size(); i ++) {
             typeMap.put(rt.getSchema().get(i), rt.getSchemaType().get(i));
         }
@@ -104,6 +108,8 @@ public class EnumCanonicalFilters {
             L.add(new NamedVal(rt.getSchema().get(i)));
         }
 
-        return FilterEnumerator.enumFiltersLR(L, ec.getValNodes(), ec);
+        // do not allow exists in aggregation result
+        boolean allowExists = false;
+        return FilterEnumerator.enumFiltersLR(L, ec.getValNodes(), ec, allowExists);
     }
 }

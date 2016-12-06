@@ -25,6 +25,8 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
     public QueryChest enumTable(EnumContext ec, int depth) {
 
         QueryChest qc = QueryChest.initWithInputTables(ec.getInputs());
+        qc.setEnableExport();
+
         enumTableWithoutProj(ec, qc, depth); // all intermediate result are stored in qc
 
         ec.setTableNodes(qc.getRepresentativeTableNodes());
@@ -43,21 +45,21 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
 
         System.out.println("[Stage 1] EnumFilterNamed: \n\t"
                 + "Queries generated: " + (qc.queryCount - lastQueryCount) + "\n\t"
-                + "Tables generated: " + (qc.tracked.size()) + "\n\t"
+                //+ "Tables generated: " + (qc.tracked.size()) + "\n\t"
                 + "Total Table by now: " + qc.getRepresentativeTableNodes().size());
         lastQueryCount = qc.queryCount;
-        qc.tracked.clear();
+        //qc.tracked.clear();
 
         ec.setTableNodes(qc.getRepresentativeTableNodes());
         EnumAggrTableNode.emitEnumAggregationNode(ec, qc);
 
         System.out.println("[Stage 2] EnumAggregationNode: \n\t"
                 + "Queries generated: " + (qc.queryCount - lastQueryCount) + "\n\t"
-                + "Tables generated: " + (qc.tracked.size()) + "\n\t"
+                //+ "Tables generated: " + (qc.tracked.size()) + "\n\t"
                 + "Total Table by now: " + qc.getRepresentativeTableNodes().size());
         lastQueryCount = qc.queryCount;
 
-        qc.tracked.clear();
+        // qc.tracked.clear();
 
         for (int i = 1; i <= depth; i ++) {
             //System.out.println("[Level] " + i);
@@ -73,9 +75,10 @@ public class CanonicalTableEnumeratorOnTheFly extends AbstractTableEnumerator {
             //System.out.println("after enumJoinWithFilter: " + qc.getRepresentativeTableNodes().size() + " tables");
             System.out.println("[Stage " + (2 + i) + "] EnumJoin" + i + " \n\t"
                     + "Queries generated: " + (qc.queryCount - lastQueryCount) + "\n\t"
-                    + "Tables generated: " + (qc.tracked.size()) + "\n\t"
+                   // + "Tables generated: " + (qc.tracked.size()) + "\n\t"
                     + "Total Table by now: " + qc.getRepresentativeTableNodes().size());
             lastQueryCount = qc.queryCount;
+
             qc.tracked.clear();
 
             if (qc.runnerUpTable != 0)

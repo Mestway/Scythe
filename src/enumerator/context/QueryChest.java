@@ -18,16 +18,24 @@ public class QueryChest {
 
     // these two fields are used for evaluating enumeration
     public int queryCount = 0;
-    public Set<Table> tracked = new HashSet<>();
+
     // count the number of table before projection that can be projected into true output
     public int runnerUpTable = 0;
 
+    public long totalTableSize = 0;
+
     // tabled that is memoized
-    private Map<Table, List<TableNode>> memory = new HierarchicalMap<>();
+    private Map<Table, List<TableNode>> memory = new HashMap<>();
+    // store the representative table of tables with the same content
+    private Map<Table, Table> mirror = new HashMap<>();
 
     // the data structure to store what are the ways to generate one table from other tables.
     // this data structure is updated during each enumeration module
     private TableEdgeSet edges = new TableEdgeSet();
+    private boolean enableExport = false;
+
+    public boolean isEnableExport() { return this.enableExport; }
+    public void setEnableExport() { this.enableExport = true; }
 
     public Map<Table, List<TableNode>> getMemoizedTables() { return this.memory; }
     public TableEdgeSet getEdges() { return this.edges; }
@@ -53,15 +61,18 @@ public class QueryChest {
 
                 if (t.getContent().size() == 0)
                     continue;
-
                 if (memory.containsKey(t)) {
-                    tracked.add(t);
                     //memory.get(t).add(tn);
                 } else {
                     ArrayList<TableNode> ar = new ArrayList<>();
                     ar.add(tn);
-                    tracked.add(t);
                     memory.put(t, ar);
+                    mirror.put(t, t);
+
+                    /*totalTableSize += t.getContent().size() * t.getContent().get(0).getValues().size();
+                    if (memory.entrySet().size() % 1000 == 0) {
+                        System.out.println("We have " + memory.keySet().size() + " tables now; Avg size: " + ((double) totalTableSize) / memory.keySet().size() );
+                    }*/
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -79,5 +90,16 @@ public class QueryChest {
     public List<TableNode> getRepresentativeTableNodes() {
         return this.memory.keySet().stream().map(t -> new NamedTable(t)).collect(Collectors.toList());
     }
+
+    public Table representative(Table t) {
+        return mirror.get(t);
+    }
+
+
+    List<TableNode> resultQueires = new ArrayList<>();
+    public void insertQueries(List<TableNode> tns) {
+        resultQueires.addAll(tns);
+    }
+    public List<TableNode> getResultQueires() { return this.resultQueires; }
 
 }

@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  * Created by clwang on 1/25/16.
+ * TODO: optimize this to be a datastructure using hash map
  */
 public class ValNodeSubstBinding {
 
@@ -35,7 +36,9 @@ public class ValNodeSubstBinding {
         if (lookupImage(p.getKey()).equalsToValNode(p.getKey())) {
             bindings.add(p);
         } else {
-            System.out.println("[ValNodeSubstBinding@37] Try to add a value of whose image is already inside");
+            System.out.println(lookupImage(p.getKey()).prettyPrint(0) + " " + p.getKey().prettyPrint(0) );
+            System.out.println("[ValNodeSubstBinding@37] Try to add a value of whose image is already inside: " + p.getKey().prettyPrint(0) + " " + p.getValue().prettyPrint(0));
+            new Exception().printStackTrace();
         }
     }
 }

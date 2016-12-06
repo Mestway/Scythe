@@ -90,4 +90,17 @@ public class NamedTable implements TableNode {
         return this;
     }
 
+    @Override
+    public int hashCode() {
+        return this.table.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof NamedTable) {
+            return ((NamedTable) obj).table.equals(this.table);
+        }
+        return false;
+    }
+
 }

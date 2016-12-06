@@ -266,20 +266,40 @@ public class Table {
 
         String resultTableName = "anonymous";
 
+        Set<String> alreadyUsedName = new HashSet<>();
+
         // collect metadata
         for (String md : t1.getMetadata()) {
+            String name;
             if (t1.getName().equals("anonymous")) {
-                resultTableMetadata.add(md);
+                name = md;
             } else {
-                resultTableMetadata.add(t1.getName() + "." + md);
+                name = t1.getName() + "." + md;
             }
+            String originalName = name;
+            int i = 0;
+            while (alreadyUsedName.contains(name)) {
+                name = originalName + i;
+                i ++;
+            }
+            alreadyUsedName.add(name);
+            resultTableMetadata.add(name);
         }
         for (String md : t2.getMetadata()) {
+            String name;
             if (t2.getName().equals("anonymous")) {
-                resultTableMetadata.add(md);
+                name = md;
             } else {
-                resultTableMetadata.add(t2.getName() + "." + md);
+                name = t2.getName() + "." + md;
             }
+            String originalName = name;
+            int i = 0;
+            while (alreadyUsedName.contains(name)) {
+                name = originalName + i;
+                i ++;
+            }
+            alreadyUsedName.add(name);
+            resultTableMetadata.add(name);
         }
 
         // collect content

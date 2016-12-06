@@ -28,5 +28,4 @@ public interface Filter {
     List<Hole> getAllHoles();
     Filter instantiate(InstantiateEnv env);
     Filter substNamedVal(ValNodeSubstBinding vnsb);
-
 }

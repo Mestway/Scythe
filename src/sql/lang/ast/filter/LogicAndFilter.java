@@ -47,7 +47,7 @@ public class LogicAndFilter implements Filter {
         return f1.containsExclusiveFilter(f) && f2.containsExclusiveFilter(f);
     }
 
-    public static Filter ConnectByAnd(List<Filter> filters) {
+    public static Filter connectByAnd(List<Filter> filters) {
         Filter last = filters.get(0);
         for (int i = 1; i < filters.size(); i ++) {
             last = new LogicAndFilter(last, filters.get(i));

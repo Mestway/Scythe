@@ -15,6 +15,7 @@ import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
 import util.CombinationGenerator;
+import util.RenameTNWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,6 @@ public class EnumProjection {
 
     // projection enumeration only happens at the last step
     public static List<TableNode> enumProjection(EnumContext ec, Table outputTable) {
-       // TODO: definitely exists a way to solve the correspondence between the nodes and the output example
 
         List<TableNode> tableNodes = ec.getTableNodes();
         List<TableNode> result = new ArrayList<>();
@@ -58,7 +58,6 @@ public class EnumProjection {
                 lvns.add(selectNodes);
             }
 
-            // = enumSelectArgs(tn, false);
             for (List<ValNode> lvn : lvns) {
                 SelectNode sn = new SelectNode(lvn, tn, new EmptyFilter());
                 try {
@@ -76,7 +75,10 @@ public class EnumProjection {
     }
 
     // projection enumeration only happens at the last step
-    public static void emitEnumProjection(EnumContext ec, Table outputTable, QueryChest qc) {
+    // the return value identifies whether the table is a runner-up
+    public static boolean emitEnumProjection(EnumContext ec, Table outputTable, QueryChest qc) {
+
+        boolean findone = false;
 
         List<TableNode> tableNodes = ec.getTableNodes();
         List<TableNode> result = new ArrayList<>();
@@ -104,8 +106,10 @@ public class EnumProjection {
                 lvns.add(selectNodes);
             }
 
-            if (lvns.size() > 0)
+            if (lvns.size() > 0) {
+                findone = true;
                 qc.runnerUpTable ++;
+            }
 
             for (List<ValNode> lvn : lvns) {
                 SelectNode sn = new SelectNode(lvn, tn, new EmptyFilter());
@@ -114,13 +118,17 @@ public class EnumProjection {
                     if (tsn.contentStrictEquals(outputTable)) {
                         result.add(sn);
                         qc.updateQuery(sn);
-                        qc.getEdges().insertEdge(t, tsn);
+                        qc.getEdges().insertEdge(
+                                qc.representative(t),
+                                qc.representative(tsn));
                     }
                 } catch (SQLEvalException e) {
                     e.printStackTrace();
                 }
             }
         }
+
+        return findone;
     }
 
     // Enumerate all possible combinations of selection fields of a select query

@@ -150,7 +150,7 @@ public class AggregationNode implements TableNode {
         if (tn.getTableName().equals("anonymous")) {
             for (String n : this.aggrFields) {
                 for (int i = 0; i < tableSchema.size(); i ++) {
-                    if (tableSchema.get(i).equals(n.substring(n.indexOf(".") + 1))) {
+                    if (tableSchema.get(i).equals(n)) {
                         schemaTypes.add(tableSchemaType.get(i));
                         break;
                     }
@@ -158,7 +158,7 @@ public class AggregationNode implements TableNode {
             }
             for (Pair<String, Function<List<Value>, Value>> t : targets) {
                 for (int i = 0; i < tableSchema.size(); i ++) {
-                    if (tableSchema.get(i).equals(t.getKey().substring(t.getKey().indexOf(".") + 1))) {
+                    if (tableSchema.get(i).equals(t.getKey())) {
                         if (!t.getValue().equals(AggrCount)) {
                             schemaTypes.add(tableSchemaType.get(i));
                         } else {

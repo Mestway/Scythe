@@ -38,46 +38,57 @@ public class EnumJoinTableNodes {
             boolean withFilter) {
 
         List<TableNode> basicTables = ec.getTableNodes();
-        // table combinations
-        List<List<TableNode>> tableComb = CombinationGenerator.genMultPermutation(basicTables, tableNum);
 
-        for (List<TableNode> tns : tableComb) {
-            if (!checker.apply(ec, tns))
-                continue;
-            JoinNode jn = new JoinNode(tns);
+        for (TableNode ti : basicTables) {
+            for (TableNode tj : basicTables) {
 
-            if (withFilter == false) {
-                qc.updateQuery(jn);
-                try {
-                    qc.getEdges().insertEdge(tns.get(0).eval(new Environment()),
-                            tns.get(1).eval(new Environment()), jn.eval(new Environment()));
-                } catch (SQLEvalException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(jn);
-                // add the query without join
-                qc.updateQuery(rt);
-                try {
-                    qc.getEdges().insertEdge(tns.get(0).eval(new Environment()),
-                            tns.get(1).eval(new Environment()), rt.eval(new Environment()));
-                } catch (SQLEvalException e) {
-                    e.printStackTrace();
+                List<TableNode> tns = Arrays.asList(ti, tj);
+
+                if (! checker.apply(ec,tns) ) {
+                    continue;
                 }
 
-                List<Filter> filters = EnumCanonicalFilters.enumCanonicalFilterJoinNode(rt, ec);
-                for (Filter f : filters) {
-                    // the selection args are complete
-                    List<ValNode> vals = rt.getSchema().stream()
-                            .map(s -> new NamedVal(s))
-                            .collect(Collectors.toList());
-                    TableNode resultTn = new SelectNode(vals, rt, f);
-                    qc.updateQuery(RenameTNWrapper.tryRename(resultTn));
+                JoinNode jn = new JoinNode(tns);
+
+                if (withFilter == false) {
+                    qc.updateQuery(jn);
                     try {
-                        qc.getEdges().insertEdge(tns.get(0).eval(new Environment()),
-                                tns.get(1).eval(new Environment()), resultTn.eval(new Environment()));
+                        qc.getEdges().insertEdge(
+                                qc.representative(tns.get(0).eval(new Environment())),
+                                qc.representative(tns.get(1).eval(new Environment())),
+                                qc.representative(jn.eval(new Environment())));
                     } catch (SQLEvalException e) {
                         e.printStackTrace();
+                    }
+                } else {
+                    RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(jn);
+                    // add the query without join
+                    qc.updateQuery(rt);
+                    try {
+                        qc.getEdges().insertEdge(
+                                qc.representative(tns.get(0).eval(new Environment())),
+                                qc.representative(tns.get(1).eval(new Environment())),
+                                qc.representative(rt.eval(new Environment())));
+                    } catch (SQLEvalException e) {
+                        e.printStackTrace();
+                    }
+
+                    List<Filter> filters = EnumCanonicalFilters.enumCanonicalFilterJoinNode(rt, ec);
+                    for (Filter f : filters) {
+                        // the selection args are complete
+                        List<ValNode> vals = rt.getSchema().stream()
+                                .map(s -> new NamedVal(s))
+                                .collect(Collectors.toList());
+                        TableNode resultTn = new SelectNode(vals, rt, f);
+                        qc.updateQuery(RenameTNWrapper.tryRename(resultTn));
+                        try {
+                            qc.getEdges().insertEdge(
+                                    qc.representative(tns.get(0).eval(new Environment())),
+                                    qc.representative(tns.get(1).eval(new Environment())),
+                                    qc.representative(resultTn.eval(new Environment())));
+                        } catch (SQLEvalException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -94,6 +105,7 @@ public class EnumJoinTableNodes {
         List<TableNode> result = new ArrayList<>();
 
         List<TableNode> basicTables = ec.getTableNodes();
+
         // table combinations
         List<List<TableNode>> tableComb = CombinationGenerator.genMultPermutation(basicTables, tableNum);
 
