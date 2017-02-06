@@ -46,7 +46,10 @@ public class ConstantVal implements ValNode {
 
     @Override
     public String prettyPrint(int lv) {
-        return IndentionManagement.addIndention(val.toString(), lv);
+        String formatVal = val.toString();
+        if (val.getValType().equals(ValType.StringVal))
+            formatVal = "'" + formatVal + "'";
+        return IndentionManagement.addIndention(formatVal, lv);
     }
 
     @Override

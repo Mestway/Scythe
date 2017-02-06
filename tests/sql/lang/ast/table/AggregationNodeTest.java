@@ -57,18 +57,18 @@ public class AggregationNodeTest {
 
         try {
 
-            System.out.println(sn.prettyPrint(0));
+            System.out.println(sn.prettyPrint(0, false));
             System.out.println(sn.eval(new Environment()));
 
             System.out.println(" - - - - - - - -  - -");
 
             System.out.println(agrNode.eval(new Environment()));
 
-            System.out.println(agrNode.prettyPrint(0));
+            System.out.println(agrNode.prettyPrint(0, false));
 
             System.out.println(" - - - - - - - -  - -");
 
-            System.out.println(agrNode.substCoreTable(sn).prettyPrint(0));
+            System.out.println(agrNode.substCoreTable(sn).prettyPrint(0, false));
 
             System.out.println(agrNode.substCoreTable(sn).eval(new Environment()));
 

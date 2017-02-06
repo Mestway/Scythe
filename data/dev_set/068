@@ -28,7 +28,7 @@
 
 SELECT
   s1.created_at,
-  COUNT(s2.email) AS cumul_count
+  SUM(s2.email) AS cumul_count
 FROM subscriptions s1
   INNER JOIN subscriptions s2 ON s1.created_at >= s2.created_at
 GROUP BY s1.created_at

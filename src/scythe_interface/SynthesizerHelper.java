@@ -24,6 +24,16 @@ import java.util.stream.Collectors;
  */
 public class SynthesizerHelper {
 
+    /**
+     * The helper function tries to decompose the original output example into multiple small tables
+     * and synthesize the program for each small table. The result would be a query formed by union all subqueries.
+     * @param inputs input examples
+     * @param output the output example
+     * @param config configuration that specifies the search depth as well as constants to be used.
+     * @param enumerator The enumerator used in query search
+     * @param maxDepth the maximum search depth
+     * @retur queries
+     */
     public static List<TableNode> synthesizeWithDecomposition(List<Table> inputs,
                                                               Table output,
                                                               EnumConfig config,
@@ -59,16 +69,14 @@ public class SynthesizerHelper {
                 }
             }
             if (candidates.size() > GlobalConfig.MAXIMUM_QUERY_KEPT) {
-                candidates.sort((tn1, tn2)
-                        -> Double.compare(tn1.estimateTotalScore(config.getUserProvidedConstValues()),
-                                          tn2.estimateTotalScore(config.getUserProvidedConstValues())));
+                candidates.sort(Comparator.comparingDouble(tn -> tn.estimateTotalScore(config.getUserProvidedConstValues())));
                 candidates = candidates.subList(0, GlobalConfig.MAXIMUM_QUERY_KEPT);
             }
         }
         return candidates;
     }
 
-    // Given the input-output example, guess
+    // Given the input-output example, guess possible extra constants that may be used in query formulation
     public static Set<NumberVal> guessExtraConstants(List<Function<List<Value>, Value>> aggrFunctions,
                                                      List<Table> input) {
 
@@ -78,15 +86,18 @@ public class SynthesizerHelper {
 
         if (aggrFunctions.contains(AggregationNode.AggrCount)
                 && aggrFunctions.contains(AggregationNode.AggrMax))  {
+
+            //This is typically common for max-count / min-count,
+            // so we would add some extra constants for the ease of synthesis
             for (TableNode tn : input.stream().map(t -> new NamedTable(t)).collect(Collectors.toSet())) {
                 List<RenameTableNode> countResult = AggrEnumerator
                         .enumerateAggregation(Arrays.asList(AggregationNode.AggrCount), tn, true);
                 for (TableNode ttn : countResult) {
                     List<RenameTableNode> maxResult = AggrEnumerator
                             .enumerateAggregation(Arrays.asList(AggregationNode.AggrMax), ttn, true);
-                    for (TableNode tttn : maxResult) {
+                    for (TableNode mr : maxResult) {
                         try {
-                            Table t = tttn.eval(new Environment());
+                            Table t = mr.eval(new Environment());
                             if (t.getContent().size() == 1 && (t.getContent().get(0).getValue(0) instanceof NumberVal)
                                     && ((NumberVal)t.getContent().get(0).getValue(0)).getVal() <= maxInputTableSize) {
                                 iSet.add(((NumberVal)t.getContent().get(0).getValue(0)));
@@ -102,7 +113,7 @@ public class SynthesizerHelper {
         return iSet;
     }
 
-    // Given the input-output example, guess
+    // Given the input-output example, guess functions that will potentially be used in synthesis
     public static List<Set<Function<List<Value>, Value>>> getRelatedFunctions(List<Value> constValues,
                                                                               List<Table> inputs,
                                                                               Table output) {
@@ -135,11 +146,12 @@ public class SynthesizerHelper {
                 otherValues.add(v);
         }
         if (! otherValues.isEmpty()) {
+
+            // check whether extra string value exists in output but not in input
             boolean containsExtraStringVal = false;
             for (Value v : otherValues) {
                 if (v instanceof StringVal) {
                     containsExtraStringVal = true;
-                    System.out.println(v);
                 }
             }
             if (containsExtraStringVal) {
@@ -148,6 +160,8 @@ public class SynthesizerHelper {
                 tmp.add(AggregationNode.AggrConcat2);
                 result.add(tmp);
             }
+
+            // check whether small values exists in the output example
             boolean containsSmallVal = false;
             for (Value v : otherValues) {
                 if (v instanceof NumberVal && ((double)v.getVal() <= maxColumnCnt))
@@ -213,7 +227,7 @@ public class SynthesizerHelper {
         if (candidates.isEmpty())
             return candidates;
         else {
-            candidates.sort((tn1, tn2) -> Double.compare(tn1.estimateTotalScore(constValues), tn2.estimateTotalScore(constValues)));
+            candidates.sort(Comparator.comparingDouble(tn -> tn.estimateTotalScore(constValues)));
             return candidates.subList(0, candidates.size() > k ? k : candidates.size());
         }
     }

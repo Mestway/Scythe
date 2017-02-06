@@ -44,14 +44,16 @@ public class NaturalTableExtensionTest {
 
         Table input = TableInstanceParser.parseMarkDownTable("table1", tableSrc2);
 
-        EnumConfig c = new EnumConfig(3, new ArrayList<>(), Arrays.asList(AggregationNode.AggrCount), 1, Arrays.asList(input));
+        EnumConfig c = new EnumConfig(3, new ArrayList<>(),
+                Arrays.asList(AggregationNode.AggrCount), 1, Arrays.asList(input));
 
-        List<TableNode> tns = TableNaturalJoinWithAggr.naturalJoinWithAggregation(new EnumContext(Arrays.asList(input), c));
+        List<TableNode> tns = TableNaturalJoinWithAggr
+                .naturalJoinWithAggregation(new EnumContext(Arrays.asList(input), c));
 
         //DebugHelper.printTableNodes(tns);
 
         for (TableNode tn : tns) {
-            System.out.println(tn.prettyPrint(0));
+            System.out.println(tn.prettyPrint(0, false));
             DebugHelper.printList(tn.getSchema());
             DebugHelper.printList(tn.getSchemaType());
         }

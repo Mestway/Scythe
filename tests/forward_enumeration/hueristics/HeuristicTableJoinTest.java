@@ -42,6 +42,7 @@ public class HeuristicTableJoinTest {
         Table t1 = TableInstanceParser.parseMarkDownTable("table1", t1src);
         Table t2 = TableInstanceParser.parseMarkDownTable("table2", t2src);
 
-        System.out.print(HeuristicNatJoin.heuristicEquiJoinTwo(new NamedTable(t1), new NamedTable(t2)).getValue().prettyPrint(0));
+        System.out.print(HeuristicNatJoin.heuristicEquiJoinTwo(new NamedTable(t1),
+                new NamedTable(t2)).getValue().prettyPrint(0, false));
     }
 }

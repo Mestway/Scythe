@@ -21,12 +21,12 @@ public class DebugHelper {
         for (TableNode tn  : tns) {
             try {
                 System.out.println("========================");
-                System.out.println(tn.prettyPrint(0));
+                System.out.println(tn.prettyPrint(0, false));
                 Table tb = tn.eval(new Environment());
                 System.out.println(tb);
             } catch (SQLEvalException e) {
                 System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-");
-                System.out.println(tn.prettyPrint(0));;
+                System.out.println(tn.prettyPrint(0, false));;
             }
         }
     }

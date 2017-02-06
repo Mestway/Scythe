@@ -114,7 +114,7 @@ public class VVComparator implements Filter {
     }
 
     private String OperatorName(BiFunction<Value, Value, Boolean> op) {
-        if (op.equals(eq)) return "==";
+        if (op.equals(eq)) return "=";
         else if (op.equals(le)) return "<=";
         else if (op.equals(ge)) return ">=";
         else if (op.equals(lt)) return "<";

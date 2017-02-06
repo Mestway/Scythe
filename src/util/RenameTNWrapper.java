@@ -22,14 +22,14 @@ public class RenameTNWrapper {
 
     private static TableNode genRenamedTable(TableNode tn, boolean forceRename) {
         if (forceRename || tn.getTableName().equals("anonymous")) {
-            String newName = "[T" + renamingIndex + "]";
+            String newName = "t" + renamingIndex;
             renamingIndex ++;
             List<String> newSchema = new ArrayList<String>();
             for (String s : tn.getSchema()) {
                 String shortName = s.substring(s.lastIndexOf(".") + 1);
-                if (s.contains(AggregationNode.magicSeparatorSymbol)) {
-                    shortName = s.substring(0, s.indexOf(AggregationNode.magicSeparatorSymbol)) + "-" + shortName;
-                }
+                //if (s.contains(AggregationNode.magicSeparatorSymbol)) {
+                //    shortName = s.substring(0, s.indexOf(AggregationNode.magicSeparatorSymbol)) + "_" + shortName;
+                //}
                 if (newSchema.contains(shortName)) {
                     int i = 1;
                     while(newSchema.contains(shortName + i)) {

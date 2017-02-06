@@ -39,7 +39,10 @@ public abstract class TableNode implements Node {
         return result;
     }
 
-    public abstract String prettyPrint(int indentLv);
+    public abstract String prettyPrint(int indentLv, boolean asSubquery);
+    public String printQuery() {
+        return this.prettyPrint(0, false) + ";";
+    };
     public abstract List<Hole> getAllHoles();
 
     public abstract TableNode instantiate(InstantiateEnv env);

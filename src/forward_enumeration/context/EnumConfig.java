@@ -23,7 +23,7 @@ public class EnumConfig {
 
     // depth of the enumeration always starts at 2
     int maxDepth = 2;
-    List<ValNode> constValNodes = new ArrayList<>();
+    List<ConstantVal> constValNodes = new ArrayList<>();
     List<Function<List<Value>, Value>> aggrFuns = new ArrayList<>();
 
     // the maximum number of parameters allowed in Exists clause, if the number is 0, Exists will not be allowed
@@ -79,7 +79,7 @@ public class EnumConfig {
         aggrFuns.addAll(aggrFunctions);
     }
 
-    public List<ValNode> constValNodes() {
+    public List<ConstantVal> constValNodes() {
         return this.constValNodes;
     }
     public int maxDepth() { return this.maxDepth; }

@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  */
 public class AggregationNode extends TableNode {
 
-    public static String magicSeparatorSymbol = "-_-";
+    public static String magicSeparatorSymbol = "_";
 
     List<String> groupbyColumns = new ArrayList<String>();
     List<Pair<String, Function<List<Value>, Value>>> targets = new ArrayList<>();
@@ -121,7 +121,15 @@ public class AggregationNode extends TableNode {
         List<String> schema = new ArrayList<String>();
         schema.addAll(this.groupbyColumns);
         for (Pair<String, Function<List<Value>,Value>> t : targets) {
-            schema.add(FuncName(t.getValue()) + magicSeparatorSymbol + t.getKey());
+            String candidateName = FuncName(t.getValue()).toLowerCase() + magicSeparatorSymbol + t.getKey().substring(t.getKey().lastIndexOf(".") + 1);
+            if (!schema.contains(candidateName))
+                schema.add(candidateName);
+            else {
+                int i = 0;
+                while (schema.contains(candidateName + i))
+                    i ++;
+                schema.add(candidateName + i);
+            }
         }
         return schema;
     }
@@ -184,32 +192,37 @@ public class AggregationNode extends TableNode {
     }
 
     @Override
-    public String prettyPrint(int indentLv) {
-        String result = "SELECT\r\n" + IndentionManagement.basicIndent();
+    public String prettyPrint(int indentLv, boolean asSubquery) {
+        String result = "Select\r\n" + IndentionManagement.basicIndent();
         for (String f : groupbyColumns) {
             result += f + ", ";
         }
         for (int i = 0; i < targets.size(); i ++) {
             Pair<String, Function<List<Value>, Value>> t = targets.get(i);
+            result += FuncName(t.getValue()) + "(" + t.getKey() + ") As " + this.getSchema().get(this.groupbyColumns.size() + i);
             if (i != targets.size() - 1)
-                result += FuncName(t.getValue()) + "(" + t.getKey() + "), ";
+                result +=  ", ";
             else {
                 // the last element
-                result += FuncName(t.getValue()) + "(" + t.getKey() + ")\r\n";
+                result +=  "\r\n";
             }
         }
-        result += "FROM\r\n";
-        result += this.tn.prettyPrint(1);
+        result += "From\r\n";
+        result += this.tn.prettyPrint(1, true);
 
         if (! groupbyColumns.isEmpty()) {
-            result += "\r\nGROUP BY\r\n";
+            result += "\r\nGroup By\r\n";
             boolean flag = true;
             for (String f : groupbyColumns) {
-                if (flag == true)
+                if (flag == true) {
                     result += IndentionManagement.basicIndent() + f;
+                    flag = false;
+                }
                 else result += ", " + f;
             }
         }
+        if (asSubquery)
+            result = "(" + result + ")";
         return IndentionManagement.addIndention(result, indentLv);
     }
 
@@ -426,23 +439,23 @@ public class AggregationNode extends TableNode {
 
     public static String FuncName(Function<List<Value>, Value> f) {
         if (f.equals(AggrSum))
-            return "SUM";
+            return "Sum";
         else if (f.equals(AggrAvg))
-            return "AVG";
+            return "Avg";
         else if (f.equals(AggrConcat) || f.equals(AggrConcat2))
-            return "CONCAT";
+            return "Concat";
         else if (f.equals(AggrCount))
-            return "COUNT";
+            return "Count";
         else if (f.equals(AggrCountDistinct))
-            return "COUNT_DISTINCT";
+            return "Count_distinct";
         else if (f.equals(AggrMax))
-            return "MAX";
+            return "Max";
         else if (f.equals(AggrMin))
-            return "MIN";
+            return "Min";
         else if (f.equals(AggrFirst))
-            return "FIRST";
+            return "First";
         else
-            return "AGRREGATION";
+            return "Aggr";
     }
 
     /**

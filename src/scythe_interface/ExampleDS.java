@@ -8,7 +8,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -32,6 +34,8 @@ public class ExampleDS {
             return null;
         }
 
+        Set<String> usedInputTableNames = new HashSet<>();
+
         int i = 0;
         while (i < fileContent.size()) {
 
@@ -44,13 +48,28 @@ public class ExampleDS {
                         segContent.add(fileContent.get(i));
                     i ++;
                 }
-                if (segName.equals("input")) {
-                    example.inputs.add(TableInstanceParser.tryParseTable("input" + (example.inputs.size() + 1), segContent));
-                } else if (segName.equals("output")) {
+                if (segName.startsWith("input")) {
+
+                    String baseTableName = segName.substring("input".length());
+                    if (baseTableName.equals(""))
+                        baseTableName = "input";
+                    else
+                        baseTableName = baseTableName.substring(1);
+
+                    String tableName = baseTableName;
+                    int id = 0;
+                    while (usedInputTableNames.contains(tableName)) {
+                        tableName = baseTableName + id;
+                        id ++;
+                    }
+                    usedInputTableNames.add(tableName);
+
+                    example.inputs.add(TableInstanceParser.tryParseTable(tableName, segContent));
+                } else if (segName.startsWith("output")) {
                     example.output = TableInstanceParser.tryParseTable("output", segContent);
-                } else if (segName.equals("constraint")) {
+                } else if (segName.startsWith("constraint")) {
                     example.enumConfig = new EnumConfig(segContent.stream().reduce(String::concat).get());
-                } else if (segName.equals("solution")) {
+                } else if (segName.startsWith("solution")) {
                     //System.out.println("Stack Overflow Solution: " + segContent);
                 }
             } else {

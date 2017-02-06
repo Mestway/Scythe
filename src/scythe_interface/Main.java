@@ -30,7 +30,7 @@ public class Main {
 
         if (synthesizeWAggr) {
             System.out.println("[[Synthesizing With Aggregation Functions]]");
-            SynthesizerWAggrfun.Synthesize(filename, enumeratorSwitch(enumerator));
+            Synthesizer.SynthesizeWAggr(filename, enumeratorSwitch(enumerator));
         } else {
             System.out.println("[[Synthesizing]]");
             Synthesizer.Synthesize(filename, enumeratorSwitch(enumerator));
