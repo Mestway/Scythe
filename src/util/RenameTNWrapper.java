@@ -6,6 +6,8 @@ import sql.lang.ast.table.TableNode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by clwang on 1/7/16.
@@ -13,6 +15,30 @@ import java.util.List;
 public class RenameTNWrapper {
 
     static int renamingIndex = 0;
+
+    static final String tableNameTemplate = "[T#-id#]";
+    public static String tableNameTemplateRE = "\\[T#-(\\d+)#\\]";
+
+    /**
+     * Given a string, find all automatically generated template name in the string
+     * @param str the target string to check with
+     * @return all automatically generated template strings
+     */
+    public static List<String> findAllGeneratedNames(String str) {
+        List<String> result = new ArrayList<>();
+        // Now create matcher object.
+        Matcher m = Pattern.compile(tableNameTemplateRE).matcher(str);
+        //System.out.println(name);
+        while (m.find( )) {
+            result.add(m.group());
+        }
+        return result;
+    }
+
+    private static String nameGenerator(Integer index) {
+        String name = tableNameTemplate.replace("id", index.toString());
+        return name;
+    }
 
     /*****************************************************
      Renaming enumerated tables
@@ -22,7 +48,7 @@ public class RenameTNWrapper {
 
     private static TableNode genRenamedTable(TableNode tn, boolean forceRename) {
         if (forceRename || tn.getTableName().equals("anonymous")) {
-            String newName = "t" + renamingIndex;
+            String newName = nameGenerator(renamingIndex);
             renamingIndex ++;
             List<String> newSchema = new ArrayList<String>();
             for (String s : tn.getSchema()) {

@@ -29,6 +29,7 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
     // the set of filters that use both st1 elements and st2 elements,
     // original filters on st1 and st2 are not contained here
     Set<BVFilter> filtersLR = new HashSet<>();
+    // map bv filters to their concrete forms, the Double field represents the minimum cost of the filter
     Map<BVFilter, Pair<Double, List<Filter>>> decodedLR = new HashMap<>();
 
     private boolean primitiveFiltersEvaluated = false;
@@ -68,19 +69,14 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
             BiConsumer<AbstractSummaryTable, BVFilter> f) {
 
         this.encodePrimitiveFilters(ec);
-
         bvSynthesisWithRangeMatching(mi, f);
-
-        /*Set<BVFilter> dummyExtFilter = new HashSet<>();
-        dummyExtFilter.add(BVFilter.genSymbolicFilter(this.getBaseTable(), new EmptyFilter()));
-
-        Set<Pair<BVFilter, BVFilter>> r = this.visitDemotedSpace(ec, dummyExtFilter);
-
-        for (Pair<BVFilter, BVFilter> p : r) {
-            f.accept(this, p.getKey());
-        }*/
     }
 
+    /**
+     * Given a mapping inference data structure, instantiate all valid filters and evaluate them on
+     * @param mi an inferred MappingInference mi
+     * @param f a consumer that consumes all tables after synthesis
+     */
     public void bvSynthesisWithRangeMatching(
             MappingInference mi,
             BiConsumer<AbstractSummaryTable, BVFilter> f ) {
@@ -93,8 +89,8 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
 
         Set<BVFilter> st1Filters = st1.instantiateAllFilters();
         Set<BVFilter> st2Filters = st2.instantiateAllFilters();
-        Set<BVFilter> lrFilters =
-                AbstractSummaryTable.genConjunctiveFilters(this, this.filtersLR.stream().collect(Collectors.toList()));
+        Set<BVFilter> lrFilters = AbstractSummaryTable.genConjunctiveFilters(this,
+                this.filtersLR.stream().collect(Collectors.toList()));
 
         Map<BVFilter, BVFilter> promotedFilters1 = new HashMap<>();
         Map<BVFilter, BVFilter> promotedFilters2 = new HashMap<>();
@@ -228,15 +224,15 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
     @Override
     void encodePrimitiveFilters(EnumContext ec) {
 
+        if (this.primitiveFiltersEvaluated) return;
+
+        // first evaluate the filters for sub-abstract tables
+        st1.encodePrimitiveFilters(ec);
+        st2.encodePrimitiveFilters(ec);
+
         // if the composition type is union, no LR filter exist
         if (this.compositionType == CompositionType.union) {
             // make sure that the empty filter is added
-
-            if (this.primitiveFiltersEvaluated) return;
-
-            // first evaluate the filters for sub-abstract tables
-            st1.encodePrimitiveFilters(ec);
-            st2.encodePrimitiveFilters(ec);
 
             List<Filter> filters = new ArrayList<>();
 
@@ -251,12 +247,6 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
 
             return;
         } else if (this.compositionType == CompositionType.join) {
-
-            if (this.primitiveFiltersEvaluated) return;
-
-            // first evaluate the filters for sub-abstract tables
-            st1.encodePrimitiveFilters(ec);
-            st2.encodePrimitiveFilters(ec);
 
             JoinNode jn = new JoinNode(
                     Arrays.asList(

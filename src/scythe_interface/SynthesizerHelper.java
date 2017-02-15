@@ -7,13 +7,17 @@ import global.GlobalConfig;
 import sql.lang.Table;
 import sql.lang.TableRow;
 import sql.lang.ast.Environment;
+import sql.lang.ast.filter.VVComparator;
 import sql.lang.ast.table.*;
 import sql.lang.ast.val.ConstantVal;
+import sql.lang.ast.val.NamedVal;
+import sql.lang.ast.val.ValNode;
 import sql.lang.datatype.NumberVal;
 import sql.lang.datatype.StringVal;
 import sql.lang.datatype.Value;
 import sql.lang.exception.SQLEvalException;
 import util.Pair;
+import util.RenameTNWrapper;
 
 import java.util.*;
 import java.util.function.Function;
@@ -40,9 +44,10 @@ public class SynthesizerHelper {
                                                               AbstractTableEnumerator enumerator,
                                                               int maxDepth) {
         List<TableNode> candidates = new ArrayList<>();
-        // try decomposing the output table
+        // try decomposing the output table // vertical decomposition
         for (Pair<Table, Table> decomposed : Table.tryDecompose(output)) {
-            System.out.println("  [Try decomposition] \n" + decomposed.getKey().toString() + "\n" + decomposed.getValue().toString());
+            if (GlobalConfig.PRINT_LOG)
+                System.out.println("  [Try decomposition] \n" + decomposed.getKey().toString() + "\n" + decomposed.getValue().toString());
 
             config.setMaxDepth(0);
             List<TableNode> left = enumerator.enumProgramWithIO(inputs, decomposed.getKey(), config);
@@ -73,6 +78,61 @@ public class SynthesizerHelper {
                 candidates = candidates.subList(0, GlobalConfig.MAXIMUM_QUERY_KEPT);
             }
         }
+
+        for (Pair<Table, Table> decomposed : Table.horizontalDecompose(output)) {
+            config.setMaxDepth(0);
+            List<TableNode> left = enumerator.enumProgramWithIO(inputs, decomposed.getKey(), config);
+            if (left.isEmpty() && maxDepth == 1) {
+                config.setMaxDepth(1);
+                left = enumerator.enumProgramWithIO(inputs, decomposed.getKey(), config);
+            }
+            if (left.isEmpty()) continue;
+
+            config.setMaxDepth(0);
+            List<TableNode> right = enumerator.enumProgramWithIO(inputs, decomposed.getValue(), config);
+            if (right.isEmpty() && maxDepth == 1) {
+                config.setMaxDepth(1);
+                right = enumerator.enumProgramWithIO(inputs, decomposed.getValue(), config);
+            }
+            if (right.isEmpty()) continue;
+
+            left = findTopK(left, 3, config.getUserProvidedConstValues());
+            right = findTopK(right, 3, config.getUserProvidedConstValues());
+
+            for (TableNode tn1 : left) {
+                for (TableNode tn2 : right) {
+
+                    if (tn1 instanceof SelectNode)
+                        tn1 = RenameTNWrapper.tryRename(tn1);
+                    if (tn2 instanceof SelectNode)
+                        tn2 = RenameTNWrapper.tryRename(tn2);
+
+                    RenameTableNode jrt = (RenameTableNode) RenameTNWrapper.tryRename(
+                            new JoinNode(Arrays.asList(tn1,
+                                    tn2)));
+
+                    List<ValNode> selectFields = new ArrayList<>();
+                    int i = 0;
+                    for (String s : jrt.getSchema()) {
+                        i ++;
+                        if (i == 3) continue;
+                        selectFields.add(new NamedVal(s));
+                    }
+
+                    List<ValNode> compareFields = new ArrayList<>();
+                    compareFields.add(new NamedVal(jrt.getSchema().get(0)));
+                    compareFields.add(new NamedVal(jrt.getSchema().get(2)));
+                    VVComparator filter = new VVComparator(compareFields, VVComparator.eq);
+
+                    candidates.add(new SelectNode(selectFields, jrt, filter));
+                }
+            }
+            if (candidates.size() > GlobalConfig.MAXIMUM_QUERY_KEPT) {
+                candidates.sort(Comparator.comparingDouble(tn -> tn.estimateTotalScore(config.getUserProvidedConstValues())));
+                candidates = candidates.subList(0, GlobalConfig.MAXIMUM_QUERY_KEPT);
+            }
+        }
+
         return candidates;
     }
 

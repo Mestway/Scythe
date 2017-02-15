@@ -10,11 +10,10 @@ import sql.lang.ast.Hole;
 import sql.lang.ast.Node;
 import sql.lang.exception.SQLEvalException;
 import sql.lang.trans.ValNodeSubstBinding;
+import util.RenameTNWrapper;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by clwang on 12/16/15.
@@ -41,8 +40,21 @@ public abstract class TableNode implements Node {
 
     public abstract String prettyPrint(int indentLv, boolean asSubquery);
     public String printQuery() {
-        return this.prettyPrint(0, false) + ";";
+        String query = this.prettyPrint(0, false) + ";";
+        Set<String> generatedNames = RenameTNWrapper.findAllGeneratedNames(query)
+                .stream().collect(Collectors.toSet());
+
+        int i = 1;
+        for (String s : generatedNames) {
+            while (query.contains("t" + i))
+                i ++;
+            query = query.replace(s, "t" + i);
+            i ++;
+        }
+
+        return query;
     };
+
     public abstract List<Hole> getAllHoles();
 
     public abstract TableNode instantiate(InstantiateEnv env);

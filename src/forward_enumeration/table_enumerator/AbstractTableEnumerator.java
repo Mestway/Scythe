@@ -3,6 +3,7 @@ package forward_enumeration.table_enumerator;
 import forward_enumeration.context.EnumConfig;
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.primitive.parameterized.EnumParamTN;
+import global.GlobalConfig;
 import sql.lang.Table;
 import sql.lang.ast.table.NamedTable;
 import sql.lang.ast.table.TableNode;
@@ -19,7 +20,8 @@ public abstract class AbstractTableEnumerator {
 
     public List<TableNode> enumProgramWithIO(List<Table> input, Table output, EnumConfig c) {
 
-        System.out.println("[Initialize Enumeration]");
+        if (GlobalConfig.PRINT_LOG)
+            System.out.println("[Initialize Enumeration]");
 
         List<ValNode> vns = new ArrayList<>();
         vns.addAll(c.constValNodes());
@@ -31,7 +33,8 @@ public abstract class AbstractTableEnumerator {
                         vns,
                         c.getNumberOfParam());
 
-        System.out.println("  Parameterized Table Number: " + parameterizedTables.size());
+        if (GlobalConfig.PRINT_LOG)
+            System.out.println("  Parameterized Table Number: " + parameterizedTables.size());
 
         EnumContext ec = new EnumContext(input, c);
         ec.setParameterizedTables(parameterizedTables);
@@ -39,15 +42,18 @@ public abstract class AbstractTableEnumerator {
         if (c.containsDerivedConstants)
             ec.setConstProvidedByUser();
 
-        System.out.println("[Enumeration Start]");
+        if (GlobalConfig.PRINT_LOG)
+            System.out.println("[Enumeration Start]");
 
         List<TableNode> result = this.enumTable(ec, c.maxDepth());
 
         if (result.isEmpty()) {
-            System.out.println("[Enumeration Finished] Does not find a query in the search space.");
+            if (GlobalConfig.PRINT_LOG)
+                System.out.println("[Enumeration Finished] Does not find a query in the search space.");
         }
 
-        System.out.println("[Enumeration Finished]");
+        if (GlobalConfig.PRINT_LOG)
+            System.out.println("[Enumeration Finished]");
 
         return result;
     }

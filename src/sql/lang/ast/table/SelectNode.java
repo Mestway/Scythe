@@ -156,8 +156,9 @@ public class SelectNode extends TableNode {
             }
         }
 
-        if (selectFieldsAllSame && (this.filter instanceof EmptyFilter))
-            return IndentionManagement.addIndention(tableNode.prettyPrint(0, true), indentLv);
+        if (selectFieldsAllSame && (this.filter instanceof EmptyFilter)) {
+            return IndentionManagement.addIndention( tableNode.prettyPrint(0, true), indentLv);
+        }
 
         String result = "";
 

@@ -11,6 +11,7 @@ import sql.lang.ast.table.*;
 import sql.lang.datatype.NumberVal;
 import sql.lang.datatype.Value;
 import sql.lang.exception.SQLEvalException;
+import util.Pair;
 
 import java.util.*;
 import java.util.function.Function;
@@ -28,9 +29,11 @@ public class Synthesizer {
 
         // read file
         ExampleDS exampleDS = ExampleDS.readFromFile(exampleFilePath);
-        System.out.println("[[Synthesis start]]");
-        System.out.println("\tFile: " + exampleFilePath);
-        System.out.println("\tEnumerator: " + enumerator.getClass().getSimpleName());
+        if (GlobalConfig.PRINT_LOG) {
+            System.out.println("[[Synthesis start]]");
+            System.out.println("\tFile: " + exampleFilePath);
+            System.out.println("\tEnumerator: " + enumerator.getClass().getSimpleName());
+        }
 
         long timeUsed = 0;
         long timeStart = System.currentTimeMillis();
@@ -46,9 +49,11 @@ public class Synthesizer {
 
         int depth = 0;
         while (timeUsed < Synthesizer.TimeOut) {
-            System.out.println("[[Retry]] Trying to search for depth: " + depth);
 
-            if (depth == 2) System.out.println(output);
+            if (GlobalConfig.PRINT_LOG) {
+                System.out.println("[[Retry]] Trying to search with depth: " + depth);
+                if (depth == 2) System.out.println(output);
+            }
 
             if (depth == 0) {
                 //allow using all aggregation functions
@@ -72,7 +77,8 @@ public class Synthesizer {
                         : SynthesizerHelper.getRelatedFunctions(config.getConstValues(), inputs, output)) {
 
                     config.setAggrFunctions(funcSet);
-                    System.out.println("    [AggrFun] " + funcSet.stream()
+                    if (GlobalConfig.PRINT_LOG)
+                        System.out.println("    [AggrFun] " + funcSet.stream()
                             .map(f -> AggregationNode.FuncName(f)).reduce(String::concat));
 
                     EnumConfig tempConfig = config.deepCopy();
@@ -106,7 +112,9 @@ public class Synthesizer {
                     synthesisResult = SynthesizerHelper
                             .synthesizeWithDecomposition(inputs, output, config, enumerator, 1);
 
-                    System.out.println(" [Finished Decomposition Synthesis]");
+                    if (GlobalConfig.PRINT_LOG)
+                        System.out.println(" [Finished Decomposition Synthesis]");
+
                     candidates.addAll(SynthesizerHelper.findTopK(synthesisResult,
                             maxCandidateKeptPerStage, config.getUserProvidedConstValues()));
                     config.setMaxDepth(1);
@@ -181,7 +189,8 @@ public class Synthesizer {
             try {
                 Table t = tn.eval(new Environment());
                 System.out.println("[Query No." + (i + 1) + "]===============================");
-                System.out.println(tn.printQuery());
+                if (GlobalConfig.PRINT_LOG)
+                    System.out.println(tn.printQuery());
                 //System.out.println(t);
             } catch (SQLEvalException e) {
                 e.printStackTrace();
@@ -192,11 +201,11 @@ public class Synthesizer {
         timeUsed = System.currentTimeMillis() - timeStart;
         long second = (timeUsed / 1000) % 60;
         long minute = (timeUsed / (1000 * 60)) % 60;
-        long hour = (timeUsed / (1000 * 60 * 60)) % 24;
 
-        System.out.println("[[Synthesis Status]] " + (candidates.isEmpty()?"Failed":"Succeeded"));
-        //System.out.println("[[Synthesis Time]] " + time);
-        System.out.printf("[[Synthesis Time]] %.3fs\n", (minute*60. + second + 0.001 * (timeUsed % 1000)));
+        if (GlobalConfig.PRINT_LOG) {
+            System.out.println("[[Synthesis Status]] " + (candidates.isEmpty()?"Failed":"Succeeded"));
+            System.out.printf("[[Synthesis Time]] %.3fs\n", (minute*60. + second + 0.001 * (timeUsed % 1000)));
+        }
 
         return candidates;
     }
@@ -205,9 +214,12 @@ public class Synthesizer {
 
         // read file
         ExampleDS exampleDS = ExampleDS.readFromFile(exampleFilePath);
-        System.out.println("[[Synthesis start]]");
-        System.out.println("\tFile: " + exampleFilePath);
-        System.out.println("\tEnumerator: " + enumerator.getClass().getSimpleName());
+
+        if (GlobalConfig.PRINT_LOG) {
+            System.out.println("[[Synthesis start]]");
+            System.out.println("\tFile: " + exampleFilePath);
+            System.out.println("\tEnumerator: " + enumerator.getClass().getSimpleName());
+        }
 
         long timeUsed = 0;
         long timeStart = System.currentTimeMillis();
@@ -218,21 +230,27 @@ public class Synthesizer {
 
         List<TableNode> candidates = new ArrayList<>();
 
-        // guess constants
-        Set<NumberVal> guessedNumConstants = SynthesizerHelper.guessExtraConstants(config.getAggrFuns(), inputs);
-        config.addConstVals(guessedNumConstants.stream().collect(Collectors.toSet()));
+        if (GlobalConfig.GUESS_ADDITIONAL_CONSTANTS) {
+            // guess constants
+            Set<NumberVal> guessedNumConstants = SynthesizerHelper.guessExtraConstants(config.getAggrFuns(), inputs);
+            config.addConstVals(guessedNumConstants.stream().collect(Collectors.toSet()));
+        }
 
         int depth = 0;
         while (timeUsed < Synthesizer.TimeOut) {
-            System.out.println("[[Retry]] Depth: " + depth);
 
-            if (depth == 2)
-                System.out.println(output);
+            if (GlobalConfig.PRINT_LOG) {
+                System.out.println("[[Retry]] Depth: " + depth);
+                if (depth == 2)
+                    System.out.println(output);
+            }
 
             //##### Synthesis
             config.setMaxDepth(depth);
             candidates.addAll(enumerator.enumProgramWithIO(inputs, output, config));
             if (depth > 0 && containsDesirableCandidate(candidates, config.getUserProvidedConstValues())) break;
+
+            List<Pair<Table, Table>> lp = Table.horizontalDecompose(output);
 
             if (depth == 1) {
                 // try decompose tables
@@ -279,7 +297,8 @@ public class Synthesizer {
                 Table t = tn.eval(new Environment());
                 System.out.println("[No." + (i + 1) + "]===============================");
                 System.out.println(tn.printQuery());
-                System.out.println(t);
+                if (GlobalConfig.PRINT_LOG)
+                    System.out.println(t);
             } catch (SQLEvalException e) {
                 e.printStackTrace();
             }
@@ -296,14 +315,11 @@ public class Synthesizer {
         timeUsed = System.currentTimeMillis() - timeStart;
         long second = (timeUsed / 1000) % 60;
         long minute = (timeUsed / (1000 * 60)) % 60;
-        long hour = (timeUsed / (1000 * 60 * 60)) % 24;
-        String time = String.format("%02d:%02d:%02d:%d", hour, minute, second, timeUsed % 1000);
 
-
-        System.out.println("[[Synthesis Status]] " + (candidates.isEmpty()?"Failed":"Succeeded"));
-        //System.out.println("[[Synthesis Time]] " + time);
-        System.out.printf("[[Synthesis Time]] %.3fs\n", (minute*60. + second + 0.001 * (timeUsed % 1000)));
-
+        if (GlobalConfig.PRINT_LOG) {
+            System.out.println("[[Synthesis Status]] " + (candidates.isEmpty() ? "Failed" : "Succeeded"));
+            System.out.printf("[[Synthesis Time]] %.3fs\n", (minute * 60. + second + 0.001 * (timeUsed % 1000)));
+        }
         return candidates;
     }
 

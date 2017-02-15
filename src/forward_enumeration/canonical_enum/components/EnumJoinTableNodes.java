@@ -29,6 +29,11 @@ public class EnumJoinTableNodes {
 
         for (TableNode ti : left) {
             for (TableNode tj : right) {
+
+                if (ti.getTableName() == tj.getTableName()) {
+                    tj = RenameTNWrapper.tryRename(tj);
+                }
+
                 List<TableNode> tns = Arrays.asList(ti, tj);
                 JoinNode jn = new JoinNode(tns);
                 RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(jn);

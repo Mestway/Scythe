@@ -109,6 +109,9 @@ public class RenameTableNode extends TableNode {
             result = "(Select " + selectString + "\r\n" + "From "
                     + tableNode.prettyPrint(1, true).trim() + ") As " + this.newTableName;
         }
+
+        if (asSubquery)
+            return IndentionManagement.addIndention(result, indentLv);
         return IndentionManagement.addIndention(result, indentLv);
     }
 

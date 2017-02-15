@@ -190,11 +190,25 @@ public class BVFilterCompTree {
                 }
                 return result;
 
-            } else if (((CompoundSummaryTable) symTable).compositionType.equals(CompoundSummaryTable.CompositionType.join)) {
+            } else if (((CompoundSummaryTable) symTable).compositionType
+                    .equals(CompoundSummaryTable.CompositionType.join)) {
 
                 for (List<TableNode> subQueries : rotated) {
 
-                    JoinNode jn = new JoinNode(subQueries);
+                    List<String> usedTableNames = new ArrayList<>();
+                    List<TableNode> renamedSubQueries = new ArrayList<>();
+                    for (TableNode tn : subQueries) {
+                        if (usedTableNames.contains(tn.getTableName())) {
+                            TableNode rt = RenameTNWrapper.tryRename(tn);
+                            usedTableNames.add(rt.getTableName());
+                            renamedSubQueries.add(rt);
+                        } else {
+                            usedTableNames.add(tn.getTableName());
+                            renamedSubQueries.add(tn);
+                        }
+                    }
+
+                    JoinNode jn = new JoinNode(renamedSubQueries);
                     RenameTableNode coreTableNode = (RenameTableNode) RenameTNWrapper.tryRename(jn);
 
                     // Then we concrete the LR filter on this table
@@ -211,10 +225,13 @@ public class BVFilterCompTree {
 
                         Statistics.sumLRFilterCount += ((CompoundSummaryTable) symTable).decodeLR(sf).size();
                         Statistics.cntLRFilterCount ++;
-                        Statistics.maxLRFilterCount = Statistics.maxLRFilterCount > ((CompoundSummaryTable) symTable).decodeLR(sf).size() ?  Statistics.maxLRFilterCount : ((CompoundSummaryTable) symTable).decodeLR(sf).size();
+                        Statistics.maxLRFilterCount = Statistics.maxLRFilterCount
+                                > ((CompoundSummaryTable) symTable).decodeLR(sf).size() ?
+                                Statistics.maxLRFilterCount : ((CompoundSummaryTable) symTable).decodeLR(sf).size();
 
                         for (Filter f : ((CompoundSummaryTable) symTable).decodeLR(sf)) {
-                            double cost = CostEstimator.estimateFilterCost(f, TableNode.nameToOriginMap(rt.getSchema(), rt.originalColumnName()));
+                            double cost = CostEstimator.estimateFilterCost(f,
+                                    TableNode.nameToOriginMap(rt.getSchema(), rt.originalColumnName()));
                             if (cost < minCost) {
                                 candidate = f;
                                 minCost = cost;

@@ -44,13 +44,16 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         // build symbolic table for each input table, and store them in SymTables
         List<AbstractSummaryTable> inputSummary = EnumerationModules.enumFromInputTables(ec, true);
         summaryTables.addAll(inputSummary);
-        System.out.println("[Basic]: " + candidateCollector.getMemoizedTables().size()
+
+        if (GlobalConfig.PRINT_LOG)
+            System.out.println("[Basic]: " + candidateCollector.getMemoizedTables().size()
                 + " [SymTableForInputs]: Intermediate: " + inputSummary.size());
 
         //##### Synthesize AGGR
         List<AbstractSummaryTable> aggrSummary = EnumerationModules.enumAggregation(inputSummary, ec);
         summaryTables.addAll(aggrSummary);
-        System.out.println("[Aggregation]: " + aggrSummary.size() + " [SymTable]: " + summaryTables.size());
+        if (GlobalConfig.PRINT_LOG)
+            System.out.println("[Aggregation]: " + aggrSummary.size() + " [SymTable]: " + summaryTables.size());
 
         // only contains symbolic table generated from last stage
         //  (here includes those from aggr and input)
@@ -69,7 +72,8 @@ public class StagedEnumerator extends AbstractTableEnumerator {
 
             if (GlobalConfig.TRY_NATURAL_JOIN && inputSummary.size() > 1) {
                 // try join all tables and infer whether the output table can be obtained in this way
-                System.out.println("[NaturalJoin]: " + 1 + " [SymTable]: " + summaryTables.size());
+                if (GlobalConfig.PRINT_LOG)
+                    System.out.println("[NaturalJoin]: " + 1 + " [SymTable]: " + summaryTables.size());
                 tryEvalToOutput(naturalJoinResult, ec, candidateCollector);
             }
             return decodingToQueries(candidateCollector, ec);
@@ -84,7 +88,8 @@ public class StagedEnumerator extends AbstractTableEnumerator {
             summaryTables.addAll(joinSummary);
             stFromLastStage = joinSummary;
 
-            System.out.println("[JOIN] level " + i + " [SymTable]: " + summaryTables.size());
+            if (GlobalConfig.PRINT_LOG)
+                System.out.println("[JOIN] level " + i + " [SymTable]: " + summaryTables.size());
         }
         // only try eval the queries at this depth
         if (!stFromLastStage.equals(basicAndAggr))
@@ -100,7 +105,8 @@ public class StagedEnumerator extends AbstractTableEnumerator {
             unionSummary = EnumerationModules.enumUnion(stFromLastStage, inputSummary);
             summaryTables.addAll(unionSummary);
             stFromLastStage = unionSummary;
-            System.out.println("[UNION] level " + i + " [SymTable]: " + summaryTables.size());
+            if (GlobalConfig.PRINT_LOG)
+                System.out.println("[UNION] level " + i + " [SymTable]: " + summaryTables.size());
         }
         if (!stFromLastStage.equals(inputSummary))
             tryEvalToOutput(stFromLastStage, ec, candidateCollector);
@@ -119,7 +125,8 @@ public class StagedEnumerator extends AbstractTableEnumerator {
 
             summaryTables.addAll(stFromLastStage);
 
-            System.out.println("[EnumLeftJoin] level " + i + " [SymTable]: " + summaryTables.size());
+            if (GlobalConfig.PRINT_LOG)
+                System.out.println("[EnumLeftJoin] level " + i + " [SymTable]: " + summaryTables.size());
         }
         if (!stFromLastStage.equals(inputSummary)) {
             tryEvalToOutput(stFromLastStage, ec, candidateCollector);
@@ -141,7 +148,8 @@ public class StagedEnumerator extends AbstractTableEnumerator {
             stFromLastStage = leftJoinSummary;
 
             summaryTables.addAll(stFromLastStage);
-            System.out.println("[EnumLeftJoinWAggr] level " + i + " [SymTable]: " + summaryTables.size());
+            if (GlobalConfig.PRINT_LOG)
+                System.out.println("[EnumLeftJoinWAggr] level " + i + " [SymTable]: " + summaryTables.size());
 
         }
         if (! stFromLastStage.equals(aggrSummary)) {
@@ -176,7 +184,8 @@ public class StagedEnumerator extends AbstractTableEnumerator {
                 tryEvalToOutput(aggrOnJoinSummary, ec, candidateCollector);
             }
 
-            System.out.println("[EnumAggrOnJoin] " + " [SymTable]: " + summaryTables.size());
+            if (GlobalConfig.PRINT_LOG)
+                System.out.println("[EnumAggrOnJoin] " + " [SymTable]: " + summaryTables.size());
 
             if (candidateCollector.getAllCandidates().size() > 0) {
                 return decodingToQueries(candidateCollector, ec);
@@ -190,7 +199,8 @@ public class StagedEnumerator extends AbstractTableEnumerator {
             List<AbstractSummaryTable> tmp = EnumerationModules.enumJoin(stFromLastStage, basicAndAggr);
             summaryTables.addAll(tmp);
             stFromLastStage = tmp;
-            System.out.println("[EnumJoinOnAggr] level " + i + " [SymTable]: " + summaryTables.size());
+            if (GlobalConfig.PRINT_LOG)
+                System.out.println("[EnumJoinOnAggr] level " + i + " [SymTable]: " + summaryTables.size());
         }
         if (!stFromLastStage.equals(basicAndAggr)) {
             tryEvalToOutput(stFromLastStage, ec, candidateCollector);
@@ -205,7 +215,8 @@ public class StagedEnumerator extends AbstractTableEnumerator {
             List<AbstractSummaryTable> tmp = EnumerationModules.enumJoin(aggrAggrSummary, basicAndAggr);
             aggrAggrSummary = tmp;
             summaryTables.addAll(tmp);
-            System.out.println("[EnumAggrOnAggr Then Join] level " + i + " [SymTable]: " + summaryTables.size());
+            if (GlobalConfig.PRINT_LOG)
+                System.out.println("[EnumAggrOnAggr Then Join] level " + i + " [SymTable]: " + summaryTables.size());
         }
         if (depth > 1) tryEvalToOutput(aggrAggrSummary, ec, candidateCollector);
 
@@ -396,9 +407,11 @@ public class StagedEnumerator extends AbstractTableEnumerator {
                 tables.add(st.getBaseTable());
             }
 
-            System.out.println("[Total Number of Intermediate] " + tables.size());
-            System.out.println("[SumTableSize] " + tables.stream()
-                    .map(st -> st.getContent().size() * st.getContent().get(0).getValues().size()).reduce(Integer::sum).get());
+            if (GlobalConfig.PRINT_LOG) {
+                System.out.println("[Total Number of Intermediate] " + tables.size());
+                System.out.println("[SumTableSize] " + tables.stream()
+                        .map(st -> st.getContent().size() * st.getContent().get(0).getValues().size()).reduce(Integer::sum).get());
+            }
         }
 
         List<TableNode> decodeResult = new ArrayList<>();
@@ -421,7 +434,8 @@ public class StagedEnumerator extends AbstractTableEnumerator {
             }
         }
 
-        System.out.println("Candidate Tree Number: " + candidateTrees.size());
+        if (GlobalConfig.PRINT_LOG)
+            System.out.println("Candidate Tree Number: " + candidateTrees.size());
 
         List<TableNode> treeDecodeResult = new ArrayList<>();
         for (BVFilterCompTree t : candidateTrees) {

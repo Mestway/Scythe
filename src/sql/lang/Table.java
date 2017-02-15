@@ -466,4 +466,40 @@ public class Table {
         }).collect(Collectors.toList());
     }
 
+    public static List<Pair<Table, Table>> horizontalDecompose(Table t) {
+        if (t.schema.size() < 3)
+            return new ArrayList<>();
+
+        Table t1 = t.duplicate();
+        t1.schema = t1.schema.subList(0, 2);
+        for (TableRow tr : t1.getContent()) {
+            tr.fieldNames = tr.fieldNames.subList(0, 2);
+            tr.values = tr.values.subList(0, 2);
+        }
+
+        Table t2 = t.duplicate();
+
+        List<Integer> newIndexes = new ArrayList<>();
+        newIndexes.add(0);
+        for (int i = 2; i < t2.schema.size(); i ++)
+            newIndexes.add(i);
+
+        t2.schema = getSublistByIndexes(t2.schema, newIndexes);
+        for (TableRow tr : t2.getContent()) {
+            tr.fieldNames = getSublistByIndexes(tr.fieldNames, newIndexes);
+            tr.values = getSublistByIndexes(tr.values, newIndexes);
+        }
+
+        List<Pair<Table, Table>> result = new ArrayList<>();
+        result.add(new Pair<>(t1, t2));
+        return result;
+    }
+
+    private static <T> List<T> getSublistByIndexes(List<T> list, List<Integer> newIndexes) {
+        List<T> result = new ArrayList<T>();
+        for (int i : newIndexes) {
+            result.add(list.get(i));
+        }
+        return result;
+    }
 }

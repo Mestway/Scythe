@@ -43,30 +43,17 @@ public abstract class AbstractSummaryTable {
     // For each one, a tree will be generated and the tree represent how the symbolic is built from ground.
     abstract public Map<BVFilter, List<BVFilterCompTree>> batchGenDecomposition(Set<BVFilter> targets);
 
-    // abstract public Pair<Set<SymbolicFilter>, FilterLinks> lastStageInstantiateAllFilters(Set<SymbolicFilter> targetFilters);
-
     // the function that encodes primitive filters into bit vector filters
     // encoded filters are stored in the summary tables
     abstract void encodePrimitiveFilters(EnumContext ec);
 
-    public void emitInstantiateAllTables(
-            EnumContext ec,
-            BiConsumer<AbstractSummaryTable, BVFilter> f) {
-
-        this.encodePrimitiveFilters(ec);
-
-        Set<BVFilter> filters = this.instantiateAllFilters();
-
-        for (BVFilter spf : filters) {
-            f.accept(this, spf);
-        }
-    }
-
+    // visit all tables in the current context
     public abstract void emitFinalVisitAllTables(
             MappingInference mi,
             EnumContext ec,
             BiConsumer<AbstractSummaryTable, BVFilter> f);
 
+    // generate all tables that can be instantiated from the given abstract table
     public List<Table> instantiateAllTables(EnumContext ec) {
         this.encodePrimitiveFilters(ec);
 
@@ -121,9 +108,7 @@ public abstract class AbstractSummaryTable {
 
         for (int i = 0; i < primitives.size(); i ++) {
             for (int j = i + 1; j < primitives.size(); j ++) {
-                BVFilter mergedFilter = BVFilter.mergeFilterConj(
-                        primitives.get(i),
-                        primitives.get(j));
+                BVFilter mergedFilter = BVFilter.mergeFilterConj(primitives.get(i), primitives.get(j));
                 filters.add(mergedFilter);
             }
         }
@@ -140,28 +125,13 @@ public abstract class AbstractSummaryTable {
         Set<BVFilter> filters = new HashSet<>();
         for (int i = 0; i < primitives.size(); i ++) {
             for (int j = i + 1; j < primitives.size(); j ++) {
-                BVFilter mergedFilter = BVFilter.mergeFilterDisj(
-                        primitives.get(i),
-                        primitives.get(j));
+                BVFilter mergedFilter = BVFilter.mergeFilterDisj(primitives.get(i), primitives.get(j));
                 filters.add(mergedFilter);
             }
         }
         // this is used to make sure that the empty filter is added
         filters.add(BVFilter.genSymbolicFilter(ast.getBaseTable(), new EmptyFilter()));
         return filters;
-    }
-
-    // index = sum_{k=1}^{i} (n-k) + (j-i)
-    // TODO: use a formula to simplify this
-    protected Pair<Integer, Integer> inverseFilterIndex(int n, int index) {
-        for (int i = 0; i < n; i ++) {
-            for (int j = i + 1; j < n; j ++) {
-                int ind =  n * i - i * (i + 1) / 2 + (j - i) - 1;
-                if (ind == index)
-                    return new Pair<>(i, j);
-            }
-        }
-        return new Pair<>(-1, -1);
     }
 
     // checks whether sf contains at least one filter in the target.
@@ -179,16 +149,6 @@ public abstract class AbstractSummaryTable {
             BVFilter sf, List<List<Set<Integer>>> target) {
         for (List<Set<Integer>> t : target) {
             if (sf.rangeFullyContained(t)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    // checks whether sf is contained by at least one filter in the target.
-    protected boolean fullyContainedByAnElement(
-            BVFilter sf, Set<BVFilter> target) {
-        for (BVFilter f : target) {
-            if (f.fullyContained(sf)) {
                 return true;
             }
         }
