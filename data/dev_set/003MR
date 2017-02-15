@@ -48,7 +48,7 @@ SELECT MIN(x.id),
             FROM PURCHASES p
         GROUP BY p.customer) y ON y.customer = x.customer
                               AND y.max_total = x.total
-GROUP BY x.customer, x.total
+GROUP BY x.customer, x.total;
 
 Select *
 From (SELECT p.customer, p.total, MIN(p.id) AS min_id
@@ -57,6 +57,6 @@ From (SELECT p.customer, p.total, MIN(p.id) AS min_id
 JOIN (SELECT p.customer, MAX(total) AS max_total
 			 FROM PURCHASES p
 			 GROUP BY p.customer) y 
-ON y.customer = x.customer AND y.max_total = x.total
+ON y.customer = x.customer AND y.max_total = x.total;
 
 

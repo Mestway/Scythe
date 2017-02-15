@@ -84,25 +84,34 @@ public class RenameTableNode extends TableNode {
     }
 
     @Override
-    public String prettyPrint(int indentLv) {
-        String result = "(" + tableNode.prettyPrint(1).trim() + ") AS ";
-        String newSchema = this.newTableName;
+    public String prettyPrint(int indentLv, boolean asSubquery) {
 
-        String fieldString = "[";
-        boolean flag = true;
-        for (String s : this.newFieldNames) {
-            if(flag == true) {
-                fieldString += s;
-                flag = false;
-            } else
-                fieldString += ", " + s;
+        String selectString = "";
+        boolean allOldName = true;
+        for (int i = 0; i < tableNode.getSchema().size(); i ++) {
+            String oldSchemaEntry =  tableNode.getSchema().get(i);
+            String newSchemaEntry = this.newFieldNames.get(i);
+            if (i != 0)
+                selectString += ", ";
+            String oldShortName = oldSchemaEntry.substring(oldSchemaEntry.lastIndexOf(".") + 1);
+            if (oldShortName.equals(newSchemaEntry))
+                selectString += oldSchemaEntry;
+            else {
+                selectString += oldSchemaEntry + " As " + newSchemaEntry;
+                allOldName = false;
+            }
         }
-        fieldString += "]";
 
-        if (this.renameFields == true)
-            newSchema += fieldString;
+        String result = "";
+        if (allOldName) {
+            result = tableNode.prettyPrint(1, true).trim() + " As " + this.newTableName;
+        } else {
+            result = "(Select " + selectString + "\r\n" + "From "
+                    + tableNode.prettyPrint(1, true).trim() + ") As " + this.newTableName;
+        }
 
-        result = result + newSchema;
+        if (asSubquery)
+            return IndentionManagement.addIndention(result, indentLv);
         return IndentionManagement.addIndention(result, indentLv);
     }
 

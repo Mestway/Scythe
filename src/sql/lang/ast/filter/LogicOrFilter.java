@@ -44,7 +44,7 @@ public class LogicOrFilter implements Filter {
         if (f1 instanceof EmptyFilter || f2 instanceof EmptyFilter) {
             return IndentionManagement.addIndention("True", indentLv);
         }
-        String result = f1.prettyPrint(0) + "\r\n OR " + f2.prettyPrint(0);
+        String result = f1.prettyPrint(0) + "\r\n Or " + f2.prettyPrint(0);
         return IndentionManagement.addIndention(result, indentLv);
     }
 

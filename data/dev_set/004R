@@ -33,8 +33,7 @@ FROM messages m1 LEFT JOIN messages m2
  ON (m1.name = m2.name AND m1.id < m2.id)
 WHERE m2.id IS NULL;
 
-select
-    a.*
+select a.*
 from messages a
 inner join
 (select name, max(id) as maxid

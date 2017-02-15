@@ -30,3 +30,10 @@
 SELECT T1.* FROM CI_BILL T1
 WHERE ALT_BILL_ID IN (SELECT MAX(ALT_BILL_ID)
 FROM CI_BILL T2 GROUP BY T2.ACCT_ID);
+
+Select T1.*
+From CI_BILL T1
+Join (Select acct_id, Bill_dt, Max(alt_bill_id) As Max_alt_bill_id
+      From CI_BILL
+      Group By acct_id, Bill_dt) T2
+Where T1.acct_id = T2.acct_id And T1.alt_bill_id = T2.Max_alt_bill_id;

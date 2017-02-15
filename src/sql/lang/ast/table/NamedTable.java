@@ -50,10 +50,9 @@ public class NamedTable extends TableNode {
     }
 
     @Override
-    public String prettyPrint(int indentLv) {
+    public String prettyPrint(int indentLv, boolean asSubquery) {
         return IndentionManagement.addIndention(this.getTableName(), indentLv);
     }
-
     @Override
     public List<Hole> getAllHoles() {
         return new ArrayList<>();

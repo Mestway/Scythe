@@ -142,25 +142,27 @@ public class SelectNode extends TableNode {
     }
 
     @Override
-    public String prettyPrint(int indentLv) {
+    public String prettyPrint(int indentLv, boolean asSubquery) {
 
-
-        if (tableNode.getSchema().size() == columns.size() && (this.filter instanceof EmptyFilter)) {
-            boolean allSame = true;
+        // determine if it is select all
+        boolean selectFieldsAllSame = false;
+        if (tableNode.getSchema().size() == columns.size()) {
+            selectFieldsAllSame = true;
             for (int i = 0; i < tableNode.getSchema().size(); i ++) {
                 if (! tableNode.getSchema().get(i).equals(columns.get(i).prettyPrint(0))) {
-                    allSame = false;
+                    selectFieldsAllSame = false;
                     break;
                 }
             }
+        }
 
-            if (allSame)
-                return IndentionManagement.addIndention(tableNode.prettyPrint(0), indentLv);
+        if (selectFieldsAllSame && (this.filter instanceof EmptyFilter)) {
+            return IndentionManagement.addIndention( tableNode.prettyPrint(0, true), indentLv);
         }
 
         String result = "";
 
-        result += "SELECT\r\n";
+        result += "Select ";
 
         String selectArg = "";
 
@@ -173,17 +175,23 @@ public class SelectNode extends TableNode {
                 selectArg += "," + s.prettyPrint(0);
         }
 
-        result += IndentionManagement.basicIndent() + selectArg + "\r\n";
+        if (selectFieldsAllSame)
+            result += "*\r\n";
+        else
+            result += selectArg + "\r\n";
 
-        result += "FROM\r\n";
+        result += " From\r\n";
 
-        result += tableNode.prettyPrint(1);
+        result += tableNode.prettyPrint(1, true);
 
         result += "\r\n";
         if (! (this.filter instanceof EmptyFilter)) {
-            result += "WHERE\r\n";
-            result += filter.prettyPrint(1);
+            result += " Where ";
+            result += filter.prettyPrint(1).trim();
         }
+
+        if (asSubquery)
+            result = "(" + result + ")";
         return IndentionManagement.addIndention(result, indentLv);
     }
 

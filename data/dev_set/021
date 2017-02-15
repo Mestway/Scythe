@@ -35,4 +35,9 @@ INNER JOIN
 FROM Customers
 GROUP BY email
 HAVING COUNT(shop) > 1) b
-ON a.email = b.email
+ON a.email = b.email;
+
+Select Customer, Count(ZIP) As Count_ZIP
+From Customers
+Group By Customer, email
+Having Count_ZIP > 1.0;

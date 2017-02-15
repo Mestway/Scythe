@@ -45,7 +45,7 @@ public class LogicAndFilter implements Filter {
         else if (f2 instanceof EmptyFilter)
             return IndentionManagement.addIndention(f1.prettyPrint(0), indentLv);
         else {
-            String result = f1.prettyPrint(0) + "\r\n AND " + f2.prettyPrint(0);
+            String result = f1.prettyPrint(0) + "\r\n And " + f2.prettyPrint(0);
             return IndentionManagement.addIndention(result, indentLv);
         }
     }

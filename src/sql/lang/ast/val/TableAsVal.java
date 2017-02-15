@@ -58,7 +58,7 @@ public class TableAsVal implements ValNode {
 
     @Override
     public String prettyPrint(int lv) {
-        String result = "(\r\n" + this.tableNode.prettyPrint(0) + ") AS " + this.name;
+        String result = "(\r\n" + this.tableNode.prettyPrint(0, false) + ") AS " + this.name;
         return IndentionManagement.addIndention(result, lv);
     }
 

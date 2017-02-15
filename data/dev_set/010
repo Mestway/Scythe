@@ -26,14 +26,11 @@
 select t1.id,t1.country,t1.status
 from table t1
 join table t2 on t1.country=t2.country and t2.status='UNTREATED'
-where t1.status='TREATED'
-
+where t1.status='TREATED';
 
 select id,country,status
 from table t1
 where t1.status='TREATED' and
-     exists (
-          select 1 from table t2 where 
+     exists (select 1 from table t2 where
                t2.country = t1.country and 
-               t2.status = 'UNTREATED'
-     )
+               t2.status = 'UNTREATED');
