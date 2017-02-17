@@ -1,0 +1,43 @@
+//http://stackoverflow.com/questions/39421932/how-to-get-a-most-people-select-between-2-table
+
+# input
+
+| id_food  | description     | cost |
+|-----------------------------------|
+| 1        | COCKTAIL MENU   | 8    |
+| 2        | CORPORATE MENU  | 10   |
+| 3        | high tea menu   | 12   |
+
+#input
+
+| suburb | client   | fk_food |
+|-----------------------------|
+| 6000   | "2"      |  2      |
+| 6052   | "3"      |  2      |
+| 5328   | "3"      |  3      |
+
+#output
+
+| item  |
+|-------|
+| 2     |
+
+# constraint
+{
+	"constants": [],
+	"aggregation_functions": ["count", "max"]
+}
+
+#solution
+
+select *
+(select max(cnt) mxcnt
+ from (select fk_food, count(*) cnt
+       from t2
+       group by fk_food)
+ group by fk_food) x
+join 
+(select fk_food, count(*) cnt
+  from t2
+  group by fk_food) y
+on x.mxcnt = y.cnt

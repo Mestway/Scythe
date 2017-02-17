@@ -1,6 +1,6 @@
 package main;
 
-import entity.ExampleDS;
+import scythe_interface.ExampleDS;
 import org.junit.Test;
 
 import java.io.File;

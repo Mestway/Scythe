@@ -1,0 +1,36 @@
+//http://stackoverflow.com/questions/33027549/sql-max-only-returns-1-row-if-column-has-several-max-values
+
+# input
+
+
+    |  a  | b |
+    |---------|
+    | ALA | 2 |
+    | ASP | 1 |
+    | SER | 1 |
+    | VAL | 2 |
+
+
+# output
+
+
+    |  a  | max(b) |
+    |--------------|
+    | ALA |   2    |
+    | VAL |   2    |
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["max"]
+}
+
+#solution
+
+SELECT *
+FROM YourTable Y
+INNER JOIN (
+       SELECT Max(b) mB
+       FROM YourTable
+       ) M
+On Y.b = M.mb

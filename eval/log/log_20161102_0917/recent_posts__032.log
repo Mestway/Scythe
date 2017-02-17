@@ -1,0 +1,499 @@
+[[Synthesis start]]
+	File: ../data/recent_posts/032
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 466 [SymTable]: 467
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 13 [SymTable]: 14
+[JOIN] level 1 [SymTable]: 28
+Candidate Tree Number: 30
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 60 [SymTable]: 61
+[JOIN] level 1 [SymTable]: 122
+Candidate Tree Number: 155
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 60 [SymTable]: 61
+[JOIN] level 1 [SymTable]: 122
+Candidate Tree Number: 175
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 60 [SymTable]: 61
+[JOIN] level 1 [SymTable]: 122
+Candidate Tree Number: 150
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 107 [SymTable]: 108
+[JOIN] level 1 [SymTable]: 216
+Candidate Tree Number: 300
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 136 [SymTable]: 137
+[JOIN] level 1 [SymTable]: 274
+Candidate Tree Number: 615
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T5666].crit1,[T5666].crit2,[T5666].value
+FROM
+  (( (SELECT
+          AVG([T5660].Id)
+        FROM
+          (SELECT
+              input1.Id,input1.crit1,input1.crit2,input1.value
+            FROM
+              input1
+            WHERE
+              input1.Id == input1.crit2) AS [T5660][Id, crit1, crit2, value]) AS [T5661][AVG-Id] ) JOIN (
+      input1 )) AS [T5666][AVG-Id, Id, crit1, crit2, value]
+WHERE
+  [T5666].AVG-Id < [T5666].Id
+@anonymous
+[T5666].crit1(NumberVal) | [T5666].crit2(NumberVal) | [T5666].value(StringVal) 
+11.0 | 3.0 | c 
+11.0 | 1.0 | d 
+21.0 | 2.0 | e 
+11.0 | 2.0 | f 
+
+[No.19]===============================
+SELECT
+  [T5486].crit1,[T5486].crit2,[T5486].value
+FROM
+  (( (SELECT
+          [T5476].crit1, AVG([T5476].crit2)
+        FROM
+          (input1) AS [T5476][Id, crit1, crit2, value]
+        GROUP BY
+          [T5476].crit1) AS [T5477][crit1, AVG-crit2] ) JOIN (
+      input1 )) AS [T5486][crit1, AVG-crit2, Id, crit11, crit2, value]
+WHERE
+  [T5486].crit1 == [T5486].crit11
+   AND [T5486].AVG-crit2 < [T5486].Id
+@anonymous
+[T5486].crit1(NumberVal) | [T5486].crit2(NumberVal) | [T5486].value(StringVal) 
+11.0 | 3.0 | c 
+11.0 | 1.0 | d 
+11.0 | 2.0 | f 
+21.0 | 2.0 | e 
+
+[No.18]===============================
+SELECT
+  [T5258].crit1,[T5258].crit21,[T5258].value
+FROM
+  (( SELECT
+        [T5249].crit2,[T5249].AVG-Id
+      FROM
+        (SELECT
+            [T5248].crit2, AVG([T5248].Id)
+          FROM
+            (input1) AS [T5248][Id, crit1, crit2, value]
+          GROUP BY
+            [T5248].crit2) AS [T5249][crit2, AVG-Id]
+      WHERE
+        [T5249].AVG-Id == [T5249].crit2 ) JOIN (
+      input1 )) AS [T5258][crit2, AVG-Id, Id, crit1, crit21, value]
+WHERE
+  [T5258].AVG-Id <= [T5258].Id
+@anonymous
+[T5258].crit1(NumberVal) | [T5258].crit21(NumberVal) | [T5258].value(StringVal) 
+11.0 | 3.0 | c 
+11.0 | 1.0 | d 
+21.0 | 2.0 | e 
+11.0 | 2.0 | f 
+
+[No.17]===============================
+SELECT
+  [T5186].crit1,[T5186].crit2,[T5186].value
+FROM
+  (( (SELECT
+          [T5176].crit2, AVG([T5176].Id)
+        FROM
+          (input1) AS [T5176][Id, crit1, crit2, value]
+        GROUP BY
+          [T5176].crit2) AS [T5177][crit2, AVG-Id] ) JOIN (
+      input1 )) AS [T5186][crit2, AVG-Id, Id, crit1, crit21, value]
+WHERE
+  [T5186].AVG-Id <= [T5186].Id
+   AND [T5186].crit2 == [T5186].crit21
+@anonymous
+[T5186].crit1(NumberVal) | [T5186].crit2(NumberVal) | [T5186].value(StringVal) 
+21.0 | 2.0 | e 
+11.0 | 2.0 | f 
+11.0 | 3.0 | c 
+11.0 | 1.0 | d 
+
+[No.16]===============================
+SELECT
+  [T3685].crit1,[T3685].crit21,[T3685].value
+FROM
+  (( SELECT
+        [T3676].crit2,[T3676].MIN-Id
+      FROM
+        (SELECT
+            [T3675].crit2, MIN([T3675].Id)
+          FROM
+            (input1) AS [T3675][Id, crit1, crit2, value]
+          GROUP BY
+            [T3675].crit2) AS [T3676][crit2, MIN-Id]
+      WHERE
+        [T3676].MIN-Id == [T3676].crit2 ) JOIN (
+      input1 )) AS [T3685][crit2, MIN-Id, Id, crit1, crit21, value]
+WHERE
+  [T3685].crit2 <= [T3685].Id
+@anonymous
+[T3685].crit1(NumberVal) | [T3685].crit21(NumberVal) | [T3685].value(StringVal) 
+11.0 | 3.0 | c 
+11.0 | 1.0 | d 
+21.0 | 2.0 | e 
+11.0 | 2.0 | f 
+
+[No.15]===============================
+SELECT
+  [T4105].crit1,[T4105].crit2,[T4105].value
+FROM
+  (( (SELECT
+          [T4095].crit1, MIN([T4095].crit2)
+        FROM
+          (input1) AS [T4095][Id, crit1, crit2, value]
+        GROUP BY
+          [T4095].crit1) AS [T4096][crit1, MIN-crit2] ) JOIN (
+      input1 )) AS [T4105][crit1, MIN-crit2, Id, crit11, crit2, value]
+WHERE
+  [T4105].crit1 == [T4105].crit11
+   AND [T4105].MIN-crit2 <> [T4105].Id
+@anonymous
+[T4105].crit1(NumberVal) | [T4105].crit2(NumberVal) | [T4105].value(StringVal) 
+11.0 | 3.0 | c 
+11.0 | 1.0 | d 
+11.0 | 2.0 | f 
+21.0 | 2.0 | e 
+
+[No.14]===============================
+SELECT
+  [T2425].crit1,[T2425].crit2,[T2425].value
+FROM
+  (( (SELECT
+          [T2415].crit1, MIN([T2415].Id)
+        FROM
+          (input1) AS [T2415][Id, crit1, crit2, value]
+        GROUP BY
+          [T2415].crit1) AS [T2416][crit1, MIN-Id] ) JOIN (
+      input1 )) AS [T2425][crit1, MIN-Id, Id, crit11, crit2, value]
+WHERE
+  [T2425].crit1 == [T2425].crit11
+   AND [T2425].MIN-Id <> [T2425].Id
+@anonymous
+[T2425].crit1(NumberVal) | [T2425].crit2(NumberVal) | [T2425].value(StringVal) 
+11.0 | 3.0 | c 
+11.0 | 1.0 | d 
+11.0 | 2.0 | f 
+21.0 | 2.0 | e 
+
+[No.13]===============================
+SELECT
+  [T1704].crit11,[T1704].crit21,[T1704].value
+FROM
+  (( SELECT
+        [T1695].crit1,[T1695].crit2,[T1695].MAX-Id
+      FROM
+        (SELECT
+            [T1694].crit1, [T1694].crit2, MAX([T1694].Id)
+          FROM
+            (input1) AS [T1694][Id, crit1, crit2, value]
+          GROUP BY
+            [T1694].crit1  [T1694].crit2) AS [T1695][crit1, crit2, MAX-Id]
+      WHERE
+        [T1695].MAX-Id == [T1695].crit2 ) JOIN (
+      input1 )) AS [T1704][crit1, crit2, MAX-Id, Id, crit11, crit21, value]
+WHERE
+  [T1704].crit2 <= [T1704].Id
+@anonymous
+[T1704].crit11(NumberVal) | [T1704].crit21(NumberVal) | [T1704].value(StringVal) 
+11.0 | 3.0 | c 
+11.0 | 1.0 | d 
+21.0 | 2.0 | e 
+11.0 | 2.0 | f 
+
+[No.12]===============================
+SELECT
+  [T744].crit1,[T744].crit21,[T744].value
+FROM
+  (( SELECT
+        [T735].crit2,[T735].MAX-Id
+      FROM
+        (SELECT
+            [T734].crit2, MAX([T734].Id)
+          FROM
+            (input1) AS [T734][Id, crit1, crit2, value]
+          GROUP BY
+            [T734].crit2) AS [T735][crit2, MAX-Id]
+      WHERE
+        [T735].MAX-Id == [T735].crit2 ) JOIN (
+      input1 )) AS [T744][crit2, MAX-Id, Id, crit1, crit21, value]
+WHERE
+  [T744].crit2 <= [T744].Id
+@anonymous
+[T744].crit1(NumberVal) | [T744].crit21(NumberVal) | [T744].value(StringVal) 
+11.0 | 3.0 | c 
+11.0 | 1.0 | d 
+21.0 | 2.0 | e 
+11.0 | 2.0 | f 
+
+[No.11]===============================
+SELECT
+  [T1884].crit1,[T1884].crit2,[T1884].value
+FROM
+  (( (SELECT
+          [T1880].crit1, [T1880].crit2, MAX([T1880].Id)
+        FROM
+          (SELECT
+              input1.Id,input1.crit1,input1.crit2,input1.value
+            FROM
+              input1
+            WHERE
+              input1.Id >= input1.crit2) AS [T1880][Id, crit1, crit2, value]
+        GROUP BY
+          [T1880].crit1  [T1880].crit2) AS [T1881][crit1, crit2, MAX-Id] ) JOIN (
+      input1 )) AS [T1884][crit1, crit2, MAX-Id, Id, crit11, crit21, value]
+WHERE
+  [T1884].MAX-Id == [T1884].Id
+@anonymous
+[T1884].crit1(NumberVal) | [T1884].crit2(NumberVal) | [T1884].value(StringVal) 
+21.0 | 2.0 | e 
+11.0 | 3.0 | c 
+11.0 | 1.0 | d 
+11.0 | 2.0 | f 
+
+[No.10]===============================
+SELECT
+  [T4826].crit1,[T4826].crit2,[T4826].value
+FROM
+  (( (SELECT
+          AVG([T4816].crit2)
+        FROM
+          (input1) AS [T4816][Id, crit1, crit2, value]) AS [T4817][AVG-crit2] ) JOIN (
+      input1 )) AS [T4826][AVG-crit2, Id, crit1, crit2, value]
+WHERE
+  [T4826].AVG-crit2 < [T4826].Id
+@anonymous
+[T4826].crit1(NumberVal) | [T4826].crit2(NumberVal) | [T4826].value(StringVal) 
+11.0 | 3.0 | c 
+11.0 | 1.0 | d 
+21.0 | 2.0 | e 
+11.0 | 2.0 | f 
+
+[No.9]===============================
+SELECT
+  [T13810].crit1,[T13810].crit2,[T13810].value
+FROM
+  (( (SELECT
+          [T13800].crit1, [T13800].crit2, MAX([T13800].Id)
+        FROM
+          (input1) AS [T13800][Id, crit1, crit2, value]
+        GROUP BY
+          [T13800].crit1  [T13800].crit2) AS [T13801][crit1, crit2, MAX-Id] ) JOIN (
+      input1 )) AS [T13810][crit1, crit2, MAX-Id, Id, crit11, crit21, value]
+WHERE
+  [T13810].crit2 == [T13810].crit21
+   AND [T13810].MAX-Id == [T13810].Id
+@anonymous
+[T13810].crit1(NumberVal) | [T13810].crit2(NumberVal) | [T13810].value(StringVal) 
+11.0 | 2.0 | f 
+21.0 | 2.0 | e 
+11.0 | 3.0 | c 
+11.0 | 1.0 | d 
+
+[No.8]===============================
+SELECT
+  [T13798].crit1,[T13798].crit2,[T13798].value
+FROM
+  (( (SELECT
+          [T13788].crit1, [T13788].crit2, MAX([T13788].Id)
+        FROM
+          (input1) AS [T13788][Id, crit1, crit2, value]
+        GROUP BY
+          [T13788].crit1  [T13788].crit2) AS [T13789][crit1, crit2, MAX-Id] ) JOIN (
+      input1 )) AS [T13798][crit1, crit2, MAX-Id, Id, crit11, crit21, value]
+WHERE
+  [T13798].MAX-Id == [T13798].Id
+   AND [T13798].crit1 == [T13798].crit11
+@anonymous
+[T13798].crit1(NumberVal) | [T13798].crit2(NumberVal) | [T13798].value(StringVal) 
+11.0 | 2.0 | f 
+21.0 | 2.0 | e 
+11.0 | 3.0 | c 
+11.0 | 1.0 | d 
+
+[No.7]===============================
+SELECT
+  [T9277].crit1,[T9277].crit2,[T9277].value
+FROM
+  (( (SELECT
+          [T9267].crit1, [T9267].crit2, MAX([T9267].Id)
+        FROM
+          (input1) AS [T9267][Id, crit1, crit2, value]
+        GROUP BY
+          [T9267].crit1  [T9267].crit2) AS [T9268][crit1, crit2, MAX-Id] ) JOIN (
+      input1 )) AS [T9277][crit1, crit2, MAX-Id, Id, crit11, crit21, value]
+WHERE
+  [T9277].crit2 == [T9277].crit21
+   AND [T9277].MAX-Id == [T9277].Id
+@anonymous
+[T9277].crit1(NumberVal) | [T9277].crit2(NumberVal) | [T9277].value(StringVal) 
+11.0 | 2.0 | f 
+21.0 | 2.0 | e 
+11.0 | 3.0 | c 
+11.0 | 1.0 | d 
+
+[No.6]===============================
+SELECT
+  [T9265].crit1,[T9265].crit2,[T9265].value
+FROM
+  (( (SELECT
+          [T9255].crit1, [T9255].crit2, MAX([T9255].Id)
+        FROM
+          (input1) AS [T9255][Id, crit1, crit2, value]
+        GROUP BY
+          [T9255].crit1  [T9255].crit2) AS [T9256][crit1, crit2, MAX-Id] ) JOIN (
+      input1 )) AS [T9265][crit1, crit2, MAX-Id, Id, crit11, crit21, value]
+WHERE
+  [T9265].MAX-Id == [T9265].Id
+   AND [T9265].crit1 == [T9265].crit11
+@anonymous
+[T9265].crit1(NumberVal) | [T9265].crit2(NumberVal) | [T9265].value(StringVal) 
+11.0 | 2.0 | f 
+21.0 | 2.0 | e 
+11.0 | 3.0 | c 
+11.0 | 1.0 | d 
+
+[No.5]===============================
+SELECT
+  [T1800].crit1,[T1800].crit2,[T1800].value
+FROM
+  (( (SELECT
+          [T1790].crit1, [T1790].crit2, MAX([T1790].Id)
+        FROM
+          (input1) AS [T1790][Id, crit1, crit2, value]
+        GROUP BY
+          [T1790].crit1  [T1790].crit2) AS [T1791][crit1, crit2, MAX-Id] ) JOIN (
+      input1 )) AS [T1800][crit1, crit2, MAX-Id, Id, crit11, crit21, value]
+WHERE
+  [T1800].crit2 == [T1800].crit21
+   AND [T1800].MAX-Id == [T1800].Id
+@anonymous
+[T1800].crit1(NumberVal) | [T1800].crit2(NumberVal) | [T1800].value(StringVal) 
+11.0 | 2.0 | f 
+21.0 | 2.0 | e 
+11.0 | 3.0 | c 
+11.0 | 1.0 | d 
+
+[No.4]===============================
+SELECT
+  [T1788].crit1,[T1788].crit2,[T1788].value
+FROM
+  (( (SELECT
+          [T1778].crit1, [T1778].crit2, MAX([T1778].Id)
+        FROM
+          (input1) AS [T1778][Id, crit1, crit2, value]
+        GROUP BY
+          [T1778].crit1  [T1778].crit2) AS [T1779][crit1, crit2, MAX-Id] ) JOIN (
+      input1 )) AS [T1788][crit1, crit2, MAX-Id, Id, crit11, crit21, value]
+WHERE
+  [T1788].MAX-Id == [T1788].Id
+   AND [T1788].crit1 == [T1788].crit11
+@anonymous
+[T1788].crit1(NumberVal) | [T1788].crit2(NumberVal) | [T1788].value(StringVal) 
+11.0 | 2.0 | f 
+21.0 | 2.0 | e 
+11.0 | 3.0 | c 
+11.0 | 1.0 | d 
+
+[No.3]===============================
+SELECT
+  [T13774].crit1,[T13774].crit2,[T13774].value
+FROM
+  (( (SELECT
+          [T13764].crit1, [T13764].crit2, MAX([T13764].Id)
+        FROM
+          (input1) AS [T13764][Id, crit1, crit2, value]
+        GROUP BY
+          [T13764].crit1  [T13764].crit2) AS [T13765][crit1, crit2, MAX-Id] ) JOIN (
+      input1 )) AS [T13774][crit1, crit2, MAX-Id, Id, crit11, crit21, value]
+WHERE
+  [T13774].MAX-Id == [T13774].Id
+@anonymous
+[T13774].crit1(NumberVal) | [T13774].crit2(NumberVal) | [T13774].value(StringVal) 
+11.0 | 2.0 | f 
+21.0 | 2.0 | e 
+11.0 | 3.0 | c 
+11.0 | 1.0 | d 
+
+[No.2]===============================
+SELECT
+  [T9241].crit1,[T9241].crit2,[T9241].value
+FROM
+  (( (SELECT
+          [T9231].crit1, [T9231].crit2, MAX([T9231].Id)
+        FROM
+          (input1) AS [T9231][Id, crit1, crit2, value]
+        GROUP BY
+          [T9231].crit1  [T9231].crit2) AS [T9232][crit1, crit2, MAX-Id] ) JOIN (
+      input1 )) AS [T9241][crit1, crit2, MAX-Id, Id, crit11, crit21, value]
+WHERE
+  [T9241].MAX-Id == [T9241].Id
+@anonymous
+[T9241].crit1(NumberVal) | [T9241].crit2(NumberVal) | [T9241].value(StringVal) 
+11.0 | 2.0 | f 
+21.0 | 2.0 | e 
+11.0 | 3.0 | c 
+11.0 | 1.0 | d 
+
+[No.1]===============================
+SELECT
+  [T1764].crit1,[T1764].crit2,[T1764].value
+FROM
+  (( (SELECT
+          [T1754].crit1, [T1754].crit2, MAX([T1754].Id)
+        FROM
+          (input1) AS [T1754][Id, crit1, crit2, value]
+        GROUP BY
+          [T1754].crit1  [T1754].crit2) AS [T1755][crit1, crit2, MAX-Id] ) JOIN (
+      input1 )) AS [T1764][crit1, crit2, MAX-Id, Id, crit11, crit21, value]
+WHERE
+  [T1764].MAX-Id == [T1764].Id
+@anonymous
+[T1764].crit1(NumberVal) | [T1764].crit2(NumberVal) | [T1764].value(StringVal) 
+11.0 | 2.0 | f 
+21.0 | 2.0 | e 
+11.0 | 3.0 | c 
+11.0 | 1.0 | d 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 10.053s

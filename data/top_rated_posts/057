@@ -1,0 +1,38 @@
+//https://docs.google.com/document/d/1p_-ZqMKmLvkj1E7PJk-6ftPLT-B2eedQU77Lhndyy1Y/edit
+
+#input
+
+ID,  Name,            City,            Birthyear
+1,   Egon Spengler,   New York,        1957
+2,   Mac Taylor,      New York,        1955
+3,   Sarah Connor,    Los Angeles,     1959
+4,   Jean-Luc Picard, La Barre,        2305
+5,   Ellen Ripley,    Nostromo,        2092
+6,   James T. Kirk,   Riverside,       2233
+7,   Henry Jones,     Chicago,         1899
+
+#output
+
+Name,            City,            Birthyear
+Mac Taylor,      New York,        1955
+Sarah Connor,    Los Angeles,     1959
+Jean-Luc Picard, La Barre,        2305
+Ellen Ripley,    Nostromo,        2092
+James T. Kirk,   Riverside,       2233
+Henry Jones,     Chicago,         1899
+
+# constraint
+{
+	"constants": [ ],
+	"aggregation_functions": ["max","min"]
+}
+
+#solution
+
+SELECT Name, City, Birthyear, COUNT(*) AS ct
+FROM table
+WHERE Birthyear IN (SELECT MIN(Birthyear)
+               FROM table
+               GROUP by City)
+GROUP BY City
+ORDER BY Birthyear DESC LIMIT 3;

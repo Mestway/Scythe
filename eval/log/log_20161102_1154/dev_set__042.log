@@ -1,0 +1,305 @@
+[[Synthesis start]]
+	File: ../data/dev_set/042
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 316 [SymTable]: 317
+Candidate Tree Number: 6
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 10 [SymTable]: 11
+[JOIN] level 1 [SymTable]: 22
+Candidate Tree Number: 40
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 53 [SymTable]: 54
+[JOIN] level 1 [SymTable]: 108
+Candidate Tree Number: 235
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 53 [SymTable]: 54
+[JOIN] level 1 [SymTable]: 108
+Candidate Tree Number: 235
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 53 [SymTable]: 54
+[JOIN] level 1 [SymTable]: 108
+Candidate Tree Number: 255
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 96 [SymTable]: 97
+[JOIN] level 1 [SymTable]: 194
+Candidate Tree Number: 430
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 101 [SymTable]: 102
+[JOIN] level 1 [SymTable]: 204
+Candidate Tree Number: 555
+[Enumeration Finished]
+[Query No.15]===============================
+SELECT
+  [T579].book_id,[T579].book_id,[T579].mark1,[T579].year1
+FROM
+  (( SELECT
+        input1.book_id,input1.author_id,input1.mark,input1.year
+      FROM
+        input1
+      WHERE
+        input1.book_id == input1.mark ) JOIN (
+      input1 )) AS [T579][book_id, author_id, mark, year, book_id1, author_id1, mark1, year1]
+WHERE
+  [T579].year <> [T579].year1
+@anonymous
+[T579].book_id(NumberVal) | [T579].book_id(NumberVal) | [T579].mark1(NumberVal) | [T579].year1(NumberVal) 
+1.0 | 1.0 | 3.0 | 2015.0 
+
+[Query No.14]===============================
+SELECT
+  [T577].book_id,[T577].book_id,[T577].mark1,[T577].year1
+FROM
+  (( SELECT
+        input1.book_id,input1.author_id,input1.mark,input1.year
+      FROM
+        input1
+      WHERE
+        input1.book_id == input1.mark ) JOIN (
+      input1 )) AS [T577][book_id, author_id, mark, year, book_id1, author_id1, mark1, year1]
+WHERE
+  [T577].year < [T577].year1
+@anonymous
+[T577].book_id(NumberVal) | [T577].book_id(NumberVal) | [T577].mark1(NumberVal) | [T577].year1(NumberVal) 
+1.0 | 1.0 | 3.0 | 2015.0 
+
+[Query No.13]===============================
+SELECT
+  [T627].book_id,[T627].book_id,[T627].mark,[T627].year1
+FROM
+  (( (SELECT
+          [T625].year, FROM
+          (input1) AS [T625][book_id, author_id, mark, year]
+        GROUP BY
+          [T625].year) AS [T626][year] ) JOIN (
+      input1 )) AS [T627][year, book_id, author_id, mark, year1]
+WHERE
+  [T627].year < [T627].year1
+@anonymous
+[T627].book_id(NumberVal) | [T627].book_id(NumberVal) | [T627].mark(NumberVal) | [T627].year1(NumberVal) 
+1.0 | 1.0 | 3.0 | 2015.0 
+
+[Query No.12]===============================
+SELECT
+  [T527].book_id,[T527].book_id,[T527].mark,[T527].year1
+FROM
+  (( (SELECT
+          [T525].book_id, [T525].author_id, [T525].year, FROM
+          (input1) AS [T525][book_id, author_id, mark, year]
+        GROUP BY
+          [T525].book_id  [T525].author_id  [T525].year) AS [T526][book_id, author_id, year] ) JOIN (
+      input1 )) AS [T527][book_id, author_id, year, book_id1, author_id1, mark, year1]
+WHERE
+  [T527].year < [T527].year1
+@anonymous
+[T527].book_id(NumberVal) | [T527].book_id(NumberVal) | [T527].mark(NumberVal) | [T527].year1(NumberVal) 
+1.0 | 1.0 | 3.0 | 2015.0 
+
+[Query No.11]===============================
+SELECT
+  [T467].book_id,[T467].book_id,[T467].mark,[T467].year1
+FROM
+  (( (SELECT
+          [T465].book_id, [T465].year, FROM
+          (input1) AS [T465][book_id, author_id, mark, year]
+        GROUP BY
+          [T465].book_id  [T465].year) AS [T466][book_id, year] ) JOIN (
+      input1 )) AS [T467][book_id, year, book_id1, author_id, mark, year1]
+WHERE
+  [T467].year < [T467].year1
+@anonymous
+[T467].book_id(NumberVal) | [T467].book_id(NumberVal) | [T467].mark(NumberVal) | [T467].year1(NumberVal) 
+1.0 | 1.0 | 3.0 | 2015.0 
+
+[Query No.10]===============================
+SELECT
+  [T407].author_id,[T407].author_id,[T407].mark,[T407].year1
+FROM
+  (( (SELECT
+          [T405].author_id, [T405].year, FROM
+          (input1) AS [T405][book_id, author_id, mark, year]
+        GROUP BY
+          [T405].author_id  [T405].year) AS [T406][author_id, year] ) JOIN (
+      input1 )) AS [T407][author_id, year, book_id, author_id1, mark, year1]
+WHERE
+  [T407].year < [T407].year1
+@anonymous
+[T407].author_id(NumberVal) | [T407].author_id(NumberVal) | [T407].mark(NumberVal) | [T407].year1(NumberVal) 
+1.0 | 1.0 | 3.0 | 2015.0 
+
+[Query No.9]===============================
+SELECT
+  [T375].book_id,[T375].book_id,[T375].MIN-mark,[T375].year
+FROM
+  (SELECT
+      [T374].book_id, [T374].author_id, [T374].year, MIN([T374].mark)
+    FROM
+      (input1) AS [T374][book_id, author_id, mark, year]
+    GROUP BY
+      [T374].book_id  [T374].author_id  [T374].year) AS [T375][book_id, author_id, year, MIN-mark]
+WHERE
+  [T375].MIN-mark <> [T375].book_id
+@anonymous
+[T375].book_id(NumberVal) | [T375].book_id(NumberVal) | [T375].MIN-mark(NumberVal) | [T375].year(NumberVal) 
+1.0 | 1.0 | 3.0 | 2015.0 
+
+[Query No.8]===============================
+SELECT
+  [T365].author_id,[T365].author_id,[T365].MIN-mark,[T365].year
+FROM
+  (SELECT
+      [T364].author_id, [T364].year, MIN([T364].mark)
+    FROM
+      (input1) AS [T364][book_id, author_id, mark, year]
+    GROUP BY
+      [T364].author_id  [T364].year) AS [T365][author_id, year, MIN-mark]
+WHERE
+  [T365].MIN-mark <> [T365].author_id
+@anonymous
+[T365].author_id(NumberVal) | [T365].author_id(NumberVal) | [T365].MIN-mark(NumberVal) | [T365].year(NumberVal) 
+1.0 | 1.0 | 3.0 | 2015.0 
+
+[Query No.7]===============================
+SELECT
+  [T355].book_id,[T355].book_id,[T355].MIN-mark,[T355].year
+FROM
+  (SELECT
+      [T354].book_id, [T354].year, MIN([T354].mark)
+    FROM
+      (input1) AS [T354][book_id, author_id, mark, year]
+    GROUP BY
+      [T354].book_id  [T354].year) AS [T355][book_id, year, MIN-mark]
+WHERE
+  [T355].MIN-mark <> [T355].book_id
+@anonymous
+[T355].book_id(NumberVal) | [T355].book_id(NumberVal) | [T355].MIN-mark(NumberVal) | [T355].year(NumberVal) 
+1.0 | 1.0 | 3.0 | 2015.0 
+
+[Query No.6]===============================
+SELECT
+  [T345].book_id,[T345].book_id,[T345].FIRST-mark,[T345].year
+FROM
+  (SELECT
+      [T344].book_id, [T344].author_id, [T344].year, FIRST([T344].mark)
+    FROM
+      (input1) AS [T344][book_id, author_id, mark, year]
+    GROUP BY
+      [T344].book_id  [T344].author_id  [T344].year) AS [T345][book_id, author_id, year, FIRST-mark]
+WHERE
+  [T345].FIRST-mark > [T345].author_id
+@anonymous
+[T345].book_id(NumberVal) | [T345].book_id(NumberVal) | [T345].FIRST-mark(NumberVal) | [T345].year(NumberVal) 
+1.0 | 1.0 | 3.0 | 2015.0 
+
+[Query No.5]===============================
+SELECT
+  [T335].author_id,[T335].author_id,[T335].FIRST-mark,[T335].year
+FROM
+  (SELECT
+      [T334].author_id, [T334].year, FIRST([T334].mark)
+    FROM
+      (input1) AS [T334][book_id, author_id, mark, year]
+    GROUP BY
+      [T334].author_id  [T334].year) AS [T335][author_id, year, FIRST-mark]
+WHERE
+  [T335].FIRST-mark > [T335].author_id
+@anonymous
+[T335].author_id(NumberVal) | [T335].author_id(NumberVal) | [T335].FIRST-mark(NumberVal) | [T335].year(NumberVal) 
+1.0 | 1.0 | 3.0 | 2015.0 
+
+[Query No.4]===============================
+SELECT
+  [T325].book_id,[T325].book_id,[T325].FIRST-mark,[T325].year
+FROM
+  (SELECT
+      [T324].book_id, [T324].year, FIRST([T324].mark)
+    FROM
+      (input1) AS [T324][book_id, author_id, mark, year]
+    GROUP BY
+      [T324].book_id  [T324].year) AS [T325][book_id, year, FIRST-mark]
+WHERE
+  [T325].FIRST-mark > [T325].book_id
+@anonymous
+[T325].book_id(NumberVal) | [T325].book_id(NumberVal) | [T325].FIRST-mark(NumberVal) | [T325].year(NumberVal) 
+1.0 | 1.0 | 3.0 | 2015.0 
+
+[Query No.3]===============================
+SELECT
+  [T1514].book_id,[T1514].book_id,[T1514].MAX-mark,[T1514].year
+FROM
+  (( (SELECT
+          [T1512].book_id, [T1512].author_id, MAX([T1512].mark)
+        FROM
+          (input1) AS [T1512][book_id, author_id, mark, year]
+        GROUP BY
+          [T1512].book_id  [T1512].author_id) AS [T1513][book_id, author_id, MAX-mark] ) JOIN (
+      input1 )) AS [T1514][book_id, author_id, MAX-mark, book_id1, author_id1, mark, year]
+WHERE
+  [T1514].MAX-mark == [T1514].mark
+@anonymous
+[T1514].book_id(NumberVal) | [T1514].book_id(NumberVal) | [T1514].MAX-mark(NumberVal) | [T1514].year(NumberVal) 
+1.0 | 1.0 | 3.0 | 2015.0 
+
+[Query No.2]===============================
+SELECT
+  [T1304].book_id,[T1304].book_id,[T1304].mark,[T1304].MAX-year
+FROM
+  (( (SELECT
+          MAX([T1302].year)
+        FROM
+          (input1) AS [T1302][book_id, author_id, mark, year]) AS [T1303][MAX-year] ) JOIN (
+      input1 )) AS [T1304][MAX-year, book_id, author_id, mark, year]
+WHERE
+  [T1304].MAX-year == [T1304].year
+@anonymous
+[T1304].book_id(NumberVal) | [T1304].book_id(NumberVal) | [T1304].mark(NumberVal) | [T1304].MAX-year(NumberVal) 
+1.0 | 1.0 | 3.0 | 2015.0 
+
+[Query No.1]===============================
+SELECT
+  [T794].author_id,[T794].author_id,[T794].mark,[T794].MAX-year
+FROM
+  (( (SELECT
+          [T792].author_id, MAX([T792].year)
+        FROM
+          (input1) AS [T792][book_id, author_id, mark, year]
+        GROUP BY
+          [T792].author_id) AS [T793][author_id, MAX-year] ) JOIN (
+      input1 )) AS [T794][author_id, MAX-year, book_id, author_id1, mark, year]
+WHERE
+  [T794].MAX-year == [T794].year
+@anonymous
+[T794].author_id(NumberVal) | [T794].author_id(NumberVal) | [T794].mark(NumberVal) | [T794].MAX-year(NumberVal) 
+1.0 | 1.0 | 3.0 | 2015.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 9.552s

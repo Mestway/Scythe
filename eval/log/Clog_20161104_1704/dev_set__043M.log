@@ -1,0 +1,249 @@
+[[Synthesis start]]
+	File: ../data/dev_set/043M
+	Enumerator: CanonicalTableEnumeratorOnTheFly
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 32
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 46
+	Avg table size: 7
+[Total Number of Intermediate Result] 46
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 32
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 3
+	Avg table size: 14
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 65
+	Avg table size: 159
+[Stage 3] EnumJoinTwoAggr1 
+	Total Table by now: 87
+	Avg table size: 142
+[Total Number of Intermediate Result] 87
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 32
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 8
+	Avg table size: 9
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 125
+	Avg table size: 131
+[Total Number of Intermediate Result] 125
+Total Tree Count: 1
+Total Query Count: 800
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 32
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 8
+	Avg table size: 9
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 130
+	Avg table size: 128
+[Stage 3] EnumJoinTwoAggr1 
+	Total Table by now: 370
+	Avg table size: 87
+[Total Number of Intermediate Result] 371
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 32
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 8
+	Avg table size: 9
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 142
+	Avg table size: 120
+[Stage 3] EnumJoinTwoAggr1 
+	Total Table by now: 407
+	Avg table size: 81
+[Total Number of Intermediate Result] 410
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 32
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 13
+	Avg table size: 8
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 187
+	Avg table size: 120
+[Total Number of Intermediate Result] 187
+Total Tree Count: 1
+Total Query Count: 800
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 32
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 19
+	Avg table size: 7
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 176
+	Avg table size: 116
+[Total Number of Intermediate Result] 176
+Total Tree Count: 1
+Total Query Count: 6336
+[Enumeration Finished]
+[Query No.5]===============================
+SELECT
+  [T13029].Id,[T13029].name,[T13029].type1,[T13029].MAX-price
+FROM
+  (SELECT
+      [T10741].type,[T10741].MAX-price,[T10741].Id,[T10741].name,[T10741].type1,[T10741].price
+    FROM
+      (( ((SELECT
+                input1.type, MAX(input1.price)
+              FROM
+                input1
+              GROUP BY
+                input1.type) AS [T10748][type, MAX-price]) AS [T10793][type, MAX-price] ) JOIN (
+          input1 )) AS [T10741][type, MAX-price, Id, name, type1, price]
+    WHERE
+      [T10741].MAX-price == [T10741].price) AS [T13029][type, MAX-price, Id, name, type1, price]
+
+@anonymous
+[T13029].Id(NumberVal) | [T13029].name(StringVal) | [T13029].type1(StringVal) | [T13029].MAX-price(NumberVal) 
+123457.0 | Country Tunes | Music | 21.55 
+123452.0 | Playstation | Toy | 89.95 
+123455.0 | Blouse | Clothing | 34.97 
+123458.0 | Watermelon | Food | 8.73 
+
+[Query No.4]===============================
+SELECT
+  [T13020].Id,[T13020].name,[T13020].type,[T13020].price
+FROM
+  (SELECT
+      [T10741].type,[T10741].MAX-price,[T10741].Id,[T10741].name,[T10741].type1,[T10741].price
+    FROM
+      (( ((SELECT
+                input1.type, MAX(input1.price)
+              FROM
+                input1
+              GROUP BY
+                input1.type) AS [T10748][type, MAX-price]) AS [T10793][type, MAX-price] ) JOIN (
+          input1 )) AS [T10741][type, MAX-price, Id, name, type1, price]
+    WHERE
+      [T10741].MAX-price == [T10741].price) AS [T13020][type, MAX-price, Id, name, type1, price]
+
+@anonymous
+[T13020].Id(NumberVal) | [T13020].name(StringVal) | [T13020].type(StringVal) | [T13020].price(NumberVal) 
+123457.0 | Country Tunes | Music | 21.55 
+123452.0 | Playstation | Toy | 89.95 
+123455.0 | Blouse | Clothing | 34.97 
+123458.0 | Watermelon | Food | 8.73 
+
+[Query No.3]===============================
+SELECT
+  [T13019].Id,[T13019].name,[T13019].type,[T13019].price
+FROM
+  (SELECT
+      [T10741].type,[T10741].MAX-price,[T10741].Id,[T10741].name,[T10741].type1,[T10741].price
+    FROM
+      (( ((SELECT
+                input1.type, MAX(input1.price)
+              FROM
+                input1
+              GROUP BY
+                input1.type) AS [T10748][type, MAX-price]) AS [T10793][type, MAX-price] ) JOIN (
+          input1 )) AS [T10741][type, MAX-price, Id, name, type1, price]
+    WHERE
+      [T10741].MAX-price == [T10741].price) AS [T13019][type, MAX-price, Id, name, type1, price]
+
+@anonymous
+[T13019].Id(NumberVal) | [T13019].name(StringVal) | [T13019].type(StringVal) | [T13019].price(NumberVal) 
+123457.0 | Country Tunes | Music | 21.55 
+123452.0 | Playstation | Toy | 89.95 
+123455.0 | Blouse | Clothing | 34.97 
+123458.0 | Watermelon | Food | 8.73 
+
+[Query No.2]===============================
+SELECT
+  [T13010].Id,[T13010].name,[T13010].type,[T13010].MAX-price
+FROM
+  (SELECT
+      [T10741].type,[T10741].MAX-price,[T10741].Id,[T10741].name,[T10741].type1,[T10741].price
+    FROM
+      (( ((SELECT
+                input1.type, MAX(input1.price)
+              FROM
+                input1
+              GROUP BY
+                input1.type) AS [T10748][type, MAX-price]) AS [T10793][type, MAX-price] ) JOIN (
+          input1 )) AS [T10741][type, MAX-price, Id, name, type1, price]
+    WHERE
+      [T10741].MAX-price == [T10741].price) AS [T13010][type, MAX-price, Id, name, type1, price]
+
+@anonymous
+[T13010].Id(NumberVal) | [T13010].name(StringVal) | [T13010].type(StringVal) | [T13010].MAX-price(NumberVal) 
+123457.0 | Country Tunes | Music | 21.55 
+123452.0 | Playstation | Toy | 89.95 
+123455.0 | Blouse | Clothing | 34.97 
+123458.0 | Watermelon | Food | 8.73 
+
+[Query No.1]===============================
+SELECT
+  [T13009].Id,[T13009].name,[T13009].type,[T13009].MAX-price
+FROM
+  (SELECT
+      [T10741].type,[T10741].MAX-price,[T10741].Id,[T10741].name,[T10741].type1,[T10741].price
+    FROM
+      (( ((SELECT
+                input1.type, MAX(input1.price)
+              FROM
+                input1
+              GROUP BY
+                input1.type) AS [T10748][type, MAX-price]) AS [T10793][type, MAX-price] ) JOIN (
+          input1 )) AS [T10741][type, MAX-price, Id, name, type1, price]
+    WHERE
+      [T10741].MAX-price == [T10741].price) AS [T13009][type, MAX-price, Id, name, type1, price]
+
+@anonymous
+[T13009].Id(NumberVal) | [T13009].name(StringVal) | [T13009].type(StringVal) | [T13009].MAX-price(NumberVal) 
+123457.0 | Country Tunes | Music | 21.55 
+123452.0 | Playstation | Toy | 89.95 
+123455.0 | Blouse | Clothing | 34.97 
+123458.0 | Watermelon | Food | 8.73 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 24.672s

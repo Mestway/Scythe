@@ -1,0 +1,113 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/010
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 41 [SymTable]: 43
+[NaturalJoin]: 1 [SymTable]: 44
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 0 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 7
+[EnumJoinOnAggr] level 1 [SymTable]: 11
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 5 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 22
+Candidate Tree Number: 16
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 5 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 22
+[EnumJoinOnAggr] level 1 [SymTable]: 71
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 5 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 22
+Candidate Tree Number: 12
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 10 [SymTable]: 12
+[JOIN] level 1 [SymTable]: 37
+Candidate Tree Number: 16
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 11 [SymTable]: 13
+[JOIN] level 1 [SymTable]: 40
+Candidate Tree Number: 37
+[Enumeration Finished]
+[Query No.3]===============================
+SELECT
+  [T155].id,[T155].MAX-date,[T155].phone_number
+FROM
+  (( (SELECT
+          MAX([T153].date)
+        FROM
+          (input2) AS [T153][id, date, phone_number]) AS [T154][MAX-date] ) JOIN (
+      input2 )) AS [T155][MAX-date, id, date, phone_number]
+WHERE
+  [T155].MAX-date == [T155].date
+@anonymous
+[T155].id(NumberVal) | [T155].MAX-date(NumberVal) | [T155].phone_number(NumberVal) 
+3.0 | 1045.0 | 3.33333333333E11 
+
+[Query No.2]===============================
+SELECT
+  [T113].id,[T113].date,[T113].MAX-phone_number
+FROM
+  (( (SELECT
+          MAX([T111].phone_number)
+        FROM
+          (input2) AS [T111][id, date, phone_number]) AS [T112][MAX-phone_number] ) JOIN (
+      input2 )) AS [T113][MAX-phone_number, id, date, phone_number]
+WHERE
+  [T113].MAX-phone_number == [T113].phone_number
+@anonymous
+[T113].id(NumberVal) | [T113].date(NumberVal) | [T113].MAX-phone_number(NumberVal) 
+3.0 | 1045.0 | 3.33333333333E11 
+
+[Query No.1]===============================
+SELECT
+  [T101].MAX-id,[T101].date,[T101].phone_number
+FROM
+  (( (SELECT
+          MAX([T99].id)
+        FROM
+          (input2) AS [T99][id, date, phone_number]) AS [T100][MAX-id] ) JOIN (
+      input2 )) AS [T101][MAX-id, id, date, phone_number]
+WHERE
+  [T101].MAX-id == [T101].id
+@anonymous
+[T101].MAX-id(NumberVal) | [T101].date(NumberVal) | [T101].phone_number(NumberVal) 
+3.0 | 1045.0 | 3.33333333333E11 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.564s

@@ -1,0 +1,52 @@
+//http://stackoverflow.com/questions/15969614/in-sql-how-to-select-the-top-2-rows-for-each-group
+////MOD: 4
+
+#input
+
+| NAME  | SCORE |
+|---------------|
+| willy |    1 |
+| willy |    2 |
+| willy |    3 |
+| zoe   |    4 |
+| zoe   |    5 |
+| zoe   |    6 |
+|  d    |    1  |
+
+#output
+
+| NAME  | SCORE |
+|---------------|
+| willy |    2 |
+| willy |    3 |
+| zoe   |    5 |
+| zoe   |    6 |
+|  d    |    1  |
+
+
+#constraint
+{
+	"max_depth": 2,
+	"constants": ["2"],
+	"aggregation_functions": ["count"],
+	"parameter_number": 0,
+	"max_filter_length": 2
+}
+
+#solution
+
+SELECT *
+FROM   test s
+WHERE 
+        (
+            SELECT  COUNT(*) 
+            FROM    test  f
+            WHERE f.name = s.name AND 
+                  f.score >= s.score
+        ) <= 2
+
+select x.*
+from test x join test y
+where x.score < y.score and x.name = y.name
+group by x.name, x.score, y.name
+having count(*) <=2  

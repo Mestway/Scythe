@@ -1,0 +1,37 @@
+//http://stackoverflow.com/questions/36662592/sql-exists-not-exists-function
+
+#input
+
+| ID  |  P_Id |  room | 
+|---------------------|
+| 1   |   8   |   A   |
+| 2   |   8   |   A   |
+| 3   |   8   |   B   |
+| 4   |   9   |   B   |
+| 5   |   9   |   B   |
+| 6   |   10  |   C   |
+| 7   |   10  |   C   |
+| 8   |   10  |   D   |
+
+#output
+
+| ID |
+|----|
+|  9 |
+
+#constraint
+{
+	"constants": ["B"],
+	"aggregation_functions": []
+}
+
+#solution
+
+SELECT DISTINCT r1.P_Id
+FROM Room r1
+WHERE NOT EXISTS (
+  SELECT *
+  FROM Room r2
+  WHERE r2.room <> 'B'
+    AND r1.P_Id = r2.P_Id
+);

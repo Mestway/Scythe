@@ -1,0 +1,58 @@
+[[Synthesis start]]
+	File: ..\data\dev_set\060
+	Enumerator: StagedEnumerator
+[Retry] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+Candidate Tree Number: 3
+[Enumeration Finished]
+[No.3]===============================
+SELECT
+  input1.GroupNumber,input1.FirstName
+FROM
+  input1
+WHERE
+  IS NULL input1.ID
+   OR input1.ID > input1.GroupNumber
+@anonymous
+input1.GroupNumber(NumberVal) | input1.FirstName(StringVal) 
+1.0 | Bob 
+1.0 | Peter 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[No.2]===============================
+SELECT
+  input1.GroupNumber,input1.FirstName
+FROM
+  input1
+WHERE
+  input1.ID > input1.GroupNumber
+@anonymous
+input1.GroupNumber(NumberVal) | input1.FirstName(StringVal) 
+1.0 | Bob 
+1.0 | Peter 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[No.1]===============================
+(SELECT
+    [T13].GroupNumber, [T13].FirstName, FROM
+    (input1) AS [T13][ID, GroupNumber, FirstName]
+  GROUP BY
+    [T13].GroupNumber  [T13].FirstName) AS [T14][GroupNumber, FirstName]
+@anonymous
+[T14].GroupNumber(NumberVal) | [T14].FirstName(StringVal) 
+1.0 | Peter 
+1.0 | Bob 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.085s

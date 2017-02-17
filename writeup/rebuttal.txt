@@ -1,0 +1,53 @@
+### Reviewer A:
+
+0. Why are constants and aggregators needed?:
+    
+   Our algorithm doesn’t fundamentally require constants and aggregators as they can be enumerated. However, we have observed that stackoverflow users often provide in their posts the necessary constants and aggregation functions. Our algorithm thus leverages this information to prune the search space.
+
+1. Equivalence between tables:
+
+    The definition of table equivalence is based on the unordered bag representation used in most DBMSs (Oracle, MySQL, SQL Server, etc).
+
+2. Restrictions w.r.t. templates of filter and projection:
+
+     Query expressiveness won’t be restricted by the formula in the second phase, since skeleton  enumeration takes place in the first phase.  The enumeration algorithm ranges over all skeletons (join, aggregations) defined by SynthSQL (with holes in filter and projection predicates) and partially evaluates all of them so that only projection and filtering are left to synthesize in the second phase (Figure 9).
+
+3. Use of dedup in pruning the search space:
+
+   The property that the reviewer pointed out (deDup(proj(filter(coreTable(\row),\oplus \beta),\gamma)) = deDup(T_{out})) is a sufficient condition for *pruning*: any filter/projector combination that fails to satisfy the property will not lead to a consistent query and is pruned away. As shown in line 21 of Figure 13, to ensure completeness, all filters and projections satisfying the property are visited in the algorithm.
+
+4. Evaluation:
+    
+    1) Benchmark selection: We didn’t throw away posts without constants or aggregators. All but two benchmarks in the top posts include explicit constants and aggregators (see Section 10). 
+
+    2) As discussed in Section 10, our evaluation selected the top 40 posts from stackoverflow (using sql tag and greatest-n-per-group tag) containing PBE questions, and 20 most recent PBE questions under these tags. While many stackoverflow posts do refer to unsupported features such as union and outer joins, they are mostly asking for explanation for such features rather than PBE-type questions, and only 5 of the selected PBE posts contain unsupported features as discussed in Section 10.
+
+    3) We implemented the Enum algorithm by adapting the work by Phothilimthana et al in ASPLOS 16 to SQL queries. The algorithm does not use brute force search, rather it enumerates over the space of queries memoized via the values that they compute rather than via their syntax. In comparison, the benchmarks that only Scythe can solve contain larger input-output examples as well as queries with more levels of nested subqueries. Enum fails on them since the number of conjunctive predicates to be enumerated is exponential in the number of columns and subquery levels; the Scythe backward inference algorithm bypasses these challenges.
+
+    4) Based on the reviewer’s suggestion, we used Scythe to solve the 23 textbook problems and 5 real-world problems from the SqlSynthesizer paper. Scythe solved 13/23 textbook questions as it currently does not support Union, Except and disjunctions, while SqlSynthesizer solved 15/23. Scythe solved all 5 real world problems from the paper as well. (These benchmarks are now added to our repo https://github.com/Mestway/Scythe.)
+
+5. Additional comments about the tool:
+
+    1) result inconsistency: the query printed by Scythe is the second to the last step result (before projection, we print up to this step since finding projection column names are very obvious to us). This is a bug. We have fixed it and the current implementation will print the results after projection. The correctness of the query are manually checked against stackoverflow accepted answers for semantic equivalence and we are absolutely sure about our evaluation result.
+
+    2) The user interaction discussed in Section 5 is currently performed by explicitly passing the complexity number on the command-line interface.
+
+### Reviewer B:
+  
+1. Bias against desugaring: 
+
+    We agree that desugaring might lead to syntactic complexity to the user. Following this advice, we plan to investigate re-sugaring the generated query using query rewriting rules to show multiple syntactically different but semantically equivalent forms to the user.
+
+2.  How general the tool is for other tasks:
+    
+    Our evaluation shows that we can answer a rich set of questions that are posted by both veteran and novice SQL programmers efficiently. A future work is to work on richer grammar support for SQL and to investigate whether our algorithm can be used for other query language besides SQL.
+
+### Reviewer C:
+
+1. Extension to disjunctions, arithmetics and union:
+    
+    We can support 1) disjunction by including disjunctives predicates as primitive predicates in enumeration algorithm, 2) union by decomposing the output example to sub-tables and individually synthesize each part, and 3) arithmetics by enumerating and encoding them during bit-vector encoding process. One of our key future work is to support better ranking strategy since the number of consistent queries will increase with a richer set of features.
+
+2. Figure cuts off search at 100 seconds:
+
+    Our actually cutting of time is actually 10 minutes. In fact, for the cases that Enum cannot solve (Figure 15) in 100 seconds, they either took longer than 10 minutes or run out of memory, we choose 100 seconds for the purpose of drawing a more comprehensive graph.

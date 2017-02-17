@@ -1,0 +1,43 @@
+//http://stackoverflow.com/questions/1313120/retrieving-the-last-record-in-each-group
+//// MOD: 0
+
+#input
+
+| Id |  Name |  Other_Columns |
+|-----------------------------|
+| 1  |  A    |   A_data_1     |
+| 2  |  A    |   A_data_2     |
+| 3  |  A    |   A_data_3     |
+| 4  |  B    |   B_data_1     |
+| 5  |  B    |   B_data_2     |
+| 6  |  C    |   C_data_1     |
+
+#output
+
+| col1 | col2 | col3     |
+|------------------------|
+| 3    | A    | A_data_3 |
+| 5    | B    | B_data_2 |
+| 6    | C    | C_data_1 |
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["max"]
+}
+
+#solution
+
+SELECT m1.*
+FROM messages m1 LEFT JOIN messages m2
+ ON (m1.name = m2.name AND m1.id < m2.id)
+WHERE m2.id IS NULL;
+
+select
+    a.*
+from messages a
+inner join
+(select name, max(id) as maxid
+ from messages
+ group by name) as b on
+a.id = b.maxid

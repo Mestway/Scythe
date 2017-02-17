@@ -1,0 +1,36 @@
+//http://stackoverflow.com/questions/3491329/group-by-with-maxdate
+
+#input
+
+| Train | Dest | Time  |
+|----------------------|
+| 1     | HK   | 10 |
+| 1     | SH   | 12 |
+| 1     | SZ   | 14 |
+| 2     | HK   | 13 |
+| 2     | SH   | 09 |
+| 2     | SZ   | 07 |
+
+#output
+
+| Train | Dest | Time  |
+|----------------------|
+| 1     | SZ   | 14 |
+| 2     | HK   | 13 |
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["max"]
+}
+
+#solution
+
+SELECT t.Train, t.Dest, r.MaxTime
+FROM (
+      SELECT Train, MAX(Time) as MaxTime
+      FROM TrainTable
+      GROUP BY Train
+) r
+INNER JOIN TrainTable t
+ON t.Train = r.Train AND t.Time = r.MaxTime

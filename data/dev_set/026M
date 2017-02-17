@@ -1,0 +1,32 @@
+//http://stackoverflow.com/questions/20888384/select-rows-with-max-value-of-a-column
+// MOD 4
+
+#input
+
+|  acct_id | Bill_Id |  Bill_dt   | alt_bill_id |
+|-----------------------------------------------|
+|  12345   |  123451 | 2014-01-02 |   101       |
+|  12345   |  123452 | 2014-01-02 |   102       |
+|  12346   |  123461 | 2014-01-02 |   103       |
+|  12346   |  123461 | 2014-01-02 |   102       |
+|  12347   |  123471 | 2014-01-02 |   104       |
+
+#output
+
+|  acct_id | Bill_Id |   Bill_dt  | alt_bill_id |
+|-----------------------------------------------|
+|  12345   |  123452 | 2014-01-02 |  102        |
+|  12346   |  123461 | 2014-01-02 |  103        |
+|  12347   |  123471 | 2014-01-02 |  104        |
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["max"]
+}
+
+#solution
+
+SELECT T1.* FROM CI_BILL T1
+WHERE ALT_BILL_ID IN (SELECT MAX(ALT_BILL_ID)
+FROM CI_BILL T2 GROUP BY T2.ACCT_ID);

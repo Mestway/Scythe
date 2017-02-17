@@ -1,0 +1,173 @@
+[[Synthesis start]]
+	File: ..\data\sqlsynthesizer\textbook_5_2_9
+	Enumerator: StagedEnumerator
+[Retry] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 3
+[NaturalJoin]: 1 [SymTable]: 3
+Candidate Tree Number: 4
+[Enumeration Finished]
+[No.4]===============================
+SELECT
+  [T4].sname
+FROM
+  (( SELECT
+        [T2].supplier_key,[T2].part_id,[T2].part_id1,[T2].color
+      FROM
+        (( SELECT
+              input1.supplier_key,input1.part_id
+            FROM
+              input1
+            WHERE
+              True ) JOIN (
+            SELECT
+              input2.part_id,input2.color
+            FROM
+              input2
+            WHERE
+              input2.color == red
+               OR input2.color == green )) AS [T2][supplier_key, part_id, part_id1, color]
+      WHERE
+        [T2].part_id == [T2].part_id1 ) JOIN (
+      SELECT
+        input3.supplier_key,input3.sname
+      FROM
+        input3
+      WHERE
+        True )) AS [T4][supplier_key, part_id, part_id1, color, supplier_key1, sname]
+WHERE
+  [T4].supplier_key == [T4].supplier_key1
+@anonymous
+[T4].sname(StringVal) 
+SN1 
+SN1 
+SN1 
+SN2 
+SN3 
+SN5 
+SN5 
+SN6 
+SN8 
+SN8 
+SN9 
+SN9 
+
+[No.3]===============================
+SELECT
+  [T12].sname
+FROM
+  (( SELECT
+        [T10].supplier_key,[T10].part_id,[T10].part_id1,[T10].color
+      FROM
+        (( input1 ) JOIN (
+            SELECT
+              input2.part_id,input2.color
+            FROM
+              input2
+            WHERE
+              input2.color == red
+               OR input2.color == green )) AS [T10][supplier_key, part_id, part_id1, color]
+      WHERE
+        [T10].part_id == [T10].part_id1 ) JOIN (
+      SELECT
+        input3.supplier_key,input3.sname
+      FROM
+        input3
+      WHERE
+        True )) AS [T12][supplier_key, part_id, part_id1, color, supplier_key1, sname]
+WHERE
+  [T12].supplier_key == [T12].supplier_key1
+@anonymous
+[T12].sname(StringVal) 
+SN1 
+SN1 
+SN1 
+SN2 
+SN3 
+SN5 
+SN5 
+SN6 
+SN8 
+SN8 
+SN9 
+SN9 
+
+[No.2]===============================
+SELECT
+  [T8].sname
+FROM
+  (( SELECT
+        [T6].supplier_key,[T6].part_id,[T6].part_id1,[T6].color
+      FROM
+        (( SELECT
+              input1.supplier_key,input1.part_id
+            FROM
+              input1
+            WHERE
+              True ) JOIN (
+            SELECT
+              input2.part_id,input2.color
+            FROM
+              input2
+            WHERE
+              input2.color == red
+               OR input2.color == green )) AS [T6][supplier_key, part_id, part_id1, color]
+      WHERE
+        [T6].part_id == [T6].part_id1 ) JOIN (
+      input3 )) AS [T8][supplier_key, part_id, part_id1, color, supplier_key1, sname]
+WHERE
+  [T8].supplier_key == [T8].supplier_key1
+@anonymous
+[T8].sname(StringVal) 
+SN1 
+SN1 
+SN1 
+SN2 
+SN3 
+SN5 
+SN5 
+SN6 
+SN8 
+SN8 
+SN9 
+SN9 
+
+[No.1]===============================
+SELECT
+  [T16].sname
+FROM
+  (( SELECT
+        [T14].supplier_key,[T14].part_id,[T14].part_id1,[T14].color
+      FROM
+        (( input1 ) JOIN (
+            SELECT
+              input2.part_id,input2.color
+            FROM
+              input2
+            WHERE
+              input2.color == red
+               OR input2.color == green )) AS [T14][supplier_key, part_id, part_id1, color]
+      WHERE
+        [T14].part_id == [T14].part_id1 ) JOIN (
+      input3 )) AS [T16][supplier_key, part_id, part_id1, color, supplier_key1, sname]
+WHERE
+  [T16].supplier_key == [T16].supplier_key1
+@anonymous
+[T16].sname(StringVal) 
+SN1 
+SN1 
+SN1 
+SN2 
+SN3 
+SN5 
+SN5 
+SN6 
+SN8 
+SN8 
+SN9 
+SN9 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.617s

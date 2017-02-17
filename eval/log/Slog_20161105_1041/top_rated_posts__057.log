@@ -1,0 +1,188 @@
+[[Synthesizing]]
+[[Synthesis start]]
+	File: ../data/top_rated_posts/057
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 48 [SymTable]: 49
+[Total Number of Intermediate] 50
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 5
+[EnumJoinOnAggr] level 1 [SymTable]: 9
+[Total Number of Intermediate] 9
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 13
+[Total Number of Intermediate] 13
+Candidate Tree Number: 5
+[Enumeration Finished]
+    [AggrFun] Optional[MIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 13
+[Total Number of Intermediate] 13
+Candidate Tree Number: 7
+[Enumeration Finished]
+    [AggrFun] Optional[AVG]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 13
+[Total Number of Intermediate] 13
+Candidate Tree Number: 4
+[Enumeration Finished]
+    [AggrFun] Optional[MAXMIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 9 [SymTable]: 10
+[JOIN] level 1 [SymTable]: 21
+[Total Number of Intermediate] 21
+Candidate Tree Number: 12
+[Enumeration Finished]
+    [AggrFun] Optional[COUNTMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 44 [SymTable]: 45
+[JOIN] level 1 [SymTable]: 91
+[Total Number of Intermediate] 91
+Candidate Tree Number: 280
+[Enumeration Finished]
+[Query No.5]===============================
+SELECT
+  [T460].Name,[T460].City,[T460].Birthyear
+FROM
+  (( (SELECT
+          [T450].City, MAX([T450].ID)
+        FROM
+          (input1) AS [T450][ID, Name, City, Birthyear]
+        GROUP BY
+          [T450].City) AS [T451][City, MAX-ID] ) JOIN (
+      input1 )) AS [T460][City, MAX-ID, ID, Name, City1, Birthyear]
+WHERE
+  [T460].MAX-ID == [T460].ID
+@anonymous
+[T460].Name(StringVal) | [T460].City(StringVal) | [T460].Birthyear(NumberVal) 
+Mac Taylor | New York | 1955.0 
+Sarah Connor | Los Angeles | 1959.0 
+Jean-Luc Picard | La Barre | 2305.0 
+Ellen Ripley | Nostromo | 2092.0 
+James T. Kirk | Riverside | 2233.0 
+Henry Jones | Chicago | 1899.0 
+
+[Query No.4]===============================
+SELECT
+  [T248].Name,[T248].City,[T248].MIN-Birthyear
+FROM
+  (( (SELECT
+          [T246].City, MIN([T246].Birthyear)
+        FROM
+          (input1) AS [T246][ID, Name, City, Birthyear]
+        GROUP BY
+          [T246].City) AS [T247][City, MIN-Birthyear] ) JOIN (
+      input1 )) AS [T248][City, MIN-Birthyear, ID, Name, City1, Birthyear]
+WHERE
+  [T248].MIN-Birthyear == [T248].Birthyear
+@anonymous
+[T248].Name(StringVal) | [T248].City(StringVal) | [T248].MIN-Birthyear(NumberVal) 
+Mac Taylor | New York | 1955.0 
+Sarah Connor | Los Angeles | 1959.0 
+Jean-Luc Picard | La Barre | 2305.0 
+Ellen Ripley | Nostromo | 2092.0 
+James T. Kirk | Riverside | 2233.0 
+Henry Jones | Chicago | 1899.0 
+
+[Query No.3]===============================
+SELECT
+  [T206].Name,[T206].City,[T206].Birthyear
+FROM
+  (( (SELECT
+          [T204].City, MAX([T204].ID)
+        FROM
+          (input1) AS [T204][ID, Name, City, Birthyear]
+        GROUP BY
+          [T204].City) AS [T205][City, MAX-ID] ) JOIN (
+      input1 )) AS [T206][City, MAX-ID, ID, Name, City1, Birthyear]
+WHERE
+  [T206].MAX-ID == [T206].ID
+@anonymous
+[T206].Name(StringVal) | [T206].City(StringVal) | [T206].Birthyear(NumberVal) 
+Mac Taylor | New York | 1955.0 
+Sarah Connor | Los Angeles | 1959.0 
+Jean-Luc Picard | La Barre | 2305.0 
+Ellen Ripley | Nostromo | 2092.0 
+James T. Kirk | Riverside | 2233.0 
+Henry Jones | Chicago | 1899.0 
+
+[Query No.2]===============================
+SELECT
+  [T110].Name,[T110].City,[T110].MIN-Birthyear
+FROM
+  (( (SELECT
+          [T108].City, MIN([T108].Birthyear)
+        FROM
+          (input1) AS [T108][ID, Name, City, Birthyear]
+        GROUP BY
+          [T108].City) AS [T109][City, MIN-Birthyear] ) JOIN (
+      input1 )) AS [T110][City, MIN-Birthyear, ID, Name, City1, Birthyear]
+WHERE
+  [T110].MIN-Birthyear == [T110].Birthyear
+@anonymous
+[T110].Name(StringVal) | [T110].City(StringVal) | [T110].MIN-Birthyear(NumberVal) 
+Mac Taylor | New York | 1955.0 
+Sarah Connor | Los Angeles | 1959.0 
+Jean-Luc Picard | La Barre | 2305.0 
+Ellen Ripley | Nostromo | 2092.0 
+James T. Kirk | Riverside | 2233.0 
+Henry Jones | Chicago | 1899.0 
+
+[Query No.1]===============================
+SELECT
+  [T69].Name,[T69].City,[T69].Birthyear
+FROM
+  (( (SELECT
+          [T67].City, MAX([T67].ID)
+        FROM
+          (input1) AS [T67][ID, Name, City, Birthyear]
+        GROUP BY
+          [T67].City) AS [T68][City, MAX-ID] ) JOIN (
+      input1 )) AS [T69][City, MAX-ID, ID, Name, City1, Birthyear]
+WHERE
+  [T69].MAX-ID == [T69].ID
+@anonymous
+[T69].Name(StringVal) | [T69].City(StringVal) | [T69].Birthyear(NumberVal) 
+Mac Taylor | New York | 1955.0 
+Sarah Connor | Los Angeles | 1959.0 
+Jean-Luc Picard | La Barre | 2305.0 
+Ellen Ripley | Nostromo | 2092.0 
+James T. Kirk | Riverside | 2233.0 
+Henry Jones | Chicago | 1899.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 1.944s

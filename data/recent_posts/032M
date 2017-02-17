@@ -1,0 +1,35 @@
+//http://stackoverflow.com/questions/40015743/jpa-distinct-and-limiting-result-number
+//// MOD 10
+
+#input
+
+ Id, crit1, crit2, value
+ 1 , 11    , 2    , a
+ 2 , 21    , 2    , b
+ 3 , 11    , 3    , c
+ 4 , 11    , 1    , d
+ 5 , 21    , 2    , e
+ 6 , 11    , 2    , f
+
+#output
+
+crit1, crit2, value
+11    , 1    , d
+11    , 2    , f
+11    , 3    , c
+21    , 2    , e
+
+
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["max"]
+}
+
+#solution
+
+select e.crit1, e.crit2, e.value 
+from MyEntity e 
+where e.id in (select max(sub.id) from MyEntity sub group by sub.crit1, sub.crit2)
+order by e.crit1, e.crit2

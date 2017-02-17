@@ -1,0 +1,50 @@
+//http://stackoverflow.com/questions/39761697/three-tables-inner-join-and-only-one-row-for-from-the-tird-table
+// MOD 7
+
+# input
+
+| id_orden | date | total | id_usuario |
+|-----------------------------|
+| 1        |15-may|50     | 2 |
+| 2        |20-may|60     | 1 |
+
+# input
+
+| id_usuario | name | phone |
+|---------------------------|
+| 2          | abc  | 999   |
+| 1          | def  | 888   |
+
+# input
+
+| id_orden | edo |
+|--------------|
+| 1        | 23 |
+| 1        | 22 |
+| 1        | 21 |
+| 2        | 22 |
+| 2        | 21 |
+
+# output
+
+| id_orden | date | total | name | phone | maxedo |
+|--------------------------------------------|
+| 1        |15-may| 50    | abc  | 999   | 23 |
+| 2        |20-may| 60    | def  | 888   | 22 |
+
+# constraint
+{
+	"constants": [],
+	"aggregation_functions": ["max"]
+}
+
+#solution
+
+Select a.id_orden, a.date, a.total, a.id_usuario, a.name, a.phone, b.maxestado
+From (Select o.id_orden, o.date, o.total, o.id_usuario, u.name, u.phone 
+From ordenes o Inner Join usuario u
+On o.id_usuario = u.id_usuario ) a 
+Join (Select id_orden, max(edo) maxestado
+From estado
+Group By id_orden) b
+On a.id_orden = b.id_orden;

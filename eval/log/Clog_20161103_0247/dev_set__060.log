@@ -1,0 +1,359 @@
+[[Synthesis start]]
+	File: ../data/dev_set/060
+	Enumerator: CanonicalTableEnumeratorOnTheFly
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 3
+	Avg table size: 12
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 90
+	Avg table size: 6
+Total Tree Count: 40
+Total Query Count: 2141376
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 3
+	Avg table size: 12
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 6
+	Avg table size: 8
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 482
+	Avg table size: 68
+Total Tree Count: 62
+Total Query Count: 123182898
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 3
+	Avg table size: 12
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 13
+	Avg table size: 8
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 982
+	Avg table size: 63
+Total Tree Count: 52
+Total Query Count: 28558401
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 3
+	Avg table size: 12
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 19
+	Avg table size: 7
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 1292
+	Avg table size: 59
+Total Tree Count: 40
+Total Query Count: 12159476
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 3
+	Avg table size: 12
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 18
+	Avg table size: 7
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 1243
+	Avg table size: 58
+Total Tree Count: 40
+Total Query Count: 15219018
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 3
+	Avg table size: 12
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 25
+	Avg table size: 7
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 1663
+	Avg table size: 60
+Total Tree Count: 70
+Total Query Count: 60449878
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 3
+	Avg table size: 12
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 34
+	Avg table size: 6
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 2286
+	Avg table size: 51
+Total Tree Count: 69
+Total Query Count: 54170992
+[Enumeration Finished]
+[Query No.15]===============================
+((SELECT
+      input1.GroupNumber, input1.FirstName, FROM
+      input1
+    GROUP BY
+      input1.GroupNumber  input1.FirstName) AS [T881520][GroupNumber, FirstName]) AS [T881673][GroupNumber, FirstName]
+@[T881673]
+GroupNumber(NumberVal) | FirstName(StringVal) 
+1.0 | Peter 
+1.0 | Bob 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[Query No.14]===============================
+SELECT
+  [T844771].MAX-GroupNumber,[T844771].FirstName
+FROM
+  ((SELECT
+        input1.GroupNumber, input1.FirstName, MAX(input1.GroupNumber)
+      FROM
+        input1
+      GROUP BY
+        input1.GroupNumber  input1.FirstName) AS [T844490][GroupNumber, FirstName, MAX-GroupNumber]) AS [T844771][GroupNumber, FirstName, MAX-GroupNumber]
+
+@anonymous
+[T844771].MAX-GroupNumber(NumberVal) | [T844771].FirstName(StringVal) 
+1.0 | Peter 
+1.0 | Bob 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[Query No.13]===============================
+SELECT
+  [T844771].GroupNumber,[T844771].FirstName
+FROM
+  ((SELECT
+        input1.GroupNumber, input1.FirstName, MAX(input1.GroupNumber)
+      FROM
+        input1
+      GROUP BY
+        input1.GroupNumber  input1.FirstName) AS [T844490][GroupNumber, FirstName, MAX-GroupNumber]) AS [T844771][GroupNumber, FirstName, MAX-GroupNumber]
+
+@anonymous
+[T844771].GroupNumber(NumberVal) | [T844771].FirstName(StringVal) 
+1.0 | Peter 
+1.0 | Bob 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[Query No.12]===============================
+(((SELECT
+        input1.GroupNumber, input1.FirstName, FROM
+        input1
+      GROUP BY
+        input1.GroupNumber  input1.FirstName) AS [T414337][GroupNumber, FirstName]) AS [T414354][GroupNumber, FirstName]) AS [T416081][GroupNumber, FirstName]
+@anonymous
+[T416081].GroupNumber(NumberVal) | [T416081].FirstName(StringVal) 
+1.0 | Peter 
+1.0 | Bob 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[Query No.11]===============================
+(((SELECT
+        input1.GroupNumber, input1.FirstName, FROM
+        input1
+      GROUP BY
+        input1.GroupNumber  input1.FirstName) AS [T414337][GroupNumber, FirstName]) AS [T414354][GroupNumber, FirstName]) AS [T415672][GroupNumber, FirstName]
+@anonymous
+[T415672].GroupNumber(NumberVal) | [T415672].FirstName(StringVal) 
+1.0 | Peter 
+1.0 | Bob 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[Query No.10]===============================
+(((SELECT
+        input1.GroupNumber, input1.FirstName, FROM
+        input1
+      GROUP BY
+        input1.GroupNumber  input1.FirstName) AS [T414337][GroupNumber, FirstName]) AS [T414354][GroupNumber, FirstName]) AS [T415671][GroupNumber, FirstName]
+@anonymous
+[T415671].GroupNumber(NumberVal) | [T415671].FirstName(StringVal) 
+1.0 | Peter 
+1.0 | Bob 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[Query No.9]===============================
+((SELECT
+      input1.GroupNumber, input1.FirstName, FROM
+      input1
+    GROUP BY
+      input1.GroupNumber  input1.FirstName) AS [T413013][GroupNumber, FirstName]) AS [T413030][GroupNumber, FirstName]
+@anonymous
+[T413030].GroupNumber(NumberVal) | [T413030].FirstName(StringVal) 
+1.0 | Peter 
+1.0 | Bob 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[Query No.8]===============================
+((SELECT
+      input1.GroupNumber, input1.FirstName, FROM
+      input1
+    GROUP BY
+      input1.GroupNumber  input1.FirstName) AS [T413013][GroupNumber, FirstName]) AS [T413030][GroupNumber, FirstName]
+@anonymous
+[T413030].GroupNumber(NumberVal) | [T413030].FirstName(StringVal) 
+1.0 | Peter 
+1.0 | Bob 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[Query No.7]===============================
+((SELECT
+      input1.GroupNumber, input1.FirstName, FROM
+      input1
+    GROUP BY
+      input1.GroupNumber  input1.FirstName) AS [T406359][GroupNumber, FirstName]) AS [T406376][GroupNumber, FirstName]
+@[T406376]
+GroupNumber(NumberVal) | FirstName(StringVal) 
+1.0 | Peter 
+1.0 | Bob 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[Query No.6]===============================
+SELECT
+  [T14286].MAX-GroupNumber,[T14286].FirstName
+FROM
+  ((SELECT
+        input1.GroupNumber, input1.FirstName, MAX(input1.GroupNumber)
+      FROM
+        input1
+      GROUP BY
+        input1.GroupNumber  input1.FirstName) AS [T11873][GroupNumber, FirstName, MAX-GroupNumber]) AS [T14286][GroupNumber, FirstName, MAX-GroupNumber]
+
+@anonymous
+[T14286].MAX-GroupNumber(NumberVal) | [T14286].FirstName(StringVal) 
+1.0 | Peter 
+1.0 | Bob 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[Query No.5]===============================
+SELECT
+  [T13971].AVG-GroupNumber,[T13971].FirstName
+FROM
+  ((SELECT
+        input1.GroupNumber, input1.FirstName, AVG(input1.GroupNumber)
+      FROM
+        input1
+      GROUP BY
+        input1.GroupNumber  input1.FirstName) AS [T11870][GroupNumber, FirstName, AVG-GroupNumber]) AS [T13971][GroupNumber, FirstName, AVG-GroupNumber]
+
+@anonymous
+[T13971].AVG-GroupNumber(NumberVal) | [T13971].FirstName(StringVal) 
+1.0 | Peter 
+1.0 | Bob 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[Query No.4]===============================
+SELECT
+  [T14601].GroupNumber,[T14601].FirstName
+FROM
+  ((SELECT
+        input1.GroupNumber, input1.FirstName, FIRST(input1.GroupNumber)
+      FROM
+        input1
+      GROUP BY
+        input1.GroupNumber  input1.FirstName) AS [T11876][GroupNumber, FirstName, FIRST-GroupNumber]) AS [T14601][GroupNumber, FirstName, FIRST-GroupNumber]
+
+@anonymous
+[T14601].GroupNumber(NumberVal) | [T14601].FirstName(StringVal) 
+1.0 | Peter 
+1.0 | Bob 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[Query No.3]===============================
+SELECT
+  [T14391].GroupNumber,[T14391].FirstName
+FROM
+  ((SELECT
+        input1.GroupNumber, input1.FirstName, MIN(input1.GroupNumber)
+      FROM
+        input1
+      GROUP BY
+        input1.GroupNumber  input1.FirstName) AS [T11874][GroupNumber, FirstName, MIN-GroupNumber]) AS [T14391][GroupNumber, FirstName, MIN-GroupNumber]
+
+@anonymous
+[T14391].GroupNumber(NumberVal) | [T14391].FirstName(StringVal) 
+1.0 | Peter 
+1.0 | Bob 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[Query No.2]===============================
+SELECT
+  [T14286].GroupNumber,[T14286].FirstName
+FROM
+  ((SELECT
+        input1.GroupNumber, input1.FirstName, MAX(input1.GroupNumber)
+      FROM
+        input1
+      GROUP BY
+        input1.GroupNumber  input1.FirstName) AS [T11873][GroupNumber, FirstName, MAX-GroupNumber]) AS [T14286][GroupNumber, FirstName, MAX-GroupNumber]
+
+@anonymous
+[T14286].GroupNumber(NumberVal) | [T14286].FirstName(StringVal) 
+1.0 | Peter 
+1.0 | Bob 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[Query No.1]===============================
+SELECT
+  [T13971].GroupNumber,[T13971].FirstName
+FROM
+  ((SELECT
+        input1.GroupNumber, input1.FirstName, AVG(input1.GroupNumber)
+      FROM
+        input1
+      GROUP BY
+        input1.GroupNumber  input1.FirstName) AS [T11870][GroupNumber, FirstName, AVG-GroupNumber]) AS [T13971][GroupNumber, FirstName, AVG-GroupNumber]
+
+@anonymous
+[T13971].GroupNumber(NumberVal) | [T13971].FirstName(StringVal) 
+1.0 | Peter 
+1.0 | Bob 
+2.0 | Rosemary 
+2.0 | Jamie 
+3.0 | Peter 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 544.673s

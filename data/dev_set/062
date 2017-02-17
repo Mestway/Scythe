@@ -1,0 +1,28 @@
+// http://stackoverflow.com/questions/39719820/what-is-the-best-way-for-selecting-2-row-from-table-in-one-row
+
+#input
+
+| ID         |  PERSON_ID  |  NAME     |    GRADE    |
+|----------------------------------------------------|
+| 1          |  1          |  NAME_1   |    10       |
+| 2          |  1          |  NAME_1   |    20       |
+| 3          |  2          |  NAME_2   |    30       |
+| 4          |  2          |  NAME_2   |    40       |
+
+#output
+
+| PERSON_ID |   NAME     |    GRADE1  |     GRADE_2 |
+|---------------------------------------------------|
+| 1         |   NAME_1   |    10      |      20     |
+| 2         |   NAME_2   |    30      |      40     |
+
+# constraint
+{
+	"constants": [],
+	"aggregation_functions": []
+}
+
+#solution
+
+select t1.person_id, t1.grade as grade1, t2.grade as grade2
+from TABLE_A t1 join TABLE_A t2 on t1.person_id=t2.person_id and t1.id!=t2.id

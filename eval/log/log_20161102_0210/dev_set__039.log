@@ -1,0 +1,810 @@
+[[Synthesis start]]
+	File: ../data/dev_set/039
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 10802 [SymTable]: 10803
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 458 [SymTable]: 459
+[JOINOnInput] level 1 [SymTable]: 460
+[EnumJoinOnAggr] level 1 [SymTable]: 211141
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1891 [SymTable]: 1892
+[JOINOnInput] level 1 [SymTable]: 1893
+[EnumJoinOnAggr] level 1 [SymTable]: 3581557
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1891 [SymTable]: 1892
+[JOINOnInput] level 1 [SymTable]: 1893
+[EnumJoinOnAggr] level 1 [SymTable]: 3581557
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1891 [SymTable]: 1892
+[JOINOnInput] level 1 [SymTable]: 1893
+[EnumJoinOnAggr] level 1 [SymTable]: 3581557
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1891 [SymTable]: 1892
+[JOINOnInput] level 1 [SymTable]: 1893
+[EnumJoinOnAggr] level 1 [SymTable]: 3581557
+Candidate Tree Number: 256
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T125942].AVG-trans,[T125942].trans,[T125942].Month
+FROM
+  (( (SELECT
+          [T125932].Month, AVG([T125932].trans)
+        FROM
+          (SELECT
+              input1.trans,input1.user,input1.Month
+            FROM
+              input1
+            WHERE
+              input1.user <= 2.0) AS [T125932][trans, user, Month]
+        GROUP BY
+          [T125932].Month) AS [T125933][Month, AVG-trans] ) JOIN (
+      SELECT
+        [T125941].trans,[T125941].Month,[T125941].AVG-user
+      FROM
+        (SELECT
+            [T125940].trans, [T125940].Month, AVG([T125940].user)
+          FROM
+            (SELECT
+                input1.trans,input1.user,input1.Month
+              FROM
+                input1
+              WHERE
+                input1.user > input1.Month
+                 OR input1.Month == 3.0) AS [T125940][trans, user, Month]
+          GROUP BY
+            [T125940].trans  [T125940].Month) AS [T125941][trans, Month, AVG-user]
+      WHERE
+        [T125941].AVG-user == 3.0 )) AS [T125942][Month, AVG-trans, trans, Month1, AVG-user]
+WHERE
+  [T125942].Month == [T125942].Month1
+@anonymous
+[T125942].AVG-trans(NumberVal) | [T125942].trans(NumberVal) | [T125942].Month(NumberVal) 
+101.0 | 103.0 | 1.0 
+101.5 | 103.0 | 2.0 
+104.0 | 101.0 | 3.0 
+
+[No.19]===============================
+SELECT
+  [T124440].AVG-trans,[T124440].trans,[T124440].Month
+FROM
+  (( (SELECT
+          [T124428].Month, AVG([T124428].trans)
+        FROM
+          (SELECT
+              input1.trans,input1.user,input1.Month
+            FROM
+              input1
+            WHERE
+              input1.user <= 2.0) AS [T124428][trans, user, Month]
+        GROUP BY
+          [T124428].Month) AS [T124429][Month, AVG-trans] ) JOIN (
+      SELECT
+        [T124437].trans,[T124437].Month,[T124437].AVG-user
+      FROM
+        (SELECT
+            [T124436].trans, [T124436].Month, AVG([T124436].user)
+          FROM
+            (SELECT
+                input1.trans,input1.user,input1.Month
+              FROM
+                input1
+              WHERE
+                input1.user < input1.Month
+                 OR input1.user <> 2.0) AS [T124436][trans, user, Month]
+          GROUP BY
+            [T124436].trans  [T124436].Month) AS [T124437][trans, Month, AVG-user]
+      WHERE
+        [T124437].AVG-user == 3.0 )) AS [T124440][Month, AVG-trans, trans, Month1, AVG-user]
+WHERE
+  [T124440].Month == [T124440].Month1
+@anonymous
+[T124440].AVG-trans(NumberVal) | [T124440].trans(NumberVal) | [T124440].Month(NumberVal) 
+101.0 | 103.0 | 1.0 
+101.5 | 103.0 | 2.0 
+104.0 | 101.0 | 3.0 
+
+[No.18]===============================
+SELECT
+  [T124290].AVG-trans,[T124290].trans,[T124290].Month
+FROM
+  (( SELECT
+        [T124277].trans,[T124277].Month,[T124277].AVG-user
+      FROM
+        (SELECT
+            [T124276].trans, [T124276].Month, AVG([T124276].user)
+          FROM
+            (SELECT
+                input1.trans,input1.user,input1.Month
+              FROM
+                input1
+              WHERE
+                input1.user <> input1.Month
+                 OR input1.user == 3.0) AS [T124276][trans, user, Month]
+          GROUP BY
+            [T124276].trans  [T124276].Month) AS [T124277][trans, Month, AVG-user]
+      WHERE
+        [T124277].AVG-user == 3.0 ) JOIN (
+      (SELECT
+          [T124282].Month, AVG([T124282].trans)
+        FROM
+          (SELECT
+              input1.trans,input1.user,input1.Month
+            FROM
+              input1
+            WHERE
+              input1.user <= 2.0) AS [T124282][trans, user, Month]
+        GROUP BY
+          [T124282].Month) AS [T124283][Month, AVG-trans] )) AS [T124290][trans, Month, AVG-user, Month1, AVG-trans]
+WHERE
+  [T124290].Month == [T124290].Month1
+@anonymous
+[T124290].AVG-trans(NumberVal) | [T124290].trans(NumberVal) | [T124290].Month(NumberVal) 
+101.0 | 103.0 | 1.0 
+101.5 | 103.0 | 2.0 
+104.0 | 101.0 | 3.0 
+
+[No.17]===============================
+SELECT
+  [T123778].AVG-trans,[T123778].trans,[T123778].Month
+FROM
+  (( (SELECT
+          [T123768].Month, AVG([T123768].trans)
+        FROM
+          (SELECT
+              input1.trans,input1.user,input1.Month
+            FROM
+              input1
+            WHERE
+              input1.user <= 2.0) AS [T123768][trans, user, Month]
+        GROUP BY
+          [T123768].Month) AS [T123769][Month, AVG-trans] ) JOIN (
+      SELECT
+        [T123777].trans,[T123777].Month,[T123777].AVG-user
+      FROM
+        (SELECT
+            [T123776].trans, [T123776].Month, AVG([T123776].user)
+          FROM
+            (SELECT
+                input1.trans,input1.user,input1.Month
+              FROM
+                input1
+              WHERE
+                input1.user < input1.Month
+                 OR input1.user == 3.0) AS [T123776][trans, user, Month]
+          GROUP BY
+            [T123776].trans  [T123776].Month) AS [T123777][trans, Month, AVG-user]
+      WHERE
+        [T123777].AVG-user == 3.0 )) AS [T123778][Month, AVG-trans, trans, Month1, AVG-user]
+WHERE
+  [T123778].Month == [T123778].Month1
+@anonymous
+[T123778].AVG-trans(NumberVal) | [T123778].trans(NumberVal) | [T123778].Month(NumberVal) 
+101.0 | 103.0 | 1.0 
+101.5 | 103.0 | 2.0 
+104.0 | 101.0 | 3.0 
+
+[No.16]===============================
+SELECT
+  [T123610].AVG-trans,[T123610].trans,[T123610].Month
+FROM
+  (( SELECT
+        [T123599].trans,[T123599].Month,[T123599].AVG-user
+      FROM
+        (SELECT
+            [T123598].trans, [T123598].Month, AVG([T123598].user)
+          FROM
+            (SELECT
+                input1.trans,input1.user,input1.Month
+              FROM
+                input1
+              WHERE
+                input1.user < input1.Month
+                 OR input1.user == 3.0) AS [T123598][trans, user, Month]
+          GROUP BY
+            [T123598].trans  [T123598].Month) AS [T123599][trans, Month, AVG-user]
+      WHERE
+        [T123599].AVG-user == 3.0 ) JOIN (
+      (SELECT
+          [T123602].Month, AVG([T123602].trans)
+        FROM
+          (SELECT
+              input1.trans,input1.user,input1.Month
+            FROM
+              input1
+            WHERE
+              input1.user <= 2.0) AS [T123602][trans, user, Month]
+        GROUP BY
+          [T123602].Month) AS [T123603][Month, AVG-trans] )) AS [T123610][trans, Month, AVG-user, Month1, AVG-trans]
+WHERE
+  [T123610].Month == [T123610].Month1
+@anonymous
+[T123610].AVG-trans(NumberVal) | [T123610].trans(NumberVal) | [T123610].Month(NumberVal) 
+101.0 | 103.0 | 1.0 
+101.5 | 103.0 | 2.0 
+104.0 | 101.0 | 3.0 
+
+[No.15]===============================
+SELECT
+  [T123456].AVG-trans,[T123456].trans,[T123456].Month
+FROM
+  (( SELECT
+        [T123445].trans,[T123445].Month,[T123445].AVG-user
+      FROM
+        (SELECT
+            [T123444].trans, [T123444].Month, AVG([T123444].user)
+          FROM
+            (SELECT
+                input1.trans,input1.user,input1.Month
+              FROM
+                input1
+              WHERE
+                input1.user == 3.0
+                 OR input1.Month == 3.0) AS [T123444][trans, user, Month]
+          GROUP BY
+            [T123444].trans  [T123444].Month) AS [T123445][trans, Month, AVG-user]
+      WHERE
+        [T123445].AVG-user == 3.0 ) JOIN (
+      (SELECT
+          [T123448].Month, AVG([T123448].trans)
+        FROM
+          (SELECT
+              input1.trans,input1.user,input1.Month
+            FROM
+              input1
+            WHERE
+              input1.user <= 2.0) AS [T123448][trans, user, Month]
+        GROUP BY
+          [T123448].Month) AS [T123449][Month, AVG-trans] )) AS [T123456][trans, Month, AVG-user, Month1, AVG-trans]
+WHERE
+  [T123456].Month == [T123456].Month1
+@anonymous
+[T123456].AVG-trans(NumberVal) | [T123456].trans(NumberVal) | [T123456].Month(NumberVal) 
+101.0 | 103.0 | 1.0 
+101.5 | 103.0 | 2.0 
+104.0 | 101.0 | 3.0 
+
+[No.14]===============================
+SELECT
+  [T123386].AVG-trans,[T123386].trans,[T123386].Month
+FROM
+  (( SELECT
+        [T123375].trans,[T123375].Month,[T123375].AVG-user
+      FROM
+        (SELECT
+            [T123374].trans, [T123374].Month, AVG([T123374].user)
+          FROM
+            (SELECT
+                input1.trans,input1.user,input1.Month
+              FROM
+                input1
+              WHERE
+                input1.user > input1.Month
+                 OR input1.Month == 3.0) AS [T123374][trans, user, Month]
+          GROUP BY
+            [T123374].trans  [T123374].Month) AS [T123375][trans, Month, AVG-user]
+      WHERE
+        [T123375].AVG-user == 3.0 ) JOIN (
+      (SELECT
+          [T123378].Month, AVG([T123378].trans)
+        FROM
+          (SELECT
+              input1.trans,input1.user,input1.Month
+            FROM
+              input1
+            WHERE
+              input1.user <= 2.0) AS [T123378][trans, user, Month]
+        GROUP BY
+          [T123378].Month) AS [T123379][Month, AVG-trans] )) AS [T123386][trans, Month, AVG-user, Month1, AVG-trans]
+WHERE
+  [T123386].Month == [T123386].Month1
+@anonymous
+[T123386].AVG-trans(NumberVal) | [T123386].trans(NumberVal) | [T123386].Month(NumberVal) 
+101.0 | 103.0 | 1.0 
+101.5 | 103.0 | 2.0 
+104.0 | 101.0 | 3.0 
+
+[No.13]===============================
+SELECT
+  [T123054].AVG-trans,[T123054].trans,[T123054].Month
+FROM
+  (( (SELECT
+          [T123042].Month, AVG([T123042].trans)
+        FROM
+          (SELECT
+              input1.trans,input1.user,input1.Month
+            FROM
+              input1
+            WHERE
+              input1.user <= 2.0) AS [T123042][trans, user, Month]
+        GROUP BY
+          [T123042].Month) AS [T123043][Month, AVG-trans] ) JOIN (
+      SELECT
+        [T123051].trans,[T123051].Month,[T123051].AVG-user
+      FROM
+        (SELECT
+            [T123050].trans, [T123050].Month, AVG([T123050].user)
+          FROM
+            (SELECT
+                input1.trans,input1.user,input1.Month
+              FROM
+                input1
+              WHERE
+                input1.user <> input1.Month
+                 OR input1.user == 3.0) AS [T123050][trans, user, Month]
+          GROUP BY
+            [T123050].trans  [T123050].Month) AS [T123051][trans, Month, AVG-user]
+      WHERE
+        [T123051].AVG-user == 3.0 )) AS [T123054][Month, AVG-trans, trans, Month1, AVG-user]
+WHERE
+  [T123054].Month == [T123054].Month1
+@anonymous
+[T123054].AVG-trans(NumberVal) | [T123054].trans(NumberVal) | [T123054].Month(NumberVal) 
+101.0 | 103.0 | 1.0 
+101.5 | 103.0 | 2.0 
+104.0 | 101.0 | 3.0 
+
+[No.12]===============================
+SELECT
+  [T122966].AVG-trans,[T122966].trans,[T122966].Month
+FROM
+  (( SELECT
+        [T122951].trans,[T122951].Month,[T122951].AVG-user
+      FROM
+        (SELECT
+            [T122950].trans, [T122950].Month, AVG([T122950].user)
+          FROM
+            (SELECT
+                input1.trans,input1.user,input1.Month
+              FROM
+                input1
+              WHERE
+                input1.user <> input1.Month
+                 OR input1.user <> 2.0) AS [T122950][trans, user, Month]
+          GROUP BY
+            [T122950].trans  [T122950].Month) AS [T122951][trans, Month, AVG-user]
+      WHERE
+        [T122951].AVG-user == 3.0 ) JOIN (
+      (SELECT
+          [T122958].Month, AVG([T122958].trans)
+        FROM
+          (SELECT
+              input1.trans,input1.user,input1.Month
+            FROM
+              input1
+            WHERE
+              input1.user <= 2.0) AS [T122958][trans, user, Month]
+        GROUP BY
+          [T122958].Month) AS [T122959][Month, AVG-trans] )) AS [T122966][trans, Month, AVG-user, Month1, AVG-trans]
+WHERE
+  [T122966].Month == [T122966].Month1
+@anonymous
+[T122966].AVG-trans(NumberVal) | [T122966].trans(NumberVal) | [T122966].Month(NumberVal) 
+101.0 | 103.0 | 1.0 
+101.5 | 103.0 | 2.0 
+104.0 | 101.0 | 3.0 
+
+[No.11]===============================
+SELECT
+  [T122344].AVG-trans,[T122344].trans,[T122344].Month
+FROM
+  (( (SELECT
+          [T122332].Month, AVG([T122332].trans)
+        FROM
+          (SELECT
+              input1.trans,input1.user,input1.Month
+            FROM
+              input1
+            WHERE
+              input1.user <= 2.0) AS [T122332][trans, user, Month]
+        GROUP BY
+          [T122332].Month) AS [T122333][Month, AVG-trans] ) JOIN (
+      SELECT
+        [T122341].trans,[T122341].Month,[T122341].AVG-user
+      FROM
+        (SELECT
+            [T122340].trans, [T122340].Month, AVG([T122340].user)
+          FROM
+            (SELECT
+                input1.trans,input1.user,input1.Month
+              FROM
+                input1
+              WHERE
+                input1.user > input1.Month
+                 OR input1.Month <> 2.0) AS [T122340][trans, user, Month]
+          GROUP BY
+            [T122340].trans  [T122340].Month) AS [T122341][trans, Month, AVG-user]
+      WHERE
+        [T122341].AVG-user == 3.0 )) AS [T122344][Month, AVG-trans, trans, Month1, AVG-user]
+WHERE
+  [T122344].Month == [T122344].Month1
+@anonymous
+[T122344].AVG-trans(NumberVal) | [T122344].trans(NumberVal) | [T122344].Month(NumberVal) 
+101.0 | 103.0 | 1.0 
+101.5 | 103.0 | 2.0 
+104.0 | 101.0 | 3.0 
+
+[No.10]===============================
+SELECT
+  [T122256].AVG-trans,[T122256].trans,[T122256].Month
+FROM
+  (( (SELECT
+          [T122242].Month, AVG([T122242].trans)
+        FROM
+          (SELECT
+              input1.trans,input1.user,input1.Month
+            FROM
+              input1
+            WHERE
+              input1.user <= 2.0) AS [T122242][trans, user, Month]
+        GROUP BY
+          [T122242].Month) AS [T122243][Month, AVG-trans] ) JOIN (
+      SELECT
+        [T122251].trans,[T122251].Month,[T122251].AVG-user
+      FROM
+        (SELECT
+            [T122250].trans, [T122250].Month, AVG([T122250].user)
+          FROM
+            (SELECT
+                input1.trans,input1.user,input1.Month
+              FROM
+                input1
+              WHERE
+                input1.user <> input1.Month
+                 OR input1.user <> 2.0) AS [T122250][trans, user, Month]
+          GROUP BY
+            [T122250].trans  [T122250].Month) AS [T122251][trans, Month, AVG-user]
+      WHERE
+        [T122251].AVG-user == 3.0 )) AS [T122256][Month, AVG-trans, trans, Month1, AVG-user]
+WHERE
+  [T122256].Month == [T122256].Month1
+@anonymous
+[T122256].AVG-trans(NumberVal) | [T122256].trans(NumberVal) | [T122256].Month(NumberVal) 
+101.0 | 103.0 | 1.0 
+101.5 | 103.0 | 2.0 
+104.0 | 101.0 | 3.0 
+
+[No.9]===============================
+SELECT
+  [T122104].AVG-trans,[T122104].trans,[T122104].Month
+FROM
+  (( SELECT
+        [T122091].trans,[T122091].Month,[T122091].AVG-user
+      FROM
+        (SELECT
+            [T122090].trans, [T122090].Month, AVG([T122090].user)
+          FROM
+            (SELECT
+                input1.trans,input1.user,input1.Month
+              FROM
+                input1
+              WHERE
+                input1.user > input1.Month
+                 OR input1.Month <> 2.0) AS [T122090][trans, user, Month]
+          GROUP BY
+            [T122090].trans  [T122090].Month) AS [T122091][trans, Month, AVG-user]
+      WHERE
+        [T122091].AVG-user == 3.0 ) JOIN (
+      (SELECT
+          [T122096].Month, AVG([T122096].trans)
+        FROM
+          (SELECT
+              input1.trans,input1.user,input1.Month
+            FROM
+              input1
+            WHERE
+              input1.user <= 2.0) AS [T122096][trans, user, Month]
+        GROUP BY
+          [T122096].Month) AS [T122097][Month, AVG-trans] )) AS [T122104][trans, Month, AVG-user, Month1, AVG-trans]
+WHERE
+  [T122104].Month == [T122104].Month1
+@anonymous
+[T122104].AVG-trans(NumberVal) | [T122104].trans(NumberVal) | [T122104].Month(NumberVal) 
+101.0 | 103.0 | 1.0 
+101.5 | 103.0 | 2.0 
+104.0 | 101.0 | 3.0 
+
+[No.8]===============================
+SELECT
+  [T121908].AVG-trans,[T121908].trans,[T121908].Month
+FROM
+  (( (SELECT
+          [T121898].Month, AVG([T121898].trans)
+        FROM
+          (SELECT
+              input1.trans,input1.user,input1.Month
+            FROM
+              input1
+            WHERE
+              input1.user <= 2.0) AS [T121898][trans, user, Month]
+        GROUP BY
+          [T121898].Month) AS [T121899][Month, AVG-trans] ) JOIN (
+      SELECT
+        [T121907].trans,[T121907].Month,[T121907].AVG-user
+      FROM
+        (SELECT
+            [T121906].trans, [T121906].Month, AVG([T121906].user)
+          FROM
+            (SELECT
+                input1.trans,input1.user,input1.Month
+              FROM
+                input1
+              WHERE
+                input1.user == 3.0
+                 OR input1.Month == 3.0) AS [T121906][trans, user, Month]
+          GROUP BY
+            [T121906].trans  [T121906].Month) AS [T121907][trans, Month, AVG-user]
+      WHERE
+        [T121907].AVG-user == 3.0 )) AS [T121908][Month, AVG-trans, trans, Month1, AVG-user]
+WHERE
+  [T121908].Month == [T121908].Month1
+@anonymous
+[T121908].AVG-trans(NumberVal) | [T121908].trans(NumberVal) | [T121908].Month(NumberVal) 
+101.0 | 103.0 | 1.0 
+101.5 | 103.0 | 2.0 
+104.0 | 101.0 | 3.0 
+
+[No.7]===============================
+SELECT
+  [T121830].AVG-trans,[T121830].trans,[T121830].Month
+FROM
+  (( SELECT
+        [T121817].trans,[T121817].Month,[T121817].AVG-user
+      FROM
+        (SELECT
+            [T121816].trans, [T121816].Month, AVG([T121816].user)
+          FROM
+            (SELECT
+                input1.trans,input1.user,input1.Month
+              FROM
+                input1
+              WHERE
+                input1.user < input1.Month
+                 OR input1.user <> 2.0) AS [T121816][trans, user, Month]
+          GROUP BY
+            [T121816].trans  [T121816].Month) AS [T121817][trans, Month, AVG-user]
+      WHERE
+        [T121817].AVG-user == 3.0 ) JOIN (
+      (SELECT
+          [T121822].Month, AVG([T121822].trans)
+        FROM
+          (SELECT
+              input1.trans,input1.user,input1.Month
+            FROM
+              input1
+            WHERE
+              input1.user <= 2.0) AS [T121822][trans, user, Month]
+        GROUP BY
+          [T121822].Month) AS [T121823][Month, AVG-trans] )) AS [T121830][trans, Month, AVG-user, Month1, AVG-trans]
+WHERE
+  [T121830].Month == [T121830].Month1
+@anonymous
+[T121830].AVG-trans(NumberVal) | [T121830].trans(NumberVal) | [T121830].Month(NumberVal) 
+101.0 | 103.0 | 1.0 
+101.5 | 103.0 | 2.0 
+104.0 | 101.0 | 3.0 
+
+[No.6]===============================
+SELECT
+  [T126022].AVG-trans,[T126022].trans,[T126022].Month
+FROM
+  (( SELECT
+        input1.trans,input1.user,input1.Month
+      FROM
+        input1
+      WHERE
+        input1.trans == 1.0
+         OR input1.user == 3.0 ) JOIN (
+      (SELECT
+          [T126014].Month, AVG([T126014].trans)
+        FROM
+          (SELECT
+              input1.trans,input1.user,input1.Month
+            FROM
+              input1
+            WHERE
+              input1.user <= 2.0) AS [T126014][trans, user, Month]
+        GROUP BY
+          [T126014].Month) AS [T126015][Month, AVG-trans] )) AS [T126022][trans, user, Month, Month1, AVG-trans]
+WHERE
+  [T126022].Month == [T126022].Month1
+@anonymous
+[T126022].AVG-trans(NumberVal) | [T126022].trans(NumberVal) | [T126022].Month(NumberVal) 
+101.0 | 103.0 | 1.0 
+101.5 | 103.0 | 2.0 
+104.0 | 101.0 | 3.0 
+
+[No.5]===============================
+SELECT
+  [T125812].AVG-trans,[T125812].trans,[T125812].Month
+FROM
+  (( (SELECT
+          [T125804].Month, AVG([T125804].trans)
+        FROM
+          (SELECT
+              input1.trans,input1.user,input1.Month
+            FROM
+              input1
+            WHERE
+              input1.user <= 2.0) AS [T125804][trans, user, Month]
+        GROUP BY
+          [T125804].Month) AS [T125805][Month, AVG-trans] ) JOIN (
+      SELECT
+        input1.trans,input1.user,input1.Month
+      FROM
+        input1
+      WHERE
+        input1.trans == 1.0
+         OR input1.user == 3.0 )) AS [T125812][Month, AVG-trans, trans, user, Month1]
+WHERE
+  [T125812].Month == [T125812].Month1
+@anonymous
+[T125812].AVG-trans(NumberVal) | [T125812].trans(NumberVal) | [T125812].Month(NumberVal) 
+101.0 | 103.0 | 1.0 
+101.5 | 103.0 | 2.0 
+104.0 | 101.0 | 3.0 
+
+[No.4]===============================
+SELECT
+  [T124596].AVG-trans,[T124596].trans,[T124596].Month
+FROM
+  (( SELECT
+        [T124577].trans,[T124577].Month,[T124577].AVG-user
+      FROM
+        (SELECT
+            [T124576].trans, [T124576].Month, AVG([T124576].user)
+          FROM
+            (input1) AS [T124576][trans, user, Month]
+          GROUP BY
+            [T124576].trans  [T124576].Month) AS [T124577][trans, Month, AVG-user]
+      WHERE
+        [T124577].AVG-user > 2.0 ) JOIN (
+      (SELECT
+          [T124588].Month, AVG([T124588].trans)
+        FROM
+          (SELECT
+              input1.trans,input1.user,input1.Month
+            FROM
+              input1
+            WHERE
+              input1.user <= 2.0) AS [T124588][trans, user, Month]
+        GROUP BY
+          [T124588].Month) AS [T124589][Month, AVG-trans] )) AS [T124596][trans, Month, AVG-user, Month1, AVG-trans]
+WHERE
+  [T124596].Month == [T124596].Month1
+@anonymous
+[T124596].AVG-trans(NumberVal) | [T124596].trans(NumberVal) | [T124596].Month(NumberVal) 
+101.0 | 103.0 | 1.0 
+101.5 | 103.0 | 2.0 
+104.0 | 101.0 | 3.0 
+
+[No.3]===============================
+SELECT
+  [T122790].AVG-trans,[T122790].trans,[T122790].Month
+FROM
+  (( (SELECT
+          [T122772].Month, AVG([T122772].trans)
+        FROM
+          (SELECT
+              input1.trans,input1.user,input1.Month
+            FROM
+              input1
+            WHERE
+              input1.user <= 2.0) AS [T122772][trans, user, Month]
+        GROUP BY
+          [T122772].Month) AS [T122773][Month, AVG-trans] ) JOIN (
+      SELECT
+        [T122781].trans,[T122781].Month,[T122781].AVG-user
+      FROM
+        (SELECT
+            [T122780].trans, [T122780].Month, AVG([T122780].user)
+          FROM
+            (input1) AS [T122780][trans, user, Month]
+          GROUP BY
+            [T122780].trans  [T122780].Month) AS [T122781][trans, Month, AVG-user]
+      WHERE
+        [T122781].AVG-user > 2.0 )) AS [T122790][Month, AVG-trans, trans, Month1, AVG-user]
+WHERE
+  [T122790].Month == [T122790].Month1
+@anonymous
+[T122790].AVG-trans(NumberVal) | [T122790].trans(NumberVal) | [T122790].Month(NumberVal) 
+101.0 | 103.0 | 1.0 
+101.5 | 103.0 | 2.0 
+104.0 | 101.0 | 3.0 
+
+[No.2]===============================
+SELECT
+  [T126010].AVG-trans,[T126010].trans,[T126010].Month
+FROM
+  (( SELECT
+        input1.trans,input1.user,input1.Month
+      FROM
+        input1
+      WHERE
+        input1.user == 3.0 ) JOIN (
+      (SELECT
+          [T126002].Month, AVG([T126002].trans)
+        FROM
+          (SELECT
+              input1.trans,input1.user,input1.Month
+            FROM
+              input1
+            WHERE
+              input1.user <= 2.0) AS [T126002][trans, user, Month]
+        GROUP BY
+          [T126002].Month) AS [T126003][Month, AVG-trans] )) AS [T126010][trans, user, Month, Month1, AVG-trans]
+WHERE
+  [T126010].Month == [T126010].Month1
+@anonymous
+[T126010].AVG-trans(NumberVal) | [T126010].trans(NumberVal) | [T126010].Month(NumberVal) 
+101.0 | 103.0 | 1.0 
+101.5 | 103.0 | 2.0 
+104.0 | 101.0 | 3.0 
+
+[No.1]===============================
+SELECT
+  [T125800].AVG-trans,[T125800].trans,[T125800].Month
+FROM
+  (( (SELECT
+          [T125792].Month, AVG([T125792].trans)
+        FROM
+          (SELECT
+              input1.trans,input1.user,input1.Month
+            FROM
+              input1
+            WHERE
+              input1.user <= 2.0) AS [T125792][trans, user, Month]
+        GROUP BY
+          [T125792].Month) AS [T125793][Month, AVG-trans] ) JOIN (
+      SELECT
+        input1.trans,input1.user,input1.Month
+      FROM
+        input1
+      WHERE
+        input1.user == 3.0 )) AS [T125800][Month, AVG-trans, trans, user, Month1]
+WHERE
+  [T125800].Month == [T125800].Month1
+@anonymous
+[T125800].AVG-trans(NumberVal) | [T125800].trans(NumberVal) | [T125800].Month(NumberVal) 
+101.0 | 103.0 | 1.0 
+101.5 | 103.0 | 2.0 
+104.0 | 101.0 | 3.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 205.466s

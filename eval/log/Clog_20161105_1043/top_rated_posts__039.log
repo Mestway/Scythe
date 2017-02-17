@@ -1,0 +1,258 @@
+[[Synthesizing]]
+[[Synthesis start]]
+	File: ../data/top_rated_posts/039
+	Enumerator: CanonicalTableEnumeratorOnTheFly
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 4
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 8
+	Avg table size: 2
+[Total Number of Intermediate Result] 8
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 4
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 2
+	Avg table size: 3
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 8
+	Avg table size: 14
+[Stage 3] EnumJoinTwoAggr1 
+	Total Table by now: 11
+	Avg table size: 14
+[Total Number of Intermediate Result] 11
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 4
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 2
+	Avg table size: 3
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 8
+	Avg table size: 14
+[Stage 3] EnumJoinTwoAggr1 
+	Total Table by now: 11
+	Avg table size: 14
+[Total Number of Intermediate Result] 11
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 4
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 2
+	Avg table size: 3
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 8
+	Avg table size: 14
+[Stage 3] EnumJoinTwoAggr1 
+	Total Table by now: 11
+	Avg table size: 14
+[Total Number of Intermediate Result] 11
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[AVG]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 4
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 2
+	Avg table size: 3
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 8
+	Avg table size: 14
+[Stage 3] EnumJoinTwoAggr1 
+	Total Table by now: 11
+	Avg table size: 14
+[Total Number of Intermediate Result] 11
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MAXMIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 4
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 2
+	Avg table size: 3
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 8
+	Avg table size: 14
+[Stage 3] EnumJoinTwoAggr1 
+	Total Table by now: 11
+	Avg table size: 14
+[Total Number of Intermediate Result] 11
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MAXCOUNT]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 4
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 6
+	Avg table size: 3
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 22
+	Avg table size: 12
+[Stage 3] EnumJoinTwoAggr1 
+	Total Table by now: 77
+	Avg table size: 13
+[Total Number of Intermediate Result] 77
+Total Tree Count: 7
+Total Query Count: 129228
+[Enumeration Finished]
+[Query No.5]===============================
+SELECT
+  [T5003].c
+FROM
+  ((( ((SELECT
+              COUNT(input1.c)
+            FROM
+              input1) AS [T4425][COUNT-c]) AS [T4558][COUNT-c] ) JOIN (
+        (SELECT
+            [T4714].c,[T4714].COUNT-c
+          FROM
+            (SELECT
+                input1.c, COUNT(input1.c)
+              FROM
+                input1
+              GROUP BY
+                input1.c) AS [T4714][c, COUNT-c]
+          WHERE
+            [T4714].COUNT-c == 2.0) AS [T4732][c, COUNT-c] )) AS [T4418][COUNT-c, c, COUNT-c1]) AS [T5003][COUNT-c, c, COUNT-c1]
+
+@anonymous
+[T5003].c(StringVal) 
+three 
+
+[Query No.4]===============================
+SELECT
+  [T4418].c
+FROM
+  (( ((SELECT
+            COUNT(input1.c)
+          FROM
+            input1) AS [T4425][COUNT-c]) AS [T4558][COUNT-c] ) JOIN (
+      (SELECT
+          [T4714].c,[T4714].COUNT-c
+        FROM
+          (SELECT
+              input1.c, COUNT(input1.c)
+            FROM
+              input1
+            GROUP BY
+              input1.c) AS [T4714][c, COUNT-c]
+        WHERE
+          [T4714].COUNT-c == 2.0) AS [T4763][c, COUNT-c] )) AS [T4418][COUNT-c, c, COUNT-c1]
+
+@anonymous
+[T4418].c(StringVal) 
+three 
+
+[Query No.3]===============================
+SELECT
+  [T4418].c
+FROM
+  (( ((SELECT
+            COUNT(input1.c)
+          FROM
+            input1) AS [T4425][COUNT-c]) AS [T4558][COUNT-c] ) JOIN (
+      (SELECT
+          [T4714].c,[T4714].COUNT-c
+        FROM
+          (SELECT
+              input1.c, COUNT(input1.c)
+            FROM
+              input1
+            GROUP BY
+              input1.c) AS [T4714][c, COUNT-c]
+        WHERE
+          [T4714].COUNT-c == 2.0) AS [T4732][c, COUNT-c] )) AS [T4418][COUNT-c, c, COUNT-c1]
+
+@anonymous
+[T4418].c(StringVal) 
+three 
+
+[Query No.2]===============================
+SELECT
+  [T4177].c
+FROM
+  (SELECT
+      [T4128].c,[T4128].COUNT-c
+    FROM
+      (SELECT
+          input1.c, COUNT(input1.c)
+        FROM
+          input1
+        GROUP BY
+          input1.c) AS [T4128][c, COUNT-c]
+    WHERE
+      [T4128].COUNT-c == 2.0) AS [T4177][c, COUNT-c]
+
+@anonymous
+[T4177].c(StringVal) 
+three 
+
+[Query No.1]===============================
+SELECT
+  [T4146].c
+FROM
+  (SELECT
+      [T4128].c,[T4128].COUNT-c
+    FROM
+      (SELECT
+          input1.c, COUNT(input1.c)
+        FROM
+          input1
+        GROUP BY
+          input1.c) AS [T4128][c, COUNT-c]
+    WHERE
+      [T4128].COUNT-c == 2.0) AS [T4146][c, COUNT-c]
+
+@anonymous
+[T4146].c(StringVal) 
+three 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 7.132s

@@ -1,0 +1,43 @@
+//http://stackoverflow.com/questions/31112142/sql-query-and-filtering-data/31112305#31112305
+
+#input
+
+| zone_id | zone_name           | time_start |
+|--------------------------------------------|
+| 391     | America/Los_Angeles | 2147397247 |
+| 391     | America/Los_Angeles | 1425808800 |
+| 391     | America/Los_Angeles | 2140678800 |
+| 391     | America/Los_Angeles | 9972000    |
+| 392     | America/Metlakatla  | 2147397247 |
+| 392     | America/Metlakatla  | 436352400  |
+| 392     | America/Metlakatla  | 9972000    |
+| 393     | America/Anchorage   | 2147397247 |
+| 393     | America/Anchorage   | 2140682400 |
+| 393     | America/Anchorage   | 2120122800 |
+| 393     | America/Anchorage   | 1425812400 |
+| 393     | America/Anchorage   | 9979200    |
+
+#output
+
+| c1  | c2                  |   c3         |
+|------------------------------------------|
+| 391 | America/Los_Angeles | 1425808800   |
+| 392 | America/Metlakatla  | 436352400    |
+| 393 | America/Anchorage   | 1425812400   |
+
+#constraint
+{
+	"constants": ["1425812400"],
+	"aggregation_functions": ["max"]
+}
+
+#solution
+
+select tz.zone_id
+     , tz.zone_name
+     , max(tz.time_start)
+from timezone tz 
+where tz.time_start < strftime('%s', 'now')
+group by tz.zone_id
+       , tz.zone_name
+order by tz.zone_id;

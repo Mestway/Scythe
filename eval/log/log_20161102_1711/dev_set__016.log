@@ -1,0 +1,419 @@
+[[Synthesis start]]
+	File: ../data/dev_set/016
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 30 [SymTable]: 32
+[JOIN] level 1 [SymTable]: 97
+[EnumJoinOnAggr] level 1 [SymTable]: 1121
+Candidate Tree Number: 96
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T391].school_id,[T391].COUNT-staff_id,[T391].MAX-wage
+FROM
+  (( (SELECT
+          [T385].school_id, MAX([T385].wage)
+        FROM
+          (input2) AS [T385][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T385].school_id) AS [T386][school_id, MAX-wage] ) JOIN (
+      (SELECT
+          [T389].school_id, COUNT([T389].staff_id)
+        FROM
+          (input2) AS [T389][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T389].school_id) AS [T390][school_id, COUNT-staff_id] )) AS [T391][school_id, MAX-wage, school_id1, COUNT-staff_id]
+
+@anonymous
+[T391].school_id(NumberVal) | [T391].COUNT-staff_id(NumberVal) | [T391].MAX-wage(NumberVal) 
+400.0 | 2.0 | 5000.0 
+
+[No.19]===============================
+SELECT
+  [T381].school_id,[T381].COUNT-forename,[T381].MAX-wage
+FROM
+  (( (SELECT
+          [T375].school_id, COUNT([T375].forename)
+        FROM
+          (input2) AS [T375][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T375].school_id) AS [T376][school_id, COUNT-forename] ) JOIN (
+      (SELECT
+          [T379].school_id, MAX([T379].wage)
+        FROM
+          (input2) AS [T379][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T379].school_id) AS [T380][school_id, MAX-wage] )) AS [T381][school_id, COUNT-forename, school_id1, MAX-wage]
+
+@anonymous
+[T381].school_id(NumberVal) | [T381].COUNT-forename(NumberVal) | [T381].MAX-wage(NumberVal) 
+400.0 | 2.0 | 5000.0 
+
+[No.18]===============================
+SELECT
+  [T371].school_id,[T371].COUNT-forename,[T371].MAX-wage
+FROM
+  (( (SELECT
+          [T365].forename, [T365].school_id, MAX([T365].wage)
+        FROM
+          (input2) AS [T365][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T365].forename  [T365].school_id) AS [T366][forename, school_id, MAX-wage] ) JOIN (
+      (SELECT
+          [T369].forename, [T369].school_id, COUNT([T369].forename)
+        FROM
+          (input2) AS [T369][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T369].forename  [T369].school_id) AS [T370][forename, school_id, COUNT-forename] )) AS [T371][forename, school_id, MAX-wage, forename1, school_id1, COUNT-forename]
+
+@anonymous
+[T371].school_id(NumberVal) | [T371].COUNT-forename(NumberVal) | [T371].MAX-wage(NumberVal) 
+400.0 | 2.0 | 5000.0 
+
+[No.17]===============================
+SELECT
+  [T361].school_id,[T361].COUNT-wage,[T361].MAX-wage
+FROM
+  (( (SELECT
+          COUNT([T355].wage)
+        FROM
+          (input2) AS [T355][staff_id, forename, school_id, wage]) AS [T356][COUNT-wage] ) JOIN (
+      (SELECT
+          [T359].school_id, MAX([T359].wage)
+        FROM
+          (input2) AS [T359][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T359].school_id) AS [T360][school_id, MAX-wage] )) AS [T361][COUNT-wage, school_id, MAX-wage]
+
+@anonymous
+[T361].school_id(NumberVal) | [T361].COUNT-wage(NumberVal) | [T361].MAX-wage(NumberVal) 
+400.0 | 2.0 | 5000.0 
+
+[No.16]===============================
+SELECT
+  [T351].school_id,[T351].COUNT-school_id,[T351].MAX-wage
+FROM
+  (( (SELECT
+          [T345].school_id, COUNT([T345].school_id)
+        FROM
+          (input2) AS [T345][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T345].school_id) AS [T346][school_id, COUNT-school_id] ) JOIN (
+      (SELECT
+          [T349].school_id, MAX([T349].wage)
+        FROM
+          (input2) AS [T349][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T349].school_id) AS [T350][school_id, MAX-wage] )) AS [T351][school_id, COUNT-school_id, school_id1, MAX-wage]
+
+@anonymous
+[T351].school_id(NumberVal) | [T351].COUNT-school_id(NumberVal) | [T351].MAX-wage(NumberVal) 
+400.0 | 2.0 | 5000.0 
+
+[No.15]===============================
+SELECT
+  [T341].school_id,[T341].COUNT-forename,[T341].MAX-wage
+FROM
+  (( (SELECT
+          [T335].forename, COUNT([T335].forename)
+        FROM
+          (input2) AS [T335][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T335].forename) AS [T336][forename, COUNT-forename] ) JOIN (
+      (SELECT
+          [T339].forename, [T339].school_id, MAX([T339].wage)
+        FROM
+          (input2) AS [T339][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T339].forename  [T339].school_id) AS [T340][forename, school_id, MAX-wage] )) AS [T341][forename, COUNT-forename, forename1, school_id, MAX-wage]
+
+@anonymous
+[T341].school_id(NumberVal) | [T341].COUNT-forename(NumberVal) | [T341].MAX-wage(NumberVal) 
+400.0 | 2.0 | 5000.0 
+
+[No.14]===============================
+SELECT
+  [T331].school_id,[T331].COUNT-forename,[T331].MAX-wage
+FROM
+  (( (SELECT
+          [T325].school_id, MAX([T325].wage)
+        FROM
+          (input2) AS [T325][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T325].school_id) AS [T326][school_id, MAX-wage] ) JOIN (
+      (SELECT
+          [T329].forename, [T329].school_id, COUNT([T329].forename)
+        FROM
+          (input2) AS [T329][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T329].forename  [T329].school_id) AS [T330][forename, school_id, COUNT-forename] )) AS [T331][school_id, MAX-wage, forename, school_id1, COUNT-forename]
+
+@anonymous
+[T331].school_id(NumberVal) | [T331].COUNT-forename(NumberVal) | [T331].MAX-wage(NumberVal) 
+400.0 | 2.0 | 5000.0 
+
+[No.13]===============================
+SELECT
+  [T321].school_id,[T321].COUNT-school_id,[T321].MAX-wage
+FROM
+  (( (SELECT
+          MAX([T315].wage)
+        FROM
+          (input2) AS [T315][staff_id, forename, school_id, wage]) AS [T316][MAX-wage] ) JOIN (
+      (SELECT
+          [T319].school_id, COUNT([T319].school_id)
+        FROM
+          (input2) AS [T319][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T319].school_id) AS [T320][school_id, COUNT-school_id] )) AS [T321][MAX-wage, school_id, COUNT-school_id]
+
+@anonymous
+[T321].school_id(NumberVal) | [T321].COUNT-school_id(NumberVal) | [T321].MAX-wage(NumberVal) 
+400.0 | 2.0 | 5000.0 
+
+[No.12]===============================
+SELECT
+  [T311].school_id,[T311].COUNT-wage,[T311].MAX-wage
+FROM
+  (( (SELECT
+          COUNT([T305].wage)
+        FROM
+          (input2) AS [T305][staff_id, forename, school_id, wage]) AS [T306][COUNT-wage] ) JOIN (
+      (SELECT
+          [T309].forename, [T309].school_id, MAX([T309].wage)
+        FROM
+          (input2) AS [T309][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T309].forename  [T309].school_id) AS [T310][forename, school_id, MAX-wage] )) AS [T311][COUNT-wage, forename, school_id, MAX-wage]
+
+@anonymous
+[T311].school_id(NumberVal) | [T311].COUNT-wage(NumberVal) | [T311].MAX-wage(NumberVal) 
+400.0 | 2.0 | 5000.0 
+
+[No.11]===============================
+SELECT
+  [T301].school_id,[T301].COUNT-school_id,[T301].MAX-wage
+FROM
+  (( (SELECT
+          [T295].school_id, MAX([T295].wage)
+        FROM
+          (input2) AS [T295][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T295].school_id) AS [T296][school_id, MAX-wage] ) JOIN (
+      (SELECT
+          [T299].school_id, COUNT([T299].school_id)
+        FROM
+          (input2) AS [T299][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T299].school_id) AS [T300][school_id, COUNT-school_id] )) AS [T301][school_id, MAX-wage, school_id1, COUNT-school_id]
+
+@anonymous
+[T301].school_id(NumberVal) | [T301].COUNT-school_id(NumberVal) | [T301].MAX-wage(NumberVal) 
+400.0 | 2.0 | 5000.0 
+
+[No.10]===============================
+SELECT
+  [T291].school_id,[T291].COUNT-staff_id,[T291].MAX-wage
+FROM
+  (( (SELECT
+          MAX([T285].wage)
+        FROM
+          (input2) AS [T285][staff_id, forename, school_id, wage]) AS [T286][MAX-wage] ) JOIN (
+      (SELECT
+          [T289].forename, [T289].school_id, COUNT([T289].staff_id)
+        FROM
+          (input2) AS [T289][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T289].forename  [T289].school_id) AS [T290][forename, school_id, COUNT-staff_id] )) AS [T291][MAX-wage, forename, school_id, COUNT-staff_id]
+
+@anonymous
+[T291].school_id(NumberVal) | [T291].COUNT-staff_id(NumberVal) | [T291].MAX-wage(NumberVal) 
+400.0 | 2.0 | 5000.0 
+
+[No.9]===============================
+SELECT
+  [T281].school_id,[T281].COUNT-school_id,[T281].MAX-wage
+FROM
+  (( (SELECT
+          MAX([T275].wage)
+        FROM
+          (input2) AS [T275][staff_id, forename, school_id, wage]) AS [T276][MAX-wage] ) JOIN (
+      (SELECT
+          [T279].forename, [T279].school_id, COUNT([T279].school_id)
+        FROM
+          (input2) AS [T279][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T279].forename  [T279].school_id) AS [T280][forename, school_id, COUNT-school_id] )) AS [T281][MAX-wage, forename, school_id, COUNT-school_id]
+
+@anonymous
+[T281].school_id(NumberVal) | [T281].COUNT-school_id(NumberVal) | [T281].MAX-wage(NumberVal) 
+400.0 | 2.0 | 5000.0 
+
+[No.8]===============================
+SELECT
+  [T271].school_id,[T271].COUNT-staff_id,[T271].MAX-wage
+FROM
+  (( (SELECT
+          COUNT([T265].staff_id)
+        FROM
+          (input2) AS [T265][staff_id, forename, school_id, wage]) AS [T266][COUNT-staff_id] ) JOIN (
+      (SELECT
+          [T269].forename, [T269].school_id, MAX([T269].wage)
+        FROM
+          (input2) AS [T269][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T269].forename  [T269].school_id) AS [T270][forename, school_id, MAX-wage] )) AS [T271][COUNT-staff_id, forename, school_id, MAX-wage]
+
+@anonymous
+[T271].school_id(NumberVal) | [T271].COUNT-staff_id(NumberVal) | [T271].MAX-wage(NumberVal) 
+400.0 | 2.0 | 5000.0 
+
+[No.7]===============================
+SELECT
+  [T261].school_id,[T261].COUNT-staff_id,[T261].MAX-wage
+FROM
+  (( (SELECT
+          [T255].school_id, MAX([T255].wage)
+        FROM
+          (input2) AS [T255][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T255].school_id) AS [T256][school_id, MAX-wage] ) JOIN (
+      (SELECT
+          COUNT([T259].staff_id)
+        FROM
+          (input2) AS [T259][staff_id, forename, school_id, wage]) AS [T260][COUNT-staff_id] )) AS [T261][school_id, MAX-wage, COUNT-staff_id]
+
+@anonymous
+[T261].school_id(NumberVal) | [T261].COUNT-staff_id(NumberVal) | [T261].MAX-wage(NumberVal) 
+400.0 | 2.0 | 5000.0 
+
+[No.6]===============================
+SELECT
+  [T251].school_id,[T251].COUNT-staff_id,[T251].MAX-wage
+FROM
+  (( (SELECT
+          [T245].forename, [T245].school_id, COUNT([T245].staff_id)
+        FROM
+          (input2) AS [T245][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T245].forename  [T245].school_id) AS [T246][forename, school_id, COUNT-staff_id] ) JOIN (
+      (SELECT
+          [T249].forename, [T249].school_id, MAX([T249].wage)
+        FROM
+          (input2) AS [T249][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T249].forename  [T249].school_id) AS [T250][forename, school_id, MAX-wage] )) AS [T251][forename, school_id, COUNT-staff_id, forename1, school_id1, MAX-wage]
+
+@anonymous
+[T251].school_id(NumberVal) | [T251].COUNT-staff_id(NumberVal) | [T251].MAX-wage(NumberVal) 
+400.0 | 2.0 | 5000.0 
+
+[No.5]===============================
+SELECT
+  [T241].school_id,[T241].COUNT-forename,[T241].MAX-wage
+FROM
+  (( (SELECT
+          [T235].forename, MAX([T235].wage)
+        FROM
+          (input2) AS [T235][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T235].forename) AS [T236][forename, MAX-wage] ) JOIN (
+      (SELECT
+          [T239].forename, [T239].school_id, COUNT([T239].forename)
+        FROM
+          (input2) AS [T239][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T239].forename  [T239].school_id) AS [T240][forename, school_id, COUNT-forename] )) AS [T241][forename, MAX-wage, forename1, school_id, COUNT-forename]
+
+@anonymous
+[T241].school_id(NumberVal) | [T241].COUNT-forename(NumberVal) | [T241].MAX-wage(NumberVal) 
+400.0 | 2.0 | 5000.0 
+
+[No.4]===============================
+SELECT
+  [T231].school_id,[T231].COUNT-forename,[T231].MAX-wage
+FROM
+  (( (SELECT
+          [T225].forename, [T225].school_id, MAX([T225].wage)
+        FROM
+          (input2) AS [T225][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T225].forename  [T225].school_id) AS [T226][forename, school_id, MAX-wage] ) JOIN (
+      (SELECT
+          COUNT([T229].forename)
+        FROM
+          (input2) AS [T229][staff_id, forename, school_id, wage]) AS [T230][COUNT-forename] )) AS [T231][forename, school_id, MAX-wage, COUNT-forename]
+
+@anonymous
+[T231].school_id(NumberVal) | [T231].COUNT-forename(NumberVal) | [T231].MAX-wage(NumberVal) 
+400.0 | 2.0 | 5000.0 
+
+[No.3]===============================
+SELECT
+  [T221].school_id,[T221].COUNT-school_id,[T221].MAX-wage
+FROM
+  (( (SELECT
+          [T215].forename, [T215].school_id, COUNT([T215].school_id)
+        FROM
+          (input2) AS [T215][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T215].forename  [T215].school_id) AS [T216][forename, school_id, COUNT-school_id] ) JOIN (
+      (SELECT
+          [T219].forename, [T219].school_id, MAX([T219].wage)
+        FROM
+          (input2) AS [T219][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T219].forename  [T219].school_id) AS [T220][forename, school_id, MAX-wage] )) AS [T221][forename, school_id, COUNT-school_id, forename1, school_id1, MAX-wage]
+
+@anonymous
+[T221].school_id(NumberVal) | [T221].COUNT-school_id(NumberVal) | [T221].MAX-wage(NumberVal) 
+400.0 | 2.0 | 5000.0 
+
+[No.2]===============================
+SELECT
+  [T211].school_id,[T211].COUNT-school_id,[T211].MAX-wage
+FROM
+  (( (SELECT
+          [T205].forename, [T205].school_id, MAX([T205].wage)
+        FROM
+          (input2) AS [T205][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T205].forename  [T205].school_id) AS [T206][forename, school_id, MAX-wage] ) JOIN (
+      (SELECT
+          [T209].school_id, COUNT([T209].school_id)
+        FROM
+          (input2) AS [T209][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T209].school_id) AS [T210][school_id, COUNT-school_id] )) AS [T211][forename, school_id, MAX-wage, school_id1, COUNT-school_id]
+
+@anonymous
+[T211].school_id(NumberVal) | [T211].COUNT-school_id(NumberVal) | [T211].MAX-wage(NumberVal) 
+400.0 | 2.0 | 5000.0 
+
+[No.1]===============================
+SELECT
+  [T201].school_id,[T201].COUNT-forename,[T201].MAX-wage
+FROM
+  (( (SELECT
+          [T195].forename, [T195].school_id, MAX([T195].wage)
+        FROM
+          (input2) AS [T195][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T195].forename  [T195].school_id) AS [T196][forename, school_id, MAX-wage] ) JOIN (
+      (SELECT
+          [T199].forename, COUNT([T199].forename)
+        FROM
+          (input2) AS [T199][staff_id, forename, school_id, wage]
+        GROUP BY
+          [T199].forename) AS [T200][forename, COUNT-forename] )) AS [T201][forename, school_id, MAX-wage, forename1, COUNT-forename]
+
+@anonymous
+[T201].school_id(NumberVal) | [T201].COUNT-forename(NumberVal) | [T201].MAX-wage(NumberVal) 
+400.0 | 2.0 | 5000.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.677s

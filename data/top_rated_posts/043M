@@ -1,0 +1,44 @@
+//http://stackoverflow.com/questions/13146304/how-to-select-every-row-where-column-value-is-not-distinct
+//// MOD 4
+
+#input
+
+CustomerName ,    EmailAddress
+Aaron        ,    aaron@gmail.com
+Christy      ,    aaron@gmail.com
+Jason        ,    jason@gmail.com
+Eric         ,    eric@gmail.com
+EEric         ,    eric@gmail.com
+John         ,    aaron@gmail.com
+
+#output
+
+CustomerName ,    EmailAddress
+Aaron    ,        aaron@gmail.com
+Christy  ,        aaron@gmail.com
+John     ,        aaron@gmail.com
+Eric         ,    eric@gmail.com
+EEric         ,    eric@gmail.com
+
+#constraint
+{
+	"constants": ["1"],
+	"aggregation_functions": ["count"]
+}
+
+#solution
+
+SELECT EmailAddress, CustomerName 
+FROM Customers 
+WHERE EmailAddress IN
+(SELECT EmailAddress 
+ FROM Customers 
+ GROUP BY EmailAddress 
+ HAVING COUNT(*) > 1)
+
+
+SELECT EmailAddress, CustomerName 
+FROM Customers as a 
+Inner Join Customers as b 
+on a.CustomerName <> b.CustomerName 
+   and a.EmailAddress = b.EmailAddress

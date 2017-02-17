@@ -1,0 +1,317 @@
+[[Synthesizing]]
+[[Synthesis start]]
+	File: ../data/dev_set/041
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 94 [SymTable]: 95
+[Total Number of Intermediate] 96
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 4 [SymTable]: 5
+[JOIN] level 1 [SymTable]: 11
+[Total Number of Intermediate] 11
+Candidate Tree Number: 40
+[Enumeration Finished]
+    [AggrFun] Optional[MAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 18 [SymTable]: 19
+[JOIN] level 1 [SymTable]: 39
+[Total Number of Intermediate] 39
+Candidate Tree Number: 94
+[Enumeration Finished]
+    [AggrFun] Optional[MIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 18 [SymTable]: 19
+[JOIN] level 1 [SymTable]: 39
+[Total Number of Intermediate] 39
+Candidate Tree Number: 107
+[Enumeration Finished]
+    [AggrFun] Optional[AVG]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 14 [SymTable]: 15
+[JOIN] level 1 [SymTable]: 31
+[Total Number of Intermediate] 31
+Candidate Tree Number: 97
+[Enumeration Finished]
+    [AggrFun] Optional[MINMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 32 [SymTable]: 33
+[JOIN] level 1 [SymTable]: 67
+[Total Number of Intermediate] 67
+Candidate Tree Number: 161
+[Enumeration Finished]
+    [AggrFun] Optional[COUNTMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 36 [SymTable]: 37
+[JOIN] level 1 [SymTable]: 75
+[Total Number of Intermediate] 75
+Candidate Tree Number: 157
+[Enumeration Finished]
+[Query No.15]===============================
+SELECT
+  [T167].NBR,[T167].ID,[T167].DT
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.NBR,input1.ID,input1.DT
+      FROM
+        input1
+      WHERE
+        input1.NBR < input1.ID )) AS [T167][NBR, ID, DT, NBR1, ID1, DT1]
+WHERE
+  [T167].DT < [T167].DT1
+@anonymous
+[T167].NBR(NumberVal) | [T167].ID(NumberVal) | [T167].DT(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[Query No.14]===============================
+SELECT
+  [T107].NBR,[T107].ID,[T107].DT1
+FROM
+  (( (SELECT
+          [T105].DT, FROM
+          (SELECT
+              input1.NBR,input1.ID,input1.DT
+            FROM
+              input1
+            WHERE
+              input1.NBR < input1.ID) AS [T105][NBR, ID, DT]
+        GROUP BY
+          [T105].DT) AS [T106][DT] ) JOIN (
+      input1 )) AS [T107][DT, NBR, ID, DT1]
+WHERE
+  [T107].DT > [T107].DT1
+@anonymous
+[T107].NBR(NumberVal) | [T107].ID(NumberVal) | [T107].DT1(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[Query No.13]===============================
+SELECT
+  [T185].NBR1,[T185].ID1,[T185].DT1
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T185][NBR, ID, DT, NBR1, ID1, DT1]
+WHERE
+  [T185].ID >= [T185].ID1
+   AND [T185].DT > [T185].DT1
+@anonymous
+[T185].NBR1(NumberVal) | [T185].ID1(NumberVal) | [T185].DT1(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[Query No.12]===============================
+SELECT
+  [T183].NBR1,[T183].ID1,[T183].DT1
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T183][NBR, ID, DT, NBR1, ID1, DT1]
+WHERE
+  [T183].ID > [T183].ID1
+   AND [T183].DT > [T183].DT1
+@anonymous
+[T183].NBR1(NumberVal) | [T183].ID1(NumberVal) | [T183].DT1(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[Query No.11]===============================
+SELECT
+  [T165].NBR,[T165].ID,[T165].DT
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T165][NBR, ID, DT, NBR1, ID1, DT1]
+WHERE
+  [T165].ID <= [T165].ID1
+   AND [T165].DT < [T165].DT1
+@anonymous
+[T165].NBR(NumberVal) | [T165].ID(NumberVal) | [T165].DT(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[Query No.10]===============================
+SELECT
+  [T163].NBR,[T163].ID,[T163].DT
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T163][NBR, ID, DT, NBR1, ID1, DT1]
+WHERE
+  [T163].ID < [T163].ID1
+   AND [T163].DT < [T163].DT1
+@anonymous
+[T163].NBR(NumberVal) | [T163].ID(NumberVal) | [T163].DT(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[Query No.9]===============================
+SELECT
+  [T145].NBR,[T145].ID,[T145].DT
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T145][NBR, ID, DT, NBR1, ID1, DT1]
+WHERE
+  [T145].NBR <> [T145].NBR1
+   AND [T145].DT == [T145].DT1
+@anonymous
+[T145].NBR(NumberVal) | [T145].ID(NumberVal) | [T145].DT(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[Query No.8]===============================
+SELECT
+  [T143].NBR,[T143].ID,[T143].DT
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T143][NBR, ID, DT, NBR1, ID1, DT1]
+WHERE
+  [T143].ID <> [T143].ID1
+   AND [T143].DT == [T143].DT1
+@anonymous
+[T143].NBR(NumberVal) | [T143].ID(NumberVal) | [T143].DT(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[Query No.7]===============================
+SELECT
+  [T280].MAX-NBR,[T280].ID,[T280].DT1
+FROM
+  (( (SELECT
+          [T278].DT, MAX([T278].NBR)
+        FROM
+          (input1) AS [T278][NBR, ID, DT]
+        GROUP BY
+          [T278].DT) AS [T279][DT, MAX-NBR] ) JOIN (
+      input1 )) AS [T280][DT, MAX-NBR, NBR, ID, DT1]
+WHERE
+  [T280].MAX-NBR == [T280].NBR
+   AND [T280].DT > [T280].DT1
+@anonymous
+[T280].MAX-NBR(NumberVal) | [T280].ID(NumberVal) | [T280].DT1(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[Query No.6]===============================
+SELECT
+  [T193].NBR,[T193].ID1,[T193].DT1
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T193][NBR, ID, DT, NBR1, ID1, DT1]
+WHERE
+  [T193].NBR == [T193].NBR1
+   AND [T193].DT > [T193].DT1
+@anonymous
+[T193].NBR(NumberVal) | [T193].ID1(NumberVal) | [T193].DT1(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[Query No.5]===============================
+SELECT
+  [T173].NBR,[T173].ID,[T173].DT
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T173][NBR, ID, DT, NBR1, ID1, DT1]
+WHERE
+  [T173].NBR == [T173].NBR1
+   AND [T173].DT < [T173].DT1
+@anonymous
+[T173].NBR(NumberVal) | [T173].ID(NumberVal) | [T173].DT(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[Query No.4]===============================
+SELECT
+  [T3313].NBR,[T3313].ID,[T3313].MIN-DT
+FROM
+  (( (SELECT
+          [T3311].NBR, MIN([T3311].DT)
+        FROM
+          (input1) AS [T3311][NBR, ID, DT]
+        GROUP BY
+          [T3311].NBR) AS [T3312][NBR, MIN-DT] ) JOIN (
+      input1 )) AS [T3313][NBR, MIN-DT, NBR1, ID, DT]
+WHERE
+  [T3313].MIN-DT == [T3313].DT
+   AND [T3313].NBR == [T3313].NBR1
+@anonymous
+[T3313].NBR(NumberVal) | [T3313].ID(NumberVal) | [T3313].MIN-DT(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[Query No.3]===============================
+SELECT
+  [T1123].NBR,[T1123].ID,[T1123].MIN-DT
+FROM
+  (( (SELECT
+          [T1121].NBR, MIN([T1121].DT)
+        FROM
+          (input1) AS [T1121][NBR, ID, DT]
+        GROUP BY
+          [T1121].NBR) AS [T1122][NBR, MIN-DT] ) JOIN (
+      input1 )) AS [T1123][NBR, MIN-DT, NBR1, ID, DT]
+WHERE
+  [T1123].MIN-DT == [T1123].DT
+   AND [T1123].NBR == [T1123].NBR1
+@anonymous
+[T1123].NBR(NumberVal) | [T1123].ID(NumberVal) | [T1123].MIN-DT(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[Query No.2]===============================
+SELECT
+  [T2313].NBR,[T2313].ID,[T2313].MIN-DT
+FROM
+  (( (SELECT
+          MIN([T2311].DT)
+        FROM
+          (input1) AS [T2311][NBR, ID, DT]) AS [T2312][MIN-DT] ) JOIN (
+      input1 )) AS [T2313][MIN-DT, NBR, ID, DT]
+WHERE
+  [T2313].MIN-DT == [T2313].DT
+@anonymous
+[T2313].NBR(NumberVal) | [T2313].ID(NumberVal) | [T2313].MIN-DT(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[Query No.1]===============================
+SELECT
+  [T1357].NBR,[T1357].ID,[T1357].MIN-DT
+FROM
+  (( (SELECT
+          MIN([T1355].DT)
+        FROM
+          (input1) AS [T1355][NBR, ID, DT]) AS [T1356][MIN-DT] ) JOIN (
+      input1 )) AS [T1357][MIN-DT, NBR, ID, DT]
+WHERE
+  [T1357].MIN-DT == [T1357].DT
+@anonymous
+[T1357].NBR(NumberVal) | [T1357].ID(NumberVal) | [T1357].MIN-DT(DateVal) 
+1.0 | 2.0 | Mon Jan 01 00:00:00 PST 2001 
+2.0 | 3.0 | Mon Jan 01 00:00:00 PST 2001 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 2.162s

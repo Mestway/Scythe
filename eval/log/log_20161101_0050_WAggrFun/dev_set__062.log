@@ -1,0 +1,204 @@
+[[Synthesis start]]
+	File: ..\data\dev_set\062
+	Enumerator: StagedEnumerator
+[Retry] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[EnumJoinOnAggr] level 1 [SymTable]: 56
+Candidate Tree Number: 10
+[Enumeration Finished]
+[No.10]===============================
+SELECT
+  [T29].PERSON_ID,[T29].NAME,[T29].GRADE1,[T29].GRADE
+FROM
+  (( SELECT
+        input1.ID,input1.PERSON_ID,input1.NAME,input1.GRADE
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      SELECT
+        input1.ID,input1.PERSON_ID,input1.NAME,input1.GRADE
+      FROM
+        input1
+      WHERE
+        True )) AS [T29][ID, PERSON_ID, NAME, GRADE, ID1, PERSON_ID1, NAME1, GRADE1]
+WHERE
+  [T29].PERSON_ID == [T29].PERSON_ID1
+   AND [T29].ID > [T29].ID1
+@anonymous
+[T29].PERSON_ID(NumberVal) | [T29].NAME(StringVal) | [T29].GRADE1(NumberVal) | [T29].GRADE(NumberVal) 
+1.0 | NAME_1 | 10.0 | 20.0 
+2.0 | NAME_2 | 30.0 | 40.0 
+
+[No.9]===============================
+SELECT
+  [T19].PERSON_ID,[T19].NAME,[T19].GRADE,[T19].GRADE1
+FROM
+  (( SELECT
+        input1.ID,input1.PERSON_ID,input1.NAME,input1.GRADE
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      SELECT
+        input1.ID,input1.PERSON_ID,input1.NAME,input1.GRADE
+      FROM
+        input1
+      WHERE
+        True )) AS [T19][ID, PERSON_ID, NAME, GRADE, ID1, PERSON_ID1, NAME1, GRADE1]
+WHERE
+  [T19].ID < [T19].ID1
+   AND [T19].PERSON_ID == [T19].PERSON_ID1
+@anonymous
+[T19].PERSON_ID(NumberVal) | [T19].NAME(StringVal) | [T19].GRADE(NumberVal) | [T19].GRADE1(NumberVal) 
+1.0 | NAME_1 | 10.0 | 20.0 
+2.0 | NAME_2 | 30.0 | 40.0 
+
+[No.8]===============================
+SELECT
+  [T31].PERSON_ID,[T31].NAME,[T31].GRADE1,[T31].GRADE
+FROM
+  (( SELECT
+        input1.ID,input1.PERSON_ID,input1.NAME,input1.GRADE
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T31][ID, PERSON_ID, NAME, GRADE, ID1, PERSON_ID1, NAME1, GRADE1]
+WHERE
+  [T31].PERSON_ID == [T31].PERSON_ID1
+   AND [T31].ID > [T31].ID1
+@anonymous
+[T31].PERSON_ID(NumberVal) | [T31].NAME(StringVal) | [T31].GRADE1(NumberVal) | [T31].GRADE(NumberVal) 
+1.0 | NAME_1 | 10.0 | 20.0 
+2.0 | NAME_2 | 30.0 | 40.0 
+
+[No.7]===============================
+SELECT
+  [T27].PERSON_ID,[T27].NAME,[T27].GRADE1,[T27].GRADE
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.ID,input1.PERSON_ID,input1.NAME,input1.GRADE
+      FROM
+        input1
+      WHERE
+        True )) AS [T27][ID, PERSON_ID, NAME, GRADE, ID1, PERSON_ID1, NAME1, GRADE1]
+WHERE
+  [T27].PERSON_ID == [T27].PERSON_ID1
+   AND [T27].ID > [T27].ID1
+@anonymous
+[T27].PERSON_ID(NumberVal) | [T27].NAME(StringVal) | [T27].GRADE1(NumberVal) | [T27].GRADE(NumberVal) 
+1.0 | NAME_1 | 10.0 | 20.0 
+2.0 | NAME_2 | 30.0 | 40.0 
+
+[No.6]===============================
+SELECT
+  [T25].PERSON_ID,[T25].NAME,[T25].GRADE1,[T25].GRADE
+FROM
+  (( SELECT
+        input1.ID,input1.PERSON_ID,input1.NAME,input1.GRADE
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T25][ID, PERSON_ID, NAME, GRADE, ID1, PERSON_ID1, NAME1, GRADE1]
+WHERE
+  [T25].PERSON_ID == [T25].PERSON_ID1
+   AND [T25].ID > [T25].ID1
+@anonymous
+[T25].PERSON_ID(NumberVal) | [T25].NAME(StringVal) | [T25].GRADE1(NumberVal) | [T25].GRADE(NumberVal) 
+1.0 | NAME_1 | 10.0 | 20.0 
+2.0 | NAME_2 | 30.0 | 40.0 
+
+[No.5]===============================
+SELECT
+  [T21].PERSON_ID,[T21].NAME,[T21].GRADE,[T21].GRADE1
+FROM
+  (( SELECT
+        input1.ID,input1.PERSON_ID,input1.NAME,input1.GRADE
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T21][ID, PERSON_ID, NAME, GRADE, ID1, PERSON_ID1, NAME1, GRADE1]
+WHERE
+  [T21].ID < [T21].ID1
+   AND [T21].PERSON_ID == [T21].PERSON_ID1
+@anonymous
+[T21].PERSON_ID(NumberVal) | [T21].NAME(StringVal) | [T21].GRADE(NumberVal) | [T21].GRADE1(NumberVal) 
+1.0 | NAME_1 | 10.0 | 20.0 
+2.0 | NAME_2 | 30.0 | 40.0 
+
+[No.4]===============================
+SELECT
+  [T17].PERSON_ID,[T17].NAME,[T17].GRADE,[T17].GRADE1
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.ID,input1.PERSON_ID,input1.NAME,input1.GRADE
+      FROM
+        input1
+      WHERE
+        True )) AS [T17][ID, PERSON_ID, NAME, GRADE, ID1, PERSON_ID1, NAME1, GRADE1]
+WHERE
+  [T17].ID < [T17].ID1
+   AND [T17].PERSON_ID == [T17].PERSON_ID1
+@anonymous
+[T17].PERSON_ID(NumberVal) | [T17].NAME(StringVal) | [T17].GRADE(NumberVal) | [T17].GRADE1(NumberVal) 
+1.0 | NAME_1 | 10.0 | 20.0 
+2.0 | NAME_2 | 30.0 | 40.0 
+
+[No.3]===============================
+SELECT
+  [T15].PERSON_ID,[T15].NAME,[T15].GRADE,[T15].GRADE1
+FROM
+  (( SELECT
+        input1.ID,input1.PERSON_ID,input1.NAME,input1.GRADE
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T15][ID, PERSON_ID, NAME, GRADE, ID1, PERSON_ID1, NAME1, GRADE1]
+WHERE
+  [T15].ID < [T15].ID1
+   AND [T15].PERSON_ID == [T15].PERSON_ID1
+@anonymous
+[T15].PERSON_ID(NumberVal) | [T15].NAME(StringVal) | [T15].GRADE(NumberVal) | [T15].GRADE1(NumberVal) 
+1.0 | NAME_1 | 10.0 | 20.0 
+2.0 | NAME_2 | 30.0 | 40.0 
+
+[No.2]===============================
+SELECT
+  [T23].PERSON_ID,[T23].NAME,[T23].GRADE1,[T23].GRADE
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T23][ID, PERSON_ID, NAME, GRADE, ID1, PERSON_ID1, NAME1, GRADE1]
+WHERE
+  [T23].PERSON_ID == [T23].PERSON_ID1
+   AND [T23].ID > [T23].ID1
+@anonymous
+[T23].PERSON_ID(NumberVal) | [T23].NAME(StringVal) | [T23].GRADE1(NumberVal) | [T23].GRADE(NumberVal) 
+1.0 | NAME_1 | 10.0 | 20.0 
+2.0 | NAME_2 | 30.0 | 40.0 
+
+[No.1]===============================
+SELECT
+  [T13].PERSON_ID,[T13].NAME,[T13].GRADE,[T13].GRADE1
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T13][ID, PERSON_ID, NAME, GRADE, ID1, PERSON_ID1, NAME1, GRADE1]
+WHERE
+  [T13].ID < [T13].ID1
+   AND [T13].PERSON_ID == [T13].PERSON_ID1
+@anonymous
+[T13].PERSON_ID(NumberVal) | [T13].NAME(StringVal) | [T13].GRADE(NumberVal) | [T13].GRADE1(NumberVal) 
+1.0 | NAME_1 | 10.0 | 20.0 
+2.0 | NAME_2 | 30.0 | 40.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.232s

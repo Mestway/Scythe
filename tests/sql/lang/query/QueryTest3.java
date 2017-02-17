@@ -2,24 +2,20 @@ package sql.lang.query;
 
 import util.Pair;
 import org.junit.Test;
-import sql.lang.DataType.Value;
 import sql.lang.SQLQuery;
 import sql.lang.Table;
-import sql.lang.ast.Environment;
-import sql.lang.ast.filter.LogicAndFilter;
 import sql.lang.ast.filter.VVComparator;
 import sql.lang.ast.table.AggregationNode;
 import sql.lang.ast.table.NamedTable;
 import sql.lang.ast.table.RenameTableNode;
 import sql.lang.ast.table.SelectNode;
-import sql.lang.ast.val.ConstantVal;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.TableAsVal;
 import util.TableInstanceParser;
 
 import java.util.Arrays;
 
-import static org.testng.AssertJUnit.assertTrue;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by clwang on 1/4/16.

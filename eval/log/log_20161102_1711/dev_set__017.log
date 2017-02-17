@@ -1,0 +1,107 @@
+[[Synthesis start]]
+	File: ../data/dev_set/017
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 5
+Candidate Tree Number: 5
+[Enumeration Finished]
+[No.5]===============================
+SELECT
+  [T31].Parent,[T31].Name
+FROM
+  (( (SELECT
+          [T29].Parent, FROM
+          (input1) AS [T29][ID, Name, Age, Parent]
+        GROUP BY
+          [T29].Parent) AS [T30][Parent] ) JOIN (
+      SELECT
+        input1.ID,input1.Name,input1.Age,input1.Parent
+      FROM
+        input1
+      WHERE
+        True )) AS [T31][Parent, ID, Name, Age, Parent1]
+WHERE
+  [T31].Parent == [T31].ID
+   AND [T31].Parent <> [T31].Parent1
+@anonymous
+[T31].Parent(NumberVal) | [T31].Name(StringVal) 
+1.0 | Bob 
+
+[No.4]===============================
+SELECT
+  [T13].Parent,[T13].Name
+FROM
+  (( (SELECT
+          [T11].Parent, FROM
+          (input1) AS [T11][ID, Name, Age, Parent]
+        GROUP BY
+          [T11].Parent) AS [T12][Parent] ) JOIN (
+      SELECT
+        input1.ID,input1.Name,input1.Age,input1.Parent
+      FROM
+        input1
+      WHERE
+        True )) AS [T13][Parent, ID, Name, Age, Parent1]
+WHERE
+  [T13].Parent == [T13].ID
+@anonymous
+[T13].Parent(NumberVal) | [T13].Name(StringVal) 
+1.0 | Bob 
+
+[No.3]===============================
+SELECT
+  [T25].Parent,[T25].Name
+FROM
+  (( (SELECT
+          [T23].Parent, FROM
+          (input1) AS [T23][ID, Name, Age, Parent]
+        GROUP BY
+          [T23].Parent) AS [T24][Parent] ) JOIN (
+      input1 )) AS [T25][Parent, ID, Name, Age, Parent1]
+WHERE
+  [T25].Parent == [T25].ID
+   AND [T25].Parent >= [T25].Parent1
+@anonymous
+[T25].Parent(NumberVal) | [T25].Name(StringVal) 
+1.0 | Bob 
+
+[No.2]===============================
+SELECT
+  [T19].Parent,[T19].Name
+FROM
+  (( (SELECT
+          [T17].Parent, FROM
+          (input1) AS [T17][ID, Name, Age, Parent]
+        GROUP BY
+          [T17].Parent) AS [T18][Parent] ) JOIN (
+      input1 )) AS [T19][Parent, ID, Name, Age, Parent1]
+WHERE
+  [T19].Parent == [T19].ID
+   AND [T19].Parent <> [T19].Parent1
+@anonymous
+[T19].Parent(NumberVal) | [T19].Name(StringVal) 
+1.0 | Bob 
+
+[No.1]===============================
+SELECT
+  [T7].Parent,[T7].Name
+FROM
+  (( (SELECT
+          [T5].Parent, FROM
+          (input1) AS [T5][ID, Name, Age, Parent]
+        GROUP BY
+          [T5].Parent) AS [T6][Parent] ) JOIN (
+      input1 )) AS [T7][Parent, ID, Name, Age, Parent1]
+WHERE
+  [T7].Parent == [T7].ID
+@anonymous
+[T7].Parent(NumberVal) | [T7].Name(StringVal) 
+1.0 | Bob 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.647s

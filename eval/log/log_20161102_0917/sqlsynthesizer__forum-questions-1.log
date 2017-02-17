@@ -1,0 +1,426 @@
+[[Synthesis start]]
+	File: ../data/sqlsynthesizer/forum-questions-1
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 60 [SymTable]: 61
+Candidate Tree Number: 6
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 8
+[EnumJoinOnAggr] level 1 [SymTable]: 24
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 24 [SymTable]: 25
+[JOIN] level 1 [SymTable]: 50
+Candidate Tree Number: 6
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 8
+[EnumJoinOnAggr] level 1 [SymTable]: 24
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 8
+[EnumJoinOnAggr] level 1 [SymTable]: 24
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 8
+[EnumJoinOnAggr] level 1 [SymTable]: 24
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 8
+[EnumJoinOnAggr] level 1 [SymTable]: 24
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 8
+[EnumJoinOnAggr] level 1 [SymTable]: 24
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 15 [SymTable]: 16
+[JOIN] level 1 [SymTable]: 32
+Candidate Tree Number: 4
+[Enumeration Finished]
+[No.16]===============================
+SELECT
+  [T256].upedonid,[T256].COUNT-upedonid
+FROM
+  (SELECT
+      [T255].upedonid, COUNT([T255].upedonid)
+    FROM
+      (input1) AS [T255][idx_key, upedonid]
+    GROUP BY
+      [T255].upedonid) AS [T256][upedonid, COUNT-upedonid]
+WHERE
+  [T256].COUNT-upedonid > 1.0
+   AND IS NOT NULL[T256].upedonid
+@anonymous
+[T256].upedonid(StringVal) | [T256].COUNT-upedonid(NumberVal) 
+id2 | 3.0 
+id3 | 2.0 
+id5 | 2.0 
+
+[No.15]===============================
+SELECT
+  [T246].upedonid,[T246].COUNT-idx_key
+FROM
+  (SELECT
+      [T245].upedonid, COUNT([T245].idx_key)
+    FROM
+      (SELECT
+          input1.idx_key,input1.upedonid
+        FROM
+          input1
+        WHERE
+          IS NOT NULLinput1.upedonid) AS [T245][idx_key, upedonid]
+    GROUP BY
+      [T245].upedonid) AS [T246][upedonid, COUNT-idx_key]
+WHERE
+  [T246].COUNT-idx_key > 1.0
+@anonymous
+[T246].upedonid(StringVal) | [T246].COUNT-idx_key(NumberVal) 
+id2 | 3.0 
+id3 | 2.0 
+id5 | 2.0 
+
+[No.14]===============================
+SELECT
+  [T242].upedonid,[T242].COUNT-idx_key
+FROM
+  (SELECT
+      [T241].upedonid, COUNT([T241].idx_key)
+    FROM
+      (input1) AS [T241][idx_key, upedonid]
+    GROUP BY
+      [T241].upedonid) AS [T242][upedonid, COUNT-idx_key]
+WHERE
+  [T242].COUNT-idx_key > 1.0
+   AND IS NOT NULL[T242].upedonid
+@anonymous
+[T242].upedonid(StringVal) | [T242].COUNT-idx_key(NumberVal) 
+id2 | 3.0 
+id3 | 2.0 
+id5 | 2.0 
+
+[No.13]===============================
+SELECT
+  [T232].upedonid,[T232].COUNT-upedonid
+FROM
+  (SELECT
+      [T231].upedonid, COUNT([T231].upedonid)
+    FROM
+      (SELECT
+          input1.idx_key,input1.upedonid
+        FROM
+          input1
+        WHERE
+          IS NOT NULLinput1.upedonid) AS [T231][idx_key, upedonid]
+    GROUP BY
+      [T231].upedonid) AS [T232][upedonid, COUNT-upedonid]
+WHERE
+  [T232].COUNT-upedonid > 1.0
+@anonymous
+[T232].upedonid(StringVal) | [T232].COUNT-upedonid(NumberVal) 
+id2 | 3.0 
+id3 | 2.0 
+id5 | 2.0 
+
+[No.12]===============================
+SELECT
+  [T179].upedonid,[T179].COUNT-idx_key
+FROM
+  (SELECT
+      [T178].upedonid, COUNT([T178].idx_key)
+    FROM
+      (SELECT
+          input1.idx_key,input1.upedonid
+        FROM
+          input1
+        WHERE
+          IS NOT NULLinput1.upedonid) AS [T178][idx_key, upedonid]
+    GROUP BY
+      [T178].upedonid) AS [T179][upedonid, COUNT-idx_key]
+WHERE
+  [T179].COUNT-idx_key > 1.0
+@anonymous
+[T179].upedonid(StringVal) | [T179].COUNT-idx_key(NumberVal) 
+id2 | 3.0 
+id3 | 2.0 
+id5 | 2.0 
+
+[No.11]===============================
+SELECT
+  [T175].upedonid,[T175].COUNT-upedonid
+FROM
+  (SELECT
+      [T174].upedonid, COUNT([T174].upedonid)
+    FROM
+      (SELECT
+          input1.idx_key,input1.upedonid
+        FROM
+          input1
+        WHERE
+          IS NOT NULLinput1.upedonid) AS [T174][idx_key, upedonid]
+    GROUP BY
+      [T174].upedonid) AS [T175][upedonid, COUNT-upedonid]
+WHERE
+  [T175].COUNT-upedonid > 1.0
+@anonymous
+[T175].upedonid(StringVal) | [T175].COUNT-upedonid(NumberVal) 
+id2 | 3.0 
+id3 | 2.0 
+id5 | 2.0 
+
+[No.10]===============================
+SELECT
+  [T171].upedonid,[T171].COUNT-upedonid
+FROM
+  (SELECT
+      [T170].upedonid, COUNT([T170].upedonid)
+    FROM
+      (input1) AS [T170][idx_key, upedonid]
+    GROUP BY
+      [T170].upedonid) AS [T171][upedonid, COUNT-upedonid]
+WHERE
+  [T171].COUNT-upedonid > 1.0
+   AND IS NOT NULL[T171].upedonid
+@anonymous
+[T171].upedonid(StringVal) | [T171].COUNT-upedonid(NumberVal) 
+id2 | 3.0 
+id3 | 2.0 
+id5 | 2.0 
+
+[No.9]===============================
+SELECT
+  [T161].upedonid,[T161].COUNT_DISTINCT-idx_key
+FROM
+  (SELECT
+      [T160].upedonid, COUNT_DISTINCT([T160].idx_key)
+    FROM
+      (input1) AS [T160][idx_key, upedonid]
+    GROUP BY
+      [T160].upedonid) AS [T161][upedonid, COUNT_DISTINCT-idx_key]
+WHERE
+  [T161].COUNT_DISTINCT-idx_key > 1.0
+   AND IS NOT NULL[T161].upedonid
+@anonymous
+[T161].upedonid(StringVal) | [T161].COUNT_DISTINCT-idx_key(NumberVal) 
+id2 | 3.0 
+id3 | 2.0 
+id5 | 2.0 
+
+[No.8]===============================
+SELECT
+  [T151].upedonid,[T151].COUNT-idx_key
+FROM
+  (SELECT
+      [T150].upedonid, COUNT([T150].idx_key)
+    FROM
+      (input1) AS [T150][idx_key, upedonid]
+    GROUP BY
+      [T150].upedonid) AS [T151][upedonid, COUNT-idx_key]
+WHERE
+  [T151].COUNT-idx_key > 1.0
+   AND IS NOT NULL[T151].upedonid
+@anonymous
+[T151].upedonid(StringVal) | [T151].COUNT-idx_key(NumberVal) 
+id2 | 3.0 
+id3 | 2.0 
+id5 | 2.0 
+
+[No.7]===============================
+SELECT
+  [T141].upedonid,[T141].COUNT_DISTINCT-idx_key
+FROM
+  (SELECT
+      [T140].upedonid, COUNT_DISTINCT([T140].idx_key)
+    FROM
+      (SELECT
+          input1.idx_key,input1.upedonid
+        FROM
+          input1
+        WHERE
+          IS NOT NULLinput1.upedonid) AS [T140][idx_key, upedonid]
+    GROUP BY
+      [T140].upedonid) AS [T141][upedonid, COUNT_DISTINCT-idx_key]
+WHERE
+  [T141].COUNT_DISTINCT-idx_key > 1.0
+@anonymous
+[T141].upedonid(StringVal) | [T141].COUNT_DISTINCT-idx_key(NumberVal) 
+id2 | 3.0 
+id3 | 2.0 
+id5 | 2.0 
+
+[No.6]===============================
+SELECT
+  [T101].upedonid,[T101].COUNT-idx_key
+FROM
+  (SELECT
+      [T100].upedonid, COUNT([T100].idx_key)
+    FROM
+      (SELECT
+          input1.idx_key,input1.upedonid
+        FROM
+          input1
+        WHERE
+          IS NOT NULLinput1.upedonid) AS [T100][idx_key, upedonid]
+    GROUP BY
+      [T100].upedonid) AS [T101][upedonid, COUNT-idx_key]
+WHERE
+  [T101].COUNT-idx_key > 1.0
+@anonymous
+[T101].upedonid(StringVal) | [T101].COUNT-idx_key(NumberVal) 
+id2 | 3.0 
+id3 | 2.0 
+id5 | 2.0 
+
+[No.5]===============================
+SELECT
+  [T97].upedonid,[T97].COUNT_DISTINCT-idx_key
+FROM
+  (SELECT
+      [T96].upedonid, COUNT_DISTINCT([T96].idx_key)
+    FROM
+      (input1) AS [T96][idx_key, upedonid]
+    GROUP BY
+      [T96].upedonid) AS [T97][upedonid, COUNT_DISTINCT-idx_key]
+WHERE
+  [T97].COUNT_DISTINCT-idx_key > 1.0
+   AND IS NOT NULL[T97].upedonid
+@anonymous
+[T97].upedonid(StringVal) | [T97].COUNT_DISTINCT-idx_key(NumberVal) 
+id2 | 3.0 
+id3 | 2.0 
+id5 | 2.0 
+
+[No.4]===============================
+SELECT
+  [T87].upedonid,[T87].COUNT-idx_key
+FROM
+  (SELECT
+      [T86].upedonid, COUNT([T86].idx_key)
+    FROM
+      (input1) AS [T86][idx_key, upedonid]
+    GROUP BY
+      [T86].upedonid) AS [T87][upedonid, COUNT-idx_key]
+WHERE
+  [T87].COUNT-idx_key > 1.0
+   AND IS NOT NULL[T87].upedonid
+@anonymous
+[T87].upedonid(StringVal) | [T87].COUNT-idx_key(NumberVal) 
+id2 | 3.0 
+id3 | 2.0 
+id5 | 2.0 
+
+[No.3]===============================
+SELECT
+  [T77].upedonid,[T77].COUNT-upedonid
+FROM
+  (SELECT
+      [T76].upedonid, COUNT([T76].upedonid)
+    FROM
+      (input1) AS [T76][idx_key, upedonid]
+    GROUP BY
+      [T76].upedonid) AS [T77][upedonid, COUNT-upedonid]
+WHERE
+  [T77].COUNT-upedonid > 1.0
+   AND IS NOT NULL[T77].upedonid
+@anonymous
+[T77].upedonid(StringVal) | [T77].COUNT-upedonid(NumberVal) 
+id2 | 3.0 
+id3 | 2.0 
+id5 | 2.0 
+
+[No.2]===============================
+SELECT
+  [T67].upedonid,[T67].COUNT_DISTINCT-idx_key
+FROM
+  (SELECT
+      [T66].upedonid, COUNT_DISTINCT([T66].idx_key)
+    FROM
+      (SELECT
+          input1.idx_key,input1.upedonid
+        FROM
+          input1
+        WHERE
+          IS NOT NULLinput1.upedonid) AS [T66][idx_key, upedonid]
+    GROUP BY
+      [T66].upedonid) AS [T67][upedonid, COUNT_DISTINCT-idx_key]
+WHERE
+  [T67].COUNT_DISTINCT-idx_key > 1.0
+@anonymous
+[T67].upedonid(StringVal) | [T67].COUNT_DISTINCT-idx_key(NumberVal) 
+id2 | 3.0 
+id3 | 2.0 
+id5 | 2.0 
+
+[No.1]===============================
+SELECT
+  [T63].upedonid,[T63].COUNT-upedonid
+FROM
+  (SELECT
+      [T62].upedonid, COUNT([T62].upedonid)
+    FROM
+      (SELECT
+          input1.idx_key,input1.upedonid
+        FROM
+          input1
+        WHERE
+          IS NOT NULLinput1.upedonid) AS [T62][idx_key, upedonid]
+    GROUP BY
+      [T62].upedonid) AS [T63][upedonid, COUNT-upedonid]
+WHERE
+  [T63].COUNT-upedonid > 1.0
+@anonymous
+[T63].upedonid(StringVal) | [T63].COUNT-upedonid(NumberVal) 
+id2 | 3.0 
+id3 | 2.0 
+id5 | 2.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.645s

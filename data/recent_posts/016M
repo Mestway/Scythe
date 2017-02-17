@@ -1,0 +1,44 @@
+//http://stackoverflow.com/questions/40131555/getting-latest-date-with-field-count
+//MOD 2
+
+#input
+
+c
+C1
+C2
+C3
+C4
+
+
+#input
+
+c1, c2
+C1, 10/21/2016
+C1, 10/20/2016
+C1, 09/17/2016
+C1, 06/17/2016
+C2, 10/18/2016
+C2, 09/01/2016
+C3, 10/19/2016
+
+#output
+
+c1, c2, c3
+C1, 10/21/2016, 3
+
+#constraint
+{
+	"constants": ["10/19/2016", "1"],
+	"aggregation_functions": ["max", "count"]
+}
+
+#solution
+
+SELECT C.Id,
+       MAX(RP.PullDt) as LastReportPullDt, 
+       COUNT(*) AS ReportCount
+FROM Customer C
+INNER JOIN ReportPull RP ON C.CustomerId = RP.CustomerId
+GROUP BY C.CustomerId
+HAVING COUNT(*) > 1
+AND MAX(RP.PullDt) >= "10/19/2016"

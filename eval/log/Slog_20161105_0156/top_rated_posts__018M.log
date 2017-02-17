@@ -1,0 +1,205 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/018M
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 210 [SymTable]: 211
+[Total Number of Intermediate] 212
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 15
+[EnumJoinOnAggr] level 1 [SymTable]: 64
+[Total Number of Intermediate] 64
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 24 [SymTable]: 25
+[JOIN] level 1 [SymTable]: 51
+[EnumJoinOnAggr] level 1 [SymTable]: 676
+[Total Number of Intermediate] 676
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 24 [SymTable]: 25
+[JOIN] level 1 [SymTable]: 51
+[EnumJoinOnAggr] level 1 [SymTable]: 676
+[Total Number of Intermediate] 676
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 24 [SymTable]: 25
+[JOIN] level 1 [SymTable]: 51
+[Total Number of Intermediate] 51
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 42 [SymTable]: 43
+[JOIN] level 1 [SymTable]: 87
+[EnumJoinOnAggr] level 1 [SymTable]: 1936
+[Total Number of Intermediate] 1936
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 60 [SymTable]: 61
+[JOIN] level 1 [SymTable]: 123
+[EnumJoinOnAggr] level 1 [SymTable]: 3844
+[Total Number of Intermediate] 3844
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Query No.5]===============================
+SELECT
+  [T563].id,[T563].section_id,[T563].name
+FROM
+  (( (SELECT
+          [T553].section_id, AVG([T553].id)
+        FROM
+          (input1) AS [T553][id, section_id, name]
+        GROUP BY
+          [T553].section_id) AS [T554][section_id, AVG-id] ) JOIN (
+      SELECT
+        input1.id,input1.section_id,input1.name
+      FROM
+        input1
+      WHERE
+        True )) AS [T563][section_id, AVG-id, id, section_id1, name]
+WHERE
+  [T563].section_id <= [T563].section_id1
+   AND [T563].AVG-id >= [T563].id
+@anonymous
+[T563].id(NumberVal) | [T563].section_id(NumberVal) | [T563].name(StringVal) 
+11.0 | 1.0 | A 
+12.0 | 1.0 | B 
+15.0 | 2.0 | E 
+16.0 | 2.0 | F 
+17.0 | 3.0 | G 
+
+[Query No.4]===============================
+SELECT
+  [T539].id,[T539].section_id,[T539].name
+FROM
+  (( (SELECT
+          [T529].section_id, AVG([T529].id)
+        FROM
+          (input1) AS [T529][id, section_id, name]
+        GROUP BY
+          [T529].section_id) AS [T530][section_id, AVG-id] ) JOIN (
+      SELECT
+        input1.id,input1.section_id,input1.name
+      FROM
+        input1
+      WHERE
+        True )) AS [T539][section_id, AVG-id, id, section_id1, name]
+WHERE
+  [T539].section_id == [T539].section_id1
+   AND [T539].AVG-id >= [T539].id
+@anonymous
+[T539].id(NumberVal) | [T539].section_id(NumberVal) | [T539].name(StringVal) 
+11.0 | 1.0 | A 
+12.0 | 1.0 | B 
+15.0 | 2.0 | E 
+16.0 | 2.0 | F 
+17.0 | 3.0 | G 
+
+[Query No.3]===============================
+SELECT
+  [T527].id,[T527].section_id,[T527].name
+FROM
+  (( (SELECT
+          [T517].section_id, AVG([T517].id)
+        FROM
+          (input1) AS [T517][id, section_id, name]
+        GROUP BY
+          [T517].section_id) AS [T518][section_id, AVG-id] ) JOIN (
+      SELECT
+        input1.id,input1.section_id,input1.name
+      FROM
+        input1
+      WHERE
+        True )) AS [T527][section_id, AVG-id, id, section_id1, name]
+WHERE
+  [T527].section_id == [T527].section_id1
+   AND [T527].AVG-id >= [T527].id
+@anonymous
+[T527].id(NumberVal) | [T527].section_id(NumberVal) | [T527].name(StringVal) 
+11.0 | 1.0 | A 
+12.0 | 1.0 | B 
+15.0 | 2.0 | E 
+16.0 | 2.0 | F 
+17.0 | 3.0 | G 
+
+[Query No.2]===============================
+SELECT
+  [T551].id,[T551].section_id,[T551].name
+FROM
+  (( (SELECT
+          [T541].section_id, AVG([T541].id)
+        FROM
+          (input1) AS [T541][id, section_id, name]
+        GROUP BY
+          [T541].section_id) AS [T542][section_id, AVG-id] ) JOIN (
+      input1 )) AS [T551][section_id, AVG-id, id, section_id1, name]
+WHERE
+  [T551].section_id <= [T551].section_id1
+   AND [T551].AVG-id >= [T551].id
+@anonymous
+[T551].id(NumberVal) | [T551].section_id(NumberVal) | [T551].name(StringVal) 
+11.0 | 1.0 | A 
+12.0 | 1.0 | B 
+15.0 | 2.0 | E 
+16.0 | 2.0 | F 
+17.0 | 3.0 | G 
+
+[Query No.1]===============================
+SELECT
+  [T515].id,[T515].section_id,[T515].name
+FROM
+  (( (SELECT
+          [T505].section_id, AVG([T505].id)
+        FROM
+          (input1) AS [T505][id, section_id, name]
+        GROUP BY
+          [T505].section_id) AS [T506][section_id, AVG-id] ) JOIN (
+      input1 )) AS [T515][section_id, AVG-id, id, section_id1, name]
+WHERE
+  [T515].section_id == [T515].section_id1
+   AND [T515].AVG-id >= [T515].id
+@anonymous
+[T515].id(NumberVal) | [T515].section_id(NumberVal) | [T515].name(StringVal) 
+11.0 | 1.0 | A 
+12.0 | 1.0 | B 
+15.0 | 2.0 | E 
+16.0 | 2.0 | F 
+17.0 | 3.0 | G 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 1.906s

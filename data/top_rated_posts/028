@@ -1,0 +1,40 @@
+//http://stackoverflow.com/questions/4686543/sql-query-to-concatenate-column-values-from-multiple-rows-in-oracle
+
+#input
+
+| PID |
+|-----|
+| A   |
+| B   |
+| C   |
+
+#input
+
+PID,   SEQ ,   Desc
+A  ,   1   ,   Have
+A  ,   2   ,   a nice
+A  ,   3   ,   day.
+B  ,   1   ,   Nice Work.
+C  ,   1   ,   Yes
+C  ,   2   ,   we can 
+C  ,   3   ,   do 
+C  ,   4   ,   this work!
+
+#output
+
+PID,   Desc
+A  ,   Have a nice day.
+B  ,   Nice Work.
+C  ,   Yes we can do this work!
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["concat"]
+}
+
+#solution
+
+SELECT pid, LISTAGG(Desc, ' ') WITHIN GROUP (ORDER BY seq) AS desc
+FROM   B
+GROUP BY pid;

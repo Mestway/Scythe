@@ -1,0 +1,256 @@
+### Cases that we cannot solve:
+
+dev_set:
+	[f-exp1] 032X: require using row_number() and LIMIT
+	[f-scale] 067X: does not scale well, union after join
+
+recent_posts
+	[f-exp2] 002X: using window function lead, over
+	[f-exp2] 006X: string transformation
+	[f-exp2] 008X: dynamic query generation, dynamic pivot
+	[f-exp2] 010X: date-function, window function
+	[f-exp2] 015X: dynamic query generation, dynamic pivot
+	[f-rank] 018X: unable to provide better example
+	[f-exp2] 020X: custom string transformation function
+	[f-scale] 023X: does not scale
+	[f-exp2] 024X: percentage calculation
+	[f-exp2] 026X: string manipulation
+	[f-exp2] 027X: time processing
+	[f-exp2] 029X: string manipulation
+	[f-scale] 030X: does not scale
+	[f-exp2] 033X: date arithmetics
+	[f-exp2] 035X: percentage
+	[f-exp2] 037X: window function, partition
+	[f-exp2] 041X: dynamic pivot
+	[f-exp2] 043X: partitioning and window function
+	[f-exp2] 047X: partitioning and window function
+	[f-scale] 048XX: three join pred
+	[f-exp2] 049X: toJson
+
+top_rated:
+	015X: unpivot
+	020X: string manipulation
+	022X: calculate medium
+	023X: date function
+	024X: date function
+	025X: partitioning
+	026X: dynamic pivot
+	033X: pivot
+	035X: unpivot
+	041X: recursion
+	042X: dynamic pivot
+	046X: customized ranking function
+	050X: column-wise arithmetics
+	052X: column arithmetics
+	053X: case-when
+	056X: pivoting
+
+sqlsynthesizer:
+	5-1-12: ALL nested in IN
+	[f-rank] 5-1-2: unable to disambiguate
+	5-1-4: does not scale
+	5-1-5: unsupported EXCEPT
+	5-2-10: high nested level (possibly solvable with join inside exists)
+	5-2-11: unable to scale
+	5-2-3: unable to scale 
+	5-2-4: unable to scale (possibly solvable with join inside exists)
+	5-2-7: EXCEPT (possibly solvable with join inside exists)
+	5-2-8: high nested level
+
+### Cases that needs modification:
+
+##### Cases needs new examples (with the number of cells modified in the example):
+
+Below we shows cases that needs new examples, and the number of cells needed to be added to the new example.
+
+dev_set:
+	002M: 4
+	006M: 5
+	019M: 2
+	026M: 4
+	042M: 4
+	046AM: 15
+	047M: 3
+	053AM: 4
+	055AM: 17
+	058M: 8
+	059M: 6
+	065M: 7
+	046AM: 15
+
+recent_posts:
+	005M: 9
+	016M: 2
+	021M: 16
+	022M: 17
+	032M: 10
+	044M: 8
+
+top_rated_posts:
+	007M: 2
+	010M: 12
+	018M: 13
+	021M: 3
+	030M: 6
+	043M: 4
+
+##### Cases needs specifying aggregation functions
+
+	dev_set: 3
+	sqlsynthesizer: 2
+	recent_posts: 4
+	top_rated: 0
+
+##### Cases that ASE13 paper mis-reported
+
+	textbook_5_1_3: require union and exists
+	textbook_5_1_5: require exits and except operator
+	textbook_5_2_4: require join inside exists
+	textbook_5_2_7: join nested in exists
+	textbook_5_2_10: join nested in exists
+
+#### Solution Stats (A: aggregation, J: join, X:none, )
+
+AJ
+X
+AJ
+AJ
+J
+AJ
+J
+A
+JJ
+AAJ
+AJ
+J
+A
+AJ
+A
+J
+A
+AJ
+A
+AJ
+AJ
+AJ
+AJ
+JJ
+A
+AJ
+AAJ
+JJ
+A
+A
+AJ
+AJ
+AJ
+AJ
+AJ
+AJ
+A
+A
+L
+A
+AJ
+AJ
+AAJJ
+AAAJ
+AJ
+AJ
+L
+A
+J
+JA
+AJ
+AJ
+JA
+
+AU
+J
+AU
+AJ
+AAJ
+A
+A
+AAJ
+J
+U
+AAJ
+AAJU
+L(E)
+JA
+AAJ
+UAJ
+UAAJJ
+J
+AJ
+JUJ
+L
+AUAJ
+AJ
+X
+A
+AL
+UJJ
+AJ
+
+A
+A
+A
+J
+A
+JJJ
+AJ
+L
+AU
+AJ
+A
+A
+AAJJ
+J
+AJ
+AJ
+AJJ
+JJ
+
+A
+A
+A
+AJ
+AAJ
+AJ
+AJ
+AJ
+AJ
+L
+AJ
+AJ
+AJ
+AJ
+A
+AJ
+AJ
+AJ
+AJ
+AJ
+A
+A
+AJ
+AJ
+J
+AJ
+AJ
+AJ
+AJ
+AJ
+A
+AJ
+AJ
+AAJ
+AJ
+AJ
+A
+AJ
+JA
+A
+AJ

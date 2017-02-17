@@ -1,0 +1,522 @@
+[[Synthesizing]]
+[[Synthesis start]]
+	File: ../data/top_rated_posts/004
+	Enumerator: CanonicalTableEnumeratorOnTheFly
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 7
+	Avg table size: 6
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 70
+	Avg table size: 2
+[Total Number of Intermediate Result] 70
+[Average Size of the tables] 2.914285714285714
+[Sum Size of the tables] 204.0
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 7
+	Avg table size: 6
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 10
+	Avg table size: 5
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 468
+	Avg table size: 28
+[Total Number of Intermediate Result] 468
+[Average Size of the tables] 28.705128205128204
+[Sum Size of the tables] 13434.0
+Total Tree Count: 4
+Total Query Count: 46656
+[Enumeration Finished]
+    [AggrFun] Optional[MAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 7
+	Avg table size: 6
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 18
+	Avg table size: 4
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 705
+	Avg table size: 25
+[Total Number of Intermediate Result] 705
+[Average Size of the tables] 25.574468085106382
+[Sum Size of the tables] 18030.0
+Total Tree Count: 18
+Total Query Count: 4504392
+[Enumeration Finished]
+    [AggrFun] Optional[MIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 7
+	Avg table size: 6
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 18
+	Avg table size: 4
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 673
+	Avg table size: 25
+[Total Number of Intermediate Result] 673
+[Average Size of the tables] 25.73402674591382
+[Sum Size of the tables] 17319.0
+Total Tree Count: 11
+Total Query Count: 1440072
+[Enumeration Finished]
+    [AggrFun] Optional[AVG]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 7
+	Avg table size: 6
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 24
+	Avg table size: 3
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 780
+	Avg table size: 24
+[Total Number of Intermediate Result] 780
+[Average Size of the tables] 24.22051282051282
+[Sum Size of the tables] 18892.0
+Total Tree Count: 15
+Total Query Count: 1334664
+[Enumeration Finished]
+    [AggrFun] Optional[MINMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 7
+	Avg table size: 6
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 22
+	Avg table size: 4
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 827
+	Avg table size: 25
+[Total Number of Intermediate Result] 827
+[Average Size of the tables] 25.031438935912938
+[Sum Size of the tables] 20701.0
+Total Tree Count: 23
+Total Query Count: 6951456
+[Enumeration Finished]
+    [AggrFun] Optional[COUNTMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 7
+	Avg table size: 6
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 20
+	Avg table size: 4
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 759
+	Avg table size: 25
+[Total Number of Intermediate Result] 759
+[Average Size of the tables] 25.07114624505929
+[Sum Size of the tables] 19029.0
+Total Tree Count: 23
+Total Query Count: 14127624
+[Enumeration Finished]
+[Query No.15]===============================
+SELECT
+  [T43245].id1,[T43245].rev1,[T43245].content1
+FROM
+  (SELECT
+      [T37069].id,[T37069].rev,[T37069].content,[T37069].id1,[T37069].rev1,[T37069].content1
+    FROM
+      (( (SELECT
+              input1.id,input1.rev,input1.content
+            FROM
+              input1
+            WHERE
+              input1.id > input1.rev) AS [T39678][id, rev, content] ) JOIN (
+          (SELECT
+              input1.id,input1.rev,input1.content
+            FROM
+              input1
+            WHERE
+              input1.rev <> input1.id) AS [T39679][id, rev, content] )) AS [T37069][id, rev, content, id1, rev1, content1]
+    WHERE
+      [T37069].id <> [T37069].rev1) AS [T43245][id, rev, content, id1, rev1, content1]
+
+@anonymous
+[T43245].id1(NumberVal) | [T43245].rev1(NumberVal) | [T43245].content1(StringVal) 
+2.0 | 1.0 | B 
+1.0 | 3.0 | D 
+
+[Query No.14]===============================
+SELECT
+  [T43244].id1,[T43244].rev1,[T43244].content1
+FROM
+  (SELECT
+      [T37069].id,[T37069].rev,[T37069].content,[T37069].id1,[T37069].rev1,[T37069].content1
+    FROM
+      (( (SELECT
+              input1.id,input1.rev,input1.content
+            FROM
+              input1
+            WHERE
+              input1.id > input1.rev) AS [T39676][id, rev, content] ) JOIN (
+          (SELECT
+              input1.id,input1.rev,input1.content
+            FROM
+              input1
+            WHERE
+              input1.id <> input1.rev) AS [T39677][id, rev, content] )) AS [T37069][id, rev, content, id1, rev1, content1]
+    WHERE
+      [T37069].id <> [T37069].rev1) AS [T43244][id, rev, content, id1, rev1, content1]
+
+@anonymous
+[T43244].id1(NumberVal) | [T43244].rev1(NumberVal) | [T43244].content1(StringVal) 
+2.0 | 1.0 | B 
+1.0 | 3.0 | D 
+
+[Query No.13]===============================
+SELECT
+  [T43243].id1,[T43243].rev1,[T43243].content1
+FROM
+  (SELECT
+      [T37069].id,[T37069].rev,[T37069].content,[T37069].id1,[T37069].rev1,[T37069].content1
+    FROM
+      (( (SELECT
+              input1.id,input1.rev,input1.content
+            FROM
+              input1
+            WHERE
+              input1.rev < input1.id) AS [T39662][id, rev, content] ) JOIN (
+          (SELECT
+              input1.id,input1.rev,input1.content
+            FROM
+              input1
+            WHERE
+              input1.rev <> input1.id) AS [T39663][id, rev, content] )) AS [T37069][id, rev, content, id1, rev1, content1]
+    WHERE
+      [T37069].id <> [T37069].rev1) AS [T43243][id, rev, content, id1, rev1, content1]
+
+@anonymous
+[T43243].id1(NumberVal) | [T43243].rev1(NumberVal) | [T43243].content1(StringVal) 
+2.0 | 1.0 | B 
+1.0 | 3.0 | D 
+
+[Query No.12]===============================
+SELECT
+  [T43242].id1,[T43242].rev1,[T43242].content1
+FROM
+  (SELECT
+      [T37069].id,[T37069].rev,[T37069].content,[T37069].id1,[T37069].rev1,[T37069].content1
+    FROM
+      (( (SELECT
+              input1.id,input1.rev,input1.content
+            FROM
+              input1
+            WHERE
+              input1.rev < input1.id) AS [T39660][id, rev, content] ) JOIN (
+          (SELECT
+              input1.id,input1.rev,input1.content
+            FROM
+              input1
+            WHERE
+              input1.id <> input1.rev) AS [T39661][id, rev, content] )) AS [T37069][id, rev, content, id1, rev1, content1]
+    WHERE
+      [T37069].id <> [T37069].rev1) AS [T43242][id, rev, content, id1, rev1, content1]
+
+@anonymous
+[T43242].id1(NumberVal) | [T43242].rev1(NumberVal) | [T43242].content1(StringVal) 
+2.0 | 1.0 | B 
+1.0 | 3.0 | D 
+
+[Query No.11]===============================
+SELECT
+  [T43241].id1,[T43241].rev1,[T43241].content1
+FROM
+  (SELECT
+      [T37069].id,[T37069].rev,[T37069].content,[T37069].id1,[T37069].rev1,[T37069].content1
+    FROM
+      (( (SELECT
+              input1.id,input1.rev,input1.content
+            FROM
+              input1
+            WHERE
+              input1.rev < input1.id) AS [T39658][id, rev, content] ) JOIN (
+          (SELECT
+              input1.id,input1.rev,input1.content
+            FROM
+              input1
+            WHERE
+              input1.rev <> input1.id) AS [T39659][id, rev, content] )) AS [T37069][id, rev, content, id1, rev1, content1]
+    WHERE
+      [T37069].id <> [T37069].rev1) AS [T43241][id, rev, content, id1, rev1, content1]
+
+@anonymous
+[T43241].id1(NumberVal) | [T43241].rev1(NumberVal) | [T43241].content1(StringVal) 
+2.0 | 1.0 | B 
+1.0 | 3.0 | D 
+
+[Query No.10]===============================
+SELECT
+  [T43240].id1,[T43240].rev1,[T43240].content1
+FROM
+  (SELECT
+      [T37069].id,[T37069].rev,[T37069].content,[T37069].id1,[T37069].rev1,[T37069].content1
+    FROM
+      (( (SELECT
+              input1.id,input1.rev,input1.content
+            FROM
+              input1
+            WHERE
+              input1.rev < input1.id) AS [T39656][id, rev, content] ) JOIN (
+          (SELECT
+              input1.id,input1.rev,input1.content
+            FROM
+              input1
+            WHERE
+              input1.id <> input1.rev) AS [T39657][id, rev, content] )) AS [T37069][id, rev, content, id1, rev1, content1]
+    WHERE
+      [T37069].id <> [T37069].rev1) AS [T43240][id, rev, content, id1, rev1, content1]
+
+@anonymous
+[T43240].id1(NumberVal) | [T43240].rev1(NumberVal) | [T43240].content1(StringVal) 
+2.0 | 1.0 | B 
+1.0 | 3.0 | D 
+
+[Query No.9]===============================
+SELECT
+  [T43239].id1,[T43239].rev1,[T43239].content1
+FROM
+  (SELECT
+      [T37069].id,[T37069].rev,[T37069].content,[T37069].id1,[T37069].rev1,[T37069].content1
+    FROM
+      (( (SELECT
+              input1.id,input1.rev,input1.content
+            FROM
+              input1
+            WHERE
+              input1.id > input1.rev) AS [T39642][id, rev, content] ) JOIN (
+          (SELECT
+              input1.id,input1.rev,input1.content
+            FROM
+              input1
+            WHERE
+              input1.rev <> input1.id) AS [T39643][id, rev, content] )) AS [T37069][id, rev, content, id1, rev1, content1]
+    WHERE
+      [T37069].id <> [T37069].rev1) AS [T43239][id, rev, content, id1, rev1, content1]
+
+@anonymous
+[T43239].id1(NumberVal) | [T43239].rev1(NumberVal) | [T43239].content1(StringVal) 
+2.0 | 1.0 | B 
+1.0 | 3.0 | D 
+
+[Query No.8]===============================
+SELECT
+  [T43238].id1,[T43238].rev1,[T43238].content1
+FROM
+  (SELECT
+      [T37069].id,[T37069].rev,[T37069].content,[T37069].id1,[T37069].rev1,[T37069].content1
+    FROM
+      (( (SELECT
+              input1.id,input1.rev,input1.content
+            FROM
+              input1
+            WHERE
+              input1.id > input1.rev) AS [T39640][id, rev, content] ) JOIN (
+          (SELECT
+              input1.id,input1.rev,input1.content
+            FROM
+              input1
+            WHERE
+              input1.id <> input1.rev) AS [T39641][id, rev, content] )) AS [T37069][id, rev, content, id1, rev1, content1]
+    WHERE
+      [T37069].id <> [T37069].rev1) AS [T43238][id, rev, content, id1, rev1, content1]
+
+@anonymous
+[T43238].id1(NumberVal) | [T43238].rev1(NumberVal) | [T43238].content1(StringVal) 
+2.0 | 1.0 | B 
+1.0 | 3.0 | D 
+
+[Query No.7]===============================
+SELECT
+  [T43237].id1,[T43237].rev1,[T43237].content1
+FROM
+  (SELECT
+      [T37069].id,[T37069].rev,[T37069].content,[T37069].id1,[T37069].rev1,[T37069].content1
+    FROM
+      (( (SELECT
+              input1.id,input1.rev,input1.content
+            FROM
+              input1
+            WHERE
+              input1.id > input1.rev) AS [T39638][id, rev, content] ) JOIN (
+          (SELECT
+              input1.id,input1.rev,input1.content
+            FROM
+              input1
+            WHERE
+              input1.rev <> input1.id) AS [T39639][id, rev, content] )) AS [T37069][id, rev, content, id1, rev1, content1]
+    WHERE
+      [T37069].id <> [T37069].rev1) AS [T43237][id, rev, content, id1, rev1, content1]
+
+@anonymous
+[T43237].id1(NumberVal) | [T43237].rev1(NumberVal) | [T43237].content1(StringVal) 
+2.0 | 1.0 | B 
+1.0 | 3.0 | D 
+
+[Query No.6]===============================
+SELECT
+  [T43236].id1,[T43236].rev1,[T43236].content1
+FROM
+  (SELECT
+      [T37069].id,[T37069].rev,[T37069].content,[T37069].id1,[T37069].rev1,[T37069].content1
+    FROM
+      (( (SELECT
+              input1.id,input1.rev,input1.content
+            FROM
+              input1
+            WHERE
+              input1.id > input1.rev) AS [T39636][id, rev, content] ) JOIN (
+          (SELECT
+              input1.id,input1.rev,input1.content
+            FROM
+              input1
+            WHERE
+              input1.id <> input1.rev) AS [T39637][id, rev, content] )) AS [T37069][id, rev, content, id1, rev1, content1]
+    WHERE
+      [T37069].id <> [T37069].rev1) AS [T43236][id, rev, content, id1, rev1, content1]
+
+@anonymous
+[T43236].id1(NumberVal) | [T43236].rev1(NumberVal) | [T43236].content1(StringVal) 
+2.0 | 1.0 | B 
+1.0 | 3.0 | D 
+
+[Query No.5]===============================
+SELECT
+  [T611062].id,[T611062].MAX-rev,[T611062].content
+FROM
+  (SELECT
+      [T609405].id,[T609405].MAX-rev,[T609405].id1,[T609405].rev,[T609405].content
+    FROM
+      (( ((SELECT
+                input1.id, MAX(input1.rev)
+              FROM
+                input1
+              GROUP BY
+                input1.id) AS [T609411][id, MAX-rev]) AS [T609438][id, MAX-rev] ) JOIN (
+          input1 )) AS [T609405][id, MAX-rev, id1, rev, content]
+    WHERE
+      [T609405].id == [T609405].id1
+       AND [T609405].MAX-rev == [T609405].rev) AS [T611062][id, MAX-rev, id1, rev, content]
+
+@anonymous
+[T611062].id(NumberVal) | [T611062].MAX-rev(NumberVal) | [T611062].content(StringVal) 
+1.0 | 3.0 | D 
+2.0 | 1.0 | B 
+
+[Query No.4]===============================
+SELECT
+  [T152180].id1,[T152180].rev,[T152180].content
+FROM
+  (SELECT
+      [T150679].id,[T150679].MAX-rev,[T150679].id1,[T150679].rev,[T150679].content
+    FROM
+      (( ((SELECT
+                input1.id, MAX(input1.rev)
+              FROM
+                input1
+              GROUP BY
+                input1.id) AS [T150685][id, MAX-rev]) AS [T150708][id, MAX-rev] ) JOIN (
+          input1 )) AS [T150679][id, MAX-rev, id1, rev, content]
+    WHERE
+      [T150679].id == [T150679].id1
+       AND [T150679].MAX-rev == [T150679].rev) AS [T152180][id, MAX-rev, id1, rev, content]
+
+@anonymous
+[T152180].id1(NumberVal) | [T152180].rev(NumberVal) | [T152180].content(StringVal) 
+1.0 | 3.0 | D 
+2.0 | 1.0 | B 
+
+[Query No.3]===============================
+SELECT
+  [T152170].id1,[T152170].MAX-rev,[T152170].content
+FROM
+  (SELECT
+      [T150679].id,[T150679].MAX-rev,[T150679].id1,[T150679].rev,[T150679].content
+    FROM
+      (( ((SELECT
+                input1.id, MAX(input1.rev)
+              FROM
+                input1
+              GROUP BY
+                input1.id) AS [T150685][id, MAX-rev]) AS [T150708][id, MAX-rev] ) JOIN (
+          input1 )) AS [T150679][id, MAX-rev, id1, rev, content]
+    WHERE
+      [T150679].id == [T150679].id1
+       AND [T150679].MAX-rev == [T150679].rev) AS [T152170][id, MAX-rev, id1, rev, content]
+
+@anonymous
+[T152170].id1(NumberVal) | [T152170].MAX-rev(NumberVal) | [T152170].content(StringVal) 
+1.0 | 3.0 | D 
+2.0 | 1.0 | B 
+
+[Query No.2]===============================
+SELECT
+  [T152160].id,[T152160].rev,[T152160].content
+FROM
+  (SELECT
+      [T150679].id,[T150679].MAX-rev,[T150679].id1,[T150679].rev,[T150679].content
+    FROM
+      (( ((SELECT
+                input1.id, MAX(input1.rev)
+              FROM
+                input1
+              GROUP BY
+                input1.id) AS [T150685][id, MAX-rev]) AS [T150708][id, MAX-rev] ) JOIN (
+          input1 )) AS [T150679][id, MAX-rev, id1, rev, content]
+    WHERE
+      [T150679].id == [T150679].id1
+       AND [T150679].MAX-rev == [T150679].rev) AS [T152160][id, MAX-rev, id1, rev, content]
+
+@anonymous
+[T152160].id(NumberVal) | [T152160].rev(NumberVal) | [T152160].content(StringVal) 
+1.0 | 3.0 | D 
+2.0 | 1.0 | B 
+
+[Query No.1]===============================
+SELECT
+  [T152150].id,[T152150].MAX-rev,[T152150].content
+FROM
+  (SELECT
+      [T150679].id,[T150679].MAX-rev,[T150679].id1,[T150679].rev,[T150679].content
+    FROM
+      (( ((SELECT
+                input1.id, MAX(input1.rev)
+              FROM
+                input1
+              GROUP BY
+                input1.id) AS [T150685][id, MAX-rev]) AS [T150708][id, MAX-rev] ) JOIN (
+          input1 )) AS [T150679][id, MAX-rev, id1, rev, content]
+    WHERE
+      [T150679].id == [T150679].id1
+       AND [T150679].MAX-rev == [T150679].rev) AS [T152150][id, MAX-rev, id1, rev, content]
+
+@anonymous
+[T152150].id(NumberVal) | [T152150].MAX-rev(NumberVal) | [T152150].content(StringVal) 
+1.0 | 3.0 | D 
+2.0 | 1.0 | B 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 58.532s

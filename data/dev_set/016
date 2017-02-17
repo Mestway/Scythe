@@ -1,0 +1,36 @@
+//http://stackoverflow.com/questions/33069068/sql-joining-to-two-tables-and-then-using-sum-and-count
+
+#input
+
+| school_id | class_id | school_location |
+|----------------------------------------|
+| 400       |      50  |     Arizona     |
+
+#input
+
+| staff_id | forename | school_id | wage |
+|----------------------------------------|
+|   11      |  Peter   |    400    | 5000 |
+|   22      |  Peter   |    400    | 4000 |
+
+#output
+
+| school_id | numberofstaff | salary|
+|-----------------------------------|
+| 400       |     2         | 5000  |
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": [ "max", "count"]
+}
+
+#solution
+
+SELECT sc.school_id, 
+   COUNT(*) as numberofstaff,
+   SUM(st.wage) as salary
+FROM school sc
+INNER JOIN staff st
+ON sc.school_id = st.school_id
+GROUP BY sc.school_id

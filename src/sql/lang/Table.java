@@ -1,9 +1,11 @@
 package sql.lang;
 
-import sql.lang.DataType.ValType;
-import sql.lang.DataType.Value;
-import sql.lang.ast.filter.VVComparator;
+import backward_inference.MappingInference;
+import sql.lang.datatype.ValType;
+import sql.lang.datatype.Value;
 import sql.lang.exception.SQLEvalException;
+import util.CombinationGenerator;
+import util.Pair;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -14,39 +16,39 @@ import java.util.stream.Collectors;
  */
 public class Table {
 
-    static int TableCount = 0;
+    private static int TableCount = 0;
     public static String AssignNewName() {
         TableCount ++;
-        return "DefaultTableName" + TableCount;
+        return "{Default" + TableCount + "}";
     }
 
-    String name = "";
-    List<String> metadata = new ArrayList<String>();
-    List<TableRow> rows = new ArrayList<TableRow>();
+    private String name = "";
+    private List<String> schema = new ArrayList<>();
+    private List<TableRow> rows = new ArrayList<>();
 
     public Table() {}
 
     /**
      * Initializer of a table, the content here is only strings
      * @param tableName the name of the table
-     * @param metadata the meta data of the table
+     * @param schema the meta data of the table
      * @param rawContent all contents in the form of string
      */
-    public Table(String tableName, List<String> metadata, List<List<String>> rawContent) {
-        List<TableRow> rows = new ArrayList<TableRow>();
-        for (List<String> sList : rawContent) {
-            rows.add(TableRow.TableRowFromString(tableName, metadata, sList));
-        }
-        this.initialize(tableName, metadata, rows);
+    public Table(String tableName, List<String> schema, List<List<String>> rawContent) {
+        List<TableRow> rows = rawContent
+                .stream()
+                .map(sList -> TableRow.TableRowFromString(tableName, schema, sList))
+                .collect(Collectors.toList());
+        this.initialize(tableName, schema, rows);
     }
 
-    public void initialize(String tableName, List<String> metadata, List<TableRow> rows) {
+    public void initialize(String tableName, List<String> schema, List<TableRow> rows) {
         this.name = tableName;
-        this.metadata = metadata;
+        this.schema = schema;
         this.rows = rows;
     }
 
-    public List<String> getMetadata() { return this.metadata; }
+    public List<String> getSchema() { return this.schema; }
     public String getName() { return this.name; }
     public List<TableRow> getContent() { return this.rows; }
 
@@ -54,26 +56,25 @@ public class Table {
     // Not sure if it is supposed to be used
     public void updateName(String tableName) {
         this.name = tableName;
-        for (TableRow r : rows) {
-            r.updateTableName(tableName);
-        }
     }
 
-    public void updateMetadata(List<String> md) {
-        if (this.metadata.size() != md.size()) {
+    public void updateSchema(List<String> schema) {
+        if (this.schema.size() != schema.size()) {
             System.err.println("[Error@Table61] the new metadata size does not equal to the original one.");
         }
-        this.metadata = md;
+        this.schema = schema;
         for (TableRow tr : this.rows) {
-            tr.updateMetadata(md);
+            tr.updateMetadata(schema);
         }
     }
 
     @Override
     public String toString() {
         String str = "@" + name + "\r\n";
-        for (String i : metadata) {
-            str += i + " | ";
+        int k = 0;
+        for (String i : schema) {
+            str += i + "(" + this.getSchemaType().get(k) + ")" + " | ";
+            k ++;
         }
         str = str.substring(0, str.length() - 2) + "\r\n";
         for (TableRow row : rows) {
@@ -86,7 +87,7 @@ public class Table {
         String str = indent + "@" + name + "\r\n";
 
         str += indent;
-        for (String i : metadata) {
+        for (String i : schema) {
             str += i + " | ";
         }
         str = str.substring(0, str.length() - 2) + "\r\n";
@@ -99,13 +100,33 @@ public class Table {
         return str;
     }
 
+    /**
+     * Get a column from the table, specified by index
+     * @param index the column to be retrieved
+     * @return The column represented as a list
+     */
+    public List<Value> getColumnByIndex(Integer index) {
+        if (index >= this.getSchema().size())
+            System.err.println("[ERROR@Table107] column index is bigger than the schema size.");
+
+        return this.getContent().stream().map(r -> r.getValue(index)).collect(Collectors.toList());
+    }
+
+    public Table projection(List<Integer> projectionIndexes) {
+        Table t = this.duplicate();
+        t.schema = projectionIndexes.stream().map(c -> t.schema.get(c)).collect(Collectors.toList());
+        t.rows.clear();
+        t.rows.addAll(this.rows.stream().map(r -> r.projection(projectionIndexes)).collect(Collectors.toList()));
+        return t;
+    }
+
     // duplicate the current table
     // (All values in the table duplicated)
     public Table duplicate() {
         Table table = new Table();
         table.name = this.name;
-        for (String i : this.metadata) {
-            table.metadata.add(i);
+        for (String i : this.schema) {
+            table.schema.add(i);
         }
         for (TableRow valList : this.rows) {
             table.rows.add(valList.duplicate());
@@ -114,8 +135,8 @@ public class Table {
     }
 
     public boolean tableEquals(Table table) {
-        for (int i = 0; i < this.metadata.size(); i ++) {
-            if (!this.metadata.get(i).equals(table.metadata.get(i)))
+        for (int i = 0; i < this.schema.size(); i ++) {
+            if (!this.schema.get(i).equals(table.schema.get(i)))
                 return false;
         }
         for (int i = 0; i < this.rows.size(); i ++) {
@@ -176,8 +197,8 @@ public class Table {
         else
             fieldName = name.substring(name.indexOf(".") + 1);
 
-        for (int i = 0; i < this.metadata.size(); i ++) {
-            if (this.metadata.get(i).equals(fieldName))
+        for (int i = 0; i < this.schema.size(); i ++) {
+            if (this.schema.get(i).equals(fieldName))
                 return i;
         }
         System.err.println("[Error@Table152]Metadata retrieval fail.");
@@ -186,20 +207,43 @@ public class Table {
 
     public List<String> getQualifiedMetadata() {
         if (this.name.equals("anonymous"))
-            return this.metadata;
+            return this.schema;
         else {
             // add the qualifier
-            return this.metadata.stream().map(s -> this.name + "." + s).collect(Collectors.toList());
+            return this.schema.stream().map(s -> this.name + "." + s).collect(Collectors.toList());
         }
     }
 
+
+    public List<ValType> storedSchemaType = null;
     // return the schema type of a table.
     public List<ValType> getSchemaType() {
-        List<ValType> lv = new ArrayList<ValType>();
-        for (Value v : this.getContent().get(0).getValues()) {
-            lv.add(v.getValType());
+
+        if (this.storedSchemaType != null) return this.storedSchemaType;
+
+        List<List<ValType>> typeCollections = new ArrayList<>();
+        for (int i = 0; i < this.getSchema().size(); i ++) {
+            typeCollections.add(new ArrayList<>());
         }
-        return lv;
+        for (int i = 0; i < this.getContent().size(); i ++) {
+            int j = 0;
+            for (Value v : this.getContent().get(i).getValues()) {
+                typeCollections.get(j).add(v.getValType());
+                j ++;
+            }
+        }
+        return typeCollections.stream().map(l -> typeLowerBound(l)).collect(Collectors.toList());
+    }
+    public ValType typeLowerBound(List<ValType> types) {
+        if (types.isEmpty()) return null;
+        ValType currentType = types.get(0);
+        for (ValType type : types) {
+            if (currentType == type) {
+                continue;
+            }
+            return ValType.StringVal;
+        }
+        return currentType;
     }
 
     public boolean isEmpty() {
@@ -236,7 +280,7 @@ public class Table {
         return hash;
         // another hash function
         /*return this.getContent().parallelStream()
-                .map(tr -> tr.getValues().parallelStream().map(t -> t.getVal().hashCode())
+                .map(tr -> tr.getUserProvidedConstValues().parallelStream().map(t -> t.getVal().hashCode())
                         .reduce(0, (a, b) -> (a + b) % prime))
                 .reduce(0, (x, y) -> (x + y) % prime );*/
     }
@@ -269,7 +313,7 @@ public class Table {
         Set<String> alreadyUsedName = new HashSet<>();
 
         // collect metadata
-        for (String md : t1.getMetadata()) {
+        for (String md : t1.getSchema()) {
             String name;
             if (t1.getName().equals("anonymous")) {
                 name = md;
@@ -285,7 +329,8 @@ public class Table {
             alreadyUsedName.add(name);
             resultTableMetadata.add(name);
         }
-        for (String md : t2.getMetadata()) {
+
+        for (String md : t2.getSchema()) {
             String name;
             if (t2.getName().equals("anonymous")) {
                 name = md;
@@ -327,5 +372,134 @@ public class Table {
                 resultTableContent);
 
         return resultTable;
+    }
+
+    public static Table extendWithNull(Table t, List<Pair<String, ValType>> extensionSchema) {
+
+        Table result = t.duplicate();
+
+        result.schema = new ArrayList<>();
+        result.schema.addAll(t.schema);
+        result.schema.addAll(extensionSchema.stream().map(p -> p.getKey()).collect(Collectors.toList()));
+        result.rows = t.getContent().stream().map(r -> r.extendWithNull(extensionSchema)).collect(Collectors.toList());
+
+        return result;
+    }
+
+    /**
+     * Calculate t1 - t2 (returning rows that are in t1 but not in t2)
+     */
+    public static Table except(Table t1, Table t2) throws SQLEvalException {
+
+        Table t = t1.duplicate();
+        t.getContent().clear();
+
+        for (TableRow r1 : t1.getContent()) {
+            boolean contained = false;
+            for (TableRow r2 : t2.getContent()) {
+                if (r2.contentEquals(r1))
+                    contained = true;
+            }
+            if (contained == false) {
+                t.getContent().add(r1.duplicate());
+            }
+        }
+        return t;
+    }
+
+    public static Table union(Table t1, Table t2) {
+
+        if (t1.getContent().isEmpty()) return t2;
+        if (t2.getContent().isEmpty()) return t1;
+
+        if (! Table.schemaMatch(t1, t2)) {
+            System.err.println("[ERROR@Table412]Table Schema not equal in union.");
+        }
+
+        Table result = t1.duplicate();
+        for (TableRow r : t2.getContent()) {
+            result.getContent().add(r);
+        }
+
+        result.updateSchema(t1.getSchema());
+
+        return result;
+    }
+
+    // Infer projection columns from src to table
+    public static List<Integer> inferProjection(Table src, Table tgt) {
+        MappingInference mi = MappingInference.buildMapping(src, tgt);
+        List<Integer> columns = mi.genColumnMappingInstances().stream()
+                .map(s -> s.stream().findFirst().get()).collect(Collectors.toList());
+        return columns;
+    }
+
+    public static boolean schemaMatch(Table t1, Table t2) {
+        if (t1.getSchema().size() != t2.getSchema().size()) {
+            return false;
+        }
+        if (t2.getContent().isEmpty() || t1.getContent().isEmpty())
+            return true;
+
+        for (int i = 0; i < t1.getSchemaType().size(); i ++) {
+            try {
+                if (! t1.getSchemaType().get(i).equals(t2.getSchemaType().get(i)))
+                    return false;
+            } catch (Exception e) {
+                System.out.println("oh...");
+            }
+        }
+
+        return true;
+    }
+
+    public static List<Pair<Table, Table>> tryDecompose(Table t) {
+        List<Pair<List<TableRow>, List<TableRow>>> combs = CombinationGenerator.genDecomposition(t.getContent());
+        return combs.stream().map(p -> {
+            Table t1 = t.duplicate();
+            t1.getContent().clear();
+            t1.getContent().addAll(p.getKey());
+            Table t2 = t.duplicate();
+            t2.getContent().clear();
+            t2.getContent().addAll(p.getValue());
+            return new Pair<>(t1, t2);
+        }).collect(Collectors.toList());
+    }
+
+    public static List<Pair<Table, Table>> horizontalDecompose(Table t) {
+        if (t.schema.size() < 3)
+            return new ArrayList<>();
+
+        Table t1 = t.duplicate();
+        t1.schema = t1.schema.subList(0, 2);
+        for (TableRow tr : t1.getContent()) {
+            tr.fieldNames = tr.fieldNames.subList(0, 2);
+            tr.values = tr.values.subList(0, 2);
+        }
+
+        Table t2 = t.duplicate();
+
+        List<Integer> newIndexes = new ArrayList<>();
+        newIndexes.add(0);
+        for (int i = 2; i < t2.schema.size(); i ++)
+            newIndexes.add(i);
+
+        t2.schema = getSublistByIndexes(t2.schema, newIndexes);
+        for (TableRow tr : t2.getContent()) {
+            tr.fieldNames = getSublistByIndexes(tr.fieldNames, newIndexes);
+            tr.values = getSublistByIndexes(tr.values, newIndexes);
+        }
+
+        List<Pair<Table, Table>> result = new ArrayList<>();
+        result.add(new Pair<>(t1, t2));
+        return result;
+    }
+
+    private static <T> List<T> getSublistByIndexes(List<T> list, List<Integer> newIndexes) {
+        List<T> result = new ArrayList<T>();
+        for (int i : newIndexes) {
+            result.add(list.get(i));
+        }
+        return result;
     }
 }

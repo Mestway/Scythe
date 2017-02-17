@@ -1,12 +1,12 @@
 package sql.lang.ast.table;
 
-import enumerator.context.EnumContext;
-import enumerator.parameterized.InstantiateEnv;
+import forward_enumeration.context.EnumContext;
+import forward_enumeration.primitive.parameterized.InstantiateEnv;
 import sql.lang.ast.filter.EmptyFilter;
-import sun.invoke.empty.Empty;
+import util.CostEstimator;
 import util.Pair;
-import sql.lang.DataType.ValType;
-import sql.lang.DataType.Value;
+import sql.lang.datatype.ValType;
+import sql.lang.datatype.Value;
 import sql.lang.Table;
 import sql.lang.TableRow;
 import sql.lang.ast.Environment;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 /**
  * Created by clwang on 12/16/15.
  */
-public class SelectNode implements TableNode {
+public class SelectNode extends TableNode {
 
     List<ValNode> columns;
     TableNode tableNode;
@@ -47,9 +47,9 @@ public class SelectNode implements TableNode {
         Table resultTable = table.duplicate();
 
         // initialize result table data
-        resultTable.getMetadata().clear();
+        resultTable.getSchema().clear();
         for (ValNode vn : columns) {
-            resultTable.getMetadata().add(vn.getName());
+            resultTable.getSchema().add(vn.getName());
         }
 
         // initialize result table content
@@ -62,13 +62,13 @@ public class SelectNode implements TableNode {
 
             // extend the evaluation environment for this column
             if (table.getName().equals("anonymous")) {
-                for (int i = 0; i < table.getMetadata().size(); i ++) {
-                    rowBinding.put(table.getMetadata().get(i), row.getValue(i));
+                for (int i = 0; i < table.getSchema().size(); i ++) {
+                    rowBinding.put(table.getSchema().get(i), row.getValue(i));
                 }
             } else {
-                for (int i = 0; i < table.getMetadata().size(); i ++) {
+                for (int i = 0; i < table.getSchema().size(); i ++) {
                     rowBinding.put(
-                            table.getName() + "." + table.getMetadata().get(i),
+                            table.getName() + "." + table.getSchema().get(i),
                             row.getValue(i));
                 }
             }
@@ -83,7 +83,7 @@ public class SelectNode implements TableNode {
                 }
                 TableRow newRow = TableRow.TableRowFromContent(
                         resultTable.getName(),
-                        resultTable.getMetadata(),
+                        resultTable.getSchema(),
                         rowContent);
 
                 resultTable.getContent().add(newRow);
@@ -142,11 +142,27 @@ public class SelectNode implements TableNode {
     }
 
     @Override
-    public String prettyPrint(int indentLv) {
+    public String prettyPrint(int indentLv, boolean asSubquery) {
+
+        // determine if it is select all
+        boolean selectFieldsAllSame = false;
+        if (tableNode.getSchema().size() == columns.size()) {
+            selectFieldsAllSame = true;
+            for (int i = 0; i < tableNode.getSchema().size(); i ++) {
+                if (! tableNode.getSchema().get(i).equals(columns.get(i).prettyPrint(0))) {
+                    selectFieldsAllSame = false;
+                    break;
+                }
+            }
+        }
+
+        if (selectFieldsAllSame && (this.filter instanceof EmptyFilter)) {
+            return IndentionManagement.addIndention( tableNode.prettyPrint(0, true), indentLv);
+        }
 
         String result = "";
 
-        result += "SELECT\r\n";
+        result += "Select ";
 
         String selectArg = "";
 
@@ -159,17 +175,23 @@ public class SelectNode implements TableNode {
                 selectArg += "," + s.prettyPrint(0);
         }
 
-        result += IndentionManagement.basicIndent() + selectArg + "\r\n";
+        if (selectFieldsAllSame)
+            result += "*\r\n";
+        else
+            result += selectArg + "\r\n";
 
-        result += "FROM\r\n";
+        result += " From\r\n";
 
-        result += tableNode.prettyPrint(1);
+        result += tableNode.prettyPrint(1, true);
 
         result += "\r\n";
         if (! (this.filter instanceof EmptyFilter)) {
-            result += "WHERE\r\n";
-            result += filter.prettyPrint(1);
+            result += " Where ";
+            result += filter.prettyPrint(1).trim();
         }
+
+        if (asSubquery)
+            result = "(" + result + ")";
         return IndentionManagement.addIndention(result, indentLv);
     }
 
@@ -231,8 +253,71 @@ public class SelectNode implements TableNode {
         return sn;
     }
 
+    @Override
+    public List<String> originalColumnName() {
+        List<Integer> indices = new ArrayList<>();
+        for (ValNode c : this.columns) {
+            if (! (c instanceof  NamedVal))
+                indices.add(-1);
+            else {
+                boolean added = false;
+                for (int i = 0; i < this.tableNode.getSchema().size(); i ++) {
+                    if (this.tableNode.getSchema().get(i).equals(c.getName())) {
+                        indices.add(i);
+                        added = true;
+                        break;
+                    }
+                }
+                if (! added) {
+                    System.err.println("[SelectNode250] Unrecognized schema.");
+                    indices.add(-1);
+                }
+            }
+        }
+        List<String> innerLevelColumnName = this.tableNode.originalColumnName();
+        List<String> result = new ArrayList<>();
+        for (Integer i : indices) {
+            if (i == -1) {
+                result.add("none-col-name");
+            } else {
+                result.add(innerLevelColumnName.get(i));
+            }
+        }
+        return result;
+    }
+
     public TableNode getTableNode() { return this.tableNode; }
     public Filter getFilter() { return this.filter; }
     public List<ValNode> getColumns() { return this.columns; }
+
+    @Override
+    public double estimateAllFilterCost() {
+        double cost = tableNode.estimateAllFilterCost();
+        double filterCost = CostEstimator.estimateFilterCost(this.filter,
+                TableNode.nameToOriginMap(this.getSchema(), originalColumnName()));
+
+        if (tableNode instanceof RenameTableNode) {
+            if (((RenameTableNode) tableNode).tableNode instanceof AggregationNode) {
+                filterCost = filterCost * 1;
+            } else if (((RenameTableNode) tableNode).tableNode instanceof JoinNode) {
+                filterCost = filterCost * 1;
+            }
+        }
+
+        return cost + filterCost;
+    }
+
+    @Override
+    public List<Value> getAllConstants() {
+        List<Value> list = new ArrayList<>();
+        list.addAll(tableNode.getAllConstants());
+        list.addAll(filter.getAllConstatnts());
+        return list;
+    }
+
+
+    public String getQuerySkeleton() {
+        return "(S " + tableNode.getQuerySkeleton() + ")";
+    }
 
 }

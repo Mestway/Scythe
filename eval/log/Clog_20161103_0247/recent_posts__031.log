@@ -1,0 +1,297 @@
+[[Synthesis start]]
+	File: ../data/recent_posts/031
+	Enumerator: CanonicalTableEnumeratorOnTheFly
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 4
+	Avg table size: 5
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 63
+	Avg table size: 3
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 4
+	Avg table size: 5
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 8
+	Avg table size: 3
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 122
+	Avg table size: 15
+Total Tree Count: 6
+Total Query Count: 280
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 4
+	Avg table size: 5
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 15
+	Avg table size: 3
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 267
+	Avg table size: 14
+Total Tree Count: 17
+Total Query Count: 119193
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 4
+	Avg table size: 5
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 15
+	Avg table size: 3
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 224
+	Avg table size: 14
+Total Tree Count: 14
+Total Query Count: 7508
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 4
+	Avg table size: 5
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 16
+	Avg table size: 3
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 292
+	Avg table size: 13
+Total Tree Count: 20
+Total Query Count: 82673
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 4
+	Avg table size: 5
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 21
+	Avg table size: 3
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 346
+	Avg table size: 13
+Total Tree Count: 24
+Total Query Count: 126421
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 4
+	Avg table size: 5
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 19
+	Avg table size: 3
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 305
+	Avg table size: 13
+Total Tree Count: 17
+Total Query Count: 464487
+[Enumeration Finished]
+[Query No.9]===============================
+SELECT
+  [T18329].channelID,[T18329].accountID,[T18329].role1
+FROM
+  (SELECT
+      [T16874].role,[T16874].channelID,[T16874].accountID,[T16874].role1
+    FROM
+      (( (SELECT
+              [T16880].role
+            FROM
+              (SELECT
+                  input1.role, FROM
+                  input1
+                GROUP BY
+                  input1.role) AS [T16880][role]
+            WHERE
+              IS NOT NULL private) AS [T16914][role] ) JOIN (
+          input1 )) AS [T16874][role, channelID, accountID, role1]
+    WHERE
+      [T16874].role < [T16874].role1) AS [T18329][role, channelID, accountID, role1]
+
+@anonymous
+[T18329].channelID(NumberVal) | [T18329].accountID(StringVal) | [T18329].role1(NumberVal) 
+1.0 | Dave | 101.0 
+
+[Query No.8]===============================
+SELECT
+  [T18328].channelID,[T18328].accountID,[T18328].role1
+FROM
+  (SELECT
+      [T16874].role,[T16874].channelID,[T16874].accountID,[T16874].role1
+    FROM
+      (( (SELECT
+              [T16880].role
+            FROM
+              (SELECT
+                  input1.role, FROM
+                  input1
+                GROUP BY
+                  input1.role) AS [T16880][role]
+            WHERE
+              IS NOT NULL [T16880].role) AS [T16912][role] ) JOIN (
+          input1 )) AS [T16874][role, channelID, accountID, role1]
+    WHERE
+      [T16874].role < [T16874].role1) AS [T18328][role, channelID, accountID, role1]
+
+@anonymous
+[T18328].channelID(NumberVal) | [T18328].accountID(StringVal) | [T18328].role1(NumberVal) 
+1.0 | Dave | 101.0 
+
+[Query No.7]===============================
+SELECT
+  [T25583].channelID,[T25583].accountID1,[T25583].role1
+FROM
+  (SELECT
+      [T24130].accountID,[T24130].role,[T24130].channelID,[T24130].accountID1,[T24130].role1
+    FROM
+      (( ((SELECT
+                input1.accountID, input1.role, FROM
+                input1
+              GROUP BY
+                input1.accountID  input1.role) AS [T24137][accountID, role]) AS [T24189][accountID, role] ) JOIN (
+          input1 )) AS [T24130][accountID, role, channelID, accountID1, role1]
+    WHERE
+      [T24130].role < [T24130].role1) AS [T25583][accountID, role, channelID, accountID1, role1]
+
+@anonymous
+[T25583].channelID(NumberVal) | [T25583].accountID1(StringVal) | [T25583].role1(NumberVal) 
+1.0 | Dave | 101.0 
+
+[Query No.6]===============================
+SELECT
+  [T25582].channelID,[T25582].accountID1,[T25582].role1
+FROM
+  (SELECT
+      [T24130].accountID,[T24130].role,[T24130].channelID,[T24130].accountID1,[T24130].role1
+    FROM
+      (( ((SELECT
+                input1.accountID, input1.role, FROM
+                input1
+              GROUP BY
+                input1.accountID  input1.role) AS [T24137][accountID, role]) AS [T24189][accountID, role] ) JOIN (
+          input1 )) AS [T24130][accountID, role, channelID, accountID1, role1]
+    WHERE
+      [T24130].role < [T24130].role1) AS [T25582][accountID, role, channelID, accountID1, role1]
+
+@anonymous
+[T25582].channelID(NumberVal) | [T25582].accountID1(StringVal) | [T25582].role1(NumberVal) 
+1.0 | Dave | 101.0 
+
+[Query No.5]===============================
+SELECT
+  [T18327].channelID,[T18327].accountID,[T18327].role1
+FROM
+  (SELECT
+      [T16874].role,[T16874].channelID,[T16874].accountID,[T16874].role1
+    FROM
+      (( ((SELECT
+                input1.role, FROM
+                input1
+              GROUP BY
+                input1.role) AS [T16880][role]) AS [T16916][role] ) JOIN (
+          input1 )) AS [T16874][role, channelID, accountID, role1]
+    WHERE
+      [T16874].role < [T16874].role1) AS [T18327][role, channelID, accountID, role1]
+
+@anonymous
+[T18327].channelID(NumberVal) | [T18327].accountID(StringVal) | [T18327].role1(NumberVal) 
+1.0 | Dave | 101.0 
+
+[Query No.4]===============================
+SELECT
+  [T18326].channelID,[T18326].accountID,[T18326].role1
+FROM
+  (SELECT
+      [T16874].role,[T16874].channelID,[T16874].accountID,[T16874].role1
+    FROM
+      (( ((SELECT
+                input1.role, FROM
+                input1
+              GROUP BY
+                input1.role) AS [T16880][role]) AS [T16916][role] ) JOIN (
+          input1 )) AS [T16874][role, channelID, accountID, role1]
+    WHERE
+      [T16874].role < [T16874].role1) AS [T18326][role, channelID, accountID, role1]
+
+@anonymous
+[T18326].channelID(NumberVal) | [T18326].accountID(StringVal) | [T18326].role1(NumberVal) 
+1.0 | Dave | 101.0 
+
+[Query No.3]===============================
+SELECT
+  [T67453].channelID,[T67453].accountID,[T67453].role
+FROM
+  (SELECT
+      [T65351].MAX-role,[T65351].channelID,[T65351].accountID,[T65351].role
+    FROM
+      (( ((SELECT
+                MAX(input1.role)
+              FROM
+                input1) AS [T65366][MAX-role]) AS [T66050][MAX-role] ) JOIN (
+          input1 )) AS [T65351][MAX-role, channelID, accountID, role]
+    WHERE
+      [T65351].MAX-role == [T65351].role) AS [T67453][MAX-role, channelID, accountID, role]
+
+@anonymous
+[T67453].channelID(NumberVal) | [T67453].accountID(StringVal) | [T67453].role(NumberVal) 
+1.0 | Dave | 101.0 
+
+[Query No.2]===============================
+SELECT
+  [T67444].channelID,[T67444].accountID,[T67444].MAX-role
+FROM
+  (SELECT
+      [T65351].MAX-role,[T65351].channelID,[T65351].accountID,[T65351].role
+    FROM
+      (( ((SELECT
+                MAX(input1.role)
+              FROM
+                input1) AS [T65366][MAX-role]) AS [T66050][MAX-role] ) JOIN (
+          input1 )) AS [T65351][MAX-role, channelID, accountID, role]
+    WHERE
+      [T65351].MAX-role == [T65351].role) AS [T67444][MAX-role, channelID, accountID, role]
+
+@anonymous
+[T67444].channelID(NumberVal) | [T67444].accountID(StringVal) | [T67444].MAX-role(NumberVal) 
+1.0 | Dave | 101.0 
+
+[Query No.1]===============================
+SELECT
+  [T67443].channelID,[T67443].accountID,[T67443].MAX-role
+FROM
+  (SELECT
+      [T65351].MAX-role,[T65351].channelID,[T65351].accountID,[T65351].role
+    FROM
+      (( ((SELECT
+                MAX(input1.role)
+              FROM
+                input1) AS [T65366][MAX-role]) AS [T66050][MAX-role] ) JOIN (
+          input1 )) AS [T65351][MAX-role, channelID, accountID, role]
+    WHERE
+      [T65351].MAX-role == [T65351].role) AS [T67443][MAX-role, channelID, accountID, role]
+
+@anonymous
+[T67443].channelID(NumberVal) | [T67443].accountID(StringVal) | [T67443].MAX-role(NumberVal) 
+1.0 | Dave | 101.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 102.489s

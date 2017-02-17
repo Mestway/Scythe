@@ -1,0 +1,140 @@
+[[Synthesis start]]
+	File: ../data/recent_posts/044M
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 52 [SymTable]: 54
+[NaturalJoin]: 1 [SymTable]: 54
+Candidate Tree Number: 1
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 3 [SymTable]: 5
+[JOIN] level 1 [SymTable]: 15
+[EnumJoinOnAggr] level 1 [SymTable]: 40
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 7 [SymTable]: 9
+[JOIN] level 1 [SymTable]: 27
+Candidate Tree Number: 6
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 7 [SymTable]: 9
+[JOIN] level 1 [SymTable]: 27
+[EnumJoinOnAggr] level 1 [SymTable]: 108
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 7 [SymTable]: 9
+[JOIN] level 1 [SymTable]: 27
+Candidate Tree Number: 2
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 11 [SymTable]: 13
+[JOIN] level 1 [SymTable]: 39
+Candidate Tree Number: 6
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 17 [SymTable]: 19
+[JOIN] level 1 [SymTable]: 57
+Candidate Tree Number: 10
+[Enumeration Finished]
+[Query No.4]===============================
+SELECT
+  [T353].MAX-OriginalID,[T353].Area
+FROM
+  (( (SELECT
+          [T351].Area, MAX([T351].OriginalID)
+        FROM
+          (input1) AS [T351][OriginalID, Area]
+        GROUP BY
+          [T351].Area) AS [T352][Area, MAX-OriginalID] ) JOIN (
+      input1 )) AS [T353][Area, MAX-OriginalID, OriginalID, Area1]
+WHERE
+  [T353].MAX-OriginalID == [T353].OriginalID
+   AND [T353].Area == [T353].Area1
+@anonymous
+[T353].MAX-OriginalID(NumberVal) | [T353].Area(StringVal) 
+3.0 | Abdomen 
+4.0 | Bottom 
+
+[Query No.3]===============================
+SELECT
+  [T276].MAX-OriginalID,[T276].Area
+FROM
+  (( (SELECT
+          [T274].Area, MAX([T274].OriginalID)
+        FROM
+          (input1) AS [T274][OriginalID, Area]
+        GROUP BY
+          [T274].Area) AS [T275][Area, MAX-OriginalID] ) JOIN (
+      input1 )) AS [T276][Area, MAX-OriginalID, OriginalID, Area1]
+WHERE
+  [T276].MAX-OriginalID == [T276].OriginalID
+   AND [T276].Area == [T276].Area1
+@anonymous
+[T276].MAX-OriginalID(NumberVal) | [T276].Area(StringVal) 
+3.0 | Abdomen 
+4.0 | Bottom 
+
+[Query No.2]===============================
+SELECT
+  [T123].MAX-OriginalID,[T123].Area
+FROM
+  (( (SELECT
+          [T121].Area, MAX([T121].OriginalID)
+        FROM
+          (input1) AS [T121][OriginalID, Area]
+        GROUP BY
+          [T121].Area) AS [T122][Area, MAX-OriginalID] ) JOIN (
+      input1 )) AS [T123][Area, MAX-OriginalID, OriginalID, Area1]
+WHERE
+  [T123].MAX-OriginalID == [T123].OriginalID
+   AND [T123].Area == [T123].Area1
+@anonymous
+[T123].MAX-OriginalID(NumberVal) | [T123].Area(StringVal) 
+3.0 | Abdomen 
+4.0 | Bottom 
+
+[Query No.1]===============================
+SELECT
+  [T56].MAX-OriginalID,[T56].Area
+FROM
+  (SELECT
+      [T55].Area, MAX([T55].OriginalID)
+    FROM
+      (input1) AS [T55][OriginalID, Area]
+    GROUP BY
+      [T55].Area) AS [T56][Area, MAX-OriginalID]
+
+@anonymous
+[T56].MAX-OriginalID(NumberVal) | [T56].Area(StringVal) 
+3.0 | Abdomen 
+4.0 | Bottom 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.454s

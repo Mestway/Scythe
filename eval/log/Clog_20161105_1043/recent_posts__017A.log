@@ -1,0 +1,692 @@
+[[Synthesizing With Aggregation Functions]]
+[[Synthesis start]]
+	File: ../data/recent_posts/017A
+	Enumerator: CanonicalTableEnumeratorOnTheFly
+[[Retry]] Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 3
+	Avg table size: 14
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 34
+	Avg table size: 6
+[Total Number of Intermediate Result] 34
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 3
+	Avg table size: 14
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 34
+	Avg table size: 6
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 1098
+	Avg table size: 53
+[Stage 3] EnumJoinTwoAggr1 
+	Total Table by now: 6400
+	Avg table size: 39
+[Total Number of Intermediate Result] 6410
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+  [Try decomposition] 
+@output
+emp_id(NumberVal) | emp_sal(NumberVal) | emp_grp(StringVal) 
+1.0 | 10.0 | HMCPR 
+
+@output
+emp_id(NumberVal) | emp_sal(NumberVal) | emp_grp(StringVal) 
+2.0 | 40.0 | HMCRR 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 3
+	Avg table size: 14
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 34
+	Avg table size: 6
+[Total Number of Intermediate Result] 34
+Total Tree Count: 1
+Total Query Count: 1176
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 3
+	Avg table size: 14
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 34
+	Avg table size: 6
+[Total Number of Intermediate Result] 34
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 3
+	Avg table size: 14
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 34
+	Avg table size: 6
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 1098
+	Avg table size: 53
+[Total Number of Intermediate Result] 1098
+Total Tree Count: 24
+Total Query Count: 973076
+[Enumeration Finished]
+  [Try decomposition] 
+@output
+emp_id(NumberVal) | emp_sal(NumberVal) | emp_grp(StringVal) 
+2.0 | 40.0 | HMCRR 
+
+@output
+emp_id(NumberVal) | emp_sal(NumberVal) | emp_grp(StringVal) 
+1.0 | 10.0 | HMCPR 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 3
+	Avg table size: 14
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 34
+	Avg table size: 6
+[Total Number of Intermediate Result] 34
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 3
+	Avg table size: 14
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 34
+	Avg table size: 6
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 1098
+	Avg table size: 53
+[Total Number of Intermediate Result] 1098
+Total Tree Count: 24
+Total Query Count: 973076
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 3
+	Avg table size: 14
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 34
+	Avg table size: 6
+[Total Number of Intermediate Result] 34
+Total Tree Count: 1
+Total Query Count: 1176
+[Enumeration Finished]
+[No.18]===============================
+( SELECT
+    [T494754].emp_id1,[T494754].emp_sal,[T494754].emp_grp
+  FROM
+    (SELECT
+        [T494687].emp_id,[T494687].emp_sal,[T494687].emp_grp,[T494687].emp_id1,[T494687].emp_sal1,[T494687].emp_grp1
+      FROM
+        (( input1 ) JOIN (
+            input1 )) AS [T494687][emp_id, emp_sal, emp_grp, emp_id1, emp_sal1, emp_grp1]
+      WHERE
+        [T494687].emp_id < [T494687].emp_id1
+         AND [T494687].emp_sal == [T494687].emp_sal1) AS [T494754][emp_id, emp_sal, emp_grp, emp_id1, emp_sal1, emp_grp1] ) UNION ALL (
+  SELECT
+    [T545637].emp_id,[T545637].MIN-emp_sal,[T545637].emp_grp
+  FROM
+    ((SELECT
+          [T542117].emp_id, [T542117].emp_grp, MIN([T542117].emp_sal)
+        FROM
+          [T542117]
+        GROUP BY
+          [T542117].emp_id  [T542117].emp_grp) AS [T545227][emp_id, emp_grp, MIN-emp_sal]) AS [T545637][emp_id, emp_grp, MIN-emp_sal]
+   )
+@anonymous
+[T494754].emp_id1(NumberVal) | [T494754].emp_sal(NumberVal) | [T494754].emp_grp(StringVal) 
+2.0 | 40.0 | HMCRR 
+1.0 | 10.0 | HMCPR 
+
+[No.17]===============================
+( SELECT
+    [T494754].emp_id1,[T494754].emp_sal,[T494754].emp_grp
+  FROM
+    (SELECT
+        [T494687].emp_id,[T494687].emp_sal,[T494687].emp_grp,[T494687].emp_id1,[T494687].emp_sal1,[T494687].emp_grp1
+      FROM
+        (( input1 ) JOIN (
+            input1 )) AS [T494687][emp_id, emp_sal, emp_grp, emp_id1, emp_sal1, emp_grp1]
+      WHERE
+        [T494687].emp_id < [T494687].emp_id1
+         AND [T494687].emp_sal == [T494687].emp_sal1) AS [T494754][emp_id, emp_sal, emp_grp, emp_id1, emp_sal1, emp_grp1] ) UNION ALL (
+  SELECT
+    [T545637].emp_id,[T545637].MIN-emp_sal,[T545637].emp_grp
+  FROM
+    ((SELECT
+          [T542117].emp_id, [T542117].emp_grp, MIN([T542117].emp_sal)
+        FROM
+          [T542117]
+        GROUP BY
+          [T542117].emp_id  [T542117].emp_grp) AS [T545227][emp_id, emp_grp, MIN-emp_sal]) AS [T545637][emp_id, emp_grp, MIN-emp_sal]
+   )
+@anonymous
+[T494754].emp_id1(NumberVal) | [T494754].emp_sal(NumberVal) | [T494754].emp_grp(StringVal) 
+2.0 | 40.0 | HMCRR 
+1.0 | 10.0 | HMCPR 
+
+[No.16]===============================
+( SELECT
+    [T494754].emp_id1,[T494754].emp_sal,[T494754].emp_grp
+  FROM
+    (SELECT
+        [T494687].emp_id,[T494687].emp_sal,[T494687].emp_grp,[T494687].emp_id1,[T494687].emp_sal1,[T494687].emp_grp1
+      FROM
+        (( input1 ) JOIN (
+            input1 )) AS [T494687][emp_id, emp_sal, emp_grp, emp_id1, emp_sal1, emp_grp1]
+      WHERE
+        [T494687].emp_id < [T494687].emp_id1
+         AND [T494687].emp_sal == [T494687].emp_sal1) AS [T494754][emp_id, emp_sal, emp_grp, emp_id1, emp_sal1, emp_grp1] ) UNION ALL (
+  SELECT
+    [T545637].emp_id,[T545637].MIN-emp_sal,[T545637].emp_grp
+  FROM
+    ((SELECT
+          [T542117].emp_id, [T542117].emp_grp, MIN([T542117].emp_sal)
+        FROM
+          [T542117]
+        GROUP BY
+          [T542117].emp_id  [T542117].emp_grp) AS [T545227][emp_id, emp_grp, MIN-emp_sal]) AS [T545637][emp_id, emp_grp, MIN-emp_sal]
+   )
+@anonymous
+[T494754].emp_id1(NumberVal) | [T494754].emp_sal(NumberVal) | [T494754].emp_grp(StringVal) 
+2.0 | 40.0 | HMCRR 
+1.0 | 10.0 | HMCPR 
+
+[No.15]===============================
+( SELECT
+    [T490185].emp_id,[T490185].emp_sal,[T490185].emp_grp
+  FROM
+    (SELECT
+        [T487776].emp_id,[T487776].MIN-emp_sal,[T487776].emp_id1,[T487776].emp_sal,[T487776].emp_grp
+      FROM
+        (( ((SELECT
+                  input1.emp_id, MIN(input1.emp_sal)
+                FROM
+                  input1
+                GROUP BY
+                  input1.emp_id) AS [T487781][emp_id, MIN-emp_sal]) AS [T487824][emp_id, MIN-emp_sal] ) JOIN (
+            input1 )) AS [T487776][emp_id, MIN-emp_sal, emp_id1, emp_sal, emp_grp]
+      WHERE
+        [T487776].emp_id > [T487776].emp_id1
+         AND [T487776].MIN-emp_sal == [T487776].emp_sal) AS [T490185][emp_id, MIN-emp_sal, emp_id1, emp_sal, emp_grp] ) UNION ALL (
+  SELECT
+    [T545637].emp_id,[T545637].MIN-emp_sal,[T545637].emp_grp
+  FROM
+    ((SELECT
+          [T542117].emp_id, [T542117].emp_grp, MIN([T542117].emp_sal)
+        FROM
+          [T542117]
+        GROUP BY
+          [T542117].emp_id  [T542117].emp_grp) AS [T545227][emp_id, emp_grp, MIN-emp_sal]) AS [T545637][emp_id, emp_grp, MIN-emp_sal]
+   )
+@anonymous
+[T490185].emp_id(NumberVal) | [T490185].emp_sal(NumberVal) | [T490185].emp_grp(StringVal) 
+2.0 | 40.0 | HMCRR 
+1.0 | 10.0 | HMCPR 
+
+[No.14]===============================
+( SELECT
+    [T490185].emp_id,[T490185].emp_sal,[T490185].emp_grp
+  FROM
+    (SELECT
+        [T487776].emp_id,[T487776].MIN-emp_sal,[T487776].emp_id1,[T487776].emp_sal,[T487776].emp_grp
+      FROM
+        (( ((SELECT
+                  input1.emp_id, MIN(input1.emp_sal)
+                FROM
+                  input1
+                GROUP BY
+                  input1.emp_id) AS [T487781][emp_id, MIN-emp_sal]) AS [T487824][emp_id, MIN-emp_sal] ) JOIN (
+            input1 )) AS [T487776][emp_id, MIN-emp_sal, emp_id1, emp_sal, emp_grp]
+      WHERE
+        [T487776].emp_id > [T487776].emp_id1
+         AND [T487776].MIN-emp_sal == [T487776].emp_sal) AS [T490185][emp_id, MIN-emp_sal, emp_id1, emp_sal, emp_grp] ) UNION ALL (
+  SELECT
+    [T545637].emp_id,[T545637].MIN-emp_sal,[T545637].emp_grp
+  FROM
+    ((SELECT
+          [T542117].emp_id, [T542117].emp_grp, MIN([T542117].emp_sal)
+        FROM
+          [T542117]
+        GROUP BY
+          [T542117].emp_id  [T542117].emp_grp) AS [T545227][emp_id, emp_grp, MIN-emp_sal]) AS [T545637][emp_id, emp_grp, MIN-emp_sal]
+   )
+@anonymous
+[T490185].emp_id(NumberVal) | [T490185].emp_sal(NumberVal) | [T490185].emp_grp(StringVal) 
+2.0 | 40.0 | HMCRR 
+1.0 | 10.0 | HMCPR 
+
+[No.13]===============================
+( SELECT
+    [T490185].emp_id,[T490185].emp_sal,[T490185].emp_grp
+  FROM
+    (SELECT
+        [T487776].emp_id,[T487776].MIN-emp_sal,[T487776].emp_id1,[T487776].emp_sal,[T487776].emp_grp
+      FROM
+        (( ((SELECT
+                  input1.emp_id, MIN(input1.emp_sal)
+                FROM
+                  input1
+                GROUP BY
+                  input1.emp_id) AS [T487781][emp_id, MIN-emp_sal]) AS [T487824][emp_id, MIN-emp_sal] ) JOIN (
+            input1 )) AS [T487776][emp_id, MIN-emp_sal, emp_id1, emp_sal, emp_grp]
+      WHERE
+        [T487776].emp_id > [T487776].emp_id1
+         AND [T487776].MIN-emp_sal == [T487776].emp_sal) AS [T490185][emp_id, MIN-emp_sal, emp_id1, emp_sal, emp_grp] ) UNION ALL (
+  SELECT
+    [T545637].emp_id,[T545637].MIN-emp_sal,[T545637].emp_grp
+  FROM
+    ((SELECT
+          [T542117].emp_id, [T542117].emp_grp, MIN([T542117].emp_sal)
+        FROM
+          [T542117]
+        GROUP BY
+          [T542117].emp_id  [T542117].emp_grp) AS [T545227][emp_id, emp_grp, MIN-emp_sal]) AS [T545637][emp_id, emp_grp, MIN-emp_sal]
+   )
+@anonymous
+[T490185].emp_id(NumberVal) | [T490185].emp_sal(NumberVal) | [T490185].emp_grp(StringVal) 
+2.0 | 40.0 | HMCRR 
+1.0 | 10.0 | HMCPR 
+
+[No.12]===============================
+( SELECT
+    [T490175].emp_id,[T490175].MIN-emp_sal,[T490175].emp_grp
+  FROM
+    (SELECT
+        [T487776].emp_id,[T487776].MIN-emp_sal,[T487776].emp_id1,[T487776].emp_sal,[T487776].emp_grp
+      FROM
+        (( ((SELECT
+                  input1.emp_id, MIN(input1.emp_sal)
+                FROM
+                  input1
+                GROUP BY
+                  input1.emp_id) AS [T487781][emp_id, MIN-emp_sal]) AS [T487824][emp_id, MIN-emp_sal] ) JOIN (
+            input1 )) AS [T487776][emp_id, MIN-emp_sal, emp_id1, emp_sal, emp_grp]
+      WHERE
+        [T487776].emp_id > [T487776].emp_id1
+         AND [T487776].MIN-emp_sal == [T487776].emp_sal) AS [T490175][emp_id, MIN-emp_sal, emp_id1, emp_sal, emp_grp] ) UNION ALL (
+  SELECT
+    [T545637].emp_id,[T545637].MIN-emp_sal,[T545637].emp_grp
+  FROM
+    ((SELECT
+          [T542117].emp_id, [T542117].emp_grp, MIN([T542117].emp_sal)
+        FROM
+          [T542117]
+        GROUP BY
+          [T542117].emp_id  [T542117].emp_grp) AS [T545227][emp_id, emp_grp, MIN-emp_sal]) AS [T545637][emp_id, emp_grp, MIN-emp_sal]
+   )
+@anonymous
+[T490175].emp_id(NumberVal) | [T490175].MIN-emp_sal(NumberVal) | [T490175].emp_grp(StringVal) 
+2.0 | 40.0 | HMCRR 
+1.0 | 10.0 | HMCPR 
+
+[No.11]===============================
+( SELECT
+    [T490175].emp_id,[T490175].MIN-emp_sal,[T490175].emp_grp
+  FROM
+    (SELECT
+        [T487776].emp_id,[T487776].MIN-emp_sal,[T487776].emp_id1,[T487776].emp_sal,[T487776].emp_grp
+      FROM
+        (( ((SELECT
+                  input1.emp_id, MIN(input1.emp_sal)
+                FROM
+                  input1
+                GROUP BY
+                  input1.emp_id) AS [T487781][emp_id, MIN-emp_sal]) AS [T487824][emp_id, MIN-emp_sal] ) JOIN (
+            input1 )) AS [T487776][emp_id, MIN-emp_sal, emp_id1, emp_sal, emp_grp]
+      WHERE
+        [T487776].emp_id > [T487776].emp_id1
+         AND [T487776].MIN-emp_sal == [T487776].emp_sal) AS [T490175][emp_id, MIN-emp_sal, emp_id1, emp_sal, emp_grp] ) UNION ALL (
+  SELECT
+    [T545637].emp_id,[T545637].MIN-emp_sal,[T545637].emp_grp
+  FROM
+    ((SELECT
+          [T542117].emp_id, [T542117].emp_grp, MIN([T542117].emp_sal)
+        FROM
+          [T542117]
+        GROUP BY
+          [T542117].emp_id  [T542117].emp_grp) AS [T545227][emp_id, emp_grp, MIN-emp_sal]) AS [T545637][emp_id, emp_grp, MIN-emp_sal]
+   )
+@anonymous
+[T490175].emp_id(NumberVal) | [T490175].MIN-emp_sal(NumberVal) | [T490175].emp_grp(StringVal) 
+2.0 | 40.0 | HMCRR 
+1.0 | 10.0 | HMCPR 
+
+[No.10]===============================
+( SELECT
+    [T490175].emp_id,[T490175].MIN-emp_sal,[T490175].emp_grp
+  FROM
+    (SELECT
+        [T487776].emp_id,[T487776].MIN-emp_sal,[T487776].emp_id1,[T487776].emp_sal,[T487776].emp_grp
+      FROM
+        (( ((SELECT
+                  input1.emp_id, MIN(input1.emp_sal)
+                FROM
+                  input1
+                GROUP BY
+                  input1.emp_id) AS [T487781][emp_id, MIN-emp_sal]) AS [T487824][emp_id, MIN-emp_sal] ) JOIN (
+            input1 )) AS [T487776][emp_id, MIN-emp_sal, emp_id1, emp_sal, emp_grp]
+      WHERE
+        [T487776].emp_id > [T487776].emp_id1
+         AND [T487776].MIN-emp_sal == [T487776].emp_sal) AS [T490175][emp_id, MIN-emp_sal, emp_id1, emp_sal, emp_grp] ) UNION ALL (
+  SELECT
+    [T545637].emp_id,[T545637].MIN-emp_sal,[T545637].emp_grp
+  FROM
+    ((SELECT
+          [T542117].emp_id, [T542117].emp_grp, MIN([T542117].emp_sal)
+        FROM
+          [T542117]
+        GROUP BY
+          [T542117].emp_id  [T542117].emp_grp) AS [T545227][emp_id, emp_grp, MIN-emp_sal]) AS [T545637][emp_id, emp_grp, MIN-emp_sal]
+   )
+@anonymous
+[T490175].emp_id(NumberVal) | [T490175].MIN-emp_sal(NumberVal) | [T490175].emp_grp(StringVal) 
+2.0 | 40.0 | HMCRR 
+1.0 | 10.0 | HMCPR 
+
+[No.9]===============================
+( SELECT
+    [T274288].emp_id,[T274288].MIN-emp_sal,[T274288].emp_grp
+  FROM
+    ((SELECT
+          [T270768].emp_id, [T270768].emp_grp, MIN([T270768].emp_sal)
+        FROM
+          [T270768]
+        GROUP BY
+          [T270768].emp_id  [T270768].emp_grp) AS [T273878][emp_id, emp_grp, MIN-emp_sal]) AS [T274288][emp_id, emp_grp, MIN-emp_sal] ) UNION ALL (
+  SELECT
+    [T362342].emp_id1,[T362342].emp_sal,[T362342].emp_grp
+  FROM
+    (SELECT
+        [T362275].emp_id,[T362275].emp_sal,[T362275].emp_grp,[T362275].emp_id1,[T362275].emp_sal1,[T362275].emp_grp1
+      FROM
+        (( input1 ) JOIN (
+            input1 )) AS [T362275][emp_id, emp_sal, emp_grp, emp_id1, emp_sal1, emp_grp1]
+      WHERE
+        [T362275].emp_id < [T362275].emp_id1
+         AND [T362275].emp_sal == [T362275].emp_sal1) AS [T362342][emp_id, emp_sal, emp_grp, emp_id1, emp_sal1, emp_grp1]
+   )
+@anonymous
+[T274288].emp_id(NumberVal) | [T274288].MIN-emp_sal(NumberVal) | [T274288].emp_grp(StringVal) 
+1.0 | 10.0 | HMCPR 
+2.0 | 40.0 | HMCRR 
+
+[No.8]===============================
+( SELECT
+    [T274288].emp_id,[T274288].MIN-emp_sal,[T274288].emp_grp
+  FROM
+    ((SELECT
+          [T270768].emp_id, [T270768].emp_grp, MIN([T270768].emp_sal)
+        FROM
+          [T270768]
+        GROUP BY
+          [T270768].emp_id  [T270768].emp_grp) AS [T273878][emp_id, emp_grp, MIN-emp_sal]) AS [T274288][emp_id, emp_grp, MIN-emp_sal] ) UNION ALL (
+  SELECT
+    [T357773].emp_id,[T357773].emp_sal,[T357773].emp_grp
+  FROM
+    (SELECT
+        [T355364].emp_id,[T355364].MIN-emp_sal,[T355364].emp_id1,[T355364].emp_sal,[T355364].emp_grp
+      FROM
+        (( ((SELECT
+                  input1.emp_id, MIN(input1.emp_sal)
+                FROM
+                  input1
+                GROUP BY
+                  input1.emp_id) AS [T355369][emp_id, MIN-emp_sal]) AS [T355412][emp_id, MIN-emp_sal] ) JOIN (
+            input1 )) AS [T355364][emp_id, MIN-emp_sal, emp_id1, emp_sal, emp_grp]
+      WHERE
+        [T355364].emp_id > [T355364].emp_id1
+         AND [T355364].MIN-emp_sal == [T355364].emp_sal) AS [T357773][emp_id, MIN-emp_sal, emp_id1, emp_sal, emp_grp]
+   )
+@anonymous
+[T274288].emp_id(NumberVal) | [T274288].MIN-emp_sal(NumberVal) | [T274288].emp_grp(StringVal) 
+1.0 | 10.0 | HMCPR 
+2.0 | 40.0 | HMCRR 
+
+[No.7]===============================
+( SELECT
+    [T274288].emp_id,[T274288].MIN-emp_sal,[T274288].emp_grp
+  FROM
+    ((SELECT
+          [T270768].emp_id, [T270768].emp_grp, MIN([T270768].emp_sal)
+        FROM
+          [T270768]
+        GROUP BY
+          [T270768].emp_id  [T270768].emp_grp) AS [T273878][emp_id, emp_grp, MIN-emp_sal]) AS [T274288][emp_id, emp_grp, MIN-emp_sal] ) UNION ALL (
+  SELECT
+    [T357763].emp_id,[T357763].MIN-emp_sal,[T357763].emp_grp
+  FROM
+    (SELECT
+        [T355364].emp_id,[T355364].MIN-emp_sal,[T355364].emp_id1,[T355364].emp_sal,[T355364].emp_grp
+      FROM
+        (( ((SELECT
+                  input1.emp_id, MIN(input1.emp_sal)
+                FROM
+                  input1
+                GROUP BY
+                  input1.emp_id) AS [T355369][emp_id, MIN-emp_sal]) AS [T355412][emp_id, MIN-emp_sal] ) JOIN (
+            input1 )) AS [T355364][emp_id, MIN-emp_sal, emp_id1, emp_sal, emp_grp]
+      WHERE
+        [T355364].emp_id > [T355364].emp_id1
+         AND [T355364].MIN-emp_sal == [T355364].emp_sal) AS [T357763][emp_id, MIN-emp_sal, emp_id1, emp_sal, emp_grp]
+   )
+@anonymous
+[T274288].emp_id(NumberVal) | [T274288].MIN-emp_sal(NumberVal) | [T274288].emp_grp(StringVal) 
+1.0 | 10.0 | HMCPR 
+2.0 | 40.0 | HMCRR 
+
+[No.6]===============================
+( SELECT
+    [T274288].emp_id,[T274288].MIN-emp_sal,[T274288].emp_grp
+  FROM
+    ((SELECT
+          [T270768].emp_id, [T270768].emp_grp, MIN([T270768].emp_sal)
+        FROM
+          [T270768]
+        GROUP BY
+          [T270768].emp_id  [T270768].emp_grp) AS [T273878][emp_id, emp_grp, MIN-emp_sal]) AS [T274288][emp_id, emp_grp, MIN-emp_sal] ) UNION ALL (
+  SELECT
+    [T362342].emp_id1,[T362342].emp_sal,[T362342].emp_grp
+  FROM
+    (SELECT
+        [T362275].emp_id,[T362275].emp_sal,[T362275].emp_grp,[T362275].emp_id1,[T362275].emp_sal1,[T362275].emp_grp1
+      FROM
+        (( input1 ) JOIN (
+            input1 )) AS [T362275][emp_id, emp_sal, emp_grp, emp_id1, emp_sal1, emp_grp1]
+      WHERE
+        [T362275].emp_id < [T362275].emp_id1
+         AND [T362275].emp_sal == [T362275].emp_sal1) AS [T362342][emp_id, emp_sal, emp_grp, emp_id1, emp_sal1, emp_grp1]
+   )
+@anonymous
+[T274288].emp_id(NumberVal) | [T274288].MIN-emp_sal(NumberVal) | [T274288].emp_grp(StringVal) 
+1.0 | 10.0 | HMCPR 
+2.0 | 40.0 | HMCRR 
+
+[No.5]===============================
+( SELECT
+    [T274288].emp_id,[T274288].MIN-emp_sal,[T274288].emp_grp
+  FROM
+    ((SELECT
+          [T270768].emp_id, [T270768].emp_grp, MIN([T270768].emp_sal)
+        FROM
+          [T270768]
+        GROUP BY
+          [T270768].emp_id  [T270768].emp_grp) AS [T273878][emp_id, emp_grp, MIN-emp_sal]) AS [T274288][emp_id, emp_grp, MIN-emp_sal] ) UNION ALL (
+  SELECT
+    [T357773].emp_id,[T357773].emp_sal,[T357773].emp_grp
+  FROM
+    (SELECT
+        [T355364].emp_id,[T355364].MIN-emp_sal,[T355364].emp_id1,[T355364].emp_sal,[T355364].emp_grp
+      FROM
+        (( ((SELECT
+                  input1.emp_id, MIN(input1.emp_sal)
+                FROM
+                  input1
+                GROUP BY
+                  input1.emp_id) AS [T355369][emp_id, MIN-emp_sal]) AS [T355412][emp_id, MIN-emp_sal] ) JOIN (
+            input1 )) AS [T355364][emp_id, MIN-emp_sal, emp_id1, emp_sal, emp_grp]
+      WHERE
+        [T355364].emp_id > [T355364].emp_id1
+         AND [T355364].MIN-emp_sal == [T355364].emp_sal) AS [T357773][emp_id, MIN-emp_sal, emp_id1, emp_sal, emp_grp]
+   )
+@anonymous
+[T274288].emp_id(NumberVal) | [T274288].MIN-emp_sal(NumberVal) | [T274288].emp_grp(StringVal) 
+1.0 | 10.0 | HMCPR 
+2.0 | 40.0 | HMCRR 
+
+[No.4]===============================
+( SELECT
+    [T274288].emp_id,[T274288].MIN-emp_sal,[T274288].emp_grp
+  FROM
+    ((SELECT
+          [T270768].emp_id, [T270768].emp_grp, MIN([T270768].emp_sal)
+        FROM
+          [T270768]
+        GROUP BY
+          [T270768].emp_id  [T270768].emp_grp) AS [T273878][emp_id, emp_grp, MIN-emp_sal]) AS [T274288][emp_id, emp_grp, MIN-emp_sal] ) UNION ALL (
+  SELECT
+    [T357763].emp_id,[T357763].MIN-emp_sal,[T357763].emp_grp
+  FROM
+    (SELECT
+        [T355364].emp_id,[T355364].MIN-emp_sal,[T355364].emp_id1,[T355364].emp_sal,[T355364].emp_grp
+      FROM
+        (( ((SELECT
+                  input1.emp_id, MIN(input1.emp_sal)
+                FROM
+                  input1
+                GROUP BY
+                  input1.emp_id) AS [T355369][emp_id, MIN-emp_sal]) AS [T355412][emp_id, MIN-emp_sal] ) JOIN (
+            input1 )) AS [T355364][emp_id, MIN-emp_sal, emp_id1, emp_sal, emp_grp]
+      WHERE
+        [T355364].emp_id > [T355364].emp_id1
+         AND [T355364].MIN-emp_sal == [T355364].emp_sal) AS [T357763][emp_id, MIN-emp_sal, emp_id1, emp_sal, emp_grp]
+   )
+@anonymous
+[T274288].emp_id(NumberVal) | [T274288].MIN-emp_sal(NumberVal) | [T274288].emp_grp(StringVal) 
+1.0 | 10.0 | HMCPR 
+2.0 | 40.0 | HMCRR 
+
+[No.3]===============================
+( SELECT
+    [T274288].emp_id,[T274288].MIN-emp_sal,[T274288].emp_grp
+  FROM
+    ((SELECT
+          [T270768].emp_id, [T270768].emp_grp, MIN([T270768].emp_sal)
+        FROM
+          [T270768]
+        GROUP BY
+          [T270768].emp_id  [T270768].emp_grp) AS [T273878][emp_id, emp_grp, MIN-emp_sal]) AS [T274288][emp_id, emp_grp, MIN-emp_sal] ) UNION ALL (
+  SELECT
+    [T362342].emp_id1,[T362342].emp_sal,[T362342].emp_grp
+  FROM
+    (SELECT
+        [T362275].emp_id,[T362275].emp_sal,[T362275].emp_grp,[T362275].emp_id1,[T362275].emp_sal1,[T362275].emp_grp1
+      FROM
+        (( input1 ) JOIN (
+            input1 )) AS [T362275][emp_id, emp_sal, emp_grp, emp_id1, emp_sal1, emp_grp1]
+      WHERE
+        [T362275].emp_id < [T362275].emp_id1
+         AND [T362275].emp_sal == [T362275].emp_sal1) AS [T362342][emp_id, emp_sal, emp_grp, emp_id1, emp_sal1, emp_grp1]
+   )
+@anonymous
+[T274288].emp_id(NumberVal) | [T274288].MIN-emp_sal(NumberVal) | [T274288].emp_grp(StringVal) 
+1.0 | 10.0 | HMCPR 
+2.0 | 40.0 | HMCRR 
+
+[No.2]===============================
+( SELECT
+    [T274288].emp_id,[T274288].MIN-emp_sal,[T274288].emp_grp
+  FROM
+    ((SELECT
+          [T270768].emp_id, [T270768].emp_grp, MIN([T270768].emp_sal)
+        FROM
+          [T270768]
+        GROUP BY
+          [T270768].emp_id  [T270768].emp_grp) AS [T273878][emp_id, emp_grp, MIN-emp_sal]) AS [T274288][emp_id, emp_grp, MIN-emp_sal] ) UNION ALL (
+  SELECT
+    [T357773].emp_id,[T357773].emp_sal,[T357773].emp_grp
+  FROM
+    (SELECT
+        [T355364].emp_id,[T355364].MIN-emp_sal,[T355364].emp_id1,[T355364].emp_sal,[T355364].emp_grp
+      FROM
+        (( ((SELECT
+                  input1.emp_id, MIN(input1.emp_sal)
+                FROM
+                  input1
+                GROUP BY
+                  input1.emp_id) AS [T355369][emp_id, MIN-emp_sal]) AS [T355412][emp_id, MIN-emp_sal] ) JOIN (
+            input1 )) AS [T355364][emp_id, MIN-emp_sal, emp_id1, emp_sal, emp_grp]
+      WHERE
+        [T355364].emp_id > [T355364].emp_id1
+         AND [T355364].MIN-emp_sal == [T355364].emp_sal) AS [T357773][emp_id, MIN-emp_sal, emp_id1, emp_sal, emp_grp]
+   )
+@anonymous
+[T274288].emp_id(NumberVal) | [T274288].MIN-emp_sal(NumberVal) | [T274288].emp_grp(StringVal) 
+1.0 | 10.0 | HMCPR 
+2.0 | 40.0 | HMCRR 
+
+[No.1]===============================
+( SELECT
+    [T274288].emp_id,[T274288].MIN-emp_sal,[T274288].emp_grp
+  FROM
+    ((SELECT
+          [T270768].emp_id, [T270768].emp_grp, MIN([T270768].emp_sal)
+        FROM
+          [T270768]
+        GROUP BY
+          [T270768].emp_id  [T270768].emp_grp) AS [T273878][emp_id, emp_grp, MIN-emp_sal]) AS [T274288][emp_id, emp_grp, MIN-emp_sal] ) UNION ALL (
+  SELECT
+    [T357763].emp_id,[T357763].MIN-emp_sal,[T357763].emp_grp
+  FROM
+    (SELECT
+        [T355364].emp_id,[T355364].MIN-emp_sal,[T355364].emp_id1,[T355364].emp_sal,[T355364].emp_grp
+      FROM
+        (( ((SELECT
+                  input1.emp_id, MIN(input1.emp_sal)
+                FROM
+                  input1
+                GROUP BY
+                  input1.emp_id) AS [T355369][emp_id, MIN-emp_sal]) AS [T355412][emp_id, MIN-emp_sal] ) JOIN (
+            input1 )) AS [T355364][emp_id, MIN-emp_sal, emp_id1, emp_sal, emp_grp]
+      WHERE
+        [T355364].emp_id > [T355364].emp_id1
+         AND [T355364].MIN-emp_sal == [T355364].emp_sal) AS [T357763][emp_id, MIN-emp_sal, emp_id1, emp_sal, emp_grp]
+   )
+@anonymous
+[T274288].emp_id(NumberVal) | [T274288].MIN-emp_sal(NumberVal) | [T274288].emp_grp(StringVal) 
+1.0 | 10.0 | HMCPR 
+2.0 | 40.0 | HMCRR 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 75.489s

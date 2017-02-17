@@ -2,12 +2,10 @@ package sql.lang.query;
 
 import util.Pair;
 import org.junit.Test;
-import sql.lang.DataType.StringVal;
-import sql.lang.DataType.Value;
+import sql.lang.datatype.StringVal;
 import sql.lang.SQLQuery;
 import sql.lang.Table;
 import sql.lang.ast.filter.LogicAndFilter;
-import sql.lang.ast.filter.LogicNegFilter;
 import sql.lang.ast.filter.VVComparator;
 import sql.lang.ast.table.*;
 import sql.lang.ast.val.ConstantVal;
@@ -15,10 +13,8 @@ import sql.lang.ast.val.NamedVal;
 import util.TableInstanceParser;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.function.Function;
 
-import static org.testng.AssertJUnit.assertTrue;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by clwang on 1/5/16.
@@ -60,14 +56,12 @@ public class QueryTest8 {
                         new NamedVal("table1.message")
                     ),
                     new NamedTable(input),
-                    new LogicNegFilter(
-                        new VVComparator(
-                            Arrays.asList(
-                                new NamedVal("table1.from_user"),
-                                new ConstantVal(new StringVal("me"))
-                            ),
-                            VVComparator.eq
-                        )
+                    new VVComparator(
+                        Arrays.asList(
+                            new NamedVal("table1.from_user"),
+                            new ConstantVal(new StringVal("me"))
+                        ),
+                        VVComparator.neq
                     )
                 )
             );

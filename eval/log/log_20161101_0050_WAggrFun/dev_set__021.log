@@ -1,0 +1,630 @@
+[[Synthesis start]]
+	File: ..\data\dev_set\021
+	Enumerator: StagedEnumerator
+[Retry] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 98 [SymTable]: 99
+[EnumJoinOnAggr] level 1 [SymTable]: 9900
+Candidate Tree Number: 1546
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T5451].Customer,[T5451].shop
+FROM
+  (( (SELECT
+          [T5439].Customer, [T5439].email, [T5439].ZIP, COUNT([T5439].ZIP)
+        FROM
+          (input1) AS [T5439][Customer, email, ZIP, shop]
+        GROUP BY
+          [T5439].Customer  [T5439].email  [T5439].ZIP) AS [T5440][Customer, email, ZIP, COUNT-ZIP] ) JOIN (
+      SELECT
+        [T5450].ZIP,[T5450].shop,[T5450].COUNT-email
+      FROM
+        (SELECT
+            [T5449].ZIP, [T5449].shop, COUNT([T5449].email)
+          FROM
+            (input1) AS [T5449][Customer, email, ZIP, shop]
+          GROUP BY
+            [T5449].ZIP  [T5449].shop) AS [T5450][ZIP, shop, COUNT-email]
+      WHERE
+        [T5450].COUNT-email == 1.0 )) AS [T5451][Customer, email, ZIP, COUNT-ZIP, ZIP1, shop, COUNT-email]
+WHERE
+  [T5451].ZIP == [T5451].ZIP1
+@anonymous
+[T5451].Customer(StringVal) | [T5451].shop(NumberVal) 
+John Smith | 1.0 
+John Smith | 3.0 
+John Smith | 5.0 
+Mary King | 2.0 
+Mary King | 5.0 
+
+[No.19]===============================
+SELECT
+  [T5407].Customer,[T5407].shop
+FROM
+  (( (SELECT
+          [T5395].Customer, [T5395].email, [T5395].ZIP, FROM
+          (input1) AS [T5395][Customer, email, ZIP, shop]
+        GROUP BY
+          [T5395].Customer  [T5395].email  [T5395].ZIP) AS [T5396][Customer, email, ZIP] ) JOIN (
+      SELECT
+        [T5406].ZIP,[T5406].shop,[T5406].COUNT-Customer
+      FROM
+        (SELECT
+            [T5405].ZIP, [T5405].shop, COUNT([T5405].Customer)
+          FROM
+            (input1) AS [T5405][Customer, email, ZIP, shop]
+          GROUP BY
+            [T5405].ZIP  [T5405].shop) AS [T5406][ZIP, shop, COUNT-Customer]
+      WHERE
+        [T5406].COUNT-Customer == 1.0 )) AS [T5407][Customer, email, ZIP, ZIP1, shop, COUNT-Customer]
+WHERE
+  [T5407].ZIP == [T5407].ZIP1
+@anonymous
+[T5407].Customer(StringVal) | [T5407].shop(NumberVal) 
+John Smith | 1.0 
+John Smith | 3.0 
+John Smith | 5.0 
+Mary King | 2.0 
+Mary King | 5.0 
+
+[No.18]===============================
+SELECT
+  [T5093].Customer,[T5093].shop
+FROM
+  (( SELECT
+        [T5082].ZIP,[T5082].shop,[T5082].COUNT-Customer
+      FROM
+        (SELECT
+            [T5081].ZIP, [T5081].shop, COUNT([T5081].Customer)
+          FROM
+            (input1) AS [T5081][Customer, email, ZIP, shop]
+          GROUP BY
+            [T5081].ZIP  [T5081].shop) AS [T5082][ZIP, shop, COUNT-Customer]
+      WHERE
+        [T5082].COUNT-Customer == 1.0 ) JOIN (
+      (SELECT
+          [T5091].Customer, [T5091].email, [T5091].ZIP, FROM
+          (input1) AS [T5091][Customer, email, ZIP, shop]
+        GROUP BY
+          [T5091].Customer  [T5091].email  [T5091].ZIP) AS [T5092][Customer, email, ZIP] )) AS [T5093][ZIP, shop, COUNT-Customer, Customer, email, ZIP1]
+WHERE
+  [T5093].ZIP == [T5093].ZIP1
+@anonymous
+[T5093].Customer(StringVal) | [T5093].shop(NumberVal) 
+John Smith | 1.0 
+Mary King | 2.0 
+John Smith | 3.0 
+Mary King | 5.0 
+John Smith | 5.0 
+
+[No.17]===============================
+SELECT
+  [T4901].Customer,[T4901].shop
+FROM
+  (( SELECT
+        [T4890].ZIP,[T4890].shop,[T4890].COUNT-shop
+      FROM
+        (SELECT
+            [T4889].ZIP, [T4889].shop, COUNT([T4889].shop)
+          FROM
+            (input1) AS [T4889][Customer, email, ZIP, shop]
+          GROUP BY
+            [T4889].ZIP  [T4889].shop) AS [T4890][ZIP, shop, COUNT-shop]
+      WHERE
+        [T4890].COUNT-shop == 1.0 ) JOIN (
+      (SELECT
+          [T4899].Customer, [T4899].email, [T4899].ZIP, COUNT([T4899].Customer)
+        FROM
+          (input1) AS [T4899][Customer, email, ZIP, shop]
+        GROUP BY
+          [T4899].Customer  [T4899].email  [T4899].ZIP) AS [T4900][Customer, email, ZIP, COUNT-Customer] )) AS [T4901][ZIP, shop, COUNT-shop, Customer, email, ZIP1, COUNT-Customer]
+WHERE
+  [T4901].ZIP == [T4901].ZIP1
+@anonymous
+[T4901].Customer(StringVal) | [T4901].shop(NumberVal) 
+John Smith | 1.0 
+Mary King | 2.0 
+John Smith | 3.0 
+Mary King | 5.0 
+John Smith | 5.0 
+
+[No.16]===============================
+SELECT
+  [T4791].Customer,[T4791].shop
+FROM
+  (( SELECT
+        [T4780].ZIP,[T4780].shop,[T4780].COUNT-Customer
+      FROM
+        (SELECT
+            [T4779].ZIP, [T4779].shop, COUNT([T4779].Customer)
+          FROM
+            (input1) AS [T4779][Customer, email, ZIP, shop]
+          GROUP BY
+            [T4779].ZIP  [T4779].shop) AS [T4780][ZIP, shop, COUNT-Customer]
+      WHERE
+        [T4780].COUNT-Customer == 1.0 ) JOIN (
+      (SELECT
+          [T4789].Customer, [T4789].email, [T4789].ZIP, COUNT([T4789].ZIP)
+        FROM
+          (input1) AS [T4789][Customer, email, ZIP, shop]
+        GROUP BY
+          [T4789].Customer  [T4789].email  [T4789].ZIP) AS [T4790][Customer, email, ZIP, COUNT-ZIP] )) AS [T4791][ZIP, shop, COUNT-Customer, Customer, email, ZIP1, COUNT-ZIP]
+WHERE
+  [T4791].ZIP == [T4791].ZIP1
+@anonymous
+[T4791].Customer(StringVal) | [T4791].shop(NumberVal) 
+John Smith | 1.0 
+Mary King | 2.0 
+John Smith | 3.0 
+Mary King | 5.0 
+John Smith | 5.0 
+
+[No.15]===============================
+SELECT
+  [T4695].Customer,[T4695].shop
+FROM
+  (( SELECT
+        [T4684].ZIP,[T4684].shop,[T4684].COUNT-ZIP
+      FROM
+        (SELECT
+            [T4683].ZIP, [T4683].shop, COUNT([T4683].ZIP)
+          FROM
+            (input1) AS [T4683][Customer, email, ZIP, shop]
+          GROUP BY
+            [T4683].ZIP  [T4683].shop) AS [T4684][ZIP, shop, COUNT-ZIP]
+      WHERE
+        [T4684].COUNT-ZIP == 1.0 ) JOIN (
+      (SELECT
+          [T4693].Customer, [T4693].ZIP, FROM
+          (input1) AS [T4693][Customer, email, ZIP, shop]
+        GROUP BY
+          [T4693].Customer  [T4693].ZIP) AS [T4694][Customer, ZIP] )) AS [T4695][ZIP, shop, COUNT-ZIP, Customer, ZIP1]
+WHERE
+  [T4695].ZIP == [T4695].ZIP1
+@anonymous
+[T4695].Customer(StringVal) | [T4695].shop(NumberVal) 
+John Smith | 1.0 
+Mary King | 2.0 
+John Smith | 3.0 
+Mary King | 5.0 
+John Smith | 5.0 
+
+[No.14]===============================
+SELECT
+  [T4423].Customer,[T4423].shop
+FROM
+  (( (SELECT
+          [T4411].Customer, [T4411].email, [T4411].ZIP, COUNT([T4411].shop)
+        FROM
+          (input1) AS [T4411][Customer, email, ZIP, shop]
+        GROUP BY
+          [T4411].Customer  [T4411].email  [T4411].ZIP) AS [T4412][Customer, email, ZIP, COUNT-shop] ) JOIN (
+      SELECT
+        [T4422].ZIP,[T4422].shop,[T4422].COUNT-Customer
+      FROM
+        (SELECT
+            [T4421].ZIP, [T4421].shop, COUNT([T4421].Customer)
+          FROM
+            (input1) AS [T4421][Customer, email, ZIP, shop]
+          GROUP BY
+            [T4421].ZIP  [T4421].shop) AS [T4422][ZIP, shop, COUNT-Customer]
+      WHERE
+        [T4422].COUNT-Customer == 1.0 )) AS [T4423][Customer, email, ZIP, COUNT-shop, ZIP1, shop, COUNT-Customer]
+WHERE
+  [T4423].ZIP == [T4423].ZIP1
+@anonymous
+[T4423].Customer(StringVal) | [T4423].shop(NumberVal) 
+John Smith | 1.0 
+John Smith | 3.0 
+John Smith | 5.0 
+Mary King | 2.0 
+Mary King | 5.0 
+
+[No.13]===============================
+SELECT
+  [T4123].Customer,[T4123].shop
+FROM
+  (( SELECT
+        [T4112].ZIP,[T4112].shop,[T4112].COUNT-email
+      FROM
+        (SELECT
+            [T4111].ZIP, [T4111].shop, COUNT([T4111].email)
+          FROM
+            (input1) AS [T4111][Customer, email, ZIP, shop]
+          GROUP BY
+            [T4111].ZIP  [T4111].shop) AS [T4112][ZIP, shop, COUNT-email]
+      WHERE
+        [T4112].COUNT-email == 1.0 ) JOIN (
+      (SELECT
+          [T4121].Customer, [T4121].email, [T4121].ZIP, FROM
+          (input1) AS [T4121][Customer, email, ZIP, shop]
+        GROUP BY
+          [T4121].Customer  [T4121].email  [T4121].ZIP) AS [T4122][Customer, email, ZIP] )) AS [T4123][ZIP, shop, COUNT-email, Customer, email, ZIP1]
+WHERE
+  [T4123].ZIP == [T4123].ZIP1
+@anonymous
+[T4123].Customer(StringVal) | [T4123].shop(NumberVal) 
+John Smith | 1.0 
+Mary King | 2.0 
+John Smith | 3.0 
+Mary King | 5.0 
+John Smith | 5.0 
+
+[No.12]===============================
+SELECT
+  [T3931].Customer,[T3931].shop
+FROM
+  (( (SELECT
+          [T3919].Customer, [T3919].ZIP, COUNT([T3919].email)
+        FROM
+          (input1) AS [T3919][Customer, email, ZIP, shop]
+        GROUP BY
+          [T3919].Customer  [T3919].ZIP) AS [T3920][Customer, ZIP, COUNT-email] ) JOIN (
+      SELECT
+        [T3930].ZIP,[T3930].shop,[T3930].COUNT-Customer
+      FROM
+        (SELECT
+            [T3929].ZIP, [T3929].shop, COUNT([T3929].Customer)
+          FROM
+            (input1) AS [T3929][Customer, email, ZIP, shop]
+          GROUP BY
+            [T3929].ZIP  [T3929].shop) AS [T3930][ZIP, shop, COUNT-Customer]
+      WHERE
+        [T3930].COUNT-Customer == 1.0 )) AS [T3931][Customer, ZIP, COUNT-email, ZIP1, shop, COUNT-Customer]
+WHERE
+  [T3931].ZIP == [T3931].ZIP1
+@anonymous
+[T3931].Customer(StringVal) | [T3931].shop(NumberVal) 
+John Smith | 1.0 
+John Smith | 3.0 
+John Smith | 5.0 
+Mary King | 2.0 
+Mary King | 5.0 
+
+[No.11]===============================
+SELECT
+  [T3821].Customer,[T3821].shop
+FROM
+  (( (SELECT
+          [T3809].Customer, [T3809].email, [T3809].ZIP, COUNT([T3809].Customer)
+        FROM
+          (input1) AS [T3809][Customer, email, ZIP, shop]
+        GROUP BY
+          [T3809].Customer  [T3809].email  [T3809].ZIP) AS [T3810][Customer, email, ZIP, COUNT-Customer] ) JOIN (
+      SELECT
+        [T3820].ZIP,[T3820].shop,[T3820].COUNT-Customer
+      FROM
+        (SELECT
+            [T3819].ZIP, [T3819].shop, COUNT([T3819].Customer)
+          FROM
+            (input1) AS [T3819][Customer, email, ZIP, shop]
+          GROUP BY
+            [T3819].ZIP  [T3819].shop) AS [T3820][ZIP, shop, COUNT-Customer]
+      WHERE
+        [T3820].COUNT-Customer == 1.0 )) AS [T3821][Customer, email, ZIP, COUNT-Customer, ZIP1, shop, COUNT-Customer1]
+WHERE
+  [T3821].ZIP == [T3821].ZIP1
+@anonymous
+[T3821].Customer(StringVal) | [T3821].shop(NumberVal) 
+John Smith | 1.0 
+John Smith | 3.0 
+John Smith | 5.0 
+Mary King | 2.0 
+Mary King | 5.0 
+
+[No.10]===============================
+SELECT
+  [T3601].Customer,[T3601].shop
+FROM
+  (( (SELECT
+          [T3589].Customer, [T3589].email, [T3589].ZIP, COUNT([T3589].email)
+        FROM
+          (input1) AS [T3589][Customer, email, ZIP, shop]
+        GROUP BY
+          [T3589].Customer  [T3589].email  [T3589].ZIP) AS [T3590][Customer, email, ZIP, COUNT-email] ) JOIN (
+      SELECT
+        [T3600].ZIP,[T3600].shop,[T3600].COUNT-email
+      FROM
+        (SELECT
+            [T3599].ZIP, [T3599].shop, COUNT([T3599].email)
+          FROM
+            (input1) AS [T3599][Customer, email, ZIP, shop]
+          GROUP BY
+            [T3599].ZIP  [T3599].shop) AS [T3600][ZIP, shop, COUNT-email]
+      WHERE
+        [T3600].COUNT-email == 1.0 )) AS [T3601][Customer, email, ZIP, COUNT-email, ZIP1, shop, COUNT-email1]
+WHERE
+  [T3601].ZIP == [T3601].ZIP1
+@anonymous
+[T3601].Customer(StringVal) | [T3601].shop(NumberVal) 
+John Smith | 1.0 
+John Smith | 3.0 
+John Smith | 5.0 
+Mary King | 2.0 
+Mary King | 5.0 
+
+[No.9]===============================
+SELECT
+  [T3491].Customer,[T3491].shop
+FROM
+  (( (SELECT
+          [T3479].Customer, [T3479].ZIP, COUNT([T3479].shop)
+        FROM
+          (input1) AS [T3479][Customer, email, ZIP, shop]
+        GROUP BY
+          [T3479].Customer  [T3479].ZIP) AS [T3480][Customer, ZIP, COUNT-shop] ) JOIN (
+      SELECT
+        [T3490].ZIP,[T3490].shop,[T3490].COUNT-Customer
+      FROM
+        (SELECT
+            [T3489].ZIP, [T3489].shop, COUNT([T3489].Customer)
+          FROM
+            (input1) AS [T3489][Customer, email, ZIP, shop]
+          GROUP BY
+            [T3489].ZIP  [T3489].shop) AS [T3490][ZIP, shop, COUNT-Customer]
+      WHERE
+        [T3490].COUNT-Customer == 1.0 )) AS [T3491][Customer, ZIP, COUNT-shop, ZIP1, shop, COUNT-Customer]
+WHERE
+  [T3491].ZIP == [T3491].ZIP1
+@anonymous
+[T3491].Customer(StringVal) | [T3491].shop(NumberVal) 
+John Smith | 1.0 
+John Smith | 3.0 
+John Smith | 5.0 
+Mary King | 2.0 
+Mary King | 5.0 
+
+[No.8]===============================
+SELECT
+  [T3227].Customer,[T3227].shop
+FROM
+  (( SELECT
+        [T3216].ZIP,[T3216].shop,[T3216].COUNT-ZIP
+      FROM
+        (SELECT
+            [T3215].ZIP, [T3215].shop, COUNT([T3215].ZIP)
+          FROM
+            (input1) AS [T3215][Customer, email, ZIP, shop]
+          GROUP BY
+            [T3215].ZIP  [T3215].shop) AS [T3216][ZIP, shop, COUNT-ZIP]
+      WHERE
+        [T3216].COUNT-ZIP == 1.0 ) JOIN (
+      (SELECT
+          [T3225].Customer, [T3225].email, [T3225].ZIP, COUNT([T3225].Customer)
+        FROM
+          (input1) AS [T3225][Customer, email, ZIP, shop]
+        GROUP BY
+          [T3225].Customer  [T3225].email  [T3225].ZIP) AS [T3226][Customer, email, ZIP, COUNT-Customer] )) AS [T3227][ZIP, shop, COUNT-ZIP, Customer, email, ZIP1, COUNT-Customer]
+WHERE
+  [T3227].ZIP == [T3227].ZIP1
+@anonymous
+[T3227].Customer(StringVal) | [T3227].shop(NumberVal) 
+John Smith | 1.0 
+Mary King | 2.0 
+John Smith | 3.0 
+Mary King | 5.0 
+John Smith | 5.0 
+
+[No.7]===============================
+SELECT
+  [T2957].Customer,[T2957].shop
+FROM
+  (( (SELECT
+          [T2945].Customer, [T2945].email, [T2945].ZIP, COUNT([T2945].email)
+        FROM
+          (input1) AS [T2945][Customer, email, ZIP, shop]
+        GROUP BY
+          [T2945].Customer  [T2945].email  [T2945].ZIP) AS [T2946][Customer, email, ZIP, COUNT-email] ) JOIN (
+      SELECT
+        [T2956].ZIP,[T2956].shop,[T2956].COUNT-ZIP
+      FROM
+        (SELECT
+            [T2955].ZIP, [T2955].shop, COUNT([T2955].ZIP)
+          FROM
+            (input1) AS [T2955][Customer, email, ZIP, shop]
+          GROUP BY
+            [T2955].ZIP  [T2955].shop) AS [T2956][ZIP, shop, COUNT-ZIP]
+      WHERE
+        [T2956].COUNT-ZIP == 1.0 )) AS [T2957][Customer, email, ZIP, COUNT-email, ZIP1, shop, COUNT-ZIP]
+WHERE
+  [T2957].ZIP == [T2957].ZIP1
+@anonymous
+[T2957].Customer(StringVal) | [T2957].shop(NumberVal) 
+John Smith | 1.0 
+John Smith | 3.0 
+John Smith | 5.0 
+Mary King | 2.0 
+Mary King | 5.0 
+
+[No.6]===============================
+SELECT
+  [T2847].Customer,[T2847].shop
+FROM
+  (( SELECT
+        [T2836].ZIP,[T2836].shop,[T2836].COUNT-shop
+      FROM
+        (SELECT
+            [T2835].ZIP, [T2835].shop, COUNT([T2835].shop)
+          FROM
+            (input1) AS [T2835][Customer, email, ZIP, shop]
+          GROUP BY
+            [T2835].ZIP  [T2835].shop) AS [T2836][ZIP, shop, COUNT-shop]
+      WHERE
+        [T2836].COUNT-shop == 1.0 ) JOIN (
+      (SELECT
+          [T2845].Customer, [T2845].ZIP, COUNT([T2845].Customer)
+        FROM
+          (input1) AS [T2845][Customer, email, ZIP, shop]
+        GROUP BY
+          [T2845].Customer  [T2845].ZIP) AS [T2846][Customer, ZIP, COUNT-Customer] )) AS [T2847][ZIP, shop, COUNT-shop, Customer, ZIP1, COUNT-Customer]
+WHERE
+  [T2847].ZIP == [T2847].ZIP1
+@anonymous
+[T2847].Customer(StringVal) | [T2847].shop(NumberVal) 
+John Smith | 1.0 
+Mary King | 2.0 
+John Smith | 3.0 
+Mary King | 5.0 
+John Smith | 5.0 
+
+[No.5]===============================
+SELECT
+  [T2617].Customer,[T2617].shop
+FROM
+  (( SELECT
+        [T2606].ZIP,[T2606].shop,[T2606].COUNT-shop
+      FROM
+        (SELECT
+            [T2605].ZIP, [T2605].shop, COUNT([T2605].shop)
+          FROM
+            (input1) AS [T2605][Customer, email, ZIP, shop]
+          GROUP BY
+            [T2605].ZIP  [T2605].shop) AS [T2606][ZIP, shop, COUNT-shop]
+      WHERE
+        [T2606].COUNT-shop == 1.0 ) JOIN (
+      (SELECT
+          [T2615].Customer, [T2615].ZIP, COUNT([T2615].ZIP)
+        FROM
+          (input1) AS [T2615][Customer, email, ZIP, shop]
+        GROUP BY
+          [T2615].Customer  [T2615].ZIP) AS [T2616][Customer, ZIP, COUNT-ZIP] )) AS [T2617][ZIP, shop, COUNT-shop, Customer, ZIP1, COUNT-ZIP]
+WHERE
+  [T2617].ZIP == [T2617].ZIP1
+@anonymous
+[T2617].Customer(StringVal) | [T2617].shop(NumberVal) 
+John Smith | 1.0 
+Mary King | 2.0 
+John Smith | 3.0 
+Mary King | 5.0 
+John Smith | 5.0 
+
+[No.4]===============================
+SELECT
+  [T2099].Customer,[T2099].shop
+FROM
+  (( SELECT
+        [T2088].ZIP,[T2088].shop,[T2088].COUNT-email
+      FROM
+        (SELECT
+            [T2087].ZIP, [T2087].shop, COUNT([T2087].email)
+          FROM
+            (input1) AS [T2087][Customer, email, ZIP, shop]
+          GROUP BY
+            [T2087].ZIP  [T2087].shop) AS [T2088][ZIP, shop, COUNT-email]
+      WHERE
+        [T2088].COUNT-email == 1.0 ) JOIN (
+      (SELECT
+          [T2097].Customer, [T2097].ZIP, COUNT([T2097].ZIP)
+        FROM
+          (input1) AS [T2097][Customer, email, ZIP, shop]
+        GROUP BY
+          [T2097].Customer  [T2097].ZIP) AS [T2098][Customer, ZIP, COUNT-ZIP] )) AS [T2099][ZIP, shop, COUNT-email, Customer, ZIP1, COUNT-ZIP]
+WHERE
+  [T2099].ZIP == [T2099].ZIP1
+@anonymous
+[T2099].Customer(StringVal) | [T2099].shop(NumberVal) 
+John Smith | 1.0 
+Mary King | 2.0 
+John Smith | 3.0 
+Mary King | 5.0 
+John Smith | 5.0 
+
+[No.3]===============================
+SELECT
+  [T1989].Customer,[T1989].shop
+FROM
+  (( SELECT
+        [T1978].ZIP,[T1978].shop,[T1978].COUNT-Customer
+      FROM
+        (SELECT
+            [T1977].ZIP, [T1977].shop, COUNT([T1977].Customer)
+          FROM
+            (input1) AS [T1977][Customer, email, ZIP, shop]
+          GROUP BY
+            [T1977].ZIP  [T1977].shop) AS [T1978][ZIP, shop, COUNT-Customer]
+      WHERE
+        [T1978].COUNT-Customer == 1.0 ) JOIN (
+      (SELECT
+          [T1987].Customer, [T1987].email, [T1987].ZIP, COUNT([T1987].shop)
+        FROM
+          (input1) AS [T1987][Customer, email, ZIP, shop]
+        GROUP BY
+          [T1987].Customer  [T1987].email  [T1987].ZIP) AS [T1988][Customer, email, ZIP, COUNT-shop] )) AS [T1989][ZIP, shop, COUNT-Customer, Customer, email, ZIP1, COUNT-shop]
+WHERE
+  [T1989].ZIP == [T1989].ZIP1
+@anonymous
+[T1989].Customer(StringVal) | [T1989].shop(NumberVal) 
+John Smith | 1.0 
+Mary King | 2.0 
+John Smith | 3.0 
+Mary King | 5.0 
+John Smith | 5.0 
+
+[No.2]===============================
+SELECT
+  [T1507].Customer,[T1507].shop
+FROM
+  (( (SELECT
+          [T1495].Customer, [T1495].email, [T1495].ZIP, COUNT([T1495].email)
+        FROM
+          (input1) AS [T1495][Customer, email, ZIP, shop]
+        GROUP BY
+          [T1495].Customer  [T1495].email  [T1495].ZIP) AS [T1496][Customer, email, ZIP, COUNT-email] ) JOIN (
+      SELECT
+        [T1506].ZIP,[T1506].shop,[T1506].COUNT-shop
+      FROM
+        (SELECT
+            [T1505].ZIP, [T1505].shop, COUNT([T1505].shop)
+          FROM
+            (input1) AS [T1505][Customer, email, ZIP, shop]
+          GROUP BY
+            [T1505].ZIP  [T1505].shop) AS [T1506][ZIP, shop, COUNT-shop]
+      WHERE
+        [T1506].COUNT-shop == 1.0 )) AS [T1507][Customer, email, ZIP, COUNT-email, ZIP1, shop, COUNT-shop]
+WHERE
+  [T1507].ZIP == [T1507].ZIP1
+@anonymous
+[T1507].Customer(StringVal) | [T1507].shop(NumberVal) 
+John Smith | 1.0 
+John Smith | 3.0 
+John Smith | 5.0 
+Mary King | 2.0 
+Mary King | 5.0 
+
+[No.1]===============================
+SELECT
+  [T1277].Customer,[T1277].shop
+FROM
+  (( SELECT
+        [T1266].ZIP,[T1266].shop,[T1266].COUNT-ZIP
+      FROM
+        (SELECT
+            [T1265].ZIP, [T1265].shop, COUNT([T1265].ZIP)
+          FROM
+            (input1) AS [T1265][Customer, email, ZIP, shop]
+          GROUP BY
+            [T1265].ZIP  [T1265].shop) AS [T1266][ZIP, shop, COUNT-ZIP]
+      WHERE
+        [T1266].COUNT-ZIP == 1.0 ) JOIN (
+      (SELECT
+          [T1275].Customer, [T1275].ZIP, COUNT([T1275].email)
+        FROM
+          (input1) AS [T1275][Customer, email, ZIP, shop]
+        GROUP BY
+          [T1275].Customer  [T1275].ZIP) AS [T1276][Customer, ZIP, COUNT-email] )) AS [T1277][ZIP, shop, COUNT-ZIP, Customer, ZIP1, COUNT-email]
+WHERE
+  [T1277].ZIP == [T1277].ZIP1
+@anonymous
+[T1277].Customer(StringVal) | [T1277].shop(NumberVal) 
+John Smith | 1.0 
+Mary King | 2.0 
+John Smith | 3.0 
+Mary King | 5.0 
+John Smith | 5.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 9.974s

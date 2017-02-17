@@ -1,0 +1,36 @@
+// http://stackoverflow.com/questions/39730627/ms-access-sql-distinct-group-by
+
+#input
+
+| ID | GroupNumber | FirstName |
+|------------------------------|
+|  1 |           1 | Peter     |
+|  2 |           1 | Bob       |
+|  3 |           1 | Peter     |
+|  4 |           2 | Rosemary  |
+|  5 |           2 | Jamie     |
+|  6 |           3 | Peter     |
+
+#output
+
+
+| GroupNumber | FirstNames |
+|--------------------------|
+|           1 | Peter      |
+|           1 | Bob        |
+|           2 | Rosemary   |
+|           2 | Jamie      |
+|           3 | Peter      |
+
+# constraint
+{
+	"constants": [],
+	"aggregation_functions": []
+}
+
+
+#solution
+
+Select GroupNumber,  FirstName
+From input
+Group By GroupNumber, FirstName

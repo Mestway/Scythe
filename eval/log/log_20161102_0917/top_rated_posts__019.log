@@ -1,0 +1,499 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/019
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 23 [SymTable]: 24
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 4
+[EnumJoinOnAggr] level 1 [SymTable]: 8
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 4 [SymTable]: 5
+[JOIN] level 1 [SymTable]: 10
+Candidate Tree Number: 4
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 4 [SymTable]: 5
+[JOIN] level 1 [SymTable]: 10
+[EnumJoinOnAggr] level 1 [SymTable]: 35
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 4 [SymTable]: 5
+[JOIN] level 1 [SymTable]: 10
+[EnumJoinOnAggr] level 1 [SymTable]: 35
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 7 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 16
+Candidate Tree Number: 4
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 8 [SymTable]: 9
+[JOIN] level 1 [SymTable]: 18
+Candidate Tree Number: 14
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T180].id,[T180].age,[T180].COUNT-age
+FROM
+  (( (SELECT
+          [T178].age, COUNT([T178].age)
+        FROM
+          (input1) AS [T178][id, age]
+        GROUP BY
+          [T178].age) AS [T179][age, COUNT-age] ) JOIN (
+      input1 )) AS [T180][age, COUNT-age, id, age1]
+WHERE
+  [T180].age == [T180].age1
+   AND [T180].age >= [T180].age1
+@anonymous
+[T180].id(NumberVal) | [T180].age(NumberVal) | [T180].COUNT-age(NumberVal) 
+0.0 | 25.0 | 2.0 
+1.0 | 25.0 | 2.0 
+2.0 | 23.0 | 1.0 
+
+[No.19]===============================
+SELECT
+  [T174].id,[T174].age,[T174].COUNT-age
+FROM
+  (( (SELECT
+          [T172].age, COUNT([T172].age)
+        FROM
+          (input1) AS [T172][id, age]
+        GROUP BY
+          [T172].age) AS [T173][age, COUNT-age] ) JOIN (
+      input1 )) AS [T174][age, COUNT-age, id, age1]
+WHERE
+  [T174].age == [T174].age1
+   AND [T174].age <= [T174].age1
+@anonymous
+[T174].id(NumberVal) | [T174].age(NumberVal) | [T174].COUNT-age(NumberVal) 
+0.0 | 25.0 | 2.0 
+1.0 | 25.0 | 2.0 
+2.0 | 23.0 | 1.0 
+
+[No.18]===============================
+SELECT
+  [T150].id,[T150].age,[T150].COUNT-id
+FROM
+  (( (SELECT
+          [T148].age, COUNT([T148].id)
+        FROM
+          (input1) AS [T148][id, age]
+        GROUP BY
+          [T148].age) AS [T149][age, COUNT-id] ) JOIN (
+      input1 )) AS [T150][age, COUNT-id, id, age1]
+WHERE
+  [T150].age == [T150].age1
+   AND [T150].age >= [T150].age1
+@anonymous
+[T150].id(NumberVal) | [T150].age(NumberVal) | [T150].COUNT-id(NumberVal) 
+0.0 | 25.0 | 2.0 
+1.0 | 25.0 | 2.0 
+2.0 | 23.0 | 1.0 
+
+[No.17]===============================
+SELECT
+  [T144].id,[T144].age,[T144].COUNT-id
+FROM
+  (( (SELECT
+          [T142].age, COUNT([T142].id)
+        FROM
+          (input1) AS [T142][id, age]
+        GROUP BY
+          [T142].age) AS [T143][age, COUNT-id] ) JOIN (
+      input1 )) AS [T144][age, COUNT-id, id, age1]
+WHERE
+  [T144].age == [T144].age1
+   AND [T144].age <= [T144].age1
+@anonymous
+[T144].id(NumberVal) | [T144].age(NumberVal) | [T144].COUNT-id(NumberVal) 
+0.0 | 25.0 | 2.0 
+1.0 | 25.0 | 2.0 
+2.0 | 23.0 | 1.0 
+
+[No.16]===============================
+SELECT
+  [T198].id,[T198].age1,[T198].MAX-id
+FROM
+  (( (SELECT
+          [T196].age, MAX([T196].id)
+        FROM
+          (input1) AS [T196][id, age]
+        GROUP BY
+          [T196].age) AS [T197][age, MAX-id] ) JOIN (
+      SELECT
+        input1.id,input1.age
+      FROM
+        input1
+      WHERE
+        True )) AS [T198][age, MAX-id, id, age1]
+WHERE
+  [T198].age <> [T198].age1
+   AND [T198].MAX-id <> [T198].id
+@anonymous
+[T198].id(NumberVal) | [T198].age1(NumberVal) | [T198].MAX-id(NumberVal) 
+2.0 | 23.0 | 1.0 
+0.0 | 25.0 | 2.0 
+1.0 | 25.0 | 2.0 
+
+[No.15]===============================
+SELECT
+  [T102].id,[T102].age1,[T102].MAX-id
+FROM
+  (( (SELECT
+          [T100].age, MAX([T100].id)
+        FROM
+          (input1) AS [T100][id, age]
+        GROUP BY
+          [T100].age) AS [T101][age, MAX-id] ) JOIN (
+      SELECT
+        input1.id,input1.age
+      FROM
+        input1
+      WHERE
+        True )) AS [T102][age, MAX-id, id, age1]
+WHERE
+  [T102].age <> [T102].age1
+   AND [T102].MAX-id <> [T102].id
+@anonymous
+[T102].id(NumberVal) | [T102].age1(NumberVal) | [T102].MAX-id(NumberVal) 
+2.0 | 23.0 | 1.0 
+0.0 | 25.0 | 2.0 
+1.0 | 25.0 | 2.0 
+
+[No.14]===============================
+SELECT
+  [T43].id,[T43].age1,[T43].MAX-id
+FROM
+  (( (SELECT
+          [T41].age, MAX([T41].id)
+        FROM
+          (input1) AS [T41][id, age]
+        GROUP BY
+          [T41].age) AS [T42][age, MAX-id] ) JOIN (
+      SELECT
+        input1.id,input1.age
+      FROM
+        input1
+      WHERE
+        True )) AS [T43][age, MAX-id, id, age1]
+WHERE
+  [T43].age <> [T43].age1
+   AND [T43].MAX-id <> [T43].id
+@anonymous
+[T43].id(NumberVal) | [T43].age1(NumberVal) | [T43].MAX-id(NumberVal) 
+2.0 | 23.0 | 1.0 
+0.0 | 25.0 | 2.0 
+1.0 | 25.0 | 2.0 
+
+[No.13]===============================
+SELECT
+  [T192].id,[T192].age1,[T192].MAX-id
+FROM
+  (( (SELECT
+          [T190].age, MAX([T190].id)
+        FROM
+          (input1) AS [T190][id, age]
+        GROUP BY
+          [T190].age) AS [T191][age, MAX-id] ) JOIN (
+      SELECT
+        input1.id,input1.age
+      FROM
+        input1
+      WHERE
+        True )) AS [T192][age, MAX-id, id, age1]
+WHERE
+  [T192].age <> [T192].age1
+@anonymous
+[T192].id(NumberVal) | [T192].age1(NumberVal) | [T192].MAX-id(NumberVal) 
+2.0 | 23.0 | 1.0 
+0.0 | 25.0 | 2.0 
+1.0 | 25.0 | 2.0 
+
+[No.12]===============================
+SELECT
+  [T96].id,[T96].age1,[T96].MAX-id
+FROM
+  (( (SELECT
+          [T94].age, MAX([T94].id)
+        FROM
+          (input1) AS [T94][id, age]
+        GROUP BY
+          [T94].age) AS [T95][age, MAX-id] ) JOIN (
+      SELECT
+        input1.id,input1.age
+      FROM
+        input1
+      WHERE
+        True )) AS [T96][age, MAX-id, id, age1]
+WHERE
+  [T96].age <> [T96].age1
+@anonymous
+[T96].id(NumberVal) | [T96].age1(NumberVal) | [T96].MAX-id(NumberVal) 
+2.0 | 23.0 | 1.0 
+0.0 | 25.0 | 2.0 
+1.0 | 25.0 | 2.0 
+
+[No.11]===============================
+SELECT
+  [T37].id,[T37].age1,[T37].MAX-id
+FROM
+  (( (SELECT
+          [T35].age, MAX([T35].id)
+        FROM
+          (input1) AS [T35][id, age]
+        GROUP BY
+          [T35].age) AS [T36][age, MAX-id] ) JOIN (
+      SELECT
+        input1.id,input1.age
+      FROM
+        input1
+      WHERE
+        True )) AS [T37][age, MAX-id, id, age1]
+WHERE
+  [T37].age <> [T37].age1
+@anonymous
+[T37].id(NumberVal) | [T37].age1(NumberVal) | [T37].MAX-id(NumberVal) 
+2.0 | 23.0 | 1.0 
+0.0 | 25.0 | 2.0 
+1.0 | 25.0 | 2.0 
+
+[No.10]===============================
+SELECT
+  [T210].id,[T210].age1,[T210].MAX-id
+FROM
+  (( (SELECT
+          [T208].age, MAX([T208].id)
+        FROM
+          (input1) AS [T208][id, age]
+        GROUP BY
+          [T208].age) AS [T209][age, MAX-id] ) JOIN (
+      input1 )) AS [T210][age, MAX-id, id, age1]
+WHERE
+  [T210].age <> [T210].age1
+   AND [T210].MAX-id <> [T210].id
+@anonymous
+[T210].id(NumberVal) | [T210].age1(NumberVal) | [T210].MAX-id(NumberVal) 
+2.0 | 23.0 | 1.0 
+0.0 | 25.0 | 2.0 
+1.0 | 25.0 | 2.0 
+
+[No.9]===============================
+SELECT
+  [T114].id,[T114].age1,[T114].MAX-id
+FROM
+  (( (SELECT
+          [T112].age, MAX([T112].id)
+        FROM
+          (input1) AS [T112][id, age]
+        GROUP BY
+          [T112].age) AS [T113][age, MAX-id] ) JOIN (
+      input1 )) AS [T114][age, MAX-id, id, age1]
+WHERE
+  [T114].age <> [T114].age1
+   AND [T114].MAX-id <> [T114].id
+@anonymous
+[T114].id(NumberVal) | [T114].age1(NumberVal) | [T114].MAX-id(NumberVal) 
+2.0 | 23.0 | 1.0 
+0.0 | 25.0 | 2.0 
+1.0 | 25.0 | 2.0 
+
+[No.8]===============================
+SELECT
+  [T55].id,[T55].age1,[T55].MAX-id
+FROM
+  (( (SELECT
+          [T53].age, MAX([T53].id)
+        FROM
+          (input1) AS [T53][id, age]
+        GROUP BY
+          [T53].age) AS [T54][age, MAX-id] ) JOIN (
+      input1 )) AS [T55][age, MAX-id, id, age1]
+WHERE
+  [T55].age <> [T55].age1
+   AND [T55].MAX-id <> [T55].id
+@anonymous
+[T55].id(NumberVal) | [T55].age1(NumberVal) | [T55].MAX-id(NumberVal) 
+2.0 | 23.0 | 1.0 
+0.0 | 25.0 | 2.0 
+1.0 | 25.0 | 2.0 
+
+[No.7]===============================
+SELECT
+  [T168].id,[T168].age,[T168].COUNT-age
+FROM
+  (( (SELECT
+          [T166].age, COUNT([T166].age)
+        FROM
+          (input1) AS [T166][id, age]
+        GROUP BY
+          [T166].age) AS [T167][age, COUNT-age] ) JOIN (
+      SELECT
+        input1.id,input1.age
+      FROM
+        input1
+      WHERE
+        True )) AS [T168][age, COUNT-age, id, age1]
+WHERE
+  [T168].age == [T168].age1
+@anonymous
+[T168].id(NumberVal) | [T168].age(NumberVal) | [T168].COUNT-age(NumberVal) 
+0.0 | 25.0 | 2.0 
+1.0 | 25.0 | 2.0 
+2.0 | 23.0 | 1.0 
+
+[No.6]===============================
+SELECT
+  [T138].id,[T138].age,[T138].COUNT-id
+FROM
+  (( (SELECT
+          [T136].age, COUNT([T136].id)
+        FROM
+          (input1) AS [T136][id, age]
+        GROUP BY
+          [T136].age) AS [T137][age, COUNT-id] ) JOIN (
+      SELECT
+        input1.id,input1.age
+      FROM
+        input1
+      WHERE
+        True )) AS [T138][age, COUNT-id, id, age1]
+WHERE
+  [T138].age == [T138].age1
+@anonymous
+[T138].id(NumberVal) | [T138].age(NumberVal) | [T138].COUNT-id(NumberVal) 
+0.0 | 25.0 | 2.0 
+1.0 | 25.0 | 2.0 
+2.0 | 23.0 | 1.0 
+
+[No.5]===============================
+SELECT
+  [T204].id,[T204].age1,[T204].MAX-id
+FROM
+  (( (SELECT
+          [T202].age, MAX([T202].id)
+        FROM
+          (input1) AS [T202][id, age]
+        GROUP BY
+          [T202].age) AS [T203][age, MAX-id] ) JOIN (
+      input1 )) AS [T204][age, MAX-id, id, age1]
+WHERE
+  [T204].age <> [T204].age1
+@anonymous
+[T204].id(NumberVal) | [T204].age1(NumberVal) | [T204].MAX-id(NumberVal) 
+2.0 | 23.0 | 1.0 
+0.0 | 25.0 | 2.0 
+1.0 | 25.0 | 2.0 
+
+[No.4]===============================
+SELECT
+  [T108].id,[T108].age1,[T108].MAX-id
+FROM
+  (( (SELECT
+          [T106].age, MAX([T106].id)
+        FROM
+          (input1) AS [T106][id, age]
+        GROUP BY
+          [T106].age) AS [T107][age, MAX-id] ) JOIN (
+      input1 )) AS [T108][age, MAX-id, id, age1]
+WHERE
+  [T108].age <> [T108].age1
+@anonymous
+[T108].id(NumberVal) | [T108].age1(NumberVal) | [T108].MAX-id(NumberVal) 
+2.0 | 23.0 | 1.0 
+0.0 | 25.0 | 2.0 
+1.0 | 25.0 | 2.0 
+
+[No.3]===============================
+SELECT
+  [T49].id,[T49].age1,[T49].MAX-id
+FROM
+  (( (SELECT
+          [T47].age, MAX([T47].id)
+        FROM
+          (input1) AS [T47][id, age]
+        GROUP BY
+          [T47].age) AS [T48][age, MAX-id] ) JOIN (
+      input1 )) AS [T49][age, MAX-id, id, age1]
+WHERE
+  [T49].age <> [T49].age1
+@anonymous
+[T49].id(NumberVal) | [T49].age1(NumberVal) | [T49].MAX-id(NumberVal) 
+2.0 | 23.0 | 1.0 
+0.0 | 25.0 | 2.0 
+1.0 | 25.0 | 2.0 
+
+[No.2]===============================
+SELECT
+  [T162].id,[T162].age,[T162].COUNT-age
+FROM
+  (( (SELECT
+          [T160].age, COUNT([T160].age)
+        FROM
+          (input1) AS [T160][id, age]
+        GROUP BY
+          [T160].age) AS [T161][age, COUNT-age] ) JOIN (
+      input1 )) AS [T162][age, COUNT-age, id, age1]
+WHERE
+  [T162].age == [T162].age1
+@anonymous
+[T162].id(NumberVal) | [T162].age(NumberVal) | [T162].COUNT-age(NumberVal) 
+0.0 | 25.0 | 2.0 
+1.0 | 25.0 | 2.0 
+2.0 | 23.0 | 1.0 
+
+[No.1]===============================
+SELECT
+  [T132].id,[T132].age,[T132].COUNT-id
+FROM
+  (( (SELECT
+          [T130].age, COUNT([T130].id)
+        FROM
+          (input1) AS [T130][id, age]
+        GROUP BY
+          [T130].age) AS [T131][age, COUNT-id] ) JOIN (
+      input1 )) AS [T132][age, COUNT-id, id, age1]
+WHERE
+  [T132].age == [T132].age1
+@anonymous
+[T132].id(NumberVal) | [T132].age(NumberVal) | [T132].COUNT-id(NumberVal) 
+0.0 | 25.0 | 2.0 
+1.0 | 25.0 | 2.0 
+2.0 | 23.0 | 1.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.275s

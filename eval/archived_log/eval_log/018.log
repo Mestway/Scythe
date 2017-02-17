@@ -1,0 +1,704 @@
+================
+[[Synthesizer start]] data/benchmarks/018
+[Enumerator Type] SymbolicTableEnumerator
+[Initialize Enumeration]
+  Parameterized Table Number: 816
+[Enumeration Start]
+[FiltersCount format](primitiveSynFilterCount, primitiveBitVecFilterCount, totalBitVecFiltersCount)
+[Basic]: 1 [SymTableForInputs]: 1
+[Aggregation]: 133 [SymTable]: 134
+[EnumJoin] level 1 [SymTable]: 268
+ASymTable Enumeration done: 268
+Runner ups: 104
+Candidates: 
+219
+[No.1]===============================
+SELECT
+  [T1458].Id,[T1458].Plan,[T1458].Attributes,[T1458].Value,[T1458].Id1,[T1458].Plan1,[T1458].Attributes1,[T1458].Value1
+FROM
+  (( SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1 ) JOIN (
+      SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+      WHERE
+        input1.Value == True )) AS [T1458][Id, Plan, Attributes, Value, Id1, Plan1, Attributes1, Value1]
+WHERE
+  [T1458].Plan == [T1458].Plan1
+@anonymous
+[T1458].Id | [T1458].Plan | [T1458].Attributes | [T1458].Value | [T1458].Id1 | [T1458].Plan1 | [T1458].Attributes1 | [T1458].Value1 
+1.0 | A | Name | AAA | 3.0 | A | IsActive | True 
+2.0 | A | Class | P | 3.0 | A | IsActive | True 
+3.0 | A | IsActive | True | 3.0 | A | IsActive | True 
+7.0 | C | Name | CCC | 9.0 | C | IsActive | True 
+8.0 | C | Class | R | 9.0 | C | IsActive | True 
+9.0 | C | IsActive | True | 9.0 | C | IsActive | True 
+
+[No.2]===============================
+SELECT
+  [T1468].Id,[T1468].Plan,[T1468].Attributes,[T1468].Value,[T1468].Id1,[T1468].Plan1,[T1468].Attributes1,[T1468].Value1
+FROM
+  (( SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+      WHERE
+        input1.Value == True ) JOIN (
+      SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+       )) AS [T1468][Id, Plan, Attributes, Value, Id1, Plan1, Attributes1, Value1]
+WHERE
+  [T1468].Plan == [T1468].Plan1
+@anonymous
+[T1468].Id | [T1468].Plan | [T1468].Attributes | [T1468].Value | [T1468].Id1 | [T1468].Plan1 | [T1468].Attributes1 | [T1468].Value1 
+3.0 | A | IsActive | True | 1.0 | A | Name | AAA 
+3.0 | A | IsActive | True | 2.0 | A | Class | P 
+3.0 | A | IsActive | True | 3.0 | A | IsActive | True 
+9.0 | C | IsActive | True | 7.0 | C | Name | CCC 
+9.0 | C | IsActive | True | 8.0 | C | Class | R 
+9.0 | C | IsActive | True | 9.0 | C | IsActive | True 
+
+[No.3]===============================
+SELECT
+  input1.Id,input1.Plan,input1.Attributes,input1.Value
+FROM
+  input1
+WHERE
+  EXIST (
+    (SELECT
+        True,[T0].Id,[T0].Plan,[T0].Attributes,[T0].Value
+      FROM
+        (input1) AS [T0][Id, Plan, Attributes, Value]
+      WHERE
+        True == [T0].Value
+         AND input1.Plan == [T0].Plan) AS [T323][anonymous, Id, Plan, Attributes, Value])
+@anonymous
+input1.Id | input1.Plan | input1.Attributes | input1.Value 
+1.0 | A | Name | AAA 
+2.0 | A | Class | P 
+3.0 | A | IsActive | True 
+7.0 | C | Name | CCC 
+8.0 | C | Class | R 
+9.0 | C | IsActive | True 
+
+[No.4]===============================
+SELECT
+  [T1084].Plan,[T1084].Id,[T1084].Plan1,[T1084].Attributes,[T1084].Value
+FROM
+  (( SELECT
+        [T868].Plan
+      FROM
+        (SELECT
+            input1.Plan, FROM
+            input1
+          GROUP BY
+            input1.Plan) AS [T868][Plan] ) JOIN (
+      SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              True,[T0].Id,[T0].Plan,[T0].Attributes,[T0].Value
+            FROM
+              (input1) AS [T0][Id, Plan, Attributes, Value]
+            WHERE
+              True == [T0].Value
+               AND input1.Plan == [T0].Plan) AS [T323][anonymous, Id, Plan, Attributes, Value]) )) AS [T1084][Plan, Id, Plan1, Attributes, Value]
+WHERE
+  [T1084].Plan == [T1084].Plan1
+@anonymous
+[T1084].Plan | [T1084].Id | [T1084].Plan1 | [T1084].Attributes | [T1084].Value 
+A | 1.0 | A | Name | AAA 
+A | 2.0 | A | Class | P 
+A | 3.0 | A | IsActive | True 
+C | 7.0 | C | Name | CCC 
+C | 8.0 | C | Class | R 
+C | 9.0 | C | IsActive | True 
+
+[No.5]===============================
+SELECT
+  [T1282].Value,[T1282].Id,[T1282].Plan,[T1282].Attributes,[T1282].Value1
+FROM
+  (( SELECT
+        [T870].Value
+      FROM
+        (SELECT
+            input1.Value, FROM
+            input1
+          GROUP BY
+            input1.Value) AS [T870][Value] ) JOIN (
+      SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              True,[T0].Id,[T0].Plan,[T0].Attributes,[T0].Value
+            FROM
+              (input1) AS [T0][Id, Plan, Attributes, Value]
+            WHERE
+              True == [T0].Value
+               AND input1.Plan == [T0].Plan) AS [T323][anonymous, Id, Plan, Attributes, Value]) )) AS [T1282][Value, Id, Plan, Attributes, Value1]
+WHERE
+  [T1282].Value == [T1282].Value1
+@anonymous
+[T1282].Value | [T1282].Id | [T1282].Plan | [T1282].Attributes | [T1282].Value1 
+AAA | 1.0 | A | Name | AAA 
+P | 2.0 | A | Class | P 
+True | 3.0 | A | IsActive | True 
+True | 9.0 | C | IsActive | True 
+CCC | 7.0 | C | Name | CCC 
+R | 8.0 | C | Class | R 
+
+[No.6]===============================
+SELECT
+  [T1316].Attributes,[T1316].Id,[T1316].Plan,[T1316].Attributes1,[T1316].Value
+FROM
+  (( SELECT
+        [T869].Attributes
+      FROM
+        (SELECT
+            input1.Attributes, FROM
+            input1
+          GROUP BY
+            input1.Attributes) AS [T869][Attributes] ) JOIN (
+      SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              True,[T0].Id,[T0].Plan,[T0].Attributes,[T0].Value
+            FROM
+              (input1) AS [T0][Id, Plan, Attributes, Value]
+            WHERE
+              True == [T0].Value
+               AND input1.Plan == [T0].Plan) AS [T323][anonymous, Id, Plan, Attributes, Value]) )) AS [T1316][Attributes, Id, Plan, Attributes1, Value]
+WHERE
+  [T1316].Attributes == [T1316].Attributes1
+@anonymous
+[T1316].Attributes | [T1316].Id | [T1316].Plan | [T1316].Attributes1 | [T1316].Value 
+Name | 1.0 | A | Name | AAA 
+Name | 7.0 | C | Name | CCC 
+Class | 2.0 | A | Class | P 
+Class | 8.0 | C | Class | R 
+IsActive | 3.0 | A | IsActive | True 
+IsActive | 9.0 | C | IsActive | True 
+
+[No.7]===============================
+SELECT
+  [T1402].Attributes,[T1402].Value,[T1402].Id,[T1402].Plan,[T1402].Attributes1,[T1402].Value1
+FROM
+  (( SELECT
+        [T871].Attributes,[T871].Value
+      FROM
+        (SELECT
+            input1.Attributes, input1.Value, FROM
+            input1
+          GROUP BY
+            input1.Attributes  input1.Value) AS [T871][Attributes, Value] ) JOIN (
+      SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              True,[T0].Id,[T0].Plan,[T0].Attributes,[T0].Value
+            FROM
+              (input1) AS [T0][Id, Plan, Attributes, Value]
+            WHERE
+              True == [T0].Value
+               AND input1.Plan == [T0].Plan) AS [T323][anonymous, Id, Plan, Attributes, Value]) )) AS [T1402][Attributes, Value, Id, Plan, Attributes1, Value1]
+WHERE
+  [T1402].Value == [T1402].Value1
+@anonymous
+[T1402].Attributes | [T1402].Value | [T1402].Id | [T1402].Plan | [T1402].Attributes1 | [T1402].Value1 
+Name | AAA | 1.0 | A | Name | AAA 
+Class | P | 2.0 | A | Class | P 
+IsActive | True | 3.0 | A | IsActive | True 
+IsActive | True | 9.0 | C | IsActive | True 
+Name | CCC | 7.0 | C | Name | CCC 
+Class | R | 8.0 | C | Class | R 
+
+[No.8]===============================
+SELECT
+  [T1412].Value,[T1412].Id,[T1412].Plan,[T1412].Attributes,[T1412].Value1
+FROM
+  (( SELECT
+        [T1411].Value
+      FROM
+        (SELECT
+            [T1410].Value, FROM
+            (SELECT
+                input1.Id,input1.Plan,input1.Attributes,input1.Value
+              FROM
+                input1
+              WHERE
+                EXIST (
+                  (SELECT
+                      True,[T0].Id,[T0].Plan,[T0].Attributes,[T0].Value
+                    FROM
+                      (input1) AS [T0][Id, Plan, Attributes, Value]
+                    WHERE
+                      True == [T0].Value
+                       AND input1.Plan == [T0].Plan) AS [T323][anonymous, Id, Plan, Attributes, Value])) AS [T1410][Id, Plan, Attributes, Value]
+          GROUP BY
+            [T1410].Value) AS [T1411][Value] ) JOIN (
+      SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+       )) AS [T1412][Value, Id, Plan, Attributes, Value1]
+WHERE
+  [T1412].Value == [T1412].Value1
+@anonymous
+[T1412].Value | [T1412].Id | [T1412].Plan | [T1412].Attributes | [T1412].Value1 
+AAA | 1.0 | A | Name | AAA 
+P | 2.0 | A | Class | P 
+True | 3.0 | A | IsActive | True 
+True | 9.0 | C | IsActive | True 
+CCC | 7.0 | C | Name | CCC 
+R | 8.0 | C | Class | R 
+
+[No.9]===============================
+SELECT
+  [T1676].Id,[T1676].Plan,[T1676].Attributes,[T1676].Value,[T1676].Id1,[T1676].Plan1,[T1676].Attributes1,[T1676].Value1
+FROM
+  (( SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              True,[T0].Id,[T0].Plan,[T0].Attributes,[T0].Value
+            FROM
+              (input1) AS [T0][Id, Plan, Attributes, Value]
+            WHERE
+              True == [T0].Value
+               AND input1.Plan == [T0].Plan) AS [T323][anonymous, Id, Plan, Attributes, Value]) ) JOIN (
+      SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+       )) AS [T1676][Id, Plan, Attributes, Value, Id1, Plan1, Attributes1, Value1]
+WHERE
+  [T1676].Id == [T1676].Id1
+@anonymous
+[T1676].Id | [T1676].Plan | [T1676].Attributes | [T1676].Value | [T1676].Id1 | [T1676].Plan1 | [T1676].Attributes1 | [T1676].Value1 
+1.0 | A | Name | AAA | 1.0 | A | Name | AAA 
+2.0 | A | Class | P | 2.0 | A | Class | P 
+3.0 | A | IsActive | True | 3.0 | A | IsActive | True 
+7.0 | C | Name | CCC | 7.0 | C | Name | CCC 
+8.0 | C | Class | R | 8.0 | C | Class | R 
+9.0 | C | IsActive | True | 9.0 | C | IsActive | True 
+
+[No.10]===============================
+SELECT
+  [T1678].Id,[T1678].Plan,[T1678].Attributes,[T1678].Value,[T1678].Id1,[T1678].Plan1,[T1678].Attributes1,[T1678].Value1
+FROM
+  (( SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1 ) JOIN (
+      SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              True,[T0].Id,[T0].Plan,[T0].Attributes,[T0].Value
+            FROM
+              (input1) AS [T0][Id, Plan, Attributes, Value]
+            WHERE
+              True == [T0].Value
+               AND input1.Plan == [T0].Plan) AS [T323][anonymous, Id, Plan, Attributes, Value]) )) AS [T1678][Id, Plan, Attributes, Value, Id1, Plan1, Attributes1, Value1]
+WHERE
+  [T1678].Id == [T1678].Id1
+@anonymous
+[T1678].Id | [T1678].Plan | [T1678].Attributes | [T1678].Value | [T1678].Id1 | [T1678].Plan1 | [T1678].Attributes1 | [T1678].Value1 
+1.0 | A | Name | AAA | 1.0 | A | Name | AAA 
+2.0 | A | Class | P | 2.0 | A | Class | P 
+3.0 | A | IsActive | True | 3.0 | A | IsActive | True 
+7.0 | C | Name | CCC | 7.0 | C | Name | CCC 
+8.0 | C | Class | R | 8.0 | C | Class | R 
+9.0 | C | IsActive | True | 9.0 | C | IsActive | True 
+
+[No.11]===============================
+SELECT
+  [T1708].Plan,[T1708].Id,[T1708].Plan1,[T1708].Attributes,[T1708].Value
+FROM
+  (( SELECT
+        [T1707].Plan
+      FROM
+        (SELECT
+            [T1706].Plan, FROM
+            (SELECT
+                input1.Id,input1.Plan,input1.Attributes,input1.Value
+              FROM
+                input1
+              WHERE
+                EXIST (
+                  (SELECT
+                      True,[T0].Id,[T0].Plan,[T0].Attributes,[T0].Value
+                    FROM
+                      (input1) AS [T0][Id, Plan, Attributes, Value]
+                    WHERE
+                      True == [T0].Value
+                       AND input1.Plan == [T0].Plan) AS [T323][anonymous, Id, Plan, Attributes, Value])) AS [T1706][Id, Plan, Attributes, Value]
+          GROUP BY
+            [T1706].Plan) AS [T1707][Plan] ) JOIN (
+      SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+       )) AS [T1708][Plan, Id, Plan1, Attributes, Value]
+WHERE
+  [T1708].Plan == [T1708].Plan1
+@anonymous
+[T1708].Plan | [T1708].Id | [T1708].Plan1 | [T1708].Attributes | [T1708].Value 
+A | 1.0 | A | Name | AAA 
+A | 2.0 | A | Class | P 
+A | 3.0 | A | IsActive | True 
+C | 7.0 | C | Name | CCC 
+C | 8.0 | C | Class | R 
+C | 9.0 | C | IsActive | True 
+
+[No.12]===============================
+SELECT
+  [T1750].Attributes,[T1750].Value,[T1750].Id,[T1750].Plan,[T1750].Attributes1,[T1750].Value1
+FROM
+  (( SELECT
+        [T1749].Attributes,[T1749].Value
+      FROM
+        (SELECT
+            [T1748].Attributes, [T1748].Value, FROM
+            (SELECT
+                input1.Id,input1.Plan,input1.Attributes,input1.Value
+              FROM
+                input1
+              WHERE
+                EXIST (
+                  (SELECT
+                      True,[T0].Id,[T0].Plan,[T0].Attributes,[T0].Value
+                    FROM
+                      (input1) AS [T0][Id, Plan, Attributes, Value]
+                    WHERE
+                      True == [T0].Value
+                       AND input1.Plan == [T0].Plan) AS [T323][anonymous, Id, Plan, Attributes, Value])) AS [T1748][Id, Plan, Attributes, Value]
+          GROUP BY
+            [T1748].Attributes  [T1748].Value) AS [T1749][Attributes, Value] ) JOIN (
+      SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+       )) AS [T1750][Attributes, Value, Id, Plan, Attributes1, Value1]
+WHERE
+  [T1750].Value == [T1750].Value1
+@anonymous
+[T1750].Attributes | [T1750].Value | [T1750].Id | [T1750].Plan | [T1750].Attributes1 | [T1750].Value1 
+Name | AAA | 1.0 | A | Name | AAA 
+Class | P | 2.0 | A | Class | P 
+IsActive | True | 3.0 | A | IsActive | True 
+IsActive | True | 9.0 | C | IsActive | True 
+Name | CCC | 7.0 | C | Name | CCC 
+Class | R | 8.0 | C | Class | R 
+
+[No.13]===============================
+SELECT
+  [T1460].Id,[T1460].Plan,[T1460].Attributes,[T1460].Value,[T1460].Id1,[T1460].Plan1,[T1460].Attributes1,[T1460].Value1
+FROM
+  (( SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              True,[T0].Id,[T0].Plan,[T0].Attributes,[T0].Value
+            FROM
+              (input1) AS [T0][Id, Plan, Attributes, Value]
+            WHERE
+              True == [T0].Value
+               AND input1.Plan == [T0].Plan) AS [T323][anonymous, Id, Plan, Attributes, Value]) ) JOIN (
+      SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+      WHERE
+        input1.Value == True )) AS [T1460][Id, Plan, Attributes, Value, Id1, Plan1, Attributes1, Value1]
+WHERE
+  [T1460].Plan == [T1460].Plan1
+@anonymous
+[T1460].Id | [T1460].Plan | [T1460].Attributes | [T1460].Value | [T1460].Id1 | [T1460].Plan1 | [T1460].Attributes1 | [T1460].Value1 
+1.0 | A | Name | AAA | 3.0 | A | IsActive | True 
+2.0 | A | Class | P | 3.0 | A | IsActive | True 
+3.0 | A | IsActive | True | 3.0 | A | IsActive | True 
+7.0 | C | Name | CCC | 9.0 | C | IsActive | True 
+8.0 | C | Class | R | 9.0 | C | IsActive | True 
+9.0 | C | IsActive | True | 9.0 | C | IsActive | True 
+
+[No.14]===============================
+SELECT
+  [T1462].Id,[T1462].Plan,[T1462].Attributes,[T1462].Value,[T1462].Id1,[T1462].Plan1,[T1462].Attributes1,[T1462].Value1
+FROM
+  (( SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1 ) JOIN (
+      SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+      WHERE
+        input1.Value == True
+         AND EXIST (
+          (SELECT
+              True,[T0].Id,[T0].Plan,[T0].Attributes,[T0].Value
+            FROM
+              (input1) AS [T0][Id, Plan, Attributes, Value]
+            WHERE
+              True == [T0].Value
+               AND input1.Attributes == [T0].Attributes) AS [T325][anonymous, Id, Plan, Attributes, Value]) )) AS [T1462][Id, Plan, Attributes, Value, Id1, Plan1, Attributes1, Value1]
+WHERE
+  [T1462].Plan == [T1462].Plan1
+@anonymous
+[T1462].Id | [T1462].Plan | [T1462].Attributes | [T1462].Value | [T1462].Id1 | [T1462].Plan1 | [T1462].Attributes1 | [T1462].Value1 
+1.0 | A | Name | AAA | 3.0 | A | IsActive | True 
+2.0 | A | Class | P | 3.0 | A | IsActive | True 
+3.0 | A | IsActive | True | 3.0 | A | IsActive | True 
+7.0 | C | Name | CCC | 9.0 | C | IsActive | True 
+8.0 | C | Class | R | 9.0 | C | IsActive | True 
+9.0 | C | IsActive | True | 9.0 | C | IsActive | True 
+
+[No.15]===============================
+SELECT
+  [T1464].Id,[T1464].Plan,[T1464].Attributes,[T1464].Value,[T1464].Id1,[T1464].Plan1,[T1464].Attributes1,[T1464].Value1
+FROM
+  (( SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1 ) JOIN (
+      SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+      WHERE
+        input1.Value == True
+         AND EXIST (
+          (SELECT
+              True,[T0].Id,[T0].Plan,[T0].Attributes,[T0].Value
+            FROM
+              (input1) AS [T0][Id, Plan, Attributes, Value]
+            WHERE
+              True == [T0].Value
+               AND input1.Plan == [T0].Plan) AS [T323][anonymous, Id, Plan, Attributes, Value]) )) AS [T1464][Id, Plan, Attributes, Value, Id1, Plan1, Attributes1, Value1]
+WHERE
+  [T1464].Plan == [T1464].Plan1
+@anonymous
+[T1464].Id | [T1464].Plan | [T1464].Attributes | [T1464].Value | [T1464].Id1 | [T1464].Plan1 | [T1464].Attributes1 | [T1464].Value1 
+1.0 | A | Name | AAA | 3.0 | A | IsActive | True 
+2.0 | A | Class | P | 3.0 | A | IsActive | True 
+3.0 | A | IsActive | True | 3.0 | A | IsActive | True 
+7.0 | C | Name | CCC | 9.0 | C | IsActive | True 
+8.0 | C | Class | R | 9.0 | C | IsActive | True 
+9.0 | C | IsActive | True | 9.0 | C | IsActive | True 
+
+[No.16]===============================
+SELECT
+  [T1470].Id,[T1470].Plan,[T1470].Attributes,[T1470].Value,[T1470].Id1,[T1470].Plan1,[T1470].Attributes1,[T1470].Value1
+FROM
+  (( SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+      WHERE
+        input1.Value == True
+         AND EXIST (
+          (SELECT
+              True,[T0].Id,[T0].Plan,[T0].Attributes,[T0].Value
+            FROM
+              (input1) AS [T0][Id, Plan, Attributes, Value]
+            WHERE
+              True == [T0].Value
+               AND input1.Attributes == [T0].Attributes) AS [T325][anonymous, Id, Plan, Attributes, Value]) ) JOIN (
+      SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+       )) AS [T1470][Id, Plan, Attributes, Value, Id1, Plan1, Attributes1, Value1]
+WHERE
+  [T1470].Plan == [T1470].Plan1
+@anonymous
+[T1470].Id | [T1470].Plan | [T1470].Attributes | [T1470].Value | [T1470].Id1 | [T1470].Plan1 | [T1470].Attributes1 | [T1470].Value1 
+3.0 | A | IsActive | True | 1.0 | A | Name | AAA 
+3.0 | A | IsActive | True | 2.0 | A | Class | P 
+3.0 | A | IsActive | True | 3.0 | A | IsActive | True 
+9.0 | C | IsActive | True | 7.0 | C | Name | CCC 
+9.0 | C | IsActive | True | 8.0 | C | Class | R 
+9.0 | C | IsActive | True | 9.0 | C | IsActive | True 
+
+[No.17]===============================
+SELECT
+  [T1472].Id,[T1472].Plan,[T1472].Attributes,[T1472].Value,[T1472].Id1,[T1472].Plan1,[T1472].Attributes1,[T1472].Value1
+FROM
+  (( SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+      WHERE
+        input1.Value == True
+         AND EXIST (
+          (SELECT
+              True,[T0].Id,[T0].Plan,[T0].Attributes,[T0].Value
+            FROM
+              (input1) AS [T0][Id, Plan, Attributes, Value]
+            WHERE
+              True == [T0].Value
+               AND input1.Plan == [T0].Plan) AS [T323][anonymous, Id, Plan, Attributes, Value]) ) JOIN (
+      SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+       )) AS [T1472][Id, Plan, Attributes, Value, Id1, Plan1, Attributes1, Value1]
+WHERE
+  [T1472].Plan == [T1472].Plan1
+@anonymous
+[T1472].Id | [T1472].Plan | [T1472].Attributes | [T1472].Value | [T1472].Id1 | [T1472].Plan1 | [T1472].Attributes1 | [T1472].Value1 
+3.0 | A | IsActive | True | 1.0 | A | Name | AAA 
+3.0 | A | IsActive | True | 2.0 | A | Class | P 
+3.0 | A | IsActive | True | 3.0 | A | IsActive | True 
+9.0 | C | IsActive | True | 7.0 | C | Name | CCC 
+9.0 | C | IsActive | True | 8.0 | C | Class | R 
+9.0 | C | IsActive | True | 9.0 | C | IsActive | True 
+
+[No.18]===============================
+SELECT
+  [T1474].Id,[T1474].Plan,[T1474].Attributes,[T1474].Value,[T1474].Id1,[T1474].Plan1,[T1474].Attributes1,[T1474].Value1
+FROM
+  (( SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+      WHERE
+        input1.Value == True ) JOIN (
+      SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              True,[T0].Id,[T0].Plan,[T0].Attributes,[T0].Value
+            FROM
+              (input1) AS [T0][Id, Plan, Attributes, Value]
+            WHERE
+              True == [T0].Value
+               AND input1.Plan == [T0].Plan) AS [T323][anonymous, Id, Plan, Attributes, Value]) )) AS [T1474][Id, Plan, Attributes, Value, Id1, Plan1, Attributes1, Value1]
+WHERE
+  [T1474].Plan == [T1474].Plan1
+@anonymous
+[T1474].Id | [T1474].Plan | [T1474].Attributes | [T1474].Value | [T1474].Id1 | [T1474].Plan1 | [T1474].Attributes1 | [T1474].Value1 
+3.0 | A | IsActive | True | 1.0 | A | Name | AAA 
+3.0 | A | IsActive | True | 2.0 | A | Class | P 
+3.0 | A | IsActive | True | 3.0 | A | IsActive | True 
+9.0 | C | IsActive | True | 7.0 | C | Name | CCC 
+9.0 | C | IsActive | True | 8.0 | C | Class | R 
+9.0 | C | IsActive | True | 9.0 | C | IsActive | True 
+
+[No.19]===============================
+SELECT
+  [T1404].Attributes,[T1404].Value,[T1404].Id,[T1404].Plan,[T1404].Attributes1,[T1404].Value1
+FROM
+  (( SELECT
+        [T871].Attributes,[T871].Value
+      FROM
+        (SELECT
+            input1.Attributes, input1.Value, FROM
+            input1
+          GROUP BY
+            input1.Attributes  input1.Value) AS [T871][Attributes, Value] ) JOIN (
+      SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              True,[T0].Id,[T0].Plan,[T0].Attributes,[T0].Value
+            FROM
+              (input1) AS [T0][Id, Plan, Attributes, Value]
+            WHERE
+              True == [T0].Value
+               AND input1.Plan == [T0].Plan) AS [T323][anonymous, Id, Plan, Attributes, Value]) )) AS [T1404][Attributes, Value, Id, Plan, Attributes1, Value1]
+WHERE
+  [T1404].Value == [T1404].Value1
+   AND [T1404].Attributes == [T1404].Attributes1
+@anonymous
+[T1404].Attributes | [T1404].Value | [T1404].Id | [T1404].Plan | [T1404].Attributes1 | [T1404].Value1 
+Name | AAA | 1.0 | A | Name | AAA 
+Class | P | 2.0 | A | Class | P 
+IsActive | True | 3.0 | A | IsActive | True 
+IsActive | True | 9.0 | C | IsActive | True 
+Name | CCC | 7.0 | C | Name | CCC 
+Class | R | 8.0 | C | Class | R 
+
+[No.20]===============================
+SELECT
+  [T1680].Id,[T1680].Plan,[T1680].Attributes,[T1680].Value,[T1680].Id1,[T1680].Plan1,[T1680].Attributes1,[T1680].Value1
+FROM
+  (( SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              True,[T0].Id,[T0].Plan,[T0].Attributes,[T0].Value
+            FROM
+              (input1) AS [T0][Id, Plan, Attributes, Value]
+            WHERE
+              True == [T0].Value
+               AND input1.Plan == [T0].Plan) AS [T323][anonymous, Id, Plan, Attributes, Value]) ) JOIN (
+      SELECT
+        input1.Id,input1.Plan,input1.Attributes,input1.Value
+      FROM
+        input1
+       )) AS [T1680][Id, Plan, Attributes, Value, Id1, Plan1, Attributes1, Value1]
+WHERE
+  [T1680].Plan == [T1680].Plan1
+   AND [T1680].Value == [T1680].Value1
+@anonymous
+[T1680].Id | [T1680].Plan | [T1680].Attributes | [T1680].Value | [T1680].Id1 | [T1680].Plan1 | [T1680].Attributes1 | [T1680].Value1 
+1.0 | A | Name | AAA | 1.0 | A | Name | AAA 
+2.0 | A | Class | P | 2.0 | A | Class | P 
+3.0 | A | IsActive | True | 3.0 | A | IsActive | True 
+7.0 | C | Name | CCC | 7.0 | C | Name | CCC 
+8.0 | C | Class | R | 8.0 | C | Class | R 
+9.0 | C | IsActive | True | 9.0 | C | IsActive | True 
+
+[Consistent Table number] 103
+[Enumeration Finished]
+[[Synthesizer finished]] time: 00:00:09:967
+[[Synthesizer finished]] seconds: 9.967
+[avg reduction rate: syn filter / bit vector] 10.58005997760972
+[avg reduction rate: compound filter / bit vector] NaN
+[avg compound filter count] NaN
+[max compound filter count] 0
+[avg PrimitiveFilterCount] 94.77302631578948
+[max PrimitiveFilterCount] 733
+[avg LRFilterCount] 3.0048899755501224
+[max LRFilterCount] 7
+[avg decompose tree count] 2.432795698924731
+[max decomposeTreeCount] 36

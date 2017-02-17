@@ -1,0 +1,51 @@
+//http://www.sqlteam.com/forums/topic.asp?TOPIC_ID=201063
+
+#input
+
+| GUID  | PID  |
+|--------------| 
+| GUID1 | PID1 |
+| GUID1 | PID1 |
+| GUID1 | PID1 |
+| GUID2 | PID1 |
+| GUID3 | PID2 |
+| GUID3 | PID2 |
+| GUID3 | PID2 |
+
+#input
+
+| GUID  | LastName | FirstName |
+|------------------------------|
+| GUID1 | Mulder   |  Fox      |
+| GUID2 | Scully   |  Dana     |    
+| GUID3 | Skinner  |  Walter   |    
+
+#output
+
+| c1   |   c2   |  c3   |  c4  |
+|------------------------------|
+| PID1 | GUID1 | Mulder | Fox  |
+| PID1 | GUID2 | Scully | Dana |
+
+#constraint
+{
+	"constants": ["2"],
+	"aggregation_functions": ["count"]
+}
+
+#solution
+
+SELECT DISTINCT t2.GUID -- Outer query -- get final results
+	,t2.LastName
+	,t2.FirstName
+FROM @table2 t2
+INNER JOIN (            -- Inner query 1 -- get GUIDS from PIDS having >1 GUIDS
+	SELECT GUID
+	FROM @table1 t1
+	INNER JOIN (        -- Inner query 2 -- get PIDS having >1 GUIDS
+		SELECT PID
+		FROM @table1
+		GROUP BY pid
+		HAVING count(guid) > 1
+		) t1x ON t1x.PID = t1.PID
+	) t1 ON t1.GUID = t2.GUID

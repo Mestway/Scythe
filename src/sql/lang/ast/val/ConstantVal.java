@@ -1,9 +1,9 @@
 package sql.lang.ast.val;
 
-import enumerator.context.EnumContext;
-import enumerator.parameterized.InstantiateEnv;
-import sql.lang.DataType.ValType;
-import sql.lang.DataType.Value;
+import forward_enumeration.context.EnumContext;
+import forward_enumeration.primitive.parameterized.InstantiateEnv;
+import sql.lang.datatype.ValType;
+import sql.lang.datatype.Value;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
@@ -32,6 +32,8 @@ public class ConstantVal implements ValNode {
         return val;
     }
 
+    public Value getValue() { return this.val; }
+
     @Override
     public String getName() {
         return "anonymous";
@@ -44,7 +46,10 @@ public class ConstantVal implements ValNode {
 
     @Override
     public String prettyPrint(int lv) {
-        return IndentionManagement.addIndention(val.toString(), lv);
+        String formatVal = val.toString();
+        if (val.getValType().equals(ValType.StringVal))
+            formatVal = "'" + formatVal + "'";
+        return IndentionManagement.addIndention(formatVal, lv);
     }
 
     @Override

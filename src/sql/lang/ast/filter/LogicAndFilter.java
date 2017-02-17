@@ -1,12 +1,14 @@
 package sql.lang.ast.filter;
 
-import enumerator.parameterized.InstantiateEnv;
+import forward_enumeration.primitive.parameterized.InstantiateEnv;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
+import sql.lang.datatype.Value;
 import sql.lang.exception.SQLEvalException;
 import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,8 +40,14 @@ public class LogicAndFilter implements Filter {
 
     @Override
     public String prettyPrint(int indentLv) {
-        String result = f1.prettyPrint(0) + "\r\n AND " + f2.prettyPrint(0);
-        return IndentionManagement.addIndention(result, indentLv);
+        if (f1 instanceof EmptyFilter)
+            return IndentionManagement.addIndention(f2.prettyPrint(0), indentLv);
+        else if (f2 instanceof EmptyFilter)
+            return IndentionManagement.addIndention(f1.prettyPrint(0), indentLv);
+        else {
+            String result = f1.prettyPrint(0) + "\r\n And " + f2.prettyPrint(0);
+            return IndentionManagement.addIndention(result, indentLv);
+        }
     }
 
     @Override
@@ -63,6 +71,13 @@ public class LogicAndFilter implements Filter {
     }
 
     @Override
+    public List<Value> getAllConstatnts() {
+        List<Value> list =  f1.getAllConstatnts();
+        list.addAll(f2.getAllConstatnts());
+        return list;
+    }
+
+    @Override
     public Filter instantiate(InstantiateEnv env) {
         return new LogicAndFilter(f1.instantiate(env), f2.instantiate(env));
     }
@@ -70,6 +85,23 @@ public class LogicAndFilter implements Filter {
     @Override
     public Filter substNamedVal(ValNodeSubstBinding vnsb) {
         return new LogicAndFilter(f1.substNamedVal(vnsb), f2.substNamedVal(vnsb));
+    }
+
+    public List<Filter> getAllFilters() {
+        List<Filter> result = new ArrayList<>();
+        if (f1 instanceof LogicAndFilter) {
+            result.addAll(((LogicAndFilter) f1).getAllFilters());
+        } else {
+            result.add(f1);
+        }
+
+        if (f2 instanceof LogicAndFilter) {
+            result.addAll(((LogicAndFilter) f2).getAllFilters());
+        } else {
+            result.add(f2);
+        }
+
+        return result;
     }
 
 }

@@ -1,0 +1,166 @@
+[[Synthesis start]]
+	File: ../data/dev_set/027R
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 51 [SymTable]: 52
+[Total Number of Intermediate] 53
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 2 [SymTable]: 3
+[JOIN] level 1 [SymTable]: 7
+[EnumJoinOnAggr] level 1 [SymTable]: 16
+[Total Number of Intermediate] 16
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 7 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 17
+[Total Number of Intermediate] 17
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 7 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 17
+[EnumJoinOnAggr] level 1 [SymTable]: 81
+[Total Number of Intermediate] 81
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 7 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 17
+[Total Number of Intermediate] 17
+Candidate Tree Number: 2
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 12 [SymTable]: 13
+[JOIN] level 1 [SymTable]: 27
+[Total Number of Intermediate] 27
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 36 [SymTable]: 37
+[JOIN] level 1 [SymTable]: 75
+[Total Number of Intermediate] 75
+Candidate Tree Number: 15
+[Enumeration Finished]
+[Query No.5]===============================
+SELECT
+  [T210].Train,[T210].Dest,[T210].MAX-Time
+FROM
+  (( (SELECT
+          [T208].Train, MAX([T208].Time)
+        FROM
+          (input1) AS [T208][Train, Dest, Time]
+        GROUP BY
+          [T208].Train) AS [T209][Train, MAX-Time] ) JOIN (
+      input1 )) AS [T210][Train, MAX-Time, Train1, Dest, Time]
+WHERE
+  [T210].MAX-Time == [T210].Time
+   AND [T210].Train == [T210].Train1
+@anonymous
+[T210].Train(NumberVal) | [T210].Dest(StringVal) | [T210].MAX-Time(NumberVal) 
+1.0 | SZ | 14.0 
+2.0 | HK | 13.0 
+
+[Query No.4]===============================
+SELECT
+  [T92].Train,[T92].Dest,[T92].MAX-Time
+FROM
+  (( (SELECT
+          [T90].Train, MAX([T90].Time)
+        FROM
+          (input1) AS [T90][Train, Dest, Time]
+        GROUP BY
+          [T90].Train) AS [T91][Train, MAX-Time] ) JOIN (
+      input1 )) AS [T92][Train, MAX-Time, Train1, Dest, Time]
+WHERE
+  [T92].MAX-Time == [T92].Time
+   AND [T92].Train == [T92].Train1
+@anonymous
+[T92].Train(NumberVal) | [T92].Dest(StringVal) | [T92].MAX-Time(NumberVal) 
+1.0 | SZ | 14.0 
+2.0 | HK | 13.0 
+
+[Query No.3]===============================
+SELECT
+  [T367].Train,[T367].Dest,[T367].MAX-Time
+FROM
+  (( (SELECT
+          [T365].Train, MAX([T365].Time)
+        FROM
+          (input1) AS [T365][Train, Dest, Time]
+        GROUP BY
+          [T365].Train) AS [T366][Train, MAX-Time] ) JOIN (
+      input1 )) AS [T367][Train, MAX-Time, Train1, Dest, Time]
+WHERE
+  [T367].MAX-Time == [T367].Time
+@anonymous
+[T367].Train(NumberVal) | [T367].Dest(StringVal) | [T367].MAX-Time(NumberVal) 
+1.0 | SZ | 14.0 
+2.0 | HK | 13.0 
+
+[Query No.2]===============================
+SELECT
+  [T198].Train,[T198].Dest,[T198].MAX-Time
+FROM
+  (( (SELECT
+          [T196].Train, MAX([T196].Time)
+        FROM
+          (input1) AS [T196][Train, Dest, Time]
+        GROUP BY
+          [T196].Train) AS [T197][Train, MAX-Time] ) JOIN (
+      input1 )) AS [T198][Train, MAX-Time, Train1, Dest, Time]
+WHERE
+  [T198].MAX-Time == [T198].Time
+@anonymous
+[T198].Train(NumberVal) | [T198].Dest(StringVal) | [T198].MAX-Time(NumberVal) 
+1.0 | SZ | 14.0 
+2.0 | HK | 13.0 
+
+[Query No.1]===============================
+SELECT
+  [T80].Train,[T80].Dest,[T80].MAX-Time
+FROM
+  (( (SELECT
+          [T78].Train, MAX([T78].Time)
+        FROM
+          (input1) AS [T78][Train, Dest, Time]
+        GROUP BY
+          [T78].Train) AS [T79][Train, MAX-Time] ) JOIN (
+      input1 )) AS [T80][Train, MAX-Time, Train1, Dest, Time]
+WHERE
+  [T80].MAX-Time == [T80].Time
+@anonymous
+[T80].Train(NumberVal) | [T80].Dest(StringVal) | [T80].MAX-Time(NumberVal) 
+1.0 | SZ | 14.0 
+2.0 | HK | 13.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.636s

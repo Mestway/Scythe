@@ -1,0 +1,44 @@
+//http://stackoverflow.com/questions/39960569/picking-one-row-over-another
+
+#input
+
+ID,   Type,   Value
+A ,   Z01 ,   10
+A ,   Z09 ,   20
+B ,   Z01 ,   30
+C ,   Z01 ,   40
+D ,   Z09 ,   50
+F ,   Z09 ,   50
+F ,   Z01 ,   52
+E ,   Z10 ,   60
+
+#output
+
+Id,   Type,   Value
+A ,   Z01 ,   10
+B ,   Z01 ,   30
+C ,   Z01 ,   40
+D ,   Z09 ,   50
+F ,   Z01 ,   52
+
+#constraint
+{
+	"constants": ["Z01", "Z09"],
+	"aggregation_functions": []
+}
+
+#solution
+
+select *
+from table
+where type = `Z01`
+
+union all
+select *
+
+from table
+where type = `Z09`
+and not exists (
+    select 1
+    from table
+    where id = t.id and type = 'Z01')

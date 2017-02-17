@@ -1,0 +1,35 @@
+//http://stackoverflow.com/questions/39759769/sql-server-find-most-recent-date-range
+
+# input
+
+| tranid  |  item |   startdate  |   enddate   |
+|----------------------------------------------|
+| 1       |   A    |  1/1/2000   |   2/2/2005  |
+| 2       |   A    |  5/1/2000   |   2/2/2005  |
+| 3       |   B    |  7/8/2015   |   9/8/2015  |
+| 4       |   C    |  4/10/2007  |   7/20/2008 |
+| 5       |   C    |  4/10/2003  |   7/20/2005 |
+
+# output
+
+| tranid  |  item |   startdate  |   enddate   |
+|----------------------------------------------|
+| 2       |   A    |  5/1/2000   |   2/2/2005  |
+| 3       |   B    |  7/8/2015   |   9/8/2015  |
+| 4       |   C    |  4/10/2007  |   7/20/2008 |
+
+# constraint
+{
+	"constants": [],
+	"aggregation_functions": ["max"]
+}
+
+#solution
+
+SELECT b.tranid, b.item, a.maxstartdate, b.enddate
+FROM
+  (SELECT t.item, MAX(t.startdate) maxstartdate
+   FROM t
+   GROUP BY t.item) a
+JOIN t b
+ON a.maxstartdate = b.startdate AND a.item = b.item;

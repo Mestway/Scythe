@@ -1,0 +1,445 @@
+[[Synthesizing]]
+[[Synthesis start]]
+	File: ../data/dev_set/017
+	Enumerator: CanonicalTableEnumeratorOnTheFly
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 12
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 26
+	Avg table size: 2
+[Total Number of Intermediate Result] 26
+[Average Size of the tables] 2.730769230769231
+[Sum Size of the tables] 71.0
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 12
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 2
+	Avg table size: 7
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 29
+	Avg table size: 27
+[Total Number of Intermediate Result] 29
+[Average Size of the tables] 27.517241379310345
+[Sum Size of the tables] 798.0
+Total Tree Count: 1
+Total Query Count: 312
+[Enumeration Finished]
+    [AggrFun] Optional[MAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 12
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 7
+	Avg table size: 3
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 68
+	Avg table size: 20
+[Total Number of Intermediate Result] 68
+[Average Size of the tables] 20.11764705882353
+[Sum Size of the tables] 1368.0
+Total Tree Count: 5
+Total Query Count: 11394
+[Enumeration Finished]
+    [AggrFun] Optional[MIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 12
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 7
+	Avg table size: 3
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 67
+	Avg table size: 20
+[Total Number of Intermediate Result] 67
+[Average Size of the tables] 20.26865671641791
+[Sum Size of the tables] 1358.0
+Total Tree Count: 5
+Total Query Count: 11394
+[Enumeration Finished]
+    [AggrFun] Optional[AVG]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 12
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 7
+	Avg table size: 3
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 87
+	Avg table size: 18
+[Total Number of Intermediate Result] 87
+[Average Size of the tables] 18.54022988505747
+[Sum Size of the tables] 1613.0
+Total Tree Count: 8
+Total Query Count: 11827
+[Enumeration Finished]
+    [AggrFun] Optional[MINMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 12
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 11
+	Avg table size: 3
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 101
+	Avg table size: 18
+[Total Number of Intermediate Result] 101
+[Average Size of the tables] 18.594059405940595
+[Sum Size of the tables] 1878.0
+Total Tree Count: 8
+Total Query Count: 22476
+[Enumeration Finished]
+    [AggrFun] Optional[MAXCOUNT]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 12
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 8
+	Avg table size: 3
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 81
+	Avg table size: 19
+[Total Number of Intermediate Result] 81
+[Average Size of the tables] 19.679012345679013
+[Sum Size of the tables] 1594.0
+Total Tree Count: 6
+Total Query Count: 34194
+[Enumeration Finished]
+[Query No.15]===============================
+SELECT
+  [T12917].Parent,[T12917].Name
+FROM
+  (SELECT
+      [T9028].Parent,[T9028].ID,[T9028].Name,[T9028].Age,[T9028].Parent1
+    FROM
+      (( ((SELECT
+                input1.Parent, FROM
+                input1
+              GROUP BY
+                input1.Parent) AS [T9033][Parent]) AS [T9036][Parent] ) JOIN (
+          input1 )) AS [T9028][Parent, ID, Name, Age, Parent1]
+    WHERE
+      [T9028].Parent == [T9028].ID
+       AND IS NOT NULL [T9028].ID) AS [T12917][Parent, ID, Name, Age, Parent1]
+
+@anonymous
+[T12917].Parent(NumberVal) | [T12917].Name(StringVal) 
+1.0 | Bob 
+
+[Query No.14]===============================
+SELECT
+  [T12916].Parent,[T12916].Name
+FROM
+  (SELECT
+      [T9028].Parent,[T9028].ID,[T9028].Name,[T9028].Age,[T9028].Parent1
+    FROM
+      (( ((SELECT
+                input1.Parent, FROM
+                input1
+              GROUP BY
+                input1.Parent) AS [T9033][Parent]) AS [T9036][Parent] ) JOIN (
+          input1 )) AS [T9028][Parent, ID, Name, Age, Parent1]
+    WHERE
+      [T9028].Parent == [T9028].ID
+       AND IS NOT NULL [T9028].Name) AS [T12916][Parent, ID, Name, Age, Parent1]
+
+@anonymous
+[T12916].Parent(NumberVal) | [T12916].Name(StringVal) 
+1.0 | Bob 
+
+[Query No.13]===============================
+SELECT
+  [T12915].Parent,[T12915].Name
+FROM
+  (SELECT
+      [T9028].Parent,[T9028].ID,[T9028].Name,[T9028].Age,[T9028].Parent1
+    FROM
+      (( ((SELECT
+                input1.Parent, FROM
+                input1
+              GROUP BY
+                input1.Parent) AS [T9033][Parent]) AS [T9036][Parent] ) JOIN (
+          input1 )) AS [T9028][Parent, ID, Name, Age, Parent1]
+    WHERE
+      [T9028].Parent == [T9028].ID
+       AND IS NOT NULL [T9028].Parent1) AS [T12915][Parent, ID, Name, Age, Parent1]
+
+@anonymous
+[T12915].Parent(NumberVal) | [T12915].Name(StringVal) 
+1.0 | Bob 
+
+[Query No.12]===============================
+SELECT
+  [T12914].Parent,[T12914].Name
+FROM
+  (SELECT
+      [T9028].Parent,[T9028].ID,[T9028].Name,[T9028].Age,[T9028].Parent1
+    FROM
+      (( ((SELECT
+                input1.Parent, FROM
+                input1
+              GROUP BY
+                input1.Parent) AS [T9033][Parent]) AS [T9036][Parent] ) JOIN (
+          input1 )) AS [T9028][Parent, ID, Name, Age, Parent1]
+    WHERE
+      [T9028].Parent > [T9028].Parent1) AS [T12914][Parent, ID, Name, Age, Parent1]
+
+@anonymous
+[T12914].Parent(NumberVal) | [T12914].Name(StringVal) 
+1.0 | Bob 
+
+[Query No.11]===============================
+SELECT
+  [T12913].Parent,[T12913].Name
+FROM
+  (SELECT
+      [T9028].Parent,[T9028].ID,[T9028].Name,[T9028].Age,[T9028].Parent1
+    FROM
+      (( (SELECT
+              [T9033].Parent
+            FROM
+              (SELECT
+                  input1.Parent, FROM
+                  input1
+                GROUP BY
+                  input1.Parent) AS [T9033][Parent]
+            WHERE
+              IS NOT NULL [T9033].Parent) AS [T9038][Parent] ) JOIN (
+          input1 )) AS [T9028][Parent, ID, Name, Age, Parent1]
+    WHERE
+      [T9028].Parent == [T9028].ID) AS [T12913][Parent, ID, Name, Age, Parent1]
+
+@anonymous
+[T12913].Parent(NumberVal) | [T12913].Name(StringVal) 
+1.0 | Bob 
+
+[Query No.10]===============================
+SELECT
+  [T12912].Parent,[T12912].Name
+FROM
+  (SELECT
+      [T9028].Parent,[T9028].ID,[T9028].Name,[T9028].Age,[T9028].Parent1
+    FROM
+      (( (SELECT
+              [T9033].Parent
+            FROM
+              (SELECT
+                  input1.Parent, FROM
+                  input1
+                GROUP BY
+                  input1.Parent) AS [T9033][Parent]
+            WHERE
+              IS NOT NULL [T9033].Parent) AS [T9034][Parent] ) JOIN (
+          input1 )) AS [T9028][Parent, ID, Name, Age, Parent1]
+    WHERE
+      [T9028].Parent == [T9028].ID) AS [T12912][Parent, ID, Name, Age, Parent1]
+
+@anonymous
+[T12912].Parent(NumberVal) | [T12912].Name(StringVal) 
+1.0 | Bob 
+
+[Query No.9]===============================
+SELECT
+  [T12921].ID,[T12921].Name
+FROM
+  (SELECT
+      [T9028].Parent,[T9028].ID,[T9028].Name,[T9028].Age,[T9028].Parent1
+    FROM
+      (( ((SELECT
+                input1.Parent, FROM
+                input1
+              GROUP BY
+                input1.Parent) AS [T9033][Parent]) AS [T9036][Parent] ) JOIN (
+          input1 )) AS [T9028][Parent, ID, Name, Age, Parent1]
+    WHERE
+      [T9028].Parent == [T9028].ID) AS [T12921][Parent, ID, Name, Age, Parent1]
+
+@anonymous
+[T12921].ID(NumberVal) | [T12921].Name(StringVal) 
+1.0 | Bob 
+
+[Query No.8]===============================
+SELECT
+  [T12920].ID,[T12920].Name
+FROM
+  (SELECT
+      [T9028].Parent,[T9028].ID,[T9028].Name,[T9028].Age,[T9028].Parent1
+    FROM
+      (( ((SELECT
+                input1.Parent, FROM
+                input1
+              GROUP BY
+                input1.Parent) AS [T9033][Parent]) AS [T9036][Parent] ) JOIN (
+          input1 )) AS [T9028][Parent, ID, Name, Age, Parent1]
+    WHERE
+      [T9028].Parent == [T9028].ID) AS [T12920][Parent, ID, Name, Age, Parent1]
+
+@anonymous
+[T12920].ID(NumberVal) | [T12920].Name(StringVal) 
+1.0 | Bob 
+
+[Query No.7]===============================
+SELECT
+  [T12911].Parent,[T12911].Name
+FROM
+  (SELECT
+      [T9028].Parent,[T9028].ID,[T9028].Name,[T9028].Age,[T9028].Parent1
+    FROM
+      (( ((SELECT
+                input1.Parent, FROM
+                input1
+              GROUP BY
+                input1.Parent) AS [T9033][Parent]) AS [T9036][Parent] ) JOIN (
+          input1 )) AS [T9028][Parent, ID, Name, Age, Parent1]
+    WHERE
+      [T9028].Parent == [T9028].ID) AS [T12911][Parent, ID, Name, Age, Parent1]
+
+@anonymous
+[T12911].Parent(NumberVal) | [T12911].Name(StringVal) 
+1.0 | Bob 
+
+[Query No.6]===============================
+SELECT
+  [T12910].Parent,[T12910].Name
+FROM
+  (SELECT
+      [T9028].Parent,[T9028].ID,[T9028].Name,[T9028].Age,[T9028].Parent1
+    FROM
+      (( ((SELECT
+                input1.Parent, FROM
+                input1
+              GROUP BY
+                input1.Parent) AS [T9033][Parent]) AS [T9036][Parent] ) JOIN (
+          input1 )) AS [T9028][Parent, ID, Name, Age, Parent1]
+    WHERE
+      [T9028].Parent == [T9028].ID) AS [T12910][Parent, ID, Name, Age, Parent1]
+
+@anonymous
+[T12910].Parent(NumberVal) | [T12910].Name(StringVal) 
+1.0 | Bob 
+
+[Query No.5]===============================
+SELECT
+  [T55551].ID,[T55551].Name
+FROM
+  (SELECT
+      [T51457].MIN-ID,[T51457].ID,[T51457].Name,[T51457].Age,[T51457].Parent
+    FROM
+      (( ((SELECT
+                MIN(input1.ID)
+              FROM
+                input1) AS [T51465][MIN-ID]) AS [T51630][MIN-ID] ) JOIN (
+          input1 )) AS [T51457][MIN-ID, ID, Name, Age, Parent]
+    WHERE
+      [T51457].MIN-ID == [T51457].ID) AS [T55551][MIN-ID, ID, Name, Age, Parent]
+
+@anonymous
+[T55551].ID(NumberVal) | [T55551].Name(StringVal) 
+1.0 | Bob 
+
+[Query No.4]===============================
+SELECT
+  [T55542].MIN-ID,[T55542].Name
+FROM
+  (SELECT
+      [T51457].MIN-ID,[T51457].ID,[T51457].Name,[T51457].Age,[T51457].Parent
+    FROM
+      (( ((SELECT
+                MIN(input1.ID)
+              FROM
+                input1) AS [T51465][MIN-ID]) AS [T51630][MIN-ID] ) JOIN (
+          input1 )) AS [T51457][MIN-ID, ID, Name, Age, Parent]
+    WHERE
+      [T51457].MIN-ID == [T51457].ID) AS [T55542][MIN-ID, ID, Name, Age, Parent]
+
+@anonymous
+[T55542].MIN-ID(NumberVal) | [T55542].Name(StringVal) 
+1.0 | Bob 
+
+[Query No.3]===============================
+SELECT
+  [T55541].MIN-ID,[T55541].Name
+FROM
+  (SELECT
+      [T51457].MIN-ID,[T51457].ID,[T51457].Name,[T51457].Age,[T51457].Parent
+    FROM
+      (( ((SELECT
+                MIN(input1.ID)
+              FROM
+                input1) AS [T51465][MIN-ID]) AS [T51630][MIN-ID] ) JOIN (
+          input1 )) AS [T51457][MIN-ID, ID, Name, Age, Parent]
+    WHERE
+      [T51457].MIN-ID == [T51457].ID) AS [T55541][MIN-ID, ID, Name, Age, Parent]
+
+@anonymous
+[T55541].MIN-ID(NumberVal) | [T55541].Name(StringVal) 
+1.0 | Bob 
+
+[Query No.2]===============================
+SELECT
+  [T28073].ID,[T28073].Name
+FROM
+  (SELECT
+      [T23989].MAX-Age,[T23989].ID,[T23989].Name,[T23989].Age,[T23989].Parent
+    FROM
+      (( ((SELECT
+                MAX(input1.Age)
+              FROM
+                input1) AS [T23997][MAX-Age]) AS [T24176][MAX-Age] ) JOIN (
+          input1 )) AS [T23989][MAX-Age, ID, Name, Age, Parent]
+    WHERE
+      [T23989].MAX-Age == [T23989].Age) AS [T28073][MAX-Age, ID, Name, Age, Parent]
+
+@anonymous
+[T28073].ID(NumberVal) | [T28073].Name(StringVal) 
+1.0 | Bob 
+
+[Query No.1]===============================
+SELECT
+  [T28072].ID,[T28072].Name
+FROM
+  (SELECT
+      [T23989].MAX-Age,[T23989].ID,[T23989].Name,[T23989].Age,[T23989].Parent
+    FROM
+      (( ((SELECT
+                MAX(input1.Age)
+              FROM
+                input1) AS [T23997][MAX-Age]) AS [T24176][MAX-Age] ) JOIN (
+          input1 )) AS [T23989][MAX-Age, ID, Name, Age, Parent]
+    WHERE
+      [T23989].MAX-Age == [T23989].Age) AS [T28072][MAX-Age, ID, Name, Age, Parent]
+
+@anonymous
+[T28072].ID(NumberVal) | [T28072].Name(StringVal) 
+1.0 | Bob 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 22.037s

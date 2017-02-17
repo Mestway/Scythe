@@ -1,35 +1,102 @@
 package sql.lang.ast.table;
 
-import enumerator.parameterized.InstantiateEnv;
+import forward_enumeration.primitive.parameterized.InstantiateEnv;
+import sql.lang.datatype.Value;
 import util.Pair;
-import sql.lang.DataType.ValType;
+import sql.lang.datatype.ValType;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.ast.Node;
 import sql.lang.exception.SQLEvalException;
 import sql.lang.trans.ValNodeSubstBinding;
+import util.RenameTNWrapper;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by clwang on 12/16/15.
  */
-public interface TableNode extends Node {
-    Table eval(Environment env) throws SQLEvalException;
+public abstract class TableNode implements Node {
+    public abstract Table eval(Environment env) throws SQLEvalException;
 
-    List<String> getSchema();
-    String getTableName();
+    public abstract List<String> getSchema();
+    public abstract String getTableName();
 
-    List<ValType> getSchemaType();
-    int getNestedQueryLevel();
+    public abstract List<ValType> getSchemaType();
+    public abstract int getNestedQueryLevel();
     //boolean equalsToTableNode(TableNode tn);
 
-    String prettyPrint(int indentLv);
-    List<Hole> getAllHoles();
+    public List<Pair<String, ValType>> getSchemaWithType() {
+        List<Pair<String, ValType>> result = new ArrayList<>();
+        List<String> schema = this.getSchema();
+        List<ValType> schemaType = this.getSchemaType();
+        for (int i = 0; i < schema.size(); i ++) {
+            result.add(new Pair<>(schema.get(i), schemaType.get(i)));
+        }
+        return result;
+    }
 
-    TableNode instantiate(InstantiateEnv env);
-    TableNode substNamedVal(ValNodeSubstBinding vnsb);
-    List<NamedTable> namedTableInvolved();
-    TableNode tableSubst(List<Pair<TableNode,TableNode>> pairs);
+    public abstract String prettyPrint(int indentLv, boolean asSubquery);
+    public String printQuery() {
+        String query = this.prettyPrint(0, false) + ";";
+        Set<String> generatedNames = RenameTNWrapper.findAllGeneratedNames(query)
+                .stream().collect(Collectors.toSet());
+
+        int i = 1;
+        for (String s : generatedNames) {
+            while (query.contains("t" + i))
+                i ++;
+            query = query.replace(s, "t" + i);
+            i ++;
+        }
+
+        return query;
+    };
+
+    public abstract List<Hole> getAllHoles();
+
+    public abstract TableNode instantiate(InstantiateEnv env);
+    public abstract TableNode substNamedVal(ValNodeSubstBinding vnsb);
+    public abstract List<NamedTable> namedTableInvolved();
+
+    // substitute a named table based on the cores
+    public abstract TableNode tableSubst(List<Pair<TableNode,TableNode>> pairs);
+
+    // the function will return a map,
+    // that maps each column of this schema to its src (which column of which table)
+    public abstract List<String> originalColumnName();
+
+    public static Map<String, String> nameToOriginMap(List<String> schema, List<String> originalNames) {
+        Map<String, String> map = new HashMap<>();
+        for (int i = 0; i < schema.size(); i ++) {
+            map.put(schema.get(i), originalNames.get(i));
+        }
+        return map;
+    }
+
+    public abstract double estimateAllFilterCost();
+    public abstract List<Value> getAllConstants();
+
+    public double estimateTotalScore(List<Value> constants) {
+
+        double penalty = 0;
+        List<Value> valuesInTheQuery = this.getAllConstants();
+        for (Value v : constants) {
+            int cnt = 0;
+            for (Value x : valuesInTheQuery) {
+                if (x.equals(v)) cnt ++;
+            }
+            if (cnt == 0) penalty += 1;
+            else {
+                //penalty += cnt - 1;
+            }
+        }
+        return penalty + estimateAllFilterCost();
+    }
+
+    // Obtain the skeleton of a SQL query, the skeleton describes what does the query looks like,
+    // this string can be used to distinguish query structure information
+    public abstract String getQuerySkeleton();
 }

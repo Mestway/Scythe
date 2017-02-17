@@ -1,0 +1,31 @@
+//http://stackoverflow.com/questions/2563918/create-a-cumulative-sum-column-in-mysql
+
+#input
+
+id,   count
+1,    100
+2,    50
+3,    10
+
+#output
+
+id,   count,  cumulative_sum
+1,    100,    100
+2,    50 ,    150
+3,    10 ,    160
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["sum"]
+}
+
+#solution
+
+SELECT t.id,
+       t.count,
+       (SELECT SUM(x.count)
+          FROM TABLE x
+         WHERE x.id <= t.id) AS cumulative_sum
+FROM TABLE t
+ORDER BY t.id

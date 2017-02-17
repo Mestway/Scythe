@@ -1,0 +1,35 @@
+//http://stackoverflow.com/questions/31165814/sqlcount-of-values-in-one-column-in-relation-to-another-column
+
+#input
+
+|  id   |    date     | time_stamp | licenseid |  storeid | deviceid |value|
+|--------------------------------------------------------------------------|
+|  1    |  2015-06-12 |  17:36:15  | lic0001   |    1     |  0add    |  52 |
+|  2    |  2015-06-12 |  17:36:15  | lic0002   |    1     |  0add    |  54 |
+|  3    |  2015-06-12 |  17:36:15  | lic0003   |    1     |  0add    |  53 |
+|  4    |  2015-06-12 |  17:36:21  | lic0001   |    1     |  0add    |  54 |
+|  5    |  2015-06-12 |  17:36:21  | lic0002   |    1     |  0add    |  59 |
+|  6    |  2015-06-12 |  17:36:21  | lic0003   |    1     |  0add    |  62 |
+|  7    |  2015-06-12 |  17:36:21  | lic0004   |    1     |  0add    |  55 |
+|  8    |  2015-06-12 |  17:36:15  | lic0001   |    1     |  0bdd    |  53 |
+|  9    |  2015-06-12 |  17:36:15  | lic0002   |    1     |  0bdd    |  52 |
+|  10   |  2015-06-12 |  17:36:15  | lic0003   |    1     |  0bdd    |  52 |
+
+#output
+
+| date        | deviceid | count |
+|--------------------------------|
+| 2015-06-12  | 0add     | 2     |
+| 2015-06-12  | 0bdd     | 1     |
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["count-distinct"]
+}
+
+#solution
+
+SELECT device_id, date, COUNT(DISTINCT timestamp) AS numRows
+FROM myTable
+GROUP BY device_id, date;

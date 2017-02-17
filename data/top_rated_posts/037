@@ -1,0 +1,31 @@
+//http://stackoverflow.com/questions/1641718/how-to-select-unique-records-by-sql
+
+#input
+
+c1, c2,  c3
+1, item1, data1
+2, item1, data2
+3, item2, data3
+4, item3, data4
+
+#output
+
+c1, c2, c3
+1, item1, data1
+3, item2, data3
+4, item3, data4
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["min"]
+}
+
+#solution
+
+select t1.*
+(select c2, min(c1) minc1
+ from c2
+ group by c2) t1
+join t2
+on t1.minc1 = t2.c1

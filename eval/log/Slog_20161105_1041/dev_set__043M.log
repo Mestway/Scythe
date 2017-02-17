@@ -1,0 +1,184 @@
+[[Synthesizing]]
+[[Synthesis start]]
+	File: ../data/dev_set/043M
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 69 [SymTable]: 70
+[Total Number of Intermediate] 71
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 2 [SymTable]: 3
+[JOIN] level 1 [SymTable]: 7
+[EnumJoinOnAggr] level 1 [SymTable]: 16
+[Total Number of Intermediate] 16
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 7 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 17
+[Total Number of Intermediate] 17
+Candidate Tree Number: 5
+[Enumeration Finished]
+    [AggrFun] Optional[MIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 7 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 17
+[EnumJoinOnAggr] level 1 [SymTable]: 81
+[Total Number of Intermediate] 81
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[AVG]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 7 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 17
+[EnumJoinOnAggr] level 1 [SymTable]: 81
+[Total Number of Intermediate] 81
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MINMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 12 [SymTable]: 13
+[JOIN] level 1 [SymTable]: 27
+[Total Number of Intermediate] 27
+Candidate Tree Number: 5
+[Enumeration Finished]
+    [AggrFun] Optional[COUNTMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 19 [SymTable]: 20
+[JOIN] level 1 [SymTable]: 41
+[Total Number of Intermediate] 41
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Query No.5]===============================
+SELECT
+  [T236].Id,[T236].name,[T236].type,[T236].MAX-price
+FROM
+  (( (SELECT
+          [T234].type, MAX([T234].price)
+        FROM
+          (input1) AS [T234][Id, name, type, price]
+        GROUP BY
+          [T234].type) AS [T235][type, MAX-price] ) JOIN (
+      input1 )) AS [T236][type, MAX-price, Id, name, type1, price]
+WHERE
+  [T236].type == [T236].type1
+   AND [T236].MAX-price == [T236].price
+@anonymous
+[T236].Id(NumberVal) | [T236].name(StringVal) | [T236].type(StringVal) | [T236].MAX-price(NumberVal) 
+123457.0 | Country Tunes | Music | 21.55 
+123452.0 | Playstation | Toy | 89.95 
+123455.0 | Blouse | Clothing | 34.97 
+123458.0 | Watermelon | Food | 8.73 
+
+[Query No.4]===============================
+SELECT
+  [T110].Id,[T110].name,[T110].type,[T110].MAX-price
+FROM
+  (( (SELECT
+          [T108].type, MAX([T108].price)
+        FROM
+          (input1) AS [T108][Id, name, type, price]
+        GROUP BY
+          [T108].type) AS [T109][type, MAX-price] ) JOIN (
+      input1 )) AS [T110][type, MAX-price, Id, name, type1, price]
+WHERE
+  [T110].type == [T110].type1
+   AND [T110].MAX-price == [T110].price
+@anonymous
+[T110].Id(NumberVal) | [T110].name(StringVal) | [T110].type(StringVal) | [T110].MAX-price(NumberVal) 
+123457.0 | Country Tunes | Music | 21.55 
+123452.0 | Playstation | Toy | 89.95 
+123455.0 | Blouse | Clothing | 34.97 
+123458.0 | Watermelon | Food | 8.73 
+
+[Query No.3]===============================
+SELECT
+  [T332].Id,[T332].name,[T332].type,[T332].MAX-price
+FROM
+  (( (SELECT
+          [T330].type, MAX([T330].price)
+        FROM
+          (input1) AS [T330][Id, name, type, price]
+        GROUP BY
+          [T330].type) AS [T331][type, MAX-price] ) JOIN (
+      input1 )) AS [T332][type, MAX-price, Id, name, type1, price]
+WHERE
+  [T332].MAX-price == [T332].price
+@anonymous
+[T332].Id(NumberVal) | [T332].name(StringVal) | [T332].type(StringVal) | [T332].MAX-price(NumberVal) 
+123457.0 | Country Tunes | Music | 21.55 
+123452.0 | Playstation | Toy | 89.95 
+123455.0 | Blouse | Clothing | 34.97 
+123458.0 | Watermelon | Food | 8.73 
+
+[Query No.2]===============================
+SELECT
+  [T224].Id,[T224].name,[T224].type,[T224].MAX-price
+FROM
+  (( (SELECT
+          [T222].type, MAX([T222].price)
+        FROM
+          (input1) AS [T222][Id, name, type, price]
+        GROUP BY
+          [T222].type) AS [T223][type, MAX-price] ) JOIN (
+      input1 )) AS [T224][type, MAX-price, Id, name, type1, price]
+WHERE
+  [T224].MAX-price == [T224].price
+@anonymous
+[T224].Id(NumberVal) | [T224].name(StringVal) | [T224].type(StringVal) | [T224].MAX-price(NumberVal) 
+123457.0 | Country Tunes | Music | 21.55 
+123452.0 | Playstation | Toy | 89.95 
+123455.0 | Blouse | Clothing | 34.97 
+123458.0 | Watermelon | Food | 8.73 
+
+[Query No.1]===============================
+SELECT
+  [T98].Id,[T98].name,[T98].type,[T98].MAX-price
+FROM
+  (( (SELECT
+          [T96].type, MAX([T96].price)
+        FROM
+          (input1) AS [T96][Id, name, type, price]
+        GROUP BY
+          [T96].type) AS [T97][type, MAX-price] ) JOIN (
+      input1 )) AS [T98][type, MAX-price, Id, name, type1, price]
+WHERE
+  [T98].MAX-price == [T98].price
+@anonymous
+[T98].Id(NumberVal) | [T98].name(StringVal) | [T98].type(StringVal) | [T98].MAX-price(NumberVal) 
+123457.0 | Country Tunes | Music | 21.55 
+123452.0 | Playstation | Toy | 89.95 
+123455.0 | Blouse | Clothing | 34.97 
+123458.0 | Watermelon | Food | 8.73 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 1.132s

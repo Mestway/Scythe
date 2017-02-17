@@ -1,0 +1,35 @@
+//http://stackoverflow.com/questions/40204690/complex-self-join
+
+#input
+
+| Start | End  |
+|--------------|
+|     1 | NULL[num] |
+|     3 | 4    |
+|     6 | 9    |
+
+#output
+
+| Start | End  |
+|--------------|
+|     1 | 3    |
+|     3 | 4    |
+|     4 | 6    |
+|     6 | 9    |
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": []
+}
+
+#solution
+
+select start, lead(start) over (order by start)
+from ((select t.start as start from likethis t
+      ) union all
+      (select t.end from likethis t
+      )
+     ) t
+where start is not null
+order by start;

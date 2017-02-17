@@ -1,8 +1,9 @@
 package sql.lang.ast.table;
 
-import enumerator.parameterized.InstantiateEnv;
+import forward_enumeration.primitive.parameterized.InstantiateEnv;
+import sql.lang.datatype.Value;
 import util.Pair;
-import sql.lang.DataType.ValType;
+import sql.lang.datatype.ValType;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 /**
  * Created by clwang on 12/21/15.
  */
-public class RenameTableNode implements TableNode {
+public class RenameTableNode extends TableNode {
 
     String newTableName;
     List<String> newFieldNames;
@@ -62,7 +63,7 @@ public class RenameTableNode implements TableNode {
             table.updateName(this.newTableName);
         }
         if (this.renameFields == true) {
-            table.updateMetadata(this.newFieldNames);
+            table.updateSchema(this.newFieldNames);
         }
         return table;
     }
@@ -83,25 +84,34 @@ public class RenameTableNode implements TableNode {
     }
 
     @Override
-    public String prettyPrint(int indentLv) {
-        String result = "(" + tableNode.prettyPrint(1).trim() + ") AS ";
-        String newSchema = this.newTableName;
+    public String prettyPrint(int indentLv, boolean asSubquery) {
 
-        String fieldString = "[";
-        boolean flag = true;
-        for (String s : this.newFieldNames) {
-            if(flag == true) {
-                fieldString += s;
-                flag = false;
-            } else
-                fieldString += ", " + s;
+        String selectString = "";
+        boolean allOldName = true;
+        for (int i = 0; i < tableNode.getSchema().size(); i ++) {
+            String oldSchemaEntry =  tableNode.getSchema().get(i);
+            String newSchemaEntry = this.newFieldNames.get(i);
+            if (i != 0)
+                selectString += ", ";
+            String oldShortName = oldSchemaEntry.substring(oldSchemaEntry.lastIndexOf(".") + 1);
+            if (oldShortName.equals(newSchemaEntry))
+                selectString += oldSchemaEntry;
+            else {
+                selectString += oldSchemaEntry + " As " + newSchemaEntry;
+                allOldName = false;
+            }
         }
-        fieldString += "]";
 
-        if (this.renameFields == true)
-            newSchema += fieldString;
+        String result = "";
+        if (allOldName) {
+            result = tableNode.prettyPrint(1, true).trim() + " As " + this.newTableName;
+        } else {
+            result = "(Select " + selectString + "\r\n" + "From "
+                    + tableNode.prettyPrint(1, true).trim() + ") As " + this.newTableName;
+        }
 
-        result = result + newSchema;
+        if (asSubquery)
+            return IndentionManagement.addIndention(result, indentLv);
         return IndentionManagement.addIndention(result, indentLv);
     }
 
@@ -122,7 +132,8 @@ public class RenameTableNode implements TableNode {
 
     @Override
     public TableNode substNamedVal(ValNodeSubstBinding vnsb) {
-        return new RenameTableNode(newTableName, newFieldNames, this.tableNode.substNamedVal(vnsb), this.renameTable, this.renameFields);
+        return new RenameTableNode(newTableName, newFieldNames,
+                this.tableNode.substNamedVal(vnsb), this.renameTable, this.renameFields);
     }
 
     @Override
@@ -141,6 +152,11 @@ public class RenameTableNode implements TableNode {
     }
 
     @Override
+    public List<String> originalColumnName() {
+        return this.tableNode.originalColumnName();
+    }
+
+    @Override
     public List<String> getSchema() {
         if (this.newTableName.equals("anonymous"))
             return this.newFieldNames;
@@ -152,4 +168,19 @@ public class RenameTableNode implements TableNode {
     }
 
     public TableNode getTableNode() { return this.tableNode; }
+
+    @Override
+    public double estimateAllFilterCost() {
+        return this.tableNode.estimateAllFilterCost();
+    }
+
+    @Override
+    public List<Value> getAllConstants() {
+        return tableNode.getAllConstants();
+    }
+
+    @Override
+    public String getQuerySkeleton() {
+        return this.tableNode.getQuerySkeleton();
+    }
 }

@@ -1,0 +1,167 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/048
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 34 [SymTable]: 35
+[Total Number of Intermediate] 36
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 5
+[EnumJoinOnAggr] level 1 [SymTable]: 9
+[Total Number of Intermediate] 9
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 9
+[Total Number of Intermediate] 9
+Candidate Tree Number: 2
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 9
+[Total Number of Intermediate] 9
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 9
+[Total Number of Intermediate] 9
+Candidate Tree Number: 2
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 13
+[Total Number of Intermediate] 13
+Candidate Tree Number: 7
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 18 [SymTable]: 19
+[JOIN] level 1 [SymTable]: 39
+[Total Number of Intermediate] 39
+Candidate Tree Number: 10
+[Enumeration Finished]
+[Query No.5]===============================
+SELECT
+  [T57].CName,[T57].AddressID,[T57].AddressLine
+FROM
+  (( (SELECT
+          MAX([T55].AddressID)
+        FROM
+          (input1) AS [T55][CName, AddressID, AddressLine]) AS [T56][MAX-AddressID] ) JOIN (
+      input1 )) AS [T57][MAX-AddressID, CName, AddressID, AddressLine]
+WHERE
+  [T57].MAX-AddressID <> [T57].AddressID
+@anonymous
+[T57].CName(StringVal) | [T57].AddressID(NumberVal) | [T57].AddressLine(StringVal) 
+John Smith | 123.0 | Nowheresville 
+Jane Doe | 456.0 | Evergreen Terrace 
+Joe Bloggs | 1.0 | Second Ave 
+
+[Query No.4]===============================
+SELECT
+  [T142].CName,[T142].MIN-AddressID,[T142].AddressLine
+FROM
+  (( (SELECT
+          [T140].CName, MIN([T140].AddressID)
+        FROM
+          (input1) AS [T140][CName, AddressID, AddressLine]
+        GROUP BY
+          [T140].CName) AS [T141][CName, MIN-AddressID] ) JOIN (
+      input1 )) AS [T142][CName, MIN-AddressID, CName1, AddressID, AddressLine]
+WHERE
+  [T142].CName == [T142].CName1
+   AND [T142].MIN-AddressID == [T142].AddressID
+@anonymous
+[T142].CName(StringVal) | [T142].MIN-AddressID(NumberVal) | [T142].AddressLine(StringVal) 
+John Smith | 123.0 | Nowheresville 
+Jane Doe | 456.0 | Evergreen Terrace 
+Joe Bloggs | 1.0 | Second Ave 
+
+[Query No.3]===============================
+SELECT
+  [T82].CName,[T82].MIN-AddressID,[T82].AddressLine
+FROM
+  (( (SELECT
+          [T80].CName, MIN([T80].AddressID)
+        FROM
+          (input1) AS [T80][CName, AddressID, AddressLine]
+        GROUP BY
+          [T80].CName) AS [T81][CName, MIN-AddressID] ) JOIN (
+      input1 )) AS [T82][CName, MIN-AddressID, CName1, AddressID, AddressLine]
+WHERE
+  [T82].CName == [T82].CName1
+   AND [T82].MIN-AddressID == [T82].AddressID
+@anonymous
+[T82].CName(StringVal) | [T82].MIN-AddressID(NumberVal) | [T82].AddressLine(StringVal) 
+John Smith | 123.0 | Nowheresville 
+Jane Doe | 456.0 | Evergreen Terrace 
+Joe Bloggs | 1.0 | Second Ave 
+
+[Query No.2]===============================
+SELECT
+  [T130].CName,[T130].MIN-AddressID,[T130].AddressLine
+FROM
+  (( (SELECT
+          [T128].CName, MIN([T128].AddressID)
+        FROM
+          (input1) AS [T128][CName, AddressID, AddressLine]
+        GROUP BY
+          [T128].CName) AS [T129][CName, MIN-AddressID] ) JOIN (
+      input1 )) AS [T130][CName, MIN-AddressID, CName1, AddressID, AddressLine]
+WHERE
+  [T130].MIN-AddressID == [T130].AddressID
+@anonymous
+[T130].CName(StringVal) | [T130].MIN-AddressID(NumberVal) | [T130].AddressLine(StringVal) 
+John Smith | 123.0 | Nowheresville 
+Jane Doe | 456.0 | Evergreen Terrace 
+Joe Bloggs | 1.0 | Second Ave 
+
+[Query No.1]===============================
+SELECT
+  [T70].CName,[T70].MIN-AddressID,[T70].AddressLine
+FROM
+  (( (SELECT
+          [T68].CName, MIN([T68].AddressID)
+        FROM
+          (input1) AS [T68][CName, AddressID, AddressLine]
+        GROUP BY
+          [T68].CName) AS [T69][CName, MIN-AddressID] ) JOIN (
+      input1 )) AS [T70][CName, MIN-AddressID, CName1, AddressID, AddressLine]
+WHERE
+  [T70].MIN-AddressID == [T70].AddressID
+@anonymous
+[T70].CName(StringVal) | [T70].MIN-AddressID(NumberVal) | [T70].AddressLine(StringVal) 
+John Smith | 123.0 | Nowheresville 
+Jane Doe | 456.0 | Evergreen Terrace 
+Joe Bloggs | 1.0 | Second Ave 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.420s

@@ -1,0 +1,523 @@
+[[Synthesis start]]
+	File: ../data/dev_set/056A
+	Enumerator: StagedEnumerator
+[[Retry]] Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 46 [SymTable]: 48
+[NaturalJoin]: 1 [SymTable]: 49
+[Total Number of Intermediate] 49
+Candidate Tree Number: 36
+[Enumeration Finished]
+[[Retry]] Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 46 [SymTable]: 48
+[JOIN] level 1 [SymTable]: 145
+[Total Number of Intermediate] 145
+Candidate Tree Number: 864
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T3839].COUNT-suburb
+FROM
+  (( (SELECT
+          COUNT([T3837].suburb)
+        FROM
+          (SELECT
+              input2.suburb,input2.client,input2.fk_food
+            FROM
+              input2
+            WHERE
+              input2.fk_food == 2.0) AS [T3837][suburb, client, fk_food]) AS [T3838][COUNT-suburb] ) JOIN (
+      SELECT
+        input1.id_food,input1.description,input1.cost
+      FROM
+        input1
+      WHERE
+        input1.id_food == 3.0 )) AS [T3839][COUNT-suburb, id_food, description, cost]
+
+@anonymous
+[T3839].COUNT-suburb(NumberVal) 
+2.0 
+
+[No.19]===============================
+SELECT
+  [T3689].COUNT-fk_food
+FROM
+  (( (SELECT
+          COUNT([T3687].fk_food)
+        FROM
+          (SELECT
+              input2.suburb,input2.client,input2.fk_food
+            FROM
+              input2
+            WHERE
+              input2.fk_food == 2.0) AS [T3687][suburb, client, fk_food]) AS [T3688][COUNT-fk_food] ) JOIN (
+      SELECT
+        input2.suburb,input2.client,input2.fk_food
+      FROM
+        input2
+      WHERE
+        input2.fk_food == 3.0 )) AS [T3689][COUNT-fk_food, suburb, client, fk_food]
+
+@anonymous
+[T3689].COUNT-fk_food(NumberVal) 
+2.0 
+
+[No.18]===============================
+SELECT
+  [T3491].COUNT-fk_food
+FROM
+  (( SELECT
+        [T3490].client,[T3490].COUNT-fk_food
+      FROM
+        (SELECT
+            [T3489].client, COUNT([T3489].fk_food)
+          FROM
+            (input2) AS [T3489][suburb, client, fk_food]
+          GROUP BY
+            [T3489].client) AS [T3490][client, COUNT-fk_food]
+      WHERE
+        [T3490].COUNT-fk_food == 2.0 ) JOIN (
+      SELECT
+        input1.id_food,input1.description,input1.cost
+      FROM
+        input1
+      WHERE
+        input1.id_food == 3.0 )) AS [T3491][client, COUNT-fk_food, id_food, description, cost]
+
+@anonymous
+[T3491].COUNT-fk_food(NumberVal) 
+2.0 
+
+[No.17]===============================
+SELECT
+  [T3275].fk_food
+FROM
+  (( (SELECT
+          [T3273].fk_food, FROM
+          (SELECT
+              input2.suburb,input2.client,input2.fk_food
+            FROM
+              input2
+            WHERE
+              input2.fk_food == 2.0) AS [T3273][suburb, client, fk_food]
+        GROUP BY
+          [T3273].fk_food) AS [T3274][fk_food] ) JOIN (
+      SELECT
+        input2.suburb,input2.client,input2.fk_food
+      FROM
+        input2
+      WHERE
+        input2.fk_food == 3.0 )) AS [T3275][fk_food, suburb, client, fk_food1]
+
+@anonymous
+[T3275].fk_food(NumberVal) 
+2.0 
+
+[No.16]===============================
+SELECT
+  [T3185].fk_food
+FROM
+  (( (SELECT
+          [T3183].fk_food, COUNT([T3183].suburb)
+        FROM
+          (SELECT
+              input2.suburb,input2.client,input2.fk_food
+            FROM
+              input2
+            WHERE
+              input2.fk_food == 2.0) AS [T3183][suburb, client, fk_food]
+        GROUP BY
+          [T3183].fk_food) AS [T3184][fk_food, COUNT-suburb] ) JOIN (
+      SELECT
+        input2.suburb,input2.client,input2.fk_food
+      FROM
+        input2
+      WHERE
+        input2.fk_food == 3.0 )) AS [T3185][fk_food, COUNT-suburb, suburb, client, fk_food1]
+
+@anonymous
+[T3185].fk_food(NumberVal) 
+2.0 
+
+[No.15]===============================
+SELECT
+  [T3131].COUNT-client
+FROM
+  (( SELECT
+        [T3130].client,[T3130].COUNT-client
+      FROM
+        (SELECT
+            [T3129].client, COUNT([T3129].client)
+          FROM
+            (input2) AS [T3129][suburb, client, fk_food]
+          GROUP BY
+            [T3129].client) AS [T3130][client, COUNT-client]
+      WHERE
+        [T3130].COUNT-client == 2.0 ) JOIN (
+      SELECT
+        input1.id_food,input1.description,input1.cost
+      FROM
+        input1
+      WHERE
+        input1.id_food == 3.0 )) AS [T3131][client, COUNT-client, id_food, description, cost]
+
+@anonymous
+[T3131].COUNT-client(NumberVal) 
+2.0 
+
+[No.14]===============================
+SELECT
+  [T2915].fk_food
+FROM
+  (( (SELECT
+          [T2913].fk_food, COUNT([T2913].fk_food)
+        FROM
+          (SELECT
+              input2.suburb,input2.client,input2.fk_food
+            FROM
+              input2
+            WHERE
+              input2.fk_food == 2.0) AS [T2913][suburb, client, fk_food]
+        GROUP BY
+          [T2913].fk_food) AS [T2914][fk_food, COUNT-fk_food] ) JOIN (
+      SELECT
+        input1.id_food,input1.description,input1.cost
+      FROM
+        input1
+      WHERE
+        input1.id_food == 3.0 )) AS [T2915][fk_food, COUNT-fk_food, id_food, description, cost]
+
+@anonymous
+[T2915].fk_food(NumberVal) 
+2.0 
+
+[No.13]===============================
+SELECT
+  [T2645].MAX-fk_food
+FROM
+  (( (SELECT
+          MAX([T2643].fk_food)
+        FROM
+          (SELECT
+              input2.suburb,input2.client,input2.fk_food
+            FROM
+              input2
+            WHERE
+              input2.fk_food == 2.0) AS [T2643][suburb, client, fk_food]) AS [T2644][MAX-fk_food] ) JOIN (
+      SELECT
+        input2.suburb,input2.client,input2.fk_food
+      FROM
+        input2
+      WHERE
+        input2.fk_food == 3.0 )) AS [T2645][MAX-fk_food, suburb, client, fk_food]
+
+@anonymous
+[T2645].MAX-fk_food(NumberVal) 
+2.0 
+
+[No.12]===============================
+SELECT
+  [T2591].id_food
+FROM
+  (( SELECT
+        [T2590].client,[T2590].MAX-fk_food
+      FROM
+        (SELECT
+            [T2589].client, MAX([T2589].fk_food)
+          FROM
+            (input2) AS [T2589][suburb, client, fk_food]
+          GROUP BY
+            [T2589].client) AS [T2590][client, MAX-fk_food]
+      WHERE
+        [T2590].MAX-fk_food == 3.0 ) JOIN (
+      SELECT
+        input1.id_food,input1.description,input1.cost
+      FROM
+        input1
+      WHERE
+        input1.id_food == 2.0 )) AS [T2591][client, MAX-fk_food, id_food, description, cost]
+
+@anonymous
+[T2591].id_food(NumberVal) 
+2.0 
+
+[No.11]===============================
+SELECT
+  [T2531].MAX-fk_food
+FROM
+  (( SELECT
+        [T2530].client,[T2530].MAX-fk_food
+      FROM
+        (SELECT
+            [T2529].client, MAX([T2529].fk_food)
+          FROM
+            (input2) AS [T2529][suburb, client, fk_food]
+          GROUP BY
+            [T2529].client) AS [T2530][client, MAX-fk_food]
+      WHERE
+        [T2530].MAX-fk_food == 2.0 ) JOIN (
+      SELECT
+        input1.id_food,input1.description,input1.cost
+      FROM
+        input1
+      WHERE
+        input1.id_food == 3.0 )) AS [T2531][client, MAX-fk_food, id_food, description, cost]
+
+@anonymous
+[T2531].MAX-fk_food(NumberVal) 
+2.0 
+
+[No.10]===============================
+SELECT
+  [T2391].id_food
+FROM
+  (( SELECT
+        input1.id_food,input1.description,input1.cost
+      FROM
+        input1
+      WHERE
+        input1.id_food == 2.0 ) JOIN (
+      SELECT
+        input2.suburb,input2.client,input2.fk_food
+      FROM
+        input2
+      WHERE
+        input2.fk_food == 3.0 )) AS [T2391][id_food, description, cost, suburb, client, fk_food]
+
+@anonymous
+[T2391].id_food(NumberVal) 
+2.0 
+
+[No.9]===============================
+SELECT
+  [T2323].COUNT-suburb
+FROM
+  (( (SELECT
+          COUNT([T2321].suburb)
+        FROM
+          (SELECT
+              input2.suburb,input2.client,input2.fk_food
+            FROM
+              input2
+            WHERE
+              input2.fk_food == 2.0) AS [T2321][suburb, client, fk_food]) AS [T2322][COUNT-suburb] ) JOIN (
+      SELECT
+        input2.suburb,input2.client,input2.fk_food
+      FROM
+        input2
+      WHERE
+        input2.fk_food == 3.0 )) AS [T2323][COUNT-suburb, suburb, client, fk_food]
+
+@anonymous
+[T2323].COUNT-suburb(NumberVal) 
+2.0 
+
+[No.8]===============================
+SELECT
+  [T2209].COUNT-suburb
+FROM
+  (( SELECT
+        [T2208].client,[T2208].COUNT-suburb
+      FROM
+        (SELECT
+            [T2207].client, COUNT([T2207].suburb)
+          FROM
+            (input2) AS [T2207][suburb, client, fk_food]
+          GROUP BY
+            [T2207].client) AS [T2208][client, COUNT-suburb]
+      WHERE
+        [T2208].COUNT-suburb == 2.0 ) JOIN (
+      SELECT
+        input1.id_food,input1.description,input1.cost
+      FROM
+        input1
+      WHERE
+        input1.id_food == 3.0 )) AS [T2209][client, COUNT-suburb, id_food, description, cost]
+
+@anonymous
+[T2209].COUNT-suburb(NumberVal) 
+2.0 
+
+[No.7]===============================
+SELECT
+  [T1993].fk_food
+FROM
+  (( (SELECT
+          [T1991].fk_food, FROM
+          (SELECT
+              input2.suburb,input2.client,input2.fk_food
+            FROM
+              input2
+            WHERE
+              input2.fk_food == 2.0) AS [T1991][suburb, client, fk_food]
+        GROUP BY
+          [T1991].fk_food) AS [T1992][fk_food] ) JOIN (
+      SELECT
+        input1.id_food,input1.description,input1.cost
+      FROM
+        input1
+      WHERE
+        input1.id_food == 3.0 )) AS [T1993][fk_food, id_food, description, cost]
+
+@anonymous
+[T1993].fk_food(NumberVal) 
+2.0 
+
+[No.6]===============================
+SELECT
+  [T1699].COUNT-suburb
+FROM
+  (( SELECT
+        [T1698].client,[T1698].COUNT-suburb
+      FROM
+        (SELECT
+            [T1697].client, COUNT([T1697].suburb)
+          FROM
+            (input2) AS [T1697][suburb, client, fk_food]
+          GROUP BY
+            [T1697].client) AS [T1698][client, COUNT-suburb]
+      WHERE
+        [T1698].COUNT-suburb == 2.0 ) JOIN (
+      SELECT
+        input2.suburb,input2.client,input2.fk_food
+      FROM
+        input2
+      WHERE
+        input2.fk_food == 3.0 )) AS [T1699][client, COUNT-suburb, suburb, client1, fk_food]
+
+@anonymous
+[T1699].COUNT-suburb(NumberVal) 
+2.0 
+
+[No.5]===============================
+SELECT
+  [T1399].fk_food
+FROM
+  (( SELECT
+        [T1398].fk_food,[T1398].COUNT-fk_food
+      FROM
+        (SELECT
+            [T1397].fk_food, COUNT([T1397].fk_food)
+          FROM
+            (input2) AS [T1397][suburb, client, fk_food]
+          GROUP BY
+            [T1397].fk_food) AS [T1398][fk_food, COUNT-fk_food]
+      WHERE
+        [T1398].COUNT-fk_food == 2.0 ) JOIN (
+      SELECT
+        input2.suburb,input2.client,input2.fk_food
+      FROM
+        input2
+      WHERE
+        input2.fk_food == 3.0 )) AS [T1399][fk_food, COUNT-fk_food, suburb, client, fk_food1]
+
+@anonymous
+[T1399].fk_food(NumberVal) 
+2.0 
+
+[No.4]===============================
+SELECT
+  [T1279].fk_food
+FROM
+  (( SELECT
+        [T1278].fk_food,[T1278].COUNT-client
+      FROM
+        (SELECT
+            [T1277].fk_food, COUNT([T1277].client)
+          FROM
+            (input2) AS [T1277][suburb, client, fk_food]
+          GROUP BY
+            [T1277].fk_food) AS [T1278][fk_food, COUNT-client]
+      WHERE
+        [T1278].COUNT-client == 2.0 ) JOIN (
+      SELECT
+        input1.id_food,input1.description,input1.cost
+      FROM
+        input1
+      WHERE
+        input1.id_food == 3.0 )) AS [T1279][fk_food, COUNT-client, id_food, description, cost]
+
+@anonymous
+[T1279].fk_food(NumberVal) 
+2.0 
+
+[No.3]===============================
+SELECT
+  [T1069].COUNT-client
+FROM
+  (( SELECT
+        [T1068].client,[T1068].COUNT-client
+      FROM
+        (SELECT
+            [T1067].client, COUNT([T1067].client)
+          FROM
+            (input2) AS [T1067][suburb, client, fk_food]
+          GROUP BY
+            [T1067].client) AS [T1068][client, COUNT-client]
+      WHERE
+        [T1068].COUNT-client == 2.0 ) JOIN (
+      SELECT
+        input2.suburb,input2.client,input2.fk_food
+      FROM
+        input2
+      WHERE
+        input2.fk_food == 3.0 )) AS [T1069][client, COUNT-client, suburb, client1, fk_food]
+
+@anonymous
+[T1069].COUNT-client(NumberVal) 
+2.0 
+
+[No.2]===============================
+SELECT
+  [T553].COUNT-fk_food
+FROM
+  (( (SELECT
+          COUNT([T551].fk_food)
+        FROM
+          (SELECT
+              input2.suburb,input2.client,input2.fk_food
+            FROM
+              input2
+            WHERE
+              input2.fk_food == 2.0) AS [T551][suburb, client, fk_food]) AS [T552][COUNT-fk_food] ) JOIN (
+      SELECT
+        input1.id_food,input1.description,input1.cost
+      FROM
+        input1
+      WHERE
+        input1.id_food == 3.0 )) AS [T553][COUNT-fk_food, id_food, description, cost]
+
+@anonymous
+[T553].COUNT-fk_food(NumberVal) 
+2.0 
+
+[No.1]===============================
+SELECT
+  [T123].id_food
+FROM
+  (( SELECT
+        input1.id_food,input1.description,input1.cost
+      FROM
+        input1
+      WHERE
+        input1.id_food == 2.0 ) JOIN (
+      SELECT
+        input2.suburb,input2.client,input2.fk_food
+      FROM
+        input2
+      WHERE
+        input2.fk_food == 3.0 )) AS [T123][id_food, description, cost, suburb, client, fk_food]
+
+@anonymous
+[T123].id_food(NumberVal) 
+2.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 4.303s

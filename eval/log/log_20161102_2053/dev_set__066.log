@@ -1,0 +1,126 @@
+[[Synthesis start]]
+	File: ../data/dev_set/066
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 79 [SymTable]: 80
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 9
+[EnumJoinOnAggr] level 1 [SymTable]: 25
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 14 [SymTable]: 15
+[JOIN] level 1 [SymTable]: 31
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 14 [SymTable]: 15
+[JOIN] level 1 [SymTable]: 31
+[EnumJoinOnAggr] level 1 [SymTable]: 256
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 7 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 17
+[EnumJoinOnAggr] level 1 [SymTable]: 81
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 25 [SymTable]: 26
+[JOIN] level 1 [SymTable]: 53
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 105 [SymTable]: 106
+[JOIN] level 1 [SymTable]: 213
+Candidate Tree Number: 110
+[Enumeration Finished]
+[Query No.3]===============================
+SELECT
+  [T1862].tranid,[T1862].item,[T1862].MAX-startdate,[T1862].enddate
+FROM
+  (( (SELECT
+          [T1852].item, MAX([T1852].startdate)
+        FROM
+          (input1) AS [T1852][tranid, item, startdate, enddate]
+        GROUP BY
+          [T1852].item) AS [T1853][item, MAX-startdate] ) JOIN (
+      input1 )) AS [T1862][item, MAX-startdate, tranid, item1, startdate, enddate]
+WHERE
+  [T1862].MAX-startdate == [T1862].startdate
+@anonymous
+[T1862].tranid(NumberVal) | [T1862].item(StringVal) | [T1862].MAX-startdate(DateVal) | [T1862].enddate(DateVal) 
+2.0 | A | Mon May 01 00:00:00 PDT 2000 | Wed Feb 02 00:00:00 PST 2005 
+3.0 | B | Wed Jul 08 00:00:00 PDT 2015 | Tue Sep 08 00:00:00 PDT 2015 
+4.0 | C | Tue Apr 10 00:00:00 PDT 2007 | Sun Jul 20 00:00:00 PDT 2008 
+
+[Query No.2]===============================
+SELECT
+  [T328].tranid,[T328].item,[T328].MAX-startdate,[T328].enddate
+FROM
+  (( (SELECT
+          [T326].item, MAX([T326].startdate)
+        FROM
+          (input1) AS [T326][tranid, item, startdate, enddate]
+        GROUP BY
+          [T326].item) AS [T327][item, MAX-startdate] ) JOIN (
+      input1 )) AS [T328][item, MAX-startdate, tranid, item1, startdate, enddate]
+WHERE
+  [T328].MAX-startdate == [T328].startdate
+@anonymous
+[T328].tranid(NumberVal) | [T328].item(StringVal) | [T328].MAX-startdate(DateVal) | [T328].enddate(DateVal) 
+2.0 | A | Mon May 01 00:00:00 PDT 2000 | Wed Feb 02 00:00:00 PST 2005 
+3.0 | B | Wed Jul 08 00:00:00 PDT 2015 | Tue Sep 08 00:00:00 PDT 2015 
+4.0 | C | Tue Apr 10 00:00:00 PDT 2007 | Sun Jul 20 00:00:00 PDT 2008 
+
+[Query No.1]===============================
+SELECT
+  [T127].tranid,[T127].item,[T127].MAX-startdate,[T127].enddate
+FROM
+  (( (SELECT
+          [T125].item, MAX([T125].startdate)
+        FROM
+          (input1) AS [T125][tranid, item, startdate, enddate]
+        GROUP BY
+          [T125].item) AS [T126][item, MAX-startdate] ) JOIN (
+      input1 )) AS [T127][item, MAX-startdate, tranid, item1, startdate, enddate]
+WHERE
+  [T127].MAX-startdate == [T127].startdate
+@anonymous
+[T127].tranid(NumberVal) | [T127].item(StringVal) | [T127].MAX-startdate(DateVal) | [T127].enddate(DateVal) 
+2.0 | A | Mon May 01 00:00:00 PDT 2000 | Wed Feb 02 00:00:00 PST 2005 
+3.0 | B | Wed Jul 08 00:00:00 PDT 2015 | Tue Sep 08 00:00:00 PDT 2015 
+4.0 | C | Tue Apr 10 00:00:00 PDT 2007 | Sun Jul 20 00:00:00 PDT 2008 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 1.496s

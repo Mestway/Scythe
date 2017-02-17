@@ -1,0 +1,582 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/043
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 13
+[EnumJoinOnAggr] level 1 [SymTable]: 49
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+  [Try decomposition] 
+@output
+CustomerName(StringVal) | EmailAddress(StringVal) 
+Aaron | aaron@gmail.com 
+
+@output
+CustomerName(StringVal) | EmailAddress(StringVal) 
+Christy | aaron@gmail.com 
+John | aaron@gmail.com 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 13
+[EnumJoinOnAggr] level 1 [SymTable]: 49
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+  [Try decomposition] 
+@output
+CustomerName(StringVal) | EmailAddress(StringVal) 
+Christy | aaron@gmail.com 
+
+@output
+CustomerName(StringVal) | EmailAddress(StringVal) 
+Aaron | aaron@gmail.com 
+John | aaron@gmail.com 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 13
+[EnumJoinOnAggr] level 1 [SymTable]: 49
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+  [Try decomposition] 
+@output
+CustomerName(StringVal) | EmailAddress(StringVal) 
+John | aaron@gmail.com 
+
+@output
+CustomerName(StringVal) | EmailAddress(StringVal) 
+Aaron | aaron@gmail.com 
+Christy | aaron@gmail.com 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 13
+[EnumJoinOnAggr] level 1 [SymTable]: 49
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 2
+@output
+CustomerName(StringVal) | EmailAddress(StringVal) 
+Aaron | aaron@gmail.com 
+Christy | aaron@gmail.com 
+John | aaron@gmail.com 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 13
+[JOIN] level 2 [SymTable]: 19
+[UNION] level 1 [SymTable]: 20
+[EnumLeftJoin] level 1 [SymTable]: 26
+[EnumLeftJoinWAggr] level 1 [SymTable]: 32
+[EnumAggrOnJoin]  [SymTable]: 352
+Candidate Tree Number: 30
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T815].CustomerName1,[T815].EmailAddress
+FROM
+  (SELECT
+      [T814].EmailAddress, [T814].CustomerName1, [T814].EmailAddress1, FROM
+      (SELECT
+          [T806].CustomerName,[T806].EmailAddress,[T806].CustomerName1,[T806].EmailAddress1
+        FROM
+          (( input1 ) JOIN (
+              input1 )) AS [T806][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+        WHERE
+          [T806].EmailAddress == [T806].EmailAddress1
+           AND [T806].CustomerName <> [T806].CustomerName1) AS [T814][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+    GROUP BY
+      [T814].EmailAddress  [T814].CustomerName1  [T814].EmailAddress1) AS [T815][EmailAddress, CustomerName1, EmailAddress1]
+
+@anonymous
+[T815].CustomerName1(StringVal) | [T815].EmailAddress(StringVal) 
+Christy | aaron@gmail.com 
+John | aaron@gmail.com 
+Aaron | aaron@gmail.com 
+
+[No.19]===============================
+(SELECT
+    [T798].CustomerName, [T798].EmailAddress1, FROM
+    (SELECT
+        [T790].CustomerName,[T790].EmailAddress,[T790].CustomerName1,[T790].EmailAddress1
+      FROM
+        (( input1 ) JOIN (
+            input1 )) AS [T790][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+      WHERE
+        [T790].EmailAddress == [T790].EmailAddress1
+         AND [T790].CustomerName <> [T790].CustomerName1) AS [T798][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+  GROUP BY
+    [T798].CustomerName  [T798].EmailAddress1) AS [T799][CustomerName, EmailAddress1]
+@anonymous
+[T799].CustomerName(StringVal) | [T799].EmailAddress1(StringVal) 
+Aaron | aaron@gmail.com 
+Christy | aaron@gmail.com 
+John | aaron@gmail.com 
+
+[No.18]===============================
+SELECT
+  [T783].CustomerName1,[T783].EmailAddress
+FROM
+  (SELECT
+      [T782].EmailAddress, [T782].CustomerName1, [T782].EmailAddress1, COUNT([T782].EmailAddress1)
+    FROM
+      (SELECT
+          [T774].CustomerName,[T774].EmailAddress,[T774].CustomerName1,[T774].EmailAddress1
+        FROM
+          (( input1 ) JOIN (
+              input1 )) AS [T774][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+        WHERE
+          [T774].EmailAddress == [T774].EmailAddress1
+           AND [T774].CustomerName <> [T774].CustomerName1) AS [T782][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+    GROUP BY
+      [T782].EmailAddress  [T782].CustomerName1  [T782].EmailAddress1) AS [T783][EmailAddress, CustomerName1, EmailAddress1, COUNT-EmailAddress1]
+
+@anonymous
+[T783].CustomerName1(StringVal) | [T783].EmailAddress(StringVal) 
+Christy | aaron@gmail.com 
+John | aaron@gmail.com 
+Aaron | aaron@gmail.com 
+
+[No.17]===============================
+SELECT
+  [T767].CustomerName,[T767].EmailAddress
+FROM
+  (SELECT
+      [T766].CustomerName, [T766].EmailAddress, [T766].EmailAddress1, COUNT([T766].EmailAddress1)
+    FROM
+      (SELECT
+          [T758].CustomerName,[T758].EmailAddress,[T758].CustomerName1,[T758].EmailAddress1
+        FROM
+          (( input1 ) JOIN (
+              input1 )) AS [T758][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+        WHERE
+          [T758].EmailAddress == [T758].EmailAddress1
+           AND [T758].CustomerName <> [T758].CustomerName1) AS [T766][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+    GROUP BY
+      [T766].CustomerName  [T766].EmailAddress  [T766].EmailAddress1) AS [T767][CustomerName, EmailAddress, EmailAddress1, COUNT-EmailAddress1]
+
+@anonymous
+[T767].CustomerName(StringVal) | [T767].EmailAddress(StringVal) 
+Aaron | aaron@gmail.com 
+Christy | aaron@gmail.com 
+John | aaron@gmail.com 
+
+[No.16]===============================
+SELECT
+  [T751].CustomerName,[T751].EmailAddress1
+FROM
+  (SELECT
+      [T750].CustomerName, [T750].EmailAddress1, COUNT([T750].CustomerName1)
+    FROM
+      (SELECT
+          [T742].CustomerName,[T742].EmailAddress,[T742].CustomerName1,[T742].EmailAddress1
+        FROM
+          (( input1 ) JOIN (
+              input1 )) AS [T742][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+        WHERE
+          [T742].EmailAddress == [T742].EmailAddress1
+           AND [T742].CustomerName <> [T742].CustomerName1) AS [T750][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+    GROUP BY
+      [T750].CustomerName  [T750].EmailAddress1) AS [T751][CustomerName, EmailAddress1, COUNT-CustomerName1]
+
+@anonymous
+[T751].CustomerName(StringVal) | [T751].EmailAddress1(StringVal) 
+Aaron | aaron@gmail.com 
+Christy | aaron@gmail.com 
+John | aaron@gmail.com 
+
+[No.15]===============================
+(SELECT
+    [T734].CustomerName1, [T734].EmailAddress1, FROM
+    (SELECT
+        [T726].CustomerName,[T726].EmailAddress,[T726].CustomerName1,[T726].EmailAddress1
+      FROM
+        (( input1 ) JOIN (
+            input1 )) AS [T726][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+      WHERE
+        [T726].EmailAddress == [T726].EmailAddress1
+         AND [T726].CustomerName <> [T726].CustomerName1) AS [T734][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+  GROUP BY
+    [T734].CustomerName1  [T734].EmailAddress1) AS [T735][CustomerName1, EmailAddress1]
+@anonymous
+[T735].CustomerName1(StringVal) | [T735].EmailAddress1(StringVal) 
+Christy | aaron@gmail.com 
+John | aaron@gmail.com 
+Aaron | aaron@gmail.com 
+
+[No.14]===============================
+SELECT
+  [T719].CustomerName1,[T719].EmailAddress
+FROM
+  (SELECT
+      [T718].EmailAddress, [T718].CustomerName1, COUNT([T718].CustomerName1)
+    FROM
+      (SELECT
+          [T710].CustomerName,[T710].EmailAddress,[T710].CustomerName1,[T710].EmailAddress1
+        FROM
+          (( input1 ) JOIN (
+              input1 )) AS [T710][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+        WHERE
+          [T710].EmailAddress == [T710].EmailAddress1
+           AND [T710].CustomerName <> [T710].CustomerName1) AS [T718][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+    GROUP BY
+      [T718].EmailAddress  [T718].CustomerName1) AS [T719][EmailAddress, CustomerName1, COUNT-CustomerName1]
+
+@anonymous
+[T719].CustomerName1(StringVal) | [T719].EmailAddress(StringVal) 
+Christy | aaron@gmail.com 
+John | aaron@gmail.com 
+Aaron | aaron@gmail.com 
+
+[No.13]===============================
+SELECT
+  [T703].CustomerName1,[T703].EmailAddress1
+FROM
+  (SELECT
+      [T702].CustomerName1, [T702].EmailAddress1, COUNT([T702].CustomerName)
+    FROM
+      (SELECT
+          [T694].CustomerName,[T694].EmailAddress,[T694].CustomerName1,[T694].EmailAddress1
+        FROM
+          (( input1 ) JOIN (
+              input1 )) AS [T694][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+        WHERE
+          [T694].EmailAddress == [T694].EmailAddress1
+           AND [T694].CustomerName <> [T694].CustomerName1) AS [T702][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+    GROUP BY
+      [T702].CustomerName1  [T702].EmailAddress1) AS [T703][CustomerName1, EmailAddress1, COUNT-CustomerName]
+
+@anonymous
+[T703].CustomerName1(StringVal) | [T703].EmailAddress1(StringVal) 
+Christy | aaron@gmail.com 
+John | aaron@gmail.com 
+Aaron | aaron@gmail.com 
+
+[No.12]===============================
+SELECT
+  [T687].CustomerName1,[T687].EmailAddress
+FROM
+  (SELECT
+      [T686].EmailAddress, [T686].CustomerName1, [T686].EmailAddress1, COUNT([T686].CustomerName)
+    FROM
+      (SELECT
+          [T678].CustomerName,[T678].EmailAddress,[T678].CustomerName1,[T678].EmailAddress1
+        FROM
+          (( input1 ) JOIN (
+              input1 )) AS [T678][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+        WHERE
+          [T678].EmailAddress == [T678].EmailAddress1
+           AND [T678].CustomerName <> [T678].CustomerName1) AS [T686][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+    GROUP BY
+      [T686].EmailAddress  [T686].CustomerName1  [T686].EmailAddress1) AS [T687][EmailAddress, CustomerName1, EmailAddress1, COUNT-CustomerName]
+
+@anonymous
+[T687].CustomerName1(StringVal) | [T687].EmailAddress(StringVal) 
+Christy | aaron@gmail.com 
+John | aaron@gmail.com 
+Aaron | aaron@gmail.com 
+
+[No.11]===============================
+SELECT
+  [T671].CustomerName,[T671].EmailAddress1
+FROM
+  (SELECT
+      [T670].CustomerName, [T670].EmailAddress1, COUNT([T670].EmailAddress1)
+    FROM
+      (SELECT
+          [T662].CustomerName,[T662].EmailAddress,[T662].CustomerName1,[T662].EmailAddress1
+        FROM
+          (( input1 ) JOIN (
+              input1 )) AS [T662][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+        WHERE
+          [T662].EmailAddress == [T662].EmailAddress1
+           AND [T662].CustomerName <> [T662].CustomerName1) AS [T670][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+    GROUP BY
+      [T670].CustomerName  [T670].EmailAddress1) AS [T671][CustomerName, EmailAddress1, COUNT-EmailAddress1]
+
+@anonymous
+[T671].CustomerName(StringVal) | [T671].EmailAddress1(StringVal) 
+Aaron | aaron@gmail.com 
+Christy | aaron@gmail.com 
+John | aaron@gmail.com 
+
+[No.10]===============================
+SELECT
+  [T655].CustomerName1,[T655].EmailAddress1
+FROM
+  (SELECT
+      [T654].CustomerName1, [T654].EmailAddress1, COUNT([T654].EmailAddress)
+    FROM
+      (SELECT
+          [T646].CustomerName,[T646].EmailAddress,[T646].CustomerName1,[T646].EmailAddress1
+        FROM
+          (( input1 ) JOIN (
+              input1 )) AS [T646][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+        WHERE
+          [T646].EmailAddress == [T646].EmailAddress1
+           AND [T646].CustomerName <> [T646].CustomerName1) AS [T654][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+    GROUP BY
+      [T654].CustomerName1  [T654].EmailAddress1) AS [T655][CustomerName1, EmailAddress1, COUNT-EmailAddress]
+
+@anonymous
+[T655].CustomerName1(StringVal) | [T655].EmailAddress1(StringVal) 
+Christy | aaron@gmail.com 
+John | aaron@gmail.com 
+Aaron | aaron@gmail.com 
+
+[No.9]===============================
+SELECT
+  [T639].CustomerName,[T639].EmailAddress
+FROM
+  (SELECT
+      [T638].CustomerName, [T638].EmailAddress, [T638].EmailAddress1, FROM
+      (SELECT
+          [T630].CustomerName,[T630].EmailAddress,[T630].CustomerName1,[T630].EmailAddress1
+        FROM
+          (( input1 ) JOIN (
+              input1 )) AS [T630][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+        WHERE
+          [T630].EmailAddress == [T630].EmailAddress1
+           AND [T630].CustomerName <> [T630].CustomerName1) AS [T638][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+    GROUP BY
+      [T638].CustomerName  [T638].EmailAddress  [T638].EmailAddress1) AS [T639][CustomerName, EmailAddress, EmailAddress1]
+
+@anonymous
+[T639].CustomerName(StringVal) | [T639].EmailAddress(StringVal) 
+Aaron | aaron@gmail.com 
+Christy | aaron@gmail.com 
+John | aaron@gmail.com 
+
+[No.8]===============================
+(SELECT
+    [T622].CustomerName, [T622].EmailAddress, FROM
+    (SELECT
+        [T614].CustomerName,[T614].EmailAddress,[T614].CustomerName1,[T614].EmailAddress1
+      FROM
+        (( input1 ) JOIN (
+            input1 )) AS [T614][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+      WHERE
+        [T614].EmailAddress == [T614].EmailAddress1
+         AND [T614].CustomerName <> [T614].CustomerName1) AS [T622][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+  GROUP BY
+    [T622].CustomerName  [T622].EmailAddress) AS [T623][CustomerName, EmailAddress]
+@anonymous
+[T623].CustomerName(StringVal) | [T623].EmailAddress(StringVal) 
+Aaron | aaron@gmail.com 
+Christy | aaron@gmail.com 
+John | aaron@gmail.com 
+
+[No.7]===============================
+SELECT
+  [T607].CustomerName1,[T607].EmailAddress
+FROM
+  (SELECT
+      [T606].EmailAddress, [T606].CustomerName1, COUNT([T606].CustomerName)
+    FROM
+      (SELECT
+          [T598].CustomerName,[T598].EmailAddress,[T598].CustomerName1,[T598].EmailAddress1
+        FROM
+          (( input1 ) JOIN (
+              input1 )) AS [T598][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+        WHERE
+          [T598].EmailAddress == [T598].EmailAddress1
+           AND [T598].CustomerName <> [T598].CustomerName1) AS [T606][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+    GROUP BY
+      [T606].EmailAddress  [T606].CustomerName1) AS [T607][EmailAddress, CustomerName1, COUNT-CustomerName]
+
+@anonymous
+[T607].CustomerName1(StringVal) | [T607].EmailAddress(StringVal) 
+Christy | aaron@gmail.com 
+John | aaron@gmail.com 
+Aaron | aaron@gmail.com 
+
+[No.6]===============================
+SELECT
+  [T591].CustomerName1,[T591].EmailAddress
+FROM
+  (SELECT
+      [T590].EmailAddress, [T590].CustomerName1, [T590].EmailAddress1, COUNT([T590].CustomerName1)
+    FROM
+      (SELECT
+          [T582].CustomerName,[T582].EmailAddress,[T582].CustomerName1,[T582].EmailAddress1
+        FROM
+          (( input1 ) JOIN (
+              input1 )) AS [T582][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+        WHERE
+          [T582].EmailAddress == [T582].EmailAddress1
+           AND [T582].CustomerName <> [T582].CustomerName1) AS [T590][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+    GROUP BY
+      [T590].EmailAddress  [T590].CustomerName1  [T590].EmailAddress1) AS [T591][EmailAddress, CustomerName1, EmailAddress1, COUNT-CustomerName1]
+
+@anonymous
+[T591].CustomerName1(StringVal) | [T591].EmailAddress(StringVal) 
+Christy | aaron@gmail.com 
+John | aaron@gmail.com 
+Aaron | aaron@gmail.com 
+
+[No.5]===============================
+SELECT
+  [T575].CustomerName1,[T575].EmailAddress
+FROM
+  (SELECT
+      [T574].EmailAddress, [T574].CustomerName1, COUNT([T574].EmailAddress1)
+    FROM
+      (SELECT
+          [T566].CustomerName,[T566].EmailAddress,[T566].CustomerName1,[T566].EmailAddress1
+        FROM
+          (( input1 ) JOIN (
+              input1 )) AS [T566][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+        WHERE
+          [T566].EmailAddress == [T566].EmailAddress1
+           AND [T566].CustomerName <> [T566].CustomerName1) AS [T574][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+    GROUP BY
+      [T574].EmailAddress  [T574].CustomerName1) AS [T575][EmailAddress, CustomerName1, COUNT-EmailAddress1]
+
+@anonymous
+[T575].CustomerName1(StringVal) | [T575].EmailAddress(StringVal) 
+Christy | aaron@gmail.com 
+John | aaron@gmail.com 
+Aaron | aaron@gmail.com 
+
+[No.4]===============================
+SELECT
+  [T559].CustomerName1,[T559].EmailAddress
+FROM
+  (SELECT
+      [T558].EmailAddress, [T558].CustomerName1, [T558].EmailAddress1, COUNT([T558].EmailAddress)
+    FROM
+      (SELECT
+          [T550].CustomerName,[T550].EmailAddress,[T550].CustomerName1,[T550].EmailAddress1
+        FROM
+          (( input1 ) JOIN (
+              input1 )) AS [T550][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+        WHERE
+          [T550].EmailAddress == [T550].EmailAddress1
+           AND [T550].CustomerName <> [T550].CustomerName1) AS [T558][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+    GROUP BY
+      [T558].EmailAddress  [T558].CustomerName1  [T558].EmailAddress1) AS [T559][EmailAddress, CustomerName1, EmailAddress1, COUNT-EmailAddress]
+
+@anonymous
+[T559].CustomerName1(StringVal) | [T559].EmailAddress(StringVal) 
+Christy | aaron@gmail.com 
+John | aaron@gmail.com 
+Aaron | aaron@gmail.com 
+
+[No.3]===============================
+SELECT
+  [T543].CustomerName1,[T543].EmailAddress
+FROM
+  (SELECT
+      [T542].EmailAddress, [T542].CustomerName1, FROM
+      (SELECT
+          [T534].CustomerName,[T534].EmailAddress,[T534].CustomerName1,[T534].EmailAddress1
+        FROM
+          (( input1 ) JOIN (
+              input1 )) AS [T534][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+        WHERE
+          [T534].EmailAddress == [T534].EmailAddress1
+           AND [T534].CustomerName <> [T534].CustomerName1) AS [T542][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+    GROUP BY
+      [T542].EmailAddress  [T542].CustomerName1) AS [T543][EmailAddress, CustomerName1]
+
+@anonymous
+[T543].CustomerName1(StringVal) | [T543].EmailAddress(StringVal) 
+Christy | aaron@gmail.com 
+John | aaron@gmail.com 
+Aaron | aaron@gmail.com 
+
+[No.2]===============================
+SELECT
+  [T527].CustomerName,[T527].EmailAddress
+FROM
+  (SELECT
+      [T526].CustomerName, [T526].EmailAddress, COUNT([T526].CustomerName1)
+    FROM
+      (SELECT
+          [T518].CustomerName,[T518].EmailAddress,[T518].CustomerName1,[T518].EmailAddress1
+        FROM
+          (( input1 ) JOIN (
+              input1 )) AS [T518][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+        WHERE
+          [T518].EmailAddress == [T518].EmailAddress1
+           AND [T518].CustomerName <> [T518].CustomerName1) AS [T526][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+    GROUP BY
+      [T526].CustomerName  [T526].EmailAddress) AS [T527][CustomerName, EmailAddress, COUNT-CustomerName1]
+
+@anonymous
+[T527].CustomerName(StringVal) | [T527].EmailAddress(StringVal) 
+Aaron | aaron@gmail.com 
+Christy | aaron@gmail.com 
+John | aaron@gmail.com 
+
+[No.1]===============================
+SELECT
+  [T511].CustomerName1,[T511].EmailAddress
+FROM
+  (SELECT
+      [T510].EmailAddress, [T510].CustomerName1, COUNT([T510].EmailAddress)
+    FROM
+      (SELECT
+          [T502].CustomerName,[T502].EmailAddress,[T502].CustomerName1,[T502].EmailAddress1
+        FROM
+          (( input1 ) JOIN (
+              input1 )) AS [T502][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+        WHERE
+          [T502].EmailAddress == [T502].EmailAddress1
+           AND [T502].CustomerName <> [T502].CustomerName1) AS [T510][CustomerName, EmailAddress, CustomerName1, EmailAddress1]
+    GROUP BY
+      [T510].EmailAddress  [T510].CustomerName1) AS [T511][EmailAddress, CustomerName1, COUNT-EmailAddress]
+
+@anonymous
+[T511].CustomerName1(StringVal) | [T511].EmailAddress(StringVal) 
+Christy | aaron@gmail.com 
+John | aaron@gmail.com 
+Aaron | aaron@gmail.com 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.767s

@@ -26,6 +26,6 @@ public class SQLQuery {
 
     @Override
     public String toString() {
-        return queryAst.prettyPrint(0);
+        return queryAst.prettyPrint(0, false);
     }
 }

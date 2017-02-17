@@ -1,0 +1,207 @@
+[[Synthesis start]]
+	File: ../data/dev_set/013
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3638 [SymTable]: 3639
+Candidate Tree Number: 4
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 86 [SymTable]: 87
+[JOIN] level 1 [SymTable]: 175
+[EnumJoinOnAggr] level 1 [SymTable]: 7744
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 518 [SymTable]: 519
+[JOIN] level 1 [SymTable]: 1039
+[EnumJoinOnAggr] level 1 [SymTable]: 270400
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 518 [SymTable]: 519
+[JOIN] level 1 [SymTable]: 1039
+[EnumJoinOnAggr] level 1 [SymTable]: 270400
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 346 [SymTable]: 347
+[JOIN] level 1 [SymTable]: 695
+[EnumJoinOnAggr] level 1 [SymTable]: 121104
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 950 [SymTable]: 951
+[JOIN] level 1 [SymTable]: 1903
+[EnumJoinOnAggr] level 1 [SymTable]: 906304
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1134 [SymTable]: 1135
+[JOIN] level 1 [SymTable]: 2271
+Candidate Tree Number: 476
+[Enumeration Finished]
+[Query No.7]===============================
+SELECT
+  [T3655].date,[T3655].deviceid,[T3655].COUNT_DISTINCT-time_stamp
+FROM
+  (SELECT
+      [T3654].date, [T3654].storeid, [T3654].deviceid, COUNT_DISTINCT([T3654].time_stamp)
+    FROM
+      (SELECT
+          input1.id,input1.date,input1.time_stamp,input1.licenseid,input1.storeid,input1.deviceid,input1.value
+        FROM
+          input1
+        WHERE
+          input1.id > input1.storeid) AS [T3654][id, date, time_stamp, licenseid, storeid, deviceid, value]
+    GROUP BY
+      [T3654].date  [T3654].storeid  [T3654].deviceid) AS [T3655][date, storeid, deviceid, COUNT_DISTINCT-time_stamp]
+
+@anonymous
+[T3655].date(DateVal) | [T3655].deviceid(StringVal) | [T3655].COUNT_DISTINCT-time_stamp(NumberVal) 
+Fri Jun 12 00:00:00 PDT 2015 | 0add | 2.0 
+Fri Jun 12 00:00:00 PDT 2015 | 0bdd | 1.0 
+
+[Query No.6]===============================
+(SELECT
+    [T3640].date, [T3640].deviceid, COUNT_DISTINCT([T3640].time_stamp)
+  FROM
+    (SELECT
+        input1.id,input1.date,input1.time_stamp,input1.licenseid,input1.storeid,input1.deviceid,input1.value
+      FROM
+        input1
+      WHERE
+        input1.id > input1.storeid) AS [T3640][id, date, time_stamp, licenseid, storeid, deviceid, value]
+  GROUP BY
+    [T3640].date  [T3640].deviceid) AS [T3641][date, deviceid, COUNT_DISTINCT-time_stamp]
+@anonymous
+[T3641].date(DateVal) | [T3641].deviceid(StringVal) | [T3641].COUNT_DISTINCT-time_stamp(NumberVal) 
+Fri Jun 12 00:00:00 PDT 2015 | 0add | 2.0 
+Fri Jun 12 00:00:00 PDT 2015 | 0bdd | 1.0 
+
+[Query No.5]===============================
+SELECT
+  [T154168].date,[T154168].deviceid,[T154168].COUNT-licenseid
+FROM
+  (( (SELECT
+          [T154166].licenseid, [T154166].storeid, [T154166].deviceid, COUNT([T154166].licenseid)
+        FROM
+          (input1) AS [T154166][id, date, time_stamp, licenseid, storeid, deviceid, value]
+        GROUP BY
+          [T154166].licenseid  [T154166].storeid  [T154166].deviceid) AS [T154167][licenseid, storeid, deviceid, COUNT-licenseid] ) JOIN (
+      SELECT
+        input1.id,input1.date,input1.time_stamp,input1.licenseid,input1.storeid,input1.deviceid,input1.value
+      FROM
+        input1
+      WHERE
+        input1.id == input1.storeid )) AS [T154168][licenseid, storeid, deviceid, COUNT-licenseid, id, date, time_stamp, licenseid1, storeid1, deviceid1, value]
+WHERE
+  [T154168].licenseid == [T154168].licenseid1
+@anonymous
+[T154168].date(DateVal) | [T154168].deviceid(StringVal) | [T154168].COUNT-licenseid(NumberVal) 
+Fri Jun 12 00:00:00 PDT 2015 | 0add | 2.0 
+Fri Jun 12 00:00:00 PDT 2015 | 0bdd | 1.0 
+
+[Query No.4]===============================
+SELECT
+  [T154006].date,[T154006].deviceid,[T154006].COUNT-time_stamp
+FROM
+  (( (SELECT
+          [T154004].date, [T154004].licenseid, [T154004].deviceid, COUNT([T154004].time_stamp)
+        FROM
+          (input1) AS [T154004][id, date, time_stamp, licenseid, storeid, deviceid, value]
+        GROUP BY
+          [T154004].date  [T154004].licenseid  [T154004].deviceid) AS [T154005][date, licenseid, deviceid, COUNT-time_stamp] ) JOIN (
+      SELECT
+        input1.id,input1.date,input1.time_stamp,input1.licenseid,input1.storeid,input1.deviceid,input1.value
+      FROM
+        input1
+      WHERE
+        input1.id == input1.storeid )) AS [T154006][date, licenseid, deviceid, COUNT-time_stamp, id, date1, time_stamp, licenseid1, storeid, deviceid1, value]
+WHERE
+  [T154006].licenseid == [T154006].licenseid1
+@anonymous
+[T154006].date(DateVal) | [T154006].deviceid(StringVal) | [T154006].COUNT-time_stamp(NumberVal) 
+Fri Jun 12 00:00:00 PDT 2015 | 0add | 2.0 
+Fri Jun 12 00:00:00 PDT 2015 | 0bdd | 1.0 
+
+[Query No.3]===============================
+SELECT
+  [T153928].date,[T153928].deviceid,[T153928].COUNT-value
+FROM
+  (( (SELECT
+          [T153926].licenseid, [T153926].deviceid, COUNT([T153926].value)
+        FROM
+          (input1) AS [T153926][id, date, time_stamp, licenseid, storeid, deviceid, value]
+        GROUP BY
+          [T153926].licenseid  [T153926].deviceid) AS [T153927][licenseid, deviceid, COUNT-value] ) JOIN (
+      SELECT
+        input1.id,input1.date,input1.time_stamp,input1.licenseid,input1.storeid,input1.deviceid,input1.value
+      FROM
+        input1
+      WHERE
+        input1.id == input1.storeid )) AS [T153928][licenseid, deviceid, COUNT-value, id, date, time_stamp, licenseid1, storeid, deviceid1, value]
+WHERE
+  [T153928].licenseid == [T153928].licenseid1
+@anonymous
+[T153928].date(DateVal) | [T153928].deviceid(StringVal) | [T153928].COUNT-value(NumberVal) 
+Fri Jun 12 00:00:00 PDT 2015 | 0add | 2.0 
+Fri Jun 12 00:00:00 PDT 2015 | 0bdd | 1.0 
+
+[Query No.2]===============================
+(SELECT
+    [T3664].date, [T3664].deviceid, COUNT_DISTINCT([T3664].time_stamp)
+  FROM
+    (input1) AS [T3664][id, date, time_stamp, licenseid, storeid, deviceid, value]
+  GROUP BY
+    [T3664].date  [T3664].deviceid) AS [T3665][date, deviceid, COUNT_DISTINCT-time_stamp]
+@anonymous
+[T3665].date(DateVal) | [T3665].deviceid(StringVal) | [T3665].COUNT_DISTINCT-time_stamp(NumberVal) 
+Fri Jun 12 00:00:00 PDT 2015 | 0add | 2.0 
+Fri Jun 12 00:00:00 PDT 2015 | 0bdd | 1.0 
+
+[Query No.1]===============================
+SELECT
+  [T3651].date,[T3651].deviceid,[T3651].COUNT_DISTINCT-time_stamp
+FROM
+  (SELECT
+      [T3650].date, [T3650].storeid, [T3650].deviceid, COUNT_DISTINCT([T3650].time_stamp)
+    FROM
+      (input1) AS [T3650][id, date, time_stamp, licenseid, storeid, deviceid, value]
+    GROUP BY
+      [T3650].date  [T3650].storeid  [T3650].deviceid) AS [T3651][date, storeid, deviceid, COUNT_DISTINCT-time_stamp]
+
+@anonymous
+[T3651].date(DateVal) | [T3651].deviceid(StringVal) | [T3651].COUNT_DISTINCT-time_stamp(NumberVal) 
+Fri Jun 12 00:00:00 PDT 2015 | 0add | 2.0 
+Fri Jun 12 00:00:00 PDT 2015 | 0bdd | 1.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 435.664s

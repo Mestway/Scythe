@@ -1,0 +1,42 @@
+//http://stackoverflow.com/questions/32930900/sql-get-id-of-max-bill-per-waiter/32931068#32931068
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["max"]
+}
+
+#input
+
+| id  | amount  | id_waiter |
+|---------------------------|
+| 1   | 20      | 1         |
+| 2   | 25      | 2         |
+| 3   | 50      | 2         |
+| 4   | 20      | 1         |
+| 5   | 60      | 1         |
+| 6   | 10      | 2         |
+
+#input
+
+id, name
+1, john
+2, joe
+
+#output
+
+| name | waiter | maxamount | bill |
+|----------------------------------|
+| john | 1      | 60        | 5    |
+| joe  | 2      | 50        | 3    |
+
+
+#solution
+
+SELECT waiter.id AS waiter, maxamount, bills.id AS bill
+FROM waiter
+JOIN (
+  SELECT id_waiter, max(amount) AS maxamount
+  FROM bills
+  GROUP BY id_waiter) AS maxis ON maxis.id_waiter = waiter.id
+JOIN bills ON maxis.maxamount = bills.amount AND waiter.id =     bills.id_kellner

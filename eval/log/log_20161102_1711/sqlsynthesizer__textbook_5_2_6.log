@@ -1,0 +1,218 @@
+[[Synthesis start]]
+	File: ../data/sqlsynthesizer/textbook_5_2_6
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 10 [SymTable]: 12
+[JOIN] level 1 [SymTable]: 37
+[EnumJoinOnAggr] level 1 [SymTable]: 181
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 2
+@output
+part_key(StringVal) | sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P3 | SN4 
+P4 | SN1 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 10 [SymTable]: 12
+[JOIN] level 1 [SymTable]: 37
+[JOIN] level 2 [SymTable]: 85
+Candidate Tree Number: 5
+[Enumeration Finished]
+[No.5]===============================
+SELECT
+  [T165].part_key,[T165].sname
+FROM
+  (( SELECT
+        [T163].part_key,[T163].MAX-cost,[T163].sid,[T163].part_key1,[T163].cost
+      FROM
+        (( (SELECT
+                [T161].part_key, MAX([T161].cost)
+              FROM
+                (input1) AS [T161][sid, part_key, cost]
+              GROUP BY
+                [T161].part_key) AS [T162][part_key, MAX-cost] ) JOIN (
+            input1 )) AS [T163][part_key, MAX-cost, sid, part_key1, cost]
+      WHERE
+        [T163].part_key == [T163].part_key1
+         AND [T163].MAX-cost <= [T163].cost ) JOIN (
+      input2 )) AS [T165][part_key, MAX-cost, sid, part_key1, cost, sid1, sname]
+WHERE
+  [T165].sid == [T165].sid1
+@anonymous
+[T165].part_key(StringVal) | [T165].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P3 | SN4 
+P4 | SN1 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[No.4]===============================
+SELECT
+  [T157].part_key,[T157].sname
+FROM
+  (( SELECT
+        [T155].part_key,[T155].MAX-cost,[T155].sid,[T155].part_key1,[T155].cost
+      FROM
+        (( (SELECT
+                [T153].part_key, MAX([T153].cost)
+              FROM
+                (input1) AS [T153][sid, part_key, cost]
+              GROUP BY
+                [T153].part_key) AS [T154][part_key, MAX-cost] ) JOIN (
+            SELECT
+              input1.sid,input1.part_key,input1.cost
+            FROM
+              input1
+            WHERE
+              True )) AS [T155][part_key, MAX-cost, sid, part_key1, cost]
+      WHERE
+        [T155].part_key == [T155].part_key1
+         AND [T155].MAX-cost == [T155].cost ) JOIN (
+      SELECT
+        input2.sid,input2.sname
+      FROM
+        input2
+      WHERE
+        True )) AS [T157][part_key, MAX-cost, sid, part_key1, cost, sid1, sname]
+WHERE
+  [T157].sid == [T157].sid1
+@anonymous
+[T157].part_key(StringVal) | [T157].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P3 | SN4 
+P4 | SN1 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[No.3]===============================
+SELECT
+  [T149].part_key,[T149].sname
+FROM
+  (( SELECT
+        [T147].part_key,[T147].MAX-cost,[T147].sid,[T147].part_key1,[T147].cost
+      FROM
+        (( (SELECT
+                [T145].part_key, MAX([T145].cost)
+              FROM
+                (input1) AS [T145][sid, part_key, cost]
+              GROUP BY
+                [T145].part_key) AS [T146][part_key, MAX-cost] ) JOIN (
+            input1 )) AS [T147][part_key, MAX-cost, sid, part_key1, cost]
+      WHERE
+        [T147].part_key == [T147].part_key1
+         AND [T147].MAX-cost == [T147].cost ) JOIN (
+      SELECT
+        input2.sid,input2.sname
+      FROM
+        input2
+      WHERE
+        True )) AS [T149][part_key, MAX-cost, sid, part_key1, cost, sid1, sname]
+WHERE
+  [T149].sid == [T149].sid1
+@anonymous
+[T149].part_key(StringVal) | [T149].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P3 | SN4 
+P4 | SN1 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[No.2]===============================
+SELECT
+  [T141].part_key,[T141].sname
+FROM
+  (( SELECT
+        [T139].part_key,[T139].MAX-cost,[T139].sid,[T139].part_key1,[T139].cost
+      FROM
+        (( (SELECT
+                [T137].part_key, MAX([T137].cost)
+              FROM
+                (input1) AS [T137][sid, part_key, cost]
+              GROUP BY
+                [T137].part_key) AS [T138][part_key, MAX-cost] ) JOIN (
+            SELECT
+              input1.sid,input1.part_key,input1.cost
+            FROM
+              input1
+            WHERE
+              True )) AS [T139][part_key, MAX-cost, sid, part_key1, cost]
+      WHERE
+        [T139].part_key == [T139].part_key1
+         AND [T139].MAX-cost == [T139].cost ) JOIN (
+      input2 )) AS [T141][part_key, MAX-cost, sid, part_key1, cost, sid1, sname]
+WHERE
+  [T141].sid == [T141].sid1
+@anonymous
+[T141].part_key(StringVal) | [T141].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P3 | SN4 
+P4 | SN1 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[No.1]===============================
+SELECT
+  [T133].part_key,[T133].sname
+FROM
+  (( SELECT
+        [T131].part_key,[T131].MAX-cost,[T131].sid,[T131].part_key1,[T131].cost
+      FROM
+        (( (SELECT
+                [T129].part_key, MAX([T129].cost)
+              FROM
+                (input1) AS [T129][sid, part_key, cost]
+              GROUP BY
+                [T129].part_key) AS [T130][part_key, MAX-cost] ) JOIN (
+            input1 )) AS [T131][part_key, MAX-cost, sid, part_key1, cost]
+      WHERE
+        [T131].part_key == [T131].part_key1
+         AND [T131].MAX-cost == [T131].cost ) JOIN (
+      input2 )) AS [T133][part_key, MAX-cost, sid, part_key1, cost, sid1, sname]
+WHERE
+  [T133].sid == [T133].sid1
+@anonymous
+[T133].part_key(StringVal) | [T133].sname(StringVal) 
+P1 | SN2 
+P2 | SN1 
+P3 | SN4 
+P4 | SN1 
+P5 | SN3 
+P6 | SN3 
+P7 | SN1 
+P8 | SN2 
+P9 | SN3 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 3.734s

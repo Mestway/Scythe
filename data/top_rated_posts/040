@@ -1,0 +1,31 @@
+//http://stackoverflow.com/questions/10380990/using-group-by-on-two-fields-and-count-in-sql
+
+#input
+
+group, subGroup
+grp-A, sub-A
+grp-A, sub-A
+grp-A, sub-B 
+grp-B, sub-A
+grp-B, sub-B
+grp-B, sub-B
+
+#output
+
+group, subGroup, count
+grp-A, sub-A, 2
+grp-A, sub-B, 1
+grp-B, sub-A, 1
+grp-B, sub-B, 2 
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["count"]
+}
+
+#solution
+
+SELECT a, b, COUNT(a) 
+FROM tbl 
+GROUP BY a, b

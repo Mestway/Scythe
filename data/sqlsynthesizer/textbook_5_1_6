@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+// can we synthesize this using join join then aggregation?
+
+>>>>>>> develop
 #input
 
 C_name,F_key
@@ -62,9 +67,13 @@ faculty4
 
 #constraint
 {
-	"max_depth": 1,
 	"constants": ["5"],
-	"aggregation_functions": [ "count" ],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": [ "count" ]
 }
+
+#solution
+
+SELECT F.fname
+FROM   Faculty F
+WHERE  5 > (SELECT COUNT (E.snum)
+            FROM Class C, Enrolled E WHERE C.name = E.cname AND C.fid = F.fid)

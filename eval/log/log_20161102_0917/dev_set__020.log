@@ -1,0 +1,557 @@
+[[Synthesis start]]
+	File: ../data/dev_set/020
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 81 [SymTable]: 82
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 12
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 10 [SymTable]: 11
+[JOIN] level 1 [SymTable]: 22
+Candidate Tree Number: 25
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 10 [SymTable]: 11
+[JOIN] level 1 [SymTable]: 22
+Candidate Tree Number: 20
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 10 [SymTable]: 11
+[JOIN] level 1 [SymTable]: 22
+Candidate Tree Number: 20
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 15 [SymTable]: 16
+[JOIN] level 1 [SymTable]: 32
+Candidate Tree Number: 40
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 26 [SymTable]: 27
+[JOIN] level 1 [SymTable]: 54
+Candidate Tree Number: 263
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T92].ARIDNR,[T92].LIEFNR
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T92][ARIDNR, LIEFNR, ARIDNR1, LIEFNR1]
+WHERE
+  [T92].LIEFNR <> [T92].LIEFNR1
+   AND [T92].ARIDNR == [T92].ARIDNR1
+@anonymous
+[T92].ARIDNR(NumberVal) | [T92].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[No.19]===============================
+SELECT
+  [T2513].ARIDNR,[T2513].LIEFNR
+FROM
+  (( SELECT
+        [T2512].ARIDNR,[T2512].COUNT-LIEFNR
+      FROM
+        (SELECT
+            [T2511].ARIDNR, COUNT([T2511].LIEFNR)
+          FROM
+            (input1) AS [T2511][ARIDNR, LIEFNR]
+          GROUP BY
+            [T2511].ARIDNR) AS [T2512][ARIDNR, COUNT-LIEFNR]
+      WHERE
+        [T2512].COUNT-LIEFNR > 1.0 ) JOIN (
+      input1 )) AS [T2513][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+WHERE
+  [T2513].ARIDNR == [T2513].ARIDNR1
+@anonymous
+[T2513].ARIDNR(NumberVal) | [T2513].LIEFNR(StringVal) 
+1.0 | A 
+1.0 | B 
+2.0 | A 
+2.0 | B 
+
+[No.18]===============================
+SELECT
+  [T1583].ARIDNR,[T1583].LIEFNR
+FROM
+  (( SELECT
+        [T1582].ARIDNR,[T1582].COUNT-ARIDNR
+      FROM
+        (SELECT
+            [T1581].ARIDNR, COUNT([T1581].ARIDNR)
+          FROM
+            (input1) AS [T1581][ARIDNR, LIEFNR]
+          GROUP BY
+            [T1581].ARIDNR) AS [T1582][ARIDNR, COUNT-ARIDNR]
+      WHERE
+        [T1582].COUNT-ARIDNR > 1.0 ) JOIN (
+      input1 )) AS [T1583][ARIDNR, COUNT-ARIDNR, ARIDNR1, LIEFNR]
+WHERE
+  [T1583].ARIDNR == [T1583].ARIDNR1
+@anonymous
+[T1583].ARIDNR(NumberVal) | [T1583].LIEFNR(StringVal) 
+1.0 | A 
+1.0 | B 
+2.0 | A 
+2.0 | B 
+
+[No.17]===============================
+SELECT
+  [T2945].COUNT-LIEFNR,[T2945].LIEFNR
+FROM
+  (( (SELECT
+          [T2943].ARIDNR, COUNT([T2943].LIEFNR)
+        FROM
+          (input1) AS [T2943][ARIDNR, LIEFNR]
+        GROUP BY
+          [T2943].ARIDNR) AS [T2944][ARIDNR, COUNT-LIEFNR] ) JOIN (
+      SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        input1.ARIDNR == 1.0 )) AS [T2945][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+WHERE
+  [T2945].ARIDNR <> [T2945].ARIDNR1
+@anonymous
+[T2945].COUNT-LIEFNR(NumberVal) | [T2945].LIEFNR(StringVal) 
+2.0 | A 
+2.0 | B 
+1.0 | A 
+1.0 | B 
+
+[No.16]===============================
+SELECT
+  [T2933].COUNT-LIEFNR,[T2933].LIEFNR
+FROM
+  (( (SELECT
+          [T2931].ARIDNR, COUNT([T2931].LIEFNR)
+        FROM
+          (input1) AS [T2931][ARIDNR, LIEFNR]
+        GROUP BY
+          [T2931].ARIDNR) AS [T2932][ARIDNR, COUNT-LIEFNR] ) JOIN (
+      SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        input1.ARIDNR == 1.0 )) AS [T2933][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+WHERE
+  [T2933].ARIDNR > [T2933].ARIDNR1
+@anonymous
+[T2933].COUNT-LIEFNR(NumberVal) | [T2933].LIEFNR(StringVal) 
+2.0 | A 
+2.0 | B 
+1.0 | A 
+1.0 | B 
+
+[No.15]===============================
+SELECT
+  [T2645].ARIDNR1,[T2645].LIEFNR
+FROM
+  (( SELECT
+        [T2644].ARIDNR,[T2644].COUNT-LIEFNR
+      FROM
+        (SELECT
+            [T2643].ARIDNR, COUNT([T2643].LIEFNR)
+          FROM
+            (input1) AS [T2643][ARIDNR, LIEFNR]
+          GROUP BY
+            [T2643].ARIDNR) AS [T2644][ARIDNR, COUNT-LIEFNR]
+      WHERE
+        [T2644].COUNT-LIEFNR == 1.0 ) JOIN (
+      input1 )) AS [T2645][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+WHERE
+  [T2645].ARIDNR <> [T2645].ARIDNR1
+@anonymous
+[T2645].ARIDNR1(NumberVal) | [T2645].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[No.14]===============================
+SELECT
+  [T2633].ARIDNR1,[T2633].LIEFNR
+FROM
+  (( SELECT
+        [T2632].ARIDNR,[T2632].COUNT-LIEFNR
+      FROM
+        (SELECT
+            [T2631].ARIDNR, COUNT([T2631].LIEFNR)
+          FROM
+            (input1) AS [T2631][ARIDNR, LIEFNR]
+          GROUP BY
+            [T2631].ARIDNR) AS [T2632][ARIDNR, COUNT-LIEFNR]
+      WHERE
+        [T2632].COUNT-LIEFNR == 1.0 ) JOIN (
+      input1 )) AS [T2633][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+WHERE
+  [T2633].ARIDNR > [T2633].ARIDNR1
+@anonymous
+[T2633].ARIDNR1(NumberVal) | [T2633].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[No.13]===============================
+SELECT
+  [T2015].COUNT-ARIDNR,[T2015].LIEFNR
+FROM
+  (( (SELECT
+          [T2013].ARIDNR, COUNT([T2013].ARIDNR)
+        FROM
+          (input1) AS [T2013][ARIDNR, LIEFNR]
+        GROUP BY
+          [T2013].ARIDNR) AS [T2014][ARIDNR, COUNT-ARIDNR] ) JOIN (
+      SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        input1.ARIDNR == 1.0 )) AS [T2015][ARIDNR, COUNT-ARIDNR, ARIDNR1, LIEFNR]
+WHERE
+  [T2015].ARIDNR <> [T2015].ARIDNR1
+@anonymous
+[T2015].COUNT-ARIDNR(NumberVal) | [T2015].LIEFNR(StringVal) 
+2.0 | A 
+2.0 | B 
+1.0 | A 
+1.0 | B 
+
+[No.12]===============================
+SELECT
+  [T2003].COUNT-ARIDNR,[T2003].LIEFNR
+FROM
+  (( (SELECT
+          [T2001].ARIDNR, COUNT([T2001].ARIDNR)
+        FROM
+          (input1) AS [T2001][ARIDNR, LIEFNR]
+        GROUP BY
+          [T2001].ARIDNR) AS [T2002][ARIDNR, COUNT-ARIDNR] ) JOIN (
+      SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        input1.ARIDNR == 1.0 )) AS [T2003][ARIDNR, COUNT-ARIDNR, ARIDNR1, LIEFNR]
+WHERE
+  [T2003].ARIDNR > [T2003].ARIDNR1
+@anonymous
+[T2003].COUNT-ARIDNR(NumberVal) | [T2003].LIEFNR(StringVal) 
+2.0 | A 
+2.0 | B 
+1.0 | A 
+1.0 | B 
+
+[No.11]===============================
+SELECT
+  [T1655].ARIDNR1,[T1655].LIEFNR
+FROM
+  (( SELECT
+        [T1654].ARIDNR,[T1654].COUNT-ARIDNR
+      FROM
+        (SELECT
+            [T1653].ARIDNR, COUNT([T1653].ARIDNR)
+          FROM
+            (input1) AS [T1653][ARIDNR, LIEFNR]
+          GROUP BY
+            [T1653].ARIDNR) AS [T1654][ARIDNR, COUNT-ARIDNR]
+      WHERE
+        [T1654].COUNT-ARIDNR == 1.0 ) JOIN (
+      input1 )) AS [T1655][ARIDNR, COUNT-ARIDNR, ARIDNR1, LIEFNR]
+WHERE
+  [T1655].ARIDNR <> [T1655].ARIDNR1
+@anonymous
+[T1655].ARIDNR1(NumberVal) | [T1655].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[No.10]===============================
+SELECT
+  [T1643].ARIDNR1,[T1643].LIEFNR
+FROM
+  (( SELECT
+        [T1642].ARIDNR,[T1642].COUNT-ARIDNR
+      FROM
+        (SELECT
+            [T1641].ARIDNR, COUNT([T1641].ARIDNR)
+          FROM
+            (input1) AS [T1641][ARIDNR, LIEFNR]
+          GROUP BY
+            [T1641].ARIDNR) AS [T1642][ARIDNR, COUNT-ARIDNR]
+      WHERE
+        [T1642].COUNT-ARIDNR == 1.0 ) JOIN (
+      input1 )) AS [T1643][ARIDNR, COUNT-ARIDNR, ARIDNR1, LIEFNR]
+WHERE
+  [T1643].ARIDNR > [T1643].ARIDNR1
+@anonymous
+[T1643].ARIDNR1(NumberVal) | [T1643].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[No.9]===============================
+SELECT
+  [T2261].ARIDNR,[T2261].LIEFNR
+FROM
+  (( (SELECT
+          MAX([T2259].ARIDNR)
+        FROM
+          (input1) AS [T2259][ARIDNR, LIEFNR]) AS [T2260][MAX-ARIDNR] ) JOIN (
+      input1 )) AS [T2261][MAX-ARIDNR, ARIDNR, LIEFNR]
+WHERE
+  [T2261].MAX-ARIDNR <> [T2261].ARIDNR
+@anonymous
+[T2261].ARIDNR(NumberVal) | [T2261].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[No.8]===============================
+SELECT
+  [T864].ARIDNR,[T864].LIEFNR
+FROM
+  (( (SELECT
+          MAX([T862].ARIDNR)
+        FROM
+          (input1) AS [T862][ARIDNR, LIEFNR]) AS [T863][MAX-ARIDNR] ) JOIN (
+      input1 )) AS [T864][MAX-ARIDNR, ARIDNR, LIEFNR]
+WHERE
+  [T864].MAX-ARIDNR <> [T864].ARIDNR
+@anonymous
+[T864].ARIDNR(NumberVal) | [T864].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[No.7]===============================
+SELECT
+  [T281].ARIDNR,[T281].LIEFNR
+FROM
+  (( (SELECT
+          MAX([T279].ARIDNR)
+        FROM
+          (input1) AS [T279][ARIDNR, LIEFNR]) AS [T280][MAX-ARIDNR] ) JOIN (
+      input1 )) AS [T281][MAX-ARIDNR, ARIDNR, LIEFNR]
+WHERE
+  [T281].MAX-ARIDNR <> [T281].ARIDNR
+@anonymous
+[T281].ARIDNR(NumberVal) | [T281].LIEFNR(StringVal) 
+1.0 | A 
+2.0 | A 
+1.0 | B 
+2.0 | B 
+
+[No.6]===============================
+SELECT
+  [T3165].COUNT-LIEFNR,[T3165].LIEFNR1
+FROM
+  (( (SELECT
+          [T3163].LIEFNR, COUNT([T3163].LIEFNR)
+        FROM
+          (SELECT
+              input1.ARIDNR,input1.LIEFNR
+            FROM
+              input1
+            WHERE
+              input1.ARIDNR > 1.0) AS [T3163][ARIDNR, LIEFNR]
+        GROUP BY
+          [T3163].LIEFNR) AS [T3164][LIEFNR, COUNT-LIEFNR] ) JOIN (
+      SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        input1.ARIDNR == 1.0 )) AS [T3165][LIEFNR, COUNT-LIEFNR, ARIDNR, LIEFNR1]
+
+@anonymous
+[T3165].COUNT-LIEFNR(NumberVal) | [T3165].LIEFNR1(StringVal) 
+2.0 | A 
+2.0 | B 
+1.0 | A 
+1.0 | B 
+
+[No.5]===============================
+SELECT
+  [T2333].ARIDNR,[T2333].LIEFNR
+FROM
+  (( SELECT
+        [T2332].ARIDNR,[T2332].COUNT-LIEFNR
+      FROM
+        (SELECT
+            [T2331].ARIDNR, COUNT([T2331].LIEFNR)
+          FROM
+            (input1) AS [T2331][ARIDNR, LIEFNR]
+          GROUP BY
+            [T2331].ARIDNR) AS [T2332][ARIDNR, COUNT-LIEFNR]
+      WHERE
+        [T2332].COUNT-LIEFNR > 1.0 ) JOIN (
+      SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        input1.ARIDNR == 1.0 )) AS [T2333][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+
+@anonymous
+[T2333].ARIDNR(NumberVal) | [T2333].LIEFNR(StringVal) 
+1.0 | A 
+1.0 | B 
+2.0 | A 
+2.0 | B 
+
+[No.4]===============================
+SELECT
+  [T2087].COUNT-ARIDNR,[T2087].LIEFNR
+FROM
+  (( (SELECT
+          [T2085].ARIDNR, COUNT([T2085].ARIDNR)
+        FROM
+          (SELECT
+              input1.ARIDNR,input1.LIEFNR
+            FROM
+              input1
+            WHERE
+              input1.ARIDNR > 1.0) AS [T2085][ARIDNR, LIEFNR]
+        GROUP BY
+          [T2085].ARIDNR) AS [T2086][ARIDNR, COUNT-ARIDNR] ) JOIN (
+      SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        input1.ARIDNR == 1.0 )) AS [T2087][ARIDNR, COUNT-ARIDNR, ARIDNR1, LIEFNR]
+
+@anonymous
+[T2087].COUNT-ARIDNR(NumberVal) | [T2087].LIEFNR(StringVal) 
+2.0 | A 
+2.0 | B 
+1.0 | A 
+1.0 | B 
+
+[No.3]===============================
+SELECT
+  [T1403].ARIDNR,[T1403].LIEFNR
+FROM
+  (( SELECT
+        [T1402].ARIDNR,[T1402].COUNT-ARIDNR
+      FROM
+        (SELECT
+            [T1401].ARIDNR, COUNT([T1401].ARIDNR)
+          FROM
+            (input1) AS [T1401][ARIDNR, LIEFNR]
+          GROUP BY
+            [T1401].ARIDNR) AS [T1402][ARIDNR, COUNT-ARIDNR]
+      WHERE
+        [T1402].COUNT-ARIDNR > 1.0 ) JOIN (
+      SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        input1.ARIDNR == 1.0 )) AS [T1403][ARIDNR, COUNT-ARIDNR, ARIDNR1, LIEFNR]
+
+@anonymous
+[T1403].ARIDNR(NumberVal) | [T1403].LIEFNR(StringVal) 
+1.0 | A 
+1.0 | B 
+2.0 | A 
+2.0 | B 
+
+[No.2]===============================
+SELECT
+  [T1271].COUNT-ARIDNR,[T1271].LIEFNR1
+FROM
+  (( (SELECT
+          [T1269].LIEFNR, COUNT([T1269].ARIDNR)
+        FROM
+          (SELECT
+              input1.ARIDNR,input1.LIEFNR
+            FROM
+              input1
+            WHERE
+              input1.ARIDNR > 1.0) AS [T1269][ARIDNR, LIEFNR]
+        GROUP BY
+          [T1269].LIEFNR) AS [T1270][LIEFNR, COUNT-ARIDNR] ) JOIN (
+      SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        input1.ARIDNR == 1.0 )) AS [T1271][LIEFNR, COUNT-ARIDNR, ARIDNR, LIEFNR1]
+
+@anonymous
+[T1271].COUNT-ARIDNR(NumberVal) | [T1271].LIEFNR1(StringVal) 
+2.0 | A 
+2.0 | B 
+1.0 | A 
+1.0 | B 
+
+[No.1]===============================
+SELECT
+  [T953].COUNT-LIEFNR,[T953].LIEFNR
+FROM
+  (( (SELECT
+          [T951].ARIDNR, COUNT([T951].LIEFNR)
+        FROM
+          (SELECT
+              input1.ARIDNR,input1.LIEFNR
+            FROM
+              input1
+            WHERE
+              input1.ARIDNR > 1.0) AS [T951][ARIDNR, LIEFNR]
+        GROUP BY
+          [T951].ARIDNR) AS [T952][ARIDNR, COUNT-LIEFNR] ) JOIN (
+      SELECT
+        input1.ARIDNR,input1.LIEFNR
+      FROM
+        input1
+      WHERE
+        input1.ARIDNR == 1.0 )) AS [T953][ARIDNR, COUNT-LIEFNR, ARIDNR1, LIEFNR]
+
+@anonymous
+[T953].COUNT-LIEFNR(NumberVal) | [T953].LIEFNR(StringVal) 
+2.0 | A 
+2.0 | B 
+1.0 | A 
+1.0 | B 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 1.196s

@@ -1,0 +1,264 @@
+[[Synthesizing]]
+[[Synthesis start]]
+	File: ../data/dev_set/066
+	Enumerator: CanonicalTableEnumeratorOnTheFly
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 20
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 52
+	Avg table size: 6
+[Total Number of Intermediate Result] 52
+[Average Size of the tables] 6.8076923076923075
+[Sum Size of the tables] 354.0
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 20
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 4
+	Avg table size: 8
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 129
+	Avg table size: 59
+[Stage 3] EnumJoinTwoAggr1 
+	Total Table by now: 215
+	Avg table size: 49
+[Total Number of Intermediate Result] 215
+[Average Size of the tables] 49.269767441860466
+[Sum Size of the tables] 10593.0
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 20
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 15
+	Avg table size: 7
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 375
+	Avg table size: 50
+[Total Number of Intermediate Result] 375
+[Average Size of the tables] 50.59733333333333
+[Sum Size of the tables] 18974.0
+Total Tree Count: 1
+Total Query Count: 760
+[Enumeration Finished]
+    [AggrFun] Optional[MIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 20
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 15
+	Avg table size: 7
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 377
+	Avg table size: 50
+[Stage 3] EnumJoinTwoAggr1 
+	Total Table by now: 1885
+	Avg table size: 36
+[Total Number of Intermediate Result] 1885
+[Average Size of the tables] 36.10716180371353
+[Sum Size of the tables] 68062.0
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[AVG]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 20
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 8
+	Avg table size: 7
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 260
+	Avg table size: 50
+[Stage 3] EnumJoinTwoAggr1 
+	Total Table by now: 758
+	Avg table size: 38
+[Total Number of Intermediate Result] 759
+[Average Size of the tables] 38.55467720685112
+[Sum Size of the tables] 29263.0
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MINMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 20
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 25
+	Avg table size: 6
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 573
+	Avg table size: 49
+[Total Number of Intermediate Result] 573
+[Average Size of the tables] 49.18499127399651
+[Sum Size of the tables] 28183.0
+Total Tree Count: 1
+Total Query Count: 760
+[Enumeration Finished]
+    [AggrFun] Optional[MAXCOUNT]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 7
+	Avg table size: 11
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 55
+	Avg table size: 5
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 1954
+	Avg table size: 44
+[Total Number of Intermediate Result] 1954
+[Average Size of the tables] 44.85056294779939
+[Sum Size of the tables] 87638.0
+Total Tree Count: 14
+Total Query Count: 14466080
+[Enumeration Finished]
+[Query No.5]===============================
+SELECT
+  [T18624].tranid,[T18624].item1,[T18624].MAX-startdate,[T18624].enddate
+FROM
+  (SELECT
+      [T16001].item,[T16001].MAX-startdate,[T16001].tranid,[T16001].item1,[T16001].startdate,[T16001].enddate
+    FROM
+      (( ((SELECT
+                input1.item, MAX(input1.startdate)
+              FROM
+                input1
+              GROUP BY
+                input1.item) AS [T16007][item, MAX-startdate]) AS [T16059][item, MAX-startdate] ) JOIN (
+          input1 )) AS [T16001][item, MAX-startdate, tranid, item1, startdate, enddate]
+    WHERE
+      [T16001].MAX-startdate == [T16001].startdate) AS [T18624][item, MAX-startdate, tranid, item1, startdate, enddate]
+
+@anonymous
+[T18624].tranid(NumberVal) | [T18624].item1(StringVal) | [T18624].MAX-startdate(DateVal) | [T18624].enddate(DateVal) 
+2.0 | A | Mon May 01 00:00:00 PDT 2000 | Wed Feb 02 00:00:00 PST 2005 
+3.0 | B | Wed Jul 08 00:00:00 PDT 2015 | Tue Sep 08 00:00:00 PDT 2015 
+4.0 | C | Tue Apr 10 00:00:00 PDT 2007 | Sun Jul 20 00:00:00 PDT 2008 
+
+[Query No.4]===============================
+SELECT
+  [T18615].tranid,[T18615].item,[T18615].startdate,[T18615].enddate
+FROM
+  (SELECT
+      [T16001].item,[T16001].MAX-startdate,[T16001].tranid,[T16001].item1,[T16001].startdate,[T16001].enddate
+    FROM
+      (( ((SELECT
+                input1.item, MAX(input1.startdate)
+              FROM
+                input1
+              GROUP BY
+                input1.item) AS [T16007][item, MAX-startdate]) AS [T16059][item, MAX-startdate] ) JOIN (
+          input1 )) AS [T16001][item, MAX-startdate, tranid, item1, startdate, enddate]
+    WHERE
+      [T16001].MAX-startdate == [T16001].startdate) AS [T18615][item, MAX-startdate, tranid, item1, startdate, enddate]
+
+@anonymous
+[T18615].tranid(NumberVal) | [T18615].item(StringVal) | [T18615].startdate(DateVal) | [T18615].enddate(DateVal) 
+2.0 | A | Mon May 01 00:00:00 PDT 2000 | Wed Feb 02 00:00:00 PST 2005 
+3.0 | B | Wed Jul 08 00:00:00 PDT 2015 | Tue Sep 08 00:00:00 PDT 2015 
+4.0 | C | Tue Apr 10 00:00:00 PDT 2007 | Sun Jul 20 00:00:00 PDT 2008 
+
+[Query No.3]===============================
+SELECT
+  [T18614].tranid,[T18614].item,[T18614].startdate,[T18614].enddate
+FROM
+  (SELECT
+      [T16001].item,[T16001].MAX-startdate,[T16001].tranid,[T16001].item1,[T16001].startdate,[T16001].enddate
+    FROM
+      (( ((SELECT
+                input1.item, MAX(input1.startdate)
+              FROM
+                input1
+              GROUP BY
+                input1.item) AS [T16007][item, MAX-startdate]) AS [T16059][item, MAX-startdate] ) JOIN (
+          input1 )) AS [T16001][item, MAX-startdate, tranid, item1, startdate, enddate]
+    WHERE
+      [T16001].MAX-startdate == [T16001].startdate) AS [T18614][item, MAX-startdate, tranid, item1, startdate, enddate]
+
+@anonymous
+[T18614].tranid(NumberVal) | [T18614].item(StringVal) | [T18614].startdate(DateVal) | [T18614].enddate(DateVal) 
+2.0 | A | Mon May 01 00:00:00 PDT 2000 | Wed Feb 02 00:00:00 PST 2005 
+3.0 | B | Wed Jul 08 00:00:00 PDT 2015 | Tue Sep 08 00:00:00 PDT 2015 
+4.0 | C | Tue Apr 10 00:00:00 PDT 2007 | Sun Jul 20 00:00:00 PDT 2008 
+
+[Query No.2]===============================
+SELECT
+  [T18605].tranid,[T18605].item,[T18605].MAX-startdate,[T18605].enddate
+FROM
+  (SELECT
+      [T16001].item,[T16001].MAX-startdate,[T16001].tranid,[T16001].item1,[T16001].startdate,[T16001].enddate
+    FROM
+      (( ((SELECT
+                input1.item, MAX(input1.startdate)
+              FROM
+                input1
+              GROUP BY
+                input1.item) AS [T16007][item, MAX-startdate]) AS [T16059][item, MAX-startdate] ) JOIN (
+          input1 )) AS [T16001][item, MAX-startdate, tranid, item1, startdate, enddate]
+    WHERE
+      [T16001].MAX-startdate == [T16001].startdate) AS [T18605][item, MAX-startdate, tranid, item1, startdate, enddate]
+
+@anonymous
+[T18605].tranid(NumberVal) | [T18605].item(StringVal) | [T18605].MAX-startdate(DateVal) | [T18605].enddate(DateVal) 
+2.0 | A | Mon May 01 00:00:00 PDT 2000 | Wed Feb 02 00:00:00 PST 2005 
+3.0 | B | Wed Jul 08 00:00:00 PDT 2015 | Tue Sep 08 00:00:00 PDT 2015 
+4.0 | C | Tue Apr 10 00:00:00 PDT 2007 | Sun Jul 20 00:00:00 PDT 2008 
+
+[Query No.1]===============================
+SELECT
+  [T18604].tranid,[T18604].item,[T18604].MAX-startdate,[T18604].enddate
+FROM
+  (SELECT
+      [T16001].item,[T16001].MAX-startdate,[T16001].tranid,[T16001].item1,[T16001].startdate,[T16001].enddate
+    FROM
+      (( ((SELECT
+                input1.item, MAX(input1.startdate)
+              FROM
+                input1
+              GROUP BY
+                input1.item) AS [T16007][item, MAX-startdate]) AS [T16059][item, MAX-startdate] ) JOIN (
+          input1 )) AS [T16001][item, MAX-startdate, tranid, item1, startdate, enddate]
+    WHERE
+      [T16001].MAX-startdate == [T16001].startdate) AS [T18604][item, MAX-startdate, tranid, item1, startdate, enddate]
+
+@anonymous
+[T18604].tranid(NumberVal) | [T18604].item(StringVal) | [T18604].MAX-startdate(DateVal) | [T18604].enddate(DateVal) 
+2.0 | A | Mon May 01 00:00:00 PDT 2000 | Wed Feb 02 00:00:00 PST 2005 
+3.0 | B | Wed Jul 08 00:00:00 PDT 2015 | Tue Sep 08 00:00:00 PDT 2015 
+4.0 | C | Tue Apr 10 00:00:00 PDT 2007 | Sun Jul 20 00:00:00 PDT 2008 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 46.538s

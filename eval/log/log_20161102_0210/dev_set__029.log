@@ -1,0 +1,478 @@
+[[Synthesis start]]
+	File: ../data/dev_set/029
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 63 [SymTable]: 64
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOINOnInput] level 1 [SymTable]: 5
+[EnumJoinOnAggr] level 1 [SymTable]: 21
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 13 [SymTable]: 14
+[JOINOnInput] level 1 [SymTable]: 15
+[EnumJoinOnAggr] level 1 [SymTable]: 211
+Candidate Tree Number: 20
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T268].deal_id,[T268].status_id,[T268].MAX-timestamp
+FROM
+  (( (SELECT
+          [T262].deal_id, [T262].status_id, MAX([T262].timestamp)
+        FROM
+          (input1) AS [T262][deal_id, status_id, timestamp]
+        GROUP BY
+          [T262].deal_id  [T262].status_id) AS [T263][deal_id, status_id, MAX-timestamp] ) JOIN (
+      (SELECT
+          [T266].deal_id, MAX([T266].timestamp)
+        FROM
+          (input1) AS [T266][deal_id, status_id, timestamp]
+        GROUP BY
+          [T266].deal_id) AS [T267][deal_id, MAX-timestamp] )) AS [T268][deal_id, status_id, MAX-timestamp, deal_id1, MAX-timestamp1]
+WHERE
+  [T268].deal_id == [T268].deal_id1
+   AND [T268].MAX-timestamp >= [T268].MAX-timestamp1
+@anonymous
+[T268].deal_id(NumberVal) | [T268].status_id(NumberVal) | [T268].MAX-timestamp(DateVal) 
+1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[No.19]===============================
+SELECT
+  [T218].deal_id,[T218].status_id,[T218].MAX-timestamp
+FROM
+  (( (SELECT
+          [T212].deal_id, MAX([T212].timestamp)
+        FROM
+          (input1) AS [T212][deal_id, status_id, timestamp]
+        GROUP BY
+          [T212].deal_id) AS [T213][deal_id, MAX-timestamp] ) JOIN (
+      (SELECT
+          [T216].deal_id, [T216].status_id, MAX([T216].timestamp)
+        FROM
+          (input1) AS [T216][deal_id, status_id, timestamp]
+        GROUP BY
+          [T216].deal_id  [T216].status_id) AS [T217][deal_id, status_id, MAX-timestamp] )) AS [T218][deal_id, MAX-timestamp, deal_id1, status_id, MAX-timestamp1]
+WHERE
+  [T218].MAX-timestamp <= [T218].MAX-timestamp1
+   AND [T218].deal_id == [T218].deal_id1
+@anonymous
+[T218].deal_id(NumberVal) | [T218].status_id(NumberVal) | [T218].MAX-timestamp(DateVal) 
+1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[No.18]===============================
+SELECT
+  [T322].deal_id,[T322].status_id,[T322].timestamp
+FROM
+  (( SELECT
+        input1.deal_id,input1.status_id,input1.timestamp
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      (SELECT
+          [T320].deal_id, MAX([T320].timestamp)
+        FROM
+          (input1) AS [T320][deal_id, status_id, timestamp]
+        GROUP BY
+          [T320].deal_id) AS [T321][deal_id, MAX-timestamp] )) AS [T322][deal_id, status_id, timestamp, deal_id1, MAX-timestamp]
+WHERE
+  [T322].timestamp == [T322].MAX-timestamp
+   AND [T322].deal_id == [T322].deal_id1
+@anonymous
+[T322].deal_id(NumberVal) | [T322].status_id(NumberVal) | [T322].timestamp(DateVal) 
+1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[No.17]===============================
+SELECT
+  [T292].deal_id,[T292].status_id,[T292].MAX-timestamp
+FROM
+  (( (SELECT
+          [T290].deal_id, MAX([T290].timestamp)
+        FROM
+          (input1) AS [T290][deal_id, status_id, timestamp]
+        GROUP BY
+          [T290].deal_id) AS [T291][deal_id, MAX-timestamp] ) JOIN (
+      SELECT
+        input1.deal_id,input1.status_id,input1.timestamp
+      FROM
+        input1
+      WHERE
+        True )) AS [T292][deal_id, MAX-timestamp, deal_id1, status_id, timestamp]
+WHERE
+  [T292].deal_id == [T292].deal_id1
+   AND [T292].MAX-timestamp == [T292].timestamp
+@anonymous
+[T292].deal_id(NumberVal) | [T292].status_id(NumberVal) | [T292].MAX-timestamp(DateVal) 
+1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[No.16]===============================
+SELECT
+  [T310].deal_id,[T310].status_id,[T310].timestamp
+FROM
+  (( SELECT
+        input1.deal_id,input1.status_id,input1.timestamp
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      (SELECT
+          [T308].deal_id, MAX([T308].timestamp)
+        FROM
+          (input1) AS [T308][deal_id, status_id, timestamp]
+        GROUP BY
+          [T308].deal_id) AS [T309][deal_id, MAX-timestamp] )) AS [T310][deal_id, status_id, timestamp, deal_id1, MAX-timestamp]
+WHERE
+  [T310].timestamp == [T310].MAX-timestamp
+@anonymous
+[T310].deal_id(NumberVal) | [T310].status_id(NumberVal) | [T310].timestamp(DateVal) 
+1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[No.15]===============================
+SELECT
+  [T280].deal_id,[T280].status_id,[T280].MAX-timestamp
+FROM
+  (( (SELECT
+          [T278].deal_id, MAX([T278].timestamp)
+        FROM
+          (input1) AS [T278][deal_id, status_id, timestamp]
+        GROUP BY
+          [T278].deal_id) AS [T279][deal_id, MAX-timestamp] ) JOIN (
+      SELECT
+        input1.deal_id,input1.status_id,input1.timestamp
+      FROM
+        input1
+      WHERE
+        True )) AS [T280][deal_id, MAX-timestamp, deal_id1, status_id, timestamp]
+WHERE
+  [T280].MAX-timestamp == [T280].timestamp
+@anonymous
+[T280].deal_id(NumberVal) | [T280].status_id(NumberVal) | [T280].MAX-timestamp(DateVal) 
+1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[No.14]===============================
+SELECT
+  [T328].deal_id,[T328].status_id,[T328].timestamp
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T326].deal_id, MAX([T326].timestamp)
+        FROM
+          (input1) AS [T326][deal_id, status_id, timestamp]
+        GROUP BY
+          [T326].deal_id) AS [T327][deal_id, MAX-timestamp] )) AS [T328][deal_id, status_id, timestamp, deal_id1, MAX-timestamp]
+WHERE
+  [T328].deal_id <= [T328].deal_id1
+   AND [T328].timestamp == [T328].MAX-timestamp
+@anonymous
+[T328].deal_id(NumberVal) | [T328].status_id(NumberVal) | [T328].timestamp(DateVal) 
+1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[No.13]===============================
+SELECT
+  [T298].deal_id,[T298].status_id,[T298].MAX-timestamp
+FROM
+  (( (SELECT
+          [T296].deal_id, MAX([T296].timestamp)
+        FROM
+          (input1) AS [T296][deal_id, status_id, timestamp]
+        GROUP BY
+          [T296].deal_id) AS [T297][deal_id, MAX-timestamp] ) JOIN (
+      input1 )) AS [T298][deal_id, MAX-timestamp, deal_id1, status_id, timestamp]
+WHERE
+  [T298].MAX-timestamp == [T298].timestamp
+   AND [T298].deal_id <= [T298].deal_id1
+@anonymous
+[T298].deal_id(NumberVal) | [T298].status_id(NumberVal) | [T298].MAX-timestamp(DateVal) 
+1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[No.12]===============================
+SELECT
+  [T258].deal_id,[T258].status_id,[T258].MAX-timestamp
+FROM
+  (( (SELECT
+          [T252].deal_id, [T252].status_id, MAX([T252].timestamp)
+        FROM
+          (input1) AS [T252][deal_id, status_id, timestamp]
+        GROUP BY
+          [T252].deal_id  [T252].status_id) AS [T253][deal_id, status_id, MAX-timestamp] ) JOIN (
+      (SELECT
+          [T256].deal_id, MAX([T256].timestamp)
+        FROM
+          (input1) AS [T256][deal_id, status_id, timestamp]
+        GROUP BY
+          [T256].deal_id) AS [T257][deal_id, MAX-timestamp] )) AS [T258][deal_id, status_id, MAX-timestamp, deal_id1, MAX-timestamp1]
+WHERE
+  [T258].deal_id <= [T258].deal_id1
+   AND [T258].MAX-timestamp == [T258].MAX-timestamp1
+@anonymous
+[T258].deal_id(NumberVal) | [T258].status_id(NumberVal) | [T258].MAX-timestamp(DateVal) 
+1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[No.11]===============================
+SELECT
+  [T248].deal_id,[T248].status_id,[T248].MAX-timestamp
+FROM
+  (( (SELECT
+          [T242].deal_id, [T242].status_id, MAX([T242].timestamp)
+        FROM
+          (input1) AS [T242][deal_id, status_id, timestamp]
+        GROUP BY
+          [T242].deal_id  [T242].status_id) AS [T243][deal_id, status_id, MAX-timestamp] ) JOIN (
+      (SELECT
+          [T246].deal_id, MAX([T246].timestamp)
+        FROM
+          (input1) AS [T246][deal_id, status_id, timestamp]
+        GROUP BY
+          [T246].deal_id) AS [T247][deal_id, MAX-timestamp] )) AS [T248][deal_id, status_id, MAX-timestamp, deal_id1, MAX-timestamp1]
+WHERE
+  [T248].MAX-timestamp == [T248].MAX-timestamp1
+   AND [T248].deal_id >= [T248].deal_id1
+@anonymous
+[T248].deal_id(NumberVal) | [T248].status_id(NumberVal) | [T248].MAX-timestamp(DateVal) 
+1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[No.10]===============================
+SELECT
+  [T208].deal_id,[T208].status_id,[T208].MAX-timestamp
+FROM
+  (( (SELECT
+          [T202].deal_id, MAX([T202].timestamp)
+        FROM
+          (input1) AS [T202][deal_id, status_id, timestamp]
+        GROUP BY
+          [T202].deal_id) AS [T203][deal_id, MAX-timestamp] ) JOIN (
+      (SELECT
+          [T206].deal_id, [T206].status_id, MAX([T206].timestamp)
+        FROM
+          (input1) AS [T206][deal_id, status_id, timestamp]
+        GROUP BY
+          [T206].deal_id  [T206].status_id) AS [T207][deal_id, status_id, MAX-timestamp] )) AS [T208][deal_id, MAX-timestamp, deal_id1, status_id, MAX-timestamp1]
+WHERE
+  [T208].deal_id <= [T208].deal_id1
+   AND [T208].MAX-timestamp == [T208].MAX-timestamp1
+@anonymous
+[T208].deal_id(NumberVal) | [T208].status_id(NumberVal) | [T208].MAX-timestamp(DateVal) 
+1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[No.9]===============================
+SELECT
+  [T198].deal_id,[T198].status_id,[T198].MAX-timestamp
+FROM
+  (( (SELECT
+          [T192].deal_id, MAX([T192].timestamp)
+        FROM
+          (input1) AS [T192][deal_id, status_id, timestamp]
+        GROUP BY
+          [T192].deal_id) AS [T193][deal_id, MAX-timestamp] ) JOIN (
+      (SELECT
+          [T196].deal_id, [T196].status_id, MAX([T196].timestamp)
+        FROM
+          (input1) AS [T196][deal_id, status_id, timestamp]
+        GROUP BY
+          [T196].deal_id  [T196].status_id) AS [T197][deal_id, status_id, MAX-timestamp] )) AS [T198][deal_id, MAX-timestamp, deal_id1, status_id, MAX-timestamp1]
+WHERE
+  [T198].MAX-timestamp == [T198].MAX-timestamp1
+   AND [T198].deal_id >= [T198].deal_id1
+@anonymous
+[T198].deal_id(NumberVal) | [T198].status_id(NumberVal) | [T198].MAX-timestamp(DateVal) 
+1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[No.8]===============================
+SELECT
+  [T316].deal_id,[T316].status_id,[T316].timestamp
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T314].deal_id, MAX([T314].timestamp)
+        FROM
+          (input1) AS [T314][deal_id, status_id, timestamp]
+        GROUP BY
+          [T314].deal_id) AS [T315][deal_id, MAX-timestamp] )) AS [T316][deal_id, status_id, timestamp, deal_id1, MAX-timestamp]
+WHERE
+  [T316].timestamp == [T316].MAX-timestamp
+   AND [T316].deal_id == [T316].deal_id1
+@anonymous
+[T316].deal_id(NumberVal) | [T316].status_id(NumberVal) | [T316].timestamp(DateVal) 
+1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[No.7]===============================
+SELECT
+  [T286].deal_id,[T286].status_id,[T286].MAX-timestamp
+FROM
+  (( (SELECT
+          [T284].deal_id, MAX([T284].timestamp)
+        FROM
+          (input1) AS [T284][deal_id, status_id, timestamp]
+        GROUP BY
+          [T284].deal_id) AS [T285][deal_id, MAX-timestamp] ) JOIN (
+      input1 )) AS [T286][deal_id, MAX-timestamp, deal_id1, status_id, timestamp]
+WHERE
+  [T286].deal_id == [T286].deal_id1
+   AND [T286].MAX-timestamp == [T286].timestamp
+@anonymous
+[T286].deal_id(NumberVal) | [T286].status_id(NumberVal) | [T286].MAX-timestamp(DateVal) 
+1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[No.6]===============================
+SELECT
+  [T238].deal_id,[T238].status_id,[T238].MAX-timestamp
+FROM
+  (( (SELECT
+          [T232].deal_id, [T232].status_id, MAX([T232].timestamp)
+        FROM
+          (input1) AS [T232][deal_id, status_id, timestamp]
+        GROUP BY
+          [T232].deal_id  [T232].status_id) AS [T233][deal_id, status_id, MAX-timestamp] ) JOIN (
+      (SELECT
+          [T236].deal_id, MAX([T236].timestamp)
+        FROM
+          (input1) AS [T236][deal_id, status_id, timestamp]
+        GROUP BY
+          [T236].deal_id) AS [T237][deal_id, MAX-timestamp] )) AS [T238][deal_id, status_id, MAX-timestamp, deal_id1, MAX-timestamp1]
+WHERE
+  [T238].deal_id == [T238].deal_id1
+   AND [T238].MAX-timestamp == [T238].MAX-timestamp1
+@anonymous
+[T238].deal_id(NumberVal) | [T238].status_id(NumberVal) | [T238].MAX-timestamp(DateVal) 
+1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[No.5]===============================
+SELECT
+  [T188].deal_id,[T188].status_id,[T188].MAX-timestamp
+FROM
+  (( (SELECT
+          [T182].deal_id, MAX([T182].timestamp)
+        FROM
+          (input1) AS [T182][deal_id, status_id, timestamp]
+        GROUP BY
+          [T182].deal_id) AS [T183][deal_id, MAX-timestamp] ) JOIN (
+      (SELECT
+          [T186].deal_id, [T186].status_id, MAX([T186].timestamp)
+        FROM
+          (input1) AS [T186][deal_id, status_id, timestamp]
+        GROUP BY
+          [T186].deal_id  [T186].status_id) AS [T187][deal_id, status_id, MAX-timestamp] )) AS [T188][deal_id, MAX-timestamp, deal_id1, status_id, MAX-timestamp1]
+WHERE
+  [T188].deal_id == [T188].deal_id1
+   AND [T188].MAX-timestamp == [T188].MAX-timestamp1
+@anonymous
+[T188].deal_id(NumberVal) | [T188].status_id(NumberVal) | [T188].MAX-timestamp(DateVal) 
+1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[No.4]===============================
+SELECT
+  [T304].deal_id,[T304].status_id,[T304].timestamp
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T302].deal_id, MAX([T302].timestamp)
+        FROM
+          (input1) AS [T302][deal_id, status_id, timestamp]
+        GROUP BY
+          [T302].deal_id) AS [T303][deal_id, MAX-timestamp] )) AS [T304][deal_id, status_id, timestamp, deal_id1, MAX-timestamp]
+WHERE
+  [T304].timestamp == [T304].MAX-timestamp
+@anonymous
+[T304].deal_id(NumberVal) | [T304].status_id(NumberVal) | [T304].timestamp(DateVal) 
+1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[No.3]===============================
+SELECT
+  [T274].deal_id,[T274].status_id,[T274].MAX-timestamp
+FROM
+  (( (SELECT
+          [T272].deal_id, MAX([T272].timestamp)
+        FROM
+          (input1) AS [T272][deal_id, status_id, timestamp]
+        GROUP BY
+          [T272].deal_id) AS [T273][deal_id, MAX-timestamp] ) JOIN (
+      input1 )) AS [T274][deal_id, MAX-timestamp, deal_id1, status_id, timestamp]
+WHERE
+  [T274].MAX-timestamp == [T274].timestamp
+@anonymous
+[T274].deal_id(NumberVal) | [T274].status_id(NumberVal) | [T274].MAX-timestamp(DateVal) 
+1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[No.2]===============================
+SELECT
+  [T228].deal_id,[T228].status_id,[T228].MAX-timestamp
+FROM
+  (( (SELECT
+          [T222].deal_id, [T222].status_id, MAX([T222].timestamp)
+        FROM
+          (input1) AS [T222][deal_id, status_id, timestamp]
+        GROUP BY
+          [T222].deal_id  [T222].status_id) AS [T223][deal_id, status_id, MAX-timestamp] ) JOIN (
+      (SELECT
+          [T226].deal_id, MAX([T226].timestamp)
+        FROM
+          (input1) AS [T226][deal_id, status_id, timestamp]
+        GROUP BY
+          [T226].deal_id) AS [T227][deal_id, MAX-timestamp] )) AS [T228][deal_id, status_id, MAX-timestamp, deal_id1, MAX-timestamp1]
+WHERE
+  [T228].MAX-timestamp == [T228].MAX-timestamp1
+@anonymous
+[T228].deal_id(NumberVal) | [T228].status_id(NumberVal) | [T228].MAX-timestamp(DateVal) 
+1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[No.1]===============================
+SELECT
+  [T178].deal_id,[T178].status_id,[T178].MAX-timestamp
+FROM
+  (( (SELECT
+          [T172].deal_id, MAX([T172].timestamp)
+        FROM
+          (input1) AS [T172][deal_id, status_id, timestamp]
+        GROUP BY
+          [T172].deal_id) AS [T173][deal_id, MAX-timestamp] ) JOIN (
+      (SELECT
+          [T176].deal_id, [T176].status_id, MAX([T176].timestamp)
+        FROM
+          (input1) AS [T176][deal_id, status_id, timestamp]
+        GROUP BY
+          [T176].deal_id  [T176].status_id) AS [T177][deal_id, status_id, MAX-timestamp] )) AS [T178][deal_id, MAX-timestamp, deal_id1, status_id, MAX-timestamp1]
+WHERE
+  [T178].MAX-timestamp == [T178].MAX-timestamp1
+@anonymous
+[T178].deal_id(NumberVal) | [T178].status_id(NumberVal) | [T178].MAX-timestamp(DateVal) 
+1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.740s

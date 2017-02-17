@@ -1,0 +1,39 @@
+//http://stackoverflow.com/questions/11898003/sql-exists-comparison
+
+# input
+
+      | id | country| status       |
+      |----------------------------|
+      | 1  | SE     | TREATED      |
+      | 2  | DK     | UNTREATED    |
+      | 3  | SE     | UNTREATED    |
+      | 4  | DE     | TREATED      |
+
+# output
+
+      | id | country| status       |
+      |----------------------------|
+      | 1  | SE     | TREATED      |
+
+#constraint
+{
+	"constants": ["TREATED", "UNTREATED"],
+	"aggregation_functions": []
+}
+
+#solution
+
+select t1.id,t1.country,t1.status
+from table t1
+join table t2 on t1.country=t2.country and t2.status='UNTREATED'
+where t1.status='TREATED'
+
+
+select id,country,status
+from table t1
+where t1.status='TREATED' and
+     exists (
+          select 1 from table t2 where 
+               t2.country = t1.country and 
+               t2.status = 'UNTREATED'
+     )

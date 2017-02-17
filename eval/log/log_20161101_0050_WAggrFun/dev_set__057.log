@@ -1,0 +1,486 @@
+[[Synthesis start]]
+	File: ..\data\dev_set\057
+	Enumerator: StagedEnumerator
+[Retry] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 48 [SymTable]: 49
+[EnumJoinOnAggr] level 1 [SymTable]: 2450
+Candidate Tree Number: 180
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T1487].CODE
+FROM
+  (( (SELECT
+          [T1485].Name, MAX([T1485].QTY)
+        FROM
+          (SELECT
+              input1.Name,input1.Price,input1.QTY,input1.CODE
+            FROM
+              input1
+            WHERE
+              input1.Name == Bottle) AS [T1485][Name, Price, QTY, CODE]
+        GROUP BY
+          [T1485].Name) AS [T1486][Name, MAX-QTY] ) JOIN (
+      SELECT
+        input1.Name,input1.Price,input1.QTY,input1.CODE
+      FROM
+        input1
+      WHERE
+        input1.Name == Bottle )) AS [T1487][Name, MAX-QTY, Name1, Price, QTY, CODE]
+WHERE
+  [T1487].MAX-QTY == [T1487].QTY
+@anonymous
+[T1487].CODE(NumberVal) 
+478.0 
+
+[No.19]===============================
+SELECT
+  [T1379].CODE
+FROM
+  (( SELECT
+        input1.Name,input1.Price,input1.QTY,input1.CODE
+      FROM
+        input1
+      WHERE
+        input1.Name == Bottle ) JOIN (
+      (SELECT
+          MAX([T1377].Price)
+        FROM
+          (SELECT
+              input1.Name,input1.Price,input1.QTY,input1.CODE
+            FROM
+              input1
+            WHERE
+              input1.Name == Bottle) AS [T1377][Name, Price, QTY, CODE]) AS [T1378][MAX-Price] )) AS [T1379][Name, Price, QTY, CODE, MAX-Price]
+WHERE
+  [T1379].Price == [T1379].MAX-Price
+@anonymous
+[T1379].CODE(NumberVal) 
+478.0 
+
+[No.18]===============================
+SELECT
+  [T1287].CODE
+FROM
+  (( (SELECT
+          MAX([T1285].Price)
+        FROM
+          (SELECT
+              input1.Name,input1.Price,input1.QTY,input1.CODE
+            FROM
+              input1
+            WHERE
+              input1.Name == Bottle) AS [T1285][Name, Price, QTY, CODE]) AS [T1286][MAX-Price] ) JOIN (
+      SELECT
+        input1.Name,input1.Price,input1.QTY,input1.CODE
+      FROM
+        input1
+      WHERE
+        input1.Name == Bottle )) AS [T1287][MAX-Price, Name, Price, QTY, CODE]
+WHERE
+  [T1287].MAX-Price == [T1287].Price
+@anonymous
+[T1287].CODE(NumberVal) 
+478.0 
+
+[No.17]===============================
+SELECT
+  [T1147].CODE
+FROM
+  (( (SELECT
+          [T1145].Name, MAX([T1145].Price)
+        FROM
+          (SELECT
+              input1.Name,input1.Price,input1.QTY,input1.CODE
+            FROM
+              input1
+            WHERE
+              input1.Name == Bottle) AS [T1145][Name, Price, QTY, CODE]
+        GROUP BY
+          [T1145].Name) AS [T1146][Name, MAX-Price] ) JOIN (
+      SELECT
+        input1.Name,input1.Price,input1.QTY,input1.CODE
+      FROM
+        input1
+      WHERE
+        input1.Name == Bottle )) AS [T1147][Name, MAX-Price, Name1, Price, QTY, CODE]
+WHERE
+  [T1147].MAX-Price == [T1147].Price
+@anonymous
+[T1147].CODE(NumberVal) 
+478.0 
+
+[No.16]===============================
+SELECT
+  [T619].CODE
+FROM
+  (( (SELECT
+          MAX([T617].QTY)
+        FROM
+          (SELECT
+              input1.Name,input1.Price,input1.QTY,input1.CODE
+            FROM
+              input1
+            WHERE
+              input1.Name == Bottle) AS [T617][Name, Price, QTY, CODE]) AS [T618][MAX-QTY] ) JOIN (
+      SELECT
+        input1.Name,input1.Price,input1.QTY,input1.CODE
+      FROM
+        input1
+      WHERE
+        input1.Name == Bottle )) AS [T619][MAX-QTY, Name, Price, QTY, CODE]
+WHERE
+  [T619].MAX-QTY == [T619].QTY
+@anonymous
+[T619].CODE(NumberVal) 
+478.0 
+
+[No.15]===============================
+SELECT
+  [T571].CODE
+FROM
+  (( SELECT
+        input1.Name,input1.Price,input1.QTY,input1.CODE
+      FROM
+        input1
+      WHERE
+        input1.Name == Bottle ) JOIN (
+      (SELECT
+          [T569].Name, MAX([T569].Price)
+        FROM
+          (SELECT
+              input1.Name,input1.Price,input1.QTY,input1.CODE
+            FROM
+              input1
+            WHERE
+              input1.Name == Bottle) AS [T569][Name, Price, QTY, CODE]
+        GROUP BY
+          [T569].Name) AS [T570][Name, MAX-Price] )) AS [T571][Name, Price, QTY, CODE, Name1, MAX-Price]
+WHERE
+  [T571].Price == [T571].MAX-Price
+@anonymous
+[T571].CODE(NumberVal) 
+478.0 
+
+[No.14]===============================
+SELECT
+  [T1899].CODE
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          MAX([T1897].QTY)
+        FROM
+          (SELECT
+              input1.Name,input1.Price,input1.QTY,input1.CODE
+            FROM
+              input1
+            WHERE
+              input1.Name == Bottle) AS [T1897][Name, Price, QTY, CODE]) AS [T1898][MAX-QTY] )) AS [T1899][Name, Price, QTY, CODE, MAX-QTY]
+WHERE
+  [T1899].QTY == [T1899].MAX-QTY
+@anonymous
+[T1899].CODE(NumberVal) 
+478.0 
+
+[No.13]===============================
+SELECT
+  [T1723].CODE
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T1721].Name, MAX([T1721].QTY)
+        FROM
+          (SELECT
+              input1.Name,input1.Price,input1.QTY,input1.CODE
+            FROM
+              input1
+            WHERE
+              input1.Name == Bottle) AS [T1721][Name, Price, QTY, CODE]
+        GROUP BY
+          [T1721].Name) AS [T1722][Name, MAX-QTY] )) AS [T1723][Name, Price, QTY, CODE, Name1, MAX-QTY]
+WHERE
+  [T1723].QTY == [T1723].MAX-QTY
+@anonymous
+[T1723].CODE(NumberVal) 
+478.0 
+
+[No.12]===============================
+SELECT
+  [T1639].MAX-CODE
+FROM
+  (( (SELECT
+          [T1627].Name, MAX([T1627].QTY)
+        FROM
+          (SELECT
+              input1.Name,input1.Price,input1.QTY,input1.CODE
+            FROM
+              input1
+            WHERE
+              input1.Name == Bottle) AS [T1627][Name, Price, QTY, CODE]
+        GROUP BY
+          [T1627].Name) AS [T1628][Name, MAX-QTY] ) JOIN (
+      (SELECT
+          [T1629].QTY, MAX([T1629].CODE)
+        FROM
+          (input1) AS [T1629][Name, Price, QTY, CODE]
+        GROUP BY
+          [T1629].QTY) AS [T1630][QTY, MAX-CODE] )) AS [T1639][Name, MAX-QTY, QTY, MAX-CODE]
+WHERE
+  [T1639].MAX-QTY == [T1639].QTY
+@anonymous
+[T1639].MAX-CODE(NumberVal) 
+478.0 
+
+[No.11]===============================
+SELECT
+  [T1471].CODE
+FROM
+  (( (SELECT
+          [T1469].Name, MAX([T1469].QTY)
+        FROM
+          (SELECT
+              input1.Name,input1.Price,input1.QTY,input1.CODE
+            FROM
+              input1
+            WHERE
+              input1.Name == Bottle) AS [T1469][Name, Price, QTY, CODE]
+        GROUP BY
+          [T1469].Name) AS [T1470][Name, MAX-QTY] ) JOIN (
+      input1 )) AS [T1471][Name, MAX-QTY, Name1, Price, QTY, CODE]
+WHERE
+  [T1471].MAX-QTY == [T1471].QTY
+@anonymous
+[T1471].CODE(NumberVal) 
+478.0 
+
+[No.10]===============================
+SELECT
+  [T1415].CODE
+FROM
+  (( SELECT
+        input1.Name,input1.Price,input1.QTY,input1.CODE
+      FROM
+        input1
+      WHERE
+        input1.Name == Bottle ) JOIN (
+      (SELECT
+          [T1405].Name, MAX([T1405].Price)
+        FROM
+          (input1) AS [T1405][Name, Price, QTY, CODE]
+        GROUP BY
+          [T1405].Name) AS [T1406][Name, MAX-Price] )) AS [T1415][Name, Price, QTY, CODE, Name1, MAX-Price]
+WHERE
+  [T1415].Price == [T1415].MAX-Price
+@anonymous
+[T1415].CODE(NumberVal) 
+478.0 
+
+[No.9]===============================
+SELECT
+  [T1371].CODE
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          MAX([T1369].Price)
+        FROM
+          (SELECT
+              input1.Name,input1.Price,input1.QTY,input1.CODE
+            FROM
+              input1
+            WHERE
+              input1.Name == Bottle) AS [T1369][Name, Price, QTY, CODE]) AS [T1370][MAX-Price] )) AS [T1371][Name, Price, QTY, CODE, MAX-Price]
+WHERE
+  [T1371].Price == [T1371].MAX-Price
+@anonymous
+[T1371].CODE(NumberVal) 
+478.0 
+
+[No.8]===============================
+SELECT
+  [T1271].CODE
+FROM
+  (( (SELECT
+          MAX([T1269].Price)
+        FROM
+          (SELECT
+              input1.Name,input1.Price,input1.QTY,input1.CODE
+            FROM
+              input1
+            WHERE
+              input1.Name == Bottle) AS [T1269][Name, Price, QTY, CODE]) AS [T1270][MAX-Price] ) JOIN (
+      input1 )) AS [T1271][MAX-Price, Name, Price, QTY, CODE]
+WHERE
+  [T1271].MAX-Price == [T1271].Price
+@anonymous
+[T1271].CODE(NumberVal) 
+478.0 
+
+[No.7]===============================
+SELECT
+  [T1131].CODE
+FROM
+  (( (SELECT
+          [T1129].Name, MAX([T1129].Price)
+        FROM
+          (SELECT
+              input1.Name,input1.Price,input1.QTY,input1.CODE
+            FROM
+              input1
+            WHERE
+              input1.Name == Bottle) AS [T1129][Name, Price, QTY, CODE]
+        GROUP BY
+          [T1129].Name) AS [T1130][Name, MAX-Price] ) JOIN (
+      input1 )) AS [T1131][Name, MAX-Price, Name1, Price, QTY, CODE]
+WHERE
+  [T1131].MAX-Price == [T1131].Price
+@anonymous
+[T1131].CODE(NumberVal) 
+478.0 
+
+[No.6]===============================
+SELECT
+  [T1067].MAX-CODE
+FROM
+  (( (SELECT
+          [T1051].QTY, MAX([T1051].CODE)
+        FROM
+          (input1) AS [T1051][Name, Price, QTY, CODE]
+        GROUP BY
+          [T1051].QTY) AS [T1052][QTY, MAX-CODE] ) JOIN (
+      (SELECT
+          [T1065].Name, MAX([T1065].QTY)
+        FROM
+          (SELECT
+              input1.Name,input1.Price,input1.QTY,input1.CODE
+            FROM
+              input1
+            WHERE
+              input1.Name == Bottle) AS [T1065][Name, Price, QTY, CODE]
+        GROUP BY
+          [T1065].Name) AS [T1066][Name, MAX-QTY] )) AS [T1067][QTY, MAX-CODE, Name, MAX-QTY]
+WHERE
+  [T1067].QTY == [T1067].MAX-QTY
+@anonymous
+[T1067].MAX-CODE(NumberVal) 
+478.0 
+
+[No.5]===============================
+SELECT
+  [T943].CODE
+FROM
+  (( (SELECT
+          [T933].Name, MAX([T933].Price)
+        FROM
+          (input1) AS [T933][Name, Price, QTY, CODE]
+        GROUP BY
+          [T933].Name) AS [T934][Name, MAX-Price] ) JOIN (
+      SELECT
+        input1.Name,input1.Price,input1.QTY,input1.CODE
+      FROM
+        input1
+      WHERE
+        input1.Name == Bottle )) AS [T943][Name, MAX-Price, Name1, Price, QTY, CODE]
+WHERE
+  [T943].MAX-Price == [T943].Price
+@anonymous
+[T943].CODE(NumberVal) 
+478.0 
+
+[No.4]===============================
+SELECT
+  [T743].MAX-CODE
+FROM
+  (( (SELECT
+          MAX([T731].QTY)
+        FROM
+          (SELECT
+              input1.Name,input1.Price,input1.QTY,input1.CODE
+            FROM
+              input1
+            WHERE
+              input1.Name == Bottle) AS [T731][Name, Price, QTY, CODE]) AS [T732][MAX-QTY] ) JOIN (
+      (SELECT
+          [T733].QTY, MAX([T733].CODE)
+        FROM
+          (input1) AS [T733][Name, Price, QTY, CODE]
+        GROUP BY
+          [T733].QTY) AS [T734][QTY, MAX-CODE] )) AS [T743][MAX-QTY, QTY, MAX-CODE]
+WHERE
+  [T743].MAX-QTY == [T743].QTY
+@anonymous
+[T743].MAX-CODE(NumberVal) 
+478.0 
+
+[No.3]===============================
+SELECT
+  [T671].MAX-CODE
+FROM
+  (( (SELECT
+          [T655].QTY, MAX([T655].CODE)
+        FROM
+          (input1) AS [T655][Name, Price, QTY, CODE]
+        GROUP BY
+          [T655].QTY) AS [T656][QTY, MAX-CODE] ) JOIN (
+      (SELECT
+          MAX([T669].QTY)
+        FROM
+          (SELECT
+              input1.Name,input1.Price,input1.QTY,input1.CODE
+            FROM
+              input1
+            WHERE
+              input1.Name == Bottle) AS [T669][Name, Price, QTY, CODE]) AS [T670][MAX-QTY] )) AS [T671][QTY, MAX-CODE, MAX-QTY]
+WHERE
+  [T671].QTY == [T671].MAX-QTY
+@anonymous
+[T671].MAX-CODE(NumberVal) 
+478.0 
+
+[No.2]===============================
+SELECT
+  [T603].CODE
+FROM
+  (( (SELECT
+          MAX([T601].QTY)
+        FROM
+          (SELECT
+              input1.Name,input1.Price,input1.QTY,input1.CODE
+            FROM
+              input1
+            WHERE
+              input1.Name == Bottle) AS [T601][Name, Price, QTY, CODE]) AS [T602][MAX-QTY] ) JOIN (
+      input1 )) AS [T603][MAX-QTY, Name, Price, QTY, CODE]
+WHERE
+  [T603].MAX-QTY == [T603].QTY
+@anonymous
+[T603].CODE(NumberVal) 
+478.0 
+
+[No.1]===============================
+SELECT
+  [T563].CODE
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T561].Name, MAX([T561].Price)
+        FROM
+          (SELECT
+              input1.Name,input1.Price,input1.QTY,input1.CODE
+            FROM
+              input1
+            WHERE
+              input1.Name == Bottle) AS [T561][Name, Price, QTY, CODE]
+        GROUP BY
+          [T561].Name) AS [T562][Name, MAX-Price] )) AS [T563][Name, Price, QTY, CODE, Name1, MAX-Price]
+WHERE
+  [T563].Price == [T563].MAX-Price
+@anonymous
+[T563].CODE(NumberVal) 
+478.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 1.777s

@@ -1,0 +1,205 @@
+[[Synthesizing]]
+[[Synthesis start]]
+	File: ../data/recent_posts/022M
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 32 [SymTable]: 34
+[NaturalJoin]: 1 [SymTable]: 35
+[Total Number of Intermediate] 35
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 2 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 13
+[EnumJoinOnAggr] level 1 [SymTable]: 29
+[Total Number of Intermediate] 29
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 6 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 25
+[EnumJoinOnAggr] level 1 [SymTable]: 89
+[Total Number of Intermediate] 89
+Candidate Tree Number: 4
+[Enumeration Finished]
+    [AggrFun] Optional[MIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 6 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 25
+[EnumJoinOnAggr] level 1 [SymTable]: 89
+[Total Number of Intermediate] 89
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[AVG]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 6 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 25
+[Total Number of Intermediate] 25
+Candidate Tree Number: 2
+[Enumeration Finished]
+    [AggrFun] Optional[MINMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 10 [SymTable]: 12
+[JOIN] level 1 [SymTable]: 37
+[EnumJoinOnAggr] level 1 [SymTable]: 181
+[Total Number of Intermediate] 181
+Candidate Tree Number: 10
+[Enumeration Finished]
+    [AggrFun] Optional[MAXCOUNT]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 12 [SymTable]: 14
+[JOIN] level 1 [SymTable]: 43
+[EnumJoinOnAggr] level 1 [SymTable]: 239
+[Total Number of Intermediate] 239
+Candidate Tree Number: 64
+[Enumeration Finished]
+[Query No.5]===============================
+SELECT
+  [T1239].MAX-c1
+FROM
+  (( (SELECT
+          [T1233].c2, MAX([T1233].c1)
+        FROM
+          (input2) AS [T1233][c1, c2]
+        GROUP BY
+          [T1233].c2) AS [T1234][c2, MAX-c1] ) JOIN (
+      SELECT
+        [T1238].c2,[T1238].COUNT-c1
+      FROM
+        (SELECT
+            [T1237].c2, COUNT([T1237].c1)
+          FROM
+            (input2) AS [T1237][c1, c2]
+          GROUP BY
+            [T1237].c2) AS [T1238][c2, COUNT-c1]
+      WHERE
+        [T1238].COUNT-c1 == 3.0 )) AS [T1239][c2, MAX-c1, c21, COUNT-c1]
+WHERE
+  [T1239].c2 == [T1239].c21
+@anonymous
+[T1239].MAX-c1(NumberVal) 
+74.0 
+
+[Query No.4]===============================
+SELECT
+  [T869].MAX-c1
+FROM
+  (( SELECT
+        [T864].c2,[T864].COUNT-c1
+      FROM
+        (SELECT
+            [T863].c2, COUNT([T863].c1)
+          FROM
+            (input2) AS [T863][c1, c2]
+          GROUP BY
+            [T863].c2) AS [T864][c2, COUNT-c1]
+      WHERE
+        [T864].COUNT-c1 == 3.0 ) JOIN (
+      (SELECT
+          [T867].c2, MAX([T867].c1)
+        FROM
+          (input2) AS [T867][c1, c2]
+        GROUP BY
+          [T867].c2) AS [T868][c2, MAX-c1] )) AS [T869][c2, COUNT-c1, c21, MAX-c1]
+WHERE
+  [T869].c2 == [T869].c21
+@anonymous
+[T869].MAX-c1(NumberVal) 
+74.0 
+
+[Query No.3]===============================
+SELECT
+  [T819].MAX-c1
+FROM
+  (( SELECT
+        [T814].c2,[T814].COUNT-c2
+      FROM
+        (SELECT
+            [T813].c2, COUNT([T813].c2)
+          FROM
+            (input2) AS [T813][c1, c2]
+          GROUP BY
+            [T813].c2) AS [T814][c2, COUNT-c2]
+      WHERE
+        [T814].COUNT-c2 == 3.0 ) JOIN (
+      (SELECT
+          [T817].c2, MAX([T817].c1)
+        FROM
+          (input2) AS [T817][c1, c2]
+        GROUP BY
+          [T817].c2) AS [T818][c2, MAX-c1] )) AS [T819][c2, COUNT-c2, c21, MAX-c1]
+WHERE
+  [T819].c2 == [T819].c21
+@anonymous
+[T819].MAX-c1(NumberVal) 
+74.0 
+
+[Query No.2]===============================
+SELECT
+  [T479].MAX-c1
+FROM
+  (( (SELECT
+          [T473].c2, MAX([T473].c1)
+        FROM
+          (input2) AS [T473][c1, c2]
+        GROUP BY
+          [T473].c2) AS [T474][c2, MAX-c1] ) JOIN (
+      (SELECT
+          MIN([T477].c2)
+        FROM
+          (input2) AS [T477][c1, c2]) AS [T478][MIN-c2] )) AS [T479][c2, MAX-c1, MIN-c2]
+WHERE
+  [T479].c2 == [T479].MIN-c2
+@anonymous
+[T479].MAX-c1(NumberVal) 
+74.0 
+
+[Query No.1]===============================
+SELECT
+  [T409].MAX-c1
+FROM
+  (( (SELECT
+          MIN([T403].c2)
+        FROM
+          (input2) AS [T403][c1, c2]) AS [T404][MIN-c2] ) JOIN (
+      (SELECT
+          [T407].c2, MAX([T407].c1)
+        FROM
+          (input2) AS [T407][c1, c2]
+        GROUP BY
+          [T407].c2) AS [T408][c2, MAX-c1] )) AS [T409][MIN-c2, c2, MAX-c1]
+WHERE
+  [T409].MIN-c2 == [T409].c2
+@anonymous
+[T409].MAX-c1(NumberVal) 
+74.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 1.470s

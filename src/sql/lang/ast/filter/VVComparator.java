@@ -1,9 +1,8 @@
 package sql.lang.ast.filter;
 
-import enumerator.parameterized.InstantiateEnv;
-import sql.lang.DataType.DateVal;
-import sql.lang.DataType.NumberVal;
-import sql.lang.DataType.Value;
+import forward_enumeration.primitive.parameterized.InstantiateEnv;
+import sql.lang.ast.val.ConstantVal;
+import sql.lang.datatype.*;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
@@ -11,7 +10,6 @@ import sql.lang.ast.val.ValNode;
 import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 import java.util.function.BiFunction;
@@ -19,11 +17,11 @@ import java.util.stream.Collectors;
 
 /**
  * Created by clwang on 12/14/15.
- * A comparator between two columns
+ * A comparator between values
  */
 public class VVComparator implements Filter {
 
-    List<ValNode> args = new ArrayList<ValNode>();
+    List<ValNode> args = new ArrayList<>();
     BiFunction<Value, Value, Boolean> compareFunc;
 
     public VVComparator(List<ValNode> args, BiFunction func) {
@@ -82,12 +80,20 @@ public class VVComparator implements Filter {
     }
 
     public static BiFunction<Value, Value, Boolean> lt = (v1, v2) -> {
+
+        if (! v1.getValType().equals(v2.getValType())) {
+            System.out.println("[Error@VVComparator45] " + "Comparing between none-number value: " + v1.toString() + " and " + v2.toString());
+        }
+
+        // TODO: double check this
+        if (v1 instanceof NullVal || v2 instanceof NullVal)
+            return false;
+
         if (v1 instanceof NumberVal && v2 instanceof NumberVal) {
             return ((NumberVal)v1).getVal() < ((NumberVal)v2).getVal();
         } else if (v1 instanceof DateVal && v2 instanceof DateVal) {
             return ((DateVal)v1).getVal().compareTo(((DateVal)v2).getVal()) < 0 ;
         }
-        System.out.println("[Error@VVComparator45] " + "Comparing between none-number value: " + v1.toString() + " and " + v2.toString());
         return false;
      };
 
@@ -108,7 +114,7 @@ public class VVComparator implements Filter {
     }
 
     private String OperatorName(BiFunction<Value, Value, Boolean> op) {
-        if (op.equals(eq)) return "==";
+        if (op.equals(eq)) return "=";
         else if (op.equals(le)) return "<=";
         else if (op.equals(ge)) return ">=";
         else if (op.equals(lt)) return "<";
@@ -125,6 +131,17 @@ public class VVComparator implements Filter {
     }
 
     @Override
+    public List<Value> getAllConstatnts() {
+        List<Value> values = new ArrayList<>();
+        for (ValNode vn : this.args) {
+            if (vn instanceof ConstantVal) {
+                values.add(((ConstantVal) vn).getValue());
+            }
+        }
+        return values;
+    }
+
+    @Override
     public Filter instantiate(InstantiateEnv env) {
         return new VVComparator(
                 args.stream().map(vn -> vn.instantiate(env)).collect(Collectors.toList()),
@@ -136,5 +153,8 @@ public class VVComparator implements Filter {
         Filter f = new VVComparator(args.stream().map(vn -> vn.subst(vnsb)).collect(Collectors.toList()), this.compareFunc);
         return f;
     }
+
+    public List<ValNode> getArgs() { return this.args; }
+    public BiFunction<Value, Value, Boolean> getComparator() { return this.compareFunc; }
 
 }

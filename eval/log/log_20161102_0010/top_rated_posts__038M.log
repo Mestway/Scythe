@@ -1,0 +1,598 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/038M
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 69 [SymTable]: 70
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 8
+[EnumLeftJoin] level 1 [SymTable]: 8
+[EnumJoinOnAggr] level 1 [SymTable]: 36
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 25 [SymTable]: 26
+[JOIN] level 1 [SymTable]: 52
+Candidate Tree Number: 24
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T274].id,[T274].name,[T274].city
+FROM
+  (( SELECT
+        [T273].name,[T273].city,[T273].COUNT-city
+      FROM
+        (SELECT
+            [T272].name, [T272].city, COUNT([T272].city)
+          FROM
+            (input1) AS [T272][id, name, city]
+          GROUP BY
+            [T272].name  [T272].city) AS [T273][name, city, COUNT-city]
+      WHERE
+        [T273].COUNT-city > 1.0 ) JOIN (
+      SELECT
+        input1.id,input1.name,input1.city
+      FROM
+        input1
+      WHERE
+        True )) AS [T274][name, city, COUNT-city, id, name1, city1]
+WHERE
+  [T274].name == [T274].name1
+@anonymous
+[T274].id(NumberVal) | [T274].name(StringVal) | [T274].city(StringVal) 
+904834.0 | jim | London 
+904835.0 | jim | London 
+90145.0 | Fred | Paris 
+90132.0 | Fred | Paris 
+90133.0 | Fred | Paris 
+
+[No.19]===============================
+SELECT
+  [T262].id,[T262].name,[T262].city
+FROM
+  (( SELECT
+        [T261].name,[T261].COUNT_DISTINCT-id
+      FROM
+        (SELECT
+            [T260].name, COUNT_DISTINCT([T260].id)
+          FROM
+            (input1) AS [T260][id, name, city]
+          GROUP BY
+            [T260].name) AS [T261][name, COUNT_DISTINCT-id]
+      WHERE
+        [T261].COUNT_DISTINCT-id > 1.0 ) JOIN (
+      SELECT
+        input1.id,input1.name,input1.city
+      FROM
+        input1
+      WHERE
+        True )) AS [T262][name, COUNT_DISTINCT-id, id, name1, city]
+WHERE
+  [T262].name == [T262].name1
+@anonymous
+[T262].id(NumberVal) | [T262].name(StringVal) | [T262].city(StringVal) 
+904834.0 | jim | London 
+904835.0 | jim | London 
+90145.0 | Fred | Paris 
+90132.0 | Fred | Paris 
+90133.0 | Fred | Paris 
+
+[No.18]===============================
+SELECT
+  [T250].id,[T250].name,[T250].city
+FROM
+  (( SELECT
+        [T249].name,[T249].COUNT-name
+      FROM
+        (SELECT
+            [T248].name, COUNT([T248].name)
+          FROM
+            (input1) AS [T248][id, name, city]
+          GROUP BY
+            [T248].name) AS [T249][name, COUNT-name]
+      WHERE
+        [T249].COUNT-name > 1.0 ) JOIN (
+      SELECT
+        input1.id,input1.name,input1.city
+      FROM
+        input1
+      WHERE
+        True )) AS [T250][name, COUNT-name, id, name1, city]
+WHERE
+  [T250].name == [T250].name1
+@anonymous
+[T250].id(NumberVal) | [T250].name(StringVal) | [T250].city(StringVal) 
+904834.0 | jim | London 
+904835.0 | jim | London 
+90145.0 | Fred | Paris 
+90132.0 | Fred | Paris 
+90133.0 | Fred | Paris 
+
+[No.17]===============================
+SELECT
+  [T226].id,[T226].name,[T226].city
+FROM
+  (( SELECT
+        [T225].name,[T225].city,[T225].COUNT-id
+      FROM
+        (SELECT
+            [T224].name, [T224].city, COUNT([T224].id)
+          FROM
+            (input1) AS [T224][id, name, city]
+          GROUP BY
+            [T224].name  [T224].city) AS [T225][name, city, COUNT-id]
+      WHERE
+        [T225].COUNT-id > 1.0 ) JOIN (
+      SELECT
+        input1.id,input1.name,input1.city
+      FROM
+        input1
+      WHERE
+        True )) AS [T226][name, city, COUNT-id, id, name1, city1]
+WHERE
+  [T226].name == [T226].name1
+@anonymous
+[T226].id(NumberVal) | [T226].name(StringVal) | [T226].city(StringVal) 
+904834.0 | jim | London 
+904835.0 | jim | London 
+90145.0 | Fred | Paris 
+90132.0 | Fred | Paris 
+90133.0 | Fred | Paris 
+
+[No.16]===============================
+SELECT
+  [T214].id,[T214].name,[T214].city
+FROM
+  (( SELECT
+        [T213].name,[T213].COUNT-city
+      FROM
+        (SELECT
+            [T212].name, COUNT([T212].city)
+          FROM
+            (input1) AS [T212][id, name, city]
+          GROUP BY
+            [T212].name) AS [T213][name, COUNT-city]
+      WHERE
+        [T213].COUNT-city > 1.0 ) JOIN (
+      SELECT
+        input1.id,input1.name,input1.city
+      FROM
+        input1
+      WHERE
+        True )) AS [T214][name, COUNT-city, id, name1, city]
+WHERE
+  [T214].name == [T214].name1
+@anonymous
+[T214].id(NumberVal) | [T214].name(StringVal) | [T214].city(StringVal) 
+904834.0 | jim | London 
+904835.0 | jim | London 
+90145.0 | Fred | Paris 
+90132.0 | Fred | Paris 
+90133.0 | Fred | Paris 
+
+[No.15]===============================
+SELECT
+  [T190].id,[T190].name,[T190].city
+FROM
+  (( SELECT
+        [T189].name,[T189].city,[T189].COUNT_DISTINCT-id
+      FROM
+        (SELECT
+            [T188].name, [T188].city, COUNT_DISTINCT([T188].id)
+          FROM
+            (input1) AS [T188][id, name, city]
+          GROUP BY
+            [T188].name  [T188].city) AS [T189][name, city, COUNT_DISTINCT-id]
+      WHERE
+        [T189].COUNT_DISTINCT-id > 1.0 ) JOIN (
+      SELECT
+        input1.id,input1.name,input1.city
+      FROM
+        input1
+      WHERE
+        True )) AS [T190][name, city, COUNT_DISTINCT-id, id, name1, city1]
+WHERE
+  [T190].name == [T190].name1
+@anonymous
+[T190].id(NumberVal) | [T190].name(StringVal) | [T190].city(StringVal) 
+904834.0 | jim | London 
+904835.0 | jim | London 
+90145.0 | Fred | Paris 
+90132.0 | Fred | Paris 
+90133.0 | Fred | Paris 
+
+[No.14]===============================
+SELECT
+  [T178].id,[T178].name,[T178].city
+FROM
+  (( SELECT
+        [T177].name,[T177].COUNT-id
+      FROM
+        (SELECT
+            [T176].name, COUNT([T176].id)
+          FROM
+            (input1) AS [T176][id, name, city]
+          GROUP BY
+            [T176].name) AS [T177][name, COUNT-id]
+      WHERE
+        [T177].COUNT-id > 1.0 ) JOIN (
+      SELECT
+        input1.id,input1.name,input1.city
+      FROM
+        input1
+      WHERE
+        True )) AS [T178][name, COUNT-id, id, name1, city]
+WHERE
+  [T178].name == [T178].name1
+@anonymous
+[T178].id(NumberVal) | [T178].name(StringVal) | [T178].city(StringVal) 
+904834.0 | jim | London 
+904835.0 | jim | London 
+90145.0 | Fred | Paris 
+90132.0 | Fred | Paris 
+90133.0 | Fred | Paris 
+
+[No.13]===============================
+SELECT
+  [T154].id,[T154].name,[T154].city
+FROM
+  (( SELECT
+        [T153].name,[T153].city,[T153].COUNT-name
+      FROM
+        (SELECT
+            [T152].name, [T152].city, COUNT([T152].name)
+          FROM
+            (input1) AS [T152][id, name, city]
+          GROUP BY
+            [T152].name  [T152].city) AS [T153][name, city, COUNT-name]
+      WHERE
+        [T153].COUNT-name > 1.0 ) JOIN (
+      SELECT
+        input1.id,input1.name,input1.city
+      FROM
+        input1
+      WHERE
+        True )) AS [T154][name, city, COUNT-name, id, name1, city1]
+WHERE
+  [T154].name == [T154].name1
+@anonymous
+[T154].id(NumberVal) | [T154].name(StringVal) | [T154].city(StringVal) 
+904834.0 | jim | London 
+904835.0 | jim | London 
+90145.0 | Fred | Paris 
+90132.0 | Fred | Paris 
+90133.0 | Fred | Paris 
+
+[No.12]===============================
+SELECT
+  [T292].id,[T292].name,[T292].city
+FROM
+  (( SELECT
+        [T291].name,[T291].city,[T291].COUNT-city
+      FROM
+        (SELECT
+            [T290].name, [T290].city, COUNT([T290].city)
+          FROM
+            (input1) AS [T290][id, name, city]
+          GROUP BY
+            [T290].name  [T290].city) AS [T291][name, city, COUNT-city]
+      WHERE
+        [T291].COUNT-city > 1.0 ) JOIN (
+      input1 )) AS [T292][name, city, COUNT-city, id, name1, city1]
+WHERE
+  [T292].name == [T292].name1
+   AND [T292].city == [T292].city1
+@anonymous
+[T292].id(NumberVal) | [T292].name(StringVal) | [T292].city(StringVal) 
+904834.0 | jim | London 
+904835.0 | jim | London 
+90145.0 | Fred | Paris 
+90132.0 | Fred | Paris 
+90133.0 | Fred | Paris 
+
+[No.11]===============================
+SELECT
+  [T244].id,[T244].name,[T244].city
+FROM
+  (( SELECT
+        [T243].name,[T243].city,[T243].COUNT-id
+      FROM
+        (SELECT
+            [T242].name, [T242].city, COUNT([T242].id)
+          FROM
+            (input1) AS [T242][id, name, city]
+          GROUP BY
+            [T242].name  [T242].city) AS [T243][name, city, COUNT-id]
+      WHERE
+        [T243].COUNT-id > 1.0 ) JOIN (
+      input1 )) AS [T244][name, city, COUNT-id, id, name1, city1]
+WHERE
+  [T244].name == [T244].name1
+   AND [T244].city == [T244].city1
+@anonymous
+[T244].id(NumberVal) | [T244].name(StringVal) | [T244].city(StringVal) 
+904834.0 | jim | London 
+904835.0 | jim | London 
+90145.0 | Fred | Paris 
+90132.0 | Fred | Paris 
+90133.0 | Fred | Paris 
+
+[No.10]===============================
+SELECT
+  [T208].id,[T208].name,[T208].city
+FROM
+  (( SELECT
+        [T207].name,[T207].city,[T207].COUNT_DISTINCT-id
+      FROM
+        (SELECT
+            [T206].name, [T206].city, COUNT_DISTINCT([T206].id)
+          FROM
+            (input1) AS [T206][id, name, city]
+          GROUP BY
+            [T206].name  [T206].city) AS [T207][name, city, COUNT_DISTINCT-id]
+      WHERE
+        [T207].COUNT_DISTINCT-id > 1.0 ) JOIN (
+      input1 )) AS [T208][name, city, COUNT_DISTINCT-id, id, name1, city1]
+WHERE
+  [T208].name == [T208].name1
+   AND [T208].city == [T208].city1
+@anonymous
+[T208].id(NumberVal) | [T208].name(StringVal) | [T208].city(StringVal) 
+904834.0 | jim | London 
+904835.0 | jim | London 
+90145.0 | Fred | Paris 
+90132.0 | Fred | Paris 
+90133.0 | Fred | Paris 
+
+[No.9]===============================
+SELECT
+  [T172].id,[T172].name,[T172].city
+FROM
+  (( SELECT
+        [T171].name,[T171].city,[T171].COUNT-name
+      FROM
+        (SELECT
+            [T170].name, [T170].city, COUNT([T170].name)
+          FROM
+            (input1) AS [T170][id, name, city]
+          GROUP BY
+            [T170].name  [T170].city) AS [T171][name, city, COUNT-name]
+      WHERE
+        [T171].COUNT-name > 1.0 ) JOIN (
+      input1 )) AS [T172][name, city, COUNT-name, id, name1, city1]
+WHERE
+  [T172].name == [T172].name1
+   AND [T172].city == [T172].city1
+@anonymous
+[T172].id(NumberVal) | [T172].name(StringVal) | [T172].city(StringVal) 
+904834.0 | jim | London 
+904835.0 | jim | London 
+90145.0 | Fred | Paris 
+90132.0 | Fred | Paris 
+90133.0 | Fred | Paris 
+
+[No.8]===============================
+SELECT
+  [T286].id,[T286].name,[T286].city
+FROM
+  (( SELECT
+        [T285].name,[T285].city,[T285].COUNT-city
+      FROM
+        (SELECT
+            [T284].name, [T284].city, COUNT([T284].city)
+          FROM
+            (input1) AS [T284][id, name, city]
+          GROUP BY
+            [T284].name  [T284].city) AS [T285][name, city, COUNT-city]
+      WHERE
+        [T285].COUNT-city > 1.0 ) JOIN (
+      input1 )) AS [T286][name, city, COUNT-city, id, name1, city1]
+WHERE
+  [T286].name == [T286].name1
+@anonymous
+[T286].id(NumberVal) | [T286].name(StringVal) | [T286].city(StringVal) 
+904834.0 | jim | London 
+904835.0 | jim | London 
+90145.0 | Fred | Paris 
+90132.0 | Fred | Paris 
+90133.0 | Fred | Paris 
+
+[No.7]===============================
+SELECT
+  [T268].id,[T268].name,[T268].city
+FROM
+  (( SELECT
+        [T267].name,[T267].COUNT_DISTINCT-id
+      FROM
+        (SELECT
+            [T266].name, COUNT_DISTINCT([T266].id)
+          FROM
+            (input1) AS [T266][id, name, city]
+          GROUP BY
+            [T266].name) AS [T267][name, COUNT_DISTINCT-id]
+      WHERE
+        [T267].COUNT_DISTINCT-id > 1.0 ) JOIN (
+      input1 )) AS [T268][name, COUNT_DISTINCT-id, id, name1, city]
+WHERE
+  [T268].name == [T268].name1
+@anonymous
+[T268].id(NumberVal) | [T268].name(StringVal) | [T268].city(StringVal) 
+904834.0 | jim | London 
+904835.0 | jim | London 
+90145.0 | Fred | Paris 
+90132.0 | Fred | Paris 
+90133.0 | Fred | Paris 
+
+[No.6]===============================
+SELECT
+  [T256].id,[T256].name,[T256].city
+FROM
+  (( SELECT
+        [T255].name,[T255].COUNT-name
+      FROM
+        (SELECT
+            [T254].name, COUNT([T254].name)
+          FROM
+            (input1) AS [T254][id, name, city]
+          GROUP BY
+            [T254].name) AS [T255][name, COUNT-name]
+      WHERE
+        [T255].COUNT-name > 1.0 ) JOIN (
+      input1 )) AS [T256][name, COUNT-name, id, name1, city]
+WHERE
+  [T256].name == [T256].name1
+@anonymous
+[T256].id(NumberVal) | [T256].name(StringVal) | [T256].city(StringVal) 
+904834.0 | jim | London 
+904835.0 | jim | London 
+90145.0 | Fred | Paris 
+90132.0 | Fred | Paris 
+90133.0 | Fred | Paris 
+
+[No.5]===============================
+SELECT
+  [T238].id,[T238].name,[T238].city
+FROM
+  (( SELECT
+        [T237].name,[T237].city,[T237].COUNT-id
+      FROM
+        (SELECT
+            [T236].name, [T236].city, COUNT([T236].id)
+          FROM
+            (input1) AS [T236][id, name, city]
+          GROUP BY
+            [T236].name  [T236].city) AS [T237][name, city, COUNT-id]
+      WHERE
+        [T237].COUNT-id > 1.0 ) JOIN (
+      input1 )) AS [T238][name, city, COUNT-id, id, name1, city1]
+WHERE
+  [T238].name == [T238].name1
+@anonymous
+[T238].id(NumberVal) | [T238].name(StringVal) | [T238].city(StringVal) 
+904834.0 | jim | London 
+904835.0 | jim | London 
+90145.0 | Fred | Paris 
+90132.0 | Fred | Paris 
+90133.0 | Fred | Paris 
+
+[No.4]===============================
+SELECT
+  [T220].id,[T220].name,[T220].city
+FROM
+  (( SELECT
+        [T219].name,[T219].COUNT-city
+      FROM
+        (SELECT
+            [T218].name, COUNT([T218].city)
+          FROM
+            (input1) AS [T218][id, name, city]
+          GROUP BY
+            [T218].name) AS [T219][name, COUNT-city]
+      WHERE
+        [T219].COUNT-city > 1.0 ) JOIN (
+      input1 )) AS [T220][name, COUNT-city, id, name1, city]
+WHERE
+  [T220].name == [T220].name1
+@anonymous
+[T220].id(NumberVal) | [T220].name(StringVal) | [T220].city(StringVal) 
+904834.0 | jim | London 
+904835.0 | jim | London 
+90145.0 | Fred | Paris 
+90132.0 | Fred | Paris 
+90133.0 | Fred | Paris 
+
+[No.3]===============================
+SELECT
+  [T202].id,[T202].name,[T202].city
+FROM
+  (( SELECT
+        [T201].name,[T201].city,[T201].COUNT_DISTINCT-id
+      FROM
+        (SELECT
+            [T200].name, [T200].city, COUNT_DISTINCT([T200].id)
+          FROM
+            (input1) AS [T200][id, name, city]
+          GROUP BY
+            [T200].name  [T200].city) AS [T201][name, city, COUNT_DISTINCT-id]
+      WHERE
+        [T201].COUNT_DISTINCT-id > 1.0 ) JOIN (
+      input1 )) AS [T202][name, city, COUNT_DISTINCT-id, id, name1, city1]
+WHERE
+  [T202].name == [T202].name1
+@anonymous
+[T202].id(NumberVal) | [T202].name(StringVal) | [T202].city(StringVal) 
+904834.0 | jim | London 
+904835.0 | jim | London 
+90145.0 | Fred | Paris 
+90132.0 | Fred | Paris 
+90133.0 | Fred | Paris 
+
+[No.2]===============================
+SELECT
+  [T184].id,[T184].name,[T184].city
+FROM
+  (( SELECT
+        [T183].name,[T183].COUNT-id
+      FROM
+        (SELECT
+            [T182].name, COUNT([T182].id)
+          FROM
+            (input1) AS [T182][id, name, city]
+          GROUP BY
+            [T182].name) AS [T183][name, COUNT-id]
+      WHERE
+        [T183].COUNT-id > 1.0 ) JOIN (
+      input1 )) AS [T184][name, COUNT-id, id, name1, city]
+WHERE
+  [T184].name == [T184].name1
+@anonymous
+[T184].id(NumberVal) | [T184].name(StringVal) | [T184].city(StringVal) 
+904834.0 | jim | London 
+904835.0 | jim | London 
+90145.0 | Fred | Paris 
+90132.0 | Fred | Paris 
+90133.0 | Fred | Paris 
+
+[No.1]===============================
+SELECT
+  [T166].id,[T166].name,[T166].city
+FROM
+  (( SELECT
+        [T165].name,[T165].city,[T165].COUNT-name
+      FROM
+        (SELECT
+            [T164].name, [T164].city, COUNT([T164].name)
+          FROM
+            (input1) AS [T164][id, name, city]
+          GROUP BY
+            [T164].name  [T164].city) AS [T165][name, city, COUNT-name]
+      WHERE
+        [T165].COUNT-name > 1.0 ) JOIN (
+      input1 )) AS [T166][name, city, COUNT-name, id, name1, city1]
+WHERE
+  [T166].name == [T166].name1
+@anonymous
+[T166].id(NumberVal) | [T166].name(StringVal) | [T166].city(StringVal) 
+904834.0 | jim | London 
+904835.0 | jim | London 
+90145.0 | Fred | Paris 
+90132.0 | Fred | Paris 
+90133.0 | Fred | Paris 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.987s

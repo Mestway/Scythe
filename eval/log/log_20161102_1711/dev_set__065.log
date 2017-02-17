@@ -1,0 +1,714 @@
+[[Synthesis start]]
+	File: ../data/dev_set/065
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 3
+[Aggregation]: 33 [SymTable]: 36
+[JOIN] level 1 [SymTable]: 145
+[EnumJoinOnAggr] level 1 [SymTable]: 1441
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+  [Try decomposition] 
+@output
+id_orden(NumberVal) | date(StringVal) | total(NumberVal) | name(StringVal) | phone(NumberVal) | maxedo(NumberVal) 
+1.0 | 15-may | 50.0 | abc | 999.0 | 3.0 
+
+@output
+id_orden(NumberVal) | date(StringVal) | total(NumberVal) | name(StringVal) | phone(NumberVal) | maxedo(NumberVal) 
+2.0 | 20-may | 60.0 | def | 888.0 | 2.0 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 3
+[Aggregation]: 33 [SymTable]: 36
+[NaturalJoin]: 1 [SymTable]: 37
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 3
+[Aggregation]: 33 [SymTable]: 36
+[NaturalJoin]: 1 [SymTable]: 37
+Candidate Tree Number: 25
+[Enumeration Finished]
+  [Try decomposition] 
+@output
+id_orden(NumberVal) | date(StringVal) | total(NumberVal) | name(StringVal) | phone(NumberVal) | maxedo(NumberVal) 
+2.0 | 20-may | 60.0 | def | 888.0 | 2.0 
+
+@output
+id_orden(NumberVal) | date(StringVal) | total(NumberVal) | name(StringVal) | phone(NumberVal) | maxedo(NumberVal) 
+1.0 | 15-may | 50.0 | abc | 999.0 | 3.0 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 3
+[Aggregation]: 33 [SymTable]: 36
+[NaturalJoin]: 1 [SymTable]: 37
+Candidate Tree Number: 25
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 3
+[Aggregation]: 33 [SymTable]: 36
+[NaturalJoin]: 1 [SymTable]: 37
+Candidate Tree Number: 5
+[Enumeration Finished]
+[No.18]===============================
+( SELECT
+    [T305].id_orden,[T305].date,[T305].total,[T305].name,[T305].phone,[T305].id_orden
+  FROM
+    (( SELECT
+          [T303].id_orden,[T303].date,[T303].total,[T303].id_usuario,[T303].id_usuario1,[T303].name,[T303].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T303][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T303].id_orden > [T303].id_usuario1 ) JOIN (
+        input3 )) AS [T305][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T305].id_orden == [T305].edo
+     AND [T305].id_usuario == [T305].id_orden1 ) UNION ALL (
+  SELECT
+    [T440].id_orden,[T440].date,[T440].total,[T440].name,[T440].phone,[T440].edo
+  FROM
+    (( SELECT
+          [T438].id_orden,[T438].date,[T438].total,[T438].id_usuario,[T438].id_usuario1,[T438].name,[T438].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T438][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T438].id_orden < [T438].id_usuario1 ) JOIN (
+        SELECT
+          input3.id_orden,input3.edo
+        FROM
+          input3
+        WHERE
+          True )) AS [T440][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T440].id_usuario < [T440].edo )
+@anonymous
+[T305].id_orden(NumberVal) | [T305].date(StringVal) | [T305].total(NumberVal) | [T305].name(StringVal) | [T305].phone(NumberVal) | [T305].id_orden(NumberVal) 
+2.0 | 20-may | 60.0 | def | 888.0 | 2.0 
+1.0 | 15-may | 50.0 | abc | 999.0 | 3.0 
+
+[No.17]===============================
+( SELECT
+    [T301].id_orden,[T301].date,[T301].total,[T301].name,[T301].phone,[T301].id_orden
+  FROM
+    (( SELECT
+          [T299].id_orden,[T299].date,[T299].total,[T299].id_usuario,[T299].id_usuario1,[T299].name,[T299].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T299][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T299].id_usuario == [T299].id_usuario1 ) JOIN (
+        SELECT
+          input3.id_orden,input3.edo
+        FROM
+          input3
+        WHERE
+          input3.id_orden < input3.edo )) AS [T301][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T301].id_orden == [T301].edo ) UNION ALL (
+  SELECT
+    [T440].id_orden,[T440].date,[T440].total,[T440].name,[T440].phone,[T440].edo
+  FROM
+    (( SELECT
+          [T438].id_orden,[T438].date,[T438].total,[T438].id_usuario,[T438].id_usuario1,[T438].name,[T438].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T438][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T438].id_orden < [T438].id_usuario1 ) JOIN (
+        SELECT
+          input3.id_orden,input3.edo
+        FROM
+          input3
+        WHERE
+          True )) AS [T440][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T440].id_usuario < [T440].edo )
+@anonymous
+[T301].id_orden(NumberVal) | [T301].date(StringVal) | [T301].total(NumberVal) | [T301].name(StringVal) | [T301].phone(NumberVal) | [T301].id_orden(NumberVal) 
+2.0 | 20-may | 60.0 | def | 888.0 | 2.0 
+1.0 | 15-may | 50.0 | abc | 999.0 | 3.0 
+
+[No.16]===============================
+( SELECT
+    [T297].id_orden,[T297].date,[T297].total,[T297].name,[T297].phone,[T297].id_orden
+  FROM
+    (( SELECT
+          [T295].id_orden,[T295].date,[T295].total,[T295].id_usuario,[T295].id_usuario1,[T295].name,[T295].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T295][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T295].id_orden > [T295].id_usuario1 ) JOIN (
+        input3 )) AS [T297][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T297].id_usuario1 == [T297].id_orden1
+     AND [T297].id_orden == [T297].edo ) UNION ALL (
+  SELECT
+    [T440].id_orden,[T440].date,[T440].total,[T440].name,[T440].phone,[T440].edo
+  FROM
+    (( SELECT
+          [T438].id_orden,[T438].date,[T438].total,[T438].id_usuario,[T438].id_usuario1,[T438].name,[T438].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T438][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T438].id_orden < [T438].id_usuario1 ) JOIN (
+        SELECT
+          input3.id_orden,input3.edo
+        FROM
+          input3
+        WHERE
+          True )) AS [T440][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T440].id_usuario < [T440].edo )
+@anonymous
+[T297].id_orden(NumberVal) | [T297].date(StringVal) | [T297].total(NumberVal) | [T297].name(StringVal) | [T297].phone(NumberVal) | [T297].id_orden(NumberVal) 
+2.0 | 20-may | 60.0 | def | 888.0 | 2.0 
+1.0 | 15-may | 50.0 | abc | 999.0 | 3.0 
+
+[No.15]===============================
+( SELECT
+    [T115].id_orden,[T115].date,[T115].total,[T115].name,[T115].phone,[T115].edo
+  FROM
+    (( SELECT
+          [T113].id_orden,[T113].date,[T113].total,[T113].id_usuario,[T113].id_usuario1,[T113].name,[T113].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T113][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T113].id_orden < [T113].id_usuario1 ) JOIN (
+        SELECT
+          input3.id_orden,input3.edo
+        FROM
+          input3
+        WHERE
+          True )) AS [T115][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T115].id_usuario < [T115].edo ) UNION ALL (
+  SELECT
+    [T170].id_orden,[T170].date,[T170].total,[T170].name,[T170].phone,[T170].id_orden
+  FROM
+    (( SELECT
+          [T168].id_orden,[T168].date,[T168].total,[T168].id_usuario,[T168].id_usuario1,[T168].name,[T168].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T168][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T168].id_orden > [T168].id_usuario1 ) JOIN (
+        input3 )) AS [T170][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T170].id_orden == [T170].edo
+     AND [T170].id_usuario == [T170].id_orden1 )
+@anonymous
+[T115].id_orden(NumberVal) | [T115].date(StringVal) | [T115].total(NumberVal) | [T115].name(StringVal) | [T115].phone(NumberVal) | [T115].edo(NumberVal) 
+1.0 | 15-may | 50.0 | abc | 999.0 | 3.0 
+2.0 | 20-may | 60.0 | def | 888.0 | 2.0 
+
+[No.14]===============================
+( SELECT
+    [T115].id_orden,[T115].date,[T115].total,[T115].name,[T115].phone,[T115].edo
+  FROM
+    (( SELECT
+          [T113].id_orden,[T113].date,[T113].total,[T113].id_usuario,[T113].id_usuario1,[T113].name,[T113].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T113][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T113].id_orden < [T113].id_usuario1 ) JOIN (
+        SELECT
+          input3.id_orden,input3.edo
+        FROM
+          input3
+        WHERE
+          True )) AS [T115][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T115].id_usuario < [T115].edo ) UNION ALL (
+  SELECT
+    [T166].id_orden,[T166].date,[T166].total,[T166].name,[T166].phone,[T166].id_orden
+  FROM
+    (( SELECT
+          [T164].id_orden,[T164].date,[T164].total,[T164].id_usuario,[T164].id_usuario1,[T164].name,[T164].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T164][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T164].id_usuario == [T164].id_usuario1 ) JOIN (
+        SELECT
+          input3.id_orden,input3.edo
+        FROM
+          input3
+        WHERE
+          input3.id_orden < input3.edo )) AS [T166][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T166].id_orden == [T166].edo )
+@anonymous
+[T115].id_orden(NumberVal) | [T115].date(StringVal) | [T115].total(NumberVal) | [T115].name(StringVal) | [T115].phone(NumberVal) | [T115].edo(NumberVal) 
+1.0 | 15-may | 50.0 | abc | 999.0 | 3.0 
+2.0 | 20-may | 60.0 | def | 888.0 | 2.0 
+
+[No.13]===============================
+( SELECT
+    [T115].id_orden,[T115].date,[T115].total,[T115].name,[T115].phone,[T115].edo
+  FROM
+    (( SELECT
+          [T113].id_orden,[T113].date,[T113].total,[T113].id_usuario,[T113].id_usuario1,[T113].name,[T113].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T113][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T113].id_orden < [T113].id_usuario1 ) JOIN (
+        SELECT
+          input3.id_orden,input3.edo
+        FROM
+          input3
+        WHERE
+          True )) AS [T115][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T115].id_usuario < [T115].edo ) UNION ALL (
+  SELECT
+    [T162].id_orden,[T162].date,[T162].total,[T162].name,[T162].phone,[T162].id_orden
+  FROM
+    (( SELECT
+          [T160].id_orden,[T160].date,[T160].total,[T160].id_usuario,[T160].id_usuario1,[T160].name,[T160].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T160][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T160].id_orden > [T160].id_usuario1 ) JOIN (
+        input3 )) AS [T162][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T162].id_usuario1 == [T162].id_orden1
+     AND [T162].id_orden == [T162].edo )
+@anonymous
+[T115].id_orden(NumberVal) | [T115].date(StringVal) | [T115].total(NumberVal) | [T115].name(StringVal) | [T115].phone(NumberVal) | [T115].edo(NumberVal) 
+1.0 | 15-may | 50.0 | abc | 999.0 | 3.0 
+2.0 | 20-may | 60.0 | def | 888.0 | 2.0 
+
+[No.12]===============================
+( SELECT
+    [T305].id_orden,[T305].date,[T305].total,[T305].name,[T305].phone,[T305].id_orden
+  FROM
+    (( SELECT
+          [T303].id_orden,[T303].date,[T303].total,[T303].id_usuario,[T303].id_usuario1,[T303].name,[T303].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T303][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T303].id_orden > [T303].id_usuario1 ) JOIN (
+        input3 )) AS [T305][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T305].id_orden == [T305].edo
+     AND [T305].id_usuario == [T305].id_orden1 ) UNION ALL (
+  SELECT
+    [T436].id_orden,[T436].date,[T436].total,[T436].name,[T436].phone,[T436].edo
+  FROM
+    (( SELECT
+          [T434].id_orden,[T434].date,[T434].total,[T434].id_usuario,[T434].id_usuario1,[T434].name,[T434].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T434][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T434].id_orden < [T434].id_usuario1 ) JOIN (
+        input3 )) AS [T436][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T436].id_usuario1 < [T436].edo )
+@anonymous
+[T305].id_orden(NumberVal) | [T305].date(StringVal) | [T305].total(NumberVal) | [T305].name(StringVal) | [T305].phone(NumberVal) | [T305].id_orden(NumberVal) 
+2.0 | 20-may | 60.0 | def | 888.0 | 2.0 
+1.0 | 15-may | 50.0 | abc | 999.0 | 3.0 
+
+[No.11]===============================
+( SELECT
+    [T305].id_orden,[T305].date,[T305].total,[T305].name,[T305].phone,[T305].id_orden
+  FROM
+    (( SELECT
+          [T303].id_orden,[T303].date,[T303].total,[T303].id_usuario,[T303].id_usuario1,[T303].name,[T303].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T303][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T303].id_orden > [T303].id_usuario1 ) JOIN (
+        input3 )) AS [T305][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T305].id_orden == [T305].edo
+     AND [T305].id_usuario == [T305].id_orden1 ) UNION ALL (
+  SELECT
+    [T432].id_orden,[T432].date,[T432].total,[T432].name,[T432].phone,[T432].edo
+  FROM
+    (( SELECT
+          [T430].id_orden,[T430].date,[T430].total,[T430].id_usuario,[T430].id_usuario1,[T430].name,[T430].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T430][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T430].id_orden < [T430].id_usuario1 ) JOIN (
+        input3 )) AS [T432][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T432].id_usuario < [T432].edo )
+@anonymous
+[T305].id_orden(NumberVal) | [T305].date(StringVal) | [T305].total(NumberVal) | [T305].name(StringVal) | [T305].phone(NumberVal) | [T305].id_orden(NumberVal) 
+2.0 | 20-may | 60.0 | def | 888.0 | 2.0 
+1.0 | 15-may | 50.0 | abc | 999.0 | 3.0 
+
+[No.10]===============================
+( SELECT
+    [T301].id_orden,[T301].date,[T301].total,[T301].name,[T301].phone,[T301].id_orden
+  FROM
+    (( SELECT
+          [T299].id_orden,[T299].date,[T299].total,[T299].id_usuario,[T299].id_usuario1,[T299].name,[T299].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T299][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T299].id_usuario == [T299].id_usuario1 ) JOIN (
+        SELECT
+          input3.id_orden,input3.edo
+        FROM
+          input3
+        WHERE
+          input3.id_orden < input3.edo )) AS [T301][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T301].id_orden == [T301].edo ) UNION ALL (
+  SELECT
+    [T436].id_orden,[T436].date,[T436].total,[T436].name,[T436].phone,[T436].edo
+  FROM
+    (( SELECT
+          [T434].id_orden,[T434].date,[T434].total,[T434].id_usuario,[T434].id_usuario1,[T434].name,[T434].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T434][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T434].id_orden < [T434].id_usuario1 ) JOIN (
+        input3 )) AS [T436][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T436].id_usuario1 < [T436].edo )
+@anonymous
+[T301].id_orden(NumberVal) | [T301].date(StringVal) | [T301].total(NumberVal) | [T301].name(StringVal) | [T301].phone(NumberVal) | [T301].id_orden(NumberVal) 
+2.0 | 20-may | 60.0 | def | 888.0 | 2.0 
+1.0 | 15-may | 50.0 | abc | 999.0 | 3.0 
+
+[No.9]===============================
+( SELECT
+    [T301].id_orden,[T301].date,[T301].total,[T301].name,[T301].phone,[T301].id_orden
+  FROM
+    (( SELECT
+          [T299].id_orden,[T299].date,[T299].total,[T299].id_usuario,[T299].id_usuario1,[T299].name,[T299].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T299][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T299].id_usuario == [T299].id_usuario1 ) JOIN (
+        SELECT
+          input3.id_orden,input3.edo
+        FROM
+          input3
+        WHERE
+          input3.id_orden < input3.edo )) AS [T301][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T301].id_orden == [T301].edo ) UNION ALL (
+  SELECT
+    [T432].id_orden,[T432].date,[T432].total,[T432].name,[T432].phone,[T432].edo
+  FROM
+    (( SELECT
+          [T430].id_orden,[T430].date,[T430].total,[T430].id_usuario,[T430].id_usuario1,[T430].name,[T430].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T430][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T430].id_orden < [T430].id_usuario1 ) JOIN (
+        input3 )) AS [T432][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T432].id_usuario < [T432].edo )
+@anonymous
+[T301].id_orden(NumberVal) | [T301].date(StringVal) | [T301].total(NumberVal) | [T301].name(StringVal) | [T301].phone(NumberVal) | [T301].id_orden(NumberVal) 
+2.0 | 20-may | 60.0 | def | 888.0 | 2.0 
+1.0 | 15-may | 50.0 | abc | 999.0 | 3.0 
+
+[No.8]===============================
+( SELECT
+    [T297].id_orden,[T297].date,[T297].total,[T297].name,[T297].phone,[T297].id_orden
+  FROM
+    (( SELECT
+          [T295].id_orden,[T295].date,[T295].total,[T295].id_usuario,[T295].id_usuario1,[T295].name,[T295].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T295][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T295].id_orden > [T295].id_usuario1 ) JOIN (
+        input3 )) AS [T297][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T297].id_usuario1 == [T297].id_orden1
+     AND [T297].id_orden == [T297].edo ) UNION ALL (
+  SELECT
+    [T436].id_orden,[T436].date,[T436].total,[T436].name,[T436].phone,[T436].edo
+  FROM
+    (( SELECT
+          [T434].id_orden,[T434].date,[T434].total,[T434].id_usuario,[T434].id_usuario1,[T434].name,[T434].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T434][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T434].id_orden < [T434].id_usuario1 ) JOIN (
+        input3 )) AS [T436][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T436].id_usuario1 < [T436].edo )
+@anonymous
+[T297].id_orden(NumberVal) | [T297].date(StringVal) | [T297].total(NumberVal) | [T297].name(StringVal) | [T297].phone(NumberVal) | [T297].id_orden(NumberVal) 
+2.0 | 20-may | 60.0 | def | 888.0 | 2.0 
+1.0 | 15-may | 50.0 | abc | 999.0 | 3.0 
+
+[No.7]===============================
+( SELECT
+    [T297].id_orden,[T297].date,[T297].total,[T297].name,[T297].phone,[T297].id_orden
+  FROM
+    (( SELECT
+          [T295].id_orden,[T295].date,[T295].total,[T295].id_usuario,[T295].id_usuario1,[T295].name,[T295].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T295][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T295].id_orden > [T295].id_usuario1 ) JOIN (
+        input3 )) AS [T297][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T297].id_usuario1 == [T297].id_orden1
+     AND [T297].id_orden == [T297].edo ) UNION ALL (
+  SELECT
+    [T432].id_orden,[T432].date,[T432].total,[T432].name,[T432].phone,[T432].edo
+  FROM
+    (( SELECT
+          [T430].id_orden,[T430].date,[T430].total,[T430].id_usuario,[T430].id_usuario1,[T430].name,[T430].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T430][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T430].id_orden < [T430].id_usuario1 ) JOIN (
+        input3 )) AS [T432][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T432].id_usuario < [T432].edo )
+@anonymous
+[T297].id_orden(NumberVal) | [T297].date(StringVal) | [T297].total(NumberVal) | [T297].name(StringVal) | [T297].phone(NumberVal) | [T297].id_orden(NumberVal) 
+2.0 | 20-may | 60.0 | def | 888.0 | 2.0 
+1.0 | 15-may | 50.0 | abc | 999.0 | 3.0 
+
+[No.6]===============================
+( SELECT
+    [T111].id_orden,[T111].date,[T111].total,[T111].name,[T111].phone,[T111].edo
+  FROM
+    (( SELECT
+          [T109].id_orden,[T109].date,[T109].total,[T109].id_usuario,[T109].id_usuario1,[T109].name,[T109].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T109][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T109].id_orden < [T109].id_usuario1 ) JOIN (
+        input3 )) AS [T111][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T111].id_usuario1 < [T111].edo ) UNION ALL (
+  SELECT
+    [T170].id_orden,[T170].date,[T170].total,[T170].name,[T170].phone,[T170].id_orden
+  FROM
+    (( SELECT
+          [T168].id_orden,[T168].date,[T168].total,[T168].id_usuario,[T168].id_usuario1,[T168].name,[T168].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T168][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T168].id_orden > [T168].id_usuario1 ) JOIN (
+        input3 )) AS [T170][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T170].id_orden == [T170].edo
+     AND [T170].id_usuario == [T170].id_orden1 )
+@anonymous
+[T111].id_orden(NumberVal) | [T111].date(StringVal) | [T111].total(NumberVal) | [T111].name(StringVal) | [T111].phone(NumberVal) | [T111].edo(NumberVal) 
+1.0 | 15-may | 50.0 | abc | 999.0 | 3.0 
+2.0 | 20-may | 60.0 | def | 888.0 | 2.0 
+
+[No.5]===============================
+( SELECT
+    [T111].id_orden,[T111].date,[T111].total,[T111].name,[T111].phone,[T111].edo
+  FROM
+    (( SELECT
+          [T109].id_orden,[T109].date,[T109].total,[T109].id_usuario,[T109].id_usuario1,[T109].name,[T109].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T109][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T109].id_orden < [T109].id_usuario1 ) JOIN (
+        input3 )) AS [T111][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T111].id_usuario1 < [T111].edo ) UNION ALL (
+  SELECT
+    [T166].id_orden,[T166].date,[T166].total,[T166].name,[T166].phone,[T166].id_orden
+  FROM
+    (( SELECT
+          [T164].id_orden,[T164].date,[T164].total,[T164].id_usuario,[T164].id_usuario1,[T164].name,[T164].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T164][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T164].id_usuario == [T164].id_usuario1 ) JOIN (
+        SELECT
+          input3.id_orden,input3.edo
+        FROM
+          input3
+        WHERE
+          input3.id_orden < input3.edo )) AS [T166][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T166].id_orden == [T166].edo )
+@anonymous
+[T111].id_orden(NumberVal) | [T111].date(StringVal) | [T111].total(NumberVal) | [T111].name(StringVal) | [T111].phone(NumberVal) | [T111].edo(NumberVal) 
+1.0 | 15-may | 50.0 | abc | 999.0 | 3.0 
+2.0 | 20-may | 60.0 | def | 888.0 | 2.0 
+
+[No.4]===============================
+( SELECT
+    [T111].id_orden,[T111].date,[T111].total,[T111].name,[T111].phone,[T111].edo
+  FROM
+    (( SELECT
+          [T109].id_orden,[T109].date,[T109].total,[T109].id_usuario,[T109].id_usuario1,[T109].name,[T109].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T109][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T109].id_orden < [T109].id_usuario1 ) JOIN (
+        input3 )) AS [T111][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T111].id_usuario1 < [T111].edo ) UNION ALL (
+  SELECT
+    [T162].id_orden,[T162].date,[T162].total,[T162].name,[T162].phone,[T162].id_orden
+  FROM
+    (( SELECT
+          [T160].id_orden,[T160].date,[T160].total,[T160].id_usuario,[T160].id_usuario1,[T160].name,[T160].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T160][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T160].id_orden > [T160].id_usuario1 ) JOIN (
+        input3 )) AS [T162][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T162].id_usuario1 == [T162].id_orden1
+     AND [T162].id_orden == [T162].edo )
+@anonymous
+[T111].id_orden(NumberVal) | [T111].date(StringVal) | [T111].total(NumberVal) | [T111].name(StringVal) | [T111].phone(NumberVal) | [T111].edo(NumberVal) 
+1.0 | 15-may | 50.0 | abc | 999.0 | 3.0 
+2.0 | 20-may | 60.0 | def | 888.0 | 2.0 
+
+[No.3]===============================
+( SELECT
+    [T107].id_orden,[T107].date,[T107].total,[T107].name,[T107].phone,[T107].edo
+  FROM
+    (( SELECT
+          [T105].id_orden,[T105].date,[T105].total,[T105].id_usuario,[T105].id_usuario1,[T105].name,[T105].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T105][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T105].id_orden < [T105].id_usuario1 ) JOIN (
+        input3 )) AS [T107][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T107].id_usuario < [T107].edo ) UNION ALL (
+  SELECT
+    [T170].id_orden,[T170].date,[T170].total,[T170].name,[T170].phone,[T170].id_orden
+  FROM
+    (( SELECT
+          [T168].id_orden,[T168].date,[T168].total,[T168].id_usuario,[T168].id_usuario1,[T168].name,[T168].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T168][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T168].id_orden > [T168].id_usuario1 ) JOIN (
+        input3 )) AS [T170][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T170].id_orden == [T170].edo
+     AND [T170].id_usuario == [T170].id_orden1 )
+@anonymous
+[T107].id_orden(NumberVal) | [T107].date(StringVal) | [T107].total(NumberVal) | [T107].name(StringVal) | [T107].phone(NumberVal) | [T107].edo(NumberVal) 
+1.0 | 15-may | 50.0 | abc | 999.0 | 3.0 
+2.0 | 20-may | 60.0 | def | 888.0 | 2.0 
+
+[No.2]===============================
+( SELECT
+    [T107].id_orden,[T107].date,[T107].total,[T107].name,[T107].phone,[T107].edo
+  FROM
+    (( SELECT
+          [T105].id_orden,[T105].date,[T105].total,[T105].id_usuario,[T105].id_usuario1,[T105].name,[T105].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T105][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T105].id_orden < [T105].id_usuario1 ) JOIN (
+        input3 )) AS [T107][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T107].id_usuario < [T107].edo ) UNION ALL (
+  SELECT
+    [T166].id_orden,[T166].date,[T166].total,[T166].name,[T166].phone,[T166].id_orden
+  FROM
+    (( SELECT
+          [T164].id_orden,[T164].date,[T164].total,[T164].id_usuario,[T164].id_usuario1,[T164].name,[T164].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T164][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T164].id_usuario == [T164].id_usuario1 ) JOIN (
+        SELECT
+          input3.id_orden,input3.edo
+        FROM
+          input3
+        WHERE
+          input3.id_orden < input3.edo )) AS [T166][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T166].id_orden == [T166].edo )
+@anonymous
+[T107].id_orden(NumberVal) | [T107].date(StringVal) | [T107].total(NumberVal) | [T107].name(StringVal) | [T107].phone(NumberVal) | [T107].edo(NumberVal) 
+1.0 | 15-may | 50.0 | abc | 999.0 | 3.0 
+2.0 | 20-may | 60.0 | def | 888.0 | 2.0 
+
+[No.1]===============================
+( SELECT
+    [T107].id_orden,[T107].date,[T107].total,[T107].name,[T107].phone,[T107].edo
+  FROM
+    (( SELECT
+          [T105].id_orden,[T105].date,[T105].total,[T105].id_usuario,[T105].id_usuario1,[T105].name,[T105].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T105][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T105].id_orden < [T105].id_usuario1 ) JOIN (
+        input3 )) AS [T107][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T107].id_usuario < [T107].edo ) UNION ALL (
+  SELECT
+    [T162].id_orden,[T162].date,[T162].total,[T162].name,[T162].phone,[T162].id_orden
+  FROM
+    (( SELECT
+          [T160].id_orden,[T160].date,[T160].total,[T160].id_usuario,[T160].id_usuario1,[T160].name,[T160].phone
+        FROM
+          (( input1 ) JOIN (
+              input2 )) AS [T160][id_orden, date, total, id_usuario, id_usuario1, name, phone]
+        WHERE
+          [T160].id_orden > [T160].id_usuario1 ) JOIN (
+        input3 )) AS [T162][id_orden, date, total, id_usuario, id_usuario1, name, phone, id_orden1, edo]
+  WHERE
+    [T162].id_usuario1 == [T162].id_orden1
+     AND [T162].id_orden == [T162].edo )
+@anonymous
+[T107].id_orden(NumberVal) | [T107].date(StringVal) | [T107].total(NumberVal) | [T107].name(StringVal) | [T107].phone(NumberVal) | [T107].edo(NumberVal) 
+1.0 | 15-may | 50.0 | abc | 999.0 | 3.0 
+2.0 | 20-may | 60.0 | def | 888.0 | 2.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 23.405s

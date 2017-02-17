@@ -1,0 +1,34 @@
+//http://stackoverflow.com/questions/2594829/finding-duplicate-values-in-a-sql-table
+
+# input
+
+
+    |  ID |  NAME |  EMAIL       |
+    |----------------------------|
+    |  1  |  John |  asd@asd.com |
+    |  2  |  Sam  |  asd@asd.com |
+    |  3  |  Tom  |  asd@asd.com |
+    |  5  |  Tom  |  asd@asd.com |
+
+# output
+
+    |  c  |
+    |-----|
+    | Tom |
+
+# constraint
+{
+	"constants": ["1"],
+	"aggregation_functions": ["count"]
+}
+
+# solution
+
+SELECT
+    name, email, COUNT(*)
+FROM
+    users
+GROUP BY
+    name, email
+HAVING 
+    COUNT(*) > 1

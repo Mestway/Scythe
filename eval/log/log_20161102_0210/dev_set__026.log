@@ -1,0 +1,514 @@
+[[Synthesis start]]
+	File: ../data/dev_set/026
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 238 [SymTable]: 239
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 9 [SymTable]: 10
+[JOINOnInput] level 1 [SymTable]: 11
+[EnumJoinOnAggr] level 1 [SymTable]: 111
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 45 [SymTable]: 46
+[JOINOnInput] level 1 [SymTable]: 47
+[EnumJoinOnAggr] level 1 [SymTable]: 2163
+Candidate Tree Number: 152
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T1834].acct_id,[T1834].MAX-Bill_Id,[T1834].Bill_dt,[T1834].MAX-alt_bill_id
+FROM
+  (( (SELECT
+          [T1828].acct_id, MAX([T1828].Bill_Id)
+        FROM
+          (input1) AS [T1828][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1828].acct_id) AS [T1829][acct_id, MAX-Bill_Id] ) JOIN (
+      (SELECT
+          [T1832].Bill_Id, [T1832].Bill_dt, MAX([T1832].alt_bill_id)
+        FROM
+          (input1) AS [T1832][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1832].Bill_Id  [T1832].Bill_dt) AS [T1833][Bill_Id, Bill_dt, MAX-alt_bill_id] )) AS [T1834][acct_id, MAX-Bill_Id, Bill_Id, Bill_dt, MAX-alt_bill_id]
+WHERE
+  [T1834].MAX-Bill_Id == [T1834].Bill_Id
+@anonymous
+[T1834].acct_id(NumberVal) | [T1834].MAX-Bill_Id(NumberVal) | [T1834].Bill_dt(DateVal) | [T1834].MAX-alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[No.19]===============================
+SELECT
+  [T1804].acct_id,[T1804].Bill_Id,[T1804].Bill_dt,[T1804].MAX-alt_bill_id
+FROM
+  (( (SELECT
+          [T1798].Bill_Id, MAX([T1798].alt_bill_id)
+        FROM
+          (input1) AS [T1798][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1798].Bill_Id) AS [T1799][Bill_Id, MAX-alt_bill_id] ) JOIN (
+      (SELECT
+          [T1802].acct_id, [T1802].Bill_dt, MAX([T1802].Bill_Id)
+        FROM
+          (input1) AS [T1802][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1802].acct_id  [T1802].Bill_dt) AS [T1803][acct_id, Bill_dt, MAX-Bill_Id] )) AS [T1804][Bill_Id, MAX-alt_bill_id, acct_id, Bill_dt, MAX-Bill_Id]
+WHERE
+  [T1804].Bill_Id == [T1804].MAX-Bill_Id
+@anonymous
+[T1804].acct_id(NumberVal) | [T1804].Bill_Id(NumberVal) | [T1804].Bill_dt(DateVal) | [T1804].MAX-alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[No.18]===============================
+SELECT
+  [T1744].acct_id,[T1744].MAX-Bill_Id,[T1744].Bill_dt,[T1744].MAX-alt_bill_id
+FROM
+  (( (SELECT
+          [T1738].acct_id, MAX([T1738].Bill_Id)
+        FROM
+          (input1) AS [T1738][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1738].acct_id) AS [T1739][acct_id, MAX-Bill_Id] ) JOIN (
+      (SELECT
+          [T1742].acct_id, [T1742].Bill_Id, [T1742].Bill_dt, MAX([T1742].alt_bill_id)
+        FROM
+          (input1) AS [T1742][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1742].acct_id  [T1742].Bill_Id  [T1742].Bill_dt) AS [T1743][acct_id, Bill_Id, Bill_dt, MAX-alt_bill_id] )) AS [T1744][acct_id, MAX-Bill_Id, acct_id1, Bill_Id, Bill_dt, MAX-alt_bill_id]
+WHERE
+  [T1744].MAX-Bill_Id == [T1744].Bill_Id
+@anonymous
+[T1744].acct_id(NumberVal) | [T1744].MAX-Bill_Id(NumberVal) | [T1744].Bill_dt(DateVal) | [T1744].MAX-alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[No.17]===============================
+SELECT
+  [T1704].acct_id,[T1704].MAX-Bill_Id,[T1704].Bill_dt,[T1704].MAX-alt_bill_id
+FROM
+  (( (SELECT
+          [T1698].acct_id, [T1698].Bill_dt, MAX([T1698].Bill_Id)
+        FROM
+          (input1) AS [T1698][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1698].acct_id  [T1698].Bill_dt) AS [T1699][acct_id, Bill_dt, MAX-Bill_Id] ) JOIN (
+      (SELECT
+          [T1702].Bill_Id, MAX([T1702].alt_bill_id)
+        FROM
+          (input1) AS [T1702][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1702].Bill_Id) AS [T1703][Bill_Id, MAX-alt_bill_id] )) AS [T1704][acct_id, Bill_dt, MAX-Bill_Id, Bill_Id, MAX-alt_bill_id]
+WHERE
+  [T1704].MAX-Bill_Id == [T1704].Bill_Id
+@anonymous
+[T1704].acct_id(NumberVal) | [T1704].MAX-Bill_Id(NumberVal) | [T1704].Bill_dt(DateVal) | [T1704].MAX-alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[No.16]===============================
+SELECT
+  [T1664].acct_id,[T1664].MAX-Bill_Id,[T1664].Bill_dt,[T1664].MAX-alt_bill_id
+FROM
+  (( (SELECT
+          [T1658].acct_id, [T1658].Bill_dt, MAX([T1658].Bill_Id)
+        FROM
+          (input1) AS [T1658][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1658].acct_id  [T1658].Bill_dt) AS [T1659][acct_id, Bill_dt, MAX-Bill_Id] ) JOIN (
+      (SELECT
+          [T1662].Bill_Id, [T1662].Bill_dt, MAX([T1662].alt_bill_id)
+        FROM
+          (input1) AS [T1662][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1662].Bill_Id  [T1662].Bill_dt) AS [T1663][Bill_Id, Bill_dt, MAX-alt_bill_id] )) AS [T1664][acct_id, Bill_dt, MAX-Bill_Id, Bill_Id, Bill_dt1, MAX-alt_bill_id]
+WHERE
+  [T1664].MAX-Bill_Id == [T1664].Bill_Id
+@anonymous
+[T1664].acct_id(NumberVal) | [T1664].MAX-Bill_Id(NumberVal) | [T1664].Bill_dt(DateVal) | [T1664].MAX-alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[No.15]===============================
+SELECT
+  [T1614].acct_id,[T1614].MAX-Bill_Id,[T1614].Bill_dt,[T1614].MAX-alt_bill_id
+FROM
+  (( (SELECT
+          [T1608].acct_id, [T1608].Bill_dt, MAX([T1608].alt_bill_id)
+        FROM
+          (input1) AS [T1608][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1608].acct_id  [T1608].Bill_dt) AS [T1609][acct_id, Bill_dt, MAX-alt_bill_id] ) JOIN (
+      (SELECT
+          [T1612].acct_id, [T1612].Bill_dt, MAX([T1612].Bill_Id)
+        FROM
+          (input1) AS [T1612][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1612].acct_id  [T1612].Bill_dt) AS [T1613][acct_id, Bill_dt, MAX-Bill_Id] )) AS [T1614][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_dt1, MAX-Bill_Id]
+WHERE
+  [T1614].acct_id == [T1614].acct_id1
+@anonymous
+[T1614].acct_id(NumberVal) | [T1614].MAX-Bill_Id(NumberVal) | [T1614].Bill_dt(DateVal) | [T1614].MAX-alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[No.14]===============================
+SELECT
+  [T1554].acct_id,[T1554].Bill_Id,[T1554].Bill_dt,[T1554].MAX-alt_bill_id
+FROM
+  (( (SELECT
+          [T1548].acct_id, [T1548].Bill_dt, MAX([T1548].alt_bill_id)
+        FROM
+          (input1) AS [T1548][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1548].acct_id  [T1548].Bill_dt) AS [T1549][acct_id, Bill_dt, MAX-alt_bill_id] ) JOIN (
+      (SELECT
+          [T1552].Bill_Id, [T1552].Bill_dt, MAX([T1552].alt_bill_id)
+        FROM
+          (input1) AS [T1552][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1552].Bill_Id  [T1552].Bill_dt) AS [T1553][Bill_Id, Bill_dt, MAX-alt_bill_id] )) AS [T1554][acct_id, Bill_dt, MAX-alt_bill_id, Bill_Id, Bill_dt1, MAX-alt_bill_id1]
+WHERE
+  [T1554].MAX-alt_bill_id == [T1554].MAX-alt_bill_id1
+@anonymous
+[T1554].acct_id(NumberVal) | [T1554].Bill_Id(NumberVal) | [T1554].Bill_dt(DateVal) | [T1554].MAX-alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[No.13]===============================
+SELECT
+  [T1504].acct_id,[T1504].Bill_Id,[T1504].Bill_dt,[T1504].MAX-alt_bill_id
+FROM
+  (( (SELECT
+          [T1498].acct_id, [T1498].Bill_Id, MAX([T1498].alt_bill_id)
+        FROM
+          (input1) AS [T1498][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1498].acct_id  [T1498].Bill_Id) AS [T1499][acct_id, Bill_Id, MAX-alt_bill_id] ) JOIN (
+      (SELECT
+          [T1502].acct_id, [T1502].Bill_dt, MAX([T1502].Bill_Id)
+        FROM
+          (input1) AS [T1502][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1502].acct_id  [T1502].Bill_dt) AS [T1503][acct_id, Bill_dt, MAX-Bill_Id] )) AS [T1504][acct_id, Bill_Id, MAX-alt_bill_id, acct_id1, Bill_dt, MAX-Bill_Id]
+WHERE
+  [T1504].Bill_Id == [T1504].MAX-Bill_Id
+@anonymous
+[T1504].acct_id(NumberVal) | [T1504].Bill_Id(NumberVal) | [T1504].Bill_dt(DateVal) | [T1504].MAX-alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[No.12]===============================
+SELECT
+  [T1454].acct_id,[T1454].Bill_Id,[T1454].Bill_dt,[T1454].MAX-alt_bill_id
+FROM
+  (( (SELECT
+          [T1448].acct_id, [T1448].Bill_dt, MAX([T1448].alt_bill_id)
+        FROM
+          (input1) AS [T1448][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1448].acct_id  [T1448].Bill_dt) AS [T1449][acct_id, Bill_dt, MAX-alt_bill_id] ) JOIN (
+      (SELECT
+          [T1452].acct_id, [T1452].Bill_Id, MAX([T1452].alt_bill_id)
+        FROM
+          (input1) AS [T1452][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1452].acct_id  [T1452].Bill_Id) AS [T1453][acct_id, Bill_Id, MAX-alt_bill_id] )) AS [T1454][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, MAX-alt_bill_id1]
+WHERE
+  [T1454].MAX-alt_bill_id == [T1454].MAX-alt_bill_id1
+@anonymous
+[T1454].acct_id(NumberVal) | [T1454].Bill_Id(NumberVal) | [T1454].Bill_dt(DateVal) | [T1454].MAX-alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[No.11]===============================
+SELECT
+  [T1404].acct_id,[T1404].MAX-Bill_Id,[T1404].Bill_dt,[T1404].MAX-alt_bill_id
+FROM
+  (( (SELECT
+          [T1398].acct_id, [T1398].Bill_dt, MAX([T1398].Bill_Id)
+        FROM
+          (input1) AS [T1398][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1398].acct_id  [T1398].Bill_dt) AS [T1399][acct_id, Bill_dt, MAX-Bill_Id] ) JOIN (
+      (SELECT
+          [T1402].acct_id, [T1402].Bill_Id, MAX([T1402].alt_bill_id)
+        FROM
+          (input1) AS [T1402][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1402].acct_id  [T1402].Bill_Id) AS [T1403][acct_id, Bill_Id, MAX-alt_bill_id] )) AS [T1404][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, Bill_Id, MAX-alt_bill_id]
+WHERE
+  [T1404].MAX-Bill_Id == [T1404].Bill_Id
+@anonymous
+[T1404].acct_id(NumberVal) | [T1404].MAX-Bill_Id(NumberVal) | [T1404].Bill_dt(DateVal) | [T1404].MAX-alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[No.10]===============================
+SELECT
+  [T1354].acct_id,[T1354].Bill_Id,[T1354].Bill_dt,[T1354].MAX-alt_bill_id
+FROM
+  (( (SELECT
+          [T1348].acct_id, MAX([T1348].alt_bill_id)
+        FROM
+          (input1) AS [T1348][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1348].acct_id) AS [T1349][acct_id, MAX-alt_bill_id] ) JOIN (
+      (SELECT
+          [T1352].acct_id, [T1352].Bill_Id, [T1352].Bill_dt, MAX([T1352].alt_bill_id)
+        FROM
+          (input1) AS [T1352][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1352].acct_id  [T1352].Bill_Id  [T1352].Bill_dt) AS [T1353][acct_id, Bill_Id, Bill_dt, MAX-alt_bill_id] )) AS [T1354][acct_id, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt, MAX-alt_bill_id1]
+WHERE
+  [T1354].MAX-alt_bill_id == [T1354].MAX-alt_bill_id1
+@anonymous
+[T1354].acct_id(NumberVal) | [T1354].Bill_Id(NumberVal) | [T1354].Bill_dt(DateVal) | [T1354].MAX-alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[No.9]===============================
+SELECT
+  [T1334].acct_id,[T1334].MAX-Bill_Id,[T1334].Bill_dt,[T1334].MAX-alt_bill_id
+FROM
+  (( (SELECT
+          [T1328].acct_id, MAX([T1328].alt_bill_id)
+        FROM
+          (input1) AS [T1328][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1328].acct_id) AS [T1329][acct_id, MAX-alt_bill_id] ) JOIN (
+      (SELECT
+          [T1332].acct_id, [T1332].Bill_dt, MAX([T1332].Bill_Id)
+        FROM
+          (input1) AS [T1332][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1332].acct_id  [T1332].Bill_dt) AS [T1333][acct_id, Bill_dt, MAX-Bill_Id] )) AS [T1334][acct_id, MAX-alt_bill_id, acct_id1, Bill_dt, MAX-Bill_Id]
+WHERE
+  [T1334].acct_id == [T1334].acct_id1
+@anonymous
+[T1334].acct_id(NumberVal) | [T1334].MAX-Bill_Id(NumberVal) | [T1334].Bill_dt(DateVal) | [T1334].MAX-alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[No.8]===============================
+SELECT
+  [T1264].acct_id,[T1264].Bill_Id,[T1264].Bill_dt,[T1264].MAX-alt_bill_id
+FROM
+  (( (SELECT
+          [T1258].acct_id, [T1258].Bill_Id, [T1258].Bill_dt, MAX([T1258].alt_bill_id)
+        FROM
+          (input1) AS [T1258][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1258].acct_id  [T1258].Bill_Id  [T1258].Bill_dt) AS [T1259][acct_id, Bill_Id, Bill_dt, MAX-alt_bill_id] ) JOIN (
+      (SELECT
+          [T1262].acct_id, MAX([T1262].Bill_Id)
+        FROM
+          (input1) AS [T1262][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1262].acct_id) AS [T1263][acct_id, MAX-Bill_Id] )) AS [T1264][acct_id, Bill_Id, Bill_dt, MAX-alt_bill_id, acct_id1, MAX-Bill_Id]
+WHERE
+  [T1264].Bill_Id == [T1264].MAX-Bill_Id
+@anonymous
+[T1264].acct_id(NumberVal) | [T1264].Bill_Id(NumberVal) | [T1264].Bill_dt(DateVal) | [T1264].MAX-alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[No.7]===============================
+SELECT
+  [T1214].acct_id,[T1214].Bill_Id,[T1214].Bill_dt,[T1214].MAX-alt_bill_id
+FROM
+  (( (SELECT
+          [T1208].acct_id, [T1208].Bill_dt, MAX([T1208].alt_bill_id)
+        FROM
+          (input1) AS [T1208][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1208].acct_id  [T1208].Bill_dt) AS [T1209][acct_id, Bill_dt, MAX-alt_bill_id] ) JOIN (
+      (SELECT
+          [T1212].acct_id, [T1212].Bill_Id, [T1212].Bill_dt, MAX([T1212].alt_bill_id)
+        FROM
+          (input1) AS [T1212][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1212].acct_id  [T1212].Bill_Id  [T1212].Bill_dt) AS [T1213][acct_id, Bill_Id, Bill_dt, MAX-alt_bill_id] )) AS [T1214][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_Id, Bill_dt1, MAX-alt_bill_id1]
+WHERE
+  [T1214].MAX-alt_bill_id == [T1214].MAX-alt_bill_id1
+@anonymous
+[T1214].acct_id(NumberVal) | [T1214].Bill_Id(NumberVal) | [T1214].Bill_dt(DateVal) | [T1214].MAX-alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[No.6]===============================
+SELECT
+  [T1194].acct_id,[T1194].MAX-Bill_Id,[T1194].Bill_dt,[T1194].MAX-alt_bill_id
+FROM
+  (( (SELECT
+          [T1188].acct_id, [T1188].Bill_dt, MAX([T1188].alt_bill_id)
+        FROM
+          (input1) AS [T1188][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1188].acct_id  [T1188].Bill_dt) AS [T1189][acct_id, Bill_dt, MAX-alt_bill_id] ) JOIN (
+      (SELECT
+          [T1192].acct_id, MAX([T1192].Bill_Id)
+        FROM
+          (input1) AS [T1192][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1192].acct_id) AS [T1193][acct_id, MAX-Bill_Id] )) AS [T1194][acct_id, Bill_dt, MAX-alt_bill_id, acct_id1, MAX-Bill_Id]
+WHERE
+  [T1194].acct_id == [T1194].acct_id1
+@anonymous
+[T1194].acct_id(NumberVal) | [T1194].MAX-Bill_Id(NumberVal) | [T1194].Bill_dt(DateVal) | [T1194].MAX-alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[No.5]===============================
+SELECT
+  [T1144].acct_id,[T1144].Bill_Id,[T1144].Bill_dt,[T1144].MAX-alt_bill_id
+FROM
+  (( (SELECT
+          [T1138].Bill_Id, [T1138].Bill_dt, MAX([T1138].alt_bill_id)
+        FROM
+          (input1) AS [T1138][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1138].Bill_Id  [T1138].Bill_dt) AS [T1139][Bill_Id, Bill_dt, MAX-alt_bill_id] ) JOIN (
+      (SELECT
+          [T1142].acct_id, MAX([T1142].Bill_Id)
+        FROM
+          (input1) AS [T1142][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1142].acct_id) AS [T1143][acct_id, MAX-Bill_Id] )) AS [T1144][Bill_Id, Bill_dt, MAX-alt_bill_id, acct_id, MAX-Bill_Id]
+WHERE
+  [T1144].Bill_Id == [T1144].MAX-Bill_Id
+@anonymous
+[T1144].acct_id(NumberVal) | [T1144].Bill_Id(NumberVal) | [T1144].Bill_dt(DateVal) | [T1144].MAX-alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[No.4]===============================
+SELECT
+  [T1104].acct_id,[T1104].Bill_Id,[T1104].Bill_dt,[T1104].MAX-alt_bill_id
+FROM
+  (( (SELECT
+          [T1098].Bill_Id, [T1098].Bill_dt, MAX([T1098].alt_bill_id)
+        FROM
+          (input1) AS [T1098][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1098].Bill_Id  [T1098].Bill_dt) AS [T1099][Bill_Id, Bill_dt, MAX-alt_bill_id] ) JOIN (
+      (SELECT
+          [T1102].acct_id, [T1102].Bill_dt, MAX([T1102].alt_bill_id)
+        FROM
+          (input1) AS [T1102][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1102].acct_id  [T1102].Bill_dt) AS [T1103][acct_id, Bill_dt, MAX-alt_bill_id] )) AS [T1104][Bill_Id, Bill_dt, MAX-alt_bill_id, acct_id, Bill_dt1, MAX-alt_bill_id1]
+WHERE
+  [T1104].MAX-alt_bill_id == [T1104].MAX-alt_bill_id1
+@anonymous
+[T1104].acct_id(NumberVal) | [T1104].Bill_Id(NumberVal) | [T1104].Bill_dt(DateVal) | [T1104].MAX-alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[No.3]===============================
+SELECT
+  [T1044].acct_id,[T1044].Bill_Id,[T1044].Bill_dt,[T1044].MAX-alt_bill_id
+FROM
+  (( (SELECT
+          [T1038].acct_id, [T1038].Bill_Id, [T1038].Bill_dt, MAX([T1038].alt_bill_id)
+        FROM
+          (input1) AS [T1038][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1038].acct_id  [T1038].Bill_Id  [T1038].Bill_dt) AS [T1039][acct_id, Bill_Id, Bill_dt, MAX-alt_bill_id] ) JOIN (
+      (SELECT
+          [T1042].acct_id, [T1042].Bill_dt, MAX([T1042].alt_bill_id)
+        FROM
+          (input1) AS [T1042][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T1042].acct_id  [T1042].Bill_dt) AS [T1043][acct_id, Bill_dt, MAX-alt_bill_id] )) AS [T1044][acct_id, Bill_Id, Bill_dt, MAX-alt_bill_id, acct_id1, Bill_dt1, MAX-alt_bill_id1]
+WHERE
+  [T1044].MAX-alt_bill_id == [T1044].MAX-alt_bill_id1
+@anonymous
+[T1044].acct_id(NumberVal) | [T1044].Bill_Id(NumberVal) | [T1044].Bill_dt(DateVal) | [T1044].MAX-alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[No.2]===============================
+SELECT
+  [T994].acct_id,[T994].MAX-Bill_Id,[T994].Bill_dt,[T994].MAX-alt_bill_id
+FROM
+  (( (SELECT
+          [T988].acct_id, [T988].Bill_dt, MAX([T988].Bill_Id)
+        FROM
+          (input1) AS [T988][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T988].acct_id  [T988].Bill_dt) AS [T989][acct_id, Bill_dt, MAX-Bill_Id] ) JOIN (
+      (SELECT
+          [T992].acct_id, [T992].Bill_dt, MAX([T992].alt_bill_id)
+        FROM
+          (input1) AS [T992][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T992].acct_id  [T992].Bill_dt) AS [T993][acct_id, Bill_dt, MAX-alt_bill_id] )) AS [T994][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, Bill_dt1, MAX-alt_bill_id]
+WHERE
+  [T994].acct_id == [T994].acct_id1
+@anonymous
+[T994].acct_id(NumberVal) | [T994].MAX-Bill_Id(NumberVal) | [T994].Bill_dt(DateVal) | [T994].MAX-alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[No.1]===============================
+SELECT
+  [T954].acct_id,[T954].MAX-Bill_Id,[T954].Bill_dt,[T954].MAX-alt_bill_id
+FROM
+  (( (SELECT
+          [T948].acct_id, [T948].Bill_dt, MAX([T948].Bill_Id)
+        FROM
+          (input1) AS [T948][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T948].acct_id  [T948].Bill_dt) AS [T949][acct_id, Bill_dt, MAX-Bill_Id] ) JOIN (
+      (SELECT
+          [T952].acct_id, MAX([T952].alt_bill_id)
+        FROM
+          (input1) AS [T952][acct_id, Bill_Id, Bill_dt, alt_bill_id]
+        GROUP BY
+          [T952].acct_id) AS [T953][acct_id, MAX-alt_bill_id] )) AS [T954][acct_id, Bill_dt, MAX-Bill_Id, acct_id1, MAX-alt_bill_id]
+WHERE
+  [T954].acct_id == [T954].acct_id1
+@anonymous
+[T954].acct_id(NumberVal) | [T954].MAX-Bill_Id(NumberVal) | [T954].Bill_dt(DateVal) | [T954].MAX-alt_bill_id(NumberVal) 
+12345.0 | 123452.0 | Thu Jan 02 00:00:00 PST 2014 | 102.0 
+12346.0 | 123461.0 | Thu Jan 02 00:00:00 PST 2014 | 103.0 
+12347.0 | 123471.0 | Thu Jan 02 00:00:00 PST 2014 | 104.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 2.923s

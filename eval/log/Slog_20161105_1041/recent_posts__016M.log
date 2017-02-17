@@ -1,0 +1,249 @@
+[[Synthesizing]]
+[[Synthesis start]]
+	File: ../data/recent_posts/016M
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 102 [SymTable]: 104
+[NaturalJoin]: 1 [SymTable]: 105
+[Total Number of Intermediate] 105
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 6 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 25
+[EnumJoinOnAggr] level 1 [SymTable]: 89
+[Total Number of Intermediate] 89
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[COUNT_DISTINCTCOUNT]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 50 [SymTable]: 52
+[JOIN] level 1 [SymTable]: 157
+[EnumJoinOnAggr] level 1 [SymTable]: 2861
+[Total Number of Intermediate] 2861
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[SUM]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 6 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 25
+[EnumJoinOnAggr] level 1 [SymTable]: 89
+[Total Number of Intermediate] 89
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 18 [SymTable]: 20
+[JOIN] level 1 [SymTable]: 61
+[EnumJoinOnAggr] level 1 [SymTable]: 461
+[Total Number of Intermediate] 461
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 18 [SymTable]: 20
+[JOIN] level 1 [SymTable]: 61
+[EnumJoinOnAggr] level 1 [SymTable]: 461
+[Total Number of Intermediate] 461
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[AVG]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 6 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 25
+[EnumJoinOnAggr] level 1 [SymTable]: 89
+[Total Number of Intermediate] 89
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MINMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 30 [SymTable]: 32
+[JOIN] level 1 [SymTable]: 97
+[EnumJoinOnAggr] level 1 [SymTable]: 1121
+[Total Number of Intermediate] 1121
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[COUNTMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 43 [SymTable]: 45
+[JOIN] level 1 [SymTable]: 136
+[EnumJoinOnAggr] level 1 [SymTable]: 2161
+[Total Number of Intermediate] 2161
+Candidate Tree Number: 28
+[Enumeration Finished]
+[Query No.5]===============================
+(( SELECT
+      [T833].c1,[T833].MAX-c2
+    FROM
+      (SELECT
+          [T832].c1, MAX([T832].c2)
+        FROM
+          (input2) AS [T832][c1, c2]
+        GROUP BY
+          [T832].c1) AS [T833][c1, MAX-c2]
+    WHERE
+      [T833].MAX-c2 > Wed Oct 19 00:00:00 PDT 2016 ) JOIN (
+    (SELECT
+        COUNT([T850].c2)
+      FROM
+        (SELECT
+            input2.c1,input2.c2
+          FROM
+            input2
+          WHERE
+            input2.c2 >= Wed Oct 19 00:00:00 PDT 2016) AS [T850][c1, c2]) AS [T851][COUNT-c2] )) AS [T852][c1, MAX-c2, COUNT-c2]
+@anonymous
+[T852].c1(StringVal) | [T852].MAX-c2(DateVal) | [T852].COUNT-c2(NumberVal) 
+C1 | Fri Oct 21 00:00:00 PDT 2016 | 3.0 
+
+[Query No.4]===============================
+SELECT
+  [T764].c1,[T764].MAX-c2,[T764].COUNT-c1
+FROM
+  (( (SELECT
+          COUNT([T752].c1)
+        FROM
+          (SELECT
+              input2.c1,input2.c2
+            FROM
+              input2
+            WHERE
+              input2.c2 >= Wed Oct 19 00:00:00 PDT 2016) AS [T752][c1, c2]) AS [T753][COUNT-c1] ) JOIN (
+      SELECT
+        [T755].c1,[T755].MAX-c2
+      FROM
+        (SELECT
+            [T754].c1, MAX([T754].c2)
+          FROM
+            (input2) AS [T754][c1, c2]
+          GROUP BY
+            [T754].c1) AS [T755][c1, MAX-c2]
+      WHERE
+        [T755].MAX-c2 > Wed Oct 19 00:00:00 PDT 2016 )) AS [T764][COUNT-c1, c1, MAX-c2]
+
+@anonymous
+[T764].c1(StringVal) | [T764].MAX-c2(DateVal) | [T764].COUNT-c1(NumberVal) 
+C1 | Fri Oct 21 00:00:00 PDT 2016 | 3.0 
+
+[Query No.3]===============================
+SELECT
+  [T632].c1,[T632].MAX-c2,[T632].COUNT-c2
+FROM
+  (( (SELECT
+          COUNT([T620].c2)
+        FROM
+          (SELECT
+              input2.c1,input2.c2
+            FROM
+              input2
+            WHERE
+              input2.c2 >= Wed Oct 19 00:00:00 PDT 2016) AS [T620][c1, c2]) AS [T621][COUNT-c2] ) JOIN (
+      SELECT
+        [T623].c1,[T623].MAX-c2
+      FROM
+        (SELECT
+            [T622].c1, MAX([T622].c2)
+          FROM
+            (input2) AS [T622][c1, c2]
+          GROUP BY
+            [T622].c1) AS [T623][c1, MAX-c2]
+      WHERE
+        [T623].MAX-c2 > Wed Oct 19 00:00:00 PDT 2016 )) AS [T632][COUNT-c2, c1, MAX-c2]
+
+@anonymous
+[T632].c1(StringVal) | [T632].MAX-c2(DateVal) | [T632].COUNT-c2(NumberVal) 
+C1 | Fri Oct 21 00:00:00 PDT 2016 | 3.0 
+
+[Query No.2]===============================
+(( (SELECT
+        [T530].c1, MAX([T530].c2)
+      FROM
+        (SELECT
+            input2.c1,input2.c2
+          FROM
+            input2
+          WHERE
+            input2.c2 > Wed Oct 19 00:00:00 PDT 2016) AS [T530][c1, c2]
+      GROUP BY
+        [T530].c1) AS [T531][c1, MAX-c2] ) JOIN (
+    (SELECT
+        COUNT([T542].c1)
+      FROM
+        (SELECT
+            input2.c1,input2.c2
+          FROM
+            input2
+          WHERE
+            input2.c2 >= Wed Oct 19 00:00:00 PDT 2016) AS [T542][c1, c2]) AS [T543][COUNT-c1] )) AS [T544][c1, MAX-c2, COUNT-c1]
+@anonymous
+[T544].c1(StringVal) | [T544].MAX-c2(DateVal) | [T544].COUNT-c1(NumberVal) 
+C1 | Fri Oct 21 00:00:00 PDT 2016 | 3.0 
+
+[Query No.1]===============================
+SELECT
+  [T522].c1,[T522].MAX-c2,[T522].COUNT-c1
+FROM
+  (( (SELECT
+          COUNT([T510].c1)
+        FROM
+          (SELECT
+              input2.c1,input2.c2
+            FROM
+              input2
+            WHERE
+              input2.c2 >= Wed Oct 19 00:00:00 PDT 2016) AS [T510][c1, c2]) AS [T511][COUNT-c1] ) JOIN (
+      (SELECT
+          [T518].c1, MAX([T518].c2)
+        FROM
+          (SELECT
+              input2.c1,input2.c2
+            FROM
+              input2
+            WHERE
+              input2.c2 > Wed Oct 19 00:00:00 PDT 2016) AS [T518][c1, c2]
+        GROUP BY
+          [T518].c1) AS [T519][c1, MAX-c2] )) AS [T522][COUNT-c1, c1, MAX-c2]
+
+@anonymous
+[T522].c1(StringVal) | [T522].MAX-c2(DateVal) | [T522].COUNT-c1(NumberVal) 
+C1 | Fri Oct 21 00:00:00 PDT 2016 | 3.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.561s

@@ -1,0 +1,41 @@
+// http://stackoverflow.com/questions/40102870/count-unique-customers
+//XXX
+
+#input
+
+OrderID , CustomerID , Date      , Course
+14954   , 13440      ,10/16/2016 , Zürich
+14955   , 13441      ,10/17/2016 , Bern
+14956   , 13441      ,10/17/2016 , Aargau
+14957   , 13442      ,10/17/2016 , Bern
+149554  , 13444      ,10/17/2016 , Bern
+14958   , 10483      ,10/17/2016 , Zürich
+14959   , 13442      ,10/18/2016 , Solothurn
+
+#output
+
+c1, c2
+Bern, 3
+Zürich, 1
+
+#constraint
+{
+	"constants": ["10/17/2016"],
+	"aggregation_functions": ["min", "count"]
+}
+
+#solution
+
+SELECT t1.Course, Count(t2.OrderID)
+FROM tab AS t1
+LEFT JOIN -- get all Courses for that day
+ ( -- find the minimum order per customer
+   SELECT CustomerID, Min(OrderID) AS OrderID
+   FROM tab AS t2
+   WHERE Date='17.10.2016'
+   GROUP BY CustomerID
+ ) AS t2
+ON t1.CustomerID = t2.CustomerID 
+AND t1.OrderID = t2.OrderID -- only one row per customer
+WHERE Date='17.10.2016'
+GROUP BY t1.Course

@@ -34,9 +34,14 @@ SN9
 
 #constraint
 {
-	"max_depth": 1,
 	"constants": [],
-	"aggregation_functions": [ ],
-	"parameter_number": 2,
-	"max_filter_length": 2
+	"aggregation_functions": [ ]
 }
+
+#solution
+
+SELECT S.sname
+FROM Student S
+WHERE S.snum
+NOT IN (SELECT E.snum
+        FROM Enrolled E )

@@ -1,0 +1,34 @@
+//http://stackoverflow.com/questions/40164735/how-to-convert-a-flat-sql-output-into-columns-format
+
+#input
+
+| ID  | Name         | Value          |
+|-------------------------------------|
+| 123 | Manufacturer | Dell           |
+| 123 | Model        | Latitude E5450 |
+| 456 | Manufacturer | HP             |
+| 456 | Model        | ProBook 450 G3 |
+
+#output
+
+| ID  | ManufacturerModel     |
+|-----------------------------|
+| 123 | Dell, Latitude E5450  |
+| 456 | HP, ProBook 450 G3    |
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["concat"]
+}
+
+#solution
+
+SELECT *
+FROM (SELECT ID, NAME, Value FROM Product) up
+PIVOT(MAX(Value) FOR NAME IN ([Manufacturer],[Model])) AS pvt
+ORDER BY ID
+
+select ID, Name, concat(Value)
+from t
+group by ID

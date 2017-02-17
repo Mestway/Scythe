@@ -1,0 +1,37 @@
+////http://www.sqlteam.com/forums/topic.asp?TOPIC_ID=200861
+
+#constraint
+{
+	"constants": ["1"],
+	"aggregation_functions": ["count"]
+}
+
+#input
+
+| chapterid | xmlfile |
+|---------------------|
+| 1234      | 123.xml |
+| 1234      | 123.xml |
+| 1234      | 123.xml |
+| 1234      | 123.xml |
+| 4567      | 123.xml |
+| 4567      | 123.xml |
+| 6789      | 145.xml |
+| 7890      | 234.xml |
+| 7890      | 234.xml |
+| 7890      | 234.xml |
+
+#output
+
+| chapterid | xmlfile |
+|---------------------|
+| 1234      | 123.xml | 
+| 4567      | 123.xml |
+| 7890      | 234.xml |
+
+#solution
+
+SELECT chapterid xmlfile
+FROM TABLE 
+GROUP BY chapterid xmlfile
+HAVING COUNT(chaptered) > 1

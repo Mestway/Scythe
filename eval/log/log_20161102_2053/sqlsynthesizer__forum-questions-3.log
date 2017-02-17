@@ -1,0 +1,265 @@
+[[Synthesis start]]
+	File: ../data/sqlsynthesizer/forum-questions-3
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 117 [SymTable]: 118
+Candidate Tree Number: 16
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 15
+[EnumJoinOnAggr] level 1 [SymTable]: 64
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 45 [SymTable]: 46
+[JOIN] level 1 [SymTable]: 93
+[EnumJoinOnAggr] level 1 [SymTable]: 2209
+Candidate Tree Number: 880
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 15
+[EnumJoinOnAggr] level 1 [SymTable]: 64
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 15
+[EnumJoinOnAggr] level 1 [SymTable]: 64
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 15
+[EnumJoinOnAggr] level 1 [SymTable]: 64
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 15
+[EnumJoinOnAggr] level 1 [SymTable]: 64
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 15
+[EnumJoinOnAggr] level 1 [SymTable]: 64
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 27 [SymTable]: 28
+[JOIN] level 1 [SymTable]: 57
+[EnumJoinOnAggr] level 1 [SymTable]: 841
+Candidate Tree Number: 366
+[Enumeration Finished]
+[Query No.9]===============================
+SELECT
+  [T124].loginid
+FROM
+  (SELECT
+      [T123].loginid, COUNT([T123].provider)
+    FROM
+      (input1) AS [T123][loginid, provider, city]
+    GROUP BY
+      [T123].loginid) AS [T124][loginid, COUNT-provider]
+WHERE
+  [T124].COUNT-provider > 5.0
+   AND [T124].COUNT-provider <> 5.0
+@anonymous
+[T124].loginid(StringVal) 
+l1 
+l6 
+
+[Query No.8]===============================
+SELECT
+  [T120].loginid
+FROM
+  (SELECT
+      [T119].loginid, COUNT([T119].provider)
+    FROM
+      (input1) AS [T119][loginid, provider, city]
+    GROUP BY
+      [T119].loginid) AS [T120][loginid, COUNT-provider]
+WHERE
+  [T120].COUNT-provider > 5.0
+   AND [T120].COUNT-provider >= 5.0
+@anonymous
+[T120].loginid(StringVal) 
+l1 
+l6 
+
+[Query No.7]===============================
+SELECT
+  [T176].loginid
+FROM
+  (SELECT
+      [T175].loginid, COUNT_DISTINCT([T175].provider)
+    FROM
+      (input1) AS [T175][loginid, provider, city]
+    GROUP BY
+      [T175].loginid) AS [T176][loginid, COUNT_DISTINCT-provider]
+WHERE
+  [T176].COUNT_DISTINCT-provider > 5.0
+@anonymous
+[T176].loginid(StringVal) 
+l1 
+l6 
+
+[Query No.6]===============================
+SELECT
+  [T160].loginid
+FROM
+  (SELECT
+      [T159].loginid, COUNT([T159].loginid)
+    FROM
+      (input1) AS [T159][loginid, provider, city]
+    GROUP BY
+      [T159].loginid) AS [T160][loginid, COUNT-loginid]
+WHERE
+  [T160].COUNT-loginid > 5.0
+@anonymous
+[T160].loginid(StringVal) 
+l1 
+l6 
+
+[Query No.5]===============================
+SELECT
+  [T144].loginid
+FROM
+  (SELECT
+      [T143].loginid, COUNT([T143].city)
+    FROM
+      (input1) AS [T143][loginid, provider, city]
+    GROUP BY
+      [T143].loginid) AS [T144][loginid, COUNT-city]
+WHERE
+  [T144].COUNT-city > 5.0
+@anonymous
+[T144].loginid(StringVal) 
+l1 
+l6 
+
+[Query No.4]===============================
+SELECT
+  [T128].loginid
+FROM
+  (SELECT
+      [T127].loginid, COUNT([T127].provider)
+    FROM
+      (input1) AS [T127][loginid, provider, city]
+    GROUP BY
+      [T127].loginid) AS [T128][loginid, COUNT-provider]
+WHERE
+  [T128].COUNT-provider > 5.0
+@anonymous
+[T128].loginid(StringVal) 
+l1 
+l6 
+
+[Query No.3]===============================
+SELECT
+  [T7190].loginid
+FROM
+  (( (SELECT
+          [T7184].provider, COUNT([T7184].city)
+        FROM
+          (input1) AS [T7184][loginid, provider, city]
+        GROUP BY
+          [T7184].provider) AS [T7185][provider, COUNT-city] ) JOIN (
+      (SELECT
+          [T7188].loginid, COUNT([T7188].city)
+        FROM
+          (input1) AS [T7188][loginid, provider, city]
+        GROUP BY
+          [T7188].loginid) AS [T7189][loginid, COUNT-city] )) AS [T7190][provider, COUNT-city, loginid, COUNT-city1]
+WHERE
+  [T7190].COUNT-city == [T7190].COUNT-city1
+@anonymous
+[T7190].loginid(StringVal) 
+l1 
+l6 
+
+[Query No.2]===============================
+SELECT
+  [T6670].loginid
+FROM
+  (( (SELECT
+          [T6664].loginid, COUNT([T6664].city)
+        FROM
+          (input1) AS [T6664][loginid, provider, city]
+        GROUP BY
+          [T6664].loginid) AS [T6665][loginid, COUNT-city] ) JOIN (
+      (SELECT
+          [T6668].provider, COUNT([T6668].city)
+        FROM
+          (input1) AS [T6668][loginid, provider, city]
+        GROUP BY
+          [T6668].provider) AS [T6669][provider, COUNT-city] )) AS [T6670][loginid, COUNT-city, provider, COUNT-city1]
+WHERE
+  [T6670].COUNT-city == [T6670].COUNT-city1
+@anonymous
+[T6670].loginid(StringVal) 
+l1 
+l6 
+
+[Query No.1]===============================
+SELECT
+  [T3000].loginid
+FROM
+  (( (SELECT
+          [T2994].provider, COUNT([T2994].loginid)
+        FROM
+          (input1) AS [T2994][loginid, provider, city]
+        GROUP BY
+          [T2994].provider) AS [T2995][provider, COUNT-loginid] ) JOIN (
+      (SELECT
+          [T2998].loginid, COUNT([T2998].loginid)
+        FROM
+          (input1) AS [T2998][loginid, provider, city]
+        GROUP BY
+          [T2998].loginid) AS [T2999][loginid, COUNT-loginid] )) AS [T3000][provider, COUNT-loginid, loginid, COUNT-loginid1]
+WHERE
+  [T3000].COUNT-loginid == [T3000].COUNT-loginid1
+@anonymous
+[T3000].loginid(StringVal) 
+l1 
+l6 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 45.734s

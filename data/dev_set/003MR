@@ -1,0 +1,62 @@
+//http://stackoverflow.com/questions/3800551/select-first-row-in-each-group-by-group
+//// SIZE: 18
+//// MOD: 9
+//// NEW: 27
+
+
+//id, customer , total
+// 1, Joe      , 5
+// 2, Sally    , 3
+// 3, Joe      , 2
+// 4, Sally    , 1
+
+#input
+
+
+
+| id  | customer | total |
+|------------------------|
+| 1   | Joe      | 5     |
+| 2   | Joe      | 6     |
+| 3   | Joe      | 6     |
+| 4   | Joe      | 6     |
+| 5   | Sally    | 3     |
+| 6   | Joe      | 2     |
+| 7   | Sally    | 1     |
+
+#output
+
+| FIRST(id) | customer | FIRST(total) |
+|-------------------------------------|
+|         2 | Joe      | 6            |
+|         5 | Sally    | 3            |
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["min", "max"]
+}
+
+#solution
+
+SELECT MIN(x.id),
+         x.customer, 
+         x.total
+    FROM PURCHASES x
+    JOIN (SELECT p.customer,
+                 MAX(total) AS max_total
+            FROM PURCHASES p
+        GROUP BY p.customer) y ON y.customer = x.customer
+                              AND y.max_total = x.total
+GROUP BY x.customer, x.total
+
+Select *
+From (SELECT p.customer, p.total, MIN(p.id) AS min_id
+      From PURCHASES
+      GROUP BY p.customer, p.total) x
+JOIN (SELECT p.customer, MAX(total) AS max_total
+			 FROM PURCHASES p
+			 GROUP BY p.customer) y 
+ON y.customer = x.customer AND y.max_total = x.total
+
+

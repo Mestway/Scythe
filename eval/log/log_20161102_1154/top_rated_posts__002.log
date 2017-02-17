@@ -1,0 +1,227 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/002
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 138 [SymTable]: 139
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 14
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 14 [SymTable]: 15
+[JOIN] level 1 [SymTable]: 30
+Candidate Tree Number: 21
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 14 [SymTable]: 15
+[JOIN] level 1 [SymTable]: 30
+Candidate Tree Number: 10
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 14 [SymTable]: 15
+[JOIN] level 1 [SymTable]: 30
+Candidate Tree Number: 36
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 22 [SymTable]: 23
+[JOIN] level 1 [SymTable]: 46
+Candidate Tree Number: 26
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 38 [SymTable]: 39
+[JOIN] level 1 [SymTable]: 78
+Candidate Tree Number: 282
+[Enumeration Finished]
+[Query No.8]===============================
+SELECT
+  [T157].NAME
+FROM
+  (( SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        True )) AS [T157][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+  [T157].ID <> [T157].ID1
+   AND [T157].NAME == [T157].NAME1
+@anonymous
+[T157].NAME(StringVal) 
+Tom 
+Tom 
+
+[Query No.7]===============================
+SELECT
+  [T159].NAME
+FROM
+  (( SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T159][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+  [T159].ID <> [T159].ID1
+   AND [T159].NAME == [T159].NAME1
+@anonymous
+[T159].NAME(StringVal) 
+Tom 
+Tom 
+
+[Query No.6]===============================
+SELECT
+  [T155].NAME
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        True )) AS [T155][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+  [T155].ID <> [T155].ID1
+   AND [T155].NAME == [T155].NAME1
+@anonymous
+[T155].NAME(StringVal) 
+Tom 
+Tom 
+
+[Query No.5]===============================
+SELECT
+  [T153].NAME
+FROM
+  (( SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T153][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+  [T153].ID <> [T153].ID1
+   AND [T153].NAME == [T153].NAME1
+@anonymous
+[T153].NAME(StringVal) 
+Tom 
+Tom 
+
+[Query No.4]===============================
+SELECT
+  [T151].NAME
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T151][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+  [T151].ID <> [T151].ID1
+   AND [T151].NAME == [T151].NAME1
+@anonymous
+[T151].NAME(StringVal) 
+Tom 
+Tom 
+
+[Query No.3]===============================
+SELECT
+  [T2152].NAME
+FROM
+  (( SELECT
+        [T2151].NAME,[T2151].COUNT-NAME
+      FROM
+        (SELECT
+            [T2150].NAME, COUNT([T2150].NAME)
+          FROM
+            (input1) AS [T2150][ID, NAME, EMAIL]
+          GROUP BY
+            [T2150].NAME) AS [T2151][NAME, COUNT-NAME]
+      WHERE
+        [T2151].COUNT-NAME > 1.0 ) JOIN (
+      input1 )) AS [T2152][NAME, COUNT-NAME, ID, NAME1, EMAIL]
+WHERE
+  [T2152].NAME == [T2152].NAME1
+@anonymous
+[T2152].NAME(StringVal) 
+Tom 
+Tom 
+
+[Query No.2]===============================
+SELECT
+  [T1642].NAME
+FROM
+  (( SELECT
+        [T1641].NAME,[T1641].EMAIL,[T1641].COUNT-ID
+      FROM
+        (SELECT
+            [T1640].NAME, [T1640].EMAIL, COUNT([T1640].ID)
+          FROM
+            (input1) AS [T1640][ID, NAME, EMAIL]
+          GROUP BY
+            [T1640].NAME  [T1640].EMAIL) AS [T1641][NAME, EMAIL, COUNT-ID]
+      WHERE
+        [T1641].COUNT-ID > 1.0 ) JOIN (
+      input1 )) AS [T1642][NAME, EMAIL, COUNT-ID, ID, NAME1, EMAIL1]
+WHERE
+  [T1642].NAME == [T1642].NAME1
+@anonymous
+[T1642].NAME(StringVal) 
+Tom 
+Tom 
+
+[Query No.1]===============================
+SELECT
+  [T1270].NAME
+FROM
+  (( SELECT
+        [T1269].NAME,[T1269].COUNT-ID
+      FROM
+        (SELECT
+            [T1268].NAME, COUNT([T1268].ID)
+          FROM
+            (input1) AS [T1268][ID, NAME, EMAIL]
+          GROUP BY
+            [T1268].NAME) AS [T1269][NAME, COUNT-ID]
+      WHERE
+        [T1269].COUNT-ID > 1.0 ) JOIN (
+      input1 )) AS [T1270][NAME, COUNT-ID, ID, NAME1, EMAIL]
+WHERE
+  [T1270].NAME == [T1270].NAME1
+@anonymous
+[T1270].NAME(StringVal) 
+Tom 
+Tom 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 2.384s

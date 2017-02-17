@@ -1,0 +1,245 @@
+[[Synthesizing]]
+[[Synthesis start]]
+	File: ../data/dev_set/029
+	Enumerator: CanonicalTableEnumeratorOnTheFly
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 21
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 54
+	Avg table size: 7
+[Total Number of Intermediate Result] 54
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 21
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 4
+	Avg table size: 9
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 164
+	Avg table size: 81
+[Stage 3] EnumJoinTwoAggr1 
+	Total Table by now: 320
+	Avg table size: 64
+[Total Number of Intermediate Result] 320
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 21
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 14
+	Avg table size: 8
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 470
+	Avg table size: 72
+[Total Number of Intermediate Result] 470
+Total Tree Count: 1
+Total Query Count: 800
+[Enumeration Finished]
+    [AggrFun] Optional[MIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 21
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 14
+	Avg table size: 8
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 449
+	Avg table size: 73
+[Stage 3] EnumJoinTwoAggr1 
+	Total Table by now: 2381
+	Avg table size: 56
+[Total Number of Intermediate Result] 2383
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[AVG]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 21
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 10
+	Avg table size: 8
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 339
+	Avg table size: 71
+[Stage 3] EnumJoinTwoAggr1 
+	Total Table by now: 1674
+	Avg table size: 51
+[Total Number of Intermediate Result] 1688
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MAXMIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 21
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 22
+	Avg table size: 7
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 654
+	Avg table size: 70
+[Total Number of Intermediate Result] 654
+Total Tree Count: 1
+Total Query Count: 800
+[Enumeration Finished]
+    [AggrFun] Optional[MAXCOUNT]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 15
+	Avg table size: 11
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 152
+	Avg table size: 6
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 19078
+	Avg table size: 53
+[Total Number of Intermediate Result] 19078
+Total Tree Count: 85
+Total Query Count: 1935542860
+[Enumeration Finished]
+[Query No.5]===============================
+SELECT
+  [T19807].deal_id1,[T19807].status_id,[T19807].MAX-timestamp
+FROM
+  (SELECT
+      [T17577].deal_id,[T17577].MAX-timestamp,[T17577].deal_id1,[T17577].status_id,[T17577].timestamp
+    FROM
+      (( ((SELECT
+                input1.deal_id, MAX(input1.timestamp)
+              FROM
+                input1
+              GROUP BY
+                input1.deal_id) AS [T17583][deal_id, MAX-timestamp]) AS [T17682][deal_id, MAX-timestamp] ) JOIN (
+          input1 )) AS [T17577][deal_id, MAX-timestamp, deal_id1, status_id, timestamp]
+    WHERE
+      [T17577].MAX-timestamp == [T17577].timestamp) AS [T19807][deal_id, MAX-timestamp, deal_id1, status_id, timestamp]
+
+@anonymous
+[T19807].deal_id1(NumberVal) | [T19807].status_id(NumberVal) | [T19807].MAX-timestamp(DateVal) 
+1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[Query No.4]===============================
+SELECT
+  [T19798].deal_id,[T19798].status_id,[T19798].timestamp
+FROM
+  (SELECT
+      [T17577].deal_id,[T17577].MAX-timestamp,[T17577].deal_id1,[T17577].status_id,[T17577].timestamp
+    FROM
+      (( ((SELECT
+                input1.deal_id, MAX(input1.timestamp)
+              FROM
+                input1
+              GROUP BY
+                input1.deal_id) AS [T17583][deal_id, MAX-timestamp]) AS [T17682][deal_id, MAX-timestamp] ) JOIN (
+          input1 )) AS [T17577][deal_id, MAX-timestamp, deal_id1, status_id, timestamp]
+    WHERE
+      [T17577].MAX-timestamp == [T17577].timestamp) AS [T19798][deal_id, MAX-timestamp, deal_id1, status_id, timestamp]
+
+@anonymous
+[T19798].deal_id(NumberVal) | [T19798].status_id(NumberVal) | [T19798].timestamp(DateVal) 
+1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[Query No.3]===============================
+SELECT
+  [T19797].deal_id,[T19797].status_id,[T19797].timestamp
+FROM
+  (SELECT
+      [T17577].deal_id,[T17577].MAX-timestamp,[T17577].deal_id1,[T17577].status_id,[T17577].timestamp
+    FROM
+      (( ((SELECT
+                input1.deal_id, MAX(input1.timestamp)
+              FROM
+                input1
+              GROUP BY
+                input1.deal_id) AS [T17583][deal_id, MAX-timestamp]) AS [T17682][deal_id, MAX-timestamp] ) JOIN (
+          input1 )) AS [T17577][deal_id, MAX-timestamp, deal_id1, status_id, timestamp]
+    WHERE
+      [T17577].MAX-timestamp == [T17577].timestamp) AS [T19797][deal_id, MAX-timestamp, deal_id1, status_id, timestamp]
+
+@anonymous
+[T19797].deal_id(NumberVal) | [T19797].status_id(NumberVal) | [T19797].timestamp(DateVal) 
+1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[Query No.2]===============================
+SELECT
+  [T19788].deal_id,[T19788].status_id,[T19788].MAX-timestamp
+FROM
+  (SELECT
+      [T17577].deal_id,[T17577].MAX-timestamp,[T17577].deal_id1,[T17577].status_id,[T17577].timestamp
+    FROM
+      (( ((SELECT
+                input1.deal_id, MAX(input1.timestamp)
+              FROM
+                input1
+              GROUP BY
+                input1.deal_id) AS [T17583][deal_id, MAX-timestamp]) AS [T17682][deal_id, MAX-timestamp] ) JOIN (
+          input1 )) AS [T17577][deal_id, MAX-timestamp, deal_id1, status_id, timestamp]
+    WHERE
+      [T17577].MAX-timestamp == [T17577].timestamp) AS [T19788][deal_id, MAX-timestamp, deal_id1, status_id, timestamp]
+
+@anonymous
+[T19788].deal_id(NumberVal) | [T19788].status_id(NumberVal) | [T19788].MAX-timestamp(DateVal) 
+1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[Query No.1]===============================
+SELECT
+  [T19787].deal_id,[T19787].status_id,[T19787].MAX-timestamp
+FROM
+  (SELECT
+      [T17577].deal_id,[T17577].MAX-timestamp,[T17577].deal_id1,[T17577].status_id,[T17577].timestamp
+    FROM
+      (( ((SELECT
+                input1.deal_id, MAX(input1.timestamp)
+              FROM
+                input1
+              GROUP BY
+                input1.deal_id) AS [T17583][deal_id, MAX-timestamp]) AS [T17682][deal_id, MAX-timestamp] ) JOIN (
+          input1 )) AS [T17577][deal_id, MAX-timestamp, deal_id1, status_id, timestamp]
+    WHERE
+      [T17577].MAX-timestamp == [T17577].timestamp) AS [T19787][deal_id, MAX-timestamp, deal_id1, status_id, timestamp]
+
+@anonymous
+[T19787].deal_id(NumberVal) | [T19787].status_id(NumberVal) | [T19787].MAX-timestamp(DateVal) 
+1226.0 | 3.0 | Tue Aug 18 12:10:25 PDT 2009 
+1227.0 | 2.0 | Mon Aug 17 14:31:25 PDT 2009 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 413.384s

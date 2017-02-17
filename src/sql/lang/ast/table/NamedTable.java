@@ -1,24 +1,22 @@
 package sql.lang.ast.table;
 
-import enumerator.parameterized.InstantiateEnv;
+import forward_enumeration.primitive.parameterized.InstantiateEnv;
+import sql.lang.datatype.Value;
 import util.Pair;
-import sql.lang.DataType.ValType;
+import sql.lang.datatype.ValType;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
-import sql.lang.ast.filter.Filter;
 import sql.lang.exception.SQLEvalException;
 import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by clwang on 12/16/15.
  */
-public class NamedTable implements TableNode {
+public class NamedTable extends TableNode {
 
     Table table;
 
@@ -52,7 +50,7 @@ public class NamedTable implements TableNode {
     }
 
     @Override
-    public String prettyPrint(int indentLv) {
+    public String prettyPrint(int indentLv, boolean asSubquery) {
         return IndentionManagement.addIndention(this.getTableName(), indentLv);
     }
 
@@ -91,6 +89,12 @@ public class NamedTable implements TableNode {
     }
 
     @Override
+    public List<String> originalColumnName() {
+        // original name is just its schema
+        return this.getSchema();
+    }
+
+    @Override
     public int hashCode() {
         return this.table.hashCode();
     }
@@ -101,6 +105,21 @@ public class NamedTable implements TableNode {
             return ((NamedTable) obj).table.equals(this.table);
         }
         return false;
+    }
+
+    @Override
+    public double estimateAllFilterCost() {
+        return 0;
+    }
+
+    @Override
+    public List<Value> getAllConstants() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public String getQuerySkeleton() {
+        return "(N " + this.getTable().getName() + ")";
     }
 
 }

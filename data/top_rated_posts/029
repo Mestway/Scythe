@@ -1,0 +1,30 @@
+//http://stackoverflow.com/questions/2046037/can-i-comma-delimit-multiple-rows-into-one-column
+
+#input
+
+[TicketID], [Person]
+ T0001  ,     Alice
+ T0001  ,     Bob
+ T0002  ,     Catherine
+ T0002  ,     Doug
+ T0003  ,     Elaine
+
+#output
+
+[TicketID], [People]
+ T0001 ,      Alice Bob
+ T0002 ,      Catherine Doug
+ T0003 ,      Elaine
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["concat"]
+}
+
+#solution
+
+select TicketId, listagg(Person, ', ') People
+from table
+group by TicketId
+

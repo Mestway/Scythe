@@ -1,0 +1,280 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/057
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 48 [SymTable]: 49
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1 [SymTable]: 2
+[JOINOnInput] level 1 [SymTable]: 3
+[EnumJoinOnAggr] level 1 [SymTable]: 7
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+[JOINOnInput] level 1 [SymTable]: 7
+[EnumJoinOnAggr] level 1 [SymTable]: 43
+Candidate Tree Number: 10
+[Enumeration Finished]
+[No.10]===============================
+SELECT
+  [T134].Name,[T134].City,[T134].Birthyear
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T132].City, MAX([T132].ID)
+        FROM
+          (input1) AS [T132][ID, Name, City, Birthyear]
+        GROUP BY
+          [T132].City) AS [T133][City, MAX-ID] )) AS [T134][ID, Name, City, Birthyear, City1, MAX-ID]
+WHERE
+  [T134].ID == [T134].MAX-ID
+   AND [T134].ID <= [T134].MAX-ID
+@anonymous
+[T134].Name(StringVal) | [T134].City(StringVal) | [T134].Birthyear(NumberVal) 
+Mac Taylor | New York | 1955.0 
+Sarah Connor | Los Angeles | 1959.0 
+Jean-Luc Picard | La Barre | 2305.0 
+Ellen Ripley | Nostromo | 2092.0 
+James T. Kirk | Riverside | 2233.0 
+Henry Jones | Chicago | 1899.0 
+
+[No.9]===============================
+SELECT
+  [T104].Name,[T104].City,[T104].Birthyear
+FROM
+  (( (SELECT
+          [T102].City, MAX([T102].ID)
+        FROM
+          (input1) AS [T102][ID, Name, City, Birthyear]
+        GROUP BY
+          [T102].City) AS [T103][City, MAX-ID] ) JOIN (
+      input1 )) AS [T104][City, MAX-ID, ID, Name, City1, Birthyear]
+WHERE
+  [T104].City == [T104].City1
+   AND [T104].MAX-ID <= [T104].ID
+@anonymous
+[T104].Name(StringVal) | [T104].City(StringVal) | [T104].Birthyear(NumberVal) 
+Mac Taylor | New York | 1955.0 
+Sarah Connor | Los Angeles | 1959.0 
+Jean-Luc Picard | La Barre | 2305.0 
+Ellen Ripley | Nostromo | 2092.0 
+James T. Kirk | Riverside | 2233.0 
+Henry Jones | Chicago | 1899.0 
+
+[No.8]===============================
+SELECT
+  [T128].Name,[T128].City,[T128].Birthyear
+FROM
+  (( SELECT
+        input1.ID,input1.Name,input1.City,input1.Birthyear
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      (SELECT
+          [T126].City, MAX([T126].ID)
+        FROM
+          (input1) AS [T126][ID, Name, City, Birthyear]
+        GROUP BY
+          [T126].City) AS [T127][City, MAX-ID] )) AS [T128][ID, Name, City, Birthyear, City1, MAX-ID]
+WHERE
+  [T128].ID == [T128].MAX-ID
+   AND [T128].City == [T128].City1
+@anonymous
+[T128].Name(StringVal) | [T128].City(StringVal) | [T128].Birthyear(NumberVal) 
+Mac Taylor | New York | 1955.0 
+Sarah Connor | Los Angeles | 1959.0 
+Jean-Luc Picard | La Barre | 2305.0 
+Ellen Ripley | Nostromo | 2092.0 
+James T. Kirk | Riverside | 2233.0 
+Henry Jones | Chicago | 1899.0 
+
+[No.7]===============================
+SELECT
+  [T98].Name,[T98].City,[T98].Birthyear
+FROM
+  (( (SELECT
+          [T96].City, MAX([T96].ID)
+        FROM
+          (input1) AS [T96][ID, Name, City, Birthyear]
+        GROUP BY
+          [T96].City) AS [T97][City, MAX-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.Name,input1.City,input1.Birthyear
+      FROM
+        input1
+      WHERE
+        True )) AS [T98][City, MAX-ID, ID, Name, City1, Birthyear]
+WHERE
+  [T98].City == [T98].City1
+   AND [T98].MAX-ID == [T98].ID
+@anonymous
+[T98].Name(StringVal) | [T98].City(StringVal) | [T98].Birthyear(NumberVal) 
+Mac Taylor | New York | 1955.0 
+Sarah Connor | Los Angeles | 1959.0 
+Jean-Luc Picard | La Barre | 2305.0 
+Ellen Ripley | Nostromo | 2092.0 
+James T. Kirk | Riverside | 2233.0 
+Henry Jones | Chicago | 1899.0 
+
+[No.6]===============================
+SELECT
+  [T116].Name,[T116].City,[T116].Birthyear
+FROM
+  (( SELECT
+        input1.ID,input1.Name,input1.City,input1.Birthyear
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      (SELECT
+          [T114].City, MAX([T114].ID)
+        FROM
+          (input1) AS [T114][ID, Name, City, Birthyear]
+        GROUP BY
+          [T114].City) AS [T115][City, MAX-ID] )) AS [T116][ID, Name, City, Birthyear, City1, MAX-ID]
+WHERE
+  [T116].ID == [T116].MAX-ID
+@anonymous
+[T116].Name(StringVal) | [T116].City(StringVal) | [T116].Birthyear(NumberVal) 
+Mac Taylor | New York | 1955.0 
+Sarah Connor | Los Angeles | 1959.0 
+Jean-Luc Picard | La Barre | 2305.0 
+Ellen Ripley | Nostromo | 2092.0 
+James T. Kirk | Riverside | 2233.0 
+Henry Jones | Chicago | 1899.0 
+
+[No.5]===============================
+SELECT
+  [T86].Name,[T86].City,[T86].Birthyear
+FROM
+  (( (SELECT
+          [T84].City, MAX([T84].ID)
+        FROM
+          (input1) AS [T84][ID, Name, City, Birthyear]
+        GROUP BY
+          [T84].City) AS [T85][City, MAX-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.Name,input1.City,input1.Birthyear
+      FROM
+        input1
+      WHERE
+        True )) AS [T86][City, MAX-ID, ID, Name, City1, Birthyear]
+WHERE
+  [T86].MAX-ID == [T86].ID
+@anonymous
+[T86].Name(StringVal) | [T86].City(StringVal) | [T86].Birthyear(NumberVal) 
+Mac Taylor | New York | 1955.0 
+Sarah Connor | Los Angeles | 1959.0 
+Jean-Luc Picard | La Barre | 2305.0 
+Ellen Ripley | Nostromo | 2092.0 
+James T. Kirk | Riverside | 2233.0 
+Henry Jones | Chicago | 1899.0 
+
+[No.4]===============================
+SELECT
+  [T122].Name,[T122].City,[T122].Birthyear
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T120].City, MAX([T120].ID)
+        FROM
+          (input1) AS [T120][ID, Name, City, Birthyear]
+        GROUP BY
+          [T120].City) AS [T121][City, MAX-ID] )) AS [T122][ID, Name, City, Birthyear, City1, MAX-ID]
+WHERE
+  [T122].ID == [T122].MAX-ID
+   AND [T122].City == [T122].City1
+@anonymous
+[T122].Name(StringVal) | [T122].City(StringVal) | [T122].Birthyear(NumberVal) 
+Mac Taylor | New York | 1955.0 
+Sarah Connor | Los Angeles | 1959.0 
+Jean-Luc Picard | La Barre | 2305.0 
+Ellen Ripley | Nostromo | 2092.0 
+James T. Kirk | Riverside | 2233.0 
+Henry Jones | Chicago | 1899.0 
+
+[No.3]===============================
+SELECT
+  [T92].Name,[T92].City,[T92].Birthyear
+FROM
+  (( (SELECT
+          [T90].City, MAX([T90].ID)
+        FROM
+          (input1) AS [T90][ID, Name, City, Birthyear]
+        GROUP BY
+          [T90].City) AS [T91][City, MAX-ID] ) JOIN (
+      input1 )) AS [T92][City, MAX-ID, ID, Name, City1, Birthyear]
+WHERE
+  [T92].City == [T92].City1
+   AND [T92].MAX-ID == [T92].ID
+@anonymous
+[T92].Name(StringVal) | [T92].City(StringVal) | [T92].Birthyear(NumberVal) 
+Mac Taylor | New York | 1955.0 
+Sarah Connor | Los Angeles | 1959.0 
+Jean-Luc Picard | La Barre | 2305.0 
+Ellen Ripley | Nostromo | 2092.0 
+James T. Kirk | Riverside | 2233.0 
+Henry Jones | Chicago | 1899.0 
+
+[No.2]===============================
+SELECT
+  [T110].Name,[T110].City,[T110].Birthyear
+FROM
+  (( input1 ) JOIN (
+      (SELECT
+          [T108].City, MAX([T108].ID)
+        FROM
+          (input1) AS [T108][ID, Name, City, Birthyear]
+        GROUP BY
+          [T108].City) AS [T109][City, MAX-ID] )) AS [T110][ID, Name, City, Birthyear, City1, MAX-ID]
+WHERE
+  [T110].ID == [T110].MAX-ID
+@anonymous
+[T110].Name(StringVal) | [T110].City(StringVal) | [T110].Birthyear(NumberVal) 
+Mac Taylor | New York | 1955.0 
+Sarah Connor | Los Angeles | 1959.0 
+Jean-Luc Picard | La Barre | 2305.0 
+Ellen Ripley | Nostromo | 2092.0 
+James T. Kirk | Riverside | 2233.0 
+Henry Jones | Chicago | 1899.0 
+
+[No.1]===============================
+SELECT
+  [T80].Name,[T80].City,[T80].Birthyear
+FROM
+  (( (SELECT
+          [T78].City, MAX([T78].ID)
+        FROM
+          (input1) AS [T78][ID, Name, City, Birthyear]
+        GROUP BY
+          [T78].City) AS [T79][City, MAX-ID] ) JOIN (
+      input1 )) AS [T80][City, MAX-ID, ID, Name, City1, Birthyear]
+WHERE
+  [T80].MAX-ID == [T80].ID
+@anonymous
+[T80].Name(StringVal) | [T80].City(StringVal) | [T80].Birthyear(NumberVal) 
+Mac Taylor | New York | 1955.0 
+Sarah Connor | Los Angeles | 1959.0 
+Jean-Luc Picard | La Barre | 2305.0 
+Ellen Ripley | Nostromo | 2092.0 
+James T. Kirk | Riverside | 2233.0 
+Henry Jones | Chicago | 1899.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.496s

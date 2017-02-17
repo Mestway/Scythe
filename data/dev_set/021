@@ -1,0 +1,38 @@
+//http://stackoverflow.com/questions/30265358/several-conditions-on-the-same-table
+
+#input
+
+| Customer    | email          |   ZIP | shop |
+|---------------------------------------------|
+| John Smith  | js@mail.com    | 75016 |    1 |
+| Mary King   | mary@ymail.com | 97430 |    2 |
+| John Smith  | js@mail.com    | 75016 |    3 |
+| Ivan Turtle | ivan@mail.com  | 56266 |    5 |
+| Ivan T      | iT@mail.com    | 56266 |    5 |
+| Mary King   | mary@ymail.com | 97430 |    5 |
+| John Smith  | js@mail.com    | 75016 |    5 |
+
+#output
+
+| Customer    | shop |
+|--------------------|
+| John Smith  |    3 |
+| Mary King   |    2 |
+
+
+#constraint
+{
+	"constants": ["1"],
+	"aggregation_functions": ["count"]
+}
+
+#solution
+
+SELECT a.*
+FROM Customers a
+INNER JOIN 
+(SELECT email
+FROM Customers
+GROUP BY email
+HAVING COUNT(shop) > 1) b
+ON a.email = b.email

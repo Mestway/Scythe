@@ -1,0 +1,117 @@
+[[Synthesis start]]
+	File: ..\data\sqlsynthesizer\textbook_5_2_2
+	Enumerator: StagedEnumerator
+[Retry] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 3
+[NaturalJoin]: 1 [SymTable]: 3
+[Aggregation]: 10 [SymTable]: 13
+[EnumJoinOnAggr] level 1 [SymTable]: 182
+Candidate Tree Number: 4
+[Enumeration Finished]
+[No.4]===============================
+SELECT
+  [T63].sname
+FROM
+  (( SELECT
+        input3.supplier_key,input3.sname
+      FROM
+        input3
+      WHERE
+        True ) JOIN (
+      SELECT
+        [T62].supplier_key,[T62].COUNT_DISTINCT-part_id
+      FROM
+        (SELECT
+            [T61].supplier_key, COUNT_DISTINCT([T61].part_id)
+          FROM
+            (input1) AS [T61][supplier_key, part_id]
+          GROUP BY
+            [T61].supplier_key) AS [T62][supplier_key, COUNT_DISTINCT-part_id]
+      WHERE
+        [T62].COUNT_DISTINCT-part_id == 3.0 )) AS [T63][supplier_key, sname, supplier_key1, COUNT_DISTINCT-part_id]
+WHERE
+  [T63].supplier_key == [T63].supplier_key1
+@anonymous
+[T63].sname(StringVal) 
+SN2 
+SN5 
+
+[No.3]===============================
+SELECT
+  [T51].sname
+FROM
+  (( SELECT
+        [T50].supplier_key,[T50].COUNT_DISTINCT-part_id
+      FROM
+        (SELECT
+            [T49].supplier_key, COUNT_DISTINCT([T49].part_id)
+          FROM
+            (input1) AS [T49][supplier_key, part_id]
+          GROUP BY
+            [T49].supplier_key) AS [T50][supplier_key, COUNT_DISTINCT-part_id]
+      WHERE
+        [T50].COUNT_DISTINCT-part_id == 3.0 ) JOIN (
+      SELECT
+        input3.supplier_key,input3.sname
+      FROM
+        input3
+      WHERE
+        True )) AS [T51][supplier_key, COUNT_DISTINCT-part_id, supplier_key1, sname]
+WHERE
+  [T51].supplier_key == [T51].supplier_key1
+@anonymous
+[T51].sname(StringVal) 
+SN2 
+SN5 
+
+[No.2]===============================
+SELECT
+  [T69].sname
+FROM
+  (( input3 ) JOIN (
+      SELECT
+        [T68].supplier_key,[T68].COUNT_DISTINCT-part_id
+      FROM
+        (SELECT
+            [T67].supplier_key, COUNT_DISTINCT([T67].part_id)
+          FROM
+            (input1) AS [T67][supplier_key, part_id]
+          GROUP BY
+            [T67].supplier_key) AS [T68][supplier_key, COUNT_DISTINCT-part_id]
+      WHERE
+        [T68].COUNT_DISTINCT-part_id == 3.0 )) AS [T69][supplier_key, sname, supplier_key1, COUNT_DISTINCT-part_id]
+WHERE
+  [T69].supplier_key == [T69].supplier_key1
+@anonymous
+[T69].sname(StringVal) 
+SN2 
+SN5 
+
+[No.1]===============================
+SELECT
+  [T57].sname
+FROM
+  (( SELECT
+        [T56].supplier_key,[T56].COUNT_DISTINCT-part_id
+      FROM
+        (SELECT
+            [T55].supplier_key, COUNT_DISTINCT([T55].part_id)
+          FROM
+            (input1) AS [T55][supplier_key, part_id]
+          GROUP BY
+            [T55].supplier_key) AS [T56][supplier_key, COUNT_DISTINCT-part_id]
+      WHERE
+        [T56].COUNT_DISTINCT-part_id == 3.0 ) JOIN (
+      input3 )) AS [T57][supplier_key, COUNT_DISTINCT-part_id, supplier_key1, sname]
+WHERE
+  [T57].supplier_key == [T57].supplier_key1
+@anonymous
+[T57].sname(StringVal) 
+SN2 
+SN5 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.280s

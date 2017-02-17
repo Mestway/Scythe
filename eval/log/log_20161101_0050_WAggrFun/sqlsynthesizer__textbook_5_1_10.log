@@ -1,0 +1,219 @@
+[[Synthesis start]]
+	File: ..\data\sqlsynthesizer\textbook_5_1_10
+	Enumerator: StagedEnumerator
+[Retry] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[NaturalJoin]: 1 [SymTable]: 2
+[Aggregation]: 10 [SymTable]: 12
+[EnumJoinOnAggr] level 1 [SymTable]: 156
+Candidate Tree Number: 8
+[Enumeration Finished]
+[No.8]===============================
+SELECT
+  [T102].sname
+FROM
+  (( SELECT
+        input2.S_key,input2.sname
+      FROM
+        input2
+      WHERE
+        True ) JOIN (
+      SELECT
+        [T101].S_key,[T101].COUNT-S_key
+      FROM
+        (SELECT
+            [T100].S_key, COUNT([T100].S_key)
+          FROM
+            (input1) AS [T100][S_key, cname]
+          GROUP BY
+            [T100].S_key) AS [T101][S_key, COUNT-S_key]
+      WHERE
+        [T101].COUNT-S_key == 3.0 )) AS [T102][S_key, sname, S_key1, COUNT-S_key]
+WHERE
+  [T102].S_key == [T102].S_key1
+@anonymous
+[T102].sname(StringVal) 
+stu2 
+stu5 
+
+[No.7]===============================
+SELECT
+  [T90].sname
+FROM
+  (( SELECT
+        input2.S_key,input2.sname
+      FROM
+        input2
+      WHERE
+        True ) JOIN (
+      SELECT
+        [T89].S_key,[T89].COUNT-cname
+      FROM
+        (SELECT
+            [T88].S_key, COUNT([T88].cname)
+          FROM
+            (input1) AS [T88][S_key, cname]
+          GROUP BY
+            [T88].S_key) AS [T89][S_key, COUNT-cname]
+      WHERE
+        [T89].COUNT-cname == 3.0 )) AS [T90][S_key, sname, S_key1, COUNT-cname]
+WHERE
+  [T90].S_key == [T90].S_key1
+@anonymous
+[T90].sname(StringVal) 
+stu2 
+stu5 
+
+[No.6]===============================
+SELECT
+  [T78].sname
+FROM
+  (( SELECT
+        [T77].S_key,[T77].COUNT-cname
+      FROM
+        (SELECT
+            [T76].S_key, COUNT([T76].cname)
+          FROM
+            (input1) AS [T76][S_key, cname]
+          GROUP BY
+            [T76].S_key) AS [T77][S_key, COUNT-cname]
+      WHERE
+        [T77].COUNT-cname == 3.0 ) JOIN (
+      SELECT
+        input2.S_key,input2.sname
+      FROM
+        input2
+      WHERE
+        True )) AS [T78][S_key, COUNT-cname, S_key1, sname]
+WHERE
+  [T78].S_key == [T78].S_key1
+@anonymous
+[T78].sname(StringVal) 
+stu2 
+stu5 
+
+[No.5]===============================
+SELECT
+  [T66].sname
+FROM
+  (( SELECT
+        [T65].S_key,[T65].COUNT-S_key
+      FROM
+        (SELECT
+            [T64].S_key, COUNT([T64].S_key)
+          FROM
+            (input1) AS [T64][S_key, cname]
+          GROUP BY
+            [T64].S_key) AS [T65][S_key, COUNT-S_key]
+      WHERE
+        [T65].COUNT-S_key == 3.0 ) JOIN (
+      SELECT
+        input2.S_key,input2.sname
+      FROM
+        input2
+      WHERE
+        True )) AS [T66][S_key, COUNT-S_key, S_key1, sname]
+WHERE
+  [T66].S_key == [T66].S_key1
+@anonymous
+[T66].sname(StringVal) 
+stu2 
+stu5 
+
+[No.4]===============================
+SELECT
+  [T108].sname
+FROM
+  (( input2 ) JOIN (
+      SELECT
+        [T107].S_key,[T107].COUNT-S_key
+      FROM
+        (SELECT
+            [T106].S_key, COUNT([T106].S_key)
+          FROM
+            (input1) AS [T106][S_key, cname]
+          GROUP BY
+            [T106].S_key) AS [T107][S_key, COUNT-S_key]
+      WHERE
+        [T107].COUNT-S_key == 3.0 )) AS [T108][S_key, sname, S_key1, COUNT-S_key]
+WHERE
+  [T108].S_key == [T108].S_key1
+@anonymous
+[T108].sname(StringVal) 
+stu2 
+stu5 
+
+[No.3]===============================
+SELECT
+  [T96].sname
+FROM
+  (( input2 ) JOIN (
+      SELECT
+        [T95].S_key,[T95].COUNT-cname
+      FROM
+        (SELECT
+            [T94].S_key, COUNT([T94].cname)
+          FROM
+            (input1) AS [T94][S_key, cname]
+          GROUP BY
+            [T94].S_key) AS [T95][S_key, COUNT-cname]
+      WHERE
+        [T95].COUNT-cname == 3.0 )) AS [T96][S_key, sname, S_key1, COUNT-cname]
+WHERE
+  [T96].S_key == [T96].S_key1
+@anonymous
+[T96].sname(StringVal) 
+stu2 
+stu5 
+
+[No.2]===============================
+SELECT
+  [T84].sname
+FROM
+  (( SELECT
+        [T83].S_key,[T83].COUNT-cname
+      FROM
+        (SELECT
+            [T82].S_key, COUNT([T82].cname)
+          FROM
+            (input1) AS [T82][S_key, cname]
+          GROUP BY
+            [T82].S_key) AS [T83][S_key, COUNT-cname]
+      WHERE
+        [T83].COUNT-cname == 3.0 ) JOIN (
+      input2 )) AS [T84][S_key, COUNT-cname, S_key1, sname]
+WHERE
+  [T84].S_key == [T84].S_key1
+@anonymous
+[T84].sname(StringVal) 
+stu2 
+stu5 
+
+[No.1]===============================
+SELECT
+  [T72].sname
+FROM
+  (( SELECT
+        [T71].S_key,[T71].COUNT-S_key
+      FROM
+        (SELECT
+            [T70].S_key, COUNT([T70].S_key)
+          FROM
+            (input1) AS [T70][S_key, cname]
+          GROUP BY
+            [T70].S_key) AS [T71][S_key, COUNT-S_key]
+      WHERE
+        [T71].COUNT-S_key == 3.0 ) JOIN (
+      input2 )) AS [T72][S_key, COUNT-S_key, S_key1, sname]
+WHERE
+  [T72].S_key == [T72].S_key1
+@anonymous
+[T72].sname(StringVal) 
+stu2 
+stu5 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.307s

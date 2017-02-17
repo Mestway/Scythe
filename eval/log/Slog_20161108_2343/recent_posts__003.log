@@ -1,0 +1,530 @@
+[[Synthesizing]]
+[[Synthesis start]]
+	File: ../data/recent_posts/003
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Filter Reduction Rate] 105.0
+[Filter Reduction Rate] 101.5
+[Aggregation]: 82 [SymTable]: 84
+[NaturalJoin]: 1 [SymTable]: 85
+[CFilter Reduction Rate] 36.142857142857146
+[Total Number of Intermediate] 51
+[SumTableSize] 469
+Candidate Tree Number: 5
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Filter Reduction Rate] 105.0
+[Filter Reduction Rate] 101.5
+[Aggregation]: 4 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 19
+[CFilter Reduction Rate] 36.142857142857146
+[CFilter Reduction Rate] 36.142857142857146
+[Total Number of Intermediate] 18
+[SumTableSize] 1814
+Candidate Tree Number: 10
+[Enumeration Finished]
+    [AggrFun] Optional[MAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Filter Reduction Rate] 105.0
+[Filter Reduction Rate] 101.5
+[Aggregation]: 6 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 25
+[CFilter Reduction Rate] 36.142857142857146
+[CFilter Reduction Rate] 36.142857142857146
+[Total Number of Intermediate] 24
+[SumTableSize] 2286
+Candidate Tree Number: 10
+[Enumeration Finished]
+    [AggrFun] Optional[MIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Filter Reduction Rate] 105.0
+[Filter Reduction Rate] 101.5
+[Aggregation]: 6 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 25
+[CFilter Reduction Rate] 36.142857142857146
+[CFilter Reduction Rate] 36.142857142857146
+[Total Number of Intermediate] 24
+[SumTableSize] 2286
+Candidate Tree Number: 10
+[Enumeration Finished]
+    [AggrFun] Optional[AVG]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Filter Reduction Rate] 105.0
+[Filter Reduction Rate] 101.5
+[Aggregation]: 6 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 25
+[CFilter Reduction Rate] 36.142857142857146
+[CFilter Reduction Rate] 36.142857142857146
+[Total Number of Intermediate] 24
+[SumTableSize] 2286
+Candidate Tree Number: 10
+[Enumeration Finished]
+    [AggrFun] Optional[MINMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Filter Reduction Rate] 105.0
+[Filter Reduction Rate] 101.5
+[Aggregation]: 8 [SymTable]: 10
+[JOIN] level 1 [SymTable]: 31
+[CFilter Reduction Rate] 36.142857142857146
+[CFilter Reduction Rate] 36.142857142857146
+[Total Number of Intermediate] 30
+[SumTableSize] 2758
+Candidate Tree Number: 10
+[Enumeration Finished]
+    [AggrFun] Optional[COUNTMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Filter Reduction Rate] 105.0
+[Filter Reduction Rate] 101.5
+[Aggregation]: 22 [SymTable]: 24
+[JOIN] level 1 [SymTable]: 73
+[CFilter Reduction Rate] 36.142857142857146
+[CFilter Reduction Rate] 36.142857142857146
+[Total Number of Intermediate] 45
+[SumTableSize] 3282
+Candidate Tree Number: 10
+[Enumeration Finished]
+[Query No.20]===============================
+SELECT
+  [T117].ID,[T117].ID1
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input2.ID,input2.item
+      FROM
+        input2
+      WHERE
+        True )) AS [T117][ID, item, ID1, item1]
+WHERE
+  [T117].item == [T117].item1
+@anonymous
+[T117].ID(NumberVal) | [T117].ID1(StringVal) 
+2.0 | b 
+2.0 | c 
+5.0 | f 
+5.0 | g 
+5.0 | h 
+7.0 | b 
+7.0 | c 
+
+[Query No.19]===============================
+SELECT
+  [T115].ID,[T115].ID1
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input2.ID,input2.item
+      FROM
+        input2
+      WHERE
+        True )) AS [T115][ID, item, ID1, item1]
+WHERE
+  [T115].item == [T115].item1
+@anonymous
+[T115].ID(NumberVal) | [T115].ID1(StringVal) 
+2.0 | b 
+2.0 | c 
+5.0 | f 
+5.0 | g 
+5.0 | h 
+7.0 | b 
+7.0 | c 
+
+[Query No.18]===============================
+SELECT
+  [T113].ID,[T113].ID1
+FROM
+  (( SELECT
+        input1.ID,input1.item
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input2 )) AS [T113][ID, item, ID1, item1]
+WHERE
+  [T113].item == [T113].item1
+@anonymous
+[T113].ID(NumberVal) | [T113].ID1(StringVal) 
+2.0 | b 
+2.0 | c 
+5.0 | f 
+5.0 | g 
+5.0 | h 
+7.0 | b 
+7.0 | c 
+
+[Query No.17]===============================
+SELECT
+  [T107].ID1,[T107].ID
+FROM
+  (( SELECT
+        input2.ID,input2.item
+      FROM
+        input2
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T107][ID, item, ID1, item1]
+WHERE
+  [T107].item == [T107].item1
+@anonymous
+[T107].ID1(NumberVal) | [T107].ID(StringVal) 
+2.0 | b 
+7.0 | b 
+2.0 | c 
+7.0 | c 
+5.0 | f 
+5.0 | g 
+5.0 | h 
+
+[Query No.16]===============================
+SELECT
+  [T105].ID1,[T105].ID
+FROM
+  (( SELECT
+        input2.ID,input2.item
+      FROM
+        input2
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T105][ID, item, ID1, item1]
+WHERE
+  [T105].item == [T105].item1
+@anonymous
+[T105].ID1(NumberVal) | [T105].ID(StringVal) 
+2.0 | b 
+7.0 | b 
+2.0 | c 
+7.0 | c 
+5.0 | f 
+5.0 | g 
+5.0 | h 
+
+[Query No.15]===============================
+SELECT
+  [T103].ID1,[T103].ID
+FROM
+  (( SELECT
+        input2.ID,input2.item
+      FROM
+        input2
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T103][ID, item, ID1, item1]
+WHERE
+  [T103].item == [T103].item1
+@anonymous
+[T103].ID1(NumberVal) | [T103].ID(StringVal) 
+2.0 | b 
+7.0 | b 
+2.0 | c 
+7.0 | c 
+5.0 | f 
+5.0 | g 
+5.0 | h 
+
+[Query No.14]===============================
+SELECT
+  [T91].ID,[T91].ID1
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input2.ID,input2.item
+      FROM
+        input2
+      WHERE
+        True )) AS [T91][ID, item, ID1, item1]
+WHERE
+  [T91].item == [T91].item1
+@anonymous
+[T91].ID(NumberVal) | [T91].ID1(StringVal) 
+2.0 | b 
+2.0 | c 
+5.0 | f 
+5.0 | g 
+5.0 | h 
+7.0 | b 
+7.0 | c 
+
+[Query No.13]===============================
+SELECT
+  [T89].ID,[T89].ID1
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input2.ID,input2.item
+      FROM
+        input2
+      WHERE
+        True )) AS [T89][ID, item, ID1, item1]
+WHERE
+  [T89].item == [T89].item1
+@anonymous
+[T89].ID(NumberVal) | [T89].ID1(StringVal) 
+2.0 | b 
+2.0 | c 
+5.0 | f 
+5.0 | g 
+5.0 | h 
+7.0 | b 
+7.0 | c 
+
+[Query No.12]===============================
+SELECT
+  [T87].ID,[T87].ID1
+FROM
+  (( SELECT
+        input1.ID,input1.item
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input2 )) AS [T87][ID, item, ID1, item1]
+WHERE
+  [T87].item == [T87].item1
+@anonymous
+[T87].ID(NumberVal) | [T87].ID1(StringVal) 
+2.0 | b 
+2.0 | c 
+5.0 | f 
+5.0 | g 
+5.0 | h 
+7.0 | b 
+7.0 | c 
+
+[Query No.11]===============================
+SELECT
+  [T111].ID,[T111].ID1
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input2.ID,input2.item
+      FROM
+        input2
+      WHERE
+        IS NOT NULL input2.item )) AS [T111][ID, item, ID1, item1]
+WHERE
+  [T111].item == [T111].item1
+@anonymous
+[T111].ID(NumberVal) | [T111].ID1(StringVal) 
+2.0 | b 
+2.0 | c 
+5.0 | f 
+5.0 | g 
+5.0 | h 
+7.0 | b 
+7.0 | c 
+
+[Query No.10]===============================
+SELECT
+  [T101].ID1,[T101].ID
+FROM
+  (( SELECT
+        input2.ID,input2.item
+      FROM
+        input2
+      WHERE
+        IS NOT NULL input2.item ) JOIN (
+      input1 )) AS [T101][ID, item, ID1, item1]
+WHERE
+  [T101].item == [T101].item1
+@anonymous
+[T101].ID1(NumberVal) | [T101].ID(StringVal) 
+2.0 | b 
+7.0 | b 
+2.0 | c 
+7.0 | c 
+5.0 | f 
+5.0 | g 
+5.0 | h 
+
+[Query No.9]===============================
+SELECT
+  [T85].ID,[T85].ID1
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input2.ID,input2.item
+      FROM
+        input2
+      WHERE
+        IS NOT NULL input2.item )) AS [T85][ID, item, ID1, item1]
+WHERE
+  [T85].item == [T85].item1
+@anonymous
+[T85].ID(NumberVal) | [T85].ID1(StringVal) 
+2.0 | b 
+2.0 | c 
+5.0 | f 
+5.0 | g 
+5.0 | h 
+7.0 | b 
+7.0 | c 
+
+[Query No.8]===============================
+SELECT
+  [T183].ID1,[T183].ID
+FROM
+  (( input2 ) JOIN (
+      input1 )) AS [T183][ID, item, ID1, item1]
+WHERE
+  [T183].item == [T183].item1
+@anonymous
+[T183].ID1(NumberVal) | [T183].ID(StringVal) 
+2.0 | b 
+7.0 | b 
+2.0 | c 
+7.0 | c 
+5.0 | f 
+5.0 | g 
+5.0 | h 
+
+[Query No.7]===============================
+SELECT
+  [T165].ID1,[T165].ID
+FROM
+  (( input2 ) JOIN (
+      input1 )) AS [T165][ID, item, ID1, item1]
+WHERE
+  [T165].item == [T165].item1
+@anonymous
+[T165].ID1(NumberVal) | [T165].ID(StringVal) 
+2.0 | b 
+7.0 | b 
+2.0 | c 
+7.0 | c 
+5.0 | f 
+5.0 | g 
+5.0 | h 
+
+[Query No.6]===============================
+SELECT
+  [T155].ID,[T155].ID1
+FROM
+  (( input1 ) JOIN (
+      input2 )) AS [T155][ID, item, ID1, item1]
+WHERE
+  [T155].item == [T155].item1
+@anonymous
+[T155].ID(NumberVal) | [T155].ID1(StringVal) 
+2.0 | b 
+2.0 | c 
+5.0 | f 
+5.0 | g 
+5.0 | h 
+7.0 | b 
+7.0 | c 
+
+[Query No.5]===============================
+SELECT
+  [T137].ID,[T137].ID1
+FROM
+  (( input1 ) JOIN (
+      input2 )) AS [T137][ID, item, ID1, item1]
+WHERE
+  [T137].item == [T137].item1
+@anonymous
+[T137].ID(NumberVal) | [T137].ID1(StringVal) 
+2.0 | b 
+2.0 | c 
+5.0 | f 
+5.0 | g 
+5.0 | h 
+7.0 | b 
+7.0 | c 
+
+[Query No.4]===============================
+SELECT
+  [T127].ID1,[T127].ID
+FROM
+  (( input2 ) JOIN (
+      input1 )) AS [T127][ID, item, ID1, item1]
+WHERE
+  [T127].item == [T127].item1
+@anonymous
+[T127].ID1(NumberVal) | [T127].ID(StringVal) 
+2.0 | b 
+7.0 | b 
+2.0 | c 
+7.0 | c 
+5.0 | f 
+5.0 | g 
+5.0 | h 
+
+[Query No.3]===============================
+SELECT
+  [T109].ID,[T109].ID1
+FROM
+  (( input1 ) JOIN (
+      input2 )) AS [T109][ID, item, ID1, item1]
+WHERE
+  [T109].item == [T109].item1
+@anonymous
+[T109].ID(NumberVal) | [T109].ID1(StringVal) 
+2.0 | b 
+2.0 | c 
+5.0 | f 
+5.0 | g 
+5.0 | h 
+7.0 | b 
+7.0 | c 
+
+[Query No.2]===============================
+SELECT
+  [T99].ID1,[T99].ID
+FROM
+  (( input2 ) JOIN (
+      input1 )) AS [T99][ID, item, ID1, item1]
+WHERE
+  [T99].item == [T99].item1
+@anonymous
+[T99].ID1(NumberVal) | [T99].ID(StringVal) 
+2.0 | b 
+7.0 | b 
+2.0 | c 
+7.0 | c 
+5.0 | f 
+5.0 | g 
+5.0 | h 
+
+[Query No.1]===============================
+SELECT
+  [T83].ID,[T83].ID1
+FROM
+  (( input1 ) JOIN (
+      input2 )) AS [T83][ID, item, ID1, item1]
+WHERE
+  [T83].item == [T83].item1
+@anonymous
+[T83].ID(NumberVal) | [T83].ID1(StringVal) 
+2.0 | b 
+2.0 | c 
+5.0 | f 
+5.0 | g 
+5.0 | h 
+7.0 | b 
+7.0 | c 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.592s

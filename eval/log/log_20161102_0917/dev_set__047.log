@@ -1,0 +1,554 @@
+[[Synthesis start]]
+	File: ../data/dev_set/047
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 347 [SymTable]: 348
+Candidate Tree Number: 1
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 17 [SymTable]: 18
+[JOIN] level 1 [SymTable]: 36
+[EnumJoinOnAggr] level 1 [SymTable]: 360
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 70 [SymTable]: 71
+[JOIN] level 1 [SymTable]: 142
+Candidate Tree Number: 26
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 70 [SymTable]: 71
+[JOIN] level 1 [SymTable]: 142
+[EnumJoinOnAggr] level 1 [SymTable]: 5183
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 52 [SymTable]: 53
+[JOIN] level 1 [SymTable]: 106
+[EnumJoinOnAggr] level 1 [SymTable]: 2915
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 123 [SymTable]: 124
+[JOIN] level 1 [SymTable]: 248
+Candidate Tree Number: 26
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 136 [SymTable]: 137
+[JOIN] level 1 [SymTable]: 274
+Candidate Tree Number: 26
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T709].PRO_ID,[T709].MAX-PRO_Date
+FROM
+  (( (SELECT
+          [T707].PRO_ID, MAX([T707].PRO_Date)
+        FROM
+          (SELECT
+              input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+            FROM
+              input1
+            WHERE
+              input1.PRO_Date <= Wed Jun 01 00:00:00 PDT 2016) AS [T707][PRO_ID, PRO_Date, PRO_Price]
+        GROUP BY
+          [T707].PRO_ID) AS [T708][PRO_ID, MAX-PRO_Date] ) JOIN (
+      SELECT
+        input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+      FROM
+        input1
+      WHERE
+        IS NULL input1.PRO_ID
+         OR input1.PRO_Date == Wed Jun 01 00:00:00 PDT 2016 )) AS [T709][PRO_ID, MAX-PRO_Date, PRO_ID1, PRO_Date, PRO_Price]
+
+@anonymous
+[T709].PRO_ID(NumberVal) | [T709].MAX-PRO_Date(DateVal) 
+123.0 | Sun May 01 00:00:00 PDT 2016 
+456.0 | Wed Jun 01 00:00:00 PDT 2016 
+
+[No.19]===============================
+SELECT
+  [T3835].PRO_ID,[T3835].MAX-PRO_Date
+FROM
+  (( (SELECT
+          [T3833].PRO_ID, MAX([T3833].PRO_Date)
+        FROM
+          (SELECT
+              input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+            FROM
+              input1
+            WHERE
+              input1.PRO_Date <= Wed Jun 01 00:00:00 PDT 2016) AS [T3833][PRO_ID, PRO_Date, PRO_Price]
+        GROUP BY
+          [T3833].PRO_ID) AS [T3834][PRO_ID, MAX-PRO_Date] ) JOIN (
+      SELECT
+        input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+      FROM
+        input1
+      WHERE
+        input1.PRO_Date == Wed Jun 01 00:00:00 PDT 2016 )) AS [T3835][PRO_ID, MAX-PRO_Date, PRO_ID1, PRO_Date, PRO_Price]
+WHERE
+  [T3835].PRO_ID <= [T3835].PRO_ID1
+@anonymous
+[T3835].PRO_ID(NumberVal) | [T3835].MAX-PRO_Date(DateVal) 
+123.0 | Sun May 01 00:00:00 PDT 2016 
+456.0 | Wed Jun 01 00:00:00 PDT 2016 
+
+[No.18]===============================
+SELECT
+  [T3242].PRO_ID,[T3242].MAX-PRO_Date
+FROM
+  (( (SELECT
+          [T3240].PRO_ID, MAX([T3240].PRO_Date)
+        FROM
+          (SELECT
+              input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+            FROM
+              input1
+            WHERE
+              input1.PRO_Date <= Wed Jun 01 00:00:00 PDT 2016) AS [T3240][PRO_ID, PRO_Date, PRO_Price]
+        GROUP BY
+          [T3240].PRO_ID) AS [T3241][PRO_ID, MAX-PRO_Date] ) JOIN (
+      SELECT
+        input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+      FROM
+        input1
+      WHERE
+        input1.PRO_Date == Wed Jun 01 00:00:00 PDT 2016 )) AS [T3242][PRO_ID, MAX-PRO_Date, PRO_ID1, PRO_Date, PRO_Price]
+WHERE
+  [T3242].PRO_ID <= [T3242].PRO_ID1
+@anonymous
+[T3242].PRO_ID(NumberVal) | [T3242].MAX-PRO_Date(DateVal) 
+123.0 | Sun May 01 00:00:00 PDT 2016 
+456.0 | Wed Jun 01 00:00:00 PDT 2016 
+
+[No.17]===============================
+SELECT
+  [T745].PRO_ID,[T745].MAX-PRO_Date
+FROM
+  (( (SELECT
+          [T743].PRO_ID, MAX([T743].PRO_Date)
+        FROM
+          (SELECT
+              input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+            FROM
+              input1
+            WHERE
+              input1.PRO_Date <= Wed Jun 01 00:00:00 PDT 2016) AS [T743][PRO_ID, PRO_Date, PRO_Price]
+        GROUP BY
+          [T743].PRO_ID) AS [T744][PRO_ID, MAX-PRO_Date] ) JOIN (
+      SELECT
+        input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+      FROM
+        input1
+      WHERE
+        input1.PRO_Date == Wed Jun 01 00:00:00 PDT 2016 )) AS [T745][PRO_ID, MAX-PRO_Date, PRO_ID1, PRO_Date, PRO_Price]
+WHERE
+  [T745].PRO_ID <= [T745].PRO_ID1
+@anonymous
+[T745].PRO_ID(NumberVal) | [T745].MAX-PRO_Date(DateVal) 
+123.0 | Sun May 01 00:00:00 PDT 2016 
+456.0 | Wed Jun 01 00:00:00 PDT 2016 
+
+[No.16]===============================
+SELECT
+  [T4027].PRO_ID,[T4027].PRO_Date
+FROM
+  (( (SELECT
+          [T4025].PRO_ID, MAX([T4025].PRO_Price)
+        FROM
+          (SELECT
+              input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+            FROM
+              input1
+            WHERE
+              input1.PRO_Date <= Wed Jun 01 00:00:00 PDT 2016) AS [T4025][PRO_ID, PRO_Date, PRO_Price]
+        GROUP BY
+          [T4025].PRO_ID) AS [T4026][PRO_ID, MAX-PRO_Price] ) JOIN (
+      input1 )) AS [T4027][PRO_ID, MAX-PRO_Price, PRO_ID1, PRO_Date, PRO_Price]
+WHERE
+  [T4027].MAX-PRO_Price == [T4027].PRO_Price
+   AND [T4027].PRO_ID == [T4027].PRO_ID1
+@anonymous
+[T4027].PRO_ID(NumberVal) | [T4027].PRO_Date(DateVal) 
+123.0 | Sun May 01 00:00:00 PDT 2016 
+456.0 | Wed Jun 01 00:00:00 PDT 2016 
+
+[No.15]===============================
+SELECT
+  [T3847].PRO_ID,[T3847].MAX-PRO_Date
+FROM
+  (( (SELECT
+          [T3845].PRO_ID, MAX([T3845].PRO_Date)
+        FROM
+          (SELECT
+              input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+            FROM
+              input1
+            WHERE
+              input1.PRO_Date <= Wed Jun 01 00:00:00 PDT 2016) AS [T3845][PRO_ID, PRO_Date, PRO_Price]
+        GROUP BY
+          [T3845].PRO_ID) AS [T3846][PRO_ID, MAX-PRO_Date] ) JOIN (
+      input1 )) AS [T3847][PRO_ID, MAX-PRO_Date, PRO_ID1, PRO_Date, PRO_Price]
+WHERE
+  [T3847].MAX-PRO_Date == [T3847].PRO_Date
+   AND [T3847].PRO_ID == [T3847].PRO_ID1
+@anonymous
+[T3847].PRO_ID(NumberVal) | [T3847].MAX-PRO_Date(DateVal) 
+123.0 | Sun May 01 00:00:00 PDT 2016 
+456.0 | Wed Jun 01 00:00:00 PDT 2016 
+
+[No.14]===============================
+SELECT
+  [T3434].PRO_ID,[T3434].PRO_Date
+FROM
+  (( (SELECT
+          [T3432].PRO_ID, MAX([T3432].PRO_Price)
+        FROM
+          (SELECT
+              input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+            FROM
+              input1
+            WHERE
+              input1.PRO_Date <= Wed Jun 01 00:00:00 PDT 2016) AS [T3432][PRO_ID, PRO_Date, PRO_Price]
+        GROUP BY
+          [T3432].PRO_ID) AS [T3433][PRO_ID, MAX-PRO_Price] ) JOIN (
+      input1 )) AS [T3434][PRO_ID, MAX-PRO_Price, PRO_ID1, PRO_Date, PRO_Price]
+WHERE
+  [T3434].MAX-PRO_Price == [T3434].PRO_Price
+   AND [T3434].PRO_ID == [T3434].PRO_ID1
+@anonymous
+[T3434].PRO_ID(NumberVal) | [T3434].PRO_Date(DateVal) 
+123.0 | Sun May 01 00:00:00 PDT 2016 
+456.0 | Wed Jun 01 00:00:00 PDT 2016 
+
+[No.13]===============================
+SELECT
+  [T3254].PRO_ID,[T3254].MAX-PRO_Date
+FROM
+  (( (SELECT
+          [T3252].PRO_ID, MAX([T3252].PRO_Date)
+        FROM
+          (SELECT
+              input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+            FROM
+              input1
+            WHERE
+              input1.PRO_Date <= Wed Jun 01 00:00:00 PDT 2016) AS [T3252][PRO_ID, PRO_Date, PRO_Price]
+        GROUP BY
+          [T3252].PRO_ID) AS [T3253][PRO_ID, MAX-PRO_Date] ) JOIN (
+      input1 )) AS [T3254][PRO_ID, MAX-PRO_Date, PRO_ID1, PRO_Date, PRO_Price]
+WHERE
+  [T3254].MAX-PRO_Date == [T3254].PRO_Date
+   AND [T3254].PRO_ID == [T3254].PRO_ID1
+@anonymous
+[T3254].PRO_ID(NumberVal) | [T3254].MAX-PRO_Date(DateVal) 
+123.0 | Sun May 01 00:00:00 PDT 2016 
+456.0 | Wed Jun 01 00:00:00 PDT 2016 
+
+[No.12]===============================
+SELECT
+  [T757].PRO_ID,[T757].MAX-PRO_Date
+FROM
+  (( (SELECT
+          [T755].PRO_ID, MAX([T755].PRO_Date)
+        FROM
+          (SELECT
+              input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+            FROM
+              input1
+            WHERE
+              input1.PRO_Date <= Wed Jun 01 00:00:00 PDT 2016) AS [T755][PRO_ID, PRO_Date, PRO_Price]
+        GROUP BY
+          [T755].PRO_ID) AS [T756][PRO_ID, MAX-PRO_Date] ) JOIN (
+      input1 )) AS [T757][PRO_ID, MAX-PRO_Date, PRO_ID1, PRO_Date, PRO_Price]
+WHERE
+  [T757].MAX-PRO_Date == [T757].PRO_Date
+   AND [T757].PRO_ID == [T757].PRO_ID1
+@anonymous
+[T757].PRO_ID(NumberVal) | [T757].MAX-PRO_Date(DateVal) 
+123.0 | Sun May 01 00:00:00 PDT 2016 
+456.0 | Wed Jun 01 00:00:00 PDT 2016 
+
+[No.11]===============================
+SELECT
+  [T627].PRO_ID,[T627].PRO_Date
+FROM
+  (( (SELECT
+          [T625].PRO_ID, MAX([T625].PRO_Price)
+        FROM
+          (SELECT
+              input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+            FROM
+              input1
+            WHERE
+              input1.PRO_Date <= Wed Jun 01 00:00:00 PDT 2016) AS [T625][PRO_ID, PRO_Date, PRO_Price]
+        GROUP BY
+          [T625].PRO_ID) AS [T626][PRO_ID, MAX-PRO_Price] ) JOIN (
+      input1 )) AS [T627][PRO_ID, MAX-PRO_Price, PRO_ID1, PRO_Date, PRO_Price]
+WHERE
+  [T627].MAX-PRO_Price == [T627].PRO_Price
+   AND [T627].PRO_ID == [T627].PRO_ID1
+@anonymous
+[T627].PRO_ID(NumberVal) | [T627].PRO_Date(DateVal) 
+123.0 | Sun May 01 00:00:00 PDT 2016 
+456.0 | Wed Jun 01 00:00:00 PDT 2016 
+
+[No.10]===============================
+SELECT
+  [T3907].PRO_ID,[T3907].MAX-PRO_Date
+FROM
+  (( (SELECT
+          [T3905].PRO_ID, MAX([T3905].PRO_Date)
+        FROM
+          (SELECT
+              input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+            FROM
+              input1
+            WHERE
+              input1.PRO_Date <= Wed Jun 01 00:00:00 PDT 2016) AS [T3905][PRO_ID, PRO_Date, PRO_Price]
+        GROUP BY
+          [T3905].PRO_ID) AS [T3906][PRO_ID, MAX-PRO_Date] ) JOIN (
+      SELECT
+        input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+      FROM
+        input1
+      WHERE
+        input1.PRO_Date > Wed Jun 01 00:00:00 PDT 2016 )) AS [T3907][PRO_ID, MAX-PRO_Date, PRO_ID1, PRO_Date, PRO_Price]
+
+@anonymous
+[T3907].PRO_ID(NumberVal) | [T3907].MAX-PRO_Date(DateVal) 
+123.0 | Sun May 01 00:00:00 PDT 2016 
+456.0 | Wed Jun 01 00:00:00 PDT 2016 
+
+[No.9]===============================
+SELECT
+  [T3314].PRO_ID,[T3314].MAX-PRO_Date
+FROM
+  (( (SELECT
+          [T3312].PRO_ID, MAX([T3312].PRO_Date)
+        FROM
+          (SELECT
+              input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+            FROM
+              input1
+            WHERE
+              input1.PRO_Date <= Wed Jun 01 00:00:00 PDT 2016) AS [T3312][PRO_ID, PRO_Date, PRO_Price]
+        GROUP BY
+          [T3312].PRO_ID) AS [T3313][PRO_ID, MAX-PRO_Date] ) JOIN (
+      SELECT
+        input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+      FROM
+        input1
+      WHERE
+        input1.PRO_Date > Wed Jun 01 00:00:00 PDT 2016 )) AS [T3314][PRO_ID, MAX-PRO_Date, PRO_ID1, PRO_Date, PRO_Price]
+
+@anonymous
+[T3314].PRO_ID(NumberVal) | [T3314].MAX-PRO_Date(DateVal) 
+123.0 | Sun May 01 00:00:00 PDT 2016 
+456.0 | Wed Jun 01 00:00:00 PDT 2016 
+
+[No.8]===============================
+SELECT
+  [T817].PRO_ID,[T817].MAX-PRO_Date
+FROM
+  (( (SELECT
+          [T815].PRO_ID, MAX([T815].PRO_Date)
+        FROM
+          (SELECT
+              input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+            FROM
+              input1
+            WHERE
+              input1.PRO_Date <= Wed Jun 01 00:00:00 PDT 2016) AS [T815][PRO_ID, PRO_Date, PRO_Price]
+        GROUP BY
+          [T815].PRO_ID) AS [T816][PRO_ID, MAX-PRO_Date] ) JOIN (
+      SELECT
+        input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+      FROM
+        input1
+      WHERE
+        input1.PRO_Date > Wed Jun 01 00:00:00 PDT 2016 )) AS [T817][PRO_ID, MAX-PRO_Date, PRO_ID1, PRO_Date, PRO_Price]
+
+@anonymous
+[T817].PRO_ID(NumberVal) | [T817].MAX-PRO_Date(DateVal) 
+123.0 | Sun May 01 00:00:00 PDT 2016 
+456.0 | Wed Jun 01 00:00:00 PDT 2016 
+
+[No.7]===============================
+SELECT
+  [T3787].PRO_ID,[T3787].MAX-PRO_Date
+FROM
+  (( (SELECT
+          [T3785].PRO_ID, MAX([T3785].PRO_Date)
+        FROM
+          (SELECT
+              input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+            FROM
+              input1
+            WHERE
+              input1.PRO_Date <= Wed Jun 01 00:00:00 PDT 2016) AS [T3785][PRO_ID, PRO_Date, PRO_Price]
+        GROUP BY
+          [T3785].PRO_ID) AS [T3786][PRO_ID, MAX-PRO_Date] ) JOIN (
+      SELECT
+        input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+      FROM
+        input1
+      WHERE
+        input1.PRO_Date == Wed Jun 01 00:00:00 PDT 2016 )) AS [T3787][PRO_ID, MAX-PRO_Date, PRO_ID1, PRO_Date, PRO_Price]
+
+@anonymous
+[T3787].PRO_ID(NumberVal) | [T3787].MAX-PRO_Date(DateVal) 
+123.0 | Sun May 01 00:00:00 PDT 2016 
+456.0 | Wed Jun 01 00:00:00 PDT 2016 
+
+[No.6]===============================
+SELECT
+  [T3194].PRO_ID,[T3194].MAX-PRO_Date
+FROM
+  (( (SELECT
+          [T3192].PRO_ID, MAX([T3192].PRO_Date)
+        FROM
+          (SELECT
+              input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+            FROM
+              input1
+            WHERE
+              input1.PRO_Date <= Wed Jun 01 00:00:00 PDT 2016) AS [T3192][PRO_ID, PRO_Date, PRO_Price]
+        GROUP BY
+          [T3192].PRO_ID) AS [T3193][PRO_ID, MAX-PRO_Date] ) JOIN (
+      SELECT
+        input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+      FROM
+        input1
+      WHERE
+        input1.PRO_Date == Wed Jun 01 00:00:00 PDT 2016 )) AS [T3194][PRO_ID, MAX-PRO_Date, PRO_ID1, PRO_Date, PRO_Price]
+
+@anonymous
+[T3194].PRO_ID(NumberVal) | [T3194].MAX-PRO_Date(DateVal) 
+123.0 | Sun May 01 00:00:00 PDT 2016 
+456.0 | Wed Jun 01 00:00:00 PDT 2016 
+
+[No.5]===============================
+SELECT
+  [T697].PRO_ID,[T697].MAX-PRO_Date
+FROM
+  (( (SELECT
+          [T695].PRO_ID, MAX([T695].PRO_Date)
+        FROM
+          (SELECT
+              input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+            FROM
+              input1
+            WHERE
+              input1.PRO_Date <= Wed Jun 01 00:00:00 PDT 2016) AS [T695][PRO_ID, PRO_Date, PRO_Price]
+        GROUP BY
+          [T695].PRO_ID) AS [T696][PRO_ID, MAX-PRO_Date] ) JOIN (
+      SELECT
+        input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+      FROM
+        input1
+      WHERE
+        input1.PRO_Date == Wed Jun 01 00:00:00 PDT 2016 )) AS [T697][PRO_ID, MAX-PRO_Date, PRO_ID1, PRO_Date, PRO_Price]
+
+@anonymous
+[T697].PRO_ID(NumberVal) | [T697].MAX-PRO_Date(DateVal) 
+123.0 | Sun May 01 00:00:00 PDT 2016 
+456.0 | Wed Jun 01 00:00:00 PDT 2016 
+
+[No.4]===============================
+(SELECT
+    [T3775].PRO_ID, MAX([T3775].PRO_Date)
+  FROM
+    (SELECT
+        input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+      FROM
+        input1
+      WHERE
+        input1.PRO_Date <= Wed Jun 01 00:00:00 PDT 2016) AS [T3775][PRO_ID, PRO_Date, PRO_Price]
+  GROUP BY
+    [T3775].PRO_ID) AS [T3776][PRO_ID, MAX-PRO_Date]
+@anonymous
+[T3776].PRO_ID(NumberVal) | [T3776].MAX-PRO_Date(DateVal) 
+123.0 | Sun May 01 00:00:00 PDT 2016 
+456.0 | Wed Jun 01 00:00:00 PDT 2016 
+
+[No.3]===============================
+(SELECT
+    [T3492].PRO_ID, MAX([T3492].PRO_Date)
+  FROM
+    (SELECT
+        input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+      FROM
+        input1
+      WHERE
+        input1.PRO_Date <= Wed Jun 01 00:00:00 PDT 2016) AS [T3492][PRO_ID, PRO_Date, PRO_Price]
+  GROUP BY
+    [T3492].PRO_ID) AS [T3493][PRO_ID, MAX-PRO_Date]
+@anonymous
+[T3493].PRO_ID(NumberVal) | [T3493].MAX-PRO_Date(DateVal) 
+123.0 | Sun May 01 00:00:00 PDT 2016 
+456.0 | Wed Jun 01 00:00:00 PDT 2016 
+
+[No.2]===============================
+(SELECT
+    [T685].PRO_ID, MAX([T685].PRO_Date)
+  FROM
+    (SELECT
+        input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+      FROM
+        input1
+      WHERE
+        input1.PRO_Date <= Wed Jun 01 00:00:00 PDT 2016) AS [T685][PRO_ID, PRO_Date, PRO_Price]
+  GROUP BY
+    [T685].PRO_ID) AS [T686][PRO_ID, MAX-PRO_Date]
+@anonymous
+[T686].PRO_ID(NumberVal) | [T686].MAX-PRO_Date(DateVal) 
+123.0 | Sun May 01 00:00:00 PDT 2016 
+456.0 | Wed Jun 01 00:00:00 PDT 2016 
+
+[No.1]===============================
+(SELECT
+    [T355].PRO_ID, MAX([T355].PRO_Date)
+  FROM
+    (SELECT
+        input1.PRO_ID,input1.PRO_Date,input1.PRO_Price
+      FROM
+        input1
+      WHERE
+        input1.PRO_Date <= Wed Jun 01 00:00:00 PDT 2016) AS [T355][PRO_ID, PRO_Date, PRO_Price]
+  GROUP BY
+    [T355].PRO_ID) AS [T356][PRO_ID, MAX-PRO_Date]
+@anonymous
+[T356].PRO_ID(NumberVal) | [T356].MAX-PRO_Date(DateVal) 
+123.0 | Sun May 01 00:00:00 PDT 2016 
+456.0 | Wed Jun 01 00:00:00 PDT 2016 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 7.074s

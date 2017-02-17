@@ -1,0 +1,70 @@
+#input
+
+C_name,meets_at
+class1,mon
+class2,mon
+class3,tue
+class4,tue
+class5,fri
+class6,fri
+
+#input
+
+S_key,C_name
+S1,class1
+S1,class2
+S1,class3
+S2,class1
+S3,class2
+S3,class5
+S3,class4
+S4,class2
+S4,class4
+S5,class3
+S6,class3
+S6,class4
+S7,class1
+S7,class3
+S7,class5
+S8,class4
+S9,class5
+S9,class6
+S10,class4
+S10,class5
+S10,class6
+S11,class3
+S11,class6
+S12,class1
+S12,class2
+S13,class3
+S13,class4
+S14,class5
+S14,class6
+
+#output
+
+S_name
+S1
+S6
+S9
+stu10
+stu12
+stu13
+stu14
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": []
+}
+
+#solution
+
+SELECT S.sname
+FROM Student S
+WHERE S.snum IN (SELECT E1.snum
+                   FROM Enrolled E1, Enrolled E2, Class C1, Class C2
+                  WHERE E1.snum = E2.snum AND E1.cname <> E2.cname
+                    AND E1.cname = C1.name
+                    AND E2.cname = C2.name AND c1.meets_at = C2.meets_at)
+

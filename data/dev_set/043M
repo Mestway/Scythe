@@ -1,0 +1,40 @@
+//http://stackoverflow.com/questions/37575793/get-first-row-per-product-after-a-certain-date
+////MOD 3
+
+#input
+
+Id    , name             ,  type ,    price
+123451, Park's Great Hits,  Music,    19.99
+123453, Silly Puddy      ,  Toy  ,    3.99
+123452, Playstation      ,  Toy  ,    89.95
+123454, Men's T-Shirt    ,  Clothing, 32.50
+123455, Blouse           ,  Clothing, 34.97
+123456, Electronica 2002 ,  Music   , 3.99
+123457, Country Tunes    ,  Music   , 21.55
+123458, Watermelon       ,  Food    , 8.73
+
+#output
+
+Id    , name        ,    type    ,  price
+123455, Blouse      ,    Clothing,  34.97
+123458, Watermelon  ,    Food    ,  8.73
+123457, Country Tunes,   Music   ,  21.55
+123452, Playstation  ,   Toy     ,  89.95
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["max"]
+}
+
+#solution
+
+SELECT T1.Id, T1.name, T1.type, T1.price
+FROM Table T1
+LEFT OUTER JOIN Table T2
+  ON (T1.type = T2.type AND T1.price < T2.price)
+WHERE T2.price IS NULL;
+
+SELECT id, name, type, price FROM products p1
+INNER JOIN (Select type, max(price) FROM Products p2 GROUP BY type) maxPrice
+         ON maxPrice=price=p1.price AND maxPrice.type=p1.price;

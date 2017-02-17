@@ -1,0 +1,34 @@
+//http://stackoverflow.com/questions/40028319/sql-check-if-value-exists-in-group
+
+#input
+
+channelID  , accountID  , role
+1          , Bob   , 100
+2          , Bob   , 100
+1          , Dave  , 101
+
+#input
+
+channelID  , channelName     , type   
+1          , Public Channel  , public
+2          , Private Channel , private
+
+#output
+
+c1, c2, c3
+1          , Dave  , 101
+
+
+#constraint
+{
+	"constants": ["public", "Dave"],
+	"aggregation_functions": []
+}
+
+#solution
+
+SELECT (stuff)
+FROM ChatChannels CC
+WHERE CC.type = 'Public'
+  AND CC.channelID NOT IN 
+  (SELECT channelID FROM ChatChannelMembers WHERE AccountID = 'Dave')

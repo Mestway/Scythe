@@ -1,0 +1,436 @@
+================
+[[Synthesizer start]] data/benchmarks/001
+[Enumerator Type] SymbolicTableEnumerator
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[FiltersCount format](primitiveSynFilterCount, primitiveBitVecFilterCount, totalBitVecFiltersCount)
+[Basic]: 1 [SymTableForInputs]: 1
+[Aggregation]: 22 [SymTable]: 23
+[EnumJoin] level 1 [SymTable]: 46
+ASymTable Enumeration done: 46
+Runner ups: 3
+Candidates: 
+15
+[No.1]===============================
+SELECT
+  [T46].id,[T46].MAX-rev,[T46].id1,[T46].rev,[T46].content
+FROM
+  (( SELECT
+        [T18].id,[T18].MAX-rev
+      FROM
+        (SELECT
+            input1.id, MAX(input1.rev)
+          FROM
+            input1
+          GROUP BY
+            input1.id) AS [T18][id, MAX-rev] ) JOIN (
+      SELECT
+        input1.id,input1.rev,input1.content
+      FROM
+        input1
+       )) AS [T46][id, MAX-rev, id1, rev, content]
+WHERE
+  [T46].id == [T46].id1
+   AND [T46].MAX-rev == [T46].rev
+@anonymous
+[T46].id | [T46].MAX-rev | [T46].id1 | [T46].rev | [T46].content 
+1.0 | 3.0 | 1.0 | 3.0 | D 
+2.0 | 1.0 | 2.0 | 1.0 | B 
+
+[No.2]===============================
+SELECT
+  [T50].id,[T50].MAX-rev,[T50].id1,[T50].rev,[T50].content
+FROM
+  (( SELECT
+        [T18].id,[T18].MAX-rev
+      FROM
+        (SELECT
+            input1.id, MAX(input1.rev)
+          FROM
+            input1
+          GROUP BY
+            input1.id) AS [T18][id, MAX-rev] ) JOIN (
+      SELECT
+        input1.id,input1.rev,input1.content
+      FROM
+        input1
+       )) AS [T50][id, MAX-rev, id1, rev, content]
+WHERE
+  [T50].id <= [T50].id1
+   AND [T50].MAX-rev == [T50].rev
+@anonymous
+[T50].id | [T50].MAX-rev | [T50].id1 | [T50].rev | [T50].content 
+1.0 | 3.0 | 1.0 | 3.0 | D 
+2.0 | 1.0 | 2.0 | 1.0 | B 
+
+[No.3]===============================
+SELECT
+  [T48].id,[T48].MAX-rev,[T48].id1,[T48].rev,[T48].content
+FROM
+  (( SELECT
+        [T18].id,[T18].MAX-rev
+      FROM
+        (SELECT
+            input1.id, MAX(input1.rev)
+          FROM
+            input1
+          GROUP BY
+            input1.id) AS [T18][id, MAX-rev] ) JOIN (
+      SELECT
+        input1.id,input1.rev,input1.content
+      FROM
+        input1
+      WHERE
+        input1.id <> input1.rev )) AS [T48][id, MAX-rev, id1, rev, content]
+WHERE
+  [T48].MAX-rev == [T48].rev
+@anonymous
+[T48].id | [T48].MAX-rev | [T48].id1 | [T48].rev | [T48].content 
+1.0 | 3.0 | 1.0 | 3.0 | D 
+2.0 | 1.0 | 2.0 | 1.0 | B 
+
+[No.4]===============================
+SELECT
+  [T52].id,[T52].MAX-rev,[T52].id1,[T52].rev,[T52].content
+FROM
+  (( SELECT
+        [T18].id,[T18].MAX-rev
+      FROM
+        (SELECT
+            input1.id, MAX(input1.rev)
+          FROM
+            input1
+          GROUP BY
+            input1.id) AS [T18][id, MAX-rev] ) JOIN (
+      SELECT
+        input1.id,input1.rev,input1.content
+      FROM
+        input1
+      WHERE
+        input1.id <> input1.rev )) AS [T52][id, MAX-rev, id1, rev, content]
+WHERE
+  [T52].id == [T52].id1
+   AND [T52].MAX-rev == [T52].rev
+@anonymous
+[T52].id | [T52].MAX-rev | [T52].id1 | [T52].rev | [T52].content 
+1.0 | 3.0 | 1.0 | 3.0 | D 
+2.0 | 1.0 | 2.0 | 1.0 | B 
+
+[No.5]===============================
+SELECT
+  [T58].id,[T58].MAX-rev,[T58].id1,[T58].rev,[T58].content
+FROM
+  (( SELECT
+        [T57].id,[T57].MAX-rev
+      FROM
+        (SELECT
+            [T56].id, MAX([T56].rev)
+          FROM
+            (SELECT
+                input1.id,input1.rev,input1.content
+              FROM
+                input1
+              WHERE
+                input1.id <> input1.rev) AS [T56][id, rev, content]
+          GROUP BY
+            [T56].id) AS [T57][id, MAX-rev] ) JOIN (
+      SELECT
+        input1.id,input1.rev,input1.content
+      FROM
+        input1
+       )) AS [T58][id, MAX-rev, id1, rev, content]
+WHERE
+  [T58].id == [T58].id1
+   AND [T58].MAX-rev == [T58].rev
+@anonymous
+[T58].id | [T58].MAX-rev | [T58].id1 | [T58].rev | [T58].content 
+2.0 | 1.0 | 2.0 | 1.0 | B 
+1.0 | 3.0 | 1.0 | 3.0 | D 
+
+[No.6]===============================
+SELECT
+  [T66].id,[T66].MAX-rev,[T66].id1,[T66].rev,[T66].content
+FROM
+  (( SELECT
+        [T65].id,[T65].MAX-rev
+      FROM
+        (SELECT
+            [T64].id, MAX([T64].rev)
+          FROM
+            (SELECT
+                input1.id,input1.rev,input1.content
+              FROM
+                input1
+              WHERE
+                input1.id <> input1.rev) AS [T64][id, rev, content]
+          GROUP BY
+            [T64].id) AS [T65][id, MAX-rev] ) JOIN (
+      SELECT
+        input1.id,input1.rev,input1.content
+      FROM
+        input1
+       )) AS [T66][id, MAX-rev, id1, rev, content]
+WHERE
+  [T66].id <= [T66].id1
+   AND [T66].MAX-rev == [T66].rev
+@anonymous
+[T66].id | [T66].MAX-rev | [T66].id1 | [T66].rev | [T66].content 
+2.0 | 1.0 | 2.0 | 1.0 | B 
+1.0 | 3.0 | 1.0 | 3.0 | D 
+
+[No.7]===============================
+SELECT
+  [T54].id,[T54].MAX-rev,[T54].id1,[T54].rev,[T54].content
+FROM
+  (( SELECT
+        [T18].id,[T18].MAX-rev
+      FROM
+        (SELECT
+            input1.id, MAX(input1.rev)
+          FROM
+            input1
+          GROUP BY
+            input1.id) AS [T18][id, MAX-rev] ) JOIN (
+      SELECT
+        input1.id,input1.rev,input1.content
+      FROM
+        input1
+      WHERE
+        input1.id <> input1.rev )) AS [T54][id, MAX-rev, id1, rev, content]
+WHERE
+  [T54].MAX-rev == [T54].rev
+   AND [T54].id <> [T54].rev
+@anonymous
+[T54].id | [T54].MAX-rev | [T54].id1 | [T54].rev | [T54].content 
+1.0 | 3.0 | 1.0 | 3.0 | D 
+2.0 | 1.0 | 2.0 | 1.0 | B 
+
+[No.8]===============================
+SELECT
+  [T62].id,[T62].MAX-rev,[T62].id1,[T62].rev,[T62].content
+FROM
+  (( SELECT
+        [T61].id,[T61].MAX-rev
+      FROM
+        (SELECT
+            [T60].id, MAX([T60].rev)
+          FROM
+            (SELECT
+                input1.id,input1.rev,input1.content
+              FROM
+                input1
+              WHERE
+                input1.id <> input1.rev) AS [T60][id, rev, content]
+          GROUP BY
+            [T60].id) AS [T61][id, MAX-rev] ) JOIN (
+      SELECT
+        input1.id,input1.rev,input1.content
+      FROM
+        input1
+      WHERE
+        input1.id <> input1.rev )) AS [T62][id, MAX-rev, id1, rev, content]
+WHERE
+  [T62].MAX-rev == [T62].rev
+@anonymous
+[T62].id | [T62].MAX-rev | [T62].id1 | [T62].rev | [T62].content 
+2.0 | 1.0 | 2.0 | 1.0 | B 
+1.0 | 3.0 | 1.0 | 3.0 | D 
+
+[No.9]===============================
+SELECT
+  [T70].id,[T70].MAX-rev,[T70].id1,[T70].rev,[T70].content
+FROM
+  (( SELECT
+        [T69].id,[T69].MAX-rev
+      FROM
+        (SELECT
+            [T68].id, MAX([T68].rev)
+          FROM
+            (SELECT
+                input1.id,input1.rev,input1.content
+              FROM
+                input1
+              WHERE
+                input1.id <> input1.rev) AS [T68][id, rev, content]
+          GROUP BY
+            [T68].id) AS [T69][id, MAX-rev] ) JOIN (
+      SELECT
+        input1.id,input1.rev,input1.content
+      FROM
+        input1
+      WHERE
+        input1.id <> input1.rev )) AS [T70][id, MAX-rev, id1, rev, content]
+WHERE
+  [T70].id == [T70].id1
+   AND [T70].MAX-rev == [T70].rev
+@anonymous
+[T70].id | [T70].MAX-rev | [T70].id1 | [T70].rev | [T70].content 
+2.0 | 1.0 | 2.0 | 1.0 | B 
+1.0 | 3.0 | 1.0 | 3.0 | D 
+
+[No.10]===============================
+SELECT
+  [T76].id,[T76].rev,[T76].content,[T76].id1,[T76].rev1,[T76].content1
+FROM
+  (( SELECT
+        input1.id,input1.rev,input1.content
+      FROM
+        input1
+      WHERE
+        input1.id <> input1.rev ) JOIN (
+      SELECT
+        input1.id,input1.rev,input1.content
+      FROM
+        input1
+      WHERE
+        input1.id > input1.rev )) AS [T76][id, rev, content, id1, rev1, content1]
+WHERE
+  [T76].rev <> [T76].id1
+@anonymous
+[T76].id | [T76].rev | [T76].content | [T76].id1 | [T76].rev1 | [T76].content1 
+2.0 | 1.0 | B | 2.0 | 1.0 | B 
+1.0 | 3.0 | D | 2.0 | 1.0 | B 
+
+[No.11]===============================
+SELECT
+  [T74].id,[T74].MAX-rev,[T74].id1,[T74].rev,[T74].content
+FROM
+  (( SELECT
+        [T73].id,[T73].MAX-rev
+      FROM
+        (SELECT
+            [T72].id, MAX([T72].rev)
+          FROM
+            (SELECT
+                input1.id,input1.rev,input1.content
+              FROM
+                input1
+              WHERE
+                input1.id <> input1.rev) AS [T72][id, rev, content]
+          GROUP BY
+            [T72].id) AS [T73][id, MAX-rev] ) JOIN (
+      SELECT
+        input1.id,input1.rev,input1.content
+      FROM
+        input1
+      WHERE
+        input1.id <> input1.rev )) AS [T74][id, MAX-rev, id1, rev, content]
+WHERE
+  [T74].id <> [T74].rev
+   AND [T74].MAX-rev == [T74].rev
+@anonymous
+[T74].id | [T74].MAX-rev | [T74].id1 | [T74].rev | [T74].content 
+2.0 | 1.0 | 2.0 | 1.0 | B 
+1.0 | 3.0 | 1.0 | 3.0 | D 
+
+[No.12]===============================
+SELECT
+  [T78].id,[T78].rev,[T78].content,[T78].id1,[T78].rev1,[T78].content1
+FROM
+  (( SELECT
+        input1.id,input1.rev,input1.content
+      FROM
+        input1
+      WHERE
+        input1.id <> input1.rev ) JOIN (
+      SELECT
+        input1.id,input1.rev,input1.content
+      FROM
+        input1
+      WHERE
+        input1.id > input1.rev )) AS [T78][id, rev, content, id1, rev1, content1]
+WHERE
+  [T78].rev >= [T78].rev1
+   AND [T78].rev <> [T78].id1
+@anonymous
+[T78].id | [T78].rev | [T78].content | [T78].id1 | [T78].rev1 | [T78].content1 
+2.0 | 1.0 | B | 2.0 | 1.0 | B 
+1.0 | 3.0 | D | 2.0 | 1.0 | B 
+
+[No.13]===============================
+SELECT
+  [T80].id,[T80].rev,[T80].content,[T80].id1,[T80].rev1,[T80].content1
+FROM
+  (( SELECT
+        input1.id,input1.rev,input1.content
+      FROM
+        input1
+      WHERE
+        input1.id <> input1.rev ) JOIN (
+      SELECT
+        input1.id,input1.rev,input1.content
+      FROM
+        input1
+      WHERE
+        input1.id > input1.rev )) AS [T80][id, rev, content, id1, rev1, content1]
+WHERE
+  [T80].id <= [T80].id1
+   AND [T80].rev <> [T80].id1
+@anonymous
+[T80].id | [T80].rev | [T80].content | [T80].id1 | [T80].rev1 | [T80].content1 
+2.0 | 1.0 | B | 2.0 | 1.0 | B 
+1.0 | 3.0 | D | 2.0 | 1.0 | B 
+
+[No.14]===============================
+SELECT
+  [T82].id,[T82].rev,[T82].content,[T82].id1,[T82].rev1,[T82].content1
+FROM
+  (( SELECT
+        input1.id,input1.rev,input1.content
+      FROM
+        input1
+      WHERE
+        input1.id <> input1.rev ) JOIN (
+      SELECT
+        input1.id,input1.rev,input1.content
+      FROM
+        input1
+      WHERE
+        input1.id <> input1.rev )) AS [T82][id, rev, content, id1, rev1, content1]
+WHERE
+  [T82].id >= [T82].rev1
+   AND [T82].rev <> [T82].id1
+@anonymous
+[T82].id | [T82].rev | [T82].content | [T82].id1 | [T82].rev1 | [T82].content1 
+2.0 | 1.0 | B | 2.0 | 1.0 | B 
+1.0 | 3.0 | D | 2.0 | 1.0 | B 
+
+[No.15]===============================
+SELECT
+  [T84].id,[T84].rev,[T84].content,[T84].id1,[T84].rev1,[T84].content1
+FROM
+  (( SELECT
+        input1.id,input1.rev,input1.content
+      FROM
+        input1
+      WHERE
+        input1.id <> input1.rev ) JOIN (
+      SELECT
+        input1.id,input1.rev,input1.content
+      FROM
+        input1
+      WHERE
+        input1.id > input1.rev )) AS [T84][id, rev, content, id1, rev1, content1]
+WHERE
+  [T84].id >= [T84].rev1
+   AND [T84].rev <> [T84].id1
+@anonymous
+[T84].id | [T84].rev | [T84].content | [T84].id1 | [T84].rev1 | [T84].content1 
+2.0 | 1.0 | B | 2.0 | 1.0 | B 
+1.0 | 3.0 | D | 2.0 | 1.0 | B 
+
+[Consistent Table number] 3
+[Enumeration Finished]
+[[Synthesizer finished]] time: 00:00:00:258
+[[Synthesizer finished]] seconds: 0.258
+[avg reduction rate: syn filter / bit vector] 4.45352418008058
+[avg reduction rate: compound filter / bit vector] NaN
+[avg compound filter count] NaN
+[max compound filter count] 0
+[avg PrimitiveFilterCount] 2.0
+[max PrimitiveFilterCount] 2
+[avg LRFilterCount] 1.0666666666666667
+[max LRFilterCount] 2
+[avg decompose tree count] 3.6470588235294117
+[max decomposeTreeCount] 17

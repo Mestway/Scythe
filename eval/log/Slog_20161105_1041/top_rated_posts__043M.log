@@ -1,0 +1,238 @@
+[[Synthesizing]]
+[[Synthesis start]]
+	File: ../data/top_rated_posts/043M
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 20 [SymTable]: 21
+[Total Number of Intermediate] 22
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 5
+[EnumJoinOnAggr] level 1 [SymTable]: 9
+[Total Number of Intermediate] 9
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[COUNT_DISTINCTCOUNT]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 8 [SymTable]: 9
+[JOIN] level 1 [SymTable]: 19
+[Total Number of Intermediate] 19
+Candidate Tree Number: 12
+[Enumeration Finished]
+    [AggrFun] Optional[SUM]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 5
+[EnumJoinOnAggr] level 1 [SymTable]: 9
+[Total Number of Intermediate] 9
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 5
+[EnumJoinOnAggr] level 1 [SymTable]: 9
+[Total Number of Intermediate] 9
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MIN]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 5
+[EnumJoinOnAggr] level 1 [SymTable]: 9
+[Total Number of Intermediate] 9
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[AVG]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 5
+[EnumJoinOnAggr] level 1 [SymTable]: 9
+[Total Number of Intermediate] 9
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[MINMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 5
+[EnumJoinOnAggr] level 1 [SymTable]: 9
+[Total Number of Intermediate] 9
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+    [AggrFun] Optional[COUNTMAX]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 13
+[Total Number of Intermediate] 13
+Candidate Tree Number: 12
+[Enumeration Finished]
+[Query No.5]===============================
+SELECT
+  [T209].CustomerName,[T209].EmailAddress
+FROM
+  (( SELECT
+        [T208].EmailAddress,[T208].COUNT-EmailAddress
+      FROM
+        (SELECT
+            [T207].EmailAddress, COUNT([T207].EmailAddress)
+          FROM
+            (input1) AS [T207][CustomerName, EmailAddress]
+          GROUP BY
+            [T207].EmailAddress) AS [T208][EmailAddress, COUNT-EmailAddress]
+      WHERE
+        [T208].COUNT-EmailAddress > 1.0 ) JOIN (
+      input1 )) AS [T209][EmailAddress, COUNT-EmailAddress, CustomerName, EmailAddress1]
+WHERE
+  [T209].EmailAddress == [T209].EmailAddress1
+@anonymous
+[T209].CustomerName(StringVal) | [T209].EmailAddress(StringVal) 
+Aaron | aaron@gmail.com 
+Christy | aaron@gmail.com 
+John | aaron@gmail.com 
+Eric | eric@gmail.com 
+EEric | eric@gmail.com 
+
+[Query No.4]===============================
+SELECT
+  [T173].CustomerName,[T173].EmailAddress
+FROM
+  (( SELECT
+        [T172].EmailAddress,[T172].COUNT-CustomerName
+      FROM
+        (SELECT
+            [T171].EmailAddress, COUNT([T171].CustomerName)
+          FROM
+            (input1) AS [T171][CustomerName, EmailAddress]
+          GROUP BY
+            [T171].EmailAddress) AS [T172][EmailAddress, COUNT-CustomerName]
+      WHERE
+        [T172].COUNT-CustomerName > 1.0 ) JOIN (
+      input1 )) AS [T173][EmailAddress, COUNT-CustomerName, CustomerName, EmailAddress1]
+WHERE
+  [T173].EmailAddress == [T173].EmailAddress1
+@anonymous
+[T173].CustomerName(StringVal) | [T173].EmailAddress(StringVal) 
+Aaron | aaron@gmail.com 
+Christy | aaron@gmail.com 
+John | aaron@gmail.com 
+Eric | eric@gmail.com 
+EEric | eric@gmail.com 
+
+[Query No.3]===============================
+SELECT
+  [T101].CustomerName,[T101].EmailAddress
+FROM
+  (( SELECT
+        [T100].EmailAddress,[T100].COUNT-EmailAddress
+      FROM
+        (SELECT
+            [T99].EmailAddress, COUNT([T99].EmailAddress)
+          FROM
+            (input1) AS [T99][CustomerName, EmailAddress]
+          GROUP BY
+            [T99].EmailAddress) AS [T100][EmailAddress, COUNT-EmailAddress]
+      WHERE
+        [T100].COUNT-EmailAddress > 1.0 ) JOIN (
+      input1 )) AS [T101][EmailAddress, COUNT-EmailAddress, CustomerName, EmailAddress1]
+WHERE
+  [T101].EmailAddress == [T101].EmailAddress1
+@anonymous
+[T101].CustomerName(StringVal) | [T101].EmailAddress(StringVal) 
+Aaron | aaron@gmail.com 
+Christy | aaron@gmail.com 
+John | aaron@gmail.com 
+Eric | eric@gmail.com 
+EEric | eric@gmail.com 
+
+[Query No.2]===============================
+SELECT
+  [T77].CustomerName,[T77].EmailAddress
+FROM
+  (( SELECT
+        [T76].EmailAddress,[T76].COUNT-CustomerName
+      FROM
+        (SELECT
+            [T75].EmailAddress, COUNT([T75].CustomerName)
+          FROM
+            (input1) AS [T75][CustomerName, EmailAddress]
+          GROUP BY
+            [T75].EmailAddress) AS [T76][EmailAddress, COUNT-CustomerName]
+      WHERE
+        [T76].COUNT-CustomerName > 1.0 ) JOIN (
+      input1 )) AS [T77][EmailAddress, COUNT-CustomerName, CustomerName, EmailAddress1]
+WHERE
+  [T77].EmailAddress == [T77].EmailAddress1
+@anonymous
+[T77].CustomerName(StringVal) | [T77].EmailAddress(StringVal) 
+Aaron | aaron@gmail.com 
+Christy | aaron@gmail.com 
+John | aaron@gmail.com 
+Eric | eric@gmail.com 
+EEric | eric@gmail.com 
+
+[Query No.1]===============================
+SELECT
+  [T53].CustomerName,[T53].EmailAddress
+FROM
+  (( SELECT
+        [T52].EmailAddress,[T52].COUNT_DISTINCT-CustomerName
+      FROM
+        (SELECT
+            [T51].EmailAddress, COUNT_DISTINCT([T51].CustomerName)
+          FROM
+            (input1) AS [T51][CustomerName, EmailAddress]
+          GROUP BY
+            [T51].EmailAddress) AS [T52][EmailAddress, COUNT_DISTINCT-CustomerName]
+      WHERE
+        [T52].COUNT_DISTINCT-CustomerName > 1.0 ) JOIN (
+      input1 )) AS [T53][EmailAddress, COUNT_DISTINCT-CustomerName, CustomerName, EmailAddress1]
+WHERE
+  [T53].EmailAddress == [T53].EmailAddress1
+@anonymous
+[T53].CustomerName(StringVal) | [T53].EmailAddress(StringVal) 
+Aaron | aaron@gmail.com 
+Christy | aaron@gmail.com 
+John | aaron@gmail.com 
+Eric | eric@gmail.com 
+EEric | eric@gmail.com 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.458s

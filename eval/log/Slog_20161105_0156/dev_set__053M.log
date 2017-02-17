@@ -1,0 +1,208 @@
+[[Synthesis start]]
+	File: ../data/dev_set/053M
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 155 [SymTable]: 156
+[Total Number of Intermediate] 157
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 9 [SymTable]: 10
+[JOIN] level 1 [SymTable]: 21
+[EnumJoinOnAggr] level 1 [SymTable]: 121
+[Total Number of Intermediate] 121
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 20 [SymTable]: 21
+[JOIN] level 1 [SymTable]: 43
+[EnumJoinOnAggr] level 1 [SymTable]: 484
+[Total Number of Intermediate] 484
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 20 [SymTable]: 21
+[JOIN] level 1 [SymTable]: 43
+[EnumJoinOnAggr] level 1 [SymTable]: 484
+[Total Number of Intermediate] 484
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 20 [SymTable]: 21
+[JOIN] level 1 [SymTable]: 43
+[Total Number of Intermediate] 43
+Candidate Tree Number: 10
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 31 [SymTable]: 32
+[JOIN] level 1 [SymTable]: 65
+[EnumJoinOnAggr] level 1 [SymTable]: 1089
+[Total Number of Intermediate] 1089
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 194 [SymTable]: 195
+[JOIN] level 1 [SymTable]: 391
+[Total Number of Intermediate] 391
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Query No.5]===============================
+SELECT
+  [T501].NAME,[T501].SCORE
+FROM
+  (( (SELECT
+          [T491].NAME, AVG([T491].SCORE)
+        FROM
+          (input1) AS [T491][NAME, SCORE]
+        GROUP BY
+          [T491].NAME) AS [T492][NAME, AVG-SCORE] ) JOIN (
+      SELECT
+        input1.NAME,input1.SCORE
+      FROM
+        input1
+      WHERE
+        True )) AS [T501][NAME, AVG-SCORE, NAME1, SCORE]
+WHERE
+  [T501].NAME == [T501].NAME1
+   AND [T501].AVG-SCORE <= [T501].SCORE
+@anonymous
+[T501].NAME(StringVal) | [T501].SCORE(NumberVal) 
+willy | 2.0 
+willy | 3.0 
+zoe | 5.0 
+zoe | 6.0 
+d | 1.0 
+
+[Query No.4]===============================
+SELECT
+  [T489].NAME,[T489].SCORE
+FROM
+  (( (SELECT
+          [T479].NAME, AVG([T479].SCORE)
+        FROM
+          (input1) AS [T479][NAME, SCORE]
+        GROUP BY
+          [T479].NAME) AS [T480][NAME, AVG-SCORE] ) JOIN (
+      SELECT
+        input1.NAME,input1.SCORE
+      FROM
+        input1
+      WHERE
+        True )) AS [T489][NAME, AVG-SCORE, NAME1, SCORE]
+WHERE
+  [T489].NAME == [T489].NAME1
+   AND [T489].AVG-SCORE <= [T489].SCORE
+@anonymous
+[T489].NAME(StringVal) | [T489].SCORE(NumberVal) 
+willy | 2.0 
+willy | 3.0 
+zoe | 5.0 
+zoe | 6.0 
+d | 1.0 
+
+[Query No.3]===============================
+SELECT
+  [T465].NAME,[T465].SCORE
+FROM
+  (( (SELECT
+          [T455].NAME, AVG([T455].SCORE)
+        FROM
+          (input1) AS [T455][NAME, SCORE]
+        GROUP BY
+          [T455].NAME) AS [T456][NAME, AVG-SCORE] ) JOIN (
+      SELECT
+        input1.NAME,input1.SCORE
+      FROM
+        input1
+      WHERE
+        True )) AS [T465][NAME, AVG-SCORE, NAME1, SCORE]
+WHERE
+  [T465].NAME == [T465].NAME1
+   AND [T465].AVG-SCORE <= [T465].SCORE
+@anonymous
+[T465].NAME(StringVal) | [T465].SCORE(NumberVal) 
+willy | 2.0 
+willy | 3.0 
+zoe | 5.0 
+zoe | 6.0 
+d | 1.0 
+
+[Query No.2]===============================
+SELECT
+  [T513].NAME,[T513].SCORE
+FROM
+  (( (SELECT
+          [T511].NAME, AVG([T511].SCORE)
+        FROM
+          (SELECT
+              input1.NAME,input1.SCORE
+            FROM
+              input1
+            WHERE
+              input1.SCORE <> 2.0) AS [T511][NAME, SCORE]
+        GROUP BY
+          [T511].NAME) AS [T512][NAME, AVG-SCORE] ) JOIN (
+      input1 )) AS [T513][NAME, AVG-SCORE, NAME1, SCORE]
+WHERE
+  [T513].NAME == [T513].NAME1
+   AND [T513].AVG-SCORE <= [T513].SCORE
+@anonymous
+[T513].NAME(StringVal) | [T513].SCORE(NumberVal) 
+willy | 2.0 
+willy | 3.0 
+zoe | 5.0 
+zoe | 6.0 
+d | 1.0 
+
+[Query No.1]===============================
+SELECT
+  [T453].NAME,[T453].SCORE
+FROM
+  (( (SELECT
+          [T443].NAME, AVG([T443].SCORE)
+        FROM
+          (input1) AS [T443][NAME, SCORE]
+        GROUP BY
+          [T443].NAME) AS [T444][NAME, AVG-SCORE] ) JOIN (
+      input1 )) AS [T453][NAME, AVG-SCORE, NAME1, SCORE]
+WHERE
+  [T453].NAME == [T453].NAME1
+   AND [T453].AVG-SCORE <= [T453].SCORE
+@anonymous
+[T453].NAME(StringVal) | [T453].SCORE(NumberVal) 
+willy | 2.0 
+willy | 3.0 
+zoe | 5.0 
+zoe | 6.0 
+d | 1.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 1.569s

@@ -1,0 +1,34 @@
+//http://stackoverflow.com/questions/39957816/get-unique-values-in-table-by-multiple-criteria
+
+
+#input
+
+ID,     Payment_type
+A ,          Y
+B ,          X
+A ,          Y
+A ,          Z
+
+#output
+
+ID,     Payment_type
+A ,          Y
+B ,          X
+A,           Y
+
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["max", "count"]
+}
+
+#solution
+
+select id, payment_type, time
+from (select id, payment_type, time, count(*) as cnt,
+             row_number() over (partition by id order by time desc, cnt desc) as seqnum
+      from t
+      group by id, payment_type, time
+     ) ipt
+where seqnum = 1;

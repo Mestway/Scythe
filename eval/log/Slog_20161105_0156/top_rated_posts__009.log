@@ -1,0 +1,332 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/009
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 34 [SymTable]: 35
+[Total Number of Intermediate] 36
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 5
+[Total Number of Intermediate] 5
+Candidate Tree Number: 10
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 9
+[Total Number of Intermediate] 9
+Candidate Tree Number: 15
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 9
+[Total Number of Intermediate] 9
+Candidate Tree Number: 16
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 9
+[Total Number of Intermediate] 9
+Candidate Tree Number: 12
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 13
+[Total Number of Intermediate] 13
+Candidate Tree Number: 21
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 9 [SymTable]: 10
+[JOIN] level 1 [SymTable]: 21
+[Total Number of Intermediate] 21
+Candidate Tree Number: 15
+[Enumeration Finished]
+[Query No.15]===============================
+SELECT
+  [T55].username,[T55].ip,[T55].time_stamp
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.username,input1.ip,input1.time_stamp
+      FROM
+        input1
+      WHERE
+        True )) AS [T55][username, ip, time_stamp, username1, ip1, time_stamp1]
+WHERE
+  [T55].username <> [T55].username1
+   AND [T55].time_stamp >= [T55].time_stamp1
+@anonymous
+[T55].username(StringVal) | [T55].ip(StringVal) | [T55].time_stamp(NumberVal) 
+jerry | 5.6.6.7 | 12.0 
+ted | 8.8.8.8 | 30.0 
+
+[Query No.14]===============================
+SELECT
+  [T53].username,[T53].ip,[T53].time_stamp
+FROM
+  (( SELECT
+        input1.username,input1.ip,input1.time_stamp
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T53][username, ip, time_stamp, username1, ip1, time_stamp1]
+WHERE
+  [T53].username <> [T53].username1
+   AND [T53].time_stamp > [T53].time_stamp1
+@anonymous
+[T53].username(StringVal) | [T53].ip(StringVal) | [T53].time_stamp(NumberVal) 
+jerry | 5.6.6.7 | 12.0 
+ted | 8.8.8.8 | 30.0 
+
+[Query No.13]===============================
+SELECT
+  [T51].username,[T51].ip,[T51].time_stamp
+FROM
+  (( SELECT
+        input1.username,input1.ip,input1.time_stamp
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T51][username, ip, time_stamp, username1, ip1, time_stamp1]
+WHERE
+  [T51].username <> [T51].username1
+   AND [T51].time_stamp >= [T51].time_stamp1
+@anonymous
+[T51].username(StringVal) | [T51].ip(StringVal) | [T51].time_stamp(NumberVal) 
+jerry | 5.6.6.7 | 12.0 
+ted | 8.8.8.8 | 30.0 
+
+[Query No.12]===============================
+SELECT
+  [T45].username1,[T45].ip1,[T45].time_stamp1
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.username,input1.ip,input1.time_stamp
+      FROM
+        input1
+      WHERE
+        True )) AS [T45][username, ip, time_stamp, username1, ip1, time_stamp1]
+WHERE
+  [T45].time_stamp < [T45].time_stamp1
+   AND [T45].username <> [T45].username1
+@anonymous
+[T45].username1(StringVal) | [T45].ip1(StringVal) | [T45].time_stamp1(NumberVal) 
+jerry | 5.6.6.7 | 12.0 
+ted | 8.8.8.8 | 30.0 
+
+[Query No.11]===============================
+SELECT
+  [T43].username1,[T43].ip1,[T43].time_stamp1
+FROM
+  (( SELECT
+        input1.username,input1.ip,input1.time_stamp
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T43][username, ip, time_stamp, username1, ip1, time_stamp1]
+WHERE
+  [T43].username <> [T43].username1
+   AND [T43].time_stamp <= [T43].time_stamp1
+@anonymous
+[T43].username1(StringVal) | [T43].ip1(StringVal) | [T43].time_stamp1(NumberVal) 
+jerry | 5.6.6.7 | 12.0 
+ted | 8.8.8.8 | 30.0 
+
+[Query No.10]===============================
+SELECT
+  [T41].username1,[T41].ip1,[T41].time_stamp1
+FROM
+  (( SELECT
+        input1.username,input1.ip,input1.time_stamp
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      input1 )) AS [T41][username, ip, time_stamp, username1, ip1, time_stamp1]
+WHERE
+  [T41].time_stamp < [T41].time_stamp1
+   AND [T41].username <> [T41].username1
+@anonymous
+[T41].username1(StringVal) | [T41].ip1(StringVal) | [T41].time_stamp1(NumberVal) 
+jerry | 5.6.6.7 | 12.0 
+ted | 8.8.8.8 | 30.0 
+
+[Query No.9]===============================
+SELECT
+  [T49].username,[T49].ip,[T49].time_stamp
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T49][username, ip, time_stamp, username1, ip1, time_stamp1]
+WHERE
+  [T49].username <> [T49].username1
+   AND [T49].time_stamp > [T49].time_stamp1
+@anonymous
+[T49].username(StringVal) | [T49].ip(StringVal) | [T49].time_stamp(NumberVal) 
+jerry | 5.6.6.7 | 12.0 
+ted | 8.8.8.8 | 30.0 
+
+[Query No.8]===============================
+SELECT
+  [T47].username,[T47].ip,[T47].time_stamp
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T47][username, ip, time_stamp, username1, ip1, time_stamp1]
+WHERE
+  [T47].username <> [T47].username1
+   AND [T47].time_stamp >= [T47].time_stamp1
+@anonymous
+[T47].username(StringVal) | [T47].ip(StringVal) | [T47].time_stamp(NumberVal) 
+jerry | 5.6.6.7 | 12.0 
+ted | 8.8.8.8 | 30.0 
+
+[Query No.7]===============================
+SELECT
+  [T39].username1,[T39].ip1,[T39].time_stamp1
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T39][username, ip, time_stamp, username1, ip1, time_stamp1]
+WHERE
+  [T39].username <> [T39].username1
+   AND [T39].time_stamp <= [T39].time_stamp1
+@anonymous
+[T39].username1(StringVal) | [T39].ip1(StringVal) | [T39].time_stamp1(NumberVal) 
+jerry | 5.6.6.7 | 12.0 
+ted | 8.8.8.8 | 30.0 
+
+[Query No.6]===============================
+SELECT
+  [T37].username1,[T37].ip1,[T37].time_stamp1
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T37][username, ip, time_stamp, username1, ip1, time_stamp1]
+WHERE
+  [T37].time_stamp < [T37].time_stamp1
+   AND [T37].username <> [T37].username1
+@anonymous
+[T37].username1(StringVal) | [T37].ip1(StringVal) | [T37].time_stamp1(NumberVal) 
+jerry | 5.6.6.7 | 12.0 
+ted | 8.8.8.8 | 30.0 
+
+[Query No.5]===============================
+SELECT
+  [T279].username,[T279].ip,[T279].MAX-time_stamp
+FROM
+  (( (SELECT
+          [T277].username, MAX([T277].time_stamp)
+        FROM
+          (input1) AS [T277][username, ip, time_stamp]
+        GROUP BY
+          [T277].username) AS [T278][username, MAX-time_stamp] ) JOIN (
+      input1 )) AS [T279][username, MAX-time_stamp, username1, ip, time_stamp]
+WHERE
+  [T279].username == [T279].username1
+   AND [T279].MAX-time_stamp == [T279].time_stamp
+@anonymous
+[T279].username(StringVal) | [T279].ip(StringVal) | [T279].MAX-time_stamp(NumberVal) 
+ted | 8.8.8.8 | 30.0 
+jerry | 5.6.6.7 | 12.0 
+
+[Query No.4]===============================
+SELECT
+  [T100].username,[T100].ip,[T100].MAX-time_stamp
+FROM
+  (( (SELECT
+          [T98].username, MAX([T98].time_stamp)
+        FROM
+          (input1) AS [T98][username, ip, time_stamp]
+        GROUP BY
+          [T98].username) AS [T99][username, MAX-time_stamp] ) JOIN (
+      input1 )) AS [T100][username, MAX-time_stamp, username1, ip, time_stamp]
+WHERE
+  [T100].username == [T100].username1
+   AND [T100].MAX-time_stamp == [T100].time_stamp
+@anonymous
+[T100].username(StringVal) | [T100].ip(StringVal) | [T100].MAX-time_stamp(NumberVal) 
+ted | 8.8.8.8 | 30.0 
+jerry | 5.6.6.7 | 12.0 
+
+[Query No.3]===============================
+SELECT
+  [T356].username,[T356].ip,[T356].MAX-time_stamp
+FROM
+  (( (SELECT
+          [T354].username, MAX([T354].time_stamp)
+        FROM
+          (input1) AS [T354][username, ip, time_stamp]
+        GROUP BY
+          [T354].username) AS [T355][username, MAX-time_stamp] ) JOIN (
+      input1 )) AS [T356][username, MAX-time_stamp, username1, ip, time_stamp]
+WHERE
+  [T356].MAX-time_stamp == [T356].time_stamp
+@anonymous
+[T356].username(StringVal) | [T356].ip(StringVal) | [T356].MAX-time_stamp(NumberVal) 
+ted | 8.8.8.8 | 30.0 
+jerry | 5.6.6.7 | 12.0 
+
+[Query No.2]===============================
+SELECT
+  [T267].username,[T267].ip,[T267].MAX-time_stamp
+FROM
+  (( (SELECT
+          [T265].username, MAX([T265].time_stamp)
+        FROM
+          (input1) AS [T265][username, ip, time_stamp]
+        GROUP BY
+          [T265].username) AS [T266][username, MAX-time_stamp] ) JOIN (
+      input1 )) AS [T267][username, MAX-time_stamp, username1, ip, time_stamp]
+WHERE
+  [T267].MAX-time_stamp == [T267].time_stamp
+@anonymous
+[T267].username(StringVal) | [T267].ip(StringVal) | [T267].MAX-time_stamp(NumberVal) 
+ted | 8.8.8.8 | 30.0 
+jerry | 5.6.6.7 | 12.0 
+
+[Query No.1]===============================
+SELECT
+  [T88].username,[T88].ip,[T88].MAX-time_stamp
+FROM
+  (( (SELECT
+          [T86].username, MAX([T86].time_stamp)
+        FROM
+          (input1) AS [T86][username, ip, time_stamp]
+        GROUP BY
+          [T86].username) AS [T87][username, MAX-time_stamp] ) JOIN (
+      input1 )) AS [T88][username, MAX-time_stamp, username1, ip, time_stamp]
+WHERE
+  [T88].MAX-time_stamp == [T88].time_stamp
+@anonymous
+[T88].username(StringVal) | [T88].ip(StringVal) | [T88].MAX-time_stamp(NumberVal) 
+ted | 8.8.8.8 | 30.0 
+jerry | 5.6.6.7 | 12.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.466s

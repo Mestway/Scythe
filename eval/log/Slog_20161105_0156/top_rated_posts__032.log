@@ -1,0 +1,405 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/032
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 117 [SymTable]: 118
+[Total Number of Intermediate] 119
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 4 [SymTable]: 5
+[JOIN] level 1 [SymTable]: 11
+[Total Number of Intermediate] 11
+Candidate Tree Number: 10
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 11 [SymTable]: 12
+[JOIN] level 1 [SymTable]: 25
+[Total Number of Intermediate] 25
+Candidate Tree Number: 15
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 11 [SymTable]: 12
+[JOIN] level 1 [SymTable]: 25
+[Total Number of Intermediate] 25
+Candidate Tree Number: 15
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 11 [SymTable]: 12
+[JOIN] level 1 [SymTable]: 25
+[Total Number of Intermediate] 25
+Candidate Tree Number: 10
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 18 [SymTable]: 19
+[JOIN] level 1 [SymTable]: 39
+[Total Number of Intermediate] 39
+Candidate Tree Number: 20
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 32 [SymTable]: 33
+[JOIN] level 1 [SymTable]: 67
+[Total Number of Intermediate] 67
+Candidate Tree Number: 15
+[Enumeration Finished]
+[Query No.15]===============================
+SELECT
+  [T138].Section,[T138].Count1,[T138].Count
+FROM
+  (( SELECT
+        input1.Section,input1.Status,input1.Count
+      FROM
+        input1
+      WHERE
+        input1.Section == Active
+         OR input1.Status == Inactive ) JOIN (
+      SELECT
+        input1.Section,input1.Status,input1.Count
+      FROM
+        input1
+      WHERE
+        input1.Section == Active
+         OR input1.Status == Active )) AS [T138][Section, Status, Count, Section1, Status1, Count1]
+WHERE
+  [T138].Section == [T138].Section1
+@anonymous
+[T138].Section(StringVal) | [T138].Count1(NumberVal) | [T138].Count(NumberVal) 
+A | 1.0 | 2.0 
+B | 4.0 | 5.0 
+
+[Query No.14]===============================
+SELECT
+  [T128].Section,[T128].Count,[T128].Count1
+FROM
+  (( SELECT
+        input1.Section,input1.Status,input1.Count
+      FROM
+        input1
+      WHERE
+        input1.Section == Active
+         OR input1.Status == Active ) JOIN (
+      SELECT
+        input1.Section,input1.Status,input1.Count
+      FROM
+        input1
+      WHERE
+        input1.Section == Active
+         OR input1.Status == Inactive )) AS [T128][Section, Status, Count, Section1, Status1, Count1]
+WHERE
+  [T128].Section == [T128].Section1
+@anonymous
+[T128].Section(StringVal) | [T128].Count(NumberVal) | [T128].Count1(NumberVal) 
+A | 1.0 | 2.0 
+B | 4.0 | 5.0 
+
+[Query No.13]===============================
+SELECT
+  [T140].Section,[T140].Count1,[T140].Count
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T140][Section, Status, Count, Section1, Status1, Count1]
+WHERE
+  [T140].Section == [T140].Section1
+   AND [T140].Count > [T140].Count1
+@anonymous
+[T140].Section(StringVal) | [T140].Count1(NumberVal) | [T140].Count(NumberVal) 
+A | 1.0 | 2.0 
+B | 4.0 | 5.0 
+
+[Query No.12]===============================
+SELECT
+  [T130].Section,[T130].Count,[T130].Count1
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T130][Section, Status, Count, Section1, Status1, Count1]
+WHERE
+  [T130].Section == [T130].Section1
+   AND [T130].Count < [T130].Count1
+@anonymous
+[T130].Section(StringVal) | [T130].Count(NumberVal) | [T130].Count1(NumberVal) 
+A | 1.0 | 2.0 
+B | 4.0 | 5.0 
+
+[Query No.11]===============================
+SELECT
+  [T136].Section,[T136].Count1,[T136].Count
+FROM
+  (( SELECT
+        input1.Section,input1.Status,input1.Count
+      FROM
+        input1
+      WHERE
+        input1.Status == Inactive ) JOIN (
+      SELECT
+        input1.Section,input1.Status,input1.Count
+      FROM
+        input1
+      WHERE
+        input1.Section == Active
+         OR input1.Status == Active )) AS [T136][Section, Status, Count, Section1, Status1, Count1]
+WHERE
+  [T136].Section == [T136].Section1
+@anonymous
+[T136].Section(StringVal) | [T136].Count1(NumberVal) | [T136].Count(NumberVal) 
+A | 1.0 | 2.0 
+B | 4.0 | 5.0 
+
+[Query No.10]===============================
+SELECT
+  [T134].Section,[T134].Count1,[T134].Count
+FROM
+  (( SELECT
+        input1.Section,input1.Status,input1.Count
+      FROM
+        input1
+      WHERE
+        input1.Section == Active
+         OR input1.Status == Inactive ) JOIN (
+      SELECT
+        input1.Section,input1.Status,input1.Count
+      FROM
+        input1
+      WHERE
+        input1.Status == Active )) AS [T134][Section, Status, Count, Section1, Status1, Count1]
+WHERE
+  [T134].Section == [T134].Section1
+@anonymous
+[T134].Section(StringVal) | [T134].Count1(NumberVal) | [T134].Count(NumberVal) 
+A | 1.0 | 2.0 
+B | 4.0 | 5.0 
+
+[Query No.9]===============================
+SELECT
+  [T126].Section,[T126].Count,[T126].Count1
+FROM
+  (( SELECT
+        input1.Section,input1.Status,input1.Count
+      FROM
+        input1
+      WHERE
+        input1.Status == Active ) JOIN (
+      SELECT
+        input1.Section,input1.Status,input1.Count
+      FROM
+        input1
+      WHERE
+        input1.Section == Active
+         OR input1.Status == Inactive )) AS [T126][Section, Status, Count, Section1, Status1, Count1]
+WHERE
+  [T126].Section == [T126].Section1
+@anonymous
+[T126].Section(StringVal) | [T126].Count(NumberVal) | [T126].Count1(NumberVal) 
+A | 1.0 | 2.0 
+B | 4.0 | 5.0 
+
+[Query No.8]===============================
+SELECT
+  [T124].Section,[T124].Count,[T124].Count1
+FROM
+  (( SELECT
+        input1.Section,input1.Status,input1.Count
+      FROM
+        input1
+      WHERE
+        input1.Section == Active
+         OR input1.Status == Active ) JOIN (
+      SELECT
+        input1.Section,input1.Status,input1.Count
+      FROM
+        input1
+      WHERE
+        input1.Status == Inactive )) AS [T124][Section, Status, Count, Section1, Status1, Count1]
+WHERE
+  [T124].Section == [T124].Section1
+@anonymous
+[T124].Section(StringVal) | [T124].Count(NumberVal) | [T124].Count1(NumberVal) 
+A | 1.0 | 2.0 
+B | 4.0 | 5.0 
+
+[Query No.7]===============================
+SELECT
+  [T340].Section,[T340].Count,[T340].Count1
+FROM
+  (( SELECT
+        input1.Section,input1.Status,input1.Count
+      FROM
+        input1
+      WHERE
+        input1.Status == Active ) JOIN (
+      SELECT
+        input1.Section,input1.Status,input1.Count
+      FROM
+        input1
+      WHERE
+        input1.Status == Inactive )) AS [T340][Section, Status, Count, Section1, Status1, Count1]
+WHERE
+  [T340].Section == [T340].Section1
+@anonymous
+[T340].Section(StringVal) | [T340].Count(NumberVal) | [T340].Count1(NumberVal) 
+A | 1.0 | 2.0 
+B | 4.0 | 5.0 
+
+[Query No.6]===============================
+SELECT
+  [T258].Section,[T258].Count1,[T258].Count
+FROM
+  (( SELECT
+        input1.Section,input1.Status,input1.Count
+      FROM
+        input1
+      WHERE
+        input1.Status == Inactive ) JOIN (
+      SELECT
+        input1.Section,input1.Status,input1.Count
+      FROM
+        input1
+      WHERE
+        input1.Status == Active )) AS [T258][Section, Status, Count, Section1, Status1, Count1]
+WHERE
+  [T258].Section == [T258].Section1
+@anonymous
+[T258].Section(StringVal) | [T258].Count1(NumberVal) | [T258].Count(NumberVal) 
+A | 1.0 | 2.0 
+B | 4.0 | 5.0 
+
+[Query No.5]===============================
+SELECT
+  [T248].Section,[T248].Count,[T248].Count1
+FROM
+  (( SELECT
+        input1.Section,input1.Status,input1.Count
+      FROM
+        input1
+      WHERE
+        input1.Status == Active ) JOIN (
+      SELECT
+        input1.Section,input1.Status,input1.Count
+      FROM
+        input1
+      WHERE
+        input1.Status == Inactive )) AS [T248][Section, Status, Count, Section1, Status1, Count1]
+WHERE
+  [T248].Section == [T248].Section1
+@anonymous
+[T248].Section(StringVal) | [T248].Count(NumberVal) | [T248].Count1(NumberVal) 
+A | 1.0 | 2.0 
+B | 4.0 | 5.0 
+
+[Query No.4]===============================
+SELECT
+  [T165].Section,[T165].Count1,[T165].Count
+FROM
+  (( SELECT
+        input1.Section,input1.Status,input1.Count
+      FROM
+        input1
+      WHERE
+        input1.Status == Inactive ) JOIN (
+      SELECT
+        input1.Section,input1.Status,input1.Count
+      FROM
+        input1
+      WHERE
+        input1.Status == Active )) AS [T165][Section, Status, Count, Section1, Status1, Count1]
+WHERE
+  [T165].Section == [T165].Section1
+@anonymous
+[T165].Section(StringVal) | [T165].Count1(NumberVal) | [T165].Count(NumberVal) 
+A | 1.0 | 2.0 
+B | 4.0 | 5.0 
+
+[Query No.3]===============================
+SELECT
+  [T155].Section,[T155].Count,[T155].Count1
+FROM
+  (( SELECT
+        input1.Section,input1.Status,input1.Count
+      FROM
+        input1
+      WHERE
+        input1.Status == Active ) JOIN (
+      SELECT
+        input1.Section,input1.Status,input1.Count
+      FROM
+        input1
+      WHERE
+        input1.Status == Inactive )) AS [T155][Section, Status, Count, Section1, Status1, Count1]
+WHERE
+  [T155].Section == [T155].Section1
+@anonymous
+[T155].Section(StringVal) | [T155].Count(NumberVal) | [T155].Count1(NumberVal) 
+A | 1.0 | 2.0 
+B | 4.0 | 5.0 
+
+[Query No.2]===============================
+SELECT
+  [T132].Section,[T132].Count1,[T132].Count
+FROM
+  (( SELECT
+        input1.Section,input1.Status,input1.Count
+      FROM
+        input1
+      WHERE
+        input1.Status == Inactive ) JOIN (
+      SELECT
+        input1.Section,input1.Status,input1.Count
+      FROM
+        input1
+      WHERE
+        input1.Status == Active )) AS [T132][Section, Status, Count, Section1, Status1, Count1]
+WHERE
+  [T132].Section == [T132].Section1
+@anonymous
+[T132].Section(StringVal) | [T132].Count1(NumberVal) | [T132].Count(NumberVal) 
+A | 1.0 | 2.0 
+B | 4.0 | 5.0 
+
+[Query No.1]===============================
+SELECT
+  [T122].Section,[T122].Count,[T122].Count1
+FROM
+  (( SELECT
+        input1.Section,input1.Status,input1.Count
+      FROM
+        input1
+      WHERE
+        input1.Status == Active ) JOIN (
+      SELECT
+        input1.Section,input1.Status,input1.Count
+      FROM
+        input1
+      WHERE
+        input1.Status == Inactive )) AS [T122][Section, Status, Count, Section1, Status1, Count1]
+WHERE
+  [T122].Section == [T122].Section1
+@anonymous
+[T122].Section(StringVal) | [T122].Count(NumberVal) | [T122].Count1(NumberVal) 
+A | 1.0 | 2.0 
+B | 4.0 | 5.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.589s

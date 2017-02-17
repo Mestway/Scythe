@@ -1,0 +1,207 @@
+[[Synthesis start]]
+	File: ../data/recent_posts/051
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 34 [SymTable]: 36
+[NaturalJoin]: 1 [SymTable]: 37
+[Total Number of Intermediate] 37
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 1 [SymTable]: 3
+[JOIN] level 1 [SymTable]: 10
+[EnumJoinOnAggr] level 1 [SymTable]: 19
+[Total Number of Intermediate] 19
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+mark p. o. morford, robert j. lenardon
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 7 [SymTable]: 9
+[JOIN] level 1 [SymTable]: 28
+[Total Number of Intermediate] 28
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 3 [SymTable]: 5
+[JOIN] level 1 [SymTable]: 16
+[EnumJoinOnAggr] level 1 [SymTable]: 41
+[Total Number of Intermediate] 41
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 3 [SymTable]: 5
+[JOIN] level 1 [SymTable]: 16
+[EnumJoinOnAggr] level 1 [SymTable]: 41
+[Total Number of Intermediate] 41
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 3 [SymTable]: 5
+[JOIN] level 1 [SymTable]: 16
+[EnumJoinOnAggr] level 1 [SymTable]: 41
+[Total Number of Intermediate] 41
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 3 [SymTable]: 5
+[JOIN] level 1 [SymTable]: 16
+[EnumJoinOnAggr] level 1 [SymTable]: 41
+[Total Number of Intermediate] 41
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 5 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 22
+[EnumJoinOnAggr] level 1 [SymTable]: 71
+[Total Number of Intermediate] 71
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 9 [SymTable]: 11
+[JOIN] level 1 [SymTable]: 34
+[EnumJoinOnAggr] level 1 [SymTable]: 155
+[Total Number of Intermediate] 155
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Query No.5]===============================
+SELECT
+  [T71].Isbn_id,[T71].title,[T71].CONCAT-Author
+FROM
+  (( (SELECT
+          [T69].Isbn_id, CONCAT([T69].Author)
+        FROM
+          (input2) AS [T69][Isbn_id, Author]
+        GROUP BY
+          [T69].Isbn_id) AS [T70][Isbn_id, CONCAT-Author] ) JOIN (
+      SELECT
+        input1.isbn,input1.title
+      FROM
+        input1
+      WHERE
+        True )) AS [T71][Isbn_id, CONCAT-Author, isbn, title]
+WHERE
+  [T71].Isbn_id == [T71].isbn
+   AND [T71].Isbn_id <= [T71].isbn
+@anonymous
+[T71].Isbn_id(NumberVal) | [T71].title(StringVal) | [T71].CONCAT-Author(StringVal) 
+9.780195153446E12 | classical | mark p. o. morford, robert j. lenardon 
+9.780374157067E12 | flu: the stor | gina kolata 
+
+[Query No.4]===============================
+SELECT
+  [T65].Isbn_id,[T65].title,[T65].CONCAT-Author
+FROM
+  (( (SELECT
+          [T63].Isbn_id, CONCAT([T63].Author)
+        FROM
+          (input2) AS [T63][Isbn_id, Author]
+        GROUP BY
+          [T63].Isbn_id) AS [T64][Isbn_id, CONCAT-Author] ) JOIN (
+      input1 )) AS [T65][Isbn_id, CONCAT-Author, isbn, title]
+WHERE
+  [T65].Isbn_id == [T65].isbn
+   AND [T65].Isbn_id >= [T65].isbn
+@anonymous
+[T65].Isbn_id(NumberVal) | [T65].title(StringVal) | [T65].CONCAT-Author(StringVal) 
+9.780195153446E12 | classical | mark p. o. morford, robert j. lenardon 
+9.780374157067E12 | flu: the stor | gina kolata 
+
+[Query No.3]===============================
+SELECT
+  [T59].Isbn_id,[T59].title,[T59].CONCAT-Author
+FROM
+  (( (SELECT
+          [T57].Isbn_id, CONCAT([T57].Author)
+        FROM
+          (input2) AS [T57][Isbn_id, Author]
+        GROUP BY
+          [T57].Isbn_id) AS [T58][Isbn_id, CONCAT-Author] ) JOIN (
+      input1 )) AS [T59][Isbn_id, CONCAT-Author, isbn, title]
+WHERE
+  [T59].Isbn_id == [T59].isbn
+   AND [T59].Isbn_id <= [T59].isbn
+@anonymous
+[T59].Isbn_id(NumberVal) | [T59].title(StringVal) | [T59].CONCAT-Author(StringVal) 
+9.780195153446E12 | classical | mark p. o. morford, robert j. lenardon 
+9.780374157067E12 | flu: the stor | gina kolata 
+
+[Query No.2]===============================
+SELECT
+  [T53].Isbn_id,[T53].title,[T53].CONCAT-Author
+FROM
+  (( (SELECT
+          [T51].Isbn_id, CONCAT([T51].Author)
+        FROM
+          (input2) AS [T51][Isbn_id, Author]
+        GROUP BY
+          [T51].Isbn_id) AS [T52][Isbn_id, CONCAT-Author] ) JOIN (
+      SELECT
+        input1.isbn,input1.title
+      FROM
+        input1
+      WHERE
+        True )) AS [T53][Isbn_id, CONCAT-Author, isbn, title]
+WHERE
+  [T53].Isbn_id == [T53].isbn
+@anonymous
+[T53].Isbn_id(NumberVal) | [T53].title(StringVal) | [T53].CONCAT-Author(StringVal) 
+9.780195153446E12 | classical | mark p. o. morford, robert j. lenardon 
+9.780374157067E12 | flu: the stor | gina kolata 
+
+[Query No.1]===============================
+SELECT
+  [T47].Isbn_id,[T47].title,[T47].CONCAT-Author
+FROM
+  (( (SELECT
+          [T45].Isbn_id, CONCAT([T45].Author)
+        FROM
+          (input2) AS [T45][Isbn_id, Author]
+        GROUP BY
+          [T45].Isbn_id) AS [T46][Isbn_id, CONCAT-Author] ) JOIN (
+      input1 )) AS [T47][Isbn_id, CONCAT-Author, isbn, title]
+WHERE
+  [T47].Isbn_id == [T47].isbn
+@anonymous
+[T47].Isbn_id(NumberVal) | [T47].title(StringVal) | [T47].CONCAT-Author(StringVal) 
+9.780195153446E12 | classical | mark p. o. morford, robert j. lenardon 
+9.780374157067E12 | flu: the stor | gina kolata 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.187s

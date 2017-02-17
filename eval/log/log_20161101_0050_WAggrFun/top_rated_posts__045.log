@@ -1,0 +1,386 @@
+[[Synthesis start]]
+	File: ..\data\top_rated_posts\045
+	Enumerator: StagedEnumerator
+[Retry] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 79 [SymTable]: 80
+Candidate Tree Number: 8
+[Enumeration Finished]
+[Retry] Maximum Depth: 2
+@output
+user_id(NumberVal) | count(NumberVal) 
+1.0 | 2.0 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 79 [SymTable]: 80
+[JOIN] level 1 [SymTable]: 160
+Candidate Tree Number: 104
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T485].user_id,[T485].COUNT-date
+FROM
+  (( (SELECT
+          [T483].user_id, [T483].account_no, [T483].zip, COUNT([T483].date)
+        FROM
+          (input1) AS [T483][user_id, account_no, zip, date]
+        GROUP BY
+          [T483].user_id  [T483].account_no  [T483].zip) AS [T484][user_id, account_no, zip, COUNT-date] ) JOIN (
+      input1 )) AS [T485][user_id, account_no, zip, COUNT-date, user_id1, account_no1, zip1, date]
+WHERE
+  [T485].user_id >= [T485].user_id1
+   AND [T485].zip < [T485].zip1
+@anonymous
+[T485].user_id(NumberVal) | [T485].COUNT-date(NumberVal) 
+1.0 | 2.0 
+
+[No.19]===============================
+SELECT
+  [T431].user_id,[T431].COUNT-account_no
+FROM
+  (( (SELECT
+          [T429].account_no, [T429].zip, COUNT([T429].account_no)
+        FROM
+          (input1) AS [T429][user_id, account_no, zip, date]
+        GROUP BY
+          [T429].account_no  [T429].zip) AS [T430][account_no, zip, COUNT-account_no] ) JOIN (
+      input1 )) AS [T431][account_no, zip, COUNT-account_no, user_id, account_no1, zip1, date]
+WHERE
+  [T431].account_no >= [T431].account_no1
+   AND [T431].zip < [T431].zip1
+@anonymous
+[T431].user_id(NumberVal) | [T431].COUNT-account_no(NumberVal) 
+1.0 | 2.0 
+
+[No.18]===============================
+SELECT
+  [T409].user_id,[T409].COUNT-account_no
+FROM
+  (( (SELECT
+          [T407].user_id, [T407].account_no, [T407].zip, COUNT([T407].account_no)
+        FROM
+          (input1) AS [T407][user_id, account_no, zip, date]
+        GROUP BY
+          [T407].user_id  [T407].account_no  [T407].zip) AS [T408][user_id, account_no, zip, COUNT-account_no] ) JOIN (
+      input1 )) AS [T409][user_id, account_no, zip, COUNT-account_no, user_id1, account_no1, zip1, date]
+WHERE
+  [T409].user_id >= [T409].user_id1
+   AND [T409].zip < [T409].zip1
+@anonymous
+[T409].user_id(NumberVal) | [T409].COUNT-account_no(NumberVal) 
+1.0 | 2.0 
+
+[No.17]===============================
+SELECT
+  [T333].user_id,[T333].COUNT-account_no
+FROM
+  (( (SELECT
+          [T331].user_id, [T331].zip, COUNT([T331].account_no)
+        FROM
+          (input1) AS [T331][user_id, account_no, zip, date]
+        GROUP BY
+          [T331].user_id  [T331].zip) AS [T332][user_id, zip, COUNT-account_no] ) JOIN (
+      input1 )) AS [T333][user_id, zip, COUNT-account_no, user_id1, account_no, zip1, date]
+WHERE
+  [T333].zip < [T333].zip1
+   AND [T333].user_id >= [T333].user_id1
+@anonymous
+[T333].user_id(NumberVal) | [T333].COUNT-account_no(NumberVal) 
+1.0 | 2.0 
+
+[No.16]===============================
+SELECT
+  [T805].user_id,[T805].COUNT-user_id
+FROM
+  (( (SELECT
+          [T803].user_id, [T803].account_no, [T803].zip, COUNT([T803].user_id)
+        FROM
+          (input1) AS [T803][user_id, account_no, zip, date]
+        GROUP BY
+          [T803].user_id  [T803].account_no  [T803].zip) AS [T804][user_id, account_no, zip, COUNT-user_id] ) JOIN (
+      input1 )) AS [T805][user_id, account_no, zip, COUNT-user_id, user_id1, account_no1, zip1, date]
+WHERE
+  [T805].user_id == [T805].user_id1
+   AND [T805].zip < [T805].zip1
+@anonymous
+[T805].user_id(NumberVal) | [T805].COUNT-user_id(NumberVal) 
+1.0 | 2.0 
+
+[No.15]===============================
+SELECT
+  [T799].user_id,[T799].COUNT-user_id
+FROM
+  (( (SELECT
+          [T797].user_id, [T797].account_no, [T797].zip, COUNT([T797].user_id)
+        FROM
+          (input1) AS [T797][user_id, account_no, zip, date]
+        GROUP BY
+          [T797].user_id  [T797].account_no  [T797].zip) AS [T798][user_id, account_no, zip, COUNT-user_id] ) JOIN (
+      input1 )) AS [T799][user_id, account_no, zip, COUNT-user_id, user_id1, account_no1, zip1, date]
+WHERE
+  [T799].account_no == [T799].account_no1
+   AND [T799].zip < [T799].zip1
+@anonymous
+[T799].user_id(NumberVal) | [T799].COUNT-user_id(NumberVal) 
+1.0 | 2.0 
+
+[No.14]===============================
+SELECT
+  [T775].user_id,[T775].COUNT-zip
+FROM
+  (( (SELECT
+          [T773].user_id, [T773].account_no, [T773].zip, COUNT([T773].zip)
+        FROM
+          (input1) AS [T773][user_id, account_no, zip, date]
+        GROUP BY
+          [T773].user_id  [T773].account_no  [T773].zip) AS [T774][user_id, account_no, zip, COUNT-zip] ) JOIN (
+      input1 )) AS [T775][user_id, account_no, zip, COUNT-zip, user_id1, account_no1, zip1, date]
+WHERE
+  [T775].user_id == [T775].user_id1
+   AND [T775].zip < [T775].zip1
+@anonymous
+[T775].user_id(NumberVal) | [T775].COUNT-zip(NumberVal) 
+1.0 | 2.0 
+
+[No.13]===============================
+SELECT
+  [T769].user_id,[T769].COUNT-zip
+FROM
+  (( (SELECT
+          [T767].user_id, [T767].account_no, [T767].zip, COUNT([T767].zip)
+        FROM
+          (input1) AS [T767][user_id, account_no, zip, date]
+        GROUP BY
+          [T767].user_id  [T767].account_no  [T767].zip) AS [T768][user_id, account_no, zip, COUNT-zip] ) JOIN (
+      input1 )) AS [T769][user_id, account_no, zip, COUNT-zip, user_id1, account_no1, zip1, date]
+WHERE
+  [T769].account_no == [T769].account_no1
+   AND [T769].zip < [T769].zip1
+@anonymous
+[T769].user_id(NumberVal) | [T769].COUNT-zip(NumberVal) 
+1.0 | 2.0 
+
+[No.12]===============================
+SELECT
+  [T739].user_id,[T739].COUNT-date
+FROM
+  (( (SELECT
+          [T737].user_id, [T737].zip, COUNT([T737].date)
+        FROM
+          (input1) AS [T737][user_id, account_no, zip, date]
+        GROUP BY
+          [T737].user_id  [T737].zip) AS [T738][user_id, zip, COUNT-date] ) JOIN (
+      input1 )) AS [T739][user_id, zip, COUNT-date, user_id1, account_no, zip1, date]
+WHERE
+  [T739].zip < [T739].zip1
+   AND [T739].user_id == [T739].user_id1
+@anonymous
+[T739].user_id(NumberVal) | [T739].COUNT-date(NumberVal) 
+1.0 | 2.0 
+
+[No.11]===============================
+SELECT
+  [T705].user_id,[T705].COUNT-zip
+FROM
+  (( (SELECT
+          [T703].user_id, [T703].zip, COUNT([T703].zip)
+        FROM
+          (input1) AS [T703][user_id, account_no, zip, date]
+        GROUP BY
+          [T703].user_id  [T703].zip) AS [T704][user_id, zip, COUNT-zip] ) JOIN (
+      input1 )) AS [T705][user_id, zip, COUNT-zip, user_id1, account_no, zip1, date]
+WHERE
+  [T705].zip < [T705].zip1
+   AND [T705].user_id == [T705].user_id1
+@anonymous
+[T705].user_id(NumberVal) | [T705].COUNT-zip(NumberVal) 
+1.0 | 2.0 
+
+[No.10]===============================
+SELECT
+  [T675].user_id,[T675].COUNT-user_id
+FROM
+  (( (SELECT
+          [T673].account_no, [T673].zip, COUNT([T673].user_id)
+        FROM
+          (input1) AS [T673][user_id, account_no, zip, date]
+        GROUP BY
+          [T673].account_no  [T673].zip) AS [T674][account_no, zip, COUNT-user_id] ) JOIN (
+      input1 )) AS [T675][account_no, zip, COUNT-user_id, user_id, account_no1, zip1, date]
+WHERE
+  [T675].account_no == [T675].account_no1
+   AND [T675].zip < [T675].zip1
+@anonymous
+[T675].user_id(NumberVal) | [T675].COUNT-user_id(NumberVal) 
+1.0 | 2.0 
+
+[No.9]===============================
+SELECT
+  [T621].user_id,[T621].COUNT-date
+FROM
+  (( (SELECT
+          [T619].account_no, [T619].zip, COUNT([T619].date)
+        FROM
+          (input1) AS [T619][user_id, account_no, zip, date]
+        GROUP BY
+          [T619].account_no  [T619].zip) AS [T620][account_no, zip, COUNT-date] ) JOIN (
+      input1 )) AS [T621][account_no, zip, COUNT-date, user_id, account_no1, zip1, date]
+WHERE
+  [T621].account_no == [T621].account_no1
+   AND [T621].zip < [T621].zip1
+@anonymous
+[T621].user_id(NumberVal) | [T621].COUNT-date(NumberVal) 
+1.0 | 2.0 
+
+[No.8]===============================
+SELECT
+  [T591].user_id,[T591].COUNT-user_id
+FROM
+  (( (SELECT
+          [T589].user_id, [T589].zip, COUNT([T589].user_id)
+        FROM
+          (input1) AS [T589][user_id, account_no, zip, date]
+        GROUP BY
+          [T589].user_id  [T589].zip) AS [T590][user_id, zip, COUNT-user_id] ) JOIN (
+      input1 )) AS [T591][user_id, zip, COUNT-user_id, user_id1, account_no, zip1, date]
+WHERE
+  [T591].zip < [T591].zip1
+   AND [T591].user_id == [T591].user_id1
+@anonymous
+[T591].user_id(NumberVal) | [T591].COUNT-user_id(NumberVal) 
+1.0 | 2.0 
+
+[No.7]===============================
+SELECT
+  [T557].user_id,[T557].COUNT-zip
+FROM
+  (( (SELECT
+          [T555].account_no, [T555].zip, COUNT([T555].zip)
+        FROM
+          (input1) AS [T555][user_id, account_no, zip, date]
+        GROUP BY
+          [T555].account_no  [T555].zip) AS [T556][account_no, zip, COUNT-zip] ) JOIN (
+      input1 )) AS [T557][account_no, zip, COUNT-zip, user_id, account_no1, zip1, date]
+WHERE
+  [T557].account_no == [T557].account_no1
+   AND [T557].zip < [T557].zip1
+@anonymous
+[T557].user_id(NumberVal) | [T557].COUNT-zip(NumberVal) 
+1.0 | 2.0 
+
+[No.6]===============================
+SELECT
+  [T467].user_id,[T467].COUNT-date
+FROM
+  (( (SELECT
+          [T465].user_id, [T465].account_no, [T465].zip, COUNT([T465].date)
+        FROM
+          (input1) AS [T465][user_id, account_no, zip, date]
+        GROUP BY
+          [T465].user_id  [T465].account_no  [T465].zip) AS [T466][user_id, account_no, zip, COUNT-date] ) JOIN (
+      input1 )) AS [T467][user_id, account_no, zip, COUNT-date, user_id1, account_no1, zip1, date]
+WHERE
+  [T467].user_id == [T467].user_id1
+   AND [T467].zip < [T467].zip1
+@anonymous
+[T467].user_id(NumberVal) | [T467].COUNT-date(NumberVal) 
+1.0 | 2.0 
+
+[No.5]===============================
+SELECT
+  [T461].user_id,[T461].COUNT-date
+FROM
+  (( (SELECT
+          [T459].user_id, [T459].account_no, [T459].zip, COUNT([T459].date)
+        FROM
+          (input1) AS [T459][user_id, account_no, zip, date]
+        GROUP BY
+          [T459].user_id  [T459].account_no  [T459].zip) AS [T460][user_id, account_no, zip, COUNT-date] ) JOIN (
+      input1 )) AS [T461][user_id, account_no, zip, COUNT-date, user_id1, account_no1, zip1, date]
+WHERE
+  [T461].account_no == [T461].account_no1
+   AND [T461].zip < [T461].zip1
+@anonymous
+[T461].user_id(NumberVal) | [T461].COUNT-date(NumberVal) 
+1.0 | 2.0 
+
+[No.4]===============================
+SELECT
+  [T419].user_id,[T419].COUNT-account_no
+FROM
+  (( (SELECT
+          [T417].account_no, [T417].zip, COUNT([T417].account_no)
+        FROM
+          (input1) AS [T417][user_id, account_no, zip, date]
+        GROUP BY
+          [T417].account_no  [T417].zip) AS [T418][account_no, zip, COUNT-account_no] ) JOIN (
+      input1 )) AS [T419][account_no, zip, COUNT-account_no, user_id, account_no1, zip1, date]
+WHERE
+  [T419].account_no == [T419].account_no1
+   AND [T419].zip < [T419].zip1
+@anonymous
+[T419].user_id(NumberVal) | [T419].COUNT-account_no(NumberVal) 
+1.0 | 2.0 
+
+[No.3]===============================
+SELECT
+  [T391].user_id,[T391].COUNT-account_no
+FROM
+  (( (SELECT
+          [T389].user_id, [T389].account_no, [T389].zip, COUNT([T389].account_no)
+        FROM
+          (input1) AS [T389][user_id, account_no, zip, date]
+        GROUP BY
+          [T389].user_id  [T389].account_no  [T389].zip) AS [T390][user_id, account_no, zip, COUNT-account_no] ) JOIN (
+      input1 )) AS [T391][user_id, account_no, zip, COUNT-account_no, user_id1, account_no1, zip1, date]
+WHERE
+  [T391].user_id == [T391].user_id1
+   AND [T391].zip < [T391].zip1
+@anonymous
+[T391].user_id(NumberVal) | [T391].COUNT-account_no(NumberVal) 
+1.0 | 2.0 
+
+[No.2]===============================
+SELECT
+  [T385].user_id,[T385].COUNT-account_no
+FROM
+  (( (SELECT
+          [T383].user_id, [T383].account_no, [T383].zip, COUNT([T383].account_no)
+        FROM
+          (input1) AS [T383][user_id, account_no, zip, date]
+        GROUP BY
+          [T383].user_id  [T383].account_no  [T383].zip) AS [T384][user_id, account_no, zip, COUNT-account_no] ) JOIN (
+      input1 )) AS [T385][user_id, account_no, zip, COUNT-account_no, user_id1, account_no1, zip1, date]
+WHERE
+  [T385].account_no == [T385].account_no1
+   AND [T385].zip < [T385].zip1
+@anonymous
+[T385].user_id(NumberVal) | [T385].COUNT-account_no(NumberVal) 
+1.0 | 2.0 
+
+[No.1]===============================
+SELECT
+  [T321].user_id,[T321].COUNT-account_no
+FROM
+  (( (SELECT
+          [T319].user_id, [T319].zip, COUNT([T319].account_no)
+        FROM
+          (input1) AS [T319][user_id, account_no, zip, date]
+        GROUP BY
+          [T319].user_id  [T319].zip) AS [T320][user_id, zip, COUNT-account_no] ) JOIN (
+      input1 )) AS [T321][user_id, zip, COUNT-account_no, user_id1, account_no, zip1, date]
+WHERE
+  [T321].zip < [T321].zip1
+   AND [T321].user_id == [T321].user_id1
+@anonymous
+[T321].user_id(NumberVal) | [T321].COUNT-account_no(NumberVal) 
+1.0 | 2.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 1.553s

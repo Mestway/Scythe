@@ -1,0 +1,33 @@
+//http://stackoverflow.com/questions/30234427/how-to-display-latest-inserted-records
+
+#input
+
+|  Id | Alerts  |  Alert_Date          |
+|--------------------------------------|
+|  1  | Alert1  |  05/11/2015 12:12:22 |
+|  2  | Alert2  |  05/11/2015 12:12:22 |
+|  3  | Alert1  |  05/12/2015 12:12:22 |
+|  4  | Alert2  |  05/13/2015 12:12:22 |
+|  5  | Alert2  |  05/14/2015 12:12:22 |
+|  6  | Alert3  |  05/14/2015 12:12:22 |
+
+#output
+
+| Alerts | Alert_Date          |
+|------------------------------|
+| Alert1 | 05/12/2015 12:12:22 |
+| Alert2 | 05/14/2015 12:12:22 |
+| Alert3 | 05/14/2015 12:12:22 |
+
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["max"]
+}
+
+#solution
+
+SELECT Alerts, MAX(Alert_Date)
+FROM tbl_Notifications
+GROUP BY Alerts

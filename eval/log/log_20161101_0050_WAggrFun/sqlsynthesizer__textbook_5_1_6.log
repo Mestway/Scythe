@@ -1,0 +1,653 @@
+[[Synthesis start]]
+	File: ..\data\sqlsynthesizer\textbook_5_1_6
+	Enumerator: StagedEnumerator
+[Retry] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 3
+[NaturalJoin]: 1 [SymTable]: 3
+[Aggregation]: 15 [SymTable]: 18
+[EnumJoinOnAggr] level 1 [SymTable]: 342
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 3
+[NaturalJoin]: 1 [SymTable]: 3
+[Aggregation]: 15 [SymTable]: 18
+[EnumJoinOnAggr] level 1 [SymTable]: 342
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 3
+[NaturalJoin]: 1 [SymTable]: 3
+[Aggregation]: 15 [SymTable]: 18
+[EnumJoinOnAggr] level 1 [SymTable]: 342
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 3
+[NaturalJoin]: 1 [SymTable]: 3
+[Aggregation]: 15 [SymTable]: 18
+[EnumJoinOnAggr] level 1 [SymTable]: 342
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 3
+[NaturalJoin]: 1 [SymTable]: 3
+[Aggregation]: 15 [SymTable]: 18
+[EnumJoinOnAggr] level 1 [SymTable]: 342
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Retry] Maximum Depth: 2
+@output
+F_name(StringVal) 
+faculty1 
+faculty4 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 3
+[Aggregation]: 15 [SymTable]: 18
+[JOIN] level 1 [SymTable]: 72
+[UNION] level 1 [SymTable]: 81
+[EnumLeftJoin] level 1 [SymTable]: 81
+[EnumAggrOnJoin] level 1 [SymTable]: 165
+Candidate Tree Number: 36
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T6767].F_name
+FROM
+  (SELECT
+      [T6766].F_key1, [T6766].F_name, COUNT([T6766].S_key)
+    FROM
+      (SELECT
+          [T6748].C_name,[T6748].F_key,[T6748].S_key,[T6748].C_name1,[T6748].F_key1,[T6748].F_name
+        FROM
+          (( SELECT
+                [T6746].C_name,[T6746].F_key,[T6746].S_key,[T6746].C_name1
+              FROM
+                (( input1 ) JOIN (
+                    input2 )) AS [T6746][C_name, F_key, S_key, C_name1]
+              WHERE
+                [T6746].C_name == [T6746].C_name1 ) JOIN (
+              input3 )) AS [T6748][C_name, F_key, S_key, C_name1, F_key1, F_name]
+        WHERE
+          [T6748].F_key == [T6748].F_key1) AS [T6766][C_name, F_key, S_key, C_name1, F_key1, F_name]
+    GROUP BY
+      [T6766].F_key1  [T6766].F_name) AS [T6767][F_key1, F_name, COUNT-S_key]
+WHERE
+  [T6767].COUNT-S_key <= 5.0
+@anonymous
+[T6767].F_name(StringVal) 
+faculty1 
+faculty4 
+
+[No.19]===============================
+SELECT
+  [T6737].F_name
+FROM
+  (SELECT
+      [T6736].F_key, [T6736].F_key1, [T6736].F_name, COUNT([T6736].C_name1)
+    FROM
+      (SELECT
+          [T6718].C_name,[T6718].F_key,[T6718].S_key,[T6718].C_name1,[T6718].F_key1,[T6718].F_name
+        FROM
+          (( SELECT
+                [T6716].C_name,[T6716].F_key,[T6716].S_key,[T6716].C_name1
+              FROM
+                (( input1 ) JOIN (
+                    input2 )) AS [T6716][C_name, F_key, S_key, C_name1]
+              WHERE
+                [T6716].C_name == [T6716].C_name1 ) JOIN (
+              input3 )) AS [T6718][C_name, F_key, S_key, C_name1, F_key1, F_name]
+        WHERE
+          [T6718].F_key == [T6718].F_key1) AS [T6736][C_name, F_key, S_key, C_name1, F_key1, F_name]
+    GROUP BY
+      [T6736].F_key  [T6736].F_key1  [T6736].F_name) AS [T6737][F_key, F_key1, F_name, COUNT-C_name1]
+WHERE
+  [T6737].COUNT-C_name1 <= 5.0
+@anonymous
+[T6737].F_name(StringVal) 
+faculty1 
+faculty4 
+
+[No.18]===============================
+SELECT
+  [T6677].F_name
+FROM
+  (SELECT
+      [T6676].F_key1, [T6676].F_name, COUNT([T6676].F_name)
+    FROM
+      (SELECT
+          [T6658].C_name,[T6658].F_key,[T6658].S_key,[T6658].C_name1,[T6658].F_key1,[T6658].F_name
+        FROM
+          (( SELECT
+                [T6656].C_name,[T6656].F_key,[T6656].S_key,[T6656].C_name1
+              FROM
+                (( input1 ) JOIN (
+                    input2 )) AS [T6656][C_name, F_key, S_key, C_name1]
+              WHERE
+                [T6656].C_name == [T6656].C_name1 ) JOIN (
+              input3 )) AS [T6658][C_name, F_key, S_key, C_name1, F_key1, F_name]
+        WHERE
+          [T6658].F_key == [T6658].F_key1) AS [T6676][C_name, F_key, S_key, C_name1, F_key1, F_name]
+    GROUP BY
+      [T6676].F_key1  [T6676].F_name) AS [T6677][F_key1, F_name, COUNT-F_name]
+WHERE
+  [T6677].COUNT-F_name <= 5.0
+@anonymous
+[T6677].F_name(StringVal) 
+faculty1 
+faculty4 
+
+[No.17]===============================
+SELECT
+  [T6647].F_name
+FROM
+  (SELECT
+      [T6646].F_key, [T6646].F_key1, [T6646].F_name, COUNT([T6646].F_key)
+    FROM
+      (SELECT
+          [T6628].C_name,[T6628].F_key,[T6628].S_key,[T6628].C_name1,[T6628].F_key1,[T6628].F_name
+        FROM
+          (( SELECT
+                [T6626].C_name,[T6626].F_key,[T6626].S_key,[T6626].C_name1
+              FROM
+                (( input1 ) JOIN (
+                    input2 )) AS [T6626][C_name, F_key, S_key, C_name1]
+              WHERE
+                [T6626].C_name == [T6626].C_name1 ) JOIN (
+              input3 )) AS [T6628][C_name, F_key, S_key, C_name1, F_key1, F_name]
+        WHERE
+          [T6628].F_key == [T6628].F_key1) AS [T6646][C_name, F_key, S_key, C_name1, F_key1, F_name]
+    GROUP BY
+      [T6646].F_key  [T6646].F_key1  [T6646].F_name) AS [T6647][F_key, F_key1, F_name, COUNT-F_key]
+WHERE
+  [T6647].COUNT-F_key <= 5.0
+@anonymous
+[T6647].F_name(StringVal) 
+faculty1 
+faculty4 
+
+[No.16]===============================
+SELECT
+  [T6617].F_name
+FROM
+  (SELECT
+      [T6616].F_name, COUNT([T6616].C_name)
+    FROM
+      (SELECT
+          [T6598].C_name,[T6598].F_key,[T6598].S_key,[T6598].C_name1,[T6598].F_key1,[T6598].F_name
+        FROM
+          (( SELECT
+                [T6596].C_name,[T6596].F_key,[T6596].S_key,[T6596].C_name1
+              FROM
+                (( input1 ) JOIN (
+                    input2 )) AS [T6596][C_name, F_key, S_key, C_name1]
+              WHERE
+                [T6596].C_name == [T6596].C_name1 ) JOIN (
+              input3 )) AS [T6598][C_name, F_key, S_key, C_name1, F_key1, F_name]
+        WHERE
+          [T6598].F_key == [T6598].F_key1) AS [T6616][C_name, F_key, S_key, C_name1, F_key1, F_name]
+    GROUP BY
+      [T6616].F_name) AS [T6617][F_name, COUNT-C_name]
+WHERE
+  [T6617].COUNT-C_name <= 5.0
+@anonymous
+[T6617].F_name(StringVal) 
+faculty1 
+faculty4 
+
+[No.15]===============================
+SELECT
+  [T6527].F_name
+FROM
+  (SELECT
+      [T6526].F_key, [T6526].F_name, COUNT([T6526].F_key)
+    FROM
+      (SELECT
+          [T6508].C_name,[T6508].F_key,[T6508].S_key,[T6508].C_name1,[T6508].F_key1,[T6508].F_name
+        FROM
+          (( SELECT
+                [T6506].C_name,[T6506].F_key,[T6506].S_key,[T6506].C_name1
+              FROM
+                (( input1 ) JOIN (
+                    input2 )) AS [T6506][C_name, F_key, S_key, C_name1]
+              WHERE
+                [T6506].C_name == [T6506].C_name1 ) JOIN (
+              input3 )) AS [T6508][C_name, F_key, S_key, C_name1, F_key1, F_name]
+        WHERE
+          [T6508].F_key == [T6508].F_key1) AS [T6526][C_name, F_key, S_key, C_name1, F_key1, F_name]
+    GROUP BY
+      [T6526].F_key  [T6526].F_name) AS [T6527][F_key, F_name, COUNT-F_key]
+WHERE
+  [T6527].COUNT-F_key <= 5.0
+@anonymous
+[T6527].F_name(StringVal) 
+faculty1 
+faculty4 
+
+[No.14]===============================
+SELECT
+  [T6497].F_name
+FROM
+  (SELECT
+      [T6496].F_name, COUNT([T6496].F_key1)
+    FROM
+      (SELECT
+          [T6478].C_name,[T6478].F_key,[T6478].S_key,[T6478].C_name1,[T6478].F_key1,[T6478].F_name
+        FROM
+          (( SELECT
+                [T6476].C_name,[T6476].F_key,[T6476].S_key,[T6476].C_name1
+              FROM
+                (( input1 ) JOIN (
+                    input2 )) AS [T6476][C_name, F_key, S_key, C_name1]
+              WHERE
+                [T6476].C_name == [T6476].C_name1 ) JOIN (
+              input3 )) AS [T6478][C_name, F_key, S_key, C_name1, F_key1, F_name]
+        WHERE
+          [T6478].F_key == [T6478].F_key1) AS [T6496][C_name, F_key, S_key, C_name1, F_key1, F_name]
+    GROUP BY
+      [T6496].F_name) AS [T6497][F_name, COUNT-F_key1]
+WHERE
+  [T6497].COUNT-F_key1 <= 5.0
+@anonymous
+[T6497].F_name(StringVal) 
+faculty1 
+faculty4 
+
+[No.13]===============================
+SELECT
+  [T6467].F_name
+FROM
+  (SELECT
+      [T6466].F_key, [T6466].F_name, COUNT([T6466].C_name1)
+    FROM
+      (SELECT
+          [T6448].C_name,[T6448].F_key,[T6448].S_key,[T6448].C_name1,[T6448].F_key1,[T6448].F_name
+        FROM
+          (( SELECT
+                [T6446].C_name,[T6446].F_key,[T6446].S_key,[T6446].C_name1
+              FROM
+                (( input1 ) JOIN (
+                    input2 )) AS [T6446][C_name, F_key, S_key, C_name1]
+              WHERE
+                [T6446].C_name == [T6446].C_name1 ) JOIN (
+              input3 )) AS [T6448][C_name, F_key, S_key, C_name1, F_key1, F_name]
+        WHERE
+          [T6448].F_key == [T6448].F_key1) AS [T6466][C_name, F_key, S_key, C_name1, F_key1, F_name]
+    GROUP BY
+      [T6466].F_key  [T6466].F_name) AS [T6467][F_key, F_name, COUNT-C_name1]
+WHERE
+  [T6467].COUNT-C_name1 <= 5.0
+@anonymous
+[T6467].F_name(StringVal) 
+faculty1 
+faculty4 
+
+[No.12]===============================
+SELECT
+  [T6437].F_name
+FROM
+  (SELECT
+      [T6436].F_key, [T6436].F_name, COUNT([T6436].C_name)
+    FROM
+      (SELECT
+          [T6418].C_name,[T6418].F_key,[T6418].S_key,[T6418].C_name1,[T6418].F_key1,[T6418].F_name
+        FROM
+          (( SELECT
+                [T6416].C_name,[T6416].F_key,[T6416].S_key,[T6416].C_name1
+              FROM
+                (( input1 ) JOIN (
+                    input2 )) AS [T6416][C_name, F_key, S_key, C_name1]
+              WHERE
+                [T6416].C_name == [T6416].C_name1 ) JOIN (
+              input3 )) AS [T6418][C_name, F_key, S_key, C_name1, F_key1, F_name]
+        WHERE
+          [T6418].F_key == [T6418].F_key1) AS [T6436][C_name, F_key, S_key, C_name1, F_key1, F_name]
+    GROUP BY
+      [T6436].F_key  [T6436].F_name) AS [T6437][F_key, F_name, COUNT-C_name]
+WHERE
+  [T6437].COUNT-C_name <= 5.0
+@anonymous
+[T6437].F_name(StringVal) 
+faculty1 
+faculty4 
+
+[No.11]===============================
+SELECT
+  [T6377].F_name
+FROM
+  (SELECT
+      [T6376].F_name, COUNT([T6376].S_key)
+    FROM
+      (SELECT
+          [T6358].C_name,[T6358].F_key,[T6358].S_key,[T6358].C_name1,[T6358].F_key1,[T6358].F_name
+        FROM
+          (( SELECT
+                [T6356].C_name,[T6356].F_key,[T6356].S_key,[T6356].C_name1
+              FROM
+                (( input1 ) JOIN (
+                    input2 )) AS [T6356][C_name, F_key, S_key, C_name1]
+              WHERE
+                [T6356].C_name == [T6356].C_name1 ) JOIN (
+              input3 )) AS [T6358][C_name, F_key, S_key, C_name1, F_key1, F_name]
+        WHERE
+          [T6358].F_key == [T6358].F_key1) AS [T6376][C_name, F_key, S_key, C_name1, F_key1, F_name]
+    GROUP BY
+      [T6376].F_name) AS [T6377][F_name, COUNT-S_key]
+WHERE
+  [T6377].COUNT-S_key <= 5.0
+@anonymous
+[T6377].F_name(StringVal) 
+faculty1 
+faculty4 
+
+[No.10]===============================
+SELECT
+  [T6347].F_name
+FROM
+  (SELECT
+      [T6346].F_key, [T6346].F_key1, [T6346].F_name, COUNT([T6346].S_key)
+    FROM
+      (SELECT
+          [T6328].C_name,[T6328].F_key,[T6328].S_key,[T6328].C_name1,[T6328].F_key1,[T6328].F_name
+        FROM
+          (( SELECT
+                [T6326].C_name,[T6326].F_key,[T6326].S_key,[T6326].C_name1
+              FROM
+                (( input1 ) JOIN (
+                    input2 )) AS [T6326][C_name, F_key, S_key, C_name1]
+              WHERE
+                [T6326].C_name == [T6326].C_name1 ) JOIN (
+              input3 )) AS [T6328][C_name, F_key, S_key, C_name1, F_key1, F_name]
+        WHERE
+          [T6328].F_key == [T6328].F_key1) AS [T6346][C_name, F_key, S_key, C_name1, F_key1, F_name]
+    GROUP BY
+      [T6346].F_key  [T6346].F_key1  [T6346].F_name) AS [T6347][F_key, F_key1, F_name, COUNT-S_key]
+WHERE
+  [T6347].COUNT-S_key <= 5.0
+@anonymous
+[T6347].F_name(StringVal) 
+faculty1 
+faculty4 
+
+[No.9]===============================
+SELECT
+  [T6317].F_name
+FROM
+  (SELECT
+      [T6316].F_name, COUNT([T6316].F_name)
+    FROM
+      (SELECT
+          [T6298].C_name,[T6298].F_key,[T6298].S_key,[T6298].C_name1,[T6298].F_key1,[T6298].F_name
+        FROM
+          (( SELECT
+                [T6296].C_name,[T6296].F_key,[T6296].S_key,[T6296].C_name1
+              FROM
+                (( input1 ) JOIN (
+                    input2 )) AS [T6296][C_name, F_key, S_key, C_name1]
+              WHERE
+                [T6296].C_name == [T6296].C_name1 ) JOIN (
+              input3 )) AS [T6298][C_name, F_key, S_key, C_name1, F_key1, F_name]
+        WHERE
+          [T6298].F_key == [T6298].F_key1) AS [T6316][C_name, F_key, S_key, C_name1, F_key1, F_name]
+    GROUP BY
+      [T6316].F_name) AS [T6317][F_name, COUNT-F_name]
+WHERE
+  [T6317].COUNT-F_name <= 5.0
+@anonymous
+[T6317].F_name(StringVal) 
+faculty1 
+faculty4 
+
+[No.8]===============================
+SELECT
+  [T6287].F_name
+FROM
+  (SELECT
+      [T6286].F_key, [T6286].F_key1, [T6286].F_name, COUNT([T6286].F_key1)
+    FROM
+      (SELECT
+          [T6268].C_name,[T6268].F_key,[T6268].S_key,[T6268].C_name1,[T6268].F_key1,[T6268].F_name
+        FROM
+          (( SELECT
+                [T6266].C_name,[T6266].F_key,[T6266].S_key,[T6266].C_name1
+              FROM
+                (( input1 ) JOIN (
+                    input2 )) AS [T6266][C_name, F_key, S_key, C_name1]
+              WHERE
+                [T6266].C_name == [T6266].C_name1 ) JOIN (
+              input3 )) AS [T6268][C_name, F_key, S_key, C_name1, F_key1, F_name]
+        WHERE
+          [T6268].F_key == [T6268].F_key1) AS [T6286][C_name, F_key, S_key, C_name1, F_key1, F_name]
+    GROUP BY
+      [T6286].F_key  [T6286].F_key1  [T6286].F_name) AS [T6287][F_key, F_key1, F_name, COUNT-F_key1]
+WHERE
+  [T6287].COUNT-F_key1 <= 5.0
+@anonymous
+[T6287].F_name(StringVal) 
+faculty1 
+faculty4 
+
+[No.7]===============================
+SELECT
+  [T6257].F_name
+FROM
+  (SELECT
+      [T6256].F_key, [T6256].F_name, COUNT([T6256].S_key)
+    FROM
+      (SELECT
+          [T6238].C_name,[T6238].F_key,[T6238].S_key,[T6238].C_name1,[T6238].F_key1,[T6238].F_name
+        FROM
+          (( SELECT
+                [T6236].C_name,[T6236].F_key,[T6236].S_key,[T6236].C_name1
+              FROM
+                (( input1 ) JOIN (
+                    input2 )) AS [T6236][C_name, F_key, S_key, C_name1]
+              WHERE
+                [T6236].C_name == [T6236].C_name1 ) JOIN (
+              input3 )) AS [T6238][C_name, F_key, S_key, C_name1, F_key1, F_name]
+        WHERE
+          [T6238].F_key == [T6238].F_key1) AS [T6256][C_name, F_key, S_key, C_name1, F_key1, F_name]
+    GROUP BY
+      [T6256].F_key  [T6256].F_name) AS [T6257][F_key, F_name, COUNT-S_key]
+WHERE
+  [T6257].COUNT-S_key <= 5.0
+@anonymous
+[T6257].F_name(StringVal) 
+faculty1 
+faculty4 
+
+[No.6]===============================
+SELECT
+  [T6227].F_name
+FROM
+  (SELECT
+      [T6226].F_key, [T6226].F_name, COUNT([T6226].F_name)
+    FROM
+      (SELECT
+          [T6208].C_name,[T6208].F_key,[T6208].S_key,[T6208].C_name1,[T6208].F_key1,[T6208].F_name
+        FROM
+          (( SELECT
+                [T6206].C_name,[T6206].F_key,[T6206].S_key,[T6206].C_name1
+              FROM
+                (( input1 ) JOIN (
+                    input2 )) AS [T6206][C_name, F_key, S_key, C_name1]
+              WHERE
+                [T6206].C_name == [T6206].C_name1 ) JOIN (
+              input3 )) AS [T6208][C_name, F_key, S_key, C_name1, F_key1, F_name]
+        WHERE
+          [T6208].F_key == [T6208].F_key1) AS [T6226][C_name, F_key, S_key, C_name1, F_key1, F_name]
+    GROUP BY
+      [T6226].F_key  [T6226].F_name) AS [T6227][F_key, F_name, COUNT-F_name]
+WHERE
+  [T6227].COUNT-F_name <= 5.0
+@anonymous
+[T6227].F_name(StringVal) 
+faculty1 
+faculty4 
+
+[No.5]===============================
+SELECT
+  [T6167].F_name
+FROM
+  (SELECT
+      [T6166].F_key1, [T6166].F_name, COUNT([T6166].F_key)
+    FROM
+      (SELECT
+          [T6148].C_name,[T6148].F_key,[T6148].S_key,[T6148].C_name1,[T6148].F_key1,[T6148].F_name
+        FROM
+          (( SELECT
+                [T6146].C_name,[T6146].F_key,[T6146].S_key,[T6146].C_name1
+              FROM
+                (( input1 ) JOIN (
+                    input2 )) AS [T6146][C_name, F_key, S_key, C_name1]
+              WHERE
+                [T6146].C_name == [T6146].C_name1 ) JOIN (
+              input3 )) AS [T6148][C_name, F_key, S_key, C_name1, F_key1, F_name]
+        WHERE
+          [T6148].F_key == [T6148].F_key1) AS [T6166][C_name, F_key, S_key, C_name1, F_key1, F_name]
+    GROUP BY
+      [T6166].F_key1  [T6166].F_name) AS [T6167][F_key1, F_name, COUNT-F_key]
+WHERE
+  [T6167].COUNT-F_key <= 5.0
+@anonymous
+[T6167].F_name(StringVal) 
+faculty1 
+faculty4 
+
+[No.4]===============================
+SELECT
+  [T6137].F_name
+FROM
+  (SELECT
+      [T6136].F_key1, [T6136].F_name, COUNT([T6136].F_key1)
+    FROM
+      (SELECT
+          [T6118].C_name,[T6118].F_key,[T6118].S_key,[T6118].C_name1,[T6118].F_key1,[T6118].F_name
+        FROM
+          (( SELECT
+                [T6116].C_name,[T6116].F_key,[T6116].S_key,[T6116].C_name1
+              FROM
+                (( input1 ) JOIN (
+                    input2 )) AS [T6116][C_name, F_key, S_key, C_name1]
+              WHERE
+                [T6116].C_name == [T6116].C_name1 ) JOIN (
+              input3 )) AS [T6118][C_name, F_key, S_key, C_name1, F_key1, F_name]
+        WHERE
+          [T6118].F_key == [T6118].F_key1) AS [T6136][C_name, F_key, S_key, C_name1, F_key1, F_name]
+    GROUP BY
+      [T6136].F_key1  [T6136].F_name) AS [T6137][F_key1, F_name, COUNT-F_key1]
+WHERE
+  [T6137].COUNT-F_key1 <= 5.0
+@anonymous
+[T6137].F_name(StringVal) 
+faculty1 
+faculty4 
+
+[No.3]===============================
+SELECT
+  [T6107].F_name
+FROM
+  (SELECT
+      [T6106].F_key, [T6106].F_key1, [T6106].F_name, COUNT([T6106].F_name)
+    FROM
+      (SELECT
+          [T6088].C_name,[T6088].F_key,[T6088].S_key,[T6088].C_name1,[T6088].F_key1,[T6088].F_name
+        FROM
+          (( SELECT
+                [T6086].C_name,[T6086].F_key,[T6086].S_key,[T6086].C_name1
+              FROM
+                (( input1 ) JOIN (
+                    input2 )) AS [T6086][C_name, F_key, S_key, C_name1]
+              WHERE
+                [T6086].C_name == [T6086].C_name1 ) JOIN (
+              input3 )) AS [T6088][C_name, F_key, S_key, C_name1, F_key1, F_name]
+        WHERE
+          [T6088].F_key == [T6088].F_key1) AS [T6106][C_name, F_key, S_key, C_name1, F_key1, F_name]
+    GROUP BY
+      [T6106].F_key  [T6106].F_key1  [T6106].F_name) AS [T6107][F_key, F_key1, F_name, COUNT-F_name]
+WHERE
+  [T6107].COUNT-F_name <= 5.0
+@anonymous
+[T6107].F_name(StringVal) 
+faculty1 
+faculty4 
+
+[No.2]===============================
+SELECT
+  [T6077].F_name
+FROM
+  (SELECT
+      [T6076].F_name, COUNT([T6076].F_key)
+    FROM
+      (SELECT
+          [T6058].C_name,[T6058].F_key,[T6058].S_key,[T6058].C_name1,[T6058].F_key1,[T6058].F_name
+        FROM
+          (( SELECT
+                [T6056].C_name,[T6056].F_key,[T6056].S_key,[T6056].C_name1
+              FROM
+                (( input1 ) JOIN (
+                    input2 )) AS [T6056][C_name, F_key, S_key, C_name1]
+              WHERE
+                [T6056].C_name == [T6056].C_name1 ) JOIN (
+              input3 )) AS [T6058][C_name, F_key, S_key, C_name1, F_key1, F_name]
+        WHERE
+          [T6058].F_key == [T6058].F_key1) AS [T6076][C_name, F_key, S_key, C_name1, F_key1, F_name]
+    GROUP BY
+      [T6076].F_name) AS [T6077][F_name, COUNT-F_key]
+WHERE
+  [T6077].COUNT-F_key <= 5.0
+@anonymous
+[T6077].F_name(StringVal) 
+faculty1 
+faculty4 
+
+[No.1]===============================
+SELECT
+  [T5987].F_name
+FROM
+  (SELECT
+      [T5986].F_key, [T5986].F_key1, [T5986].F_name, COUNT([T5986].C_name)
+    FROM
+      (SELECT
+          [T5968].C_name,[T5968].F_key,[T5968].S_key,[T5968].C_name1,[T5968].F_key1,[T5968].F_name
+        FROM
+          (( SELECT
+                [T5966].C_name,[T5966].F_key,[T5966].S_key,[T5966].C_name1
+              FROM
+                (( input1 ) JOIN (
+                    input2 )) AS [T5966][C_name, F_key, S_key, C_name1]
+              WHERE
+                [T5966].C_name == [T5966].C_name1 ) JOIN (
+              input3 )) AS [T5968][C_name, F_key, S_key, C_name1, F_key1, F_name]
+        WHERE
+          [T5968].F_key == [T5968].F_key1) AS [T5986][C_name, F_key, S_key, C_name1, F_key1, F_name]
+    GROUP BY
+      [T5986].F_key  [T5986].F_key1  [T5986].F_name) AS [T5987][F_key, F_key1, F_name, COUNT-C_name]
+WHERE
+  [T5987].COUNT-C_name <= 5.0
+@anonymous
+[T5987].F_name(StringVal) 
+faculty1 
+faculty4 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 23.077s

@@ -1,0 +1,45 @@
+// http://stackoverflow.com/questions/367863/sql-find-records-from-one-table-which-dont-exist-in-another
+//MOD 12
+
+#input
+
+| id | name | phone_number |
+|--------------------------|
+| 1a  | John | "111111111111 |
+| 2a  | Jane | "222222222222 |
+
+#input
+| id | date | phone_number |
+|--------------------------|
+| 1a  | 09-45 | "111111111111 |
+| 2a  | 09-50 | "222222222222 |
+| 3a  | 10-45 | "333333333333 |
+
+#output
+
+| id | date | phone_number |
+|--------------------------|
+| 3a  | 10-45 | "333333333333 |
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": []
+}
+
+
+#solution
+
+SELECT * 
+FROM   Call
+LEFT OUTER JOIN Phone_Book
+  ON (Call.phone_number = Phone_book.phone_number)
+  WHERE Phone_book.phone_number IS NULL;
+
+
+SELECT *
+FROM   Call
+WHERE  NOT EXISTS
+  (SELECT *
+   FROM   Phone_book
+   WHERE  Phone_book.phone_number = Call.phone_number)

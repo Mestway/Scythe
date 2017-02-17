@@ -1,11 +1,10 @@
 package sql.lang.ast.table;
 
-import enumerator.parameterized.InstantiateEnv;
+import forward_enumeration.primitive.parameterized.InstantiateEnv;
+import sql.lang.datatype.Value;
 import util.Pair;
-import sql.lang.DataType.ValType;
-import sql.lang.DataType.Value;
+import sql.lang.datatype.ValType;
 import sql.lang.Table;
-import sql.lang.TableRow;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
@@ -20,7 +19,7 @@ import java.util.stream.Collectors;
  * Created by clwang on 12/18/15.
  * Join is implemented as cartesian product
  */
-public class JoinNode implements TableNode {
+public class JoinNode extends TableNode {
 
     List<TableNode> tableNodes = new ArrayList<TableNode>();
 
@@ -76,10 +75,10 @@ public class JoinNode implements TableNode {
     }
 
     @Override
-    public String prettyPrint(int indentLv) {
-        String result = "( " + this.tableNodes.get(0).prettyPrint(1).trim() + " )";
+    public String prettyPrint(int indentLv, boolean asSubquery) {
+        String result = this.tableNodes.get(0).prettyPrint(1, true).trim();
         for (int i = 1; i < this.tableNodes.size(); i ++) {
-            result += " JOIN (\r\n" + this.tableNodes.get(i).prettyPrint(1) + " )";
+            result += " Join \r\n" + this.tableNodes.get(i).prettyPrint(1,true);
         }
         return IndentionManagement.addIndention(result, indentLv);
     }
@@ -121,8 +120,47 @@ public class JoinNode implements TableNode {
                         .collect(Collectors.toList()));
     }
 
-
+    @Override
+    public List<String> originalColumnName() {
+        List<String> result = new ArrayList<>();
+        for (TableNode tn : this.tableNodes) {
+            result.addAll(tn.originalColumnName());
+        }
+        return result;
+    }
 
     public List<TableNode> getTableNodes() { return this.tableNodes; }
+
+    @Override
+    public double estimateAllFilterCost() {
+        return tableNodes.stream().map(tn -> tn.estimateAllFilterCost()).reduce(0., (x,y) -> (x + y));
+    }
+
+    @Override
+    public List<Value> getAllConstants() {
+        List<Value> result = new ArrayList<>();
+        for (TableNode tn : tableNodes) {
+            result.addAll(tn.getAllConstants());
+        }
+
+        return result;
+    }
+
+    @Override
+    public String getQuerySkeleton() {
+        return "(J" + tableNodes.stream().map(tn -> tn.getQuerySkeleton()).reduce("", (x,y)-> (x + " " + y)) + ")";
+    }
+
+    public List<Table> getNamedTableInJoin() {
+        List<Table> result = new ArrayList<>();
+        for (TableNode tn : this.tableNodes) {
+            if (tn instanceof NamedTable)
+                result.add(((NamedTable) tn).getTable());
+            if (tn instanceof JoinNode) {
+                result.addAll(((JoinNode) tn).getNamedTableInJoin());
+            }
+        }
+        return result;
+    }
 
 }

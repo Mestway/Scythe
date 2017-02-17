@@ -1,0 +1,98 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/051
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 7 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 17
+Candidate Tree Number: 4
+[Enumeration Finished]
+[No.4]===============================
+SELECT
+  [T19].id,[T19].category,[T19].MAX-date
+FROM
+  (( (SELECT
+          [T17].category, MAX([T17].date)
+        FROM
+          (input1) AS [T17][id, category, date]
+        GROUP BY
+          [T17].category) AS [T18][category, MAX-date] ) JOIN (
+      SELECT
+        input1.id,input1.category,input1.date
+      FROM
+        input1
+      WHERE
+        True )) AS [T19][category, MAX-date, id, category1, date]
+WHERE
+  [T19].category == [T19].category1
+   AND [T19].MAX-date == [T19].date
+@anonymous
+[T19].id(NumberVal) | [T19].category(StringVal) | [T19].MAX-date(DateVal) 
+7.0 | a | Thu Jan 03 00:00:00 PST 2013 
+2.0 | b | Thu Jan 03 00:00:00 PST 2013 
+6.0 | c | Thu Jan 03 00:00:00 PST 2013 
+
+[No.3]===============================
+SELECT
+  [T31].id,[T31].category,[T31].MAX-date
+FROM
+  (( (SELECT
+          MAX([T29].date)
+        FROM
+          (input1) AS [T29][id, category, date]) AS [T30][MAX-date] ) JOIN (
+      SELECT
+        input1.id,input1.category,input1.date
+      FROM
+        input1
+      WHERE
+        True )) AS [T31][MAX-date, id, category, date]
+WHERE
+  [T31].MAX-date == [T31].date
+@anonymous
+[T31].id(NumberVal) | [T31].category(StringVal) | [T31].MAX-date(DateVal) 
+2.0 | b | Thu Jan 03 00:00:00 PST 2013 
+6.0 | c | Thu Jan 03 00:00:00 PST 2013 
+7.0 | a | Thu Jan 03 00:00:00 PST 2013 
+
+[No.2]===============================
+SELECT
+  [T25].id,[T25].category,[T25].MAX-date
+FROM
+  (( (SELECT
+          [T23].category, MAX([T23].date)
+        FROM
+          (input1) AS [T23][id, category, date]
+        GROUP BY
+          [T23].category) AS [T24][category, MAX-date] ) JOIN (
+      input1 )) AS [T25][category, MAX-date, id, category1, date]
+WHERE
+  [T25].category == [T25].category1
+   AND [T25].MAX-date == [T25].date
+@anonymous
+[T25].id(NumberVal) | [T25].category(StringVal) | [T25].MAX-date(DateVal) 
+7.0 | a | Thu Jan 03 00:00:00 PST 2013 
+2.0 | b | Thu Jan 03 00:00:00 PST 2013 
+6.0 | c | Thu Jan 03 00:00:00 PST 2013 
+
+[No.1]===============================
+SELECT
+  [T37].id,[T37].category,[T37].MAX-date
+FROM
+  (( (SELECT
+          MAX([T35].date)
+        FROM
+          (input1) AS [T35][id, category, date]) AS [T36][MAX-date] ) JOIN (
+      input1 )) AS [T37][MAX-date, id, category, date]
+WHERE
+  [T37].MAX-date == [T37].date
+@anonymous
+[T37].id(NumberVal) | [T37].category(StringVal) | [T37].MAX-date(DateVal) 
+2.0 | b | Thu Jan 03 00:00:00 PST 2013 
+6.0 | c | Thu Jan 03 00:00:00 PST 2013 
+7.0 | a | Thu Jan 03 00:00:00 PST 2013 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.263s

@@ -1,0 +1,39 @@
+//http://stackoverflow.com/questions/37977325/how-to-join-tables-including-rows-that-doesnt-find-a-match-by-using-a-non-forei
+
+#input:tablea
+
+| attendee_id  | others1 |
+|------------------------|
+|    abcd      | A       |
+|    ghij      | B       |
+|    defg      | C       |
+
+#input:pps
+
+| attendee_id  | others2 | event_id |
+|-----------------------------------|
+|    wxyz      | D       |     1    |
+|    mlno      | E       |     2    |
+|    defg      | F       |     3    |
+|    defg      | G       |     2    |
+|    abcd      | H       |     1    |
+
+#output
+
+| attendee_id  | others1 | others2      | event_id     |
+|------------------------------------------------------|
+|    abcd      | A       |  NULL[str]   |   NULL[num]  |
+|    ghij      | B       |  NULL[str]   |   NULL[num]  |
+|    defg      | C       |    F         |     3        |
+
+#constraint
+{
+	"constants": ["3"],
+	"aggregation_functions": []
+}
+
+#solution
+
+SELECT a.*, b.others2, b.event_id 
+FROM attendees a LEFT JOIN eventattendees b ON a.attendee_id = b.attendee_id
+WHERE event_id = 3

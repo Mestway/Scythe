@@ -1,0 +1,469 @@
+[[Synthesis start]]
+	File: ../data/dev_set/025
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 45 [SymTable]: 46
+Candidate Tree Number: 1
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 2 [SymTable]: 3
+[JOIN] level 1 [SymTable]: 6
+[EnumJoinOnAggr] level 1 [SymTable]: 15
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 7 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 16
+Candidate Tree Number: 10
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 7 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 16
+[EnumJoinOnAggr] level 1 [SymTable]: 80
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 5 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 12
+[EnumJoinOnAggr] level 1 [SymTable]: 48
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 12 [SymTable]: 13
+[JOIN] level 1 [SymTable]: 26
+Candidate Tree Number: 10
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 16 [SymTable]: 17
+[JOIN] level 1 [SymTable]: 34
+Candidate Tree Number: 10
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T291].Alerts,[T291].MAX-Alert_Date
+FROM
+  (( (SELECT
+          [T289].Alerts, MAX([T289].Alert_Date)
+        FROM
+          (input1) AS [T289][Id, Alerts, Alert_Date]
+        GROUP BY
+          [T289].Alerts) AS [T290][Alerts, MAX-Alert_Date] ) JOIN (
+      SELECT
+        input1.Id,input1.Alerts,input1.Alert_Date
+      FROM
+        input1
+      WHERE
+        True )) AS [T291][Alerts, MAX-Alert_Date, Id, Alerts1, Alert_Date]
+WHERE
+  [T291].Alerts == [T291].Alerts1
+   AND [T291].MAX-Alert_Date == [T291].Alert_Date
+@anonymous
+[T291].Alerts(StringVal) | [T291].MAX-Alert_Date(DateVal) 
+Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[No.19]===============================
+SELECT
+  [T275].Alerts,[T275].Alert_Date
+FROM
+  (( (SELECT
+          [T273].Alerts, MAX([T273].Id)
+        FROM
+          (input1) AS [T273][Id, Alerts, Alert_Date]
+        GROUP BY
+          [T273].Alerts) AS [T274][Alerts, MAX-Id] ) JOIN (
+      SELECT
+        input1.Id,input1.Alerts,input1.Alert_Date
+      FROM
+        input1
+      WHERE
+        True )) AS [T275][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+WHERE
+  [T275].MAX-Id == [T275].Id
+   AND [T275].Alerts == [T275].Alerts1
+@anonymous
+[T275].Alerts(StringVal) | [T275].Alert_Date(DateVal) 
+Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[No.18]===============================
+SELECT
+  [T116].Alerts,[T116].MAX-Alert_Date
+FROM
+  (( (SELECT
+          [T114].Alerts, MAX([T114].Alert_Date)
+        FROM
+          (input1) AS [T114][Id, Alerts, Alert_Date]
+        GROUP BY
+          [T114].Alerts) AS [T115][Alerts, MAX-Alert_Date] ) JOIN (
+      SELECT
+        input1.Id,input1.Alerts,input1.Alert_Date
+      FROM
+        input1
+      WHERE
+        True )) AS [T116][Alerts, MAX-Alert_Date, Id, Alerts1, Alert_Date]
+WHERE
+  [T116].Alerts == [T116].Alerts1
+   AND [T116].MAX-Alert_Date == [T116].Alert_Date
+@anonymous
+[T116].Alerts(StringVal) | [T116].MAX-Alert_Date(DateVal) 
+Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[No.17]===============================
+SELECT
+  [T104].Alerts,[T104].Alert_Date
+FROM
+  (( (SELECT
+          [T102].Alerts, MAX([T102].Id)
+        FROM
+          (input1) AS [T102][Id, Alerts, Alert_Date]
+        GROUP BY
+          [T102].Alerts) AS [T103][Alerts, MAX-Id] ) JOIN (
+      SELECT
+        input1.Id,input1.Alerts,input1.Alert_Date
+      FROM
+        input1
+      WHERE
+        True )) AS [T104][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+WHERE
+  [T104].MAX-Id == [T104].Id
+   AND [T104].Alerts == [T104].Alerts1
+@anonymous
+[T104].Alerts(StringVal) | [T104].Alert_Date(DateVal) 
+Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[No.16]===============================
+SELECT
+  [T354].Alerts,[T354].Alert_Date
+FROM
+  (( (SELECT
+          [T352].Alerts, MAX([T352].Id)
+        FROM
+          (input1) AS [T352][Id, Alerts, Alert_Date]
+        GROUP BY
+          [T352].Alerts) AS [T353][Alerts, MAX-Id] ) JOIN (
+      SELECT
+        input1.Id,input1.Alerts,input1.Alert_Date
+      FROM
+        input1
+      WHERE
+        True )) AS [T354][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+WHERE
+  [T354].MAX-Id == [T354].Id
+@anonymous
+[T354].Alerts(StringVal) | [T354].Alert_Date(DateVal) 
+Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[No.15]===============================
+SELECT
+  [T263].Alerts,[T263].Alert_Date
+FROM
+  (( (SELECT
+          [T261].Alerts, MAX([T261].Id)
+        FROM
+          (input1) AS [T261][Id, Alerts, Alert_Date]
+        GROUP BY
+          [T261].Alerts) AS [T262][Alerts, MAX-Id] ) JOIN (
+      SELECT
+        input1.Id,input1.Alerts,input1.Alert_Date
+      FROM
+        input1
+      WHERE
+        True )) AS [T263][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+WHERE
+  [T263].MAX-Id == [T263].Id
+@anonymous
+[T263].Alerts(StringVal) | [T263].Alert_Date(DateVal) 
+Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[No.14]===============================
+SELECT
+  [T92].Alerts,[T92].Alert_Date
+FROM
+  (( (SELECT
+          [T90].Alerts, MAX([T90].Id)
+        FROM
+          (input1) AS [T90][Id, Alerts, Alert_Date]
+        GROUP BY
+          [T90].Alerts) AS [T91][Alerts, MAX-Id] ) JOIN (
+      SELECT
+        input1.Id,input1.Alerts,input1.Alert_Date
+      FROM
+        input1
+      WHERE
+        True )) AS [T92][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+WHERE
+  [T92].MAX-Id == [T92].Id
+@anonymous
+[T92].Alerts(StringVal) | [T92].Alert_Date(DateVal) 
+Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[No.13]===============================
+SELECT
+  [T394].Alerts,[T394].MAX-Alert_Date
+FROM
+  (( (SELECT
+          [T392].Alerts, MAX([T392].Alert_Date)
+        FROM
+          (input1) AS [T392][Id, Alerts, Alert_Date]
+        GROUP BY
+          [T392].Alerts) AS [T393][Alerts, MAX-Alert_Date] ) JOIN (
+      input1 )) AS [T394][Alerts, MAX-Alert_Date, Id, Alerts1, Alert_Date]
+WHERE
+  [T394].Alerts == [T394].Alerts1
+   AND [T394].MAX-Alert_Date == [T394].Alert_Date
+@anonymous
+[T394].Alerts(StringVal) | [T394].MAX-Alert_Date(DateVal) 
+Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[No.12]===============================
+SELECT
+  [T360].Alerts,[T360].Alert_Date
+FROM
+  (( (SELECT
+          [T358].Alerts, MAX([T358].Id)
+        FROM
+          (input1) AS [T358][Id, Alerts, Alert_Date]
+        GROUP BY
+          [T358].Alerts) AS [T359][Alerts, MAX-Id] ) JOIN (
+      input1 )) AS [T360][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+WHERE
+  [T360].MAX-Id == [T360].Id
+   AND [T360].Alerts == [T360].Alerts1
+@anonymous
+[T360].Alerts(StringVal) | [T360].Alert_Date(DateVal) 
+Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[No.11]===============================
+SELECT
+  [T303].Alerts,[T303].MAX-Alert_Date
+FROM
+  (( (SELECT
+          [T301].Alerts, MAX([T301].Alert_Date)
+        FROM
+          (input1) AS [T301][Id, Alerts, Alert_Date]
+        GROUP BY
+          [T301].Alerts) AS [T302][Alerts, MAX-Alert_Date] ) JOIN (
+      input1 )) AS [T303][Alerts, MAX-Alert_Date, Id, Alerts1, Alert_Date]
+WHERE
+  [T303].Alerts == [T303].Alerts1
+   AND [T303].MAX-Alert_Date == [T303].Alert_Date
+@anonymous
+[T303].Alerts(StringVal) | [T303].MAX-Alert_Date(DateVal) 
+Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[No.10]===============================
+SELECT
+  [T269].Alerts,[T269].Alert_Date
+FROM
+  (( (SELECT
+          [T267].Alerts, MAX([T267].Id)
+        FROM
+          (input1) AS [T267][Id, Alerts, Alert_Date]
+        GROUP BY
+          [T267].Alerts) AS [T268][Alerts, MAX-Id] ) JOIN (
+      input1 )) AS [T269][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+WHERE
+  [T269].MAX-Id == [T269].Id
+   AND [T269].Alerts == [T269].Alerts1
+@anonymous
+[T269].Alerts(StringVal) | [T269].Alert_Date(DateVal) 
+Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[No.9]===============================
+SELECT
+  [T128].Alerts,[T128].MAX-Alert_Date
+FROM
+  (( (SELECT
+          [T126].Alerts, MAX([T126].Alert_Date)
+        FROM
+          (input1) AS [T126][Id, Alerts, Alert_Date]
+        GROUP BY
+          [T126].Alerts) AS [T127][Alerts, MAX-Alert_Date] ) JOIN (
+      input1 )) AS [T128][Alerts, MAX-Alert_Date, Id, Alerts1, Alert_Date]
+WHERE
+  [T128].Alerts == [T128].Alerts1
+   AND [T128].MAX-Alert_Date == [T128].Alert_Date
+@anonymous
+[T128].Alerts(StringVal) | [T128].MAX-Alert_Date(DateVal) 
+Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[No.8]===============================
+SELECT
+  [T98].Alerts,[T98].Alert_Date
+FROM
+  (( (SELECT
+          [T96].Alerts, MAX([T96].Id)
+        FROM
+          (input1) AS [T96][Id, Alerts, Alert_Date]
+        GROUP BY
+          [T96].Alerts) AS [T97][Alerts, MAX-Id] ) JOIN (
+      input1 )) AS [T98][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+WHERE
+  [T98].MAX-Id == [T98].Id
+   AND [T98].Alerts == [T98].Alerts1
+@anonymous
+[T98].Alerts(StringVal) | [T98].Alert_Date(DateVal) 
+Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[No.7]===============================
+SELECT
+  [T348].Alerts,[T348].Alert_Date
+FROM
+  (( (SELECT
+          [T346].Alerts, MAX([T346].Id)
+        FROM
+          (input1) AS [T346][Id, Alerts, Alert_Date]
+        GROUP BY
+          [T346].Alerts) AS [T347][Alerts, MAX-Id] ) JOIN (
+      input1 )) AS [T348][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+WHERE
+  [T348].MAX-Id == [T348].Id
+@anonymous
+[T348].Alerts(StringVal) | [T348].Alert_Date(DateVal) 
+Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[No.6]===============================
+SELECT
+  [T257].Alerts,[T257].Alert_Date
+FROM
+  (( (SELECT
+          [T255].Alerts, MAX([T255].Id)
+        FROM
+          (input1) AS [T255][Id, Alerts, Alert_Date]
+        GROUP BY
+          [T255].Alerts) AS [T256][Alerts, MAX-Id] ) JOIN (
+      input1 )) AS [T257][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+WHERE
+  [T257].MAX-Id == [T257].Id
+@anonymous
+[T257].Alerts(StringVal) | [T257].Alert_Date(DateVal) 
+Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[No.5]===============================
+SELECT
+  [T86].Alerts,[T86].Alert_Date
+FROM
+  (( (SELECT
+          [T84].Alerts, MAX([T84].Id)
+        FROM
+          (input1) AS [T84][Id, Alerts, Alert_Date]
+        GROUP BY
+          [T84].Alerts) AS [T85][Alerts, MAX-Id] ) JOIN (
+      input1 )) AS [T86][Alerts, MAX-Id, Id, Alerts1, Alert_Date]
+WHERE
+  [T86].MAX-Id == [T86].Id
+@anonymous
+[T86].Alerts(StringVal) | [T86].Alert_Date(DateVal) 
+Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[No.4]===============================
+(SELECT
+    [T376].Alerts, MAX([T376].Alert_Date)
+  FROM
+    (input1) AS [T376][Id, Alerts, Alert_Date]
+  GROUP BY
+    [T376].Alerts) AS [T377][Alerts, MAX-Alert_Date]
+@anonymous
+[T377].Alerts(StringVal) | [T377].MAX-Alert_Date(DateVal) 
+Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[No.3]===============================
+(SELECT
+    [T285].Alerts, MAX([T285].Alert_Date)
+  FROM
+    (input1) AS [T285][Id, Alerts, Alert_Date]
+  GROUP BY
+    [T285].Alerts) AS [T286][Alerts, MAX-Alert_Date]
+@anonymous
+[T286].Alerts(StringVal) | [T286].MAX-Alert_Date(DateVal) 
+Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[No.2]===============================
+(SELECT
+    [T80].Alerts, MAX([T80].Alert_Date)
+  FROM
+    (input1) AS [T80][Id, Alerts, Alert_Date]
+  GROUP BY
+    [T80].Alerts) AS [T81][Alerts, MAX-Alert_Date]
+@anonymous
+[T81].Alerts(StringVal) | [T81].MAX-Alert_Date(DateVal) 
+Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[No.1]===============================
+(SELECT
+    [T47].Alerts, MAX([T47].Alert_Date)
+  FROM
+    (input1) AS [T47][Id, Alerts, Alert_Date]
+  GROUP BY
+    [T47].Alerts) AS [T48][Alerts, MAX-Alert_Date]
+@anonymous
+[T48].Alerts(StringVal) | [T48].MAX-Alert_Date(DateVal) 
+Alert1 | Tue May 12 12:12:22 PDT 2015 
+Alert2 | Thu May 14 12:12:22 PDT 2015 
+Alert3 | Thu May 14 12:12:22 PDT 2015 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 1.130s

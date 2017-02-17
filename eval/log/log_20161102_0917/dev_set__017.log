@@ -1,0 +1,383 @@
+[[Synthesis start]]
+	File: ../data/dev_set/017
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 49 [SymTable]: 50
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 4
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 14
+Candidate Tree Number: 19
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 14
+Candidate Tree Number: 19
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 6 [SymTable]: 7
+[JOIN] level 1 [SymTable]: 14
+Candidate Tree Number: 34
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 11 [SymTable]: 12
+[JOIN] level 1 [SymTable]: 24
+Candidate Tree Number: 33
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 14 [SymTable]: 15
+[JOIN] level 1 [SymTable]: 30
+Candidate Tree Number: 39
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T586].MAX-Parent,[T586].Name
+FROM
+  (( (SELECT
+          MAX([T584].Parent)
+        FROM
+          (input1) AS [T584][ID, Name, Age, Parent]) AS [T585][MAX-Parent] ) JOIN (
+      input1 )) AS [T586][MAX-Parent, ID, Name, Age, Parent]
+WHERE
+  [T586].MAX-Parent == [T586].ID
+@anonymous
+[T586].MAX-Parent(NumberVal) | [T586].Name(StringVal) 
+1.0 | Bob 
+
+[No.19]===============================
+SELECT
+  [T712].MIN-ID,[T712].Name
+FROM
+  (( (SELECT
+          MIN([T710].ID)
+        FROM
+          (input1) AS [T710][ID, Name, Age, Parent]) AS [T711][MIN-ID] ) JOIN (
+      input1 )) AS [T712][MIN-ID, ID, Name, Age, Parent]
+WHERE
+  [T712].MIN-ID == [T712].ID
+@anonymous
+[T712].MIN-ID(NumberVal) | [T712].Name(StringVal) 
+1.0 | Bob 
+
+[No.18]===============================
+SELECT
+  [T670].ID,[T670].Name
+FROM
+  (( (SELECT
+          MAX([T668].Age)
+        FROM
+          (input1) AS [T668][ID, Name, Age, Parent]) AS [T669][MAX-Age] ) JOIN (
+      input1 )) AS [T670][MAX-Age, ID, Name, Age, Parent]
+WHERE
+  [T670].MAX-Age == [T670].Age
+@anonymous
+[T670].ID(NumberVal) | [T670].Name(StringVal) 
+1.0 | Bob 
+
+[No.17]===============================
+SELECT
+  [T628].ID,[T628].Name
+FROM
+  (( (SELECT
+          MIN([T626].Parent)
+        FROM
+          (input1) AS [T626][ID, Name, Age, Parent]) AS [T627][MIN-Parent] ) JOIN (
+      input1 )) AS [T628][MIN-Parent, ID, Name, Age, Parent]
+WHERE
+  [T628].MIN-Parent == [T628].Parent
+@anonymous
+[T628].ID(NumberVal) | [T628].Name(StringVal) 
+1.0 | Bob 
+
+[No.16]===============================
+SELECT
+  [T515].Parent,[T515].Name
+FROM
+  (( (SELECT
+          [T513].Parent, AVG([T513].ID)
+        FROM
+          (input1) AS [T513][ID, Name, Age, Parent]
+        GROUP BY
+          [T513].Parent) AS [T514][Parent, AVG-ID] ) JOIN (
+      input1 )) AS [T515][Parent, AVG-ID, ID, Name, Age, Parent1]
+WHERE
+  [T515].Parent == [T515].ID
+@anonymous
+[T515].Parent(NumberVal) | [T515].Name(StringVal) 
+1.0 | Bob 
+
+[No.15]===============================
+SELECT
+  [T413].Parent,[T413].Name
+FROM
+  (( (SELECT
+          [T411].Parent, FROM
+          (input1) AS [T411][ID, Name, Age, Parent]
+        GROUP BY
+          [T411].Parent) AS [T412][Parent] ) JOIN (
+      input1 )) AS [T413][Parent, ID, Name, Age, Parent1]
+WHERE
+  [T413].Parent == [T413].ID
+@anonymous
+[T413].Parent(NumberVal) | [T413].Name(StringVal) 
+1.0 | Bob 
+
+[No.14]===============================
+SELECT
+  [T383].Parent,[T383].Name
+FROM
+  (( (SELECT
+          [T381].Parent, AVG([T381].Age)
+        FROM
+          (input1) AS [T381][ID, Name, Age, Parent]
+        GROUP BY
+          [T381].Parent) AS [T382][Parent, AVG-Age] ) JOIN (
+      input1 )) AS [T383][Parent, AVG-Age, ID, Name, Age, Parent1]
+WHERE
+  [T383].Parent == [T383].ID
+@anonymous
+[T383].Parent(NumberVal) | [T383].Name(StringVal) 
+1.0 | Bob 
+
+[No.13]===============================
+SELECT
+  [T485].AVG-ID,[T485].Name
+FROM
+  (( (SELECT
+          [T483].Parent, AVG([T483].ID)
+        FROM
+          (input1) AS [T483][ID, Name, Age, Parent]
+        GROUP BY
+          [T483].Parent) AS [T484][Parent, AVG-ID] ) JOIN (
+      input1 )) AS [T485][Parent, AVG-ID, ID, Name, Age, Parent1]
+WHERE
+  [T485].AVG-ID == [T485].ID
+@anonymous
+[T485].AVG-ID(NumberVal) | [T485].Name(StringVal) 
+1.0 | Bob 
+
+[No.12]===============================
+SELECT
+  [T353].ID,[T353].Name
+FROM
+  (( (SELECT
+          [T351].Parent, AVG([T351].Age)
+        FROM
+          (input1) AS [T351][ID, Name, Age, Parent]
+        GROUP BY
+          [T351].Parent) AS [T352][Parent, AVG-Age] ) JOIN (
+      input1 )) AS [T353][Parent, AVG-Age, ID, Name, Age, Parent1]
+WHERE
+  [T353].AVG-Age == [T353].Age
+@anonymous
+[T353].ID(NumberVal) | [T353].Name(StringVal) 
+1.0 | Bob 
+
+[No.11]===============================
+SELECT
+  [T310].Parent,[T310].Name
+FROM
+  (( (SELECT
+          [T308].Parent, MIN([T308].Age)
+        FROM
+          (input1) AS [T308][ID, Name, Age, Parent]
+        GROUP BY
+          [T308].Parent) AS [T309][Parent, MIN-Age] ) JOIN (
+      input1 )) AS [T310][Parent, MIN-Age, ID, Name, Age, Parent1]
+WHERE
+  [T310].Parent == [T310].ID
+@anonymous
+[T310].Parent(NumberVal) | [T310].Name(StringVal) 
+1.0 | Bob 
+
+[No.10]===============================
+SELECT
+  [T280].Parent,[T280].Name
+FROM
+  (( (SELECT
+          [T278].Parent, MIN([T278].ID)
+        FROM
+          (input1) AS [T278][ID, Name, Age, Parent]
+        GROUP BY
+          [T278].Parent) AS [T279][Parent, MIN-ID] ) JOIN (
+      input1 )) AS [T280][Parent, MIN-ID, ID, Name, Age, Parent1]
+WHERE
+  [T280].Parent == [T280].ID
+@anonymous
+[T280].Parent(NumberVal) | [T280].Name(StringVal) 
+1.0 | Bob 
+
+[No.9]===============================
+SELECT
+  [T250].Parent,[T250].Name
+FROM
+  (( (SELECT
+          [T248].Parent, FROM
+          (input1) AS [T248][ID, Name, Age, Parent]
+        GROUP BY
+          [T248].Parent) AS [T249][Parent] ) JOIN (
+      input1 )) AS [T250][Parent, ID, Name, Age, Parent1]
+WHERE
+  [T250].Parent == [T250].ID
+@anonymous
+[T250].Parent(NumberVal) | [T250].Name(StringVal) 
+1.0 | Bob 
+
+[No.8]===============================
+SELECT
+  [T244].MIN-ID,[T244].Name
+FROM
+  (( (SELECT
+          MIN([T242].ID)
+        FROM
+          (input1) AS [T242][ID, Name, Age, Parent]) AS [T243][MIN-ID] ) JOIN (
+      input1 )) AS [T244][MIN-ID, ID, Name, Age, Parent]
+WHERE
+  [T244].MIN-ID == [T244].ID
+@anonymous
+[T244].MIN-ID(NumberVal) | [T244].Name(StringVal) 
+1.0 | Bob 
+
+[No.7]===============================
+SELECT
+  [T232].ID,[T232].Name
+FROM
+  (( (SELECT
+          MIN([T230].Parent)
+        FROM
+          (input1) AS [T230][ID, Name, Age, Parent]) AS [T231][MIN-Parent] ) JOIN (
+      input1 )) AS [T232][MIN-Parent, ID, Name, Age, Parent]
+WHERE
+  [T232].MIN-Parent == [T232].Parent
+@anonymous
+[T232].ID(NumberVal) | [T232].Name(StringVal) 
+1.0 | Bob 
+
+[No.6]===============================
+SELECT
+  [T171].Parent,[T171].Name
+FROM
+  (( (SELECT
+          [T169].Parent, FROM
+          (input1) AS [T169][ID, Name, Age, Parent]
+        GROUP BY
+          [T169].Parent) AS [T170][Parent] ) JOIN (
+      input1 )) AS [T171][Parent, ID, Name, Age, Parent1]
+WHERE
+  [T171].Parent == [T171].ID
+@anonymous
+[T171].Parent(NumberVal) | [T171].Name(StringVal) 
+1.0 | Bob 
+
+[No.5]===============================
+SELECT
+  [T165].MAX-Parent,[T165].Name
+FROM
+  (( (SELECT
+          MAX([T163].Parent)
+        FROM
+          (input1) AS [T163][ID, Name, Age, Parent]) AS [T164][MAX-Parent] ) JOIN (
+      input1 )) AS [T165][MAX-Parent, ID, Name, Age, Parent]
+WHERE
+  [T165].MAX-Parent == [T165].ID
+@anonymous
+[T165].MAX-Parent(NumberVal) | [T165].Name(StringVal) 
+1.0 | Bob 
+
+[No.4]===============================
+SELECT
+  [T129].Parent,[T129].Name
+FROM
+  (( (SELECT
+          [T127].Parent, MAX([T127].Age)
+        FROM
+          (input1) AS [T127][ID, Name, Age, Parent]
+        GROUP BY
+          [T127].Parent) AS [T128][Parent, MAX-Age] ) JOIN (
+      input1 )) AS [T129][Parent, MAX-Age, ID, Name, Age, Parent1]
+WHERE
+  [T129].Parent == [T129].ID
+@anonymous
+[T129].Parent(NumberVal) | [T129].Name(StringVal) 
+1.0 | Bob 
+
+[No.3]===============================
+SELECT
+  [T99].Parent,[T99].Name
+FROM
+  (( (SELECT
+          [T97].Parent, MAX([T97].ID)
+        FROM
+          (input1) AS [T97][ID, Name, Age, Parent]
+        GROUP BY
+          [T97].Parent) AS [T98][Parent, MAX-ID] ) JOIN (
+      input1 )) AS [T99][Parent, MAX-ID, ID, Name, Age, Parent1]
+WHERE
+  [T99].Parent == [T99].ID
+@anonymous
+[T99].Parent(NumberVal) | [T99].Name(StringVal) 
+1.0 | Bob 
+
+[No.2]===============================
+SELECT
+  [T207].ID,[T207].Name
+FROM
+  (( (SELECT
+          MAX([T205].Age)
+        FROM
+          (input1) AS [T205][ID, Name, Age, Parent]) AS [T206][MAX-Age] ) JOIN (
+      input1 )) AS [T207][MAX-Age, ID, Name, Age, Parent]
+WHERE
+  [T207].MAX-Age == [T207].Age
+@anonymous
+[T207].ID(NumberVal) | [T207].Name(StringVal) 
+1.0 | Bob 
+
+[No.1]===============================
+SELECT
+  [T56].Parent,[T56].Name
+FROM
+  (( (SELECT
+          [T54].Parent, FROM
+          (input1) AS [T54][ID, Name, Age, Parent]
+        GROUP BY
+          [T54].Parent) AS [T55][Parent] ) JOIN (
+      input1 )) AS [T56][Parent, ID, Name, Age, Parent1]
+WHERE
+  [T56].Parent == [T56].ID
+@anonymous
+[T56].Parent(NumberVal) | [T56].Name(StringVal) 
+1.0 | Bob 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.898s

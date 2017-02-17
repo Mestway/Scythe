@@ -1,0 +1,37 @@
+//http://stackoverflow.com/questions/29442201/matching-multiple-attributes
+
+#input
+
+|  ID |  Fruit    |
+|-----------------|
+|  1  |  apples   |
+|  1  |  bananas  |
+|  2  |  apples   |
+|  2  |  oranges  |
+|  2  |  cherries |
+|  2  |  lychees  |
+|  3  |  bananas  |
+|  3  |  cherries |
+|  3  |  lychees  |
+
+#output
+
+|  ID1 | ID2 | Fruit    |
+|-----------------------|
+|  1   | 2   | apples   |
+|  1   | 3   | bananas  |
+|  2   | 3   | cherries |
+|  2   | 3   | lychees  |
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["count"]
+}
+
+#solution
+
+SELECT s.name, f.fruit
+FROM stores s
+JOIN fruit_sold f
+ON f.store_id < f2.store_id AND f.fruit = f.fruit

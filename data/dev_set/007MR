@@ -1,0 +1,41 @@
+//http://stackoverflow.com/questions/612231/how-can-i-select-rows-with-maxcolumn-value-distinct-by-another-column-in-sql?rq=1
+//// MOD 1
+
+# input
+
+    | id | home|  datetime  | player  | resource |
+    |--------------------------------------------|
+    | 1  | 10  | 03/04/2009 | john    | 199      |
+    | 2  | 11  | 03/04/2009 | juliet  | 244      |
+    | 5  | 12  | 03/04/2009 | borat   | 555      |
+    | 3  | 10  | 03/03/2009 | john    | 300      |
+    | 4  | 11  | 03/03/2009 | juliet  | 200      |
+    | 6  | 12  | 03/03/2009 | borat   | 500      |
+    | 7  | 13  | 12/24/2008 | borat   | 600      |
+    | 8  | 13  | 01/01/2009 | borat   | 700      |
+
+# output
+
+    | id | home|  datetime  | player | resource |
+    |-------------------------------------------|
+    | 1  | 10  | 03/04/2009 | john   | 199      |
+    | 2  | 11  | 03/04/2009 | juliet | 244      |
+    | 5  | 12  | 03/04/2009 | borat  | 555      |
+    | 8  | 13  | 01/01/2009 | borat  | 700      |
+
+#constraint
+{
+    "constants": [],
+    "aggregation_functions": ["max"]
+}
+
+#solution
+
+SELECT tt.*
+FROM topten tt
+INNER JOIN
+    (SELECT home, MAX(datetime) AS MaxDateTime
+    FROM topten
+    GROUP BY home) groupedtt 
+ON tt.home = groupedtt.home 
+AND tt.datetime = groupedtt.MaxDateTime

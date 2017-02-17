@@ -1,0 +1,37 @@
+//http://stackoverflow.com/questions/21162812/select-rows-with-same-id-but-different-value-in-another-column
+
+#input
+
+|ARIDNR|LIEFNR|
+|-------------|
+|1     |A     |
+|2     |A     |
+|3     |A     |
+|1     |B     |
+|2     |B     |
+
+#output
+
+|ARIDNR|LIEFNR|
+|-------------|
+|1     |A     |
+|1     |B     |
+|2     |A     |
+|2     |B     |
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["count"]
+}
+
+#solution
+
+SELECT *
+FROM YourTable
+WHERE ARIDNR IN (
+    SELECT ARIDNR
+    FROM YourTable
+    GROUP BY ARIDNR
+    HAVING COUNT(*) > 1
+)

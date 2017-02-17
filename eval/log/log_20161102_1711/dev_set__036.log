@@ -1,0 +1,750 @@
+[[Synthesis start]]
+	File: ../data/dev_set/036
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 14 [SymTable]: 16
+[JOIN] level 1 [SymTable]: 49
+[EnumJoinOnAggr] level 1 [SymTable]: 305
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+  [Try decomposition] 
+@output
+c1(StringVal) | c2(StringVal) | c3(StringVal) | c4(StringVal) 
+PID1 | GUID1 | Mulder | Fox 
+
+@output
+c1(StringVal) | c2(StringVal) | c3(StringVal) | c4(StringVal) 
+PID1 | GUID2 | Scully | Dana 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 14 [SymTable]: 16
+[NaturalJoin]: 1 [SymTable]: 17
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 14 [SymTable]: 16
+[JOIN] level 1 [SymTable]: 49
+[EnumJoinOnAggr] level 1 [SymTable]: 305
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+  [Try decomposition] 
+@output
+c1(StringVal) | c2(StringVal) | c3(StringVal) | c4(StringVal) 
+PID1 | GUID2 | Scully | Dana 
+
+@output
+c1(StringVal) | c2(StringVal) | c3(StringVal) | c4(StringVal) 
+PID1 | GUID1 | Mulder | Fox 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 14 [SymTable]: 16
+[NaturalJoin]: 1 [SymTable]: 17
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 14 [SymTable]: 16
+[JOIN] level 1 [SymTable]: 49
+Candidate Tree Number: 4
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 14 [SymTable]: 16
+[NaturalJoin]: 1 [SymTable]: 17
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 14 [SymTable]: 16
+[JOIN] level 1 [SymTable]: 49
+[EnumJoinOnAggr] level 1 [SymTable]: 305
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 2
+@output
+c1(StringVal) | c2(StringVal) | c3(StringVal) | c4(StringVal) 
+PID1 | GUID1 | Mulder | Fox 
+PID1 | GUID2 | Scully | Dana 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 14 [SymTable]: 16
+[JOIN] level 1 [SymTable]: 49
+[JOIN] level 2 [SymTable]: 113
+[UNION] level 1 [SymTable]: 115
+[EnumLeftJoin] level 1 [SymTable]: 137
+[EnumLeftJoinWAggr] level 1 [SymTable]: 203
+[EnumAggrOnJoin]  [SymTable]: 2614
+[EnumJoinOnAggr] level 1 [SymTable]: 2870
+[EnumJoinOnAggr] level 2 [SymTable]: 6966
+Candidate Tree Number: 526
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T5336].PID,[T5336].GUID1,[T5336].LastName,[T5336].FirstName
+FROM
+  (( SELECT
+        [T5334].GUID,[T5334].PID,[T5334].COUNT-GUID,[T5334].GUID1,[T5334].PID1,[T5334].COUNT-GUID1
+      FROM
+        (( (SELECT
+                [T5328].GUID, [T5328].PID, COUNT([T5328].GUID)
+              FROM
+                (input1) AS [T5328][GUID, PID]
+              GROUP BY
+                [T5328].GUID  [T5328].PID) AS [T5329][GUID, PID, COUNT-GUID] ) JOIN (
+            (SELECT
+                [T5332].GUID, [T5332].PID, COUNT([T5332].GUID)
+              FROM
+                (input1) AS [T5332][GUID, PID]
+              GROUP BY
+                [T5332].GUID  [T5332].PID) AS [T5333][GUID, PID, COUNT-GUID] )) AS [T5334][GUID, PID, COUNT-GUID, GUID1, PID1, COUNT-GUID1]
+      WHERE
+        [T5334].COUNT-GUID <> [T5334].COUNT-GUID1
+         AND [T5334].PID == [T5334].PID1 ) JOIN (
+      input2 )) AS [T5336][GUID, PID, COUNT-GUID, GUID1, PID1, COUNT-GUID1, GUID2, LastName, FirstName]
+WHERE
+  [T5336].GUID1 == [T5336].GUID2
+@anonymous
+[T5336].PID(StringVal) | [T5336].GUID1(StringVal) | [T5336].LastName(StringVal) | [T5336].FirstName(StringVal) 
+PID1 | GUID2 | Scully | Dana 
+PID1 | GUID1 | Mulder | Fox 
+
+[No.19]===============================
+SELECT
+  [T5324].PID,[T5324].GUID1,[T5324].LastName,[T5324].FirstName
+FROM
+  (( SELECT
+        [T5322].GUID,[T5322].PID,[T5322].COUNT-GUID,[T5322].GUID1,[T5322].PID1,[T5322].COUNT-GUID1
+      FROM
+        (( (SELECT
+                [T5316].GUID, [T5316].PID, COUNT([T5316].GUID)
+              FROM
+                (input1) AS [T5316][GUID, PID]
+              GROUP BY
+                [T5316].GUID  [T5316].PID) AS [T5317][GUID, PID, COUNT-GUID] ) JOIN (
+            (SELECT
+                [T5320].GUID, [T5320].PID, COUNT([T5320].GUID)
+              FROM
+                (input1) AS [T5320][GUID, PID]
+              GROUP BY
+                [T5320].GUID  [T5320].PID) AS [T5321][GUID, PID, COUNT-GUID] )) AS [T5322][GUID, PID, COUNT-GUID, GUID1, PID1, COUNT-GUID1]
+      WHERE
+        [T5322].GUID <> [T5322].GUID1
+         AND [T5322].PID == [T5322].PID1 ) JOIN (
+      input2 )) AS [T5324][GUID, PID, COUNT-GUID, GUID1, PID1, COUNT-GUID1, GUID2, LastName, FirstName]
+WHERE
+  [T5324].GUID1 == [T5324].GUID2
+@anonymous
+[T5324].PID(StringVal) | [T5324].GUID1(StringVal) | [T5324].LastName(StringVal) | [T5324].FirstName(StringVal) 
+PID1 | GUID2 | Scully | Dana 
+PID1 | GUID1 | Mulder | Fox 
+
+[No.18]===============================
+SELECT
+  [T5168].PID,[T5168].GUID,[T5168].LastName,[T5168].FirstName
+FROM
+  (( SELECT
+        [T5166].GUID,[T5166].PID,[T5166].COUNT-GUID,[T5166].PID1,[T5166].COUNT-GUID1
+      FROM
+        (( (SELECT
+                [T5160].GUID, [T5160].PID, COUNT([T5160].GUID)
+              FROM
+                (input1) AS [T5160][GUID, PID]
+              GROUP BY
+                [T5160].GUID  [T5160].PID) AS [T5161][GUID, PID, COUNT-GUID] ) JOIN (
+            (SELECT
+                [T5164].PID, COUNT([T5164].GUID)
+              FROM
+                (input1) AS [T5164][GUID, PID]
+              GROUP BY
+                [T5164].PID) AS [T5165][PID, COUNT-GUID] )) AS [T5166][GUID, PID, COUNT-GUID, PID1, COUNT-GUID1]
+      WHERE
+        [T5166].COUNT-GUID < [T5166].COUNT-GUID1
+         AND [T5166].PID == [T5166].PID1 ) JOIN (
+      input2 )) AS [T5168][GUID, PID, COUNT-GUID, PID1, COUNT-GUID1, GUID1, LastName, FirstName]
+WHERE
+  [T5168].GUID == [T5168].GUID1
+@anonymous
+[T5168].PID(StringVal) | [T5168].GUID(StringVal) | [T5168].LastName(StringVal) | [T5168].FirstName(StringVal) 
+PID1 | GUID1 | Mulder | Fox 
+PID1 | GUID2 | Scully | Dana 
+
+[No.17]===============================
+SELECT
+  [T4928].PID,[T4928].GUID,[T4928].LastName,[T4928].FirstName
+FROM
+  (( SELECT
+        [T4926].GUID,[T4926].PID,[T4926].GUID1,[T4926].PID1,[T4926].COUNT-GUID
+      FROM
+        (( (SELECT
+                [T4920].GUID, [T4920].PID, FROM
+                (input1) AS [T4920][GUID, PID]
+              GROUP BY
+                [T4920].GUID  [T4920].PID) AS [T4921][GUID, PID] ) JOIN (
+            (SELECT
+                [T4924].GUID, [T4924].PID, COUNT([T4924].GUID)
+              FROM
+                (input1) AS [T4924][GUID, PID]
+              GROUP BY
+                [T4924].GUID  [T4924].PID) AS [T4925][GUID, PID, COUNT-GUID] )) AS [T4926][GUID, PID, GUID1, PID1, COUNT-GUID]
+      WHERE
+        [T4926].GUID <> [T4926].GUID1
+         AND [T4926].PID == [T4926].PID1 ) JOIN (
+      input2 )) AS [T4928][GUID, PID, GUID1, PID1, COUNT-GUID, GUID2, LastName, FirstName]
+WHERE
+  [T4928].GUID == [T4928].GUID2
+@anonymous
+[T4928].PID(StringVal) | [T4928].GUID(StringVal) | [T4928].LastName(StringVal) | [T4928].FirstName(StringVal) 
+PID1 | GUID1 | Mulder | Fox 
+PID1 | GUID2 | Scully | Dana 
+
+[No.16]===============================
+SELECT
+  [T4868].PID,[T4868].GUID1,[T4868].LastName,[T4868].FirstName
+FROM
+  (( SELECT
+        [T4866].GUID,[T4866].PID,[T4866].GUID1,[T4866].PID1,[T4866].COUNT-GUID
+      FROM
+        (( (SELECT
+                [T4860].GUID, [T4860].PID, FROM
+                (input1) AS [T4860][GUID, PID]
+              GROUP BY
+                [T4860].GUID  [T4860].PID) AS [T4861][GUID, PID] ) JOIN (
+            (SELECT
+                [T4864].GUID, [T4864].PID, COUNT([T4864].GUID)
+              FROM
+                (input1) AS [T4864][GUID, PID]
+              GROUP BY
+                [T4864].GUID  [T4864].PID) AS [T4865][GUID, PID, COUNT-GUID] )) AS [T4866][GUID, PID, GUID1, PID1, COUNT-GUID]
+      WHERE
+        [T4866].GUID <> [T4866].GUID1
+         AND [T4866].PID == [T4866].PID1 ) JOIN (
+      input2 )) AS [T4868][GUID, PID, GUID1, PID1, COUNT-GUID, GUID2, LastName, FirstName]
+WHERE
+  [T4868].GUID1 == [T4868].GUID2
+@anonymous
+[T4868].PID(StringVal) | [T4868].GUID1(StringVal) | [T4868].LastName(StringVal) | [T4868].FirstName(StringVal) 
+PID1 | GUID2 | Scully | Dana 
+PID1 | GUID1 | Mulder | Fox 
+
+[No.15]===============================
+SELECT
+  [T4208].PID,[T4208].GUID,[T4208].LastName,[T4208].FirstName
+FROM
+  (( SELECT
+        [T4206].GUID,[T4206].PID,[T4206].COUNT-PID,[T4206].PID1,[T4206].COUNT-PID1
+      FROM
+        (( (SELECT
+                [T4200].GUID, [T4200].PID, COUNT([T4200].PID)
+              FROM
+                (input1) AS [T4200][GUID, PID]
+              GROUP BY
+                [T4200].GUID  [T4200].PID) AS [T4201][GUID, PID, COUNT-PID] ) JOIN (
+            (SELECT
+                [T4204].PID, COUNT([T4204].PID)
+              FROM
+                (input1) AS [T4204][GUID, PID]
+              GROUP BY
+                [T4204].PID) AS [T4205][PID, COUNT-PID] )) AS [T4206][GUID, PID, COUNT-PID, PID1, COUNT-PID1]
+      WHERE
+        [T4206].COUNT-PID < [T4206].COUNT-PID1
+         AND [T4206].PID == [T4206].PID1 ) JOIN (
+      input2 )) AS [T4208][GUID, PID, COUNT-PID, PID1, COUNT-PID1, GUID1, LastName, FirstName]
+WHERE
+  [T4208].GUID == [T4208].GUID1
+@anonymous
+[T4208].PID(StringVal) | [T4208].GUID(StringVal) | [T4208].LastName(StringVal) | [T4208].FirstName(StringVal) 
+PID1 | GUID1 | Mulder | Fox 
+PID1 | GUID2 | Scully | Dana 
+
+[No.14]===============================
+SELECT
+  [T3800].PID,[T3800].GUID,[T3800].LastName,[T3800].FirstName
+FROM
+  (( SELECT
+        [T3798].GUID,[T3798].PID,[T3798].COUNT-PID,[T3798].GUID1,[T3798].PID1
+      FROM
+        (( (SELECT
+                [T3792].GUID, [T3792].PID, COUNT([T3792].PID)
+              FROM
+                (input1) AS [T3792][GUID, PID]
+              GROUP BY
+                [T3792].GUID  [T3792].PID) AS [T3793][GUID, PID, COUNT-PID] ) JOIN (
+            (SELECT
+                [T3796].GUID, [T3796].PID, FROM
+                (input1) AS [T3796][GUID, PID]
+              GROUP BY
+                [T3796].GUID  [T3796].PID) AS [T3797][GUID, PID] )) AS [T3798][GUID, PID, COUNT-PID, GUID1, PID1]
+      WHERE
+        [T3798].GUID <> [T3798].GUID1
+         AND [T3798].PID == [T3798].PID1 ) JOIN (
+      input2 )) AS [T3800][GUID, PID, COUNT-PID, GUID1, PID1, GUID2, LastName, FirstName]
+WHERE
+  [T3800].GUID == [T3800].GUID2
+@anonymous
+[T3800].PID(StringVal) | [T3800].GUID(StringVal) | [T3800].LastName(StringVal) | [T3800].FirstName(StringVal) 
+PID1 | GUID1 | Mulder | Fox 
+PID1 | GUID2 | Scully | Dana 
+
+[No.13]===============================
+SELECT
+  [T3740].PID,[T3740].GUID1,[T3740].LastName,[T3740].FirstName
+FROM
+  (( SELECT
+        [T3738].GUID,[T3738].PID,[T3738].COUNT-PID,[T3738].GUID1,[T3738].PID1
+      FROM
+        (( (SELECT
+                [T3732].GUID, [T3732].PID, COUNT([T3732].PID)
+              FROM
+                (input1) AS [T3732][GUID, PID]
+              GROUP BY
+                [T3732].GUID  [T3732].PID) AS [T3733][GUID, PID, COUNT-PID] ) JOIN (
+            (SELECT
+                [T3736].GUID, [T3736].PID, FROM
+                (input1) AS [T3736][GUID, PID]
+              GROUP BY
+                [T3736].GUID  [T3736].PID) AS [T3737][GUID, PID] )) AS [T3738][GUID, PID, COUNT-PID, GUID1, PID1]
+      WHERE
+        [T3738].GUID <> [T3738].GUID1
+         AND [T3738].PID == [T3738].PID1 ) JOIN (
+      input2 )) AS [T3740][GUID, PID, COUNT-PID, GUID1, PID1, GUID2, LastName, FirstName]
+WHERE
+  [T3740].GUID1 == [T3740].GUID2
+@anonymous
+[T3740].PID(StringVal) | [T3740].GUID1(StringVal) | [T3740].LastName(StringVal) | [T3740].FirstName(StringVal) 
+PID1 | GUID2 | Scully | Dana 
+PID1 | GUID1 | Mulder | Fox 
+
+[No.12]===============================
+SELECT
+  [T9992].PID,[T9992].GUID,[T9992].LastName,[T9992].FirstName
+FROM
+  (( SELECT
+        [T9990].GUID,[T9990].PID,[T9990].COUNT-PID,[T9990].GUID1,[T9990].PID1,[T9990].COUNT-GUID
+      FROM
+        (( (SELECT
+                [T9984].GUID, [T9984].PID, COUNT([T9984].PID)
+              FROM
+                (input1) AS [T9984][GUID, PID]
+              GROUP BY
+                [T9984].GUID  [T9984].PID) AS [T9985][GUID, PID, COUNT-PID] ) JOIN (
+            SELECT
+              [T9989].GUID,[T9989].PID,[T9989].COUNT-GUID
+            FROM
+              (SELECT
+                  [T9988].GUID, [T9988].PID, COUNT([T9988].GUID)
+                FROM
+                  (input1) AS [T9988][GUID, PID]
+                GROUP BY
+                  [T9988].GUID  [T9988].PID) AS [T9989][GUID, PID, COUNT-GUID]
+            WHERE
+              [T9989].COUNT-GUID < 2.0 )) AS [T9990][GUID, PID, COUNT-PID, GUID1, PID1, COUNT-GUID]
+      WHERE
+        [T9990].PID == [T9990].PID1 ) JOIN (
+      input2 )) AS [T9992][GUID, PID, COUNT-PID, GUID1, PID1, COUNT-GUID, GUID2, LastName, FirstName]
+WHERE
+  [T9992].GUID == [T9992].GUID2
+@anonymous
+[T9992].PID(StringVal) | [T9992].GUID(StringVal) | [T9992].LastName(StringVal) | [T9992].FirstName(StringVal) 
+PID1 | GUID1 | Mulder | Fox 
+PID1 | GUID2 | Scully | Dana 
+
+[No.11]===============================
+SELECT
+  [T9920].PID,[T9920].GUID1,[T9920].LastName,[T9920].FirstName
+FROM
+  (( SELECT
+        [T9918].GUID,[T9918].PID,[T9918].COUNT-PID,[T9918].GUID1,[T9918].PID1,[T9918].COUNT-GUID
+      FROM
+        (( SELECT
+              [T9913].GUID,[T9913].PID,[T9913].COUNT-PID
+            FROM
+              (SELECT
+                  [T9912].GUID, [T9912].PID, COUNT([T9912].PID)
+                FROM
+                  (input1) AS [T9912][GUID, PID]
+                GROUP BY
+                  [T9912].GUID  [T9912].PID) AS [T9913][GUID, PID, COUNT-PID]
+            WHERE
+              [T9913].COUNT-PID < 2.0 ) JOIN (
+            (SELECT
+                [T9916].GUID, [T9916].PID, COUNT([T9916].GUID)
+              FROM
+                (input1) AS [T9916][GUID, PID]
+              GROUP BY
+                [T9916].GUID  [T9916].PID) AS [T9917][GUID, PID, COUNT-GUID] )) AS [T9918][GUID, PID, COUNT-PID, GUID1, PID1, COUNT-GUID]
+      WHERE
+        [T9918].PID == [T9918].PID1 ) JOIN (
+      input2 )) AS [T9920][GUID, PID, COUNT-PID, GUID1, PID1, COUNT-GUID, GUID2, LastName, FirstName]
+WHERE
+  [T9920].GUID1 == [T9920].GUID2
+@anonymous
+[T9920].PID(StringVal) | [T9920].GUID1(StringVal) | [T9920].LastName(StringVal) | [T9920].FirstName(StringVal) 
+PID1 | GUID1 | Mulder | Fox 
+PID1 | GUID2 | Scully | Dana 
+
+[No.10]===============================
+SELECT
+  [T8528].PID,[T8528].GUID1,[T8528].LastName,[T8528].FirstName
+FROM
+  (( SELECT
+        [T8526].GUID,[T8526].PID,[T8526].COUNT-GUID,[T8526].GUID1,[T8526].PID1
+      FROM
+        (( SELECT
+              [T8521].GUID,[T8521].PID,[T8521].COUNT-GUID
+            FROM
+              (SELECT
+                  [T8520].GUID, [T8520].PID, COUNT([T8520].GUID)
+                FROM
+                  (input1) AS [T8520][GUID, PID]
+                GROUP BY
+                  [T8520].GUID  [T8520].PID) AS [T8521][GUID, PID, COUNT-GUID]
+            WHERE
+              [T8521].COUNT-GUID < 2.0 ) JOIN (
+            (SELECT
+                [T8524].GUID, [T8524].PID, FROM
+                (input1) AS [T8524][GUID, PID]
+              GROUP BY
+                [T8524].GUID  [T8524].PID) AS [T8525][GUID, PID] )) AS [T8526][GUID, PID, COUNT-GUID, GUID1, PID1]
+      WHERE
+        [T8526].PID == [T8526].PID1 ) JOIN (
+      input2 )) AS [T8528][GUID, PID, COUNT-GUID, GUID1, PID1, GUID2, LastName, FirstName]
+WHERE
+  [T8528].GUID1 == [T8528].GUID2
+@anonymous
+[T8528].PID(StringVal) | [T8528].GUID1(StringVal) | [T8528].LastName(StringVal) | [T8528].FirstName(StringVal) 
+PID1 | GUID1 | Mulder | Fox 
+PID1 | GUID2 | Scully | Dana 
+
+[No.9]===============================
+SELECT
+  [T8000].PID,[T8000].GUID1,[T8000].LastName,[T8000].FirstName
+FROM
+  (( SELECT
+        [T7998].GUID,[T7998].PID,[T7998].COUNT-PID,[T7998].GUID1,[T7998].PID1,[T7998].COUNT-PID1
+      FROM
+        (( SELECT
+              [T7993].GUID,[T7993].PID,[T7993].COUNT-PID
+            FROM
+              (SELECT
+                  [T7992].GUID, [T7992].PID, COUNT([T7992].PID)
+                FROM
+                  (input1) AS [T7992][GUID, PID]
+                GROUP BY
+                  [T7992].GUID  [T7992].PID) AS [T7993][GUID, PID, COUNT-PID]
+            WHERE
+              [T7993].COUNT-PID < 2.0 ) JOIN (
+            (SELECT
+                [T7996].GUID, [T7996].PID, COUNT([T7996].PID)
+              FROM
+                (input1) AS [T7996][GUID, PID]
+              GROUP BY
+                [T7996].GUID  [T7996].PID) AS [T7997][GUID, PID, COUNT-PID] )) AS [T7998][GUID, PID, COUNT-PID, GUID1, PID1, COUNT-PID1]
+      WHERE
+        [T7998].PID == [T7998].PID1 ) JOIN (
+      input2 )) AS [T8000][GUID, PID, COUNT-PID, GUID1, PID1, COUNT-PID1, GUID2, LastName, FirstName]
+WHERE
+  [T8000].GUID1 == [T8000].GUID2
+@anonymous
+[T8000].PID(StringVal) | [T8000].GUID1(StringVal) | [T8000].LastName(StringVal) | [T8000].FirstName(StringVal) 
+PID1 | GUID1 | Mulder | Fox 
+PID1 | GUID2 | Scully | Dana 
+
+[No.8]===============================
+SELECT
+  [T7976].PID,[T7976].GUID,[T7976].LastName,[T7976].FirstName
+FROM
+  (( SELECT
+        [T7974].GUID,[T7974].PID,[T7974].COUNT-PID,[T7974].GUID1,[T7974].PID1,[T7974].COUNT-PID1
+      FROM
+        (( (SELECT
+                [T7968].GUID, [T7968].PID, COUNT([T7968].PID)
+              FROM
+                (input1) AS [T7968][GUID, PID]
+              GROUP BY
+                [T7968].GUID  [T7968].PID) AS [T7969][GUID, PID, COUNT-PID] ) JOIN (
+            SELECT
+              [T7973].GUID,[T7973].PID,[T7973].COUNT-PID
+            FROM
+              (SELECT
+                  [T7972].GUID, [T7972].PID, COUNT([T7972].PID)
+                FROM
+                  (input1) AS [T7972][GUID, PID]
+                GROUP BY
+                  [T7972].GUID  [T7972].PID) AS [T7973][GUID, PID, COUNT-PID]
+            WHERE
+              [T7973].COUNT-PID < 2.0 )) AS [T7974][GUID, PID, COUNT-PID, GUID1, PID1, COUNT-PID1]
+      WHERE
+        [T7974].PID == [T7974].PID1 ) JOIN (
+      input2 )) AS [T7976][GUID, PID, COUNT-PID, GUID1, PID1, COUNT-PID1, GUID2, LastName, FirstName]
+WHERE
+  [T7976].GUID == [T7976].GUID2
+@anonymous
+[T7976].PID(StringVal) | [T7976].GUID(StringVal) | [T7976].LastName(StringVal) | [T7976].FirstName(StringVal) 
+PID1 | GUID1 | Mulder | Fox 
+PID1 | GUID2 | Scully | Dana 
+
+[No.7]===============================
+SELECT
+  [T6800].PID,[T6800].GUID,[T6800].LastName,[T6800].FirstName
+FROM
+  (( SELECT
+        [T6798].GUID,[T6798].PID,[T6798].GUID1,[T6798].PID1,[T6798].COUNT-PID
+      FROM
+        (( (SELECT
+                [T6792].GUID, [T6792].PID, FROM
+                (input1) AS [T6792][GUID, PID]
+              GROUP BY
+                [T6792].GUID  [T6792].PID) AS [T6793][GUID, PID] ) JOIN (
+            SELECT
+              [T6797].GUID,[T6797].PID,[T6797].COUNT-PID
+            FROM
+              (SELECT
+                  [T6796].GUID, [T6796].PID, COUNT([T6796].PID)
+                FROM
+                  (input1) AS [T6796][GUID, PID]
+                GROUP BY
+                  [T6796].GUID  [T6796].PID) AS [T6797][GUID, PID, COUNT-PID]
+            WHERE
+              [T6797].COUNT-PID < 2.0 )) AS [T6798][GUID, PID, GUID1, PID1, COUNT-PID]
+      WHERE
+        [T6798].PID == [T6798].PID1 ) JOIN (
+      input2 )) AS [T6800][GUID, PID, GUID1, PID1, COUNT-PID, GUID2, LastName, FirstName]
+WHERE
+  [T6800].GUID == [T6800].GUID2
+@anonymous
+[T6800].PID(StringVal) | [T6800].GUID(StringVal) | [T6800].LastName(StringVal) | [T6800].FirstName(StringVal) 
+PID1 | GUID1 | Mulder | Fox 
+PID1 | GUID2 | Scully | Dana 
+
+[No.6]===============================
+SELECT
+  [T6200].PID,[T6200].GUID1,[T6200].LastName,[T6200].FirstName
+FROM
+  (( SELECT
+        [T6198].GUID,[T6198].PID,[T6198].COUNT-GUID,[T6198].GUID1,[T6198].PID1,[T6198].COUNT-PID
+      FROM
+        (( SELECT
+              [T6193].GUID,[T6193].PID,[T6193].COUNT-GUID
+            FROM
+              (SELECT
+                  [T6192].GUID, [T6192].PID, COUNT([T6192].GUID)
+                FROM
+                  (input1) AS [T6192][GUID, PID]
+                GROUP BY
+                  [T6192].GUID  [T6192].PID) AS [T6193][GUID, PID, COUNT-GUID]
+            WHERE
+              [T6193].COUNT-GUID < 2.0 ) JOIN (
+            (SELECT
+                [T6196].GUID, [T6196].PID, COUNT([T6196].PID)
+              FROM
+                (input1) AS [T6196][GUID, PID]
+              GROUP BY
+                [T6196].GUID  [T6196].PID) AS [T6197][GUID, PID, COUNT-PID] )) AS [T6198][GUID, PID, COUNT-GUID, GUID1, PID1, COUNT-PID]
+      WHERE
+        [T6198].PID == [T6198].PID1 ) JOIN (
+      input2 )) AS [T6200][GUID, PID, COUNT-GUID, GUID1, PID1, COUNT-PID, GUID2, LastName, FirstName]
+WHERE
+  [T6200].GUID1 == [T6200].GUID2
+@anonymous
+[T6200].PID(StringVal) | [T6200].GUID1(StringVal) | [T6200].LastName(StringVal) | [T6200].FirstName(StringVal) 
+PID1 | GUID1 | Mulder | Fox 
+PID1 | GUID2 | Scully | Dana 
+
+[No.5]===============================
+SELECT
+  [T6176].PID,[T6176].GUID,[T6176].LastName,[T6176].FirstName
+FROM
+  (( SELECT
+        [T6174].GUID,[T6174].PID,[T6174].COUNT-GUID,[T6174].GUID1,[T6174].PID1,[T6174].COUNT-PID
+      FROM
+        (( (SELECT
+                [T6168].GUID, [T6168].PID, COUNT([T6168].GUID)
+              FROM
+                (input1) AS [T6168][GUID, PID]
+              GROUP BY
+                [T6168].GUID  [T6168].PID) AS [T6169][GUID, PID, COUNT-GUID] ) JOIN (
+            SELECT
+              [T6173].GUID,[T6173].PID,[T6173].COUNT-PID
+            FROM
+              (SELECT
+                  [T6172].GUID, [T6172].PID, COUNT([T6172].PID)
+                FROM
+                  (input1) AS [T6172][GUID, PID]
+                GROUP BY
+                  [T6172].GUID  [T6172].PID) AS [T6173][GUID, PID, COUNT-PID]
+            WHERE
+              [T6173].COUNT-PID < 2.0 )) AS [T6174][GUID, PID, COUNT-GUID, GUID1, PID1, COUNT-PID]
+      WHERE
+        [T6174].PID == [T6174].PID1 ) JOIN (
+      input2 )) AS [T6176][GUID, PID, COUNT-GUID, GUID1, PID1, COUNT-PID, GUID2, LastName, FirstName]
+WHERE
+  [T6176].GUID == [T6176].GUID2
+@anonymous
+[T6176].PID(StringVal) | [T6176].GUID(StringVal) | [T6176].LastName(StringVal) | [T6176].FirstName(StringVal) 
+PID1 | GUID1 | Mulder | Fox 
+PID1 | GUID2 | Scully | Dana 
+
+[No.4]===============================
+SELECT
+  [T5528].PID,[T5528].GUID,[T5528].LastName,[T5528].FirstName
+FROM
+  (( SELECT
+        [T5526].GUID,[T5526].PID,[T5526].COUNT-GUID,[T5526].GUID1,[T5526].PID1,[T5526].COUNT-GUID1
+      FROM
+        (( (SELECT
+                [T5520].GUID, [T5520].PID, COUNT([T5520].GUID)
+              FROM
+                (input1) AS [T5520][GUID, PID]
+              GROUP BY
+                [T5520].GUID  [T5520].PID) AS [T5521][GUID, PID, COUNT-GUID] ) JOIN (
+            SELECT
+              [T5525].GUID,[T5525].PID,[T5525].COUNT-GUID
+            FROM
+              (SELECT
+                  [T5524].GUID, [T5524].PID, COUNT([T5524].GUID)
+                FROM
+                  (input1) AS [T5524][GUID, PID]
+                GROUP BY
+                  [T5524].GUID  [T5524].PID) AS [T5525][GUID, PID, COUNT-GUID]
+            WHERE
+              [T5525].COUNT-GUID < 2.0 )) AS [T5526][GUID, PID, COUNT-GUID, GUID1, PID1, COUNT-GUID1]
+      WHERE
+        [T5526].PID == [T5526].PID1 ) JOIN (
+      input2 )) AS [T5528][GUID, PID, COUNT-GUID, GUID1, PID1, COUNT-GUID1, GUID2, LastName, FirstName]
+WHERE
+  [T5528].GUID == [T5528].GUID2
+@anonymous
+[T5528].PID(StringVal) | [T5528].GUID(StringVal) | [T5528].LastName(StringVal) | [T5528].FirstName(StringVal) 
+PID1 | GUID1 | Mulder | Fox 
+PID1 | GUID2 | Scully | Dana 
+
+[No.3]===============================
+SELECT
+  [T5456].PID,[T5456].GUID1,[T5456].LastName,[T5456].FirstName
+FROM
+  (( SELECT
+        [T5454].GUID,[T5454].PID,[T5454].COUNT-GUID,[T5454].GUID1,[T5454].PID1,[T5454].COUNT-GUID1
+      FROM
+        (( SELECT
+              [T5449].GUID,[T5449].PID,[T5449].COUNT-GUID
+            FROM
+              (SELECT
+                  [T5448].GUID, [T5448].PID, COUNT([T5448].GUID)
+                FROM
+                  (input1) AS [T5448][GUID, PID]
+                GROUP BY
+                  [T5448].GUID  [T5448].PID) AS [T5449][GUID, PID, COUNT-GUID]
+            WHERE
+              [T5449].COUNT-GUID < 2.0 ) JOIN (
+            (SELECT
+                [T5452].GUID, [T5452].PID, COUNT([T5452].GUID)
+              FROM
+                (input1) AS [T5452][GUID, PID]
+              GROUP BY
+                [T5452].GUID  [T5452].PID) AS [T5453][GUID, PID, COUNT-GUID] )) AS [T5454][GUID, PID, COUNT-GUID, GUID1, PID1, COUNT-GUID1]
+      WHERE
+        [T5454].PID == [T5454].PID1 ) JOIN (
+      input2 )) AS [T5456][GUID, PID, COUNT-GUID, GUID1, PID1, COUNT-GUID1, GUID2, LastName, FirstName]
+WHERE
+  [T5456].GUID1 == [T5456].GUID2
+@anonymous
+[T5456].PID(StringVal) | [T5456].GUID1(StringVal) | [T5456].LastName(StringVal) | [T5456].FirstName(StringVal) 
+PID1 | GUID1 | Mulder | Fox 
+PID1 | GUID2 | Scully | Dana 
+
+[No.2]===============================
+SELECT
+  [T5000].PID,[T5000].GUID,[T5000].LastName,[T5000].FirstName
+FROM
+  (( SELECT
+        [T4998].GUID,[T4998].PID,[T4998].GUID1,[T4998].PID1,[T4998].COUNT-GUID
+      FROM
+        (( (SELECT
+                [T4992].GUID, [T4992].PID, FROM
+                (input1) AS [T4992][GUID, PID]
+              GROUP BY
+                [T4992].GUID  [T4992].PID) AS [T4993][GUID, PID] ) JOIN (
+            SELECT
+              [T4997].GUID,[T4997].PID,[T4997].COUNT-GUID
+            FROM
+              (SELECT
+                  [T4996].GUID, [T4996].PID, COUNT([T4996].GUID)
+                FROM
+                  (input1) AS [T4996][GUID, PID]
+                GROUP BY
+                  [T4996].GUID  [T4996].PID) AS [T4997][GUID, PID, COUNT-GUID]
+            WHERE
+              [T4997].COUNT-GUID < 2.0 )) AS [T4998][GUID, PID, GUID1, PID1, COUNT-GUID]
+      WHERE
+        [T4998].PID == [T4998].PID1 ) JOIN (
+      input2 )) AS [T5000][GUID, PID, GUID1, PID1, COUNT-GUID, GUID2, LastName, FirstName]
+WHERE
+  [T5000].GUID == [T5000].GUID2
+@anonymous
+[T5000].PID(StringVal) | [T5000].GUID(StringVal) | [T5000].LastName(StringVal) | [T5000].FirstName(StringVal) 
+PID1 | GUID1 | Mulder | Fox 
+PID1 | GUID2 | Scully | Dana 
+
+[No.1]===============================
+SELECT
+  [T3872].PID,[T3872].GUID1,[T3872].LastName,[T3872].FirstName
+FROM
+  (( SELECT
+        [T3870].GUID,[T3870].PID,[T3870].COUNT-PID,[T3870].GUID1,[T3870].PID1
+      FROM
+        (( SELECT
+              [T3865].GUID,[T3865].PID,[T3865].COUNT-PID
+            FROM
+              (SELECT
+                  [T3864].GUID, [T3864].PID, COUNT([T3864].PID)
+                FROM
+                  (input1) AS [T3864][GUID, PID]
+                GROUP BY
+                  [T3864].GUID  [T3864].PID) AS [T3865][GUID, PID, COUNT-PID]
+            WHERE
+              [T3865].COUNT-PID < 2.0 ) JOIN (
+            (SELECT
+                [T3868].GUID, [T3868].PID, FROM
+                (input1) AS [T3868][GUID, PID]
+              GROUP BY
+                [T3868].GUID  [T3868].PID) AS [T3869][GUID, PID] )) AS [T3870][GUID, PID, COUNT-PID, GUID1, PID1]
+      WHERE
+        [T3870].PID == [T3870].PID1 ) JOIN (
+      input2 )) AS [T3872][GUID, PID, COUNT-PID, GUID1, PID1, GUID2, LastName, FirstName]
+WHERE
+  [T3872].GUID1 == [T3872].GUID2
+@anonymous
+[T3872].PID(StringVal) | [T3872].GUID1(StringVal) | [T3872].LastName(StringVal) | [T3872].FirstName(StringVal) 
+PID1 | GUID1 | Mulder | Fox 
+PID1 | GUID2 | Scully | Dana 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 10.278s

@@ -1,0 +1,42 @@
+//http://stackoverflow.com/questions/33037505/get-the-result-based-on-column-attribute-value
+
+#input
+
+|  Id  |  Plan  | Attributes  | Value  |
+|--------------------------------------|
+|  1   |   A    |   Name      |  AAA   |
+|  2   |   A    |   Class     |  P     |
+|  3   |   A    |   IsActive  |  True  |
+|  4   |   B    |   Name      |  BBB   |
+|  5   |   B    |   Class     |  Q     |
+|  6   |   B    |   IsActive  |  False |
+|  7   |   C    |   Name      |  CCC   |
+|  8   |   C    |   Class     |  R     |
+|  9   |   C    |   IsActive  |  True  |
+
+#output
+
+|  Id |  Plan | Attributes  | Value  |
+|------------------------------------|
+|  1  |   A   |   Name      |  AAA   |
+|  2  |   A   |   Class     |  P     |
+|  3  |   A   |   IsActive  |  True  |
+|  7  |   C   |   Name      |  CCC   |
+|  8  |   C   |   Class     |  R     |
+|  9  |   C   |   IsActive  |  True  |
+
+#constraint
+{
+	"constants": ["True", "IsActive"],
+	"aggregation_functions": []
+}
+
+#solution
+
+Select * 
+From MyTable 
+Where [Plan] In (
+   Select [Plan] 
+   From MyTable 
+   Where Attributes = 'IsActive' And Value = 'True'
+)

@@ -1,0 +1,32 @@
+//http://stackoverflow.com/questions/39985550/how-to-sql-select-duplicates-by-one-field-and-differs-by-another
+
+#input
+
+c1, c2, c3, c4, c5
+1, 012545878, homer, simpson, eating
+2, 812345222, homer, simpson, watching tv
+3, 312322578, marge, simpson, cooking
+4, 114568568, bart, simpson, skating
+5, 015345345, bart, simpson, skating
+
+#output
+
+c1, c2, c3, c4, c5
+1, 012545878, homer, simpson, eating
+2, 812345222, homer, simpson, watching tv
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": []
+}
+
+#solution
+
+select p.*
+from person_log p 
+join (select first_name,last_name
+      from person_log
+      group by first_name,last_name
+      having count(*) >=2 and count(distinct action) >= 2) p1
+on p1.first_name=p.first_name and p1.last_name=p.last_name

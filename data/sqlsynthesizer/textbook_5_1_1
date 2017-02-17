@@ -50,9 +50,12 @@ stu5
 
 # constraint
 {
-	"max_depth": 1,
 	"constants": ["JR", "faculty1"],
-	"aggregation_functions": [ ],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": [ ]
 }
+
+#solution
+
+SELECT S.Sname
+FROM Student S, Class C, Enrolled E, Faculty F
+WHERE S.snum = E.snum AND E.cname = C.name AND C.fid = F.fid AND F.fname = ‘I.Teach’ AND S.level = ‘JR’

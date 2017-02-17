@@ -36,9 +36,16 @@ SN5
 
 #constraint
 {
-	"max_depth": 1,
 	"constants": [ "3"],
-	"aggregation_functions": [ "count-distinct" ],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": [ "count-distinct" ]
 }
+
+#solution
+
+select t2.sname
+from (select supplier_key, count-distinct(part-id) cnt-part-id
+      from   input1
+      group by supplier_key
+      having cnt-part-id == 3) t1
+join input t2
+where t1.supplier_key = t2.supplier_key

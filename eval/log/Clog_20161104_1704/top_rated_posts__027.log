@@ -1,0 +1,299 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/027
+	Enumerator: CanonicalTableEnumeratorOnTheFly
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 9
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 22
+	Avg table size: 2
+[Total Number of Intermediate Result] 22
+Total Tree Count: 0
+Total Query Count: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 9
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 2
+	Avg table size: 5
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 21
+	Avg table size: 20
+[Total Number of Intermediate Result] 21
+Total Tree Count: 2
+Total Query Count: 4
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 9
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 4
+	Avg table size: 4
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 37
+	Avg table size: 16
+[Total Number of Intermediate Result] 37
+Total Tree Count: 3
+Total Query Count: 604
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 9
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 4
+	Avg table size: 4
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 37
+	Avg table size: 16
+[Total Number of Intermediate Result] 37
+Total Tree Count: 4
+Total Query Count: 144
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 9
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 4
+	Avg table size: 4
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 42
+	Avg table size: 15
+[Total Number of Intermediate Result] 42
+Total Tree Count: 3
+Total Query Count: 24
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 9
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 6
+	Avg table size: 3
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 53
+	Avg table size: 15
+[Total Number of Intermediate Result] 53
+Total Tree Count: 5
+Total Query Count: 744
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Stage 1] EnumFilterNamed: 
+	Total Table by now: 1
+	Avg table size: 9
+[Stage 2] EnumAggregationNode: 
+	Total Table by now: 6
+	Avg table size: 3
+[Stage 3] EnumJoinOnAggrAndBasic1 
+	Total table by now: 53
+	Avg table size: 15
+[Total Number of Intermediate Result] 53
+Total Tree Count: 4
+Total Query Count: 724
+[Enumeration Finished]
+[Query No.9]===============================
+SELECT
+  [T2602].cname,[T2602].wmname,[T2602].avg
+FROM
+  (SELECT
+      [T2515].cname,[T2515].wmname,[T2515].avg,[T2515].cname1,[T2515].wmname1,[T2515].avg1
+    FROM
+      (( input1 ) JOIN (
+          input1 )) AS [T2515][cname, wmname, avg, cname1, wmname1, avg1]
+    WHERE
+      [T2515].cname <> [T2515].cname1
+       AND [T2515].avg >= [T2515].avg1) AS [T2602][cname, wmname, avg, cname1, wmname1, avg1]
+
+@anonymous
+[T2602].cname(StringVal) | [T2602].wmname(StringVal) | [T2602].avg(NumberVal) 
+canada | zoro | 2.0 
+spain | usopp | 5.0 
+
+[Query No.8]===============================
+SELECT
+  [T2600].cname,[T2600].wmname,[T2600].avg
+FROM
+  (SELECT
+      [T2515].cname,[T2515].wmname,[T2515].avg,[T2515].cname1,[T2515].wmname1,[T2515].avg1
+    FROM
+      (( input1 ) JOIN (
+          input1 )) AS [T2515][cname, wmname, avg, cname1, wmname1, avg1]
+    WHERE
+      [T2515].cname <> [T2515].cname1
+       AND [T2515].avg > [T2515].avg1) AS [T2600][cname, wmname, avg, cname1, wmname1, avg1]
+
+@anonymous
+[T2600].cname(StringVal) | [T2600].wmname(StringVal) | [T2600].avg(NumberVal) 
+canada | zoro | 2.0 
+spain | usopp | 5.0 
+
+[Query No.7]===============================
+SELECT
+  [T1832].cname1,[T1832].wmname1,[T1832].avg1
+FROM
+  (SELECT
+      [T1746].cname,[T1746].wmname,[T1746].avg,[T1746].cname1,[T1746].wmname1,[T1746].avg1
+    FROM
+      (( input1 ) JOIN (
+          input1 )) AS [T1746][cname, wmname, avg, cname1, wmname1, avg1]
+    WHERE
+      [T1746].cname <> [T1746].cname1
+       AND [T1746].avg <= [T1746].avg1) AS [T1832][cname, wmname, avg, cname1, wmname1, avg1]
+
+@anonymous
+[T1832].cname1(StringVal) | [T1832].wmname1(StringVal) | [T1832].avg1(NumberVal) 
+spain | usopp | 5.0 
+canada | zoro | 2.0 
+
+[Query No.6]===============================
+SELECT
+  [T1829].cname1,[T1829].wmname1,[T1829].avg1
+FROM
+  (SELECT
+      [T1746].cname,[T1746].wmname,[T1746].avg,[T1746].cname1,[T1746].wmname1,[T1746].avg1
+    FROM
+      (( input1 ) JOIN (
+          input1 )) AS [T1746][cname, wmname, avg, cname1, wmname1, avg1]
+    WHERE
+      [T1746].cname <> [T1746].cname1
+       AND [T1746].avg < [T1746].avg1) AS [T1829][cname, wmname, avg, cname1, wmname1, avg1]
+
+@anonymous
+[T1829].cname1(StringVal) | [T1829].wmname1(StringVal) | [T1829].avg1(NumberVal) 
+spain | usopp | 5.0 
+canada | zoro | 2.0 
+
+[Query No.5]===============================
+SELECT
+  [T6848].cname1,[T6848].wmname,[T6848].MAX-avg
+FROM
+  (SELECT
+      [T6009].cname,[T6009].MAX-avg,[T6009].cname1,[T6009].wmname,[T6009].avg
+    FROM
+      (( ((SELECT
+                input1.cname, MAX(input1.avg)
+              FROM
+                input1
+              GROUP BY
+                input1.cname) AS [T6015][cname, MAX-avg]) AS [T6029][cname, MAX-avg] ) JOIN (
+          input1 )) AS [T6009][cname, MAX-avg, cname1, wmname, avg]
+    WHERE
+      [T6009].MAX-avg == [T6009].avg) AS [T6848][cname, MAX-avg, cname1, wmname, avg]
+
+@anonymous
+[T6848].cname1(StringVal) | [T6848].wmname(StringVal) | [T6848].MAX-avg(NumberVal) 
+canada | zoro | 2.0 
+spain | usopp | 5.0 
+
+[Query No.4]===============================
+SELECT
+  [T6839].cname,[T6839].wmname,[T6839].avg
+FROM
+  (SELECT
+      [T6009].cname,[T6009].MAX-avg,[T6009].cname1,[T6009].wmname,[T6009].avg
+    FROM
+      (( ((SELECT
+                input1.cname, MAX(input1.avg)
+              FROM
+                input1
+              GROUP BY
+                input1.cname) AS [T6015][cname, MAX-avg]) AS [T6029][cname, MAX-avg] ) JOIN (
+          input1 )) AS [T6009][cname, MAX-avg, cname1, wmname, avg]
+    WHERE
+      [T6009].MAX-avg == [T6009].avg) AS [T6839][cname, MAX-avg, cname1, wmname, avg]
+
+@anonymous
+[T6839].cname(StringVal) | [T6839].wmname(StringVal) | [T6839].avg(NumberVal) 
+canada | zoro | 2.0 
+spain | usopp | 5.0 
+
+[Query No.3]===============================
+SELECT
+  [T6838].cname,[T6838].wmname,[T6838].avg
+FROM
+  (SELECT
+      [T6009].cname,[T6009].MAX-avg,[T6009].cname1,[T6009].wmname,[T6009].avg
+    FROM
+      (( ((SELECT
+                input1.cname, MAX(input1.avg)
+              FROM
+                input1
+              GROUP BY
+                input1.cname) AS [T6015][cname, MAX-avg]) AS [T6029][cname, MAX-avg] ) JOIN (
+          input1 )) AS [T6009][cname, MAX-avg, cname1, wmname, avg]
+    WHERE
+      [T6009].MAX-avg == [T6009].avg) AS [T6838][cname, MAX-avg, cname1, wmname, avg]
+
+@anonymous
+[T6838].cname(StringVal) | [T6838].wmname(StringVal) | [T6838].avg(NumberVal) 
+canada | zoro | 2.0 
+spain | usopp | 5.0 
+
+[Query No.2]===============================
+SELECT
+  [T6829].cname,[T6829].wmname,[T6829].MAX-avg
+FROM
+  (SELECT
+      [T6009].cname,[T6009].MAX-avg,[T6009].cname1,[T6009].wmname,[T6009].avg
+    FROM
+      (( ((SELECT
+                input1.cname, MAX(input1.avg)
+              FROM
+                input1
+              GROUP BY
+                input1.cname) AS [T6015][cname, MAX-avg]) AS [T6029][cname, MAX-avg] ) JOIN (
+          input1 )) AS [T6009][cname, MAX-avg, cname1, wmname, avg]
+    WHERE
+      [T6009].MAX-avg == [T6009].avg) AS [T6829][cname, MAX-avg, cname1, wmname, avg]
+
+@anonymous
+[T6829].cname(StringVal) | [T6829].wmname(StringVal) | [T6829].MAX-avg(NumberVal) 
+canada | zoro | 2.0 
+spain | usopp | 5.0 
+
+[Query No.1]===============================
+SELECT
+  [T6828].cname,[T6828].wmname,[T6828].MAX-avg
+FROM
+  (SELECT
+      [T6009].cname,[T6009].MAX-avg,[T6009].cname1,[T6009].wmname,[T6009].avg
+    FROM
+      (( ((SELECT
+                input1.cname, MAX(input1.avg)
+              FROM
+                input1
+              GROUP BY
+                input1.cname) AS [T6015][cname, MAX-avg]) AS [T6029][cname, MAX-avg] ) JOIN (
+          input1 )) AS [T6009][cname, MAX-avg, cname1, wmname, avg]
+    WHERE
+      [T6009].MAX-avg == [T6009].avg) AS [T6828][cname, MAX-avg, cname1, wmname, avg]
+
+@anonymous
+[T6828].cname(StringVal) | [T6828].wmname(StringVal) | [T6828].MAX-avg(NumberVal) 
+canada | zoro | 2.0 
+spain | usopp | 5.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 3.253s

@@ -1,8 +1,9 @@
 package sql.lang.ast.filter;
 
-import enumerator.parameterized.InstantiateEnv;
+import forward_enumeration.primitive.parameterized.InstantiateEnv;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
+import sql.lang.datatype.Value;
 import sql.lang.exception.SQLEvalException;
 import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;
@@ -40,7 +41,10 @@ public class LogicOrFilter implements Filter {
 
     @Override
     public String prettyPrint(int indentLv) {
-        String result = f1.prettyPrint(0) + "\r\n OR " + f2.prettyPrint(0);
+        if (f1 instanceof EmptyFilter || f2 instanceof EmptyFilter) {
+            return IndentionManagement.addIndention("True", indentLv);
+        }
+        String result = f1.prettyPrint(0) + "\r\n Or " + f2.prettyPrint(0);
         return IndentionManagement.addIndention(result, indentLv);
     }
 
@@ -57,8 +61,23 @@ public class LogicOrFilter implements Filter {
     }
 
     @Override
+    public List<Value> getAllConstatnts() {
+        List<Value> list =  f1.getAllConstatnts();
+        list.addAll(f2.getAllConstatnts());
+        return list;
+    }
+
+    @Override
     public Filter instantiate(InstantiateEnv env) {
         return new LogicOrFilter(f1.instantiate(env), f2.instantiate(env));
+    }
+
+    public static Filter connectByOr(List<Filter> filters) {
+        Filter last = filters.get(0);
+        for (int i = 1; i < filters.size(); i ++) {
+            last = new LogicOrFilter(last, filters.get(i));
+        }
+        return last;
     }
 
     @Override

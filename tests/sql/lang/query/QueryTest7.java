@@ -1,8 +1,7 @@
 package sql.lang.query;
 
 import org.junit.Test;
-import sql.lang.DataType.DateVal;
-import sql.lang.DataType.Value;
+import sql.lang.datatype.Value;
 import sql.lang.SQLQuery;
 import sql.lang.Table;
 import sql.lang.ast.filter.LogicAndFilter;
@@ -15,7 +14,7 @@ import util.TableInstanceParser;
 
 import java.util.Arrays;
 
-import static org.testng.AssertJUnit.assertTrue;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by clwang on 1/4/16.

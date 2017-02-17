@@ -1,0 +1,308 @@
+[[Synthesis start]]
+	File: ../data/dev_set/005
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 218 [SymTable]: 219
+Candidate Tree Number: 9
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 7 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 16
+Candidate Tree Number: 63
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 7 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 16
+Candidate Tree Number: 63
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 37 [SymTable]: 38
+[JOIN] level 1 [SymTable]: 76
+Candidate Tree Number: 278
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 37 [SymTable]: 38
+[JOIN] level 1 [SymTable]: 76
+Candidate Tree Number: 236
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 7 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 16
+Candidate Tree Number: 63
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 67 [SymTable]: 68
+[JOIN] level 1 [SymTable]: 136
+Candidate Tree Number: 451
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 88 [SymTable]: 89
+[JOIN] level 1 [SymTable]: 178
+Candidate Tree Number: 422
+[Enumeration Finished]
+[Query No.15]===============================
+SELECT
+  [T695].yrq
+FROM
+  (( SELECT
+        input1.yrq,input1.start_date,input1.end_date
+      FROM
+        input1
+      WHERE
+        input1.end_date > Fri Feb 15 00:00:00 PST 2013 ) JOIN (
+      input1 )) AS [T695][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+WHERE
+  [T695].start_date < [T695].start_date1
+@anonymous
+[T695].yrq(StringVal) 
+B233 
+
+[Query No.14]===============================
+SELECT
+  [T693].yrq
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.yrq,input1.start_date,input1.end_date
+      FROM
+        input1
+      WHERE
+        input1.end_date > Fri Feb 15 00:00:00 PST 2013 )) AS [T693][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+WHERE
+  [T693].end_date > [T693].end_date1
+@anonymous
+[T693].yrq(StringVal) 
+B233 
+
+[Query No.13]===============================
+SELECT
+  [T691].yrq
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        input1.yrq,input1.start_date,input1.end_date
+      FROM
+        input1
+      WHERE
+        input1.start_date > Fri Feb 01 00:00:00 PST 2013 )) AS [T691][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+WHERE
+  [T691].end_date > [T691].end_date1
+@anonymous
+[T691].yrq(StringVal) 
+B233 
+
+[Query No.12]===============================
+SELECT
+  [T459].yrq
+FROM
+  (( (SELECT
+          [T449].start_date, FROM
+          (input1) AS [T449][yrq, start_date, end_date]
+        GROUP BY
+          [T449].start_date) AS [T450][start_date] ) JOIN (
+      SELECT
+        input1.yrq,input1.start_date,input1.end_date
+      FROM
+        input1
+      WHERE
+        input1.end_date > Fri Feb 15 00:00:00 PST 2013 )) AS [T459][start_date, yrq, start_date1, end_date]
+WHERE
+  [T459].start_date > [T459].start_date1
+@anonymous
+[T459].yrq(StringVal) 
+B233 
+
+[Query No.11]===============================
+SELECT
+  [T671].yrq
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T671][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+WHERE
+  [T671].end_date > [T671].end_date1
+   AND [T671].start_date == [T671].start_date1
+@anonymous
+[T671].yrq(StringVal) 
+B233 
+
+[Query No.10]===============================
+SELECT
+  [T661].yrq1
+FROM
+  (( input1 ) JOIN (
+      input1 )) AS [T661][yrq, start_date, end_date, yrq1, start_date1, end_date1]
+WHERE
+  [T661].end_date < [T661].end_date1
+   AND [T661].start_date == [T661].start_date1
+@anonymous
+[T661].yrq1(StringVal) 
+B233 
+
+[Query No.9]===============================
+SELECT
+  [T263].yrq
+FROM
+  (SELECT
+      [T262].yrq, MIN([T262].end_date)
+    FROM
+      (SELECT
+          input1.yrq,input1.start_date,input1.end_date
+        FROM
+          input1
+        WHERE
+          input1.end_date > Fri Feb 01 00:00:00 PST 2013) AS [T262][yrq, start_date, end_date]
+    GROUP BY
+      [T262].yrq) AS [T263][yrq, MIN-end_date]
+WHERE
+  [T263].MIN-end_date > Fri Feb 15 00:00:00 PST 2013
+@anonymous
+[T263].yrq(StringVal) 
+B233 
+
+[Query No.8]===============================
+(SELECT
+    FIRST([T272].yrq)
+  FROM
+    (SELECT
+        input1.yrq,input1.start_date,input1.end_date
+      FROM
+        input1
+      WHERE
+        input1.end_date > Fri Feb 15 00:00:00 PST 2013
+         OR input1.end_date < Fri Feb 01 00:00:00 PST 2013) AS [T272][yrq, start_date, end_date]) AS [T273][FIRST-yrq]
+@anonymous
+[T273].FIRST-yrq(StringVal) 
+B233 
+
+[Query No.7]===============================
+(SELECT
+    FIRST([T226].yrq)
+  FROM
+    (SELECT
+        input1.yrq,input1.start_date,input1.end_date
+      FROM
+        input1
+      WHERE
+        input1.end_date > Fri Feb 15 00:00:00 PST 2013
+         OR input1.end_date < Fri Feb 01 00:00:00 PST 2013) AS [T226][yrq, start_date, end_date]) AS [T227][FIRST-yrq]
+@anonymous
+[T227].FIRST-yrq(StringVal) 
+B233 
+
+[Query No.6]===============================
+(SELECT
+    FIRST([T254].yrq)
+  FROM
+    (SELECT
+        input1.yrq,input1.start_date,input1.end_date
+      FROM
+        input1
+      WHERE
+        input1.end_date > Fri Feb 15 00:00:00 PST 2013) AS [T254][yrq, start_date, end_date]) AS [T255][FIRST-yrq]
+@anonymous
+[T255].FIRST-yrq(StringVal) 
+B233 
+
+[Query No.5]===============================
+SELECT
+  [T239].yrq
+FROM
+  (SELECT
+      [T238].yrq, MIN([T238].end_date)
+    FROM
+      (input1) AS [T238][yrq, start_date, end_date]
+    GROUP BY
+      [T238].yrq) AS [T239][yrq, MIN-end_date]
+WHERE
+  [T239].MIN-end_date > Fri Feb 15 00:00:00 PST 2013
+@anonymous
+[T239].yrq(StringVal) 
+B233 
+
+[Query No.4]===============================
+(SELECT
+    FIRST([T224].yrq)
+  FROM
+    (SELECT
+        input1.yrq,input1.start_date,input1.end_date
+      FROM
+        input1
+      WHERE
+        input1.end_date > Fri Feb 15 00:00:00 PST 2013) AS [T224][yrq, start_date, end_date]) AS [T225][FIRST-yrq]
+@anonymous
+[T225].FIRST-yrq(StringVal) 
+B233 
+
+[Query No.3]===============================
+SELECT
+  [T12375].yrq
+FROM
+  (( (SELECT
+          MAX([T12365].end_date)
+        FROM
+          (input1) AS [T12365][yrq, start_date, end_date]) AS [T12366][MAX-end_date] ) JOIN (
+      input1 )) AS [T12375][MAX-end_date, yrq, start_date, end_date]
+WHERE
+  [T12375].MAX-end_date == [T12375].end_date
+@anonymous
+[T12375].yrq(StringVal) 
+B233 
+
+[Query No.2]===============================
+SELECT
+  [T8650].yrq
+FROM
+  (( (SELECT
+          MAX([T8640].end_date)
+        FROM
+          (input1) AS [T8640][yrq, start_date, end_date]) AS [T8641][MAX-end_date] ) JOIN (
+      input1 )) AS [T8650][MAX-end_date, yrq, start_date, end_date]
+WHERE
+  [T8650].MAX-end_date == [T8650].end_date
+@anonymous
+[T8650].yrq(StringVal) 
+B233 
+
+[Query No.1]===============================
+SELECT
+  [T2003].yrq
+FROM
+  (( (SELECT
+          MAX([T1993].end_date)
+        FROM
+          (input1) AS [T1993][yrq, start_date, end_date]) AS [T1994][MAX-end_date] ) JOIN (
+      input1 )) AS [T2003][MAX-end_date, yrq, start_date, end_date]
+WHERE
+  [T2003].MAX-end_date == [T2003].end_date
+@anonymous
+[T2003].yrq(StringVal) 
+B233 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 19.742s

@@ -1,0 +1,35 @@
+//http://stackoverflow.com/questions/37958641/how-to-query-difference-duplicate-data
+
+#input
+
+| BOMcat | BOM  | AltBOM | Counter |   ChangeNo   | DeID | DID | PreCounter | Baseqty|
+|------------------------------------------------------------------------------------|
+| M      | 7882 | A      |      26 | GUC320140101 |  X   |     |            |100.000|
+| M      | 7882 | B      |       1 | GUC320140101 |  X   |     |            |100.500|
+| M      | 7882 | B      |     307 | GUC320141225 |  X   |     |  1         |100.500|
+| M      | 9772 | 01     |     600 | GUC120140904 |  X   |     |  397       |116.188|
+| M      | 9772 | 01     |     601 | GUC120150504 |  X   |     |  600       |116.488|
+| M      | 9772 | 01     |    1021 | GUC120150703 |  X   |     | 601        |116.488|
+
+#output
+
+| BOMcat | BOM  | AltBOM | Counter |   ChangeNo   | DeID | DID | PreCounter | Baseqty|
+|------------------------------------------------------------------------------------|
+| M      | 7882 | A      |      26 | GUC320140101 |  X   |     |            |100.000|
+| M      | 7882 | B      |     307 | GUC320141225 |  X   |     |  1         |100.500|
+| M      | 9772 | 01     |    1021 | GUC120150703 |  X   |     | 601        |116.488|
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["max"]
+}
+
+#solution
+
+select t1.*
+from tablename t1
+    join (select BOM, AltBOM, MAX(ChangeNo) as ChangeNo
+          from tablename
+          group by BOM, AltBOM) t2
+    on t1.BOM = t2.BOM and t1.AltBOM = t2.AltBOM and t1.ChangeNo = t2.ChangeNo

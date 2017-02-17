@@ -1,0 +1,151 @@
+[[Synthesis start]]
+	File: ../data/recent_posts/044M
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 3 [SymTable]: 5
+[JOIN] level 1 [SymTable]: 16
+[EnumJoinOnAggr] level 1 [SymTable]: 41
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+  [Try decomposition] 
+@output
+OriginalID(NumberVal) | Area(StringVal) 
+3.0 | Abdomen 
+
+@output
+OriginalID(NumberVal) | Area(StringVal) 
+4.0 | Bottom 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 3 [SymTable]: 5
+[NaturalJoin]: 1 [SymTable]: 6
+Candidate Tree Number: 4
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 3 [SymTable]: 5
+[NaturalJoin]: 1 [SymTable]: 6
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 3 [SymTable]: 5
+[JOIN] level 1 [SymTable]: 16
+[EnumJoinOnAggr] level 1 [SymTable]: 41
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+  [Try decomposition] 
+@output
+OriginalID(NumberVal) | Area(StringVal) 
+4.0 | Bottom 
+
+@output
+OriginalID(NumberVal) | Area(StringVal) 
+3.0 | Abdomen 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 3 [SymTable]: 5
+[NaturalJoin]: 1 [SymTable]: 6
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 3 [SymTable]: 5
+[JOIN] level 1 [SymTable]: 16
+[EnumJoinOnAggr] level 1 [SymTable]: 41
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 2
+@output
+OriginalID(NumberVal) | Area(StringVal) 
+3.0 | Abdomen 
+4.0 | Bottom 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 3 [SymTable]: 5
+[JOIN] level 1 [SymTable]: 16
+[JOIN] level 2 [SymTable]: 36
+[UNION] level 1 [SymTable]: 38
+[EnumLeftJoin] level 1 [SymTable]: 62
+Candidate Tree Number: 4
+[Enumeration Finished]
+[No.4]===============================
+SELECT
+  [T196].OriginalID,[T196].Area
+FROM
+  (( (input1) AS [T194][OriginalID, Area] ) LEFT-JOIN (
+      (input2) AS [T195][Part, OriginalID] ) ON [T194].OriginalID = [T195].OriginalID) AS [T196][OriginalID, Area, Part, OriginalID1]
+WHERE
+  [T196].Area <> [T196].Part
+@anonymous
+[T196].OriginalID(NumberVal) | [T196].Area(StringVal) 
+3.0 | Abdomen 
+4.0 | Bottom 
+
+[No.3]===============================
+SELECT
+  [T184].OriginalID,[T184].Area
+FROM
+  (( (input1) AS [T182][OriginalID, Area] ) LEFT-JOIN (
+      (input2) AS [T183][Part, OriginalID] ) ON [T182].OriginalID = [T183].OriginalID) AS [T184][OriginalID, Area, Part, OriginalID1]
+WHERE
+  [T184].Area <> [T184].Part
+@anonymous
+[T184].OriginalID(NumberVal) | [T184].Area(StringVal) 
+3.0 | Abdomen 
+4.0 | Bottom 
+
+[No.2]===============================
+SELECT
+  [T172].OriginalID,[T172].Area
+FROM
+  (( (input1) AS [T170][OriginalID, Area] ) LEFT-JOIN (
+      (input2) AS [T171][Part, OriginalID] ) ON [T170].OriginalID = [T171].OriginalID
+    	 AND[T170].Area = [T171].Part) AS [T172][OriginalID, Area, Part, OriginalID1]
+WHERE
+  IS NULL [T172].Part
+@anonymous
+[T172].OriginalID(NumberVal) | [T172].Area(StringVal) 
+3.0 | Abdomen 
+4.0 | Bottom 
+
+[No.1]===============================
+SELECT
+  [T160].OriginalID,[T160].Area
+FROM
+  (( (input1) AS [T158][OriginalID, Area] ) LEFT-JOIN (
+      (input2) AS [T159][Part, OriginalID] ) ON [T158].OriginalID = [T159].OriginalID
+    	 AND[T158].Area = [T159].Part) AS [T160][OriginalID, Area, Part, OriginalID1]
+WHERE
+  IS NULL [T160].OriginalID1
+@anonymous
+[T160].OriginalID(NumberVal) | [T160].Area(StringVal) 
+3.0 | Abdomen 
+4.0 | Bottom 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.704s

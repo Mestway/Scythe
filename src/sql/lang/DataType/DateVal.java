@@ -1,4 +1,4 @@
-package sql.lang.DataType;
+package sql.lang.datatype;
 
 import java.util.Date;
 
@@ -18,8 +18,16 @@ public class DateVal implements Value {
     public Date getVal() { return this.val; }
 
     @Override
-    public boolean equals(Value v) {
-        return this.getVal().equals(v.getVal());
+    public int hashCode() {
+        return this.getVal().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object v) {
+        if(v instanceof DateVal)
+            return this.getVal().equals(((DateVal) v).getVal());
+        else
+            return false;
     }
 
     @Override
@@ -35,6 +43,10 @@ public class DateVal implements Value {
         return ValType.DateVal;
     }
 
-    public String toString() { return this.getVal().getMonth() + "/" + this.getVal().getDate() + "/" + this.getVal().getYear(); }
+    public String toString() {
+        //DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        //return df.format(val);
+        return val.toString();
+    }
 
 }

@@ -1,0 +1,51 @@
+#input
+
+supplier_key,part_id
+S1,P1
+S1,P4
+S2,P1
+S2,P3
+S3,P1
+S4,P4
+S5,P4
+S5,P2
+S6,P5
+S7,P6
+S8,P4
+
+# input
+
+part_id,color
+P1,red
+P2,green
+P3,yellow
+P4,red
+P5,green
+P6,yellow
+
+# output
+
+sname
+S1
+S1
+S3
+S4
+S8
+
+#constraint
+{
+	"constants": ["red"],
+	"aggregation_functions": [ ]
+}
+
+#solution
+
+select t2.pname
+from t1 T1
+where not exists
+        (select *
+         from (select * from t1 where id = T1.id)
+         join (select * from t3 where t3.sname <> "red")
+         on t1.sid = t3.sid)
+join t2
+on T1.part_key = t2.part_key

@@ -1,0 +1,30 @@
+//http://stackoverflow.com/questions/40164534/relation-bw-group-concated-columns-in-mysql
+
+#input
+
+| ID | code | product_variants_id | product_name | variants     | variants_value   | 
+|----------------------------------------------------------------------------------|
+| 1  |     1|  123451             | beer cake    | color        | blue| 
+| 2  |     1|  123451             | beer cake    | temperature  | cold| 
+| 3  |     1|  123451             | beer cake    | weight       | "0.5" | 
+| 4  |     2|  123453             | ad wrap      | color        | green| 
+| 5  |     2|  123453             | ad wrap      | weight       | "1"| 
+
+#output
+
+| code | product_variants_id   | product_name | variants                | variants_value   | 
+|----------------------------------------------------------------------------------|
+| 1  |   123451              | beer cake    | color, temperature, weight| blue, cold, "0.5"| 
+| 2  |   123453              | ad wrap      | color, weight            | green, "1"  | 
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["concat"]
+}
+
+#solution
+
+SELECT xx.code, GROUP_CONCAT(concat(xx.variants,':',xx.variants_value)) AS variants_and_values, xx.product_name, xx.product_variants_id
+FROM products_table xx
+GROUP BY xx.product_variants_id, xx.product_name, xx.code

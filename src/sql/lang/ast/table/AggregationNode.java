@@ -1,8 +1,9 @@
 package sql.lang.ast.table;
 
-import enumerator.parameterized.InstantiateEnv;
+import forward_enumeration.primitive.parameterized.InstantiateEnv;
+import sql.lang.ast.val.NamedVal;
 import util.Pair;
-import sql.lang.DataType.*;
+import sql.lang.datatype.*;
 import sql.lang.Table;
 import sql.lang.TableRow;
 import sql.lang.ast.Environment;
@@ -10,6 +11,7 @@ import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
 import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;
+import util.RenameTNWrapper;
 
 import java.sql.Time;
 import java.util.*;
@@ -19,11 +21,11 @@ import java.util.stream.Collectors;
 /**
  * Created by clwang on 12/20/15.
  */
-public class AggregationNode implements TableNode {
+public class AggregationNode extends TableNode {
 
-    public static String magicSeparatorSymbol = "-_-";
+    public static String magicSeparatorSymbol = "_";
 
-    List<String> aggrFields = new ArrayList<String>();
+    List<String> groupbyColumns = new ArrayList<String>();
     List<Pair<String, Function<List<Value>, Value>>> targets = new ArrayList<>();
     TableNode tn;
 
@@ -31,7 +33,7 @@ public class AggregationNode implements TableNode {
                            List<String> fields,
                            List<Pair<String, Function<List<Value>,Value>>> targets) {
         this.tn = tn;
-        this.aggrFields = fields;
+        this.groupbyColumns = fields;
         this.targets = targets;
     }
 
@@ -42,7 +44,7 @@ public class AggregationNode implements TableNode {
         Table resultTable = new Table();
         resultTable.updateName("anonymous");
         List<String> resultMeta = new ArrayList<String>();
-        for (String s : this.aggrFields)
+        for (String s : this.groupbyColumns)
             resultMeta.add(s);
         for (Pair<String, Function<List<Value>, Value>> t : targets) {
             resultMeta.add("aggr-" + t.getKey());
@@ -54,7 +56,7 @@ public class AggregationNode implements TableNode {
 
         // indices for aggregation fields
         List<Integer> indices = new ArrayList<Integer>();
-        for (String s : aggrFields) {
+        for (String s : groupbyColumns) {
             indices.add(tbl.retrieveIndex(s));
         }
         // indices for aggregation targets
@@ -82,7 +84,6 @@ public class AggregationNode implements TableNode {
             }
             alreadyCollected.add(i);
 
-
             for (int j = i + 1; j < tbl.getContent().size(); j ++) {
                 if (ListValEqual(tbl.getContent().get(j).retrieveValuesByIndices(indices), valuesForTheRow)) {
                     for (int k = 0; k < targetIndices.size(); k ++) {
@@ -96,8 +97,9 @@ public class AggregationNode implements TableNode {
 
             for (int k = 0; k < this.targets.size(); k ++) {
                 Value tempV = targets.get(k).getValue().apply(aggregationTargetLists.get(k));
-                if (tempV == null)
+                if (tempV == null) {
                     throw new SQLEvalException("Aggregation function application error");
+                }
                 agrResultList.add(tempV);
             }
             List<Value> rowContent = new ArrayList<Value>();
@@ -117,15 +119,23 @@ public class AggregationNode implements TableNode {
     @Override
     public List<String> getSchema() {
         List<String> schema = new ArrayList<String>();
-        schema.addAll(this.aggrFields);
+        schema.addAll(this.groupbyColumns);
         for (Pair<String, Function<List<Value>,Value>> t : targets) {
-            schema.add(FuncName(t.getValue()) + magicSeparatorSymbol + t.getKey());
+            String candidateName = FuncName(t.getValue()).toLowerCase() + magicSeparatorSymbol + t.getKey().substring(t.getKey().lastIndexOf(".") + 1);
+            if (!schema.contains(candidateName))
+                schema.add(candidateName);
+            else {
+                int i = 0;
+                while (schema.contains(candidateName + i))
+                    i ++;
+                schema.add(candidateName + i);
+            }
         }
         return schema;
     }
 
     public List<String> getFields() {
-        return this.aggrFields;
+        return this.groupbyColumns;
     }
 
     @Override
@@ -139,16 +149,14 @@ public class AggregationNode implements TableNode {
         List<ValType> tableSchemaType = this.tn.getSchemaType();
 
         List<String> nameToRetrieve = new ArrayList<>();
-        nameToRetrieve.addAll(this.aggrFields);
+        nameToRetrieve.addAll(this.groupbyColumns);
         for (Pair<String, Function<List<Value>, Value>> t : targets) {
             nameToRetrieve.add(t.getKey());
         }
 
         List<ValType> schemaTypes = new ArrayList<>();
 
-        // TODO: think about naming stuff
-        if (tn.getTableName().equals("anonymous")) {
-            for (String n : this.aggrFields) {
+            for (String n : this.groupbyColumns) {
                 for (int i = 0; i < tableSchema.size(); i ++) {
                     if (tableSchema.get(i).equals(n)) {
                         schemaTypes.add(tableSchemaType.get(i));
@@ -159,10 +167,10 @@ public class AggregationNode implements TableNode {
             for (Pair<String, Function<List<Value>, Value>> t : targets) {
                 for (int i = 0; i < tableSchema.size(); i ++) {
                     if (tableSchema.get(i).equals(t.getKey())) {
-                        if (!t.getValue().equals(AggrCount)) {
+                        if (!(t.getValue().equals(AggrCount) || t.getValue().equals(AggrCountDistinct))) {
                             schemaTypes.add(tableSchemaType.get(i));
                         } else {
-                            // if the aggregation function is COUNT,
+                            // if the aggregation function is COUNT or COUNT-DISTINCT,
                             // the type of the aggregation field will be changed to NumberVal
                             schemaTypes.add(ValType.NumberVal);
                         }
@@ -170,36 +178,12 @@ public class AggregationNode implements TableNode {
                     }
                 }
             }
-        } else {
-            for (String n : this.aggrFields) {
-                for (int i = 0; i < tableSchema.size(); i ++) {
-                    if (tableSchema.get(i).equals(n)) {
-                        schemaTypes.add(tableSchemaType.get(i));
-                        break;
-                    }
-                }
-            }
-            for (Pair<String, Function<List<Value>, Value>> t : targets) {
-                for (int i = 0; i < tableSchema.size(); i ++) {
-                    if (tableSchema.get(i).equals(t.getKey())) {
-                        if (!t.getValue().equals(AggrCount)) {
-                            schemaTypes.add(tableSchemaType.get(i));
-                        } else {
-                            // if the aggregation function is COUNT,
-                            // the type of the aggregation field will be changed to NumberVal
-                            schemaTypes.add(ValType.NumberVal);
-                        }
-                        break;
-                    }
-                }
-            }
-        }
 
         return schemaTypes;
     }
 
     public int getAggrFieldSize() {
-        return this.aggrFields.size();
+        return this.groupbyColumns.size();
     }
 
     @Override
@@ -208,29 +192,37 @@ public class AggregationNode implements TableNode {
     }
 
     @Override
-    public String prettyPrint(int indentLv) {
-        String result = "SELECT\r\n" + IndentionManagement.basicIndent();
-        for (String f : aggrFields) {
+    public String prettyPrint(int indentLv, boolean asSubquery) {
+        String result = "Select\r\n" + IndentionManagement.basicIndent();
+        for (String f : groupbyColumns) {
             result += f + ", ";
         }
         for (int i = 0; i < targets.size(); i ++) {
             Pair<String, Function<List<Value>, Value>> t = targets.get(i);
+            result += FuncName(t.getValue()) + "(" + t.getKey() + ") As " + this.getSchema().get(this.groupbyColumns.size() + i);
             if (i != targets.size() - 1)
-                result += FuncName(t.getValue()) + "(" + t.getKey() + "), ";
+                result +=  ", ";
             else {
                 // the last element
-                result += FuncName(t.getValue()) + "(" + t.getKey() + ")\r\n";
+                result +=  "\r\n";
             }
         }
-        result += "FROM\r\n";
-        result += this.tn.prettyPrint(1);
-        result += "\r\nGROUP BY\r\n";
-        boolean flag = true;
-        for (String f : aggrFields) {
-            if (flag == true)
-                result += IndentionManagement.basicIndent() + f;
-            else result += ", " + f;
+        result += "From\r\n";
+        result += this.tn.prettyPrint(1, true);
+
+        if (! groupbyColumns.isEmpty()) {
+            result += "\r\nGroup By\r\n";
+            boolean flag = true;
+            for (String f : groupbyColumns) {
+                if (flag == true) {
+                    result += IndentionManagement.basicIndent() + f;
+                    flag = false;
+                }
+                else result += ", " + f;
+            }
         }
+        if (asSubquery)
+            result = "(" + result + ")";
         return IndentionManagement.addIndention(result, indentLv);
     }
 
@@ -287,31 +279,43 @@ public class AggregationNode implements TableNode {
         if (l.isEmpty()) {
             System.err.println("[Error@AggregationNode17] aggregation list is empty");
         }
-        if (l.get(0) instanceof NumberVal) {
-            Double result = 0.;
-            for (Value v : l) {
+
+        Double result = 0.;
+        for (Value v : l) {
+            if (v instanceof NullVal)
+                continue;
+            else if (v instanceof  NumberVal)
                 result += ((NumberVal)v).getVal();
+            else {
+                System.err.println("[Error@AggregationNode26] aggregation performed on unexpected type");
+                return null;
             }
-            return new NumberVal(result);
         }
-        System.err.println("[Error@AggregationNode26] aggregation performed on unexpected type");
-        return null;
+        return new NumberVal(result);
+
+
     };
 
     public static Function<List<Value>, Value> AggrMax = l -> {
         if (l.isEmpty()) {
             System.err.println("[Error@AggregationNode35] aggregation list is empty");
         }
-        if (l.get(0) instanceof NumberVal) {
+        if (l.get(0).getValType().equals(ValType.NumberVal)) {
+            if (l.get(0) instanceof NullVal)
+                return  l.get(0);
             Double maxVal = (Double) l.get(0).getVal();
             for (Value v : l) {
+                if (v instanceof NullVal)
+                    return v;
                 if (((NumberVal) v).getVal() > maxVal) {
                     maxVal = (Double) v.getVal();
                 }
             }
             return new NumberVal(maxVal);
         }
-        if (l.get(0) instanceof DateVal) {
+        if (l.get(0).getValType().equals(ValType.DateVal)) {
+            if (l.get(0) instanceof NullVal)
+                return  l.get(0);
             Date maxDate = (Date)((Date)l.get(0).getVal()).clone();
             for (Value v : l) {
                 if (((DateVal)v).getVal().compareTo(maxDate) > 0) {
@@ -320,7 +324,9 @@ public class AggregationNode implements TableNode {
             }
             return new DateVal(maxDate);
         }
-        if (l.get(0) instanceof TimeVal) {
+        if (l.get(0).getValType().equals(ValType.TimeVal)) {
+            if (l.get(0) instanceof NullVal)
+                return  l.get(0);
             Time maxTime = (Time)((Date)l.get(0).getVal()).clone();
             for (Value v : l) {
                 if (((TimeVal)v).getVal().compareTo(maxTime) > 0) {
@@ -364,8 +370,17 @@ public class AggregationNode implements TableNode {
             }
             return new DateVal(minTime);
         }
-        System.err.println("[Error@AggregationNode81] aggregation performed on unexpected type");
+        if (l.get(0) instanceof NullVal) {
+            return l.get(0);
+        }
         return null;
+    };
+
+    public static Function<List<Value>, Value> AggrFirst = l -> {
+        if (l.isEmpty()) {
+            System.err.println("[Error@AggregationNode100] aggregation list is empty");
+        }
+        return l.get(0);
     };
 
     public static Function<List<Value>, Value> AggrAvg = l -> {
@@ -380,7 +395,7 @@ public class AggregationNode implements TableNode {
         if (l.isEmpty()) {
             System.err.println("[Error@AggregationNode100] aggregation list is empty");
         }
-        if (l.get(0) instanceof StringVal) {
+        if (l.get(0) instanceof StringVal || l.get(0) instanceof NullVal) {
             String result = "";
             for (Value sv : l) {
                 result += sv.getVal() + ", ";
@@ -391,23 +406,56 @@ public class AggregationNode implements TableNode {
         return null;
     };
 
+    public static Function<List<Value>, Value> AggrConcat2 = l -> {
+        if (l.isEmpty()) {
+            System.err.println("[Error@AggregationNode100] aggregation list is empty");
+        }
+        if (l.get(0) instanceof StringVal || l.get(0) instanceof NullVal) {
+            String result = "";
+            for (Value sv : l) {
+                result += sv.getVal() + " ";
+            }
+            return new StringVal(result.substring(0, result.length() - 1));
+        }
+        System.err.println("[Error@AggregationNode110] aggregation on wrong type");
+        return null;
+    };
+
     public static Function<List<Value>, Value> AggrCount = l -> new NumberVal(l.size());
 
-    private static String FuncName(Function<List<Value>, Value> f) {
+    public static Function<List<Value>, Value> AggrCountDistinct = l -> {
+        List<Value> distinctVals = new ArrayList<>();
+        for (Value v : l) {
+            boolean flag = false;
+            for (Value vv : distinctVals) {
+                if (vv.getVal().equals(v.getVal()))
+                    flag = true;
+            }
+            if (!flag)
+                distinctVals.add(v);
+        }
+        return new NumberVal(distinctVals.size());
+    };
+
+    public static String FuncName(Function<List<Value>, Value> f) {
         if (f.equals(AggrSum))
-            return "SUM";
+            return "Sum";
         else if (f.equals(AggrAvg))
-            return "AVG";
-        else if (f.equals(AggrConcat))
-            return "CONCAT";
+            return "Avg";
+        else if (f.equals(AggrConcat) || f.equals(AggrConcat2))
+            return "Concat";
         else if (f.equals(AggrCount))
-            return "COUNT";
+            return "Count";
+        else if (f.equals(AggrCountDistinct))
+            return "Count_distinct";
         else if (f.equals(AggrMax))
-            return "MAX";
+            return "Max";
         else if (f.equals(AggrMin))
-            return "MIN";
+            return "Min";
+        else if (f.equals(AggrFirst))
+            return "First";
         else
-            return "AGRREGATION";
+            return "Aggr";
     }
 
     /**
@@ -420,21 +468,43 @@ public class AggregationNode implements TableNode {
         if (type.equals(ValType.NumberVal)) {
             aggrFuncs.add(AggrAvg);
             aggrFuncs.add(AggrCount);
+            aggrFuncs.add(AggrCountDistinct);
             aggrFuncs.add(AggrMax);
             aggrFuncs.add(AggrMin);
             aggrFuncs.add(AggrSum);
+            aggrFuncs.add(AggrFirst);
         } else if (type.equals(ValType.DateVal)) {
             aggrFuncs.add(AggrCount);
+            aggrFuncs.add(AggrCountDistinct);
             aggrFuncs.add(AggrMax);
             aggrFuncs.add(AggrMin);
         } else if (type.equals(ValType.StringVal)) {
             aggrFuncs.add(AggrCount);
+            aggrFuncs.add(AggrCountDistinct);
             aggrFuncs.add(AggrConcat);
+            aggrFuncs.add(AggrConcat2);
+            aggrFuncs.add(AggrFirst);
+            aggrFuncs.add(AggrFirst);
         } else if (type.equals(ValType.TimeVal)) {
             aggrFuncs.add(AggrCount);
+            aggrFuncs.add(AggrCountDistinct);
             aggrFuncs.add(AggrMax);
             aggrFuncs.add(AggrMin);
         }
+        return aggrFuncs;
+    }
+
+    public static List<Function<List<Value>, Value>> getAllAggrFunctions() {
+        List<Function<List<Value>, Value>> aggrFuncs = new ArrayList<>();
+        aggrFuncs.add(AggrAvg);
+        aggrFuncs.add(AggrCount);
+        aggrFuncs.add(AggrCountDistinct);
+        aggrFuncs.add(AggrMax);
+        aggrFuncs.add(AggrMin);
+        aggrFuncs.add(AggrSum);
+        aggrFuncs.add(AggrFirst);
+        aggrFuncs.add(AggrConcat);
+        aggrFuncs.add(AggrConcat2);
         return aggrFuncs;
     }
 
@@ -447,13 +517,13 @@ public class AggregationNode implements TableNode {
     public TableNode instantiate(InstantiateEnv env) {
         return new AggregationNode(
                 tn.instantiate(env),
-                this.aggrFields,
+                this.groupbyColumns,
                 this.targets);
     }
 
     @Override
     public TableNode substNamedVal(ValNodeSubstBinding vnsb) {
-        return new AggregationNode(tn.substNamedVal(vnsb), this.aggrFields, this.targets);
+        return new AggregationNode(tn.substNamedVal(vnsb), this.groupbyColumns, this.targets);
     }
 
     @Override
@@ -463,7 +533,103 @@ public class AggregationNode implements TableNode {
 
     @Override
     public TableNode tableSubst(List<Pair<TableNode,TableNode>> pairs) {
-        return this;
+
+
+        TableNode core = this.tn.tableSubst(pairs);
+
+        List<String> currentSchema = tn.getSchema();
+        List<String> newSchema = core.getSchema();
+
+        Map<String, String> nameMapping = new HashMap<>();
+        for (int i = 0; i < currentSchema.size(); i++) {
+            nameMapping.put(
+                    currentSchema.get(i),
+                    newSchema.get(i));
+        }
+
+        List<String> newGroupbyColumns = new ArrayList<String>();
+        for (String s : groupbyColumns) {
+            newGroupbyColumns.add(nameMapping.get(s));
+        }
+        List<Pair<String, Function<List<Value>, Value>>> newTargets = new ArrayList<>();
+        for (Pair<String, Function<List<Value>, Value>> p : targets) {
+            newTargets.add(new Pair<>(nameMapping.get(p.getKey()), p.getValue()));
+        }
+
+        TableNode an = new AggregationNode(
+                core,
+                newGroupbyColumns, newTargets);
+
+        return an;
     }
 
+    public TableNode substCoreTable(TableNode newCore) {
+
+        TableNode rt = RenameTNWrapper.tryRename(newCore);
+
+        // rename the filters so that the filters refer to the elements in the new table.
+        List<Pair<String, String>> stringNameBinding = new ArrayList<>();
+        for (int i = 0; i < rt.getSchema().size(); i ++) {
+            stringNameBinding.add(new Pair<>(
+                    this.tn.getSchema().get(i),
+                    rt.getSchema().get(i)));
+        }
+
+        List<String> newGroupByFields = new ArrayList<>();
+        List<Pair<String, Function<List<Value>, Value>>> newTargets = new ArrayList<>();
+
+        for (String s : groupbyColumns) {
+            for (Pair<String, String> p : stringNameBinding) {
+                if (p.getKey().equals(s)) {
+                    newGroupByFields.add(p.getValue());
+                    break;
+                }
+            }
+        }
+
+        for (Pair<String, Function<List<Value>, Value>> targetPair : targets) {
+            for (Pair<String, String> p : stringNameBinding) {
+                if (p.getKey().equals(targetPair.getKey())) {
+                    newTargets.add(new Pair<>(p.getValue(), targetPair.getValue()));
+                    break;
+                }
+            }
+        }
+
+        if (newGroupByFields.size() != groupbyColumns.size() || newTargets.size() != targets.size()) {
+            System.out.println("[Fatal Error @ AggregationNode] failure to subsitute the core.");
+        }
+
+        TableNode newTN = new AggregationNode(rt, newGroupByFields, newTargets);
+        return newTN;
+    }
+
+    @Override
+    public List<String> originalColumnName() {
+
+        List<String> innerQueryOriginalColName = this.tn.originalColumnName();
+        List<String> result = new ArrayList<>();
+        for (String s : this.groupbyColumns)
+            result.add(innerQueryOriginalColName.get(this.tn.getSchema().indexOf(s)));
+
+        for (Pair<String, Function<List<Value>, Value>> p : this.targets) {
+            result.add(innerQueryOriginalColName.get(this.tn.getSchema().indexOf(p.getKey())));
+        }
+        return result;
+    }
+
+    @Override
+    public double estimateAllFilterCost() {
+        return tn.estimateAllFilterCost();
+    }
+
+    @Override
+    public List<Value> getAllConstants() {
+        return tn.getAllConstants();
+    }
+
+    @Override
+    public String getQuerySkeleton() {
+        return "(A " + this.tn.getQuerySkeleton() + ")";
+    }
 }

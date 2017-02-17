@@ -1,0 +1,200 @@
+[[Synthesis start]]
+	File: ..\data\sqlsynthesizer\textbook_5_1_1
+	Enumerator: StagedEnumerator
+[Retry] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 4
+[NaturalJoin]: 1 [SymTable]: 4
+Candidate Tree Number: 5
+[Enumeration Finished]
+[No.5]===============================
+SELECT
+  [T25].S_name
+FROM
+  (( SELECT
+        [T23].C_name,[T23].F_key,[T23].S_key,[T23].C_name1,[T23].F_key1,[T23].F_name
+      FROM
+        (( SELECT
+              [T21].C_name,[T21].F_key,[T21].S_key,[T21].C_name1
+            FROM
+              (( input1 ) JOIN (
+                  SELECT
+                    input2.S_key,input2.C_name
+                  FROM
+                    input2
+                  WHERE
+                    True )) AS [T21][C_name, F_key, S_key, C_name1]
+            WHERE
+              [T21].C_name == [T21].C_name1 ) JOIN (
+            SELECT
+              input3.F_key,input3.F_name
+            FROM
+              input3
+            WHERE
+              input3.F_name == faculty1 )) AS [T23][C_name, F_key, S_key, C_name1, F_key1, F_name]
+      WHERE
+        [T23].F_key == [T23].F_key1 ) JOIN (
+      SELECT
+        input4.S_key,input4.S_name,input4.level
+      FROM
+        input4
+      WHERE
+        input4.level == JR )) AS [T25][C_name, F_key, S_key, C_name1, F_key1, F_name, S_key1, S_name, level]
+WHERE
+  [T25].S_key == [T25].S_key1
+@anonymous
+[T25].S_name(StringVal) 
+stu1 
+stu5 
+
+[No.4]===============================
+SELECT
+  [T19].S_name
+FROM
+  (( SELECT
+        [T17].C_name,[T17].F_key,[T17].S_key,[T17].C_name1,[T17].F_key1,[T17].F_name
+      FROM
+        (( SELECT
+              [T15].C_name,[T15].F_key,[T15].S_key,[T15].C_name1
+            FROM
+              (( SELECT
+                    input1.C_name,input1.F_key
+                  FROM
+                    input1
+                  WHERE
+                    True ) JOIN (
+                  input2 )) AS [T15][C_name, F_key, S_key, C_name1]
+            WHERE
+              [T15].C_name == [T15].C_name1 ) JOIN (
+            SELECT
+              input3.F_key,input3.F_name
+            FROM
+              input3
+            WHERE
+              input3.F_name == faculty1 )) AS [T17][C_name, F_key, S_key, C_name1, F_key1, F_name]
+      WHERE
+        [T17].F_key == [T17].F_key1 ) JOIN (
+      SELECT
+        input4.S_key,input4.S_name,input4.level
+      FROM
+        input4
+      WHERE
+        input4.level == JR )) AS [T19][C_name, F_key, S_key, C_name1, F_key1, F_name, S_key1, S_name, level]
+WHERE
+  [T19].S_key == [T19].S_key1
+@anonymous
+[T19].S_name(StringVal) 
+stu1 
+stu5 
+
+[No.3]===============================
+SELECT
+  [T31].S_name
+FROM
+  (( SELECT
+        [T29].C_name,[T29].F_key,[T29].S_key,[T29].C_name1,[T29].F_key1,[T29].F_name
+      FROM
+        (( SELECT
+              [T27].C_name,[T27].F_key,[T27].S_key,[T27].C_name1
+            FROM
+              (( input1 ) JOIN (
+                  input2 )) AS [T27][C_name, F_key, S_key, C_name1]
+            WHERE
+              [T27].C_name == [T27].C_name1 ) JOIN (
+            SELECT
+              input3.F_key,input3.F_name
+            FROM
+              input3
+            WHERE
+              input3.F_key == JR
+               OR input3.F_name == faculty1 )) AS [T29][C_name, F_key, S_key, C_name1, F_key1, F_name]
+      WHERE
+        [T29].F_key == [T29].F_key1 ) JOIN (
+      SELECT
+        input4.S_key,input4.S_name,input4.level
+      FROM
+        input4
+      WHERE
+        input4.level == JR )) AS [T31][C_name, F_key, S_key, C_name1, F_key1, F_name, S_key1, S_name, level]
+WHERE
+  [T31].S_key == [T31].S_key1
+@anonymous
+[T31].S_name(StringVal) 
+stu1 
+stu5 
+
+[No.2]===============================
+SELECT
+  [T13].S_name
+FROM
+  (( SELECT
+        [T11].C_name,[T11].F_key,[T11].S_key,[T11].C_name1,[T11].F_key1,[T11].F_name
+      FROM
+        (( SELECT
+              [T9].C_name,[T9].F_key,[T9].S_key,[T9].C_name1
+            FROM
+              (( input1 ) JOIN (
+                  input2 )) AS [T9][C_name, F_key, S_key, C_name1]
+            WHERE
+              [T9].C_name == [T9].C_name1 ) JOIN (
+            SELECT
+              input3.F_key,input3.F_name
+            FROM
+              input3
+            WHERE
+              input3.F_name == faculty1 )) AS [T11][C_name, F_key, S_key, C_name1, F_key1, F_name]
+      WHERE
+        [T11].F_key == [T11].F_key1 ) JOIN (
+      SELECT
+        input4.S_key,input4.S_name,input4.level
+      FROM
+        input4
+      WHERE
+        input4.S_key == JR
+         OR input4.level == JR )) AS [T13][C_name, F_key, S_key, C_name1, F_key1, F_name, S_key1, S_name, level]
+WHERE
+  [T13].S_key == [T13].S_key1
+@anonymous
+[T13].S_name(StringVal) 
+stu1 
+stu5 
+
+[No.1]===============================
+SELECT
+  [T7].S_name
+FROM
+  (( SELECT
+        [T5].C_name,[T5].F_key,[T5].S_key,[T5].C_name1,[T5].F_key1,[T5].F_name
+      FROM
+        (( SELECT
+              [T3].C_name,[T3].F_key,[T3].S_key,[T3].C_name1
+            FROM
+              (( input1 ) JOIN (
+                  input2 )) AS [T3][C_name, F_key, S_key, C_name1]
+            WHERE
+              [T3].C_name == [T3].C_name1 ) JOIN (
+            SELECT
+              input3.F_key,input3.F_name
+            FROM
+              input3
+            WHERE
+              input3.F_name == faculty1 )) AS [T5][C_name, F_key, S_key, C_name1, F_key1, F_name]
+      WHERE
+        [T5].F_key == [T5].F_key1 ) JOIN (
+      SELECT
+        input4.S_key,input4.S_name,input4.level
+      FROM
+        input4
+      WHERE
+        input4.level == JR )) AS [T7][C_name, F_key, S_key, C_name1, F_key1, F_name, S_key1, S_name, level]
+WHERE
+  [T7].S_key == [T7].S_key1
+@anonymous
+[T7].S_name(StringVal) 
+stu1 
+stu5 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.956s

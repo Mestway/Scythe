@@ -1,0 +1,32 @@
+//http://stackoverflow.com/questions/3614666/mysql-get-row-position-in-order-by
+
+#input
+
+| id | name   | name_ascii |
+|--------------------------|
+|  5 | Alpha  |   100      |
+|  7 | Beta   |   101      |
+|  3 | Delta  |   102      |
+|  1 | Zed    |   103      |
+
+#output
+
+| id | position | name        |
+|-----------------------------|
+|  7 |        2 | Beta        |
+
+#constraint
+{
+	"constants": ["Beta"],
+	"aggregation_functions": ["count"]
+}
+
+#solution
+
+SELECT t.id,
+       (SELECT COUNT(*)
+          FROM TABLE x
+         WHERE x.name <= t.name) AS position
+       t.name    
+  FROM TABLE t      
+ WHERE t.name = 'Beta'

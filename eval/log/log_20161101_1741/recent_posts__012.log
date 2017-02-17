@@ -1,0 +1,500 @@
+[[Synthesis start]]
+	File: ../data/recent_posts/012
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 674 [SymTable]: 675
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 16 [SymTable]: 17
+[JOIN] level 1 [SymTable]: 34
+[EnumLeftJoin] level 1 [SymTable]: 34
+[EnumJoinOnAggr] level 1 [SymTable]: 527
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+color, weight
+blue, cold, "0.5"
+color, temperature, weight
+green, "1"
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 116 [SymTable]: 117
+[JOIN] level 1 [SymTable]: 234
+[EnumLeftJoin] level 1 [SymTable]: 234
+[EnumJoinOnAggr] level 1 [SymTable]: 14127
+Candidate Tree Number: 128
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T2868].code,[T2868].product_variants_id,[T2868].product_name,[T2868].CONCAT-variants,[T2868].CONCAT-variants_value
+FROM
+  (( (SELECT
+          [T2856].code, [T2856].product_variants_id, [T2856].product_name, CONCAT([T2856].variants_value)
+        FROM
+          (input1) AS [T2856][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T2856].code  [T2856].product_variants_id  [T2856].product_name) AS [T2857][code, product_variants_id, product_name, CONCAT-variants_value] ) JOIN (
+      (SELECT
+          [T2866].code, [T2866].product_variants_id, CONCAT([T2866].variants)
+        FROM
+          (input1) AS [T2866][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T2866].code  [T2866].product_variants_id) AS [T2867][code, product_variants_id, CONCAT-variants] )) AS [T2868][code, product_variants_id, product_name, CONCAT-variants_value, code1, product_variants_id1, CONCAT-variants]
+WHERE
+  [T2868].code == [T2868].code1
+@anonymous
+[T2868].code(NumberVal) | [T2868].product_variants_id(NumberVal) | [T2868].product_name(StringVal) | [T2868].CONCAT-variants(StringVal) | [T2868].CONCAT-variants_value(StringVal) 
+1.0 | 123451.0 | beer cake | color, temperature, weight | blue, cold, "0.5" 
+2.0 | 123453.0 | ad wrap | color, weight | green, "1" 
+
+[No.19]===============================
+SELECT
+  [T2780].code,[T2780].product_variants_id,[T2780].product_name,[T2780].CONCAT-variants,[T2780].CONCAT-variants_value
+FROM
+  (( (SELECT
+          [T2768].code, [T2768].product_variants_id, CONCAT([T2768].variants)
+        FROM
+          (input1) AS [T2768][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T2768].code  [T2768].product_variants_id) AS [T2769][code, product_variants_id, CONCAT-variants] ) JOIN (
+      (SELECT
+          [T2778].code, [T2778].product_variants_id, [T2778].product_name, CONCAT([T2778].variants_value)
+        FROM
+          (input1) AS [T2778][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T2778].code  [T2778].product_variants_id  [T2778].product_name) AS [T2779][code, product_variants_id, product_name, CONCAT-variants_value] )) AS [T2780][code, product_variants_id, CONCAT-variants, code1, product_variants_id1, product_name, CONCAT-variants_value]
+WHERE
+  [T2780].code == [T2780].code1
+@anonymous
+[T2780].code(NumberVal) | [T2780].product_variants_id(NumberVal) | [T2780].product_name(StringVal) | [T2780].CONCAT-variants(StringVal) | [T2780].CONCAT-variants_value(StringVal) 
+1.0 | 123451.0 | beer cake | color, temperature, weight | blue, cold, "0.5" 
+2.0 | 123453.0 | ad wrap | color, weight | green, "1" 
+
+[No.18]===============================
+SELECT
+  [T2692].code,[T2692].product_variants_id,[T2692].product_name,[T2692].CONCAT-variants,[T2692].CONCAT-variants_value
+FROM
+  (( (SELECT
+          [T2680].code, [T2680].product_variants_id, [T2680].product_name, CONCAT([T2680].variants_value)
+        FROM
+          (input1) AS [T2680][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T2680].code  [T2680].product_variants_id  [T2680].product_name) AS [T2681][code, product_variants_id, product_name, CONCAT-variants_value] ) JOIN (
+      (SELECT
+          [T2690].code, [T2690].product_variants_id, [T2690].product_name, CONCAT([T2690].variants)
+        FROM
+          (input1) AS [T2690][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T2690].code  [T2690].product_variants_id  [T2690].product_name) AS [T2691][code, product_variants_id, product_name, CONCAT-variants] )) AS [T2692][code, product_variants_id, product_name, CONCAT-variants_value, code1, product_variants_id1, product_name1, CONCAT-variants]
+WHERE
+  [T2692].code == [T2692].code1
+@anonymous
+[T2692].code(NumberVal) | [T2692].product_variants_id(NumberVal) | [T2692].product_name(StringVal) | [T2692].CONCAT-variants(StringVal) | [T2692].CONCAT-variants_value(StringVal) 
+1.0 | 123451.0 | beer cake | color, temperature, weight | blue, cold, "0.5" 
+2.0 | 123453.0 | ad wrap | color, weight | green, "1" 
+
+[No.17]===============================
+SELECT
+  [T2560].code,[T2560].product_variants_id,[T2560].product_name,[T2560].CONCAT-variants,[T2560].CONCAT-variants_value
+FROM
+  (( (SELECT
+          [T2548].code, [T2548].product_variants_id, CONCAT([T2548].variants)
+        FROM
+          (input1) AS [T2548][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T2548].code  [T2548].product_variants_id) AS [T2549][code, product_variants_id, CONCAT-variants] ) JOIN (
+      (SELECT
+          [T2558].product_variants_id, [T2558].product_name, CONCAT([T2558].variants_value)
+        FROM
+          (input1) AS [T2558][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T2558].product_variants_id  [T2558].product_name) AS [T2559][product_variants_id, product_name, CONCAT-variants_value] )) AS [T2560][code, product_variants_id, CONCAT-variants, product_variants_id1, product_name, CONCAT-variants_value]
+WHERE
+  [T2560].product_variants_id == [T2560].product_variants_id1
+@anonymous
+[T2560].code(NumberVal) | [T2560].product_variants_id(NumberVal) | [T2560].product_name(StringVal) | [T2560].CONCAT-variants(StringVal) | [T2560].CONCAT-variants_value(StringVal) 
+1.0 | 123451.0 | beer cake | color, temperature, weight | blue, cold, "0.5" 
+2.0 | 123453.0 | ad wrap | color, weight | green, "1" 
+
+[No.16]===============================
+SELECT
+  [T2472].code,[T2472].product_variants_id,[T2472].product_name,[T2472].CONCAT-variants,[T2472].CONCAT-variants_value
+FROM
+  (( (SELECT
+          [T2460].code, [T2460].product_variants_id, [T2460].product_name, CONCAT([T2460].variants)
+        FROM
+          (input1) AS [T2460][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T2460].code  [T2460].product_variants_id  [T2460].product_name) AS [T2461][code, product_variants_id, product_name, CONCAT-variants] ) JOIN (
+      (SELECT
+          [T2470].product_variants_id, CONCAT([T2470].variants_value)
+        FROM
+          (input1) AS [T2470][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T2470].product_variants_id) AS [T2471][product_variants_id, CONCAT-variants_value] )) AS [T2472][code, product_variants_id, product_name, CONCAT-variants, product_variants_id1, CONCAT-variants_value]
+WHERE
+  [T2472].product_variants_id == [T2472].product_variants_id1
+@anonymous
+[T2472].code(NumberVal) | [T2472].product_variants_id(NumberVal) | [T2472].product_name(StringVal) | [T2472].CONCAT-variants(StringVal) | [T2472].CONCAT-variants_value(StringVal) 
+1.0 | 123451.0 | beer cake | color, temperature, weight | blue, cold, "0.5" 
+2.0 | 123453.0 | ad wrap | color, weight | green, "1" 
+
+[No.15]===============================
+SELECT
+  [T2450].code,[T2450].product_variants_id,[T2450].product_name,[T2450].CONCAT-variants,[T2450].CONCAT-variants_value
+FROM
+  (( (SELECT
+          [T2438].code, [T2438].product_variants_id, [T2438].product_name, CONCAT([T2438].variants)
+        FROM
+          (input1) AS [T2438][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T2438].code  [T2438].product_variants_id  [T2438].product_name) AS [T2439][code, product_variants_id, product_name, CONCAT-variants] ) JOIN (
+      (SELECT
+          [T2448].product_name, CONCAT([T2448].variants_value)
+        FROM
+          (input1) AS [T2448][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T2448].product_name) AS [T2449][product_name, CONCAT-variants_value] )) AS [T2450][code, product_variants_id, product_name, CONCAT-variants, product_name1, CONCAT-variants_value]
+WHERE
+  [T2450].product_name == [T2450].product_name1
+@anonymous
+[T2450].code(NumberVal) | [T2450].product_variants_id(NumberVal) | [T2450].product_name(StringVal) | [T2450].CONCAT-variants(StringVal) | [T2450].CONCAT-variants_value(StringVal) 
+1.0 | 123451.0 | beer cake | color, temperature, weight | blue, cold, "0.5" 
+2.0 | 123453.0 | ad wrap | color, weight | green, "1" 
+
+[No.14]===============================
+SELECT
+  [T2406].code,[T2406].product_variants_id,[T2406].product_name,[T2406].CONCAT-variants,[T2406].CONCAT-variants_value
+FROM
+  (( (SELECT
+          [T2394].code, [T2394].product_variants_id, [T2394].product_name, CONCAT([T2394].variants)
+        FROM
+          (input1) AS [T2394][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T2394].code  [T2394].product_variants_id  [T2394].product_name) AS [T2395][code, product_variants_id, product_name, CONCAT-variants] ) JOIN (
+      (SELECT
+          [T2404].code, [T2404].product_variants_id, [T2404].product_name, CONCAT([T2404].variants_value)
+        FROM
+          (input1) AS [T2404][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T2404].code  [T2404].product_variants_id  [T2404].product_name) AS [T2405][code, product_variants_id, product_name, CONCAT-variants_value] )) AS [T2406][code, product_variants_id, product_name, CONCAT-variants, code1, product_variants_id1, product_name1, CONCAT-variants_value]
+WHERE
+  [T2406].code == [T2406].code1
+@anonymous
+[T2406].code(NumberVal) | [T2406].product_variants_id(NumberVal) | [T2406].product_name(StringVal) | [T2406].CONCAT-variants(StringVal) | [T2406].CONCAT-variants_value(StringVal) 
+1.0 | 123451.0 | beer cake | color, temperature, weight | blue, cold, "0.5" 
+2.0 | 123453.0 | ad wrap | color, weight | green, "1" 
+
+[No.13]===============================
+SELECT
+  [T2318].code,[T2318].product_variants_id,[T2318].product_name,[T2318].CONCAT-variants,[T2318].CONCAT-variants_value
+FROM
+  (( (SELECT
+          [T2306].code, [T2306].product_variants_id, [T2306].product_name, CONCAT([T2306].variants)
+        FROM
+          (input1) AS [T2306][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T2306].code  [T2306].product_variants_id  [T2306].product_name) AS [T2307][code, product_variants_id, product_name, CONCAT-variants] ) JOIN (
+      (SELECT
+          [T2316].code, CONCAT([T2316].variants_value)
+        FROM
+          (input1) AS [T2316][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T2316].code) AS [T2317][code, CONCAT-variants_value] )) AS [T2318][code, product_variants_id, product_name, CONCAT-variants, code1, CONCAT-variants_value]
+WHERE
+  [T2318].code == [T2318].code1
+@anonymous
+[T2318].code(NumberVal) | [T2318].product_variants_id(NumberVal) | [T2318].product_name(StringVal) | [T2318].CONCAT-variants(StringVal) | [T2318].CONCAT-variants_value(StringVal) 
+1.0 | 123451.0 | beer cake | color, temperature, weight | blue, cold, "0.5" 
+2.0 | 123453.0 | ad wrap | color, weight | green, "1" 
+
+[No.12]===============================
+SELECT
+  [T2230].code,[T2230].product_variants_id,[T2230].product_name,[T2230].CONCAT-variants,[T2230].CONCAT-variants_value
+FROM
+  (( (SELECT
+          [T2218].code, [T2218].product_variants_id, CONCAT([T2218].variants_value)
+        FROM
+          (input1) AS [T2218][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T2218].code  [T2218].product_variants_id) AS [T2219][code, product_variants_id, CONCAT-variants_value] ) JOIN (
+      (SELECT
+          [T2228].code, [T2228].product_variants_id, [T2228].product_name, CONCAT([T2228].variants)
+        FROM
+          (input1) AS [T2228][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T2228].code  [T2228].product_variants_id  [T2228].product_name) AS [T2229][code, product_variants_id, product_name, CONCAT-variants] )) AS [T2230][code, product_variants_id, CONCAT-variants_value, code1, product_variants_id1, product_name, CONCAT-variants]
+WHERE
+  [T2230].code == [T2230].code1
+@anonymous
+[T2230].code(NumberVal) | [T2230].product_variants_id(NumberVal) | [T2230].product_name(StringVal) | [T2230].CONCAT-variants(StringVal) | [T2230].CONCAT-variants_value(StringVal) 
+1.0 | 123451.0 | beer cake | color, temperature, weight | blue, cold, "0.5" 
+2.0 | 123453.0 | ad wrap | color, weight | green, "1" 
+
+[No.11]===============================
+SELECT
+  [T2164].code,[T2164].product_variants_id,[T2164].product_name,[T2164].CONCAT-variants,[T2164].CONCAT-variants_value
+FROM
+  (( (SELECT
+          [T2152].product_name, CONCAT([T2152].variants)
+        FROM
+          (input1) AS [T2152][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T2152].product_name) AS [T2153][product_name, CONCAT-variants] ) JOIN (
+      (SELECT
+          [T2162].code, [T2162].product_variants_id, [T2162].product_name, CONCAT([T2162].variants_value)
+        FROM
+          (input1) AS [T2162][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T2162].code  [T2162].product_variants_id  [T2162].product_name) AS [T2163][code, product_variants_id, product_name, CONCAT-variants_value] )) AS [T2164][product_name, CONCAT-variants, code, product_variants_id, product_name1, CONCAT-variants_value]
+WHERE
+  [T2164].product_name == [T2164].product_name1
+@anonymous
+[T2164].code(NumberVal) | [T2164].product_variants_id(NumberVal) | [T2164].product_name(StringVal) | [T2164].CONCAT-variants(StringVal) | [T2164].CONCAT-variants_value(StringVal) 
+1.0 | 123451.0 | beer cake | color, temperature, weight | blue, cold, "0.5" 
+2.0 | 123453.0 | ad wrap | color, weight | green, "1" 
+
+[No.10]===============================
+SELECT
+  [T2076].code,[T2076].product_variants_id,[T2076].product_name,[T2076].CONCAT-variants,[T2076].CONCAT-variants_value
+FROM
+  (( (SELECT
+          [T2064].code, [T2064].product_variants_id, [T2064].product_name, CONCAT([T2064].variants_value)
+        FROM
+          (input1) AS [T2064][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T2064].code  [T2064].product_variants_id  [T2064].product_name) AS [T2065][code, product_variants_id, product_name, CONCAT-variants_value] ) JOIN (
+      (SELECT
+          [T2074].product_variants_id, [T2074].product_name, CONCAT([T2074].variants)
+        FROM
+          (input1) AS [T2074][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T2074].product_variants_id  [T2074].product_name) AS [T2075][product_variants_id, product_name, CONCAT-variants] )) AS [T2076][code, product_variants_id, product_name, CONCAT-variants_value, product_variants_id1, product_name1, CONCAT-variants]
+WHERE
+  [T2076].product_variants_id == [T2076].product_variants_id1
+@anonymous
+[T2076].code(NumberVal) | [T2076].product_variants_id(NumberVal) | [T2076].product_name(StringVal) | [T2076].CONCAT-variants(StringVal) | [T2076].CONCAT-variants_value(StringVal) 
+1.0 | 123451.0 | beer cake | color, temperature, weight | blue, cold, "0.5" 
+2.0 | 123453.0 | ad wrap | color, weight | green, "1" 
+
+[No.9]===============================
+SELECT
+  [T1988].code,[T1988].product_variants_id,[T1988].product_name,[T1988].CONCAT-variants,[T1988].CONCAT-variants_value
+FROM
+  (( (SELECT
+          [T1976].code, [T1976].product_variants_id, [T1976].product_name, CONCAT([T1976].variants)
+        FROM
+          (input1) AS [T1976][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T1976].code  [T1976].product_variants_id  [T1976].product_name) AS [T1977][code, product_variants_id, product_name, CONCAT-variants] ) JOIN (
+      (SELECT
+          [T1986].product_variants_id, [T1986].product_name, CONCAT([T1986].variants_value)
+        FROM
+          (input1) AS [T1986][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T1986].product_variants_id  [T1986].product_name) AS [T1987][product_variants_id, product_name, CONCAT-variants_value] )) AS [T1988][code, product_variants_id, product_name, CONCAT-variants, product_variants_id1, product_name1, CONCAT-variants_value]
+WHERE
+  [T1988].product_variants_id == [T1988].product_variants_id1
+@anonymous
+[T1988].code(NumberVal) | [T1988].product_variants_id(NumberVal) | [T1988].product_name(StringVal) | [T1988].CONCAT-variants(StringVal) | [T1988].CONCAT-variants_value(StringVal) 
+1.0 | 123451.0 | beer cake | color, temperature, weight | blue, cold, "0.5" 
+2.0 | 123453.0 | ad wrap | color, weight | green, "1" 
+
+[No.8]===============================
+SELECT
+  [T1900].code,[T1900].product_variants_id,[T1900].product_name,[T1900].CONCAT-variants,[T1900].CONCAT-variants_value
+FROM
+  (( (SELECT
+          [T1888].product_variants_id, [T1888].product_name, CONCAT([T1888].variants)
+        FROM
+          (input1) AS [T1888][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T1888].product_variants_id  [T1888].product_name) AS [T1889][product_variants_id, product_name, CONCAT-variants] ) JOIN (
+      (SELECT
+          [T1898].code, [T1898].product_variants_id, CONCAT([T1898].variants_value)
+        FROM
+          (input1) AS [T1898][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T1898].code  [T1898].product_variants_id) AS [T1899][code, product_variants_id, CONCAT-variants_value] )) AS [T1900][product_variants_id, product_name, CONCAT-variants, code, product_variants_id1, CONCAT-variants_value]
+WHERE
+  [T1900].product_variants_id == [T1900].product_variants_id1
+@anonymous
+[T1900].code(NumberVal) | [T1900].product_variants_id(NumberVal) | [T1900].product_name(StringVal) | [T1900].CONCAT-variants(StringVal) | [T1900].CONCAT-variants_value(StringVal) 
+1.0 | 123451.0 | beer cake | color, temperature, weight | blue, cold, "0.5" 
+2.0 | 123453.0 | ad wrap | color, weight | green, "1" 
+
+[No.7]===============================
+SELECT
+  [T1878].code,[T1878].product_variants_id,[T1878].product_name,[T1878].CONCAT-variants,[T1878].CONCAT-variants_value
+FROM
+  (( (SELECT
+          [T1866].code, [T1866].product_name, CONCAT([T1866].variants_value)
+        FROM
+          (input1) AS [T1866][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T1866].code  [T1866].product_name) AS [T1867][code, product_name, CONCAT-variants_value] ) JOIN (
+      (SELECT
+          [T1876].product_variants_id, [T1876].product_name, CONCAT([T1876].variants)
+        FROM
+          (input1) AS [T1876][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T1876].product_variants_id  [T1876].product_name) AS [T1877][product_variants_id, product_name, CONCAT-variants] )) AS [T1878][code, product_name, CONCAT-variants_value, product_variants_id, product_name1, CONCAT-variants]
+WHERE
+  [T1878].product_name == [T1878].product_name1
+@anonymous
+[T1878].code(NumberVal) | [T1878].product_variants_id(NumberVal) | [T1878].product_name(StringVal) | [T1878].CONCAT-variants(StringVal) | [T1878].CONCAT-variants_value(StringVal) 
+1.0 | 123451.0 | beer cake | color, temperature, weight | blue, cold, "0.5" 
+2.0 | 123453.0 | ad wrap | color, weight | green, "1" 
+
+[No.6]===============================
+SELECT
+  [T1834].code,[T1834].product_variants_id,[T1834].product_name,[T1834].CONCAT-variants,[T1834].CONCAT-variants_value
+FROM
+  (( (SELECT
+          [T1822].code, [T1822].product_name, CONCAT([T1822].variants)
+        FROM
+          (input1) AS [T1822][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T1822].code  [T1822].product_name) AS [T1823][code, product_name, CONCAT-variants] ) JOIN (
+      (SELECT
+          [T1832].code, [T1832].product_variants_id, [T1832].product_name, CONCAT([T1832].variants_value)
+        FROM
+          (input1) AS [T1832][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T1832].code  [T1832].product_variants_id  [T1832].product_name) AS [T1833][code, product_variants_id, product_name, CONCAT-variants_value] )) AS [T1834][code, product_name, CONCAT-variants, code1, product_variants_id, product_name1, CONCAT-variants_value]
+WHERE
+  [T1834].code == [T1834].code1
+@anonymous
+[T1834].code(NumberVal) | [T1834].product_variants_id(NumberVal) | [T1834].product_name(StringVal) | [T1834].CONCAT-variants(StringVal) | [T1834].CONCAT-variants_value(StringVal) 
+1.0 | 123451.0 | beer cake | color, temperature, weight | blue, cold, "0.5" 
+2.0 | 123453.0 | ad wrap | color, weight | green, "1" 
+
+[No.5]===============================
+SELECT
+  [T1702].code,[T1702].product_variants_id,[T1702].product_name,[T1702].CONCAT-variants,[T1702].CONCAT-variants_value
+FROM
+  (( (SELECT
+          [T1690].product_variants_id, [T1690].product_name, CONCAT([T1690].variants_value)
+        FROM
+          (input1) AS [T1690][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T1690].product_variants_id  [T1690].product_name) AS [T1691][product_variants_id, product_name, CONCAT-variants_value] ) JOIN (
+      (SELECT
+          [T1700].code, [T1700].product_variants_id, CONCAT([T1700].variants)
+        FROM
+          (input1) AS [T1700][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T1700].code  [T1700].product_variants_id) AS [T1701][code, product_variants_id, CONCAT-variants] )) AS [T1702][product_variants_id, product_name, CONCAT-variants_value, code, product_variants_id1, CONCAT-variants]
+WHERE
+  [T1702].product_variants_id == [T1702].product_variants_id1
+@anonymous
+[T1702].code(NumberVal) | [T1702].product_variants_id(NumberVal) | [T1702].product_name(StringVal) | [T1702].CONCAT-variants(StringVal) | [T1702].CONCAT-variants_value(StringVal) 
+1.0 | 123451.0 | beer cake | color, temperature, weight | blue, cold, "0.5" 
+2.0 | 123453.0 | ad wrap | color, weight | green, "1" 
+
+[No.4]===============================
+SELECT
+  [T1658].code,[T1658].product_variants_id,[T1658].product_name,[T1658].CONCAT-variants,[T1658].CONCAT-variants_value
+FROM
+  (( (SELECT
+          [T1646].code, [T1646].product_variants_id, [T1646].product_name, CONCAT([T1646].variants)
+        FROM
+          (input1) AS [T1646][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T1646].code  [T1646].product_variants_id  [T1646].product_name) AS [T1647][code, product_variants_id, product_name, CONCAT-variants] ) JOIN (
+      (SELECT
+          [T1656].code, [T1656].product_variants_id, CONCAT([T1656].variants_value)
+        FROM
+          (input1) AS [T1656][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T1656].code  [T1656].product_variants_id) AS [T1657][code, product_variants_id, CONCAT-variants_value] )) AS [T1658][code, product_variants_id, product_name, CONCAT-variants, code1, product_variants_id1, CONCAT-variants_value]
+WHERE
+  [T1658].code == [T1658].code1
+@anonymous
+[T1658].code(NumberVal) | [T1658].product_variants_id(NumberVal) | [T1658].product_name(StringVal) | [T1658].CONCAT-variants(StringVal) | [T1658].CONCAT-variants_value(StringVal) 
+1.0 | 123451.0 | beer cake | color, temperature, weight | blue, cold, "0.5" 
+2.0 | 123453.0 | ad wrap | color, weight | green, "1" 
+
+[No.3]===============================
+SELECT
+  [T1526].code,[T1526].product_variants_id,[T1526].product_name,[T1526].CONCAT-variants,[T1526].CONCAT-variants_value
+FROM
+  (( (SELECT
+          [T1514].product_variants_id, CONCAT([T1514].variants_value)
+        FROM
+          (input1) AS [T1514][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T1514].product_variants_id) AS [T1515][product_variants_id, CONCAT-variants_value] ) JOIN (
+      (SELECT
+          [T1524].code, [T1524].product_variants_id, [T1524].product_name, CONCAT([T1524].variants)
+        FROM
+          (input1) AS [T1524][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T1524].code  [T1524].product_variants_id  [T1524].product_name) AS [T1525][code, product_variants_id, product_name, CONCAT-variants] )) AS [T1526][product_variants_id, CONCAT-variants_value, code, product_variants_id1, product_name, CONCAT-variants]
+WHERE
+  [T1526].product_variants_id == [T1526].product_variants_id1
+@anonymous
+[T1526].code(NumberVal) | [T1526].product_variants_id(NumberVal) | [T1526].product_name(StringVal) | [T1526].CONCAT-variants(StringVal) | [T1526].CONCAT-variants_value(StringVal) 
+1.0 | 123451.0 | beer cake | color, temperature, weight | blue, cold, "0.5" 
+2.0 | 123453.0 | ad wrap | color, weight | green, "1" 
+
+[No.2]===============================
+SELECT
+  [T1482].code,[T1482].product_variants_id,[T1482].product_name,[T1482].CONCAT-variants,[T1482].CONCAT-variants_value
+FROM
+  (( (SELECT
+          [T1470].code, [T1470].product_name, CONCAT([T1470].variants)
+        FROM
+          (input1) AS [T1470][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T1470].code  [T1470].product_name) AS [T1471][code, product_name, CONCAT-variants] ) JOIN (
+      (SELECT
+          [T1480].code, [T1480].product_variants_id, CONCAT([T1480].variants_value)
+        FROM
+          (input1) AS [T1480][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T1480].code  [T1480].product_variants_id) AS [T1481][code, product_variants_id, CONCAT-variants_value] )) AS [T1482][code, product_name, CONCAT-variants, code1, product_variants_id, CONCAT-variants_value]
+WHERE
+  [T1482].code == [T1482].code1
+@anonymous
+[T1482].code(NumberVal) | [T1482].product_variants_id(NumberVal) | [T1482].product_name(StringVal) | [T1482].CONCAT-variants(StringVal) | [T1482].CONCAT-variants_value(StringVal) 
+1.0 | 123451.0 | beer cake | color, temperature, weight | blue, cold, "0.5" 
+2.0 | 123453.0 | ad wrap | color, weight | green, "1" 
+
+[No.1]===============================
+SELECT
+  [T1416].code,[T1416].product_variants_id,[T1416].product_name,[T1416].CONCAT-variants,[T1416].CONCAT-variants_value
+FROM
+  (( (SELECT
+          [T1404].code, [T1404].product_name, CONCAT([T1404].variants)
+        FROM
+          (input1) AS [T1404][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T1404].code  [T1404].product_name) AS [T1405][code, product_name, CONCAT-variants] ) JOIN (
+      (SELECT
+          [T1414].product_variants_id, [T1414].product_name, CONCAT([T1414].variants_value)
+        FROM
+          (input1) AS [T1414][ID, code, product_variants_id, product_name, variants, variants_value]
+        GROUP BY
+          [T1414].product_variants_id  [T1414].product_name) AS [T1415][product_variants_id, product_name, CONCAT-variants_value] )) AS [T1416][code, product_name, CONCAT-variants, product_variants_id, product_name1, CONCAT-variants_value]
+WHERE
+  [T1416].product_name == [T1416].product_name1
+@anonymous
+[T1416].code(NumberVal) | [T1416].product_variants_id(NumberVal) | [T1416].product_name(StringVal) | [T1416].CONCAT-variants(StringVal) | [T1416].CONCAT-variants_value(StringVal) 
+1.0 | 123451.0 | beer cake | color, temperature, weight | blue, cold, "0.5" 
+2.0 | 123453.0 | ad wrap | color, weight | green, "1" 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 2.082s

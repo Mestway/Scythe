@@ -1,0 +1,447 @@
+[[Synthesis start]]
+	File: ../data/sqlsynthesizer/forum-questions-5
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 84 [SymTable]: 86
+[NaturalJoin]: 1 [SymTable]: 86
+Candidate Tree Number: 5
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 2 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 12
+[EnumJoinOnAggr] level 1 [SymTable]: 28
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 4 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 18
+[EnumJoinOnAggr] level 1 [SymTable]: 54
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 4 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 18
+[EnumJoinOnAggr] level 1 [SymTable]: 54
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 4 [SymTable]: 6
+[JOIN] level 1 [SymTable]: 18
+[EnumJoinOnAggr] level 1 [SymTable]: 54
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 6 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 24
+[EnumJoinOnAggr] level 1 [SymTable]: 88
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 19 [SymTable]: 21
+[JOIN] level 1 [SymTable]: 63
+Candidate Tree Number: 30
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T346].entryid,[T346].COUNT-entryid
+FROM
+  (( (SELECT
+          [T344].entryid, COUNT([T344].entryid)
+        FROM
+          (input2) AS [T344][v_key, entryid, result]
+        GROUP BY
+          [T344].entryid) AS [T345][entryid, COUNT-entryid] ) JOIN (
+      SELECT
+        input1.entryid,input1.title,input1.post
+      FROM
+        input1
+      WHERE
+        input1.title == input1.post )) AS [T346][entryid, COUNT-entryid, entryid1, title, post]
+WHERE
+  [T346].COUNT-entryid >= [T346].entryid1
+@anonymous
+[T346].entryid(StringVal) | [T346].COUNT-entryid(NumberVal) 
+e1 | 2.0 
+e2 | 1.0 
+e3 | 1.0 
+
+[No.19]===============================
+SELECT
+  [T284].entryid,[T284].COUNT-v_key
+FROM
+  (( (SELECT
+          [T282].entryid, COUNT([T282].v_key)
+        FROM
+          (input2) AS [T282][v_key, entryid, result]
+        GROUP BY
+          [T282].entryid) AS [T283][entryid, COUNT-v_key] ) JOIN (
+      SELECT
+        input1.entryid,input1.title,input1.post
+      FROM
+        input1
+      WHERE
+        input1.title == input1.post )) AS [T284][entryid, COUNT-v_key, entryid1, title, post]
+WHERE
+  [T284].COUNT-v_key >= [T284].entryid1
+@anonymous
+[T284].entryid(StringVal) | [T284].COUNT-v_key(NumberVal) 
+e1 | 2.0 
+e2 | 1.0 
+e3 | 1.0 
+
+[No.18]===============================
+SELECT
+  [T230].entryid,[T230].COUNT-result
+FROM
+  (( (SELECT
+          [T228].entryid, COUNT([T228].result)
+        FROM
+          (input2) AS [T228][v_key, entryid, result]
+        GROUP BY
+          [T228].entryid) AS [T229][entryid, COUNT-result] ) JOIN (
+      SELECT
+        input1.entryid,input1.title,input1.post
+      FROM
+        input1
+      WHERE
+        input1.title == input1.post )) AS [T230][entryid, COUNT-result, entryid1, title, post]
+WHERE
+  [T230].COUNT-result >= [T230].entryid1
+@anonymous
+[T230].entryid(StringVal) | [T230].COUNT-result(NumberVal) 
+e1 | 2.0 
+e2 | 1.0 
+e3 | 1.0 
+
+[No.17]===============================
+SELECT
+  [T352].entryid,[T352].COUNT-entryid
+FROM
+  (( (SELECT
+          [T350].entryid, COUNT([T350].entryid)
+        FROM
+          (input2) AS [T350][v_key, entryid, result]
+        GROUP BY
+          [T350].entryid) AS [T351][entryid, COUNT-entryid] ) JOIN (
+      input1 )) AS [T352][entryid, COUNT-entryid, entryid1, title, post]
+WHERE
+  [T352].COUNT-entryid == [T352].entryid1
+@anonymous
+[T352].entryid(StringVal) | [T352].COUNT-entryid(NumberVal) 
+e1 | 2.0 
+e2 | 1.0 
+e3 | 1.0 
+
+[No.16]===============================
+SELECT
+  [T290].entryid,[T290].COUNT-v_key
+FROM
+  (( (SELECT
+          [T288].entryid, COUNT([T288].v_key)
+        FROM
+          (input2) AS [T288][v_key, entryid, result]
+        GROUP BY
+          [T288].entryid) AS [T289][entryid, COUNT-v_key] ) JOIN (
+      input1 )) AS [T290][entryid, COUNT-v_key, entryid1, title, post]
+WHERE
+  [T290].COUNT-v_key == [T290].entryid1
+@anonymous
+[T290].entryid(StringVal) | [T290].COUNT-v_key(NumberVal) 
+e1 | 2.0 
+e2 | 1.0 
+e3 | 1.0 
+
+[No.15]===============================
+SELECT
+  [T236].entryid,[T236].COUNT-result
+FROM
+  (( (SELECT
+          [T234].entryid, COUNT([T234].result)
+        FROM
+          (input2) AS [T234][v_key, entryid, result]
+        GROUP BY
+          [T234].entryid) AS [T235][entryid, COUNT-result] ) JOIN (
+      input1 )) AS [T236][entryid, COUNT-result, entryid1, title, post]
+WHERE
+  [T236].COUNT-result == [T236].entryid1
+@anonymous
+[T236].entryid(StringVal) | [T236].COUNT-result(NumberVal) 
+e1 | 2.0 
+e2 | 1.0 
+e3 | 1.0 
+
+[No.14]===============================
+SELECT
+  [T328].entryid,[T328].COUNT-entryid
+FROM
+  (( (SELECT
+          [T326].entryid, COUNT([T326].entryid)
+        FROM
+          (input2) AS [T326][v_key, entryid, result]
+        GROUP BY
+          [T326].entryid) AS [T327][entryid, COUNT-entryid] ) JOIN (
+      SELECT
+        input1.entryid,input1.title,input1.post
+      FROM
+        input1
+      WHERE
+        input1.title == input1.post
+         OR IS NULL input1.entryid )) AS [T328][entryid, COUNT-entryid, entryid1, title, post]
+
+@anonymous
+[T328].entryid(StringVal) | [T328].COUNT-entryid(NumberVal) 
+e1 | 2.0 
+e2 | 1.0 
+e3 | 1.0 
+
+[No.13]===============================
+SELECT
+  [T266].entryid,[T266].COUNT-v_key
+FROM
+  (( (SELECT
+          [T264].entryid, COUNT([T264].v_key)
+        FROM
+          (input2) AS [T264][v_key, entryid, result]
+        GROUP BY
+          [T264].entryid) AS [T265][entryid, COUNT-v_key] ) JOIN (
+      SELECT
+        input1.entryid,input1.title,input1.post
+      FROM
+        input1
+      WHERE
+        input1.title == input1.post
+         OR IS NULL input1.entryid )) AS [T266][entryid, COUNT-v_key, entryid1, title, post]
+
+@anonymous
+[T266].entryid(StringVal) | [T266].COUNT-v_key(NumberVal) 
+e1 | 2.0 
+e2 | 1.0 
+e3 | 1.0 
+
+[No.12]===============================
+SELECT
+  [T212].entryid,[T212].COUNT-result
+FROM
+  (( (SELECT
+          [T210].entryid, COUNT([T210].result)
+        FROM
+          (input2) AS [T210][v_key, entryid, result]
+        GROUP BY
+          [T210].entryid) AS [T211][entryid, COUNT-result] ) JOIN (
+      SELECT
+        input1.entryid,input1.title,input1.post
+      FROM
+        input1
+      WHERE
+        input1.title == input1.post
+         OR IS NULL input1.entryid )) AS [T212][entryid, COUNT-result, entryid1, title, post]
+
+@anonymous
+[T212].entryid(StringVal) | [T212].COUNT-result(NumberVal) 
+e1 | 2.0 
+e2 | 1.0 
+e3 | 1.0 
+
+[No.11]===============================
+SELECT
+  [T334].entryid,[T334].COUNT-entryid
+FROM
+  (( (SELECT
+          [T332].entryid, COUNT([T332].entryid)
+        FROM
+          (input2) AS [T332][v_key, entryid, result]
+        GROUP BY
+          [T332].entryid) AS [T333][entryid, COUNT-entryid] ) JOIN (
+      SELECT
+        input1.entryid,input1.title,input1.post
+      FROM
+        input1
+      WHERE
+        input1.title == input1.post )) AS [T334][entryid, COUNT-entryid, entryid1, title, post]
+
+@anonymous
+[T334].entryid(StringVal) | [T334].COUNT-entryid(NumberVal) 
+e1 | 2.0 
+e2 | 1.0 
+e3 | 1.0 
+
+[No.10]===============================
+SELECT
+  [T272].entryid,[T272].COUNT-v_key
+FROM
+  (( (SELECT
+          [T270].entryid, COUNT([T270].v_key)
+        FROM
+          (input2) AS [T270][v_key, entryid, result]
+        GROUP BY
+          [T270].entryid) AS [T271][entryid, COUNT-v_key] ) JOIN (
+      SELECT
+        input1.entryid,input1.title,input1.post
+      FROM
+        input1
+      WHERE
+        input1.title == input1.post )) AS [T272][entryid, COUNT-v_key, entryid1, title, post]
+
+@anonymous
+[T272].entryid(StringVal) | [T272].COUNT-v_key(NumberVal) 
+e1 | 2.0 
+e2 | 1.0 
+e3 | 1.0 
+
+[No.9]===============================
+SELECT
+  [T218].entryid,[T218].COUNT-result
+FROM
+  (( (SELECT
+          [T216].entryid, COUNT([T216].result)
+        FROM
+          (input2) AS [T216][v_key, entryid, result]
+        GROUP BY
+          [T216].entryid) AS [T217][entryid, COUNT-result] ) JOIN (
+      SELECT
+        input1.entryid,input1.title,input1.post
+      FROM
+        input1
+      WHERE
+        input1.title == input1.post )) AS [T218][entryid, COUNT-result, entryid1, title, post]
+
+@anonymous
+[T218].entryid(StringVal) | [T218].COUNT-result(NumberVal) 
+e1 | 2.0 
+e2 | 1.0 
+e3 | 1.0 
+
+[No.8]===============================
+(SELECT
+    [T380].entryid, COUNT([T380].result)
+  FROM
+    (input2) AS [T380][v_key, entryid, result]
+  GROUP BY
+    [T380].entryid) AS [T381][entryid, COUNT-result]
+@anonymous
+[T381].entryid(StringVal) | [T381].COUNT-result(NumberVal) 
+e1 | 2.0 
+e2 | 1.0 
+e3 | 1.0 
+
+[No.7]===============================
+(SELECT
+    [T322].entryid, COUNT([T322].v_key)
+  FROM
+    (input2) AS [T322][v_key, entryid, result]
+  GROUP BY
+    [T322].entryid) AS [T323][entryid, COUNT-v_key]
+@anonymous
+[T323].entryid(StringVal) | [T323].COUNT-v_key(NumberVal) 
+e1 | 2.0 
+e2 | 1.0 
+e3 | 1.0 
+
+[No.6]===============================
+(SELECT
+    [T318].entryid, COUNT([T318].entryid)
+  FROM
+    (input2) AS [T318][v_key, entryid, result]
+  GROUP BY
+    [T318].entryid) AS [T319][entryid, COUNT-entryid]
+@anonymous
+[T319].entryid(StringVal) | [T319].COUNT-entryid(NumberVal) 
+e1 | 2.0 
+e2 | 1.0 
+e3 | 1.0 
+
+[No.5]===============================
+(SELECT
+    [T103].entryid, COUNT_DISTINCT([T103].result)
+  FROM
+    (input2) AS [T103][v_key, entryid, result]
+  GROUP BY
+    [T103].entryid) AS [T104][entryid, COUNT_DISTINCT-result]
+@anonymous
+[T104].entryid(StringVal) | [T104].COUNT_DISTINCT-result(NumberVal) 
+e1 | 2.0 
+e2 | 1.0 
+e3 | 1.0 
+
+[No.4]===============================
+(SELECT
+    [T99].entryid, COUNT([T99].entryid)
+  FROM
+    (input2) AS [T99][v_key, entryid, result]
+  GROUP BY
+    [T99].entryid) AS [T100][entryid, COUNT-entryid]
+@anonymous
+[T100].entryid(StringVal) | [T100].COUNT-entryid(NumberVal) 
+e1 | 2.0 
+e2 | 1.0 
+e3 | 1.0 
+
+[No.3]===============================
+(SELECT
+    [T95].entryid, COUNT([T95].v_key)
+  FROM
+    (input2) AS [T95][v_key, entryid, result]
+  GROUP BY
+    [T95].entryid) AS [T96][entryid, COUNT-v_key]
+@anonymous
+[T96].entryid(StringVal) | [T96].COUNT-v_key(NumberVal) 
+e1 | 2.0 
+e2 | 1.0 
+e3 | 1.0 
+
+[No.2]===============================
+(SELECT
+    [T91].entryid, COUNT([T91].result)
+  FROM
+    (input2) AS [T91][v_key, entryid, result]
+  GROUP BY
+    [T91].entryid) AS [T92][entryid, COUNT-result]
+@anonymous
+[T92].entryid(StringVal) | [T92].COUNT-result(NumberVal) 
+e1 | 2.0 
+e2 | 1.0 
+e3 | 1.0 
+
+[No.1]===============================
+(SELECT
+    [T87].entryid, COUNT_DISTINCT([T87].v_key)
+  FROM
+    (input2) AS [T87][v_key, entryid, result]
+  GROUP BY
+    [T87].entryid) AS [T88][entryid, COUNT_DISTINCT-v_key]
+@anonymous
+[T88].entryid(StringVal) | [T88].COUNT_DISTINCT-v_key(NumberVal) 
+e1 | 2.0 
+e2 | 1.0 
+e3 | 1.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.505s

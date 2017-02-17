@@ -1,17 +1,19 @@
 package sql.lang;
 
+import sql.lang.datatype.NullVal;
+import sql.lang.datatype.ValType;
 import util.Pair;
-import sql.lang.DataType.Value;
+import sql.lang.datatype.Value;
 import util.DebugHelper;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by clwang on 12/14/15.
  */
 public class TableRow {
     /* the table containing the row */
-    String tableName = "";
     List<String> fieldNames = new ArrayList<String>();
     List<Value> values = new ArrayList<Value>();
 
@@ -19,56 +21,27 @@ public class TableRow {
 
     public static TableRow TableRowFromString(String tableName, List<String> names, List<String> rowContent) {
         TableRow newRow = new TableRow();
-        newRow.tableName = tableName;
 
-        for (String s : names) {
+        for (String s : names)
             newRow.fieldNames.add(s);
-        }
-        for (String s : rowContent) {
+        for (String s : rowContent)
             newRow.values.add(Value.parse(s));
-        }
 
         return newRow;
     }
 
-    public int retrieveIndex(String columnName) {
-        String fieldName = columnName;
-        if (this.tableName.equals("anonymous"))
-            fieldName = columnName;
-        else
-            fieldName = columnName.substring(columnName.indexOf(".") + 1);
-
-        for (int i = 0; i < this.fieldNames.size(); i ++) {
-            if (this.fieldNames.get(i).equals(fieldName))
-                return i;
-        }
-        System.err.println("[Error@Table152]Metadata retrieval fail.");
-        return -1;
-    }
-
     public static TableRow TableRowFromContent(String tableName, List<String> names, List<Value> rowContent) {
         TableRow newRow = new TableRow();
-        newRow.tableName = tableName;
-
-        for (String s : names) {
-            newRow.fieldNames.add(s);
-        }
-        for (Value v : rowContent) {
-            newRow.values.add(v);
-        }
+        newRow.fieldNames.addAll(names);
+        newRow.values.addAll(rowContent);
         return newRow;
     }
 
     // duplicate the current row
     public TableRow duplicate() {
         TableRow tr = new TableRow();
-        tr.tableName = this.tableName;
-        for (String s : fieldNames) {
-            tr.fieldNames.add(s);
-        }
-        for (Value v : values) {
-            tr.values.add(v.duplicate());
-        }
+        tr.fieldNames.addAll(fieldNames);
+        tr.values.addAll(values.stream().map(Value::duplicate).collect(Collectors.toList()));
         return tr;
     }
 
@@ -83,15 +56,6 @@ public class TableRow {
         return this.values.get(i);
     }
 
-    public TableRow projection(List<Integer> projectionIndex) {
-        TableRow newRow = new TableRow();
-        for (Integer i : projectionIndex) {
-            newRow.fieldNames.add(this.fieldNames.get(i));
-            newRow.values.add(this.values.get(i).duplicate());
-        }
-        return newRow;
-    }
-
     @Override
     public String toString() {
         String str = "";
@@ -103,7 +67,17 @@ public class TableRow {
         return str;
     }
 
-    public boolean equals(TableRow row) {
+    @Override
+    public int hashCode() {
+        return this.values.stream().map(value -> value.hashCode()).reduce(0, (x,y) -> (x + y) % 179426549);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (! (obj instanceof TableRow))
+            return false;
+        TableRow row = (TableRow) obj;
         for (int i = 0; i < this.values.size(); i ++) {
             if (!this.values.get(i).equals((row).values.get(i))) {
                 return false;
@@ -118,11 +92,6 @@ public class TableRow {
     // if the content of the row equals to another row
     public boolean contentEquals(TableRow row) {
 
-        if (DebugHelper.debugFlag == true) {
-            System.out.println("~~~~~ ");
-            System.out.println(this.toString());
-            System.out.println(row.toString());
-        }
         for (int i = 0; i < this.values.size(); i ++) {
             if (!this.values.get(i).equals(row.values.get(i))) {
                 return false;
@@ -180,16 +149,13 @@ public class TableRow {
 
     public static Pair<String, String> ColumnNameParser(String quantifiedName) {
         if (quantifiedName.indexOf('.') == -1) {
-            return new Pair<String, String>("", quantifiedName);
+            return new Pair<>("", quantifiedName);
         }
         String tableName = quantifiedName.substring(0, quantifiedName.indexOf("."));
         String columnName = quantifiedName.substring(quantifiedName.indexOf(".") + 1);
-        return new Pair<String, String>(tableName, columnName);
+        return new Pair<>(tableName, columnName);
     }
 
-    public void updateTableName(String tableName) {
-        this.tableName = tableName;
-    }
     public void updateMetadata(List<String> metadata) {
         this.fieldNames.clear();
         for (String s : metadata) {
@@ -197,14 +163,27 @@ public class TableRow {
         }
     }
 
+    public TableRow projection(List<Integer> projectionIndexes) {
+        TableRow r = this.duplicate();
+        r.fieldNames = projectionIndexes.stream().map(c -> this.fieldNames.get(c)).collect(Collectors.toList());
+        r.values = projectionIndexes.stream().map(c -> this.values.get(c)).collect(Collectors.toList());
+        return r;
+    }
+
     public List<Value> retrieveValuesByIndices(List<Integer> indices) {
-        List<Value> result = new ArrayList<Value>();
+        List<Value> result = new ArrayList<>();
         for (Integer i : indices) {
             result.add(this.getValue(i));
         }
         return result;
     }
 
+    public TableRow extendWithNull(List<Pair<String, ValType>> extensionSchema) {
+        TableRow r = this.duplicate();
+        r.fieldNames.addAll(extensionSchema.stream().map(p -> p.getKey()).collect(Collectors.toList()));
+        r.values.addAll(extensionSchema.stream().map(p -> new NullVal(p.getValue())).collect(Collectors.toList()));
+        return r;
+    }
 
     /**
      * If the current row contains only one value, we will return the value,

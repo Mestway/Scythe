@@ -1,0 +1,658 @@
+================
+[[Synthesizer start]] data/benchmarks/009
+[Enumerator Type] SymbolicTableEnumerator
+[Initialize Enumeration]
+  Parameterized Table Number: 280
+[Enumeration Start]
+[FiltersCount format](primitiveSynFilterCount, primitiveBitVecFilterCount, totalBitVecFiltersCount)
+[Basic]: 1 [SymTableForInputs]: 1
+[Aggregation]: 134 [SymTable]: 135
+[EnumJoin] level 1 [SymTable]: 270
+ASymTable Enumeration done: 270
+Runner ups: 116
+Candidates: 
+538
+[No.1]===============================
+SELECT
+  [T3880].ID,[T3880].NAME,[T3880].EMAIL,[T3880].ID1,[T3880].NAME1,[T3880].EMAIL1
+FROM
+  (( SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1 ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+       )) AS [T3880][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+  [T3880].ID <> [T3880].ID1
+   AND [T3880].NAME == [T3880].NAME1
+@anonymous
+[T3880].ID | [T3880].NAME | [T3880].EMAIL | [T3880].ID1 | [T3880].NAME1 | [T3880].EMAIL1 
+3.0 | Tom | asd@asd.com | 5.0 | Tom | asd@asd.com 
+5.0 | Tom | asd@asd.com | 3.0 | Tom | asd@asd.com 
+
+[No.2]===============================
+SELECT
+  input1.ID,input1.NAME,input1.EMAIL
+FROM
+  input1
+WHERE
+  EXIST (
+    (SELECT
+        [T0].ID,[T0].NAME,[T0].EMAIL
+      FROM
+        (input1) AS [T0][ID, NAME, EMAIL]
+      WHERE
+        input1.ID <> [T0].ID
+         AND input1.NAME == [T0].NAME) AS [T179][ID, NAME, EMAIL])
+@anonymous
+input1.ID | input1.NAME | input1.EMAIL 
+3.0 | Tom | asd@asd.com 
+5.0 | Tom | asd@asd.com 
+
+[No.3]===============================
+SELECT
+  [T3950].ID,[T3950].NAME,[T3950].EMAIL,[T3950].ID1,[T3950].NAME1,[T3950].EMAIL1
+FROM
+  (( SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              [T0].ID,[T0].NAME,[T0].EMAIL
+            FROM
+              (input1) AS [T0][ID, NAME, EMAIL]
+            WHERE
+              input1.ID < [T0].ID) AS [T7][ID, NAME, EMAIL]) ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+       )) AS [T3950][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+  [T3950].NAME == [T3950].NAME1
+@anonymous
+[T3950].ID | [T3950].NAME | [T3950].EMAIL | [T3950].ID1 | [T3950].NAME1 | [T3950].EMAIL1 
+5.0 | Tom | asd@asd.com | 3.0 | Tom | asd@asd.com 
+5.0 | Tom | asd@asd.com | 5.0 | Tom | asd@asd.com 
+
+[No.4]===============================
+SELECT
+  [T3960].ID,[T3960].NAME,[T3960].EMAIL,[T3960].ID1,[T3960].NAME1,[T3960].EMAIL1
+FROM
+  (( SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1 ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        NOT EXIST (
+          (SELECT
+              [T0].ID,[T0].NAME,[T0].EMAIL
+            FROM
+              (input1) AS [T0][ID, NAME, EMAIL]
+            WHERE
+              input1.ID < [T0].ID) AS [T7][ID, NAME, EMAIL]) )) AS [T3960][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+  [T3960].NAME == [T3960].NAME1
+@anonymous
+[T3960].ID | [T3960].NAME | [T3960].EMAIL | [T3960].ID1 | [T3960].NAME1 | [T3960].EMAIL1 
+3.0 | Tom | asd@asd.com | 5.0 | Tom | asd@asd.com 
+5.0 | Tom | asd@asd.com | 5.0 | Tom | asd@asd.com 
+
+[No.5]===============================
+SELECT
+  [T1008].NAME,[T1008].EMAIL,[T1008].COUNT-EMAIL,[T1008].ID,[T1008].NAME1,[T1008].EMAIL1
+FROM
+  (( SELECT
+        [T1001].NAME,[T1001].EMAIL,[T1001].COUNT-EMAIL
+      FROM
+        (SELECT
+            [T1000].NAME, [T1000].EMAIL, COUNT([T1000].EMAIL)
+          FROM
+            (SELECT
+                input1.ID,input1.NAME,input1.EMAIL
+              FROM
+                input1
+              WHERE
+                EXIST (
+                  (SELECT
+                      [T0].ID,[T0].NAME,[T0].EMAIL
+                    FROM
+                      (input1) AS [T0][ID, NAME, EMAIL]
+                    WHERE
+                      input1.ID <> [T0].ID
+                       AND input1.NAME == [T0].NAME) AS [T179][ID, NAME, EMAIL])) AS [T1000][ID, NAME, EMAIL]
+          GROUP BY
+            [T1000].NAME  [T1000].EMAIL) AS [T1001][NAME, EMAIL, COUNT-EMAIL] ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+       )) AS [T1008][NAME, EMAIL, COUNT-EMAIL, ID, NAME1, EMAIL1]
+WHERE
+  [T1008].NAME == [T1008].NAME1
+@anonymous
+[T1008].NAME | [T1008].EMAIL | [T1008].COUNT-EMAIL | [T1008].ID | [T1008].NAME1 | [T1008].EMAIL1 
+Tom | asd@asd.com | 2.0 | 3.0 | Tom | asd@asd.com 
+Tom | asd@asd.com | 2.0 | 5.0 | Tom | asd@asd.com 
+
+[No.6]===============================
+SELECT
+  [T1166].NAME,[T1166].EMAIL,[T1166].ID,[T1166].NAME1,[T1166].EMAIL1
+FROM
+  (( SELECT
+        [T408].NAME,[T408].EMAIL
+      FROM
+        (SELECT
+            input1.NAME, input1.EMAIL, FROM
+            input1
+          GROUP BY
+            input1.NAME  input1.EMAIL) AS [T408][NAME, EMAIL] ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              [T0].ID,[T0].NAME,[T0].EMAIL
+            FROM
+              (input1) AS [T0][ID, NAME, EMAIL]
+            WHERE
+              input1.ID <> [T0].ID
+               AND input1.NAME == [T0].NAME) AS [T179][ID, NAME, EMAIL]) )) AS [T1166][NAME, EMAIL, ID, NAME1, EMAIL1]
+WHERE
+  [T1166].NAME == [T1166].NAME1
+@anonymous
+[T1166].NAME | [T1166].EMAIL | [T1166].ID | [T1166].NAME1 | [T1166].EMAIL1 
+Tom | asd@asd.com | 3.0 | Tom | asd@asd.com 
+Tom | asd@asd.com | 5.0 | Tom | asd@asd.com 
+
+[No.7]===============================
+SELECT
+  [T1704].NAME,[T1704].EMAIL,[T1704].COUNT-ID,[T1704].ID,[T1704].NAME1,[T1704].EMAIL1
+FROM
+  (( SELECT
+        [T1697].NAME,[T1697].EMAIL,[T1697].COUNT-ID
+      FROM
+        (SELECT
+            [T1696].NAME, [T1696].EMAIL, COUNT([T1696].ID)
+          FROM
+            (SELECT
+                input1.ID,input1.NAME,input1.EMAIL
+              FROM
+                input1
+              WHERE
+                EXIST (
+                  (SELECT
+                      [T0].ID,[T0].NAME,[T0].EMAIL
+                    FROM
+                      (input1) AS [T0][ID, NAME, EMAIL]
+                    WHERE
+                      input1.ID <> [T0].ID
+                       AND input1.NAME == [T0].NAME) AS [T179][ID, NAME, EMAIL])) AS [T1696][ID, NAME, EMAIL]
+          GROUP BY
+            [T1696].NAME  [T1696].EMAIL) AS [T1697][NAME, EMAIL, COUNT-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+       )) AS [T1704][NAME, EMAIL, COUNT-ID, ID, NAME1, EMAIL1]
+WHERE
+  [T1704].NAME == [T1704].NAME1
+@anonymous
+[T1704].NAME | [T1704].EMAIL | [T1704].COUNT-ID | [T1704].ID | [T1704].NAME1 | [T1704].EMAIL1 
+Tom | asd@asd.com | 2.0 | 3.0 | Tom | asd@asd.com 
+Tom | asd@asd.com | 2.0 | 5.0 | Tom | asd@asd.com 
+
+[No.8]===============================
+SELECT
+  [T1846].NAME,[T1846].EMAIL,[T1846].COUNT-NAME,[T1846].ID,[T1846].NAME1,[T1846].EMAIL1
+FROM
+  (( SELECT
+        [T410].NAME,[T410].EMAIL,[T410].COUNT-NAME
+      FROM
+        (SELECT
+            input1.NAME, input1.EMAIL, COUNT(input1.NAME)
+          FROM
+            input1
+          GROUP BY
+            input1.NAME  input1.EMAIL) AS [T410][NAME, EMAIL, COUNT-NAME] ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              [T0].ID,[T0].NAME,[T0].EMAIL
+            FROM
+              (input1) AS [T0][ID, NAME, EMAIL]
+            WHERE
+              input1.ID <> [T0].ID
+               AND input1.NAME == [T0].NAME) AS [T179][ID, NAME, EMAIL]) )) AS [T1846][NAME, EMAIL, COUNT-NAME, ID, NAME1, EMAIL1]
+WHERE
+  [T1846].NAME == [T1846].NAME1
+@anonymous
+[T1846].NAME | [T1846].EMAIL | [T1846].COUNT-NAME | [T1846].ID | [T1846].NAME1 | [T1846].EMAIL1 
+Tom | asd@asd.com | 2.0 | 3.0 | Tom | asd@asd.com 
+Tom | asd@asd.com | 2.0 | 5.0 | Tom | asd@asd.com 
+
+[No.9]===============================
+SELECT
+  [T2164].NAME,[T2164].COUNT-ID,[T2164].ID,[T2164].NAME1,[T2164].EMAIL
+FROM
+  (( SELECT
+        [T2157].NAME,[T2157].COUNT-ID
+      FROM
+        (SELECT
+            [T2156].NAME, COUNT([T2156].ID)
+          FROM
+            (SELECT
+                input1.ID,input1.NAME,input1.EMAIL
+              FROM
+                input1
+              WHERE
+                EXIST (
+                  (SELECT
+                      [T0].ID,[T0].NAME,[T0].EMAIL
+                    FROM
+                      (input1) AS [T0][ID, NAME, EMAIL]
+                    WHERE
+                      input1.ID <> [T0].ID
+                       AND input1.NAME == [T0].NAME) AS [T179][ID, NAME, EMAIL])) AS [T2156][ID, NAME, EMAIL]
+          GROUP BY
+            [T2156].NAME) AS [T2157][NAME, COUNT-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+       )) AS [T2164][NAME, COUNT-ID, ID, NAME1, EMAIL]
+WHERE
+  [T2164].NAME == [T2164].NAME1
+@anonymous
+[T2164].NAME | [T2164].COUNT-ID | [T2164].ID | [T2164].NAME1 | [T2164].EMAIL 
+Tom | 2.0 | 3.0 | Tom | asd@asd.com 
+Tom | 2.0 | 5.0 | Tom | asd@asd.com 
+
+[No.10]===============================
+SELECT
+  [T2286].NAME,[T2286].COUNT-EMAIL,[T2286].ID,[T2286].NAME1,[T2286].EMAIL
+FROM
+  (( SELECT
+        [T404].NAME,[T404].COUNT-EMAIL
+      FROM
+        (SELECT
+            input1.NAME, COUNT(input1.EMAIL)
+          FROM
+            input1
+          GROUP BY
+            input1.NAME) AS [T404][NAME, COUNT-EMAIL] ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              [T0].ID,[T0].NAME,[T0].EMAIL
+            FROM
+              (input1) AS [T0][ID, NAME, EMAIL]
+            WHERE
+              input1.ID <> [T0].ID
+               AND input1.NAME == [T0].NAME) AS [T179][ID, NAME, EMAIL]) )) AS [T2286][NAME, COUNT-EMAIL, ID, NAME1, EMAIL]
+WHERE
+  [T2286].NAME == [T2286].NAME1
+@anonymous
+[T2286].NAME | [T2286].COUNT-EMAIL | [T2286].ID | [T2286].NAME1 | [T2286].EMAIL 
+Tom | 2.0 | 3.0 | Tom | asd@asd.com 
+Tom | 2.0 | 5.0 | Tom | asd@asd.com 
+
+[No.11]===============================
+SELECT
+  [T2604].NAME,[T2604].COUNT-EMAIL,[T2604].ID,[T2604].NAME1,[T2604].EMAIL
+FROM
+  (( SELECT
+        [T2597].NAME,[T2597].COUNT-EMAIL
+      FROM
+        (SELECT
+            [T2596].NAME, COUNT([T2596].EMAIL)
+          FROM
+            (SELECT
+                input1.ID,input1.NAME,input1.EMAIL
+              FROM
+                input1
+              WHERE
+                EXIST (
+                  (SELECT
+                      [T0].ID,[T0].NAME,[T0].EMAIL
+                    FROM
+                      (input1) AS [T0][ID, NAME, EMAIL]
+                    WHERE
+                      input1.ID <> [T0].ID
+                       AND input1.NAME == [T0].NAME) AS [T179][ID, NAME, EMAIL])) AS [T2596][ID, NAME, EMAIL]
+          GROUP BY
+            [T2596].NAME) AS [T2597][NAME, COUNT-EMAIL] ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+       )) AS [T2604][NAME, COUNT-EMAIL, ID, NAME1, EMAIL]
+WHERE
+  [T2604].NAME == [T2604].NAME1
+@anonymous
+[T2604].NAME | [T2604].COUNT-EMAIL | [T2604].ID | [T2604].NAME1 | [T2604].EMAIL 
+Tom | 2.0 | 3.0 | Tom | asd@asd.com 
+Tom | 2.0 | 5.0 | Tom | asd@asd.com 
+
+[No.12]===============================
+SELECT
+  [T3084].NAME,[T3084].EMAIL,[T3084].COUNT-NAME,[T3084].ID,[T3084].NAME1,[T3084].EMAIL1
+FROM
+  (( SELECT
+        [T3077].NAME,[T3077].EMAIL,[T3077].COUNT-NAME
+      FROM
+        (SELECT
+            [T3076].NAME, [T3076].EMAIL, COUNT([T3076].NAME)
+          FROM
+            (SELECT
+                input1.ID,input1.NAME,input1.EMAIL
+              FROM
+                input1
+              WHERE
+                EXIST (
+                  (SELECT
+                      [T0].ID,[T0].NAME,[T0].EMAIL
+                    FROM
+                      (input1) AS [T0][ID, NAME, EMAIL]
+                    WHERE
+                      input1.ID <> [T0].ID
+                       AND input1.NAME == [T0].NAME) AS [T179][ID, NAME, EMAIL])) AS [T3076][ID, NAME, EMAIL]
+          GROUP BY
+            [T3076].NAME  [T3076].EMAIL) AS [T3077][NAME, EMAIL, COUNT-NAME] ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+       )) AS [T3084][NAME, EMAIL, COUNT-NAME, ID, NAME1, EMAIL1]
+WHERE
+  [T3084].NAME == [T3084].NAME1
+@anonymous
+[T3084].NAME | [T3084].EMAIL | [T3084].COUNT-NAME | [T3084].ID | [T3084].NAME1 | [T3084].EMAIL1 
+Tom | asd@asd.com | 2.0 | 3.0 | Tom | asd@asd.com 
+Tom | asd@asd.com | 2.0 | 5.0 | Tom | asd@asd.com 
+
+[No.13]===============================
+SELECT
+  [T3256].NAME,[T3256].EMAIL,[T3256].COUNT-EMAIL,[T3256].ID,[T3256].NAME1,[T3256].EMAIL1
+FROM
+  (( SELECT
+        [T411].NAME,[T411].EMAIL,[T411].COUNT-EMAIL
+      FROM
+        (SELECT
+            input1.NAME, input1.EMAIL, COUNT(input1.EMAIL)
+          FROM
+            input1
+          GROUP BY
+            input1.NAME  input1.EMAIL) AS [T411][NAME, EMAIL, COUNT-EMAIL] ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              [T0].ID,[T0].NAME,[T0].EMAIL
+            FROM
+              (input1) AS [T0][ID, NAME, EMAIL]
+            WHERE
+              input1.ID <> [T0].ID
+               AND input1.NAME == [T0].NAME) AS [T179][ID, NAME, EMAIL]) )) AS [T3256][NAME, EMAIL, COUNT-EMAIL, ID, NAME1, EMAIL1]
+WHERE
+  [T3256].NAME == [T3256].NAME1
+@anonymous
+[T3256].NAME | [T3256].EMAIL | [T3256].COUNT-EMAIL | [T3256].ID | [T3256].NAME1 | [T3256].EMAIL1 
+Tom | asd@asd.com | 2.0 | 3.0 | Tom | asd@asd.com 
+Tom | asd@asd.com | 2.0 | 5.0 | Tom | asd@asd.com 
+
+[No.14]===============================
+SELECT
+  [T3266].NAME,[T3266].ID,[T3266].NAME1,[T3266].EMAIL
+FROM
+  (( SELECT
+        [T402].NAME
+      FROM
+        (SELECT
+            input1.NAME, FROM
+            input1
+          GROUP BY
+            input1.NAME) AS [T402][NAME] ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              [T0].ID,[T0].NAME,[T0].EMAIL
+            FROM
+              (input1) AS [T0][ID, NAME, EMAIL]
+            WHERE
+              input1.ID <> [T0].ID
+               AND input1.NAME == [T0].NAME) AS [T179][ID, NAME, EMAIL]) )) AS [T3266][NAME, ID, NAME1, EMAIL]
+WHERE
+  [T3266].NAME == [T3266].NAME1
+@anonymous
+[T3266].NAME | [T3266].ID | [T3266].NAME1 | [T3266].EMAIL 
+Tom | 3.0 | Tom | asd@asd.com 
+Tom | 5.0 | Tom | asd@asd.com 
+
+[No.15]===============================
+SELECT
+  [T3274].NAME,[T3274].EMAIL,[T3274].COUNT-ID,[T3274].ID,[T3274].NAME1,[T3274].EMAIL1
+FROM
+  (( SELECT
+        [T409].NAME,[T409].EMAIL,[T409].COUNT-ID
+      FROM
+        (SELECT
+            input1.NAME, input1.EMAIL, COUNT(input1.ID)
+          FROM
+            input1
+          GROUP BY
+            input1.NAME  input1.EMAIL) AS [T409][NAME, EMAIL, COUNT-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              [T0].ID,[T0].NAME,[T0].EMAIL
+            FROM
+              (input1) AS [T0][ID, NAME, EMAIL]
+            WHERE
+              input1.ID <> [T0].ID
+               AND input1.NAME == [T0].NAME) AS [T179][ID, NAME, EMAIL]) )) AS [T3274][NAME, EMAIL, COUNT-ID, ID, NAME1, EMAIL1]
+WHERE
+  [T3274].NAME == [T3274].NAME1
+@anonymous
+[T3274].NAME | [T3274].EMAIL | [T3274].COUNT-ID | [T3274].ID | [T3274].NAME1 | [T3274].EMAIL1 
+Tom | asd@asd.com | 2.0 | 3.0 | Tom | asd@asd.com 
+Tom | asd@asd.com | 2.0 | 5.0 | Tom | asd@asd.com 
+
+[No.16]===============================
+SELECT
+  [T3334].NAME,[T3334].COUNT-ID,[T3334].ID,[T3334].NAME1,[T3334].EMAIL
+FROM
+  (( SELECT
+        [T403].NAME,[T403].COUNT-ID
+      FROM
+        (SELECT
+            input1.NAME, COUNT(input1.ID)
+          FROM
+            input1
+          GROUP BY
+            input1.NAME) AS [T403][NAME, COUNT-ID] ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              [T0].ID,[T0].NAME,[T0].EMAIL
+            FROM
+              (input1) AS [T0][ID, NAME, EMAIL]
+            WHERE
+              input1.ID <> [T0].ID
+               AND input1.NAME == [T0].NAME) AS [T179][ID, NAME, EMAIL]) )) AS [T3334][NAME, COUNT-ID, ID, NAME1, EMAIL]
+WHERE
+  [T3334].NAME == [T3334].NAME1
+@anonymous
+[T3334].NAME | [T3334].COUNT-ID | [T3334].ID | [T3334].NAME1 | [T3334].EMAIL 
+Tom | 2.0 | 3.0 | Tom | asd@asd.com 
+Tom | 2.0 | 5.0 | Tom | asd@asd.com 
+
+[No.17]===============================
+SELECT
+  [T3582].NAME,[T3582].ID,[T3582].NAME1,[T3582].EMAIL
+FROM
+  (( SELECT
+        [T3575].NAME
+      FROM
+        (SELECT
+            [T3574].NAME, FROM
+            (SELECT
+                input1.ID,input1.NAME,input1.EMAIL
+              FROM
+                input1
+              WHERE
+                EXIST (
+                  (SELECT
+                      [T0].ID,[T0].NAME,[T0].EMAIL
+                    FROM
+                      (input1) AS [T0][ID, NAME, EMAIL]
+                    WHERE
+                      input1.ID <> [T0].ID
+                       AND input1.NAME == [T0].NAME) AS [T179][ID, NAME, EMAIL])) AS [T3574][ID, NAME, EMAIL]
+          GROUP BY
+            [T3574].NAME) AS [T3575][NAME] ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+       )) AS [T3582][NAME, ID, NAME1, EMAIL]
+WHERE
+  [T3582].NAME == [T3582].NAME1
+@anonymous
+[T3582].NAME | [T3582].ID | [T3582].NAME1 | [T3582].EMAIL 
+Tom | 3.0 | Tom | asd@asd.com 
+Tom | 5.0 | Tom | asd@asd.com 
+
+[No.18]===============================
+SELECT
+  [T3810].ID,[T3810].NAME,[T3810].EMAIL,[T3810].ID1,[T3810].NAME1,[T3810].EMAIL1
+FROM
+  (( SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              [T0].ID,[T0].NAME,[T0].EMAIL
+            FROM
+              (input1) AS [T0][ID, NAME, EMAIL]
+            WHERE
+              input1.ID < [T0].ID
+               AND input1.NAME == [T0].NAME) AS [T119][ID, NAME, EMAIL]) ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+       )) AS [T3810][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+  [T3810].NAME == [T3810].NAME1
+@anonymous
+[T3810].ID | [T3810].NAME | [T3810].EMAIL | [T3810].ID1 | [T3810].NAME1 | [T3810].EMAIL1 
+3.0 | Tom | asd@asd.com | 3.0 | Tom | asd@asd.com 
+3.0 | Tom | asd@asd.com | 5.0 | Tom | asd@asd.com 
+
+[No.19]===============================
+SELECT
+  [T3860].ID,[T3860].NAME,[T3860].EMAIL,[T3860].ID1,[T3860].NAME1,[T3860].EMAIL1
+FROM
+  (( SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1 ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              [T0].ID,[T0].NAME,[T0].EMAIL
+            FROM
+              (input1) AS [T0][ID, NAME, EMAIL]
+            WHERE
+              input1.ID < [T0].ID
+               AND input1.NAME == [T0].NAME) AS [T119][ID, NAME, EMAIL]) )) AS [T3860][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+  [T3860].NAME == [T3860].NAME1
+@anonymous
+[T3860].ID | [T3860].NAME | [T3860].EMAIL | [T3860].ID1 | [T3860].NAME1 | [T3860].EMAIL1 
+3.0 | Tom | asd@asd.com | 3.0 | Tom | asd@asd.com 
+5.0 | Tom | asd@asd.com | 3.0 | Tom | asd@asd.com 
+
+[No.20]===============================
+SELECT
+  [T3930].ID,[T3930].NAME,[T3930].EMAIL,[T3930].ID1,[T3930].NAME1,[T3930].EMAIL1
+FROM
+  (( SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1 ) JOIN (
+      SELECT
+        input1.ID,input1.NAME,input1.EMAIL
+      FROM
+        input1
+      WHERE
+        EXIST (
+          (SELECT
+              [T0].ID,[T0].NAME,[T0].EMAIL
+            FROM
+              (input1) AS [T0][ID, NAME, EMAIL]
+            WHERE
+              input1.ID <> [T0].ID
+               AND input1.NAME == [T0].NAME) AS [T179][ID, NAME, EMAIL]) )) AS [T3930][ID, NAME, EMAIL, ID1, NAME1, EMAIL1]
+WHERE
+  [T3930].ID == [T3930].ID1
+@anonymous
+[T3930].ID | [T3930].NAME | [T3930].EMAIL | [T3930].ID1 | [T3930].NAME1 | [T3930].EMAIL1 
+3.0 | Tom | asd@asd.com | 3.0 | Tom | asd@asd.com 
+5.0 | Tom | asd@asd.com | 5.0 | Tom | asd@asd.com 
+
+[Consistent Table number] 115
+[Enumeration Finished]
+[[Synthesizer finished]] time: 00:00:03:687
+[[Synthesizer finished]] seconds: 3.6870000000000003
+[avg reduction rate: syn filter / bit vector] 4.098981488192523
+[avg reduction rate: compound filter / bit vector] NaN
+[avg compound filter count] NaN
+[max compound filter count] 0
+[avg PrimitiveFilterCount] 14.457004830917874
+[max PrimitiveFilterCount] 61
+[avg LRFilterCount] 1.6705020920502092
+[max LRFilterCount] 3
+[avg decompose tree count] 14.76986301369863
+[max decomposeTreeCount] 965

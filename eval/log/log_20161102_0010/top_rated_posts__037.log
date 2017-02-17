@@ -1,0 +1,153 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/037
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 34 [SymTable]: 35
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 4
+[EnumLeftJoin] level 1 [SymTable]: 4
+[EnumJoinOnAggr] level 1 [SymTable]: 20
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 8
+[EnumLeftJoin] level 1 [SymTable]: 8
+[EnumJoinOnAggr] level 1 [SymTable]: 36
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+[JOIN] level 1 [SymTable]: 8
+Candidate Tree Number: 5
+[Enumeration Finished]
+[No.5]===============================
+SELECT
+  [T118].MIN-c1,[T118].c2,[T118].c3
+FROM
+  (( (SELECT
+          [T116].c2, MIN([T116].c1)
+        FROM
+          (input1) AS [T116][c1, c2, c3]
+        GROUP BY
+          [T116].c2) AS [T117][c2, MIN-c1] ) JOIN (
+      input1 )) AS [T118][c2, MIN-c1, c1, c21, c3]
+WHERE
+  [T118].c2 == [T118].c21
+   AND [T118].MIN-c1 >= [T118].c1
+@anonymous
+[T118].MIN-c1(NumberVal) | [T118].c2(StringVal) | [T118].c3(StringVal) 
+1.0 | item1 | data1 
+3.0 | item2 | data3 
+4.0 | item3 | data4 
+
+[No.4]===============================
+SELECT
+  [T112].MIN-c1,[T112].c2,[T112].c3
+FROM
+  (( (SELECT
+          [T110].c2, MIN([T110].c1)
+        FROM
+          (input1) AS [T110][c1, c2, c3]
+        GROUP BY
+          [T110].c2) AS [T111][c2, MIN-c1] ) JOIN (
+      SELECT
+        input1.c1,input1.c2,input1.c3
+      FROM
+        input1
+      WHERE
+        True )) AS [T112][c2, MIN-c1, c1, c21, c3]
+WHERE
+  [T112].c2 == [T112].c21
+   AND [T112].MIN-c1 == [T112].c1
+@anonymous
+[T112].MIN-c1(NumberVal) | [T112].c2(StringVal) | [T112].c3(StringVal) 
+1.0 | item1 | data1 
+3.0 | item2 | data3 
+4.0 | item3 | data4 
+
+[No.3]===============================
+SELECT
+  [T100].MIN-c1,[T100].c2,[T100].c3
+FROM
+  (( (SELECT
+          [T98].c2, MIN([T98].c1)
+        FROM
+          (input1) AS [T98][c1, c2, c3]
+        GROUP BY
+          [T98].c2) AS [T99][c2, MIN-c1] ) JOIN (
+      SELECT
+        input1.c1,input1.c2,input1.c3
+      FROM
+        input1
+      WHERE
+        True )) AS [T100][c2, MIN-c1, c1, c21, c3]
+WHERE
+  [T100].MIN-c1 == [T100].c1
+@anonymous
+[T100].MIN-c1(NumberVal) | [T100].c2(StringVal) | [T100].c3(StringVal) 
+1.0 | item1 | data1 
+3.0 | item2 | data3 
+4.0 | item3 | data4 
+
+[No.2]===============================
+SELECT
+  [T106].MIN-c1,[T106].c2,[T106].c3
+FROM
+  (( (SELECT
+          [T104].c2, MIN([T104].c1)
+        FROM
+          (input1) AS [T104][c1, c2, c3]
+        GROUP BY
+          [T104].c2) AS [T105][c2, MIN-c1] ) JOIN (
+      input1 )) AS [T106][c2, MIN-c1, c1, c21, c3]
+WHERE
+  [T106].c2 == [T106].c21
+   AND [T106].MIN-c1 == [T106].c1
+@anonymous
+[T106].MIN-c1(NumberVal) | [T106].c2(StringVal) | [T106].c3(StringVal) 
+1.0 | item1 | data1 
+3.0 | item2 | data3 
+4.0 | item3 | data4 
+
+[No.1]===============================
+SELECT
+  [T94].MIN-c1,[T94].c2,[T94].c3
+FROM
+  (( (SELECT
+          [T92].c2, MIN([T92].c1)
+        FROM
+          (input1) AS [T92][c1, c2, c3]
+        GROUP BY
+          [T92].c2) AS [T93][c2, MIN-c1] ) JOIN (
+      input1 )) AS [T94][c2, MIN-c1, c1, c21, c3]
+WHERE
+  [T94].MIN-c1 == [T94].c1
+@anonymous
+[T94].MIN-c1(NumberVal) | [T94].c2(StringVal) | [T94].c3(StringVal) 
+1.0 | item1 | data1 
+3.0 | item2 | data3 
+4.0 | item3 | data4 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.598s

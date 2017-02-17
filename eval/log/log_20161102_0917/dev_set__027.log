@@ -1,0 +1,419 @@
+[[Synthesis start]]
+	File: ../data/dev_set/027
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 51 [SymTable]: 52
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 2 [SymTable]: 3
+[JOIN] level 1 [SymTable]: 6
+[EnumJoinOnAggr] level 1 [SymTable]: 15
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 7 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 16
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 7 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 16
+[EnumJoinOnAggr] level 1 [SymTable]: 80
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 7 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 16
+Candidate Tree Number: 2
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 12 [SymTable]: 13
+[JOIN] level 1 [SymTable]: 26
+Candidate Tree Number: 5
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 16 [SymTable]: 17
+[JOIN] level 1 [SymTable]: 34
+Candidate Tree Number: 5
+[Enumeration Finished]
+[No.17]===============================
+SELECT
+  [T170].Train,[T170].Dest,[T170].Time
+FROM
+  (( (SELECT
+          [T168].Train, AVG([T168].Time)
+        FROM
+          (input1) AS [T168][Train, Dest, Time]
+        GROUP BY
+          [T168].Train) AS [T169][Train, AVG-Time] ) JOIN (
+      SELECT
+        input1.Train,input1.Dest,input1.Time
+      FROM
+        input1
+      WHERE
+        True )) AS [T170][Train, AVG-Time, Train1, Dest, Time]
+WHERE
+  [T170].Train == [T170].Train1
+   AND [T170].AVG-Time < [T170].Time
+@anonymous
+[T170].Train(NumberVal) | [T170].Dest(StringVal) | [T170].Time(NumberVal) 
+1.0 | SZ | 14.0 
+2.0 | HK | 13.0 
+
+[No.16]===============================
+SELECT
+  [T288].Train,[T288].Dest,[T288].MAX-Time
+FROM
+  (( (SELECT
+          [T286].Train, MAX([T286].Time)
+        FROM
+          (input1) AS [T286][Train, Dest, Time]
+        GROUP BY
+          [T286].Train) AS [T287][Train, MAX-Time] ) JOIN (
+      SELECT
+        input1.Train,input1.Dest,input1.Time
+      FROM
+        input1
+      WHERE
+        True )) AS [T288][Train, MAX-Time, Train1, Dest, Time]
+WHERE
+  [T288].MAX-Time == [T288].Time
+   AND [T288].Train == [T288].Train1
+@anonymous
+[T288].Train(NumberVal) | [T288].Dest(StringVal) | [T288].MAX-Time(NumberVal) 
+1.0 | SZ | 14.0 
+2.0 | HK | 13.0 
+
+[No.15]===============================
+SELECT
+  [T225].Train,[T225].Dest,[T225].MAX-Time
+FROM
+  (( (SELECT
+          [T223].Train, MAX([T223].Time)
+        FROM
+          (input1) AS [T223][Train, Dest, Time]
+        GROUP BY
+          [T223].Train) AS [T224][Train, MAX-Time] ) JOIN (
+      SELECT
+        input1.Train,input1.Dest,input1.Time
+      FROM
+        input1
+      WHERE
+        True )) AS [T225][Train, MAX-Time, Train1, Dest, Time]
+WHERE
+  [T225].MAX-Time == [T225].Time
+   AND [T225].Train == [T225].Train1
+@anonymous
+[T225].Train(NumberVal) | [T225].Dest(StringVal) | [T225].MAX-Time(NumberVal) 
+1.0 | SZ | 14.0 
+2.0 | HK | 13.0 
+
+[No.14]===============================
+SELECT
+  [T100].Train,[T100].Dest,[T100].MAX-Time
+FROM
+  (( (SELECT
+          [T98].Train, MAX([T98].Time)
+        FROM
+          (input1) AS [T98][Train, Dest, Time]
+        GROUP BY
+          [T98].Train) AS [T99][Train, MAX-Time] ) JOIN (
+      SELECT
+        input1.Train,input1.Dest,input1.Time
+      FROM
+        input1
+      WHERE
+        True )) AS [T100][Train, MAX-Time, Train1, Dest, Time]
+WHERE
+  [T100].MAX-Time == [T100].Time
+   AND [T100].Train == [T100].Train1
+@anonymous
+[T100].Train(NumberVal) | [T100].Dest(StringVal) | [T100].MAX-Time(NumberVal) 
+1.0 | SZ | 14.0 
+2.0 | HK | 13.0 
+
+[No.13]===============================
+SELECT
+  [T276].Train,[T276].Dest,[T276].MAX-Time
+FROM
+  (( (SELECT
+          [T274].Train, MAX([T274].Time)
+        FROM
+          (input1) AS [T274][Train, Dest, Time]
+        GROUP BY
+          [T274].Train) AS [T275][Train, MAX-Time] ) JOIN (
+      SELECT
+        input1.Train,input1.Dest,input1.Time
+      FROM
+        input1
+      WHERE
+        True )) AS [T276][Train, MAX-Time, Train1, Dest, Time]
+WHERE
+  [T276].MAX-Time == [T276].Time
+@anonymous
+[T276].Train(NumberVal) | [T276].Dest(StringVal) | [T276].MAX-Time(NumberVal) 
+1.0 | SZ | 14.0 
+2.0 | HK | 13.0 
+
+[No.12]===============================
+SELECT
+  [T213].Train,[T213].Dest,[T213].MAX-Time
+FROM
+  (( (SELECT
+          [T211].Train, MAX([T211].Time)
+        FROM
+          (input1) AS [T211][Train, Dest, Time]
+        GROUP BY
+          [T211].Train) AS [T212][Train, MAX-Time] ) JOIN (
+      SELECT
+        input1.Train,input1.Dest,input1.Time
+      FROM
+        input1
+      WHERE
+        True )) AS [T213][Train, MAX-Time, Train1, Dest, Time]
+WHERE
+  [T213].MAX-Time == [T213].Time
+@anonymous
+[T213].Train(NumberVal) | [T213].Dest(StringVal) | [T213].MAX-Time(NumberVal) 
+1.0 | SZ | 14.0 
+2.0 | HK | 13.0 
+
+[No.11]===============================
+SELECT
+  [T88].Train,[T88].Dest,[T88].MAX-Time
+FROM
+  (( (SELECT
+          [T86].Train, MAX([T86].Time)
+        FROM
+          (input1) AS [T86][Train, Dest, Time]
+        GROUP BY
+          [T86].Train) AS [T87][Train, MAX-Time] ) JOIN (
+      SELECT
+        input1.Train,input1.Dest,input1.Time
+      FROM
+        input1
+      WHERE
+        True )) AS [T88][Train, MAX-Time, Train1, Dest, Time]
+WHERE
+  [T88].MAX-Time == [T88].Time
+@anonymous
+[T88].Train(NumberVal) | [T88].Dest(StringVal) | [T88].MAX-Time(NumberVal) 
+1.0 | SZ | 14.0 
+2.0 | HK | 13.0 
+
+[No.10]===============================
+SELECT
+  [T294].Train,[T294].Dest,[T294].MAX-Time
+FROM
+  (( (SELECT
+          [T292].Train, MAX([T292].Time)
+        FROM
+          (input1) AS [T292][Train, Dest, Time]
+        GROUP BY
+          [T292].Train) AS [T293][Train, MAX-Time] ) JOIN (
+      input1 )) AS [T294][Train, MAX-Time, Train1, Dest, Time]
+WHERE
+  [T294].MAX-Time == [T294].Time
+   AND [T294].Train >= [T294].Train1
+@anonymous
+[T294].Train(NumberVal) | [T294].Dest(StringVal) | [T294].MAX-Time(NumberVal) 
+1.0 | SZ | 14.0 
+2.0 | HK | 13.0 
+
+[No.9]===============================
+SELECT
+  [T231].Train,[T231].Dest,[T231].MAX-Time
+FROM
+  (( (SELECT
+          [T229].Train, MAX([T229].Time)
+        FROM
+          (input1) AS [T229][Train, Dest, Time]
+        GROUP BY
+          [T229].Train) AS [T230][Train, MAX-Time] ) JOIN (
+      input1 )) AS [T231][Train, MAX-Time, Train1, Dest, Time]
+WHERE
+  [T231].MAX-Time == [T231].Time
+   AND [T231].Train >= [T231].Train1
+@anonymous
+[T231].Train(NumberVal) | [T231].Dest(StringVal) | [T231].MAX-Time(NumberVal) 
+1.0 | SZ | 14.0 
+2.0 | HK | 13.0 
+
+[No.8]===============================
+SELECT
+  [T176].Train,[T176].Dest,[T176].Time
+FROM
+  (( (SELECT
+          [T174].Train, AVG([T174].Time)
+        FROM
+          (input1) AS [T174][Train, Dest, Time]
+        GROUP BY
+          [T174].Train) AS [T175][Train, AVG-Time] ) JOIN (
+      input1 )) AS [T176][Train, AVG-Time, Train1, Dest, Time]
+WHERE
+  [T176].Train == [T176].Train1
+   AND [T176].AVG-Time < [T176].Time
+@anonymous
+[T176].Train(NumberVal) | [T176].Dest(StringVal) | [T176].Time(NumberVal) 
+1.0 | SZ | 14.0 
+2.0 | HK | 13.0 
+
+[No.7]===============================
+SELECT
+  [T106].Train,[T106].Dest,[T106].MAX-Time
+FROM
+  (( (SELECT
+          [T104].Train, MAX([T104].Time)
+        FROM
+          (input1) AS [T104][Train, Dest, Time]
+        GROUP BY
+          [T104].Train) AS [T105][Train, MAX-Time] ) JOIN (
+      input1 )) AS [T106][Train, MAX-Time, Train1, Dest, Time]
+WHERE
+  [T106].MAX-Time == [T106].Time
+   AND [T106].Train >= [T106].Train1
+@anonymous
+[T106].Train(NumberVal) | [T106].Dest(StringVal) | [T106].MAX-Time(NumberVal) 
+1.0 | SZ | 14.0 
+2.0 | HK | 13.0 
+
+[No.6]===============================
+SELECT
+  [T282].Train,[T282].Dest,[T282].MAX-Time
+FROM
+  (( (SELECT
+          [T280].Train, MAX([T280].Time)
+        FROM
+          (input1) AS [T280][Train, Dest, Time]
+        GROUP BY
+          [T280].Train) AS [T281][Train, MAX-Time] ) JOIN (
+      input1 )) AS [T282][Train, MAX-Time, Train1, Dest, Time]
+WHERE
+  [T282].MAX-Time == [T282].Time
+   AND [T282].Train == [T282].Train1
+@anonymous
+[T282].Train(NumberVal) | [T282].Dest(StringVal) | [T282].MAX-Time(NumberVal) 
+1.0 | SZ | 14.0 
+2.0 | HK | 13.0 
+
+[No.5]===============================
+SELECT
+  [T219].Train,[T219].Dest,[T219].MAX-Time
+FROM
+  (( (SELECT
+          [T217].Train, MAX([T217].Time)
+        FROM
+          (input1) AS [T217][Train, Dest, Time]
+        GROUP BY
+          [T217].Train) AS [T218][Train, MAX-Time] ) JOIN (
+      input1 )) AS [T219][Train, MAX-Time, Train1, Dest, Time]
+WHERE
+  [T219].MAX-Time == [T219].Time
+   AND [T219].Train == [T219].Train1
+@anonymous
+[T219].Train(NumberVal) | [T219].Dest(StringVal) | [T219].MAX-Time(NumberVal) 
+1.0 | SZ | 14.0 
+2.0 | HK | 13.0 
+
+[No.4]===============================
+SELECT
+  [T94].Train,[T94].Dest,[T94].MAX-Time
+FROM
+  (( (SELECT
+          [T92].Train, MAX([T92].Time)
+        FROM
+          (input1) AS [T92][Train, Dest, Time]
+        GROUP BY
+          [T92].Train) AS [T93][Train, MAX-Time] ) JOIN (
+      input1 )) AS [T94][Train, MAX-Time, Train1, Dest, Time]
+WHERE
+  [T94].MAX-Time == [T94].Time
+   AND [T94].Train == [T94].Train1
+@anonymous
+[T94].Train(NumberVal) | [T94].Dest(StringVal) | [T94].MAX-Time(NumberVal) 
+1.0 | SZ | 14.0 
+2.0 | HK | 13.0 
+
+[No.3]===============================
+SELECT
+  [T270].Train,[T270].Dest,[T270].MAX-Time
+FROM
+  (( (SELECT
+          [T268].Train, MAX([T268].Time)
+        FROM
+          (input1) AS [T268][Train, Dest, Time]
+        GROUP BY
+          [T268].Train) AS [T269][Train, MAX-Time] ) JOIN (
+      input1 )) AS [T270][Train, MAX-Time, Train1, Dest, Time]
+WHERE
+  [T270].MAX-Time == [T270].Time
+@anonymous
+[T270].Train(NumberVal) | [T270].Dest(StringVal) | [T270].MAX-Time(NumberVal) 
+1.0 | SZ | 14.0 
+2.0 | HK | 13.0 
+
+[No.2]===============================
+SELECT
+  [T207].Train,[T207].Dest,[T207].MAX-Time
+FROM
+  (( (SELECT
+          [T205].Train, MAX([T205].Time)
+        FROM
+          (input1) AS [T205][Train, Dest, Time]
+        GROUP BY
+          [T205].Train) AS [T206][Train, MAX-Time] ) JOIN (
+      input1 )) AS [T207][Train, MAX-Time, Train1, Dest, Time]
+WHERE
+  [T207].MAX-Time == [T207].Time
+@anonymous
+[T207].Train(NumberVal) | [T207].Dest(StringVal) | [T207].MAX-Time(NumberVal) 
+1.0 | SZ | 14.0 
+2.0 | HK | 13.0 
+
+[No.1]===============================
+SELECT
+  [T82].Train,[T82].Dest,[T82].MAX-Time
+FROM
+  (( (SELECT
+          [T80].Train, MAX([T80].Time)
+        FROM
+          (input1) AS [T80][Train, Dest, Time]
+        GROUP BY
+          [T80].Train) AS [T81][Train, MAX-Time] ) JOIN (
+      input1 )) AS [T82][Train, MAX-Time, Train1, Dest, Time]
+WHERE
+  [T82].MAX-Time == [T82].Time
+@anonymous
+[T82].Train(NumberVal) | [T82].Dest(StringVal) | [T82].MAX-Time(NumberVal) 
+1.0 | SZ | 14.0 
+2.0 | HK | 13.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.615s

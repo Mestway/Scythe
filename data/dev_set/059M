@@ -1,0 +1,57 @@
+// http://stackoverflow.com/questions/39733840/sql-combine-join
+
+#input
+
+
+|NationalAvg         | exams_description |
+|----------------------------------------|
+| .78                | Medical Asst.Exam |
+| .90                | Health Exam       |
+| .79                | EKG Exam          |
+| .81                | Phlebotomy        |
+| .88                | XXXXXXXXXX        |
+
+
+#input
+
+
+|SchoolAvg           | exams_description |  School      |
+|-------------------------------------------------------|
+| .90                | Medical Asst.Exam | School A     |
+| .88                | Health Exam       | School A     |
+| .65                | EKG Exam          | School A     |
+| .76                | Phlebotomy        | School A     |
+| .93                | Medical Asst.Exam | School B     |
+| .79                | Health Exam       | School B     |
+| .82                | EKG Exam          | School B     |
+| .76                | Phlebotomy        | School B     |
+
+
+#output
+
+
+|  School Avg      |NationalAvg         | exams_description |  School      |
+|--------------------------------------------------------------------------|
+| .90              | .78                | Medical Asst.Exam | School A     |
+| .88              | .90                | Health Exam       | School A     |
+| .65              | .79                | EKG Exam          | School A     |
+| .76              | .81                | Phlebotomy        | School A     |
+| .93              | .78                | Medical Asst.Exam | School B     |
+| .79              | .90                | Health Exam       | School B     |
+| .82              | .79                | EKG Exam          | School B     |
+| .76              | .81                | Phlebotomy        | School B     |
+| NULL[num]        | .88                | XXXXXXXXXX         | NULL[str]    |
+
+
+# constraint
+{
+	"constants": [],
+	"aggregation_functions": []
+}
+
+#solution
+
+select A.exams_description, A.NationalAvg, B.schools_name, B.SchoolAvg
+from CTE A
+left Join CTE1 B ON A.exams_description = B.exams_description
+

@@ -1,0 +1,471 @@
+[[Synthesis start]]
+	File: ../data/dev_set/037
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 11 [SymTable]: 12
+[JOIN] level 1 [SymTable]: 25
+[EnumJoinOnAggr] level 1 [SymTable]: 169
+Candidate Tree Number: 163
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T409].chapterid,[T409].xmlfile
+FROM
+  (( (SELECT
+          [T403].chapterid, COUNT([T403].xmlfile)
+        FROM
+          (input1) AS [T403][chapterid, xmlfile]
+        GROUP BY
+          [T403].chapterid) AS [T404][chapterid, COUNT-xmlfile] ) JOIN (
+      (SELECT
+          [T407].chapterid, [T407].xmlfile, COUNT([T407].xmlfile)
+        FROM
+          (input1) AS [T407][chapterid, xmlfile]
+        GROUP BY
+          [T407].chapterid  [T407].xmlfile) AS [T408][chapterid, xmlfile, COUNT-xmlfile] )) AS [T409][chapterid, COUNT-xmlfile, chapterid1, xmlfile, COUNT-xmlfile1]
+WHERE
+  [T409].chapterid == [T409].chapterid1
+@anonymous
+[T409].chapterid(NumberVal) | [T409].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[No.19]===============================
+SELECT
+  [T359].chapterid,[T359].xmlfile
+FROM
+  (( (SELECT
+          [T353].chapterid, COUNT([T353].xmlfile)
+        FROM
+          (input1) AS [T353][chapterid, xmlfile]
+        GROUP BY
+          [T353].chapterid) AS [T354][chapterid, COUNT-xmlfile] ) JOIN (
+      (SELECT
+          [T357].chapterid, [T357].xmlfile, COUNT([T357].chapterid)
+        FROM
+          (input1) AS [T357][chapterid, xmlfile]
+        GROUP BY
+          [T357].chapterid  [T357].xmlfile) AS [T358][chapterid, xmlfile, COUNT-chapterid] )) AS [T359][chapterid, COUNT-xmlfile, chapterid1, xmlfile, COUNT-chapterid]
+WHERE
+  [T359].chapterid == [T359].chapterid1
+@anonymous
+[T359].chapterid(NumberVal) | [T359].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[No.18]===============================
+SELECT
+  [T309].chapterid,[T309].xmlfile
+FROM
+  (( (SELECT
+          [T303].chapterid, COUNT([T303].chapterid)
+        FROM
+          (input1) AS [T303][chapterid, xmlfile]
+        GROUP BY
+          [T303].chapterid) AS [T304][chapterid, COUNT-chapterid] ) JOIN (
+      (SELECT
+          [T307].chapterid, [T307].xmlfile, COUNT([T307].xmlfile)
+        FROM
+          (input1) AS [T307][chapterid, xmlfile]
+        GROUP BY
+          [T307].chapterid  [T307].xmlfile) AS [T308][chapterid, xmlfile, COUNT-xmlfile] )) AS [T309][chapterid, COUNT-chapterid, chapterid1, xmlfile, COUNT-xmlfile]
+WHERE
+  [T309].chapterid == [T309].chapterid1
+@anonymous
+[T309].chapterid(NumberVal) | [T309].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[No.17]===============================
+SELECT
+  [T249].chapterid,[T249].xmlfile
+FROM
+  (( (SELECT
+          [T243].chapterid, [T243].xmlfile, COUNT([T243].chapterid)
+        FROM
+          (input1) AS [T243][chapterid, xmlfile]
+        GROUP BY
+          [T243].chapterid  [T243].xmlfile) AS [T244][chapterid, xmlfile, COUNT-chapterid] ) JOIN (
+      (SELECT
+          [T247].chapterid, COUNT([T247].xmlfile)
+        FROM
+          (input1) AS [T247][chapterid, xmlfile]
+        GROUP BY
+          [T247].chapterid) AS [T248][chapterid, COUNT-xmlfile] )) AS [T249][chapterid, xmlfile, COUNT-chapterid, chapterid1, COUNT-xmlfile]
+WHERE
+  [T249].chapterid == [T249].chapterid1
+@anonymous
+[T249].chapterid(NumberVal) | [T249].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[No.16]===============================
+SELECT
+  [T229].chapterid,[T229].xmlfile
+FROM
+  (( (SELECT
+          [T223].chapterid, COUNT([T223].xmlfile)
+        FROM
+          (input1) AS [T223][chapterid, xmlfile]
+        GROUP BY
+          [T223].chapterid) AS [T224][chapterid, COUNT-xmlfile] ) JOIN (
+      (SELECT
+          [T227].chapterid, [T227].xmlfile, FROM
+          (input1) AS [T227][chapterid, xmlfile]
+        GROUP BY
+          [T227].chapterid  [T227].xmlfile) AS [T228][chapterid, xmlfile] )) AS [T229][chapterid, COUNT-xmlfile, chapterid1, xmlfile]
+WHERE
+  [T229].chapterid == [T229].chapterid1
+@anonymous
+[T229].chapterid(NumberVal) | [T229].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[No.15]===============================
+SELECT
+  [T189].chapterid,[T189].xmlfile
+FROM
+  (( (SELECT
+          [T183].xmlfile, COUNT([T183].xmlfile)
+        FROM
+          (input1) AS [T183][chapterid, xmlfile]
+        GROUP BY
+          [T183].xmlfile) AS [T184][xmlfile, COUNT-xmlfile] ) JOIN (
+      (SELECT
+          [T187].chapterid, [T187].xmlfile, COUNT([T187].chapterid)
+        FROM
+          (input1) AS [T187][chapterid, xmlfile]
+        GROUP BY
+          [T187].chapterid  [T187].xmlfile) AS [T188][chapterid, xmlfile, COUNT-chapterid] )) AS [T189][xmlfile, COUNT-xmlfile, chapterid, xmlfile1, COUNT-chapterid]
+WHERE
+  [T189].xmlfile == [T189].xmlfile1
+@anonymous
+[T189].chapterid(NumberVal) | [T189].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[No.14]===============================
+SELECT
+  [T179].chapterid,[T179].xmlfile
+FROM
+  (( (SELECT
+          [T173].chapterid, [T173].xmlfile, COUNT([T173].xmlfile)
+        FROM
+          (input1) AS [T173][chapterid, xmlfile]
+        GROUP BY
+          [T173].chapterid  [T173].xmlfile) AS [T174][chapterid, xmlfile, COUNT-xmlfile] ) JOIN (
+      (SELECT
+          [T177].xmlfile, FROM
+          (input1) AS [T177][chapterid, xmlfile]
+        GROUP BY
+          [T177].xmlfile) AS [T178][xmlfile] )) AS [T179][chapterid, xmlfile, COUNT-xmlfile, xmlfile1]
+WHERE
+  [T179].xmlfile == [T179].xmlfile1
+@anonymous
+[T179].chapterid(NumberVal) | [T179].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[No.13]===============================
+SELECT
+  [T149].chapterid,[T149].xmlfile
+FROM
+  (( (SELECT
+          [T143].chapterid, [T143].xmlfile, FROM
+          (input1) AS [T143][chapterid, xmlfile]
+        GROUP BY
+          [T143].chapterid  [T143].xmlfile) AS [T144][chapterid, xmlfile] ) JOIN (
+      (SELECT
+          [T147].chapterid, [T147].xmlfile, FROM
+          (input1) AS [T147][chapterid, xmlfile]
+        GROUP BY
+          [T147].chapterid  [T147].xmlfile) AS [T148][chapterid, xmlfile] )) AS [T149][chapterid, xmlfile, chapterid1, xmlfile1]
+WHERE
+  [T149].chapterid == [T149].chapterid1
+@anonymous
+[T149].chapterid(NumberVal) | [T149].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[No.12]===============================
+SELECT
+  [T1739].chapterid,[T1739].xmlfile
+FROM
+  (( (SELECT
+          COUNT([T1733].xmlfile)
+        FROM
+          (input1) AS [T1733][chapterid, xmlfile]) AS [T1734][COUNT-xmlfile] ) JOIN (
+      (SELECT
+          [T1737].chapterid, [T1737].xmlfile, COUNT([T1737].chapterid)
+        FROM
+          (input1) AS [T1737][chapterid, xmlfile]
+        GROUP BY
+          [T1737].chapterid  [T1737].xmlfile) AS [T1738][chapterid, xmlfile, COUNT-chapterid] )) AS [T1739][COUNT-xmlfile, chapterid, xmlfile, COUNT-chapterid]
+
+@anonymous
+[T1739].chapterid(NumberVal) | [T1739].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[No.11]===============================
+SELECT
+  [T1729].chapterid,[T1729].xmlfile
+FROM
+  (( (SELECT
+          COUNT([T1723].chapterid)
+        FROM
+          (input1) AS [T1723][chapterid, xmlfile]) AS [T1724][COUNT-chapterid] ) JOIN (
+      (SELECT
+          [T1727].chapterid, [T1727].xmlfile, COUNT([T1727].chapterid)
+        FROM
+          (input1) AS [T1727][chapterid, xmlfile]
+        GROUP BY
+          [T1727].chapterid  [T1727].xmlfile) AS [T1728][chapterid, xmlfile, COUNT-chapterid] )) AS [T1729][COUNT-chapterid, chapterid, xmlfile, COUNT-chapterid1]
+
+@anonymous
+[T1729].chapterid(NumberVal) | [T1729].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[No.10]===============================
+SELECT
+  [T1379].chapterid,[T1379].xmlfile
+FROM
+  (( (SELECT
+          [T1373].chapterid, [T1373].xmlfile, COUNT([T1373].chapterid)
+        FROM
+          (input1) AS [T1373][chapterid, xmlfile]
+        GROUP BY
+          [T1373].chapterid  [T1373].xmlfile) AS [T1374][chapterid, xmlfile, COUNT-chapterid] ) JOIN (
+      (SELECT
+          COUNT([T1377].xmlfile)
+        FROM
+          (input1) AS [T1377][chapterid, xmlfile]) AS [T1378][COUNT-xmlfile] )) AS [T1379][chapterid, xmlfile, COUNT-chapterid, COUNT-xmlfile]
+
+@anonymous
+[T1379].chapterid(NumberVal) | [T1379].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[No.9]===============================
+SELECT
+  [T1229].chapterid,[T1229].xmlfile
+FROM
+  (( (SELECT
+          COUNT([T1223].chapterid)
+        FROM
+          (input1) AS [T1223][chapterid, xmlfile]) AS [T1224][COUNT-chapterid] ) JOIN (
+      (SELECT
+          [T1227].chapterid, [T1227].xmlfile, COUNT([T1227].xmlfile)
+        FROM
+          (input1) AS [T1227][chapterid, xmlfile]
+        GROUP BY
+          [T1227].chapterid  [T1227].xmlfile) AS [T1228][chapterid, xmlfile, COUNT-xmlfile] )) AS [T1229][COUNT-chapterid, chapterid, xmlfile, COUNT-xmlfile]
+
+@anonymous
+[T1229].chapterid(NumberVal) | [T1229].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[No.8]===============================
+SELECT
+  [T1009].chapterid,[T1009].xmlfile
+FROM
+  (( (SELECT
+          [T1003].chapterid, [T1003].xmlfile, FROM
+          (input1) AS [T1003][chapterid, xmlfile]
+        GROUP BY
+          [T1003].chapterid  [T1003].xmlfile) AS [T1004][chapterid, xmlfile] ) JOIN (
+      (SELECT
+          COUNT([T1007].chapterid)
+        FROM
+          (input1) AS [T1007][chapterid, xmlfile]) AS [T1008][COUNT-chapterid] )) AS [T1009][chapterid, xmlfile, COUNT-chapterid]
+
+@anonymous
+[T1009].chapterid(NumberVal) | [T1009].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[No.7]===============================
+SELECT
+  [T959].chapterid,[T959].xmlfile
+FROM
+  (( (SELECT
+          [T953].chapterid, [T953].xmlfile, FROM
+          (input1) AS [T953][chapterid, xmlfile]
+        GROUP BY
+          [T953].chapterid  [T953].xmlfile) AS [T954][chapterid, xmlfile] ) JOIN (
+      (SELECT
+          COUNT([T957].xmlfile)
+        FROM
+          (input1) AS [T957][chapterid, xmlfile]) AS [T958][COUNT-xmlfile] )) AS [T959][chapterid, xmlfile, COUNT-xmlfile]
+
+@anonymous
+[T959].chapterid(NumberVal) | [T959].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[No.6]===============================
+SELECT
+  [T719].chapterid,[T719].xmlfile
+FROM
+  (( (SELECT
+          COUNT([T713].xmlfile)
+        FROM
+          (input1) AS [T713][chapterid, xmlfile]) AS [T714][COUNT-xmlfile] ) JOIN (
+      (SELECT
+          [T717].chapterid, [T717].xmlfile, COUNT([T717].xmlfile)
+        FROM
+          (input1) AS [T717][chapterid, xmlfile]
+        GROUP BY
+          [T717].chapterid  [T717].xmlfile) AS [T718][chapterid, xmlfile, COUNT-xmlfile] )) AS [T719][COUNT-xmlfile, chapterid, xmlfile, COUNT-xmlfile1]
+
+@anonymous
+[T719].chapterid(NumberVal) | [T719].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[No.5]===============================
+SELECT
+  [T659].chapterid,[T659].xmlfile
+FROM
+  (( (SELECT
+          [T653].chapterid, [T653].xmlfile, COUNT([T653].xmlfile)
+        FROM
+          (input1) AS [T653][chapterid, xmlfile]
+        GROUP BY
+          [T653].chapterid  [T653].xmlfile) AS [T654][chapterid, xmlfile, COUNT-xmlfile] ) JOIN (
+      (SELECT
+          COUNT([T657].xmlfile)
+        FROM
+          (input1) AS [T657][chapterid, xmlfile]) AS [T658][COUNT-xmlfile] )) AS [T659][chapterid, xmlfile, COUNT-xmlfile, COUNT-xmlfile1]
+
+@anonymous
+[T659].chapterid(NumberVal) | [T659].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[No.4]===============================
+SELECT
+  [T589].chapterid,[T589].xmlfile
+FROM
+  (( (SELECT
+          COUNT([T583].xmlfile)
+        FROM
+          (input1) AS [T583][chapterid, xmlfile]) AS [T584][COUNT-xmlfile] ) JOIN (
+      (SELECT
+          [T587].chapterid, [T587].xmlfile, FROM
+          (input1) AS [T587][chapterid, xmlfile]
+        GROUP BY
+          [T587].chapterid  [T587].xmlfile) AS [T588][chapterid, xmlfile] )) AS [T589][COUNT-xmlfile, chapterid, xmlfile]
+
+@anonymous
+[T589].chapterid(NumberVal) | [T589].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[No.3]===============================
+SELECT
+  [T519].chapterid,[T519].xmlfile
+FROM
+  (( (SELECT
+          [T513].chapterid, [T513].xmlfile, COUNT([T513].xmlfile)
+        FROM
+          (input1) AS [T513][chapterid, xmlfile]
+        GROUP BY
+          [T513].chapterid  [T513].xmlfile) AS [T514][chapterid, xmlfile, COUNT-xmlfile] ) JOIN (
+      (SELECT
+          COUNT([T517].chapterid)
+        FROM
+          (input1) AS [T517][chapterid, xmlfile]) AS [T518][COUNT-chapterid] )) AS [T519][chapterid, xmlfile, COUNT-xmlfile, COUNT-chapterid]
+
+@anonymous
+[T519].chapterid(NumberVal) | [T519].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[No.2]===============================
+SELECT
+  [T459].chapterid,[T459].xmlfile
+FROM
+  (( (SELECT
+          COUNT([T453].chapterid)
+        FROM
+          (input1) AS [T453][chapterid, xmlfile]) AS [T454][COUNT-chapterid] ) JOIN (
+      (SELECT
+          [T457].chapterid, [T457].xmlfile, FROM
+          (input1) AS [T457][chapterid, xmlfile]
+        GROUP BY
+          [T457].chapterid  [T457].xmlfile) AS [T458][chapterid, xmlfile] )) AS [T459][COUNT-chapterid, chapterid, xmlfile]
+
+@anonymous
+[T459].chapterid(NumberVal) | [T459].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[No.1]===============================
+SELECT
+  [T299].chapterid,[T299].xmlfile
+FROM
+  (( (SELECT
+          [T293].chapterid, [T293].xmlfile, COUNT([T293].chapterid)
+        FROM
+          (input1) AS [T293][chapterid, xmlfile]
+        GROUP BY
+          [T293].chapterid  [T293].xmlfile) AS [T294][chapterid, xmlfile, COUNT-chapterid] ) JOIN (
+      (SELECT
+          COUNT([T297].chapterid)
+        FROM
+          (input1) AS [T297][chapterid, xmlfile]) AS [T298][COUNT-chapterid] )) AS [T299][chapterid, xmlfile, COUNT-chapterid, COUNT-chapterid1]
+
+@anonymous
+[T299].chapterid(NumberVal) | [T299].xmlfile(StringVal) 
+1234.0 | 123.xml 
+4567.0 | 123.xml 
+6789.0 | 145.xml 
+7890.0 | 234.xml 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 1.182s

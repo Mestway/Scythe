@@ -1,0 +1,37 @@
+//http://stackoverflow.com/questions/2411559/how-do-i-query-sql-for-a-latest-record-date-for-each-user
+
+# input
+
+
+    | username |   date     | value|
+    |------------------------------|
+    | brad     | 2010-01-02 |  1.1 |
+    | fred     | 2010-01-03 |  1.0 |
+    | bob      | 2009-08-04 |  1.5 |
+    | brad     | 2010-02-02 |  1.2 |
+    | fred     | 2009-12-02 |  1.3 |
+
+
+# output
+
+    | username |   date      | value|
+    |-------------------------------|
+    | fred     | 2010-01-03  |  1.0 |
+    | bob      | 2009-08-04  |  1.5 |
+    | brad     | 2010-02-02  |  1.2 |
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["max"]
+}
+
+#solution
+
+select t.username, t.date, t.value
+from MyTable t
+inner join (
+    select username, max(date) as MaxDate
+    from MyTable
+    group by username
+) tm on t.username = tm.username and t.date = tm.MaxDate

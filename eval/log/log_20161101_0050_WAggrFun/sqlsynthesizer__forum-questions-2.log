@@ -1,0 +1,26 @@
+[[Synthesis start]]
+	File: ..\data\sqlsynthesizer\forum-questions-2
+	Enumerator: StagedEnumerator
+[Retry] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 3 [SymTable]: 4
+Candidate Tree Number: 1
+[Enumeration Finished]
+[No.1]===============================
+(SELECT
+    [T5].project_code, SUM([T5].invoice_amount)
+  FROM
+    (input1) AS [T5][project_code, invoice_key, invoice_amount]
+  GROUP BY
+    [T5].project_code) AS [T6][project_code, SUM-invoice_amount]
+@anonymous
+[T6].project_code(StringVal) | [T6].SUM-invoice_amount(NumberVal) 
+proj1 | 300.0 
+proj2 | 700.0 
+proj3 | 500.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.064s

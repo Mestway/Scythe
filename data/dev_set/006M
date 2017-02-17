@@ -1,0 +1,56 @@
+//http://stackoverflow.com/questions/32779941/sqlite3-query-by-max-and-filter-by-second-factor
+//// MOD: 5
+
+#input:t
+
+message_id, conversation_id, from_user, timestamp, message
+6, 1743, yyy, 999, message
+2, 145, xxx, 10000, message
+7, 14, bbb, 899, message
+8, 14, bbb, 799, message
+1, 145, xxx, 9000, message
+5, 1743, me, 1200, message
+
+#output
+
+    | c1 | c2   |  c3 | c4    |  c5     |
+    |-----------------------------------|
+    | 2  | 145  | xxx | 10000 | message |
+    | 6  | 1743 | yyy | 999   | message |
+    | 7  | 14   | bbb | 899   | message |
+
+#constraint
+{
+    "constants": ["me"],
+    "aggregation_functions": ["max"]
+}
+
+#solution
+
+select m.*
+from
+Messages m
+inner join
+(   select conversation_id, max(timestamp), message_id
+    from
+    (
+        select conversation_id, timestamp, max(message_id) message_id
+        from Messages
+        where message <> 'me'
+        group by conversation_id, timestamp
+    ) max_mid
+    group by conversation_id
+) max_mid_ts on max_mid_ts.message_id = m.message_id;
+
+
+select t2.*
+from (select conversation_id, max(timestamp) maxts
+      from Messages
+      where message <> 'me'
+      group by conversation_id
+) t1 join (
+        select conversation_id, timestamp, max(message_id) message_id
+        from Messages
+        group by conversation_id, timestamp
+) t2 On t1.conversation_id = t2.conversation_id And 
+   t1.timestamp = t2.max_timestamp

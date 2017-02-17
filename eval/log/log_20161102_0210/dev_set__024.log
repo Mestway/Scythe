@@ -1,0 +1,574 @@
+[[Synthesis start]]
+	File: ../data/dev_set/024
+	Enumerator: StagedEnumerator
+[[Retry]] Maximum Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 21 [SymTable]: 22
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Maximum Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 1 [SymTable]: 2
+[JOINOnInput] level 1 [SymTable]: 3
+[EnumJoinOnAggr] level 1 [SymTable]: 7
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 8 [SymTable]: 9
+[JOINOnInput] level 1 [SymTable]: 10
+[EnumJoinOnAggr] level 1 [SymTable]: 91
+Candidate Tree Number: 30
+[Enumeration Finished]
+[No.20]===============================
+SELECT
+  [T113].user_id,[T113].names
+FROM
+  (( SELECT
+        input1.user_id,input1.names
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      SELECT
+        [T112].user_id,[T112].COUNT_DISTINCT-names
+      FROM
+        (SELECT
+            [T111].user_id, COUNT_DISTINCT([T111].names)
+          FROM
+            (input1) AS [T111][user_id, names]
+          GROUP BY
+            [T111].user_id) AS [T112][user_id, COUNT_DISTINCT-names]
+      WHERE
+        [T112].COUNT_DISTINCT-names > 3.0 )) AS [T113][user_id, names, user_id1, COUNT_DISTINCT-names]
+WHERE
+  [T113].user_id <= [T113].user_id1
+@anonymous
+[T113].user_id(NumberVal) | [T113].names(StringVal) 
+701.0 | Name1 
+701.0 | Name2 
+701.0 | Name3 
+701.0 | Name4 
+
+[No.19]===============================
+SELECT
+  [T83].user_id,[T83].names
+FROM
+  (( SELECT
+        input1.user_id,input1.names
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      SELECT
+        [T82].user_id,[T82].COUNT-user_id
+      FROM
+        (SELECT
+            [T81].user_id, COUNT([T81].user_id)
+          FROM
+            (input1) AS [T81][user_id, names]
+          GROUP BY
+            [T81].user_id) AS [T82][user_id, COUNT-user_id]
+      WHERE
+        [T82].COUNT-user_id > 3.0 )) AS [T83][user_id, names, user_id1, COUNT-user_id]
+WHERE
+  [T83].user_id <= [T83].user_id1
+@anonymous
+[T83].user_id(NumberVal) | [T83].names(StringVal) 
+701.0 | Name1 
+701.0 | Name2 
+701.0 | Name3 
+701.0 | Name4 
+
+[No.18]===============================
+SELECT
+  [T221].user_id,[T221].names
+FROM
+  (( SELECT
+        [T220].user_id,[T220].COUNT-names
+      FROM
+        (SELECT
+            [T219].user_id, COUNT([T219].names)
+          FROM
+            (input1) AS [T219][user_id, names]
+          GROUP BY
+            [T219].user_id) AS [T220][user_id, COUNT-names]
+      WHERE
+        [T220].COUNT-names > 3.0 ) JOIN (
+      SELECT
+        input1.user_id,input1.names
+      FROM
+        input1
+      WHERE
+        True )) AS [T221][user_id, COUNT-names, user_id1, names]
+WHERE
+  [T221].user_id == [T221].user_id1
+@anonymous
+[T221].user_id(NumberVal) | [T221].names(StringVal) 
+701.0 | Name1 
+701.0 | Name2 
+701.0 | Name3 
+701.0 | Name4 
+
+[No.17]===============================
+SELECT
+  [T191].user_id,[T191].names
+FROM
+  (( SELECT
+        [T190].user_id,[T190].COUNT_DISTINCT-names
+      FROM
+        (SELECT
+            [T189].user_id, COUNT_DISTINCT([T189].names)
+          FROM
+            (input1) AS [T189][user_id, names]
+          GROUP BY
+            [T189].user_id) AS [T190][user_id, COUNT_DISTINCT-names]
+      WHERE
+        [T190].COUNT_DISTINCT-names > 3.0 ) JOIN (
+      SELECT
+        input1.user_id,input1.names
+      FROM
+        input1
+      WHERE
+        True )) AS [T191][user_id, COUNT_DISTINCT-names, user_id1, names]
+WHERE
+  [T191].user_id == [T191].user_id1
+@anonymous
+[T191].user_id(NumberVal) | [T191].names(StringVal) 
+701.0 | Name1 
+701.0 | Name2 
+701.0 | Name3 
+701.0 | Name4 
+
+[No.16]===============================
+SELECT
+  [T161].user_id,[T161].names
+FROM
+  (( SELECT
+        [T160].user_id,[T160].COUNT-user_id
+      FROM
+        (SELECT
+            [T159].user_id, COUNT([T159].user_id)
+          FROM
+            (input1) AS [T159][user_id, names]
+          GROUP BY
+            [T159].user_id) AS [T160][user_id, COUNT-user_id]
+      WHERE
+        [T160].COUNT-user_id > 3.0 ) JOIN (
+      SELECT
+        input1.user_id,input1.names
+      FROM
+        input1
+      WHERE
+        True )) AS [T161][user_id, COUNT-user_id, user_id1, names]
+WHERE
+  [T161].user_id == [T161].user_id1
+@anonymous
+[T161].user_id(NumberVal) | [T161].names(StringVal) 
+701.0 | Name1 
+701.0 | Name2 
+701.0 | Name3 
+701.0 | Name4 
+
+[No.15]===============================
+SELECT
+  [T131].user_id,[T131].names
+FROM
+  (( SELECT
+        input1.user_id,input1.names
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      SELECT
+        [T130].user_id,[T130].COUNT-names
+      FROM
+        (SELECT
+            [T129].user_id, COUNT([T129].names)
+          FROM
+            (input1) AS [T129][user_id, names]
+          GROUP BY
+            [T129].user_id) AS [T130][user_id, COUNT-names]
+      WHERE
+        [T130].COUNT-names > 3.0 )) AS [T131][user_id, names, user_id1, COUNT-names]
+WHERE
+  [T131].user_id == [T131].user_id1
+@anonymous
+[T131].user_id(NumberVal) | [T131].names(StringVal) 
+701.0 | Name1 
+701.0 | Name2 
+701.0 | Name3 
+701.0 | Name4 
+
+[No.14]===============================
+SELECT
+  [T101].user_id,[T101].names
+FROM
+  (( SELECT
+        input1.user_id,input1.names
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      SELECT
+        [T100].user_id,[T100].COUNT_DISTINCT-names
+      FROM
+        (SELECT
+            [T99].user_id, COUNT_DISTINCT([T99].names)
+          FROM
+            (input1) AS [T99][user_id, names]
+          GROUP BY
+            [T99].user_id) AS [T100][user_id, COUNT_DISTINCT-names]
+      WHERE
+        [T100].COUNT_DISTINCT-names > 3.0 )) AS [T101][user_id, names, user_id1, COUNT_DISTINCT-names]
+WHERE
+  [T101].user_id == [T101].user_id1
+@anonymous
+[T101].user_id(NumberVal) | [T101].names(StringVal) 
+701.0 | Name1 
+701.0 | Name2 
+701.0 | Name3 
+701.0 | Name4 
+
+[No.13]===============================
+SELECT
+  [T71].user_id,[T71].names
+FROM
+  (( SELECT
+        input1.user_id,input1.names
+      FROM
+        input1
+      WHERE
+        True ) JOIN (
+      SELECT
+        [T70].user_id,[T70].COUNT-user_id
+      FROM
+        (SELECT
+            [T69].user_id, COUNT([T69].user_id)
+          FROM
+            (input1) AS [T69][user_id, names]
+          GROUP BY
+            [T69].user_id) AS [T70][user_id, COUNT-user_id]
+      WHERE
+        [T70].COUNT-user_id > 3.0 )) AS [T71][user_id, names, user_id1, COUNT-user_id]
+WHERE
+  [T71].user_id == [T71].user_id1
+@anonymous
+[T71].user_id(NumberVal) | [T71].names(StringVal) 
+701.0 | Name1 
+701.0 | Name2 
+701.0 | Name3 
+701.0 | Name4 
+
+[No.12]===============================
+SELECT
+  [T227].user_id,[T227].names
+FROM
+  (( SELECT
+        [T226].user_id,[T226].COUNT-names
+      FROM
+        (SELECT
+            [T225].user_id, COUNT([T225].names)
+          FROM
+            (input1) AS [T225][user_id, names]
+          GROUP BY
+            [T225].user_id) AS [T226][user_id, COUNT-names]
+      WHERE
+        [T226].COUNT-names > 3.0 ) JOIN (
+      input1 )) AS [T227][user_id, COUNT-names, user_id1, names]
+WHERE
+  [T227].user_id >= [T227].user_id1
+@anonymous
+[T227].user_id(NumberVal) | [T227].names(StringVal) 
+701.0 | Name1 
+701.0 | Name2 
+701.0 | Name3 
+701.0 | Name4 
+
+[No.11]===============================
+SELECT
+  [T197].user_id,[T197].names
+FROM
+  (( SELECT
+        [T196].user_id,[T196].COUNT_DISTINCT-names
+      FROM
+        (SELECT
+            [T195].user_id, COUNT_DISTINCT([T195].names)
+          FROM
+            (input1) AS [T195][user_id, names]
+          GROUP BY
+            [T195].user_id) AS [T196][user_id, COUNT_DISTINCT-names]
+      WHERE
+        [T196].COUNT_DISTINCT-names > 3.0 ) JOIN (
+      input1 )) AS [T197][user_id, COUNT_DISTINCT-names, user_id1, names]
+WHERE
+  [T197].user_id >= [T197].user_id1
+@anonymous
+[T197].user_id(NumberVal) | [T197].names(StringVal) 
+701.0 | Name1 
+701.0 | Name2 
+701.0 | Name3 
+701.0 | Name4 
+
+[No.10]===============================
+SELECT
+  [T167].user_id,[T167].names
+FROM
+  (( SELECT
+        [T166].user_id,[T166].COUNT-user_id
+      FROM
+        (SELECT
+            [T165].user_id, COUNT([T165].user_id)
+          FROM
+            (input1) AS [T165][user_id, names]
+          GROUP BY
+            [T165].user_id) AS [T166][user_id, COUNT-user_id]
+      WHERE
+        [T166].COUNT-user_id > 3.0 ) JOIN (
+      input1 )) AS [T167][user_id, COUNT-user_id, user_id1, names]
+WHERE
+  [T167].user_id >= [T167].user_id1
+@anonymous
+[T167].user_id(NumberVal) | [T167].names(StringVal) 
+701.0 | Name1 
+701.0 | Name2 
+701.0 | Name3 
+701.0 | Name4 
+
+[No.9]===============================
+SELECT
+  [T137].user_id,[T137].names
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        [T136].user_id,[T136].COUNT-names
+      FROM
+        (SELECT
+            [T135].user_id, COUNT([T135].names)
+          FROM
+            (input1) AS [T135][user_id, names]
+          GROUP BY
+            [T135].user_id) AS [T136][user_id, COUNT-names]
+      WHERE
+        [T136].COUNT-names > 3.0 )) AS [T137][user_id, names, user_id1, COUNT-names]
+WHERE
+  [T137].user_id <= [T137].user_id1
+@anonymous
+[T137].user_id(NumberVal) | [T137].names(StringVal) 
+701.0 | Name1 
+701.0 | Name2 
+701.0 | Name3 
+701.0 | Name4 
+
+[No.8]===============================
+SELECT
+  [T107].user_id,[T107].names
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        [T106].user_id,[T106].COUNT_DISTINCT-names
+      FROM
+        (SELECT
+            [T105].user_id, COUNT_DISTINCT([T105].names)
+          FROM
+            (input1) AS [T105][user_id, names]
+          GROUP BY
+            [T105].user_id) AS [T106][user_id, COUNT_DISTINCT-names]
+      WHERE
+        [T106].COUNT_DISTINCT-names > 3.0 )) AS [T107][user_id, names, user_id1, COUNT_DISTINCT-names]
+WHERE
+  [T107].user_id <= [T107].user_id1
+@anonymous
+[T107].user_id(NumberVal) | [T107].names(StringVal) 
+701.0 | Name1 
+701.0 | Name2 
+701.0 | Name3 
+701.0 | Name4 
+
+[No.7]===============================
+SELECT
+  [T77].user_id,[T77].names
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        [T76].user_id,[T76].COUNT-user_id
+      FROM
+        (SELECT
+            [T75].user_id, COUNT([T75].user_id)
+          FROM
+            (input1) AS [T75][user_id, names]
+          GROUP BY
+            [T75].user_id) AS [T76][user_id, COUNT-user_id]
+      WHERE
+        [T76].COUNT-user_id > 3.0 )) AS [T77][user_id, names, user_id1, COUNT-user_id]
+WHERE
+  [T77].user_id <= [T77].user_id1
+@anonymous
+[T77].user_id(NumberVal) | [T77].names(StringVal) 
+701.0 | Name1 
+701.0 | Name2 
+701.0 | Name3 
+701.0 | Name4 
+
+[No.6]===============================
+SELECT
+  [T215].user_id,[T215].names
+FROM
+  (( SELECT
+        [T214].user_id,[T214].COUNT-names
+      FROM
+        (SELECT
+            [T213].user_id, COUNT([T213].names)
+          FROM
+            (input1) AS [T213][user_id, names]
+          GROUP BY
+            [T213].user_id) AS [T214][user_id, COUNT-names]
+      WHERE
+        [T214].COUNT-names > 3.0 ) JOIN (
+      input1 )) AS [T215][user_id, COUNT-names, user_id1, names]
+WHERE
+  [T215].user_id == [T215].user_id1
+@anonymous
+[T215].user_id(NumberVal) | [T215].names(StringVal) 
+701.0 | Name1 
+701.0 | Name2 
+701.0 | Name3 
+701.0 | Name4 
+
+[No.5]===============================
+SELECT
+  [T185].user_id,[T185].names
+FROM
+  (( SELECT
+        [T184].user_id,[T184].COUNT_DISTINCT-names
+      FROM
+        (SELECT
+            [T183].user_id, COUNT_DISTINCT([T183].names)
+          FROM
+            (input1) AS [T183][user_id, names]
+          GROUP BY
+            [T183].user_id) AS [T184][user_id, COUNT_DISTINCT-names]
+      WHERE
+        [T184].COUNT_DISTINCT-names > 3.0 ) JOIN (
+      input1 )) AS [T185][user_id, COUNT_DISTINCT-names, user_id1, names]
+WHERE
+  [T185].user_id == [T185].user_id1
+@anonymous
+[T185].user_id(NumberVal) | [T185].names(StringVal) 
+701.0 | Name1 
+701.0 | Name2 
+701.0 | Name3 
+701.0 | Name4 
+
+[No.4]===============================
+SELECT
+  [T155].user_id,[T155].names
+FROM
+  (( SELECT
+        [T154].user_id,[T154].COUNT-user_id
+      FROM
+        (SELECT
+            [T153].user_id, COUNT([T153].user_id)
+          FROM
+            (input1) AS [T153][user_id, names]
+          GROUP BY
+            [T153].user_id) AS [T154][user_id, COUNT-user_id]
+      WHERE
+        [T154].COUNT-user_id > 3.0 ) JOIN (
+      input1 )) AS [T155][user_id, COUNT-user_id, user_id1, names]
+WHERE
+  [T155].user_id == [T155].user_id1
+@anonymous
+[T155].user_id(NumberVal) | [T155].names(StringVal) 
+701.0 | Name1 
+701.0 | Name2 
+701.0 | Name3 
+701.0 | Name4 
+
+[No.3]===============================
+SELECT
+  [T125].user_id,[T125].names
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        [T124].user_id,[T124].COUNT-names
+      FROM
+        (SELECT
+            [T123].user_id, COUNT([T123].names)
+          FROM
+            (input1) AS [T123][user_id, names]
+          GROUP BY
+            [T123].user_id) AS [T124][user_id, COUNT-names]
+      WHERE
+        [T124].COUNT-names > 3.0 )) AS [T125][user_id, names, user_id1, COUNT-names]
+WHERE
+  [T125].user_id == [T125].user_id1
+@anonymous
+[T125].user_id(NumberVal) | [T125].names(StringVal) 
+701.0 | Name1 
+701.0 | Name2 
+701.0 | Name3 
+701.0 | Name4 
+
+[No.2]===============================
+SELECT
+  [T95].user_id,[T95].names
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        [T94].user_id,[T94].COUNT_DISTINCT-names
+      FROM
+        (SELECT
+            [T93].user_id, COUNT_DISTINCT([T93].names)
+          FROM
+            (input1) AS [T93][user_id, names]
+          GROUP BY
+            [T93].user_id) AS [T94][user_id, COUNT_DISTINCT-names]
+      WHERE
+        [T94].COUNT_DISTINCT-names > 3.0 )) AS [T95][user_id, names, user_id1, COUNT_DISTINCT-names]
+WHERE
+  [T95].user_id == [T95].user_id1
+@anonymous
+[T95].user_id(NumberVal) | [T95].names(StringVal) 
+701.0 | Name1 
+701.0 | Name2 
+701.0 | Name3 
+701.0 | Name4 
+
+[No.1]===============================
+SELECT
+  [T65].user_id,[T65].names
+FROM
+  (( input1 ) JOIN (
+      SELECT
+        [T64].user_id,[T64].COUNT-user_id
+      FROM
+        (SELECT
+            [T63].user_id, COUNT([T63].user_id)
+          FROM
+            (input1) AS [T63][user_id, names]
+          GROUP BY
+            [T63].user_id) AS [T64][user_id, COUNT-user_id]
+      WHERE
+        [T64].COUNT-user_id > 3.0 )) AS [T65][user_id, names, user_id1, COUNT-user_id]
+WHERE
+  [T65].user_id == [T65].user_id1
+@anonymous
+[T65].user_id(NumberVal) | [T65].names(StringVal) 
+701.0 | Name1 
+701.0 | Name2 
+701.0 | Name3 
+701.0 | Name4 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.449s

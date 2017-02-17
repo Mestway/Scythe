@@ -1,0 +1,186 @@
+[[Synthesis start]]
+	File: ../data/top_rated_posts/010M
+	Enumerator: StagedEnumerator
+[[Retry]] Trying to search for depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 36 [SymTable]: 38
+[NaturalJoin]: 1 [SymTable]: 39
+[Total Number of Intermediate] 39
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 0 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 7
+[EnumJoinOnAggr] level 1 [SymTable]: 11
+[Total Number of Intermediate] 11
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 0 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 7
+[EnumJoinOnAggr] level 1 [SymTable]: 11
+[Total Number of Intermediate] 11
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 0 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 7
+[EnumJoinOnAggr] level 1 [SymTable]: 11
+[Total Number of Intermediate] 11
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 0 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 7
+[EnumJoinOnAggr] level 1 [SymTable]: 11
+[Total Number of Intermediate] 11
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 0 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 7
+[EnumJoinOnAggr] level 1 [SymTable]: 11
+[Total Number of Intermediate] 11
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 6 [SymTable]: 8
+[JOIN] level 1 [SymTable]: 25
+[EnumJoinOnAggr] level 1 [SymTable]: 89
+[Total Number of Intermediate] 89
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+ [Finished Decomposition Synthesis]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 36 [SymTable]: 38
+[JOIN] level 1 [SymTable]: 115
+[EnumJoinOnAggr] level 1 [SymTable]: 1559
+[Total Number of Intermediate] 1559
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Trying to search for depth: 2
+@output
+id(StringVal) | date(StringVal) | phone_number(StringVal) 
+3a | 10-45 | "333333333333 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 0 [SymTable]: 2
+[JOIN] level 1 [SymTable]: 7
+[JOIN] level 2 [SymTable]: 15
+[UNION] level 1 [SymTable]: 19
+[EnumLeftJoin] level 1 [SymTable]: 55
+[Total Number of Intermediate] 55
+Candidate Tree Number: 6
+[Enumeration Finished]
+[Query No.6]===============================
+SELECT
+  [T371].id,[T371].date,[T371].phone_number
+FROM
+  (( (input2) AS [T369][id, date, phone_number] ) LEFT-JOIN (
+      (input1) AS [T370][id, name, phone_number] ) ON [T369].id = [T370].id
+    	 AND[T369].phone_number = [T370].phone_number) AS [T371][id, date, phone_number, id1, name, phone_number1]
+WHERE
+  IS NULL [T371].phone_number1
+@anonymous
+[T371].id(StringVal) | [T371].date(StringVal) | [T371].phone_number(StringVal) 
+3a | 10-45 | "333333333333 
+
+[Query No.5]===============================
+SELECT
+  [T359].id,[T359].date,[T359].phone_number
+FROM
+  (( (input2) AS [T357][id, date, phone_number] ) LEFT-JOIN (
+      (input1) AS [T358][id, name, phone_number] ) ON [T357].phone_number = [T358].phone_number) AS [T359][id, date, phone_number, id1, name, phone_number1]
+WHERE
+  IS NULL [T359].name
+@anonymous
+[T359].id(StringVal) | [T359].date(StringVal) | [T359].phone_number(StringVal) 
+3a | 10-45 | "333333333333 
+
+[Query No.4]===============================
+SELECT
+  [T347].id,[T347].date,[T347].phone_number
+FROM
+  (( (input2) AS [T345][id, date, phone_number] ) LEFT-JOIN (
+      (input1) AS [T346][id, name, phone_number] ) ON [T345].phone_number = [T346].phone_number) AS [T347][id, date, phone_number, id1, name, phone_number1]
+WHERE
+  IS NULL [T347].name
+@anonymous
+[T347].id(StringVal) | [T347].date(StringVal) | [T347].phone_number(StringVal) 
+3a | 10-45 | "333333333333 
+
+[Query No.3]===============================
+SELECT
+  [T335].id,[T335].date,[T335].phone_number
+FROM
+  (( (input2) AS [T333][id, date, phone_number] ) LEFT-JOIN (
+      (input1) AS [T334][id, name, phone_number] ) ON [T333].id = [T334].id) AS [T335][id, date, phone_number, id1, name, phone_number1]
+WHERE
+  IS NULL [T335].id1
+@anonymous
+[T335].id(StringVal) | [T335].date(StringVal) | [T335].phone_number(StringVal) 
+3a | 10-45 | "333333333333 
+
+[Query No.2]===============================
+SELECT
+  [T323].id,[T323].date,[T323].phone_number
+FROM
+  (( (input2) AS [T321][id, date, phone_number] ) LEFT-JOIN (
+      (input1) AS [T322][id, name, phone_number] ) ON [T321].id = [T322].id) AS [T323][id, date, phone_number, id1, name, phone_number1]
+WHERE
+  IS NULL [T323].name
+@anonymous
+[T323].id(StringVal) | [T323].date(StringVal) | [T323].phone_number(StringVal) 
+3a | 10-45 | "333333333333 
+
+[Query No.1]===============================
+SELECT
+  [T311].id,[T311].date,[T311].phone_number
+FROM
+  (( (input2) AS [T309][id, date, phone_number] ) LEFT-JOIN (
+      (input1) AS [T310][id, name, phone_number] ) ON [T309].id = [T310].id
+    	 AND[T309].phone_number = [T310].phone_number) AS [T311][id, date, phone_number, id1, name, phone_number1]
+WHERE
+  IS NULL [T311].id1
+@anonymous
+[T311].id(StringVal) | [T311].date(StringVal) | [T311].phone_number(StringVal) 
+3a | 10-45 | "333333333333 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.819s

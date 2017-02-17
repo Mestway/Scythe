@@ -1,0 +1,63 @@
+//http://stackoverflow.com/questions/7151401/sql-query-for-finding-records-where-count-1
+
+#input
+
+| user_id | account_no | zip   |      date |
+|------------------------------------------|
+|       1 |        123 | 55555 | 12-DEC-09 | 
+|       1 |        123 | 66666 | 12-DEC-09 |
+|       1 |        123 | 55555 | 13-DEC-09 |
+|       2 |        456 | 77777 | 14-DEC-09 |
+|       2 |        456 | 77777 | 14-DEC-09 |
+|       2 |        789 | 77777 | 14-DEC-09 |
+|       2 |        789 | 77777 | 14-DEC-09 |
+
+#output
+
+| user_id | count |
+|-----------------|
+|       1 |     2 |
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["count"]
+}
+
+#solution
+
+SELECT 
+ user_id ,
+ COUNT(*) count
+FROM 
+ PAYMENT
+GROUP BY
+ account,
+ user_id ,
+ date
+Having
+COUNT(*) > 1
+
+ SELECT 
+    user_id,
+    account_no , 
+    date,
+        COUNT(*)
+ FROM
+    (SELECT DISTINCT
+            user_id,
+            account_no , 
+            zip, 
+            date
+         FROM
+            payment 
+
+        ) 
+        payment
+ GROUP BY
+
+    user_id,
+    account_no , 
+
+    date
+HAVING COUNT(*) > 1

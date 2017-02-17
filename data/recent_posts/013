@@ -1,0 +1,45 @@
+//http://stackoverflow.com/questions/40155258/build-tree-from-database
+
+#input
+
+| ID | Name         |
+|-------------------|
+| 1  |   Company1   |
+| 2  |   Company2   |
+| 3  |   Company3   |
+
+#input
+
+| ID |  Company_group |
+|---------------------|
+| 1  |  Company3      |
+| 2  |  Company2      |
+| 3  |  Company2      |
+
+#output
+
+| ID | Name         | RootName  | RootId |
+|----------------------------------------|
+| 1  |  Company1    |  Company3 |    3   |
+| 3  |  Company3    |  Company2 |    2   |
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": []
+}
+
+#solution
+
+select      t1.ID
+           ,t1.Name
+           ,t2.Company_group    as RootName
+           ,t1_b.ID             as RootId
+from                    tbl_1   t1
+            join        tbl_2   t2
+            on          t2.ID   =
+                        t1.ID
+            join        tbl_1   t1_b
+            on          t1_b.Name   =
+                        t2.Company_group
+where       t1.ID <> t1_b.ID;

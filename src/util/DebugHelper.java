@@ -17,25 +17,16 @@ public class DebugHelper {
 
     public static boolean debugFlag = false;
 
-    static int count = 0;
-    public static void debugPrintTableNode(TableNode tn, String debugInfo) {
-        System.out.println(count ++);
-        /*System.out.println(" ------ ");
-        System.out.println(debugInfo);
-        System.out.print(tn.prettyPrint(0));
-        System.out.println();*/
-    }
-
     public static void printTableNodes(List<TableNode> tns) {
         for (TableNode tn  : tns) {
             try {
                 System.out.println("========================");
-                System.out.println(tn.prettyPrint(0));
+                System.out.println(tn.prettyPrint(0, false));
                 Table tb = tn.eval(new Environment());
                 System.out.println(tb);
             } catch (SQLEvalException e) {
                 System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-");
-                System.out.println(tn.prettyPrint(0));;
+                System.out.println(tn.prettyPrint(0, false));;
             }
         }
     }

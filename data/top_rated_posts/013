@@ -1,0 +1,34 @@
+//http://stackoverflow.com/questions/2112618/finding-duplicate-rows-in-sql-server
+
+#input
+
+orgName, id  
+ABC Corp, 34  
+ABC Corp, 5  
+Widget Company, 10  
+Widget Company, 2
+
+#output
+
+orgName, dupcount, id  
+ABC Corp, 1, 34  
+ABC Corp, 2, 5  
+Widget Company, 1, 10  
+Widget Company, 2, 2  
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["count"]
+}
+
+#solution
+
+select o.orgName, oc.dupeCount, o.id
+from organizations o
+inner join (
+    SELECT orgName, COUNT(*) AS dupeCount
+    FROM organizations
+    GROUP BY orgName
+    HAVING COUNT(*) > 1
+) oc on o.orgName = oc.orgName
