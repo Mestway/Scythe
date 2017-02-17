@@ -129,10 +129,10 @@ def find_reduction_rate(log_dir):
 			abstract_search_prune = update_avg_min_max_cnt(abstract_search_prune, avgabstr)
 
 			#if avgpred < 0:
-		#		continue
+			#	continue
 		#	if min_red_rate > avgpred:
-	#			min_red_rate = avgpred
-#			if max_red_rate < avgpred:
+			#	min_red_rate = avgpred
+		#	if max_red_rate < avgpred:
 			#	max_red_rate = avgpred
 			#sum_avg_red_rate += sum_reduction_rate / cnt
 			#avg_red_count += 1
@@ -143,6 +143,7 @@ def find_reduction_rate(log_dir):
 	#print "Min:", min_red_rate
 	#print "Avg:", sum_avg_red_rate / avg_red_count
 
+	print "Format: [sum, min, max, count, avg] avg"
 	print "Filter Reduction: ", filter_red, filter_red[0]/filter_red[3]
 	print "Backward Prune Ratio: ", bw_ratio, bw_ratio[0]/bw_ratio[3]
 	print "Abstract Search Prune Ratio: ", abstract_search_prune, abstract_search_prune[0]/abstract_search_prune[3]
