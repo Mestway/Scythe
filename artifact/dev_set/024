@@ -1,0 +1,38 @@
+//http://stackoverflow.com/questions/27103777/sql-query-to-find-all-names-where-same-user-id-count-3
+
+#input
+
+| user_id |  names |
+|------------------|
+| 701     |  Name1 |
+| 701     |  Name2 |
+| 701     |  Name3 |
+| 701     |  Name4 |
+| 702     |  Name5 |
+| 702     |  Name6 |
+| 703     |  Name7 |
+| 703     |  Name8 |
+
+#output
+
+|  user_id  |   names |
+|---------------------|
+|  701      |   Name1 |
+|  701      |   Name2 |
+|  701      |   Name3 |
+|  701      |   Name4 |
+
+#constraint
+{
+	"constants": ["3"],
+	"aggregation_functions": ["count"]
+}
+
+#solution
+
+select user_id, names
+from table 
+where user_id in (select user_id
+                     from table
+                    group by user_id
+                   having count(*) > 3)

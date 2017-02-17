@@ -1,0 +1,37 @@
+//http://stackoverflow.com/questions/2043259/sql-server-how-to-join-to-first-row
+
+#input
+
+OrderID, OrderGUID,   OrderNumber
+1, {FFB2...},   STL-7442-1      
+2, {3EC6...},   MPT-9931-8A
+6784329, {A1...},  KSG-0619-81
+
+#input
+
+LineItemGUID,   OrderID, Quantity,   Description
+{098FBE3...},   1,        7,         prefabulated amulite
+{1609B09...},   2,        32,        spurving bearing
+{A58A1...},     6784329,  5,         pentametric fan
+{0E9BC...},     6784329,  5,         differential girdlespring 
+
+#output
+
+OrderNumber,   Quantity,   Description
+STL-7442-1,    7,          prefabulated amulite
+MPT-9931-8A,   32,         spurving bearing
+KSG-0619-81,   5,          pentametric fan
+
+#constraint
+{
+    "constants": [],
+    "aggregation_functions": ["first"]
+}
+
+#solution
+
+SELECT Orders.OrderNumber, LineItems.Quantity, LineItems.Description
+FROM Orders
+    LEFT JOIN LineItems 
+    ON Orders.OrderID = LineItems.OrderID
+GROUP BY Orders.OrderNumber

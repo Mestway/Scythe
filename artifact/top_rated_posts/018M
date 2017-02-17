@@ -1,0 +1,59 @@
+//http://stackoverflow.com/questions/1124603/grouped-limit-in-postgresql-show-the-first-n-rows-for-each-group
+//// MOD 13
+
+#input
+
+ id , section_id , name
+  11 ,          1 , A
+  12 ,          1 , B
+  13 ,          1 , C
+  14 ,          1 , D
+  15 ,          2 , E
+  16 ,          2 , F
+  17 ,          3 , G
+  18 ,          2 , H
+
+#output
+
+ id , section_id , name
+  11 ,          1 , A
+  12 ,          1 , B
+  15 ,          2 , E
+  16 ,          2 , F
+  17 ,          3 , G
+
+#constraint
+{
+	"constants": ["2"],
+	"aggregation_functions": ["count"]
+}
+
+#solution
+
+SELECT
+  *
+FROM
+  xxx a
+WHERE (
+  SELECT
+    COUNT(*)
+  FROM
+    xxx
+  WHERE
+    section_id = a.section_id
+  AND
+    name <= a.name
+) <= 2
+
+SELECT this.*
+FROM xxx this
+JOIN ( SELECT x1.id
+        , COUNT(x2.id) AS rnk
+        FROM xxx x1
+        LEFT JOIN xxx x2 ON x1.section_id = x2.section_id AND x2.name <= x1.name
+        GROUP BY x1.id
+        ) rnk
+ON rnk.id = this.id
+WHERE rnk.rnk <=2
+ORDER BY this.section_id, rnk.rnk
+        ;

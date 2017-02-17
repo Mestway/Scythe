@@ -1,0 +1,28 @@
+//http://stackoverflow.com/questions/149772/how-to-use-group-by-to-concatenate-strings-in-mysql
+
+#input
+
+| id | string |
+|-------------|
+| 1  |  A     |
+| 1  |  B     |
+| 2  |  C     |
+
+#output
+
+| id | string |
+|-------------|
+| 1  |  A, B  |
+| 2  |  C     |
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["concat"]
+}
+
+#solution
+
+SELECT id, GROUP_CONCAT(string SEPARATOR ' ') 
+FROM table 
+GROUP BY id;

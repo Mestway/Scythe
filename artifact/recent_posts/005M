@@ -1,0 +1,34 @@
+//http://stackoverflow.com/questions/40191162/sql-count-rows-where-id-x-and-other-maxid-grouped-on-the-same-table
+// MOD 9
+
+
+#input
+
+g_event_id,   prim_cid,   event_id,   event_time
+1         ,   111       ,   16      ,   2016-10-21 16:00:00
+2         ,   111       ,   17      ,   2016-10-21 16:00:01
+3         ,   111       ,   18      ,   2016-10-21 16:00:02
+4         ,   222       ,   15      ,   2016-10-21 16:01:01
+5         ,   222       ,   17      ,   2016-10-21 16:01:02
+6         ,   333       ,   16      ,   2016-10-21 16:02:01
+7         ,   333       ,   17      ,   2016-10-21 16:02:02
+8         ,   333       ,   18      ,   2016-10-21 16:02:38
+
+#output
+
+g_event_id,   prim_cid,   event_id,   event_time
+5         ,   222       ,   17      ,   2016-10-21 16:01:02
+
+#constraint
+{
+	"constants": ["17"],
+	"aggregation_functions": []
+}
+
+#solution
+
+SELECT COUNT(DISTINCT seventeens.`prim_cid`)
+FROM `events` AS seventeens
+  LEFT JOIN `events` AS laters ON (seventeens.`prim_cid` = laters.`prim_cid` AND laters.`g_event_id` > seventeens.`g_event_id`)
+WHERE seventeens.`event_id` = 17
+  AND ISNULL(laters.`prim_cid`)

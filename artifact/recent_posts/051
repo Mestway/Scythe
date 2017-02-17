@@ -1,0 +1,34 @@
+#input
+
+| isbn          | title             |
+|-----------------------------------|
+| 9780195153446 | classical         |
+| 9780374157067 | flu: the stor     |
+
+#input
+
+| Isbn_id       | Author             |
+|------------------------------------|
+| 9780195153446 | mark p. o. morford |
+| 9780195153446 | robert j. lenardon |
+| 9780374157067 | gina kolata        |
+
+#output
+
+| isbn         |         title         |       author                           |
+|-------------------------------------------------------------------------------|          
+| 9780195153446|        classical      | mark p. o. morford, robert j. lenardon |
+| 9780374157067|        flu: the stor  |    gina kolata                         |
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["concat"]
+}
+
+#solution
+
+Select a.isbn, a.title, group_concat(b.author )
+from Book_title, 
+INNER JOIN Book_authoron a.isbn = b.isbn_id
+group by a.isbn, a.title

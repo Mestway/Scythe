@@ -1,0 +1,40 @@
+//http://stackoverflow.com/questions/12113699/get-top-n-records-for-each-group-of-grouped-results
+//// MOD 6
+
+#input
+
+| Person | Group | Age |
+|----------------------|
+| Bob    | 1     | 32  |
+| Jill   | 1     | 34  |
+| Shawn  | 1     | 42  |
+| XSWwe  | 1     | 30  |
+| Jake   | 2     | 29  |
+| Paul   | 2     | 36  |
+| Laura  | 2     | 39  |
+| YYYY   | 2     | 31  |
+
+
+#output
+
+| Person | Group | Age |
+|----------------------|
+| Shawn  | 1     | 42  |
+| Jill   | 1     | 34  |
+| Laura  | 2     | 39  |
+| Paul   | 2     | 36  |
+
+#constraint
+{
+	"constants": ["2"],
+	"aggregation_functions": ["count"]
+}
+
+#solution
+
+SELECT a.* FROM mytable AS a
+  LEFT JOIN mytable AS a2 
+    ON a.groupname = a2.groupname AND a.age <= a2.age
+GROUP BY a.person
+HAVING COUNT(*) >= 2
+ORDER BY a.groupname, a.age DESC;

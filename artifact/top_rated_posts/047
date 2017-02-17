@@ -1,0 +1,46 @@
+//http://stackoverflow.com/questions/17038193/select-row-with-most-recent-date-per-user
+
+#input
+
+id,  user,    time,    io
+1,   9,   1370931202,  out
+2,   9,   1370931664,  out
+3,   6,   1370932128,  out
+4,   12,  1370932128,  out
+5,   12,  1370933037,  in
+
+#output
+
+id,  user,    time,    io
+2,   9,   1370931664,  out
+3,   6,   1370932128,  out
+5,   12,  1370933037,  in
+
+# constraint
+{
+	"constants": [ ],
+	"aggregation_functions": ["max"]
+}
+
+#solution
+
+SELECT t1.*
+FROM lms_attendance t1
+WHERE t1.time = (SELECT MAX(t2.time)
+                 FROM lms_attendance t2
+                 WHERE t2.user = t1.user);
+
+SELECT t1.*
+FROM lms_attendance t1
+join (SELECT user, MAX(time) maxTime
+      FROM lms_attendance
+      GROUP BY user) t2
+WHERE t1.time = t2.maxTime
+  AND t1.user = t2.user;
+
+SELECT t1.*
+FROM lms_attendance AS t1
+LEFT JOIN lms_attendance AS t2
+  ON t1.user = t2.user 
+        AND t1.time < t2.time
+WHERE t2.user IS NULL

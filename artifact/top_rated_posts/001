@@ -1,0 +1,31 @@
+// http://stackoverflow.com/questions/194852/concatenate-many-rows-into-a-single-text-string
+
+# input
+
+| SubjectID |       StudentName |
+|-------------------------------| 
+| 1         |       Mary        |
+| 1         |       John        |
+| 1         |       Sam         |
+| 2         |       Alaina      |
+| 2         |       Edward      |
+
+# output
+
+| SubjectID|     StudentName        |
+|-----------------------------------|
+| 1        |       Mary, John, Sam  |
+| 2        |       Alaina, Edward   |
+
+# constraint
+
+{
+	"constants": [ ],
+	"aggregation_functions": ["concat"]
+}
+
+# solution
+
+select SubjectID, concat(StudentName)
+from SubjectID
+group by SubjectID

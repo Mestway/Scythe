@@ -1,0 +1,43 @@
+//http://stackoverflow.com/questions/29080006/greatest-n-per-group-needed-in-compound-mysql-join-sql
+
+#input
+
+| number|quantity|retail_price|
+|-----------------------------|
+| 1007  | 288    | 5.750      |
+| 1007  | 48     | 5.510      |
+| 1007  | 576    | 5.460      |
+| 1007  | 96     | 5.240      |
+| 1007  | 576    | 5.230      |
+| 1007  | 144    | 5.120      | 
+| 1006  | 200    | 5.760      |
+| 1006  | 100    | 5.550      |
+| 1006  | 200    | 5.040      |
+| 1006  | 500    | 5.010      |  
+
+#output
+
+| number|quantity|retail_price|
+|-----------------------------|
+| 1006  | 500    | 5.010      |
+| 1007  | 576    | 5.460      |   
+
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["max"]
+}
+
+#solution
+
+select t2.*
+(select number, max(quantity) mq
+from t
+group by number) t1 
+join
+(select number, quantity, max(retail_price) mr
+ from t
+ group by number, quantity) t2
+on t1.number = t2.number
+   and t1.mq = t2.quantity

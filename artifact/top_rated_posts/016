@@ -1,0 +1,28 @@
+//http://stackoverflow.com/questions/43870/how-to-concatenate-strings-of-a-string-field-in-a-postgresql-group-by-query
+
+#input
+
+ID,   COMPANY_ID,   EMPLOYEE
+1,    1,            Anna
+2,    1,            Bill
+3,    2,            Carol
+4,    2,            Dave
+
+#output
+
+|COMPANY_ID |   EMPLOYEE  |
+|-------------------------|
+|1          |  Anna, Bill |
+|2          |  Carol, Dave|
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["concat"]
+}
+
+#solution
+
+SELECT company_id, array_to_string(array_agg(employee), ', ')
+FROM mytable
+GROUP BY company_id;

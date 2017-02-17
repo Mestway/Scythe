@@ -1,0 +1,45 @@
+//http://stackoverflow.com/questions/40074855/sql-query-with-max-value-from-child-table
+//MOD 17
+
+#input
+c1, c2, c3
+1, 1, Some song title
+
+#input
+
+c1, c2
+72, 11
+73, 11
+74, 11
+73, 41
+74, 21
+74, 31
+75, 51
+73, 61
+
+#output
+c3
+74
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["count", "max"]
+}
+
+#solution
+
+SELECT [t0].[TrackId], [t0].[UserId], (
+    SELECT [t3].[FolloweeId]
+    FROM (
+        SELECT TOP (1) [t2].[FolloweeId]
+        FROM (
+            SELECT COUNT(*) AS [value], [t1].[FolloweeId]
+            FROM [Followers] AS [t1]
+            GROUP BY [t1].[FolloweeId]
+            ) AS [t2]
+        ORDER BY [t2].[value] DESC
+        ) AS [t3]
+    ) AS [MostPopularFolloweeId]
+FROM [Tracks] AS [t0]
+WHERE [t0].[TrackId] = @p0

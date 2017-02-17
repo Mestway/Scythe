@@ -1,0 +1,39 @@
+//http://stackoverflow.com/questions/32045677/select-records-with-certain-value-but-exclude-if-it-has-another-one
+
+#input
+
+| Product_ID  | Client_ID  |
+|--------------------------|
+| 21          | 233          |
+| 21          | 133          |
+| 22          | 233          |
+| 22          | 233          |
+| 23          | 233          |
+| 24          | 433          |
+| 24          | 233          |
+
+#output
+
+| c1  |
+|-----|
+| 22  |
+| 23  |
+
+#constraint
+{
+	"constants": ["233", "1"],
+	"aggregation_functions": ["count"]
+}
+
+#solution
+
+SELECT st.Product_ID
+FROM SomeTable st,
+(
+    SELECT Product_ID
+    FROM SomeTable
+    GROUP BY Product_ID
+    HAVING COUNT(*) = 1
+) tmp (Product_ID)
+WHERE tmp.Product_ID = st.Product_ID
+and st.Client_ID = 2

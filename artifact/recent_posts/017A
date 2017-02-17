@@ -1,0 +1,35 @@
+//http://stackoverflow.com/questions/40118180/retrieve-table-data-based-on-specific-condition-in-teradata
+
+#input
+
+emp_id, emp_sal, emp_grp
+1     ,     5  ,     HMCCR
+1     ,    10  ,     HMCPR
+1     ,    20  ,     HMCPR
+1     ,    30  ,     HMCPR
+1     ,    40  ,     HMCRR
+2     ,    40  ,     HMCRR
+2     ,    50  ,     HMCCR
+
+#output
+
+emp_id, emp_sal, emp_grp
+1     ,    10  ,     HMCPR
+2     ,    40  ,     HMCRR
+
+#constraint
+{
+	"constants": ["HMCPR"],
+	"aggregation_functions": ["min"]
+}
+
+#solution
+
+select emp_id,emp_sal,emp_grp 
+from (
+select e.*, 
+row_number() over(partition by emp_id 
+                  order by case when emp_grp = 'HMCPR' then 0 else 1 end,emp_sal) as rn
+from db_wrk.emp_sin e
+) t
+where rn = 1;

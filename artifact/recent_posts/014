@@ -1,0 +1,72 @@
+//http://stackoverflow.com/questions/40139446/group-by-union-result
+
+#input
+
+ID  ,   NAME        , PARENT_ID
+1   ,   child 1     ,   1
+2   ,   child 2     ,   1
+3   ,   child 3     ,   1
+4   ,   child 4     ,   1
+5   ,   child 5     ,   1
+6   ,   child 6     ,   2
+7   ,   child 7     ,   2
+8   ,   child 8     ,   2
+9   ,   child 9     ,   2
+10  ,   child 10    ,   2
+11  ,   child 11    ,   2
+12  ,   child 12    ,   2
+13  ,   child 13    ,   2
+14  ,   child 14    ,   2
+15  ,   child 15    ,   3
+16  ,   child 16    ,   3
+17  ,   child 17    ,   3
+
+#input
+
+ID  ,   NAME        ,   UNIQUE_ID
+1   ,   parent 1    ,   1
+2   ,   parent 2    ,   2
+3   ,   parent 3    ,   3
+
+#output
+
+ID  ,   NAME        ,   PARENT_ID
+1   ,   parent 1    ,   1
+1   ,   child 1     ,   1
+2   ,   child 2     ,   1
+3   ,   child 3     ,   1
+4   ,   child 4     ,   1
+5   ,   child 5     ,   1
+2   ,   parent 2    ,   2
+6   ,   child 6     ,   2
+7   ,   child 7     ,   2
+8   ,   child 8     ,   2
+9   ,   child 9     ,   2
+10  ,   child 10    ,   2
+11  ,   child 11    ,   2
+12  ,   child 12    ,   2
+13  ,   child 13    ,   2
+14  ,   child 14    ,   2
+3   ,   parent 3    ,   3
+15  ,   child 15    ,   3
+16  ,   child 16    ,   3
+17  ,   child 17    ,   3
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": []
+}
+
+#solution
+
+select      id
+           ,name
+           ,unique_id
+from        (           select 2,id,parent_id,name,null      from child
+            union all   select 1,id,id       ,name,unique_id from parent
+            ) t (source_order,id,pid,name,unique_id)
+order by    pid
+           ,source_order
+           ,id
+;

@@ -1,0 +1,27 @@
+//http://stackoverflow.com/questions/33043326/foreign-key-in-same-table-unable-to-get-right-query
+
+#input
+
+| ID   |  Name   |   Age   |  Parent  |
+|-------------------------------------|
+| 1    |  Bob    |    50   |    -1    |
+| 2    |  Matt   |    20   |     1    |
+| 3    |  Rick   |    18   |     1    |
+
+#output
+
+| ID |   Name |
+|-------------|
+| 1  |   Bob  |
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": []
+}
+
+#solution
+
+SELECT DISTINCT p.ID, p.Name
+FROM family AS p
+INNER JOIN family AS c ON p.ID = c.Parent

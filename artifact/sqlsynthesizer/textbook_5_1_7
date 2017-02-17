@@ -1,0 +1,29 @@
+#input
+
+S_key,level,age
+S1,JR,18
+S2,SR,24
+S3,JR,21
+S4,SR,22
+S5,JR,18
+S6,SO,20
+S7,SO,22
+
+# output
+
+level,aveage
+JR,19
+SO,21
+SR,23
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": [ "avg" ]
+}
+
+#solution
+
+SELECT S.level, AVG(S.age)
+FROM Student S
+GROUP BY S.level

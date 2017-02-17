@@ -1,0 +1,45 @@
+//http://stackoverflow.com/questions/1783932/sql-query-to-get-the-latest-value-for-each-location
+//// MOD: 4
+
+#input
+
+    | locId  |    dtg                |  temp |
+    |----------------------------------------|
+    | 100    |  2009-02-25 9:53:00   |  15   |
+    | 100    |  2009-02-25 9:52:00   |  16   |
+    | 200    |  2009-02-25 10:00:00  |  20   |
+    | 300    |  2009-02-25 10:00:00  |  24   |
+    | 100    |  2009-02-25 09:45:00  |  13   |
+    | 300    |  2009-02-25 09:45:00  |  16   |
+    | 200    |  2009-02-25 09:45:00  |  18   |
+    | 400    |  2009-02-25 09:45:00  |  12   |
+    | 100    |  2009-02-25 09:30:00  |  11   |
+    | 300    |  2009-02-25 09:30:00  |  14   |
+    | 200    |  2009-02-25 09:30:00  |  15   |
+    | 400    |  2009-02-25 09:30:00  |  10   |
+
+#output
+
+	| locID |    dtg                  | tmp |
+    |---------------------------------------|
+    | 100   |   2009-02-25 09:53:00   | 15  |
+    | 200   |   2009-02-25 10:00:00   | 20  |
+    | 300   |   2009-02-25 10:00:00   | 24  |
+
+#constraint
+{
+	"constants": ["2009-02-25 09:50:00"],
+	"aggregation_functions": ["max"]
+}
+
+#solution
+
+SELECT t2.* FROM (
+    SELECT locId, MAX(dtg) AS maxdtg 
+    FROM temperatures 
+    GROUP BY locId
+) t1 INNER JOIN (
+    SELECT locId, dtg, temp 
+    FROM temperatures
+) t2 ON t2.locId = t1.locId 
+    AND t2.dtg = t1.maxdtg

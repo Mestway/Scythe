@@ -1,0 +1,37 @@
+//http://stackoverflow.com/questions/40205535/sql-2-columns-in-1-in-result-set
+
+#input
+
+ id_invitation,  id_demand,   partner_company,  concurrent_company
+     1        ,     1     ,        google    ,       facebook
+     2        ,     1     ,        NULL[str] ,       linkedin
+     3        ,     2     ,        google    ,       NULL[str]
+     4        ,     2     ,        NULL[str] ,       yahoo
+     5        ,     3     ,        google    ,       NULL[str]
+
+#output
+
+Company,  id_demand
+facebook,      1
+google  ,      1
+google  ,      2
+google  ,      3
+linkedin,      1
+yahoo   ,      2
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": []
+}
+
+
+#solution
+
+select partner_company , id_demand
+From invitation 
+Where partner_company is not null
+Union All
+select concurrent_company , id_demand
+From invitation 
+Where concurrent_company is not null

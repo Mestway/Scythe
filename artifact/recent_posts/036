@@ -1,0 +1,30 @@
+//http://stackoverflow.com/questions/40003578/create-a-query-using-2-tables-with-3-columns-and-key-id
+
+#input
+
+Account,     Sen1,    Sen2
+1234   ,      1  ,     0
+1235   ,      0  ,     1
+
+#input
+
+ID,     Name
+1 ,     Box
+2 ,     XXX
+
+#output
+
+Account,    Name
+1234   ,           Box
+1235   ,           Box
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["max"]
+}
+
+#solution
+
+SELECT m.Account, k.Name FROM Table_1 m 
+INNER JOIN Table_2 k ON k.ID = m.Sen1 OR k.ID = m.Sen2

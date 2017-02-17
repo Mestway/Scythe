@@ -1,0 +1,32 @@
+//http://stackoverflow.com/questions/5698452/count-cumulative-total-in-postgresql
+
+#input
+
+created_at,  count
+04-04-2011,  100
+05-04-2011,   50
+06-04-2011,   50
+07-04-2011,  300
+
+#output
+
+created_at,  count
+04-04-2011,  100
+05-04-2011,  150
+06-04-2011,  200
+07-04-2011,  500
+
+# constraint
+{
+	"constants": [ ],
+	"aggregation_functions": ["count", "sum"]
+}
+
+#solution
+
+SELECT
+  s1.created_at,
+  COUNT(s2.email) AS cumul_count
+FROM subscriptions s1
+  INNER JOIN subscriptions s2 ON s1.created_at >= s2.created_at
+GROUP BY s1.created_at

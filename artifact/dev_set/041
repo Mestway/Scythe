@@ -1,0 +1,41 @@
+//http://stackoverflow.com/questions/37868704/how-to-return-1-row-for-each-distinct-value-in-a-given-column-in-oracle
+
+#input
+
+    | NBR | ID | DT         |
+    |-----------------------|
+    | 1   | 1  | 12/01/2001 |
+    | 1   | 2  | 01/01/2001 |
+    | 2   | 3  | 01/01/2001 |
+    | 2   | 4  | 01/02/2001 |
+
+#output
+
+    | NBR | ID | DT        |
+    |----------------------|
+    | 1   | 2  | 01/01/2001 |
+    | 2   | 3  | 01/01/2001 |
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["min"]
+}
+
+#solution
+
+SELECT t.*
+FROM
+    tablename t
+    INNER JOIN 
+    (
+       SELECT
+          NBR
+          ,MIN(DT) AS DT
+       FROM
+          tablename
+       GROUP BY
+          NBR
+    ) g
+    ON t.NBR = g.NBR
+    AND t.DT = g.DT

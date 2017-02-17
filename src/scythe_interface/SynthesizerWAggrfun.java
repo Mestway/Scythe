@@ -103,6 +103,7 @@ public class SynthesizerWAggrfun {
                 Table t = tn.eval(new Environment());
                 System.out.println("[No." + (i + 1) + "]===============================");
                 System.out.println(tn.prettyPrint(0));
+                System.out.println("\n");
                 System.out.println(t);
             } catch (SQLEvalException e) {
                 e.printStackTrace();

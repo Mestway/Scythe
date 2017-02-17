@@ -1,0 +1,46 @@
+//http://stackoverflow.com/questions/39986009/how-can-i-get-sum-total-of-each-column
+
+
+#input
+c1,c2,c3
+9,51,21
+9,75,45
+9,74,34
+10,75,4
+10,72,63
+10,85,22
+
+#output
+
+c1, c2
+3, 100
+3, 89
+6, 189
+
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["sum", "count"]
+}
+
+#solution
+
+select zoom, point, size
+FROM (
+  SELECT zoom::text as zoom,
+         zoom as zoom_value,
+         count(*) AS point,
+         SUM(size) AS size, 
+         1 as sort_order
+  FROM total
+  GROUP BY zoom
+  UNION ALL
+  SELECT 'Total', 
+         null,
+         count(*) AS point,
+         SUM(size) AS size, 
+         2 as sort_order
+  FROM total
+) t
+order by sort_order, zoom_value;

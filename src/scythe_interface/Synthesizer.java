@@ -180,7 +180,8 @@ public class Synthesizer {
                 Table t = tn.eval(new Environment());
                 System.out.println("[Query No." + (i + 1) + "]===============================");
                 System.out.println(tn.prettyPrint(0));
-                //System.out.println(t);
+                System.out.println("\n");
+                System.out.println(t);
             } catch (SQLEvalException e) {
                 e.printStackTrace();
             }

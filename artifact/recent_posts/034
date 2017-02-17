@@ -1,0 +1,39 @@
+//http://stackoverflow.com/questions/40011392/select-max-date-from-multiple-dates
+
+#input
+
+| MATERIAL    |DISCO_DATE | DATE_UPDATE | 
+|-------------------------------------|
+|T6C25AW#ABC  |NULL[date] |2016-09-14 |
+|T6C25AW#ABC  |2016-10-28 |2016-09-21 | 
+|T6C25AW#ABC  |2016-10-31 |2016-09-30 | 
+
+
+#output
+
+c, c, c
+T6C25AW#ABC, 2016-10-31, 2016-09-30 
+
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["max"]
+}
+
+#solution
+
+select * from ( SELECT
+  t1.[MFG_PART_NUMBER]
+ ,t2.[DISCO_DATE]
+  , DATE_UPDATE
+
+  FROM Test.dbo.SKU  where DATE_UPDATE=   @maxdate)   t1 
+  LEFT JOIN Test.dbo.Tbl_Disco_Dates t2
+   ON t1.[MFG_PART_NUMBER] = t2.[MATERIAL]
+
+  WHERE t1.[MFG_PART_NUMBER] = 'T6C25AW#ABC'
+
+  group by 
+ t1.[MFG_PART_NUMBER]
+ ,t2.[DISCO_DATE]

@@ -1,0 +1,39 @@
+// http://stackoverflow.com/questions/3869571/mysql-greatest-n-per-group-trouble/39521135#39521135
+// MOD 8
+
+#input
+
+| app_name  |  app_platform | post_created     |  post_id |
+|---------------------------------------------------------|
+| Photoshop |  Windows      | 10/20/2009  |  1       |
+| Photoshop |  Windows      | 12/01/2009  |  3       |
+| Photoshop |  Macintosh    | 11/10/2009  |  2       |
+| Photoshop |  Linux        | 11/10/2009  |  1      |
+
+
+#output
+
+| app_name  |  app_platform | post_created     |  post_id |
+|---------------------------------------------------------|
+| Photoshop |  Windows      |  12/01/2009    |  3       |
+| Photoshop |  Macintosh    |  11/10/2009    |  2       |
+| Photoshop |  Linux        |  11/10/2009    |  1       |
+
+# constraint
+{
+	"constants": [],
+	"aggregation_functions": ["max"]
+}
+
+#solution
+
+SELECT
+  t1.app_name,t1.app_platform,t1.post_created,t1.post_id
+FROM
+  (SELECT app_platform, MAX(post_created) As MaxPostCreated
+   FROM T
+   GROUP BY app_platform) AS t2 JOIN 
+  T AS t1
+WHERE
+  t1.app_platform = t2.app_platform1
+   AND t2.MaxPostCreated = t1.post_created

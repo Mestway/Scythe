@@ -1,0 +1,36 @@
+//http://stackoverflow.com/questions/189213/sql-selecting-rows-by-most-recent-date
+// MOD: 3
+
+#input
+
+ID,    CHARGEID, CHARGETYPE,	SERVICEMONTH
+3,   101,		R,		08/01/2008
+2,   161,		N,		02/01/2008
+1,   101,		R,		02/01/2008
+4,   101,		R,		03/01/2008
+5,   101,		R,		04/01/2008
+6,   101,		R,		05/01/2008
+7,   101,		R,		06/01/2008
+8,   101,		R,		07/01/2008
+
+#output
+
+ID,  CHARGEID,	CHARGETYPE,	SERVICEMONTH
+3 ,  101,		R,		    08/01/2008
+2 ,  161,		N,	        02/01/2008
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["max"]
+}
+
+
+#solution
+
+SELECT
+  CHARGEID,
+  CHARGETYPE,
+  MAX(SERVICEMONTH) AS "MostRecentServiceMonth"
+FROM INVOICE
+GROUP BY CHARGEID, CHARGETYPE

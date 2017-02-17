@@ -1,0 +1,39 @@
+// http://stackoverflow.com/questions/39718851/how-can-i-take-two-rows-for-one-distinct-value-in-postgresql
+
+#input
+
+| id  | column1 | column2 |
+|---------------------|
+| 11  |    31    |    3 |
+| 12  |    32    |    3 |
+| 14  |    34    |    3 |
+| 16  |    36    |    3 |
+| 18  |    22    |    4 |
+| 13  |    33    |    4 |
+| 15  |    35    |    4 |
+| 17  |    36    |    5 |
+
+#output
+
+| id  | column1  | column2 |
+|-----------------------|
+| 14  |    34    |    3 |
+| 16  |    36    |    3 |
+| 13  |    33    |    4 |
+| 15  |    35    |    4 |
+| 17  |    36    |    5 |
+
+
+#constraint
+{
+	"constants": ["2"],
+	"aggregation_functions": ["count"]
+}
+
+#solution
+
+select t1.id, t1.column1, count(*)
+from t1 join t2
+where t1.column2 > t2.column2
+group by t1.id, t1.column1, t1.column2, t2.id, t2.column1
+having count(*)

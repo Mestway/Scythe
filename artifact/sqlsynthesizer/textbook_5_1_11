@@ -1,0 +1,47 @@
+#input
+
+S_key,S_name
+S1,SN1
+S2,SN2
+S3,SN3
+S4,SN4
+S5,SN5
+S6,SN6
+S7,SN7
+S8,SN8
+S9,SN9
+S10,SN10
+
+#input
+
+S_key,C_name
+S1,class2
+S2,class1
+S4,class2
+S4,class4
+S5,class4
+S7,class5
+S7,class1
+S8,class4
+S10,class5
+
+# output
+
+S_name
+SN3
+SN6
+SN9
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": [ ]
+}
+
+#solution
+
+SELECT S.sname
+FROM Student S
+WHERE S.snum
+NOT IN (SELECT E.snum
+        FROM Enrolled E )

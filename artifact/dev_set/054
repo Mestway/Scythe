@@ -1,0 +1,41 @@
+//http://stackoverflow.com/questions/20282081/sql-greatest-n-per-group-with-extra-criteria
+////MOD 8
+
+#input
+
+| Uniq |  Value | Time | Person |
+|-------------------------------|
+|   1  |  996     | 180  | Bob    |
+|   5  |  999     | 0    | Bob    |
+|   2  |  998     | 170  | Bob    |
+|   3  |  994     | 45   | Claire |
+|   4  |  993     | 90   | Claire |
+
+#output
+
+| Person | Duration | Value | Uniq |
+|----------------------------------|
+| Bob    | 350      | 999     | 5    |
+| Claire | 135      | 994     | 3    |
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["max", "sum"]
+}
+
+#solution
+
+SELECT  MaxT.Person,
+        MaxT.Duration,
+        T.Value,
+        MIN(T.Uniq) AS Uniq
+FROM    T
+        INNER JOIN
+        (   SELECT Person, SUM(`Time`) AS Duration, MAX(Value) AS Value
+            FROM    T
+            GROUP BY Person
+        ) MaxT
+            ON MaxT.Person = t.Person
+            AND MaxT.Value = t.Value
+GROUP BY MaxT.Person, MaxT.Duration, MaxT.Value;

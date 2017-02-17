@@ -1,0 +1,76 @@
+// can we synthesize this using join join then aggregation?
+
+#input
+
+C_name,F_key
+class1,f1
+class2,f2
+class3,f2
+class4,f3
+class5,f3
+class6,f3
+class7,f4
+class8,f4
+class9,f1
+
+#input
+
+S_key,C_name
+S1,class1
+S1,class2
+S1,class3
+S2,class1
+S2,class4
+S2,class7
+S3,class2
+S3,class4
+S3,class5
+S4,class1
+S4,class2
+S4,class4
+S4,class5
+S5,class3
+S5,class4
+S5,class6
+S5,class7
+S6,class3
+S6,class4
+S6,class9
+S7,class1
+S7,class3
+S7,class5
+S7,class6
+S8,class2
+S8,class3
+S8,class4
+S8,class5
+S8,class6
+S8,class8
+
+# input
+
+F_key,F_name
+f1,faculty1
+f2,faculty2
+f3,faculty3
+f4,faculty4
+
+
+#output
+
+F_name
+faculty1
+faculty4
+
+#constraint
+{
+	"constants": ["5"],
+	"aggregation_functions": [ "count" ]
+}
+
+#solution
+
+SELECT F.fname
+FROM   Faculty F
+WHERE  5 > (SELECT COUNT (E.snum)
+            FROM Class C, Enrolled E WHERE C.name = E.cname AND C.fid = F.fid)

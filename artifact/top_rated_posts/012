@@ -1,0 +1,43 @@
+//http://stackoverflow.com/questions/6841605/get-top-1-row-of-each-group
+
+#input
+
+|ID| DocumentID | Status | DateCreated  |
+|---------------------------------------|
+| 2| 1          | S1     | 07/29/2011   |
+| 3| 1          | S2     | 07/30/2011   |
+| 6| 1          | S1     | 08/02/2011   |
+| 1| 2          | S1     | 07/28/2011   |
+| 4| 2          | S2     | 07/30/2011   |
+| 5| 2          | S3     | 08/01/2011   |
+| 6| 3          | S1     | 08/02/2011   |
+
+#output
+
+| DocumentID | Status | DateCreated  |
+|------------------------------------|
+| 1          | S1     | 08/02/2011   |
+| 2          | S3     | 08/01/2011   |
+| 3          | S1     | 08/02/2011   |
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["max"]
+}
+
+#solution
+
+ SELECT * FROM DocumentStatusLogs D1 JOIN
+    (
+      SELECT
+        DocumentID,MAX(DateCreated) AS MaxDate
+      FROM
+        DocumentStatusLogs
+      GROUP BY
+        DocumentID
+    ) D2
+    ON
+      D2.DocumentID=D1.DocumentID
+    AND
+      D2.MaxDate=D1.DateCreated

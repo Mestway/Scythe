@@ -1,0 +1,26 @@
+//http://stackoverflow.com/questions/40168679/using-group-by-and-self-join-to-find-duplicates
+
+#input
+c1, c2, c3, c4, c5
+1, 1234, 2016-07-05, "this is a test", 3
+2, 1234, 2016-07-06, "this is a test", 3
+3, 5678, 2016-07-07, "this is another test", 3
+4, 5678, 2016-07-08, "this is another test", 3
+
+#output
+
+c1, c2, c3
+1234, "this is a test",  2
+5678, "this is another test", 2
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["count"]
+}
+
+#solution
+
+SELECT user_id, COUNT(*) AS dup_count
+FROM t_documents
+GROUP BY user_id, text

@@ -1,0 +1,58 @@
+#input
+
+S_key,cname
+S1,class1
+S1,class2
+S2,class1
+S2,class2
+S2,class3
+S3,class1
+S4,class3
+S4,class2
+S5,class1
+S5,class2
+S5,class4
+S6,class3
+S6,class4
+
+# input
+
+S_key,sname
+S1,stu1
+S2,stu2
+S3,stu3
+S4,stu4
+S5,stu5
+S6,stu6
+
+# output
+
+sname
+stu2
+stu5
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": [ "count", "max" ]
+}
+
+#solution
+
+SELECT
+  [T54].sname
+FROM
+  (( input2 ) JOIN (
+      SELECT
+        [T53].S_key,[T53].COUNT-S_key
+      FROM
+        (SELECT
+            [T52].S_key, COUNT([T52].S_key)
+          FROM
+            (input1) AS [T52][S_key, cname]
+          GROUP BY
+            [T52].S_key) AS [T53][S_key, COUNT-S_key]
+      WHERE
+        [T53].COUNT-S_key == 3.0 )) AS [T54][S_key, sname, S_key1, COUNT-S_key]
+WHERE
+  [T54].S_key == [T54].S_key1

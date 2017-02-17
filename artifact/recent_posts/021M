@@ -1,0 +1,43 @@
+//http://stackoverflow.com/questions/40075342/get-most-sold-products-with-a-specified-one
+// MOD 16
+
+#input
+
+id_order,  id_product
+a       ,  22
+a       ,  32
+b       ,  22
+b       ,  42
+b       ,  52
+b       ,  32
+c       ,  22
+c       ,  12
+d       ,  22
+d       ,  32
+d       ,  12
+e       ,  12
+
+#output
+
+product_id,    count-od2
+32         ,    3
+12         ,    2
+42         ,    1
+52         ,    1
+
+#constraint
+{
+	"constants": ["22"],
+	"aggregation_functions": ["count"]
+}
+
+#solution
+
+select od.product_id, count(od2.id_order) as NumTimesWith2
+from ps_order_detail od left join
+     ps_order_detail od2
+     on od.id_order = od2.id_order and
+        od2.product_id = 22
+where od.product_id <> 22
+group by od.product_id
+order by count(od2.id_order) desc;

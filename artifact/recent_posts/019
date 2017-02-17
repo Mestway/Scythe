@@ -1,0 +1,41 @@
+//http://stackoverflow.com/questions/40086753/select-all-records-after-a-certain-column-condition-is-true-in-sql
+
+#input
+
+CustomerID , Balance , Date
+      1    ,  100.00 , 09/07/2016
+      1    ,  -50.00 , 09/08/2016
+      1    ,  -60.00 , 09/09/2016
+      1    ,  500.00 , 09/10/2016
+      1    ,  600.00 , 09/11/2016
+      1    , -100.00 , 09/12/2016
+      1    , -200.00 , 09/13/2016
+      1    , -400.00 , 09/14/2016
+      1    , -500.00 , 09/15/2016
+
+#output
+
+CustomerID , Balance , Date
+      1    , -100.00 , 09/12/2016
+      1    , -200.00 , 09/13/2016
+      1    , -400.00 , 09/14/2016
+      1    , -500.00 , 09/15/2016
+
+#constraint
+{
+	"constants": ["0"],
+	"aggregation_functions": []
+}
+
+#solution
+
+select *
+from tablename
+where date > (select max(date) from tablename where balance > 0)
+
+select *
+from tablename t1
+where not exists (select * from tablename t2
+                  where t2.Balance > 0
+                    and t2.date > t1.date)
+                    

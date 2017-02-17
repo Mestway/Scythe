@@ -1,0 +1,36 @@
+//http://stackoverflow.com/questions/39964693/determine-non-matching-item-in-set
+//// MOD 8
+
+#input
+OriginalID ,  Area
+2          ,  Abdomen
+1          ,  Abdomen
+3          ,  Abdomen
+4          ,  Bottom
+3          ,  Bottom
+
+#input
+Part   ,  OriginalID
+Abdomen,  1
+Abdomen,  2
+Bottom ,  3
+
+#output
+
+OriginalID, Area 
+3         , Abdomen
+4         , Bottom
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": []
+}
+
+#solution
+
+SELECT a.originalID, b.part 
+from #1 a
+join #2 b
+on a.area = b.area
+where not exists (select * from #3 c where c.originalID = a.originalID and c.part = b.part)

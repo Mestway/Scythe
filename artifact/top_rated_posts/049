@@ -1,0 +1,24 @@
+//http://stackoverflow.com/questions/122942/how-to-return-multiple-values-in-one-column-t-sql
+
+#input
+
+UserId, Alias
+1,MrX
+1,MrY
+1,MrA
+2,Abc
+2,Xyz
+
+#output
+
+| UserId | Alias     |
+|--------------------|
+| 1 |  MrX, MrY, MrA |
+| 2 |  Abc, Xyz      |
+
+
+# constraint
+{
+	"constants": [ ],
+	"aggregation_functions": ["concat"]
+}

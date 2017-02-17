@@ -1,0 +1,29 @@
+//http://stackoverflow.com/questions/1503959/how-to-count-occurrences-of-a-column-value-efficiently-in-sql
+
+#input
+
+id , age
+0  , 25
+1  , 25
+2  , 23
+
+#output
+
+id , age , count
+0  , 25  , 2
+1  , 25  , 2
+2  , 23  , 1
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["count"]
+}
+
+#solution
+
+SELECT S.id, S.age, C.cnt
+  FROM Students  S
+       INNER JOIN (SELECT age, count(age) as cnt
+                     FROM Students 
+                    GROUP BY age) C ON S.age = C.age

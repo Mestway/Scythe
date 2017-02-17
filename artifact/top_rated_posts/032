@@ -1,0 +1,28 @@
+//http://stackoverflow.com/questions/3002499/postgresql-crosstab-query
+
+#input
+
+Section,    Status   , Count
+A      ,    Active   , 1
+A      ,    Inactive , 2
+B      ,    Active   , 4
+B      ,    Inactive , 5
+
+#output
+
+Section,    Active,    Inactive
+A      ,    1     ,    2
+B      ,    4     ,    5
+
+#constraint
+{
+	"constants": ["Active", "Inactive"],
+	"aggregation_functions": []
+}
+
+#solution
+
+select t1.section, t1.cnt, t2.cnt
+from (select * from t where status = "Active") t1
+join (select * from t where status = "Inactive") t2
+on t1.section = t2.section

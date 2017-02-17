@@ -1,0 +1,61 @@
+//http://stackoverflow.com/questions/31941909/only-joining-rows-where-the-date-is-less-than-the-max-date-in-another-field
+
+#input
+
+|  Emp_ID  |   Promo_Date |
+|-------------------------|
+|  1       |   07/01/2012 |
+|  1       |   07/01/2013 |
+|  2       |   07/19/2012 |
+|  2       |   07/19/2013 |
+|  3       |   08/21/2012 |
+|  3       |   08/21/2013 |
+
+#input
+
+| Emp_ID   |   Sale_Date  |
+|-------------------------|
+| 1        |   06/12/2013 |
+| 1        |   06/30/2013 |
+| 1        |   07/15/2013 |
+| 2        |   06/15/2013 |
+| 2        |   06/17/2013 |
+| 2        |   08/01/2013 |
+| 3        |   07/31/2013 |
+| 3        |   09/01/2013 |
+
+#output
+
+| Emp_ID  |   Sale_Date  | Promo_Date |
+|-------------------------------------|
+| 1       |   06/12/2013 | 07/01/2012 |
+| 1       |   06/30/2013 | 07/01/2012 |
+| 1       |   06/12/2013 | 07/01/2013 |
+| 1       |   06/30/2013 | 07/01/2013 |
+| 2       |   06/15/2013 | 07/19/2012 |
+| 2       |   06/17/2013 | 07/19/2012 |
+| 2       |   06/15/2013 | 07/19/2013 |
+| 2       |   06/17/2013 | 07/19/2013 |
+| 3       |   07/31/2013 | 08/21/2012 |
+| 3       |   07/31/2013 | 08/21/2013 |
+
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["max"]
+}
+
+#solution
+
+SELECT s.emp_id
+      ,s.sales_date
+      ,t.promo_date
+FROM sales s
+INNER JOIN (
+    SELECT emp_id
+          ,max(promo_date) AS promo_date
+    FROM promotions
+    GROUP BY emp_id
+    ) t ON s.emp_id = t.emp_id
+    AND s.sales_date < t.promo_date;

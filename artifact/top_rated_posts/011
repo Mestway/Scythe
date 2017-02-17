@@ -1,0 +1,40 @@
+//http://stackoverflow.com/questions/6899/how-to-create-a-sql-server-function-to-join-multiple-rows-from-a-subquery-into
+
+# input
+
+    | VehicleID | Name |
+    |------------------|
+    | 1         | Chuck|
+    | 2         | Larry|
+
+# input
+
+    | LocationID | VehicleID |  City        |
+    |---------------------------------------|
+    | 1          | 1         |  New York    |
+    | 2          | 1         |  Seattle     |
+    | 3          | 1         |  Vancouver   |
+    | 4          | 2         |  Los Angeles |
+    | 5          | 2         |  Houston     |
+
+# output
+
+    | VehicleID  | Name   | Locations                     |
+    |-----------------------------------------------------|
+    | 1          | Chuck  | New York, Seattle, Vancouver  |
+    | 2          | Larry  | Los Angeles, Houston          |
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["concat"]
+}
+
+#solution
+
+select t1.VehicleID, t1.Name, t2.concatLocations
+from (select VehicleID, concat(City) As concatLocations
+      from  t2
+      group by VehicleID)
+join t1
+on t1.VehicleID = t2.VehicleID

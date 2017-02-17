@@ -1,0 +1,35 @@
+//http://stackoverflow.com/questions/14995024/selecting-quarters-within-a-date-range?rq=1
+//// MOD: 11
+
+#input
+
+    | yrq  | start_date | end_date   |
+    |--------------------------------|
+    | B234 | 2013-01-07 | 2013-02-11 |
+    | B233 | 2013-01-07 | 2013-03-23 |
+    | B235 | 2013-01-06 | 2013-03-22 |
+    | B234 | 2013-02-07 | 2013-02-16 |
+    | B232 | 2012-09-24 | 2012-12-20 |
+    | B231 | 2012-06-25 | 2012-09-13 |
+    | B124 | 2012-04-02 | 2012-06-21 |
+    | B123 | 2012-01-09 | 2012-03-27 |
+
+#output
+
+    | col1 |
+    |------|
+    | B233 |
+    | B235 |
+
+#constraint
+{
+    "constants": ["2013-02-01", "2013-02-15"],
+    "aggregation_functions": []
+}
+
+#solution
+
+Select *
+From t
+Where t.startdate <= 2013-02-01
+  And t.end_date >= 2013-02-15

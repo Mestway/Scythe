@@ -1,0 +1,34 @@
+//http://stackoverflow.com/questions/2520357/mysql-get-row-number-on-select
+
+#input
+
+| itemID | ordercount |
+|---------------------|
+|    388 |          3 |
+|    234 |          2 |
+|   3432 |          1 |
+|    693 |          1 |
+|   3459 |          1 |
+
+#output
+
+| rank | itemID | ordercount |
+|----------------------------|
+|    5 |   3459 |          1 |
+|    4 |    234 |          2 |
+|    3 |    693 |          1 |
+|    2 |   3432 |          1 |
+|    1 |    388 |          3 |
+
+# constraint
+{
+	"constants": [ ],
+	"aggregation_functions": ["count"]
+}
+
+#solution
+
+SELECT @rank:=@rank+1 AS rank, itemID, COUNT(*) as ordercount
+  FROM orders
+  GROUP BY itemID
+  ORDER BY ordercount DESC;

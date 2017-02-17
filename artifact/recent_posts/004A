@@ -1,0 +1,39 @@
+//http://stackoverflow.com/questions/40193886/mysql-group-unless-value-equals-0
+
+#input
+
+id , call_ref , job_num
+1  , 123445   , 2389
+2  , 342537   , 0
+3  , 876483   , 2389
+4  , 644686   , 5643
+5  , 654532   , 0
+
+#output
+
+call_ref , job_num
+342537   , 0
+876483   , 2389
+644686   , 5643
+654532   , 0
+
+#constraint
+{
+	"constants": ["0"],
+	"aggregation_functions": ["max"]
+}
+
+
+#solution
+
+SELECT *
+FROM
+(SELECT SQL_CALC_FOUND_ROWS *
+FROM calls
+WHERE parent_id = '$term'
+   AND job_num != 0
+GROUP BY job_num
+UNION SELECT SQL_CALC_FOUND_ROWS *
+FROM calls
+WHERE parent_id = '$term'
+   AND job_num = 0) AS T

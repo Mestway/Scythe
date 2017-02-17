@@ -1,0 +1,40 @@
+//http://stackoverflow.com/questions/40171795/postgres-group-by-looking-at-dates-ranges
+
+#input
+
+| Employee | FromDate   |  ToDate    | Code |
+|-------------------------------------------|
+| Employee | 07/01/2016 | 07/31/2016 |    4 |
+| Employee | 06/01/2016 | 06/30/2016 |    2 |
+| Employee | 05/01/2016 | 05/31/2016 |    2 |
+| Employee | 04/01/2016 | 04/30/2016 |    3 |
+| Employee | 03/01/2016 | 03/31/2016 |    3 |
+| Employee | 02/01/2016 | 02/29/2016 |    4 |
+| Employee | 01/01/2016 | 01/31/2016 |    4 |
+
+#output
+
+| Employee | FromDate   |  ToDate    | Code |
+|-------------------------------------------|
+| Employee | 05/01/2016 | 06/30/2016 |    2 |
+| Employee | 03/01/2016 | 04/30/2016 |    3 |
+| Employee | 01/01/2016 | 07/31/2016 |    4 |
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["min", "max"]
+}
+
+# solution
+
+select t1.Employee, t1.mindt, t2.maxdt, t1.code
+from
+(select min(FromDate), Code, Employee
+from t
+group by Employee, Code) t1
+join
+(select max(ToDate), Code, Employee
+from t
+group by Employee, Code) t2
+on t1.code = t2.code

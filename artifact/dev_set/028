@@ -1,0 +1,36 @@
+//http://stackoverflow.com/questions/29948321/sql-select-only-rows-with-minimum-value-on-a-column-with-where-condition
+
+#input
+
+| id | productId | orderIndex | rejected |
+|----------------------------------------|
+| 1  |  1        |   0        |   true      |
+| 2  |  1        |   1        |   false      |
+| 3  |  1        |   2        |   false      |
+| 4  |  2        |   0        |   false      |
+| 5  |  2        |   1        |   true      |
+| 6  |  3        |   0        |   false      |
+
+#output
+
+| id | productId | orderIndex | rejected |
+|----------------------------------------|
+| 2  |  1        |   1        |   false      |
+| 4  |  2        |   0        |   false      |
+| 6  |  3        |   0        |   false      |
+
+#constraint
+{
+	"constants": ["false"],
+	"aggregation_functions": ["min"]
+}
+
+#solution
+
+SELECT m.id, m.productId, m.orderIndex
+FROM myTable m
+JOIN(
+  SELECT productId, MIN(orderIndex) AS minOrderIndex
+  FROM myTable
+  WHERE rejected = false
+  GROUP BY productId) tmp ON tmp.productId = m.productId AND tmp.minOrderIndex = m.orderIndex;

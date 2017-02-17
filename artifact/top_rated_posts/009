@@ -1,0 +1,36 @@
+// http://stackoverflow.com/questions/1140064/sql-query-to-get-most-recent-row-for-each-instance-of-a-given-key
+
+#input
+
+| username      |  ip      |  time_stamp |
+|----------------------------------------|  
+| ted           | 1.2.3.4  | 10  				 |
+| jerry         | 5.6.6.7  | 12  				 |
+| ted           | 8.8.8.8  | 30					 |
+
+#output
+
+| username      |  ip      |  time_stamp |
+|----------------------------------------|  
+| jerry         |  5.6.6.7 |     12      |
+| ted           |  8.8.8.8 |     30      |
+
+#constraint
+{
+    "constants": [],
+    "aggregation_functions": ["max"]
+}
+
+#solution
+
+Select u.[username]
+      ,u.[ip]
+      ,q.[time_stamp]
+From [users] As u
+Inner Join (
+    Select [username]
+          ,max(time_stamp) as [time_stamp]
+    From [users]
+    Group By [username]) As [q]
+On u.username = q.username
+And u.time_stamp = q.time_stamp

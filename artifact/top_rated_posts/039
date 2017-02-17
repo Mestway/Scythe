@@ -1,0 +1,43 @@
+//http://stackoverflow.com/questions/12235595/find-most-frequent-value-in-sql-column
+
+#input
+
+| c     |
+|-------|
+| one   | 
+| two   | 
+| three | 
+| three | 
+
+
+#output
+
+| c      |
+|--------|
+| three  |
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["count", "max"]
+}
+
+#solution
+
+SELECT   `value`,
+          COUNT(`value`) AS `value_occurrence` 
+FROM     `my_table`
+GROUP BY `value`
+ORDER BY `value_occurrence` DESC
+LIMIT    1;
+
+select t2.c
+from (select max(cnt)
+ from (select c, count(*) cnt
+ 		   from t
+		   group by c)) t1
+join (select c, count(*) cnt
+      from t
+      group by c) t2
+on t1.maxcnt = t2.cnt
+

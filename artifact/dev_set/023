@@ -1,0 +1,30 @@
+//http://stackoverflow.com/questions/30064469/get-distinct-values-in-a-table
+
+#input
+
+|  ErrorName | Value |
+|--------------------|
+|  Error1    | 3     |
+|  Error2    | 2     |
+|  Error3    | 2     |
+|  Error1    | 1     |
+|  Error2    | 1     |
+
+#output
+
+| c1      | c2 |
+|--------------|
+| Error1  | 4  |
+| Error2  | 3  |
+| Error3  | 2  |
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["sum"]
+}
+
+#solution
+
+select ErrorName, sum(Value) as TotalValue 
+from myTempTable group by ErrorName

@@ -1,0 +1,65 @@
+#input
+
+sid,part_key,cost
+S1,P1,4
+S2,P1,2
+S1,P2,4
+S2,P2,2
+S3,P2,3
+S3,P3,4
+S1,P4,2
+S4,P3,6
+S2,P5,4
+S3,P5,2
+S3,P6,4
+S1,P7,2
+S2,P8,4
+S4,P9,4
+S3,P9,6
+
+#input
+
+sid,sname
+S1,SN1
+S2,SN2
+S3,SN3
+S4,SN4
+
+# output
+
+part_key,sname
+P1,SN1
+P2,SN1
+P3,SN4
+P5,SN2
+P9,SN3
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["avg"]
+}
+
+#solution
+
+who charge more for some part than the average cost of that part (averaged over all the suppliers who supply that part).
+
+SELECT
+  [T27562].part_key,[T27562].sname
+FROM
+  (( SELECT
+        [T27560].part_key,[T27560].AVG-cost,[T27560].sid,[T27560].part_key1,[T27560].cost
+      FROM
+        (( (SELECT
+                [T27558].part_key, AVG([T27558].cost)
+              FROM
+                (input1) AS [T27558][sid, part_key, cost]
+              GROUP BY
+                [T27558].part_key) AS [T27559][part_key, AVG-cost] ) JOIN (
+            input1 )) AS [T27560][part_key, AVG-cost, sid, part_key1, cost]
+      WHERE
+        [T27560].part_key == [T27560].part_key1
+         AND [T27560].AVG-cost < [T27560].cost ) JOIN (
+      input2 )) AS [T27562][part_key, AVG-cost, sid, part_key1, cost, sid1, sname]
+WHERE
+  [T27562].sid == [T27562].sid1

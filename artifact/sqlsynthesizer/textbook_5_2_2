@@ -1,0 +1,51 @@
+#input
+
+supplier_key,part_id
+S1,P1
+S1,P2
+S2,P1
+S2,P2
+S2,P3
+S3,P3
+S4,P2
+S5,P1
+S5,P2
+S5,P3
+
+# input
+
+part_id,color
+P1,red
+P2,green
+P3,yellow
+
+# input
+
+supplier_key,sname
+S1,SN1
+S2,SN2
+S3,SN3
+S4,SN4
+S5,SN5
+
+# output
+
+sname
+SN2
+SN5
+
+#constraint
+{
+	"constants": [ "3"],
+	"aggregation_functions": [ "count-distinct" ]
+}
+
+#solution
+
+select t2.sname
+from (select supplier_key, count-distinct(part-id) cnt-part-id
+      from   input1
+      group by supplier_key
+      having cnt-part-id == 3) t1
+join input t2
+where t1.supplier_key = t2.supplier_key

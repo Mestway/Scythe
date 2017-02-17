@@ -1,0 +1,34 @@
+//http://stackoverflow.com/questions/40038197/most-similar-members-in-one-table
+
+#input
+
+ Member,  Element
+  1    ,   A
+  1    ,   B
+  1    ,   C
+  1    ,   E
+  22    ,   A
+  22    ,   B
+  22    ,   C
+  22    ,   D
+  3    ,   A
+  3    ,   D
+
+#output
+
+c1, c2
+22, 3
+3, 1
+
+#constraint
+{
+	"constants": ["1"],
+	"aggregation_functions": ["count"]
+}
+
+#solution
+
+SELECT a.member, count(a.member) as total 
+FROM t1 a JOIN t1 b 
+WHERE a.element=b.element AND b.member=1 AND a.member > 1 
+GROUP BY a.member ORDER BY total DESC

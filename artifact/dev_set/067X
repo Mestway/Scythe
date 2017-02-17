@@ -1,0 +1,68 @@
+// http://stackoverflow.com/questions/39732983/join-two-tables-in-one-table-using-sql/39734992#39734992
+
+#input
+
+
+| Date  | Item |
+|--------------|
+| 12/03 | aaaa |
+| 12/03 | aaaa |
+| 14/03 | bbbb |
+| 14/03 | aaaa |
+| 15/03 | cccc |
+
+#input
+
+
+| Date  | Item2 |
+|--------------|
+| 11/03 | aaaa |
+| 12/03 | aaaa |
+| 13/03 | bbbb |
+| 14/03 | aaaa |
+| 15/03 | cccc  |
+
+
+#output
+
+
+| Date  | Count(Item1) | Count(Item2) |
+|--------------------------|
+| 11/03 | 0            | 1 |
+| 12/03 | 2            | 1 |
+| 13/03 | 0            | 1 |
+| 14/03 | 2            | 1 |
+| 15/03 | 1            | 1 |
+
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": ["count"]
+}
+
+#solution
+
+SELECT Date,
+       Item1,
+       Item2 
+  FROM
+     (  
+        SELECT T1.Date AS Date,
+               COUNT(  T1.Item  ) AS Item1,                     
+               COUNT(  T2.Item  ) AS Item2  
+          FROM Table1 t1
+        LEFT JOIN
+               Table2 t2  
+            ON t1.date = t2.date  
+        GROUP BY t1.Date              
+  UNION              
+        SELECT T2.Date AS Date,
+               COUNT( T1.Item ) AS Item1,
+               COUNT( T2.Item ) AS Item2
+          FROM Table2 t2
+        LEFT JOIN
+               Table1 t1   
+            ON t2.date = t1.date
+        GROUP BY t2.Date
+      ) A

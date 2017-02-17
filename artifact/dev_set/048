@@ -1,0 +1,26 @@
+//http://stackoverflow.com/questions/37939003/sql-command-how-do-i-get-distinct-value-out-of-multiple-lines
+
+#input
+
+| X   | Y    | Number | Value |   
+|-----------------------------|
+| asd |  xcv |  1111  |    A1 |
+| ads |  xvc |  1111  |    A1 |
+| qwe |  rtz |  2222  |    A2 |
+| qew |  zrt |  2222  |    A2 |
+
+#output
+
+| Number | Value |   
+|----------------|
+|  1111  |    A1 |
+|  2222  |    A2 |
+
+#constraint
+{
+	"aggregation_functions": []
+}
+
+#solution
+
+SELECT DISTINCT Number,Value  FROM table

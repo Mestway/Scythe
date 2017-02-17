@@ -1,0 +1,35 @@
+//http://stackoverflow.com/questions/367863/sql-find-records-from-one-table-which-dont-exist-in-another
+
+#input
+
+| id | name | phone_number |
+|--------------------------|
+| 1  | John | 111111111111 |
+| 2  | Jane | 222222222222 |
+
+#input
+| id | date | phone_number |
+|--------------------------|
+| 1  | 0945 | 111111111111 |
+| 2  | 0950 | 222222222222 |
+| 3  | 1045 | 333333333333 |
+
+#output
+
+| id | date | phone_number |
+|--------------------------|
+| 3  | 1045 | 333333333333 |
+
+#constraint
+{
+	"constants": [],
+	"aggregation_functions": []
+}
+
+#solution
+
+SELECT * 
+FROM   Call
+LEFT OUTER JOIN Phone_Book
+  ON (Call.phone_number = Phone_book.phone_number)
+  WHERE Phone_book.phone_number IS NULL

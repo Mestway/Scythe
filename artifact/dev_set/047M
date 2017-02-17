@@ -1,0 +1,38 @@
+//http://stackoverflow.com/questions/37950756/how-to-pickup-last-and-second-last-date-using-oracle-query
+//MOD 3
+
+#input
+
+| PRO_ID | PRO_Date | PRO_Price |
+|--------------------------|
+| 123    | 01/01/2016 | 2000 |
+| 123    | 02/01/2016 | 2500 |
+| 123    | 03/01/2016 | 1500 |
+| 123    | 05/01/2016 | 3000 |
+| 456    | 01/01/2016 | 2000 |
+| 456    | 02/01/2016 | 2500 |
+| 456    | 03/01/2016 | 1500 |
+| 456    | 05/01/2016 | 3000 |
+| 456    | 06/01/2016 | 3500 |
+| 456    | 07/01/2016 | 3600 |
+
+#output
+
+| PRO_ID | Last_PRO_Date |
+|------------------------| 
+| 123    | 05/01/2016 |      
+| 456    | 06/01/2016 |      
+
+#constraint
+
+{
+	"constants": ["06/01/2016"],
+	"aggregation_functions": ["max"]
+}
+
+#solution
+
+select PRO_ID, MAX(PRO_DATE) as Last_PRO_Date
+from PRODUCT
+where PRO_DATE <= '01-JUN-2016' 
+group by PRO_ID;
