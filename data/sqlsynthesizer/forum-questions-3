@@ -40,3 +40,15 @@
 	"constants": ["5"],
 	"aggregation_functions": [ "count" ]
 }
+
+# solution
+
+Select t3.loginid
+ From
+  (Select
+      t2.loginid, Count(t2.provider) As count_provider
+    From
+      input1 As t2
+    Group By
+      t2.loginid
+    Having count_provider > 5.0) As t3;

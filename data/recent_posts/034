@@ -27,13 +27,17 @@ select * from ( SELECT
   t1.[MFG_PART_NUMBER]
  ,t2.[DISCO_DATE]
   , DATE_UPDATE
-
   FROM Test.dbo.SKU  where DATE_UPDATE=   @maxdate)   t1 
   LEFT JOIN Test.dbo.Tbl_Disco_Dates t2
    ON t1.[MFG_PART_NUMBER] = t2.[MATERIAL]
-
   WHERE t1.[MFG_PART_NUMBER] = 'T6C25AW#ABC'
-
   group by 
  t1.[MFG_PART_NUMBER]
- ,t2.[DISCO_DATE]
+ ,t2.[DISCO_DATE];
+
+
+ SELECT MATERIAL,
+        MAX(DISCO_DATE) AS DISCO_DATE,
+        MAX(DATE_UPDATE) AS DATE_UPDATE
+ FROM Test.dbo.Tbl_Disco_Dates
+ GROUP BY MATERIAL;

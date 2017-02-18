@@ -49,6 +49,26 @@ FROM   roles t1
                  AND t1.role_type = 'A'
        LEFT JOIN organisations o
               ON o.org_id = t1.ref_id
-                 AND t1.role_type = 'B'
+                 AND t1.role_type = 'B';
 
 // another solution: use join and UNOIN
+
+Select * From
+(Select t4.role_id,t4.role_type,t4.employee_id,t4.employee_name,t4.joining_date
+   From
+    (input2 Join
+        (Select *
+         From
+          input1
+         Where input1.role_type = A)) As t4
+   Where t4.employee_id = t4.ref_id)
+Union All
+ Select * From
+  (Select t5.role_id,t5.role_type,t5.ref_id,t5.org_name,t5.org_max
+   From
+    ((Select *
+         From
+          input1
+         Where input1.role_type = B) Join
+        input3) As t5
+   Where t5.ref_id = t5.org_id);

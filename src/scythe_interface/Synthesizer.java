@@ -174,13 +174,13 @@ public class Synthesizer {
                 System.out.println("[AbstractSearchPrunedCount] " + ((double)Statistics.PrunedAbstractTableCount)/((double)Statistics.TotalTableTryEvaluated));
             }
         }
-        for (int i = 0; i < topCandidates.size(); i ++) {
+        for (int i = topCandidates.size() - 1; i >= 0 ; i --) {
             TableNode tn = candidates.get(i);
             try {
                 Table t = tn.eval(new Environment());
                 System.out.println("[Query No." + (i + 1) + "]===============================");
                 System.out.println(tn.prettyPrint(0));
-                System.out.println("\n");
+                System.out.println("");
                 System.out.println(t);
             } catch (SQLEvalException e) {
                 e.printStackTrace();

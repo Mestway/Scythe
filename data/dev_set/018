@@ -39,4 +39,15 @@ Where [Plan] In (
    Select [Plan] 
    From MyTable 
    Where Attributes = 'IsActive' And Value = 'True'
-)
+);
+
+Select t2.Id1,t2.Plan,t2.Attributes1,t2.Value1
+ From
+  (Select input1.Id, input1.Plan, input1.Attributes, input1.Value, input1.Id As Id1, input1.Plan As Plan1, input1.Attributes As Attributes1, input1.Value As Value1
+  From (Select *
+       From
+        input1
+       Where input1.Attributes = IsActive
+         And input1.Value = True) Join
+      input1) As t2
+ Where t2.Plan = t2.Plan1;

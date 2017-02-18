@@ -4,20 +4,20 @@
 
 |ARIDNR|LIEFNR|
 |-------------|
-|1     |A     |
-|2     |A     |
-|3     |A     |
-|1     |B     |
-|2     |B     |
+|'1     |A     |
+|'2     |A     |
+|'3     |A     |
+|'1     |B     |
+|'2     |B     |
 
 #output
 
 |ARIDNR|LIEFNR|
 |-------------|
-|1     |A     |
-|1     |B     |
-|2     |A     |
-|2     |B     |
+|'1     |A     |
+|'1     |B     |
+|'2     |A     |
+|'2     |B     |
 
 #constraint
 {
@@ -34,3 +34,11 @@ WHERE ARIDNR IN (
     FROM YourTable
     GROUP BY ARIDNR
     HAVING COUNT(*) > 1);
+
+Select t2.ARIDNR,t2.LIEFNR
+ From
+  (Select input1.ARIDNR, input1.LIEFNR, input1.ARIDNR As ARIDNR1, input1.LIEFNR As LIEFNR1
+  From (input1 Join
+      input1)) As t2
+ Where t2.LIEFNR <> t2.LIEFNR1
+   And t2.ARIDNR = t2.ARIDNR1;

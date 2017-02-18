@@ -27,8 +27,8 @@
 SELECT *
 FROM (SELECT ID, NAME, Value FROM Product) up
 PIVOT(MAX(Value) FOR NAME IN ([Manufacturer],[Model])) AS pvt
-ORDER BY ID
+ORDER BY ID;
 
 select ID, Name, concat(Value)
 from t
-group by ID
+group by ID;

@@ -38,3 +38,17 @@
 	"constants": ["3020"],
 	"aggregation_functions": []
 }
+
+# solution
+
+Select t5.T1Column1,t5.T2Column3,t5.T1Column4,t5.T3Column2
+ From
+  (Select t4.T1Column1, t4.T1Column2, t4.T1Column3, t4.T1Column4, t4.T2Column1, t4.T1Column21, t4.T2Column3, input3.T2Column1 As T2Column11, input3.T3Column2
+  From ((Select input1.T1Column1, input1.T1Column2, input1.T1Column3, input1.T1Column4, input2.T2Column1, input2.T1Column2 As T1Column21, input2.T2Column3
+      From ((Select *
+           From
+            input1
+           Where input1.T1Column3 = 3020.0) Join
+          input2)) As t4 Join
+      input3)) As t5
+ Where t5.T2Column1 = t5.T2Column11;

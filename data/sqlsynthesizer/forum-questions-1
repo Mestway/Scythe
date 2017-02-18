@@ -28,3 +28,14 @@
 	"constants": ["1"],
 	"aggregation_functions": [ "count" ]
 }
+
+#solution
+
+Select t3.upedonid, Count(t3.idx_key) As count_idx_key
+From
+  (Select *
+     From
+      input1
+     Where input1.upedonidIs Not Null) As t3
+Group By t3.upedonid
+Having t3.count_idx_key > 1.0;

@@ -5,32 +5,29 @@
 
 | NAME  | SCORE |
 |---------------|
-| willy |    1 |
-| willy |    2 |
-| willy |    3 |
-| zoe   |    4 |
-| zoe   |    5 |
-| zoe   |    6 |
-|  d    |    1  |
+| willy |    11 |
+| willy |    21 |
+| willy |    31 |
+| zoe   |    41 |
+| zoe   |    51 |
+| zoe   |    61 |
+|  d    |    11  |
 
 #output
 
 | NAME  | SCORE |
 |---------------|
-| willy |    2 |
-| willy |    3 |
-| zoe   |    5 |
-| zoe   |    6 |
-|  d    |    1  |
+| willy |    21 |
+| willy |    31 |
+| zoe   |    51 |
+| zoe   |    61 |
+|  d    |    11  |
 
 
 #constraint
 {
-	"max_depth": 2,
 	"constants": ["2"],
-	"aggregation_functions": ["count"],
-	"parameter_number": 0,
-	"max_filter_length": 2
+	"aggregation_functions": ["count"]
 }
 
 #solution
@@ -43,10 +40,10 @@ WHERE
             FROM    test  f
             WHERE f.name = s.name AND 
                   f.score >= s.score
-        ) <= 2
+        ) <= 2;
 
 select x.*
 from test x join test y
 where x.score < y.score and x.name = y.name
 group by x.name, x.score, y.name
-having count(*) <=2  
+having count(*) <=2;
