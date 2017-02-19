@@ -8,8 +8,11 @@ Here are the steps to run the tool on an input-output example.
 
 1. Download the jar file [Scythe.jar](https://github.com/Mestway/Scythe/tree/pldi-snapshot/out/artifacts/Scythe_jar).
 2. Prepare an example file containing input tables, an output table, and a constraint with constant information. An example file should look like these ones in the folder  [/data](https://github.com/Mestway/Scythe/tree/pldi-snapshot/data).
-3. Run in command line with command:
+3. Run in command line with command (use the second to restrict the tool to use only given aggregation function):
 ```
 java -jar Scythe.jar path/to/the/example/file StagedEnumerator
+```
+```
+java -jar Scythe.jar path/to/the/example/file StagedEnumerator -aggr
 ```
 In this command, "path/to/the/example/file" refers to your example file, option "StagedEnumerator" referes to the synthesizer used in synthesis.
