@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Scythe</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Synthesizing Highly Expressive SQL Queries</h1>
+        <h3 class="subtitle">Chenglong Wang, Alvin Cheung, Ras Bodik </h3>
+        <p class="view" id="linktogithub"><a href="https://github.com/Mestway/Scythe/tree/pldi-snapshot">View the Project on GitHub (Mestway/Scythe)</a></p>
+      </header>
+
+      <section>
+        <p>This page hosts the artifact for our PLDI 2017 paper, <a href="writeup/scythe-pldi-draft.pdf"><i>Synthesizing Highly Expressive SQL Queries (draft)</i></a>.
+        </p>
+       
+        <h2>Materials</h2>
+
+        <p>Our artifact contains the following materials: <a class='small_link'>[download]</a></p>
+
+          <ul> 
+            <li> <i>Query-by-example benchmarks</i>, collected from Stack Overflow and previous works.</li>
+            <li> <i>Scythe</i>, a programming-by-example system for SQL implemented in Java.</li>
+            <li> <i>Evaluation log and plotting scripts</i> used in our paper evaluation.</li>
+          </ul>
+
+        <p><i>Dependencies</i>: To run Scythe, you need ; to run our plotting scripts, you need <a href="https://www.python.org/download/releases/2.7/">Python 2.7</a>. If you want to dive into our source code, we suggest using <a href="https://www.jetbrains.com/idea/download/">IntelliJ IDE</a>.</p>
+
+
+        <h2>Benchmarks</h2>
+        <p>Our benchmarks (in total 193) can be found in the <code>benchmark/</code> folder of the artifact file, including the following four different sets (as claimed in Section 6.2 of our paper):<p>
+        <ul><li><code>dev_set/</code>: 53 Stack Overflow posts collected during our tool development time.</li>
+            <li><code>recent_posts/</code>: 51 Stack Overflow posts collected between 2016-10-09 and 2016-10-23.</li>
+            <li><code>top_posts/</code>: 51 Stack Overflow posts with votes greater than 30.</li>
+            <li><code>sqlsynthesizer/</code>: 28 benchmarks used in previous work, SQLSynthesizer.</li>
+        </ul>
+
+        <p><b>Benchmark format:</b> A benchmark file <a href='https://github.com/Mestway/Scythe/blob/pldi-snapshot/data/recent_posts/045' class='small_link'>[example]</a> contains five different segments: link to the original post (if from Stack Overflow), input tables, output table, constraint and reference solutions. Post links and reference solutions are used for documentation purpose, and they are not visible to the tool. </p>
+
+        <ul>
+          <li><code>#input/#output</code>: each of these sections contain a table, in either csv (<a class='small_link' href='https://github.com/Mestway/Scythe/blob/pldi-snapshot/data/recent_posts/045'>example</a>) or markdown (<a href='https://github.com/Mestway/Scythe/blob/pldi-snapshot/data/recent_posts/025A' class='small_link'>example</a>) format. There can be than one input sections (for multiple input tables) but only one output section is allowed.</li>
+          <li><code>#constraint</code>: this section contains constants and aggregation functions (in JSON format) that will be used in the synthesis process. (As we will show later, aggregation functions won't be used unless you tell the synthesizer, though provided.)</li>
+        </ul>
+
+        <p><b>Benchmark naming convention:</b> Benchmarks ending with "M" (e.g., <code>dev_set/002M</code>) are those we modified from the original posts in order to rank a correct solution among top 5; benchmarks ending with "A" (e.g., <code>dev_set/039A</code>) are those requiring us to provide aggregation function; benchmarks ending with "X" (e.g. <code>dev_set/032X</code>) are those our tool cannot solve. (Some benchmarks whose solution is not expressible by our tool may contain only a link.)</p>
+
+        <p><b>Tips for creating new example:</b> (1) the example should contain input output example sections, and each section contain exactly one table, and (2) the constraint section is required, and it should contain the <code>constant</code> field (<code>aggregation_functions</code> field is optional).</p>
+
+        <h2>Run Scythe</h2>
+        <p>In order to run Scythe, you need to have the file <code>Scythe.jar</code> (included in the artifact) and some example files (e.g., benchmarks) in your computer. Besides, Scythe depends on Java 8 runtime environment; if you don't have it, you can download  <a href="http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html">here</a>.</p>
+
+        <h3>Running instruction</h3>
+        <p>To run Scythe on a given example, use the following command in your terminal. In this command, <code>example_file</code> refers to the path of your example file, and the option <code>StagedEnumerator</code> refers to our two-phase synthesis algorithm in the paper.</p>
+        
+        <div>
+          <p>Synthesize queries without aggregation constraints:</p>
+          <pre>java -jar Scythe.jar example_file StagedEnumerator</pre>
+
+          <p>Synthesize queries considering only aggregation functions provided in the constraint sections (this option reduces the search space size as well as increases result ranking):</p>
+          <pre>java -jar Scythe.jar example_file StagedEnumerator -aggr</pre>
+        </div>
+
+        <h3>Running Result</h3>
+        <p>Running the tool on an example file is expected to output a log file recording the search process. At the end of the log, top five synthesized queries are presented.</p>
+
+        <h2>
+        <a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contact</h2>
+        <p>We would like to receive suggestions from you about making the system practical. Feel free to drop a line to <a href="https://github.com/Mestway">Chenglong</a>.</p>
+
+
+
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/Mestway">Mestway</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
