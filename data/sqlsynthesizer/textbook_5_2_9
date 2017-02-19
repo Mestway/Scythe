@@ -69,3 +69,16 @@ SN9
 #solution
 
 //join
+
+Select t5.sname
+From
+ (Select t4.supplier_key, t4.part_id, t4.part_id1, t4.color, input3.supplier_key As supplier_key1, input3.sname
+  From ((Select *
+       From
+        (Select input1.supplier_key, input1.part_id, input2.part_id As part_id1, input2.color
+         From (input1 Join
+               (Select *
+                From input2
+                Where input2.color = red Or input2.color = green))) As t4
+         Where t4.part_id = t4.part_id1) Join input3)) As t5
+ Where t5.supplier_key = t5.supplier_key1;

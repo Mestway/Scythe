@@ -46,6 +46,6 @@ select t2.sname
 from (select supplier_key, count-distinct(part-id) cnt-part-id
       from   input1
       group by supplier_key
-      having cnt-part-id == 3) t1
+      having cnt-part-id = 3) t1
 join input t2
 where t1.supplier_key = t2.supplier_key
