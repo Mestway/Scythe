@@ -6,14 +6,10 @@ Scythe is a program synthesis tool that synthesizes sql queries from input-outpu
 
 Here are the steps to run the tool on an input-output example.
 
-1. Download the jar file [Scythe.jar](https://github.com/Mestway/Scythe/tree/refined/out/artifacts/Scythe_jar).
-2. Prepare an example file containing input tables, an output table, and a constraint with constant information. An example file should look like these ones in the folder  [/data](https://github.com/Mestway/Scythe/tree/refined/data).
+1. Download the jar file [Scythe.jar](https://github.com/Mestway/Scythe/tree/pldi-snapshot/out/artifacts/Scythe_jar).
+2. Prepare an example file containing input tables, an output table, and a constraint with constant information. An example file should look like these ones in the folder  [/data](https://github.com/Mestway/Scythe/tree/pldi-snapshot/data).
 3. Run in command line with command:
 ```
 java -jar Scythe.jar path/to/the/example/file StagedEnumerator
 ```
 In this command, "path/to/the/example/file" refers to your example file, option "StagedEnumerator" referes to the synthesizer used in synthesis.
-
-### Technical note:
-
-The technical note of the project can be find at [scythe-tr.pdf](https://github.com/Mestway/Scythe/blob/symbolic-cleaned/scythe-tr.pdf).
