@@ -34,7 +34,7 @@
             <li> <i>Evaluation log and plotting scripts</i> used in our paper evaluation.</li>
           </ul>
 
-        <p><i>Dependencies</i>: To run Scythe, you need ; to run our plotting scripts, you need <a href="https://www.python.org/download/releases/2.7/">Python 2.7</a>. If you want to dive into our source code, we suggest using <a href="https://www.jetbrains.com/idea/download/">IntelliJ IDE</a>.</p>
+        <p><i>Dependencies</i>: to run our plotting scripts, you need <a href="https://www.python.org/download/releases/2.7/">Python 2.7</a>. If you want to dive into our source code, we suggest using <a href="https://www.jetbrains.com/idea/download/">IntelliJ IDE</a>.</p>
 
 
         <h2>Benchmarks</h2>
@@ -60,7 +60,7 @@
         <p>In order to run Scythe, you need to have the file <code>Scythe.jar</code> (included in the artifact) and some example files (e.g., benchmarks) in your computer. Besides, Scythe depends on Java 8 runtime environment; if you don't have it, you can download  <a href="http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html">here</a>.</p>
 
         <h3>Running instruction</h3>
-        <p>To run Scythe on a given example, use the following command in your terminal. In this command, <code>example_file</code> refers to the path of your example file, and the option <code>StagedEnumerator</code> refers to our two-phase synthesis algorithm in the paper.</p>
+        <p>To run Scythe on a given example, use the following command in your terminal. In this command, <code>example_file</code> refers to the path of your example file, and the option <code>StagedEnumerator</code> refers to our two-phase synthesis algorithm in the paper. In addition, you can replace <code>StagedEnumerator</code> with <code>CanonicalEnumeratorOnTheFly</code> to run the synthesizer with the enumerative search algorithm (the Enum algorithm shown in Section 6 of our paper).</p>
         
         <div>
           <p>Synthesize queries without aggregation constraints:</p>
@@ -73,11 +73,16 @@
         <h3>Running Result</h3>
         <p>Running the tool on an example file is expected to output a log file recording the search process. At the end of the log, top five synthesized queries are presented.</p>
 
+        <h2>Producing Paper Experiments</h2>
+        <p>We introduce how to use our evaluation scripts to reproduce our experiment shown in the paper. The two major experiments that are evaluated with Scythe include (1) the performance of Scythe on the benchmarks compared against Enum (Section 6.4), and (2) algorithm statistics (Section 6.5).</p>
+
+        <p>In order to run the experiments with our scripts, you need to have Python 2.7 installed in your computer. Note that our experiments are run on a quad-core Intel Core i7 2.67GHz CPU with 4GB memory for the Java VM; minor differences are expected when run on different system configuration. The scripts for both running and analysis are included in the <code>scripts/</code> folder.</p>
+
+        <h3>Performance Experiment</h3>
+
         <h2>
         <a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contact</h2>
         <p>We would like to receive suggestions from you about making the system practical. Feel free to drop a line to <a href="https://github.com/Mestway">Chenglong</a>.</p>
-
-
 
       </section>
       <footer>
