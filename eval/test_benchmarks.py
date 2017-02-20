@@ -5,11 +5,17 @@ import time
 import os
 
 logging = True
+# time limit for each benchmark
 timeout = 600
+
+# To run the algorithm with Enum, use the statement one below
 #synthesis_algorithm = "CanonicalEnumeratorOnTheFly"
+
+# To run the tool with StagedEnumerator, use the statement below
 synthesis_algorithm = "StagedEnumerator"
 
-scythe = os.path.join("..", "out", "artifacts", "Scythe_jar", "Scythe.jar")
+# The path to the jar file
+scythe = os.path.join("..", "Scythe.jar")
 
 def run_scythe(output_stream, timeout, with_aggr):
 	try:

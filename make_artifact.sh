@@ -28,5 +28,5 @@ cp -R eval/log/Clog_20161108_0027/ artifact/eval_scripts/Enum_log
 cp -R eval/log/Slog_20161109_0118/ artifact/eval_scripts/Scythe_log 
 
 # compress
-tar -czf artifact.tar.gz artifact/
+tar -czf scythe_artifact.tar.gz artifact/
 rm -r artifact
