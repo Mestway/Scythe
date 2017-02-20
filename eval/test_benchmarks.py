@@ -45,7 +45,7 @@ if __name__ == "__main__":
 			with_aggr = False
 			if (f.endswith("X")):
 				continue
-			if ("A" in f):
+			if (("A" in f) or ("Q" in f)):
 				with_aggr = True
 			if ("R" in f):
 				continue

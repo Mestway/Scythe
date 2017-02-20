@@ -21,6 +21,9 @@ cp out/artifacts/Scythe_jar/Scythe.jar artifact/
 # copy scripts
 mkdir artifact/eval_scripts
 cp eval/*.py artifact/eval_scripts
+# those two scripts are not necessary for artifact
+rm artifact/eval_scripts/analyze_log.py
+rm artifact/eval_scripts/temp_draw_plot.py
 cp -R eval/log/Clog_20161108_0027/ artifact/eval_scripts/Enum_log 
 cp -R eval/log/Slog_20161109_0118/ artifact/eval_scripts/Scythe_log 
 
