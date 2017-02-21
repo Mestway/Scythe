@@ -29,114 +29,114 @@
         <p>Our artifact <a class='small_link' href="scythe_artifact.tar.gz">[scythe_artifact.tar.gz]</a> contains the following materials: </p>
 
           <ul> 
-            <li> <i>Query-by-example benchmarks</i>, collected from Stack Overflow and previous works.</li>
+            <li> <i>Query-by-example benchmarks</i>, collected from Stack Overflow and prior works.</li>
             <li> <i>Scythe</i>, a programming-by-example system for SQL implemented in Java.</li>
-            <li> <i>Evaluation log and plotting scripts</i> used in our paper evaluation.</li>
+            <li> <i>Evaluation log and plotting scripts</i> used in our paper evaluation (Section 6.4, 6.5).</li>
           </ul>
 
         <h2>Benchmarks</h2>
-        <p>Our benchmarks (in total 193) can be found in the <code>benchmark/</code> folder of the artifact file, including the following four different sets (as claimed in Section 6.2 of our paper):<p>
-        <ul><li><code>dev_set/</code>: 53 Stack Overflow posts collected during our tool development time.</li>
-            <li><code>recent_posts/</code>: 51 Stack Overflow posts collected between 2016-10-09 and 2016-10-23.</li>
-            <li><code>top_posts/</code>: 51 Stack Overflow posts with votes greater than 30.</li>
-            <li><code>sqlsynthesizer/</code>: 28 benchmarks used in previous work, SQLSynthesizer.</li>
+        <p>Our benchmarks (in total 193) can be found in the <code>benchmark/</code> folder after untar the artifact, including the following four different sets (as described in Section 6.2 of our paper):<p>
+        <ul><li><code>dev_set/</code>: initial set of 53 Stack Overflow posts collected during early development of Scythe..</li>
+            <li><code>recent_posts/</code>: 51 Stack Overflow posts posted between 10.09.2016 and 10.23.2016.</li>
+            <li><code>top_posts/</code>: 51 Stack Overflow posts with votes greater than 30 (from all time).</li>
+            <li><code>sqlsynthesizer/</code>: 28 benchmarks used in prior work, SQLSynthesizer [31].</li>
         </ul>
 
-        <p><b>Benchmark format:</b> A benchmark file <a href='https://github.com/Mestway/Scythe/blob/pldi-snapshot/data/recent_posts/045' class='small_link'>[example]</a> contains five different segments: link to the original post (if from Stack Overflow), input tables, output table, constraint and reference solutions. Post links and reference solutions are used for documentation purpose, and they are not visible to the tool. </p>
+        <p><b>Benchmark format:</b> A benchmark file <a href='https://github.com/Mestway/Scythe/blob/pldi-snapshot/data/recent_posts/045' class='small_link'>[example]</a> contains five different segments: link to the original post (if from Stack Overflow), input tables, output table, constraints, and reference solutions. Post links and reference solutions are used for documentation purpose only, and they are not provided to the tool. </p>
 
         <ul>
-          <li><code>#input/#output</code>: each of these sections contain a table, in either csv (<a class='small_link' href='https://github.com/Mestway/Scythe/blob/pldi-snapshot/data/recent_posts/045'>example</a>) or markdown (<a href='https://github.com/Mestway/Scythe/blob/pldi-snapshot/data/recent_posts/025A' class='small_link'>example</a>) format. There can be than one input sections (for multiple input tables) but only one output section is allowed.</li>
-          <li><code>#constraint</code>: this section contains constants and aggregation functions (in JSON format) that will be used in the synthesis process. (As we will show later, aggregation functions won't be used unless you tell the synthesizer, though provided.)</li>
+          <li><code>#input/#output</code>: each of these sections contains a table in either csv (<a class='small_link' href='https://github.com/Mestway/Scythe/blob/pldi-snapshot/data/recent_posts/045'>example</a>) or markdown (<a href='https://github.com/Mestway/Scythe/blob/pldi-snapshot/data/recent_posts/025A' class='small_link'>example</a>) format. Multiple input sections may exist, but only one output section is allowed.</li>
+          <li><code>#constraint</code>: this section contains constants and aggregation functions (in JSON format) that will be used in the synthesis process.</li>
+          <li><code>#solution</code>: this section contains correct queries that can be used to answer the solution.</li>
         </ul>
 
-        <p><b>Benchmark naming convention:</b> Benchmarks ending with "M" (e.g., <code>dev_set/002M</code>) are those we modified from the original posts in order to rank a correct solution among top 5; benchmarks ending with "A" (e.g., <code>dev_set/039A</code>) are those requiring us to provide aggregation function; benchmarks ending with "X" (e.g. <code>dev_set/032X</code>) are those our tool cannot solve. (Some benchmarks whose solution is not expressible by our tool may contain only a link.)</p>
+        <p><b>Benchmark naming convention:</b> Benchmarks ending with "M" (e.g., <code>dev_set/002M</code>) are those we modified from the original posts in order to rank a correct solution among the top 5; benchmarks ending with "A" (e.g., <code>dev_set/039A</code>) are those requiring aggregation functions provided by the users; benchmarks ending with "X" (e.g. <code>dev_set/032X</code>) are those our tool cannot solve. (For some benchmarks whose solutions are not expressible by our tool, we only write down the link to the post but not full sections.)</p>
 
-        <p><b>Tips for creating new example:</b> (1) the example should contain input output example sections, and each section contain exactly one table, and (2) the constraint section is required, and it should contain the <code>constant</code> field (<code>aggregation_functions</code> field is optional).</p>
+        <p><b>Try new examples:</b> We encourage reviewers to create new examples to try our tool! Here are tips: (1) the example should contain input output example sections, and each section contains exactly one table, and (2) the constraint section is required, and it should contain the <code>constant</code> field (the <code>aggregation_functions</code> field is optional); these constants are constant values that will be used in filter predicates: for example, the constants "A", "B" in this <a href="https://github.com/Mestway/Scythe/blob/pldi-snapshot/data/recent_posts/050">example</a> are used in predicates in the query.</p>
 
-        <h2>Run Scythe</h2>
-        <p>In order to run Scythe, you need to have the file <code>Scythe.jar</code> (included in the artifact) and some example files (e.g., benchmarks) in your computer. Besides, Scythe depends on Java 8 runtime environment; if you don't have it, you can download  <a href="http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html">here</a>.</p>
+        <h2>Running Scythe</h2>
+        <p>To run Scythe, you need <code>Scythe.jar</code> (included in the artifact) and an input example file (e.g., a file in the benchmarks). Scythe depends on Java 8 runtime environment that you can download  <a href="http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html">here</a>.</p>
 
-        <h3>Instruction</h3>
-        <p>To run Scythe on a given example, use the following command in your terminal. In this command, <code>example_file</code> refers to the path of your example file, and the option <code>StagedEnumerator</code> refers to our two-phase synthesis algorithm in the paper. In addition, you can replace <code>StagedEnumerator</code> with <code>CanonicalEnumeratorOnTheFly</code> to run the synthesizer with the enumerative search algorithm (the Enum algorithm shown in Section 6 of our paper).</p>
+        <h3>Instructions</h3>
+        <p>To run Scythe on a given example, use the following command in your terminal. In this command, <code>example_file</code> refers to the path of your example file, and the option <code>StagedEnumerator</code> refers to our two-phase synthesis algorithm as described in the paper. In addition, you can replace <code>StagedEnumerator</code> with <code>CanonicalEnumeratorOnTheFly</code> to run the synthesizer with the enumerative search algorithm (the Enum algorithm shown in Section 6 of our paper).</p>
         
         <div>
-          <p>Synthesize queries without aggregation constraints:</p>
+          <p>To synthesize queries without aggregation function constraints, run the following:</p>
           <pre>>> java -jar Scythe.jar example_file StagedEnumerator</pre>
 
-          <p>Synthesize queries considering only aggregation functions provided in the constraint sections (this option reduces the search space size as well as increases result ranking):</p>
+          <p>To synthesize queries considering only aggregation functions provided in the constraint sections (this option reduces the search space size as well as increases result ranking), run the following:</p>
           <pre>>> java -jar Scythe.jar example_file StagedEnumerator -aggr</pre>
         </div>
 
-        <p>Running the tool on an example file is expected to output a log file recording the search process. At the end of the log, top five synthesized queries are presented.</p>
+        <p>Running the tool on an example file will output a log file recording the search process. At the end of the log, the top five synthesized queries are presented.</p>
 
-        <h2>Producing Paper Experiments</h2>
+        <h2>Reproducing Paper Experiments</h2>
         <p>We introduce how to use our evaluation scripts to reproduce our experiment shown in the paper. The two major experiments that are evaluated with Scythe include (1) the performance of Scythe on the benchmarks compared against Enum (Section 6.4), and (2) algorithm statistics (Section 6.5).</p>
 
         <h3>Run Experiments</h3>
 
-        <p><b>Prerequisite:</b> In order to run the experiments with our scripts, you need to have <a href="https://www.python.org/download/releases/2.7/">Python 2.7</a> installed in your computer; if you want to redraw the plots, you also need <a href="http://matplotlib.org/users/installing.html">matplot</a> python package.</p>
+        <p><b>Prerequisite:</b> In order to run the experiments with our scripts, you need to have <a href="https://www.python.org/download/releases/2.7/">Python 2.7</a> installed in your computer; if you want to redraw the plots, you also need the <a href="http://matplotlib.org/users/installing.html">matplot</a> python package.</p>
 
-        <p>Our experiments were run on a quad-core Intel Core i7 2.67GHz CPU with 4GB memory for the Java VM; minor differences are expected when run on different system configuration. The scripts for both running and analysis are included in the <code>eval_scripts/</code> folder.</p>
+        <p>Our experiments were run on a quad-core Intel Core i7 2.67GHz CPU with 4GB memory for the Java VM; minor differences are expected when running on different system configurations. The scripts for both running and analysis are included in the <code>eval_scripts/</code> folder.</p>
 
-        <p>Assuming you are in the fold containing the artifact, you should use the following command to run the experiment. The command above will by default run all benchmarks with time limit 600 seconds for each one, and run them with our two-phase algorithm in the paper. To modify the script configuration, directly change declarations in the beginning of the <code>test_benchmarks.py</code> script.</p>
+        <p>Assuming you are in the folder extracted from the artifact, you should use the following command to run the experiment. The command below will by default run all benchmarks with time limit 600 seconds for each one, and run them with our two-phase algorithm in the paper. To modify script configurations, modify variable declarations at the beginning of the <code>test_benchmarks.py</code> script (detailed instructions are included in the script).</p>
 
         <pre>>> cd eval_scripts/
 >> python test_benchmarks.py</pre>
 
-        <p>Each time you run the script, a new folder containing all logs will created (the initial letter of the log folder is "C" when running with Enum, otherwise it is "S" for Scythe); each file in the folder is a log of running Scythe.jar as shown in the previous section.</p>
+        <p>Each time you run the script, a new folder containing all logs will be created (the initial letter of the log folder is "C" when running with Enum, otherwise it is "S" for Scythe); each file in the folder is a log of running Scythe.jar as shown in the previous section.</p>
 
-        <p><b>Note 1:</b> In order to perform the analysis below, you need to run the scripts with both Scythe and Enum algorithm, which can be configured by commenting (uncommenting) the declaration of the variable <code>synthesis_algorithm</code> at the beginning of the script.</p>
+        <p><b>Note 1:</b> In order to perform the analysis below, you need to run the scripts with both the Scythe and Enum algorithm, which can be configured by commenting (uncommenting) the declaration of the variable <code>synthesis_algorithm</code> at the beginning of the script.</p>
 
-        <p><b>Note 2:</b> Running the script with 'StagedEnumerator' (i.e., our algorithm in the paper) takes ~2 hours. Running the script with 'CanonicalEnumeratorOnTheFly' (i.e., Enum algorithm) takes ~30 hours.</p>
+        <p><b>Note 2:</b> Running the script with <code>StagedEnumerator</code> (i.e., our algorithm in the paper) takes ~2 hours. Running the script with <code>CanonicalEnumeratorOnTheFly</code> (i.e., Enum algorithm) takes ~30 hours.</p>
 
-        <p><b>Note 3:</b> The log we used to draw paper plots are provided in the artifact (in the <code>eval_scripts</code> folder): <code>Enum_log</code> and <code>Scythe_log</code>, which can be directly used in analysis.</p>
+        <p><b>Note 3:</b> The log we used to draw the paper plots are provided in the artifact (in the <code>eval_scripts</code> folder): <code>Enum_log</code> and <code>Scythe_log</code>, which can be directly used in analysis.</p>
 
-        <h3>Analyze Experiment Log</h3>
+        <h3>Analyzing the Experiment Log</h3>
 
         <p>Once you have the file logs ready, you can launch the analysis using the scripts <code>draw_plot.py</code> and <code>micro_stats.py</code>: the former produces our performance comparison plot in Section 6.4 and the latter calculates the algorithm statistics in Section 6.5.</p> 
 
         <p><b>Plotting:</b> To produce the performance comparison plot of both algorithm, run the command below (assuming you are in the <code>eval_scripts</code> folder). The two arguments of the script are the folders containing experiment logs: the first one for Scythe algorithm and the second for Enum.</p>
         
-        <pre>>> python draw_plots.py Scythe_log/ Enum_log/</pre>
+        <pre>>> python draw_plot.py Scythe_log/ Enum_log/</pre>
 
-        You are expected to see the plot below after running the plotting script.
+        You should see the plot below after running the plotting script.
         <div style="text-align:center">
         <img src="plot.png" style="width:404px; text-align:center;"/></div>
 
-        <p><b>Measure algorithm statistic:</b> To analyze statistics of our algorithm, you need to use the script <code>micro_stats.py</code> with the following two sets of arguments.
+        <p><b>Collecting algorithm statistics:</b> To analyze our algorithm, you need to run <code>micro_stats.py</code> with the following two sets of arguments.
 
         <pre>>> python micro_stats.py Enum_log/ Scythe_log/
->> python micro_stats Scythe_log/</pre>
+>> python micro_stats.py Scythe_log/</pre>
 
         <ul>
           <li>The first command compares the number of intermediate results between Scythe and Enum.</li>
           <li>The second one measures (1) the search space reduction rate resulted from pruning away abstract queries that are inconsistent with the output, and (2) the effectiveness of the predicate synthesis algorithm.</li>
         </ul>
 
-        <p>The result of the two above commands will produce the statistics we have shown in Section 6.5.</p>
+        <p>The results of the two above commands will produce the statistics we have shown in Section 6.5.</p>
 
 
         <h2>Source Code</h2>
         <p>The source code of Scythe is in our github <a href="https://github.com/Mestway/Scythe">https://github.com/Mestway/Scythe</a>, and the version of Scythe we used in evaluation is in the <code>pldi-snapshot</code> branch. Our algorithm source code contains the following main parts:</p>
 
         <ul>
-          <li><code>src/sql/lang</code>: the definition of SQL and interpreter.</li>
-          <li><code>src/summarytable</code>: the first phase algorithm and the data structure to store intermediate tables.</li>
-          <li><code>src/backward_inference</code>: the bit-vector search algorithm (second phase algorithm).</li>
-          <li><code>src/forward_enumeration</code>: the enumerative search algorithm Enum.</li>
+          <li><code>src/sql/lang</code>: SQL AST and interpreter.</li>
+          <li><code>src/summarytable</code>: the first phase algorithm and the data structures to store intermediate tables (Section 5.1).</li>
+          <li><code>src/backward_inference</code>: the bit-vector search algorithm (second phase algorithm, Section 5.2).</li>
+          <li><code>src/forward_enumeration</code>: the enumerative search algorithm Enum (Section 6).</li>
         </ul>
 
-        <p>If you want to dive into our source code, we suggest using <a href="https://www.jetbrains.com/idea/download/">IntelliJ IDE</a>.</p>
+        <p>If you want to run our tool from source code, we suggest using the <a href="https://www.jetbrains.com/idea/download/">IntelliJ</a> IDE.</p>
 
 
         <h2>
         <a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contact</h2>
-        <p>We would like to receive suggestions from you about making the system practical. Feel free to drop a line to us: <a href="https://github.com/Mestway">https://github.com/Mestway</a>.</p>
-
+        <p>We would like to receive suggestions from you about making the system practical. Feel free to drop us a line: <a href="https://github.com/Mestway">https://github.com/Mestway</a>.</p>
       </section>
       <footer>
-        <p>This project is maintained by <a href="https://github.com/Mestway">Mestway</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+        <p>This project is maintained by <a href="https://github.com/Mestway">Chenglong Wang</a></p>
+        <!--<p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>-->
       </footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>
