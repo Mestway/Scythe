@@ -19,7 +19,7 @@ public final class GlobalConfig {
 
     // we will only try perform decomposition only when the number is less than 5
     public static final boolean TRY_DECOMPOSITION = true;
-    public static final Integer TRY_DECOMPOSE_ROW_NUM = 8;
+    public static final Integer TRY_DECOMPOSE_ROW_NUM = 5;
 
     public static final Integer MAXIMUM_QUERY_KEPT = 5;
 

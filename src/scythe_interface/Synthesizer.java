@@ -8,8 +8,7 @@ import global.Statistics;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.table.*;
-import sql.lang.datatype.NumberVal;
-import sql.lang.datatype.Value;
+import sql.lang.datatype.*;
 import sql.lang.exception.SQLEvalException;
 import util.Pair;
 
