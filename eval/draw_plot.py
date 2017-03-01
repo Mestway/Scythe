@@ -107,7 +107,7 @@ def main():
 
 	if len(sys.argv) < 3:
 		print "[ERROR] Not enough arguments provided."
-		print "usage: python draw_plot.py log_folder"
+		print "usage: python draw_plot.py scythe_log_folder enum_log_folder"
 		sys.exit(-1)
 	log_dir1 = sys.argv[1]
 	log_dir2 = sys.argv[2]

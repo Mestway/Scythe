@@ -52,9 +52,9 @@ def parse_log_dir(log_dir):
 	files = [os.path.join(log_dir, f) for f in os.listdir(log_dir) if (os.path.isfile(os.path.join(log_dir, f))) ]
 	for fname in files:
 		with open(fname) as f:
-			if "S" in log_dir:
+			if "Slog" in log_dir or "Scythe" in log_dir:
 				size,status = parse_Slog_file(f.readlines())
-			elif "C" in log_dir:
+			elif "Clog" in log_dir or "Enum" in log_dir:
 				size,status = parse_Clog_file(f.readlines())
 			result[os.path.basename(fname)] = [size, status]
 			#print fname, ":", synthesis_time 
@@ -167,10 +167,11 @@ def main():
 			v1 = dict1[key]
 			v2 = dict2[key]
 			print v1, v2
-			if (v1[1] == True and v2[1] == True):
+			if (v1[1] == True and v2[1] == True and v2[0] != 0):
 				red = v1[0]/v2[0]
-				measure = update_avg_min_max_cnt(measure, v2[0])
-
+				measure = update_avg_min_max_cnt(measure, red)
+				
+		print "Reduction rate of number of intermediate tables: [sum, min, max, count, avg]"
 		print measure
 
 	elif len(sys.argv) == 2:

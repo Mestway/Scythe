@@ -5,18 +5,14 @@ import time
 import os
 
 logging = True
-# time limit for each benchmark
-timeout = 600
 
-# To run the algorithm with Enum, use the statement one below
-#synthesis_algorithm = "CanonicalEnumeratorOnTheFly"
+timeout = 600 # time limit for each benchmark
+#synthesis_algorithm = "CanonicalEnumeratorOnTheFly" # run Enum
+synthesis_algorithm = "StagedEnumerator" # run the two-phase synthesis algorithm
+scythe = os.path.join("..", "Scythe.jar") # The path to the jar file
+data_dir = os.path.join("..", "data") # the director containing all benchmarks
 
-# To run the tool with StagedEnumerator, use the statement below
-synthesis_algorithm = "StagedEnumerator"
-
-# The path to the jar file
-scythe = os.path.join("..", "Scythe.jar")
-
+# run the file on one benchmark
 def run_scythe(output_stream, timeout, with_aggr):
 	try:
 		args = ['java', '-jar', scythe, f, synthesis_algorithm]
@@ -27,8 +23,6 @@ def run_scythe(output_stream, timeout, with_aggr):
 		print "  [FAIL] timeout"
 
 if __name__ == "__main__":
-
-	data_dir = os.path.join("..", "data")
 
 	benchmark_dir_list = ["dev_set", "recent_posts", "top_rated_posts", "sqlsynthesizer"]
 	log_dir = os.path.join("log", synthesis_algorithm[0]+"log_" + datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d_%H%M'))
