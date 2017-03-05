@@ -21,6 +21,8 @@
       </header>
 
       <section>
+        <p style="border-style:dashed;border-width: 1px; border-color:grey"> <b>Updates</b> (March 4, 2017) <b>:</b> We revised the "benchmark naming convention" section accoriding to the review feedback.
+        </p>
         <p>This page hosts the artifact for our PLDI 2017 paper, <a href="writeup/scythe-pldi-draft.pdf"><i>Synthesizing Highly Expressive SQL Queries (draft)</i></a>.
         </p>
        
@@ -50,7 +52,9 @@
           <li><code>#solution</code>: this section contains correct queries that can be used to answer the solution.</li>
         </ul>
 
-        <p><b>Benchmark naming convention:</b> Benchmarks ending with "M" (e.g., <code>dev_set/002M</code>) are those we modified from the original posts in order to rank a correct solution among the top 5; benchmarks ending with "A" (e.g., <code>dev_set/039A</code>) are those requiring aggregation functions provided by the users; benchmarks ending with "X" (e.g. <code>dev_set/032X</code>) are those our tool cannot solve. (For some benchmarks whose solutions are not expressible by our tool, we only write down the link to the post but not full sections.)</p>
+        <p><b>Benchmark naming convention:</b> Benchmarks ending with "M" (e.g., <code>dev_set/002M</code>) are those we modified from the original posts in order to rank a correct solution among the top 5; benchmarks ending with "A" or "Q" (e.g., <code>dev_set/039A</code>) are those requiring aggregation functions provided by the users; benchmarks ending with "X" (e.g. <code>dev_set/032X</code>) are those our tool cannot solve; benchmarks ending with "R" are repetitive benchmarks that appear in multiple benchmark set (e.g., the benchmark <code>dev_set/001R</code> is also in the <code>recent_posts</code> set), and our evaluation script automatically exclude them when exectution so that same benchmarks will only be evaluated once.
+        </p><p>
+        Note that benchmarks may have more than one tags in their name. Besides, for some benchmarks whose solutions are not expressible by our tool, we only write down the link to the post but not full sections. </p>
 
         <p><b>Try new examples:</b> We encourage reviewers to create new examples to try our tool! Here are tips: (1) the example should contain input output example sections, and each section contains exactly one table, and (2) the constraint section is required, and it should contain the <code>constant</code> field (the <code>aggregation_functions</code> field is optional); these constants are constant values that will be used in filter predicates: for example, the constants "A", "B" in this <a href="https://github.com/Mestway/Scythe/blob/pldi-snapshot/data/recent_posts/050">example</a> are used in predicates in the query.</p>
 
