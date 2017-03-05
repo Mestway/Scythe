@@ -453,7 +453,13 @@ public class Table {
         return true;
     }
 
-    public static List<Pair<Table, Table>> tryDecompose(Table t) {
+    /**
+     * Given a table T, find all ways to slice the table horizontally into two tables T1, T2
+     * with the property that T = T1 U T2
+     * @param t the table to be sliced
+     * @return The list of all such table pairs.
+     */
+    public static List<Pair<Table, Table>> horizontallyDecompose(Table t) {
         List<Pair<List<TableRow>, List<TableRow>>> combs = CombinationGenerator.genDecomposition(t.getContent());
         return combs.stream().map(p -> {
             Table t1 = t.duplicate();
@@ -466,7 +472,13 @@ public class Table {
         }).collect(Collectors.toList());
     }
 
-    public static List<Pair<Table, Table>> horizontalDecompose(Table t) {
+    /**
+     * Heuristically, decompose a table T "vertically" into two tables T1, T2,
+     *      with the property "(T1 Join T2 On T1.c1 == T2.c2) = T"
+     * @param t the table to be sliced
+     * @return a set of such tables, but it is not complete since we do it heuristically
+     */
+    public static List<Pair<Table, Table>> verticallyDecompose(Table t) {
         if (t.schema.size() < 3)
             return new ArrayList<>();
 

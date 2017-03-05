@@ -9,7 +9,6 @@ import sql.lang.TableRow;
 import sql.lang.ast.Environment;
 import sql.lang.ast.filter.VVComparator;
 import sql.lang.ast.table.*;
-import sql.lang.ast.val.ConstantVal;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
 import sql.lang.datatype.NumberVal;
@@ -45,7 +44,7 @@ public class SynthesizerHelper {
                                                               int maxDepth) {
         List<TableNode> candidates = new ArrayList<>();
         // try decomposing the output table // vertical decomposition
-        for (Pair<Table, Table> decomposed : Table.tryDecompose(output)) {
+        for (Pair<Table, Table> decomposed : Table.horizontallyDecompose(output)) {
             if (GlobalConfig.PRINT_LOG)
                 System.out.println("  [Try decomposition] \n" + decomposed.getKey().toString() + "\n" + decomposed.getValue().toString());
 
@@ -79,7 +78,7 @@ public class SynthesizerHelper {
             }
         }
 
-        for (Pair<Table, Table> decomposed : Table.horizontalDecompose(output)) {
+        for (Pair<Table, Table> decomposed : Table.verticallyDecompose(output)) {
             config.setMaxDepth(0);
             List<TableNode> left = enumerator.enumProgramWithIO(inputs, decomposed.getKey(), config);
             if (left.isEmpty() && maxDepth == 1) {

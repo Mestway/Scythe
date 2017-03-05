@@ -249,7 +249,7 @@ public class Synthesizer {
             candidates.addAll(enumerator.enumProgramWithIO(inputs, output, config));
             if (depth > 0 && containsDesirableCandidate(candidates, config.getUserProvidedConstValues())) break;
 
-            List<Pair<Table, Table>> lp = Table.horizontalDecompose(output);
+            List<Pair<Table, Table>> lp = Table.verticallyDecompose(output);
 
             if (depth == 1) {
                 // try decompose tables
