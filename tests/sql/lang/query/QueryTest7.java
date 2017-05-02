@@ -5,7 +5,7 @@ import sql.lang.datatype.Value;
 import sql.lang.SQLQuery;
 import sql.lang.Table;
 import sql.lang.ast.filter.LogicAndFilter;
-import sql.lang.ast.filter.VVComparator;
+import sql.lang.ast.filter.BinopFilter;
 import sql.lang.ast.table.NamedTable;
 import sql.lang.ast.table.SelectNode;
 import sql.lang.ast.val.ConstantVal;
@@ -47,19 +47,19 @@ public class QueryTest7 {
                 ),
                 new NamedTable(input),
                 new LogicAndFilter(
-                    new VVComparator(
+                    new BinopFilter(
                         Arrays.asList(
                             new NamedVal("table1.start_date"),
                             new ConstantVal(Value.parse("2013-02-01"))
                         ),
-                        VVComparator.le
+                        BinopFilter.le
                     ),
-                    new VVComparator(
+                    new BinopFilter(
                         Arrays.asList(
                             new NamedVal("table1.end_date"),
                             new ConstantVal(Value.parse("2013-02-15"))
                         ),
-                        VVComparator.ge
+                        BinopFilter.ge
                     )
                 )
 

@@ -75,6 +75,11 @@ public class UnionNode extends TableNode {
     }
 
     @Override
+    public TableNode simplifyAST() {
+        return new UnionNode(this.tableNodes.stream().map(tn -> tn.simplifyAST()).collect(Collectors.toList()));
+    }
+
+    @Override
     public List<Hole> getAllHoles() {
         List<Hole> result = new ArrayList<>();
         this.tableNodes.forEach(tn -> result.addAll(tn.getAllHoles()));

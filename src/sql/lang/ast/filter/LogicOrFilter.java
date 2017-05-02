@@ -42,14 +42,14 @@ public class LogicOrFilter implements Filter {
     @Override
     public String prettyPrint(int indentLv) {
         if (f1 instanceof EmptyFilter || f2 instanceof EmptyFilter) {
-            return IndentionManagement.addIndention("True", indentLv);
+            return new EmptyFilter().prettyPrint(indentLv);
         }
         String result = f1.prettyPrint(0) + "\r\n Or " + f2.prettyPrint(0);
         return IndentionManagement.addIndention(result, indentLv);
     }
 
     @Override
-    public boolean containsExclusiveFilter(Filter f) {
+    public boolean containRedundantFilter(Filter f) {
         return false;
     }
 

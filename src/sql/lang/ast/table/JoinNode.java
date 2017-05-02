@@ -80,7 +80,15 @@ public class JoinNode extends TableNode {
         for (int i = 1; i < this.tableNodes.size(); i ++) {
             result += " Join \r\n" + this.tableNodes.get(i).prettyPrint(1,true);
         }
+        if (asSubquery) {
+            result = "(" + result + ")";
+        }
         return IndentionManagement.addIndention(result, indentLv);
+    }
+
+    @Override
+    public TableNode simplifyAST() {
+        return new JoinNode(this.tableNodes.stream().map(tn -> tn.simplifyAST()).collect(Collectors.toList()));
     }
 
     @Override

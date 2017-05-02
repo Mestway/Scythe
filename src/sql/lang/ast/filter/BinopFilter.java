@@ -19,14 +19,14 @@ import java.util.stream.Collectors;
  * Created by clwang on 12/14/15.
  * A comparator between values
  */
-public class VVComparator implements Filter {
+public class BinopFilter implements Filter {
 
     List<ValNode> args = new ArrayList<>();
-    BiFunction<Value, Value, Boolean> compareFunc;
+    BiFunction<Value, Value, Boolean> binop;
 
-    public VVComparator(List<ValNode> args, BiFunction func) {
+    public BinopFilter(List<ValNode> args, BiFunction func) {
         this.args = args;
-        this.compareFunc = func;
+        this.binop = func;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class VVComparator implements Filter {
         // two arguments
         Value v1 = args.get(0).eval(env);
         Value v2 = args.get(1).eval(env);
-        return compareFunc.apply(v1, v2);
+        return binop.apply(v1, v2);
     }
 
     @Override
@@ -56,33 +56,35 @@ public class VVComparator implements Filter {
     public String prettyPrint(int indentLv) {
         String result = args.get(0).prettyPrint(indentLv + 1).trim()
                 + " "
-                + OperatorName(this.compareFunc)
+                + OperatorName(this.binop)
                 + " "
                 + args.get(1).prettyPrint(indentLv + 1).trim();
         return IndentionManagement.addIndention(result, indentLv);
     }
 
     @Override
-    public boolean containsExclusiveFilter(Filter f) {
-        if (f instanceof VVComparator) {
+    public boolean containRedundantFilter(Filter f) {
+        if (f instanceof BinopFilter) {
             boolean exclusive = true;
             for (ValNode v : this.args) {
-                if (! ((VVComparator) f).args.contains(v))
+                if (! ((BinopFilter) f).args.contains(v))
                     return false;
             }
-            for (ValNode v : ((VVComparator) f).args) {
+            for (ValNode v : ((BinopFilter) f).args) {
                 if (! this.args.contains(v))
                     return false;
             }
             return exclusive;
         }
-        return f.containsExclusiveFilter(this);
+        return f.containRedundantFilter(this);
     }
 
     public static BiFunction<Value, Value, Boolean> lt = (v1, v2) -> {
 
         if (! v1.getValType().equals(v2.getValType())) {
-            System.out.println("[Error@VVComparator45] " + "Comparing between none-number value: " + v1.toString() + " and " + v2.toString());
+            System.out.println("[Error@VVComparator45] "
+                                + "Comparing between none-number value: "
+                                + v1.toString() + " and " + v2.toString());
         }
 
         // TODO: double check this
@@ -102,13 +104,9 @@ public class VVComparator implements Filter {
     };
 
     public static BiFunction<Value, Value, Boolean> neq = (v1, v2) -> ! eq.apply(v1, v2);
-
     public static BiFunction<Value, Value, Boolean> gt = (v1, v2) -> lt.apply(v2, v1);
-
     public static BiFunction<Value, Value, Boolean> le = (v1, v2) -> ! gt.apply(v1, v2);
-
     public static BiFunction<Value, Value, Boolean> ge = (v1, v2) -> ! lt.apply(v1, v2);
-
     public static List<BiFunction<Value, Value, Boolean>> getAllFunctions() {
         return Arrays.asList(lt, eq, gt, le, ge, neq);
     }
@@ -143,18 +141,16 @@ public class VVComparator implements Filter {
 
     @Override
     public Filter instantiate(InstantiateEnv env) {
-        return new VVComparator(
-                args.stream().map(vn -> vn.instantiate(env)).collect(Collectors.toList()),
-                this.compareFunc);
+        return new BinopFilter(args.stream().map(vn -> vn.instantiate(env)).collect(Collectors.toList()), this.binop);
     }
 
     @Override
     public Filter substNamedVal(ValNodeSubstBinding vnsb) {
-        Filter f = new VVComparator(args.stream().map(vn -> vn.subst(vnsb)).collect(Collectors.toList()), this.compareFunc);
+        Filter f = new BinopFilter(args.stream().map(vn -> vn.subst(vnsb)).collect(Collectors.toList()), this.binop);
         return f;
     }
 
     public List<ValNode> getArgs() { return this.args; }
-    public BiFunction<Value, Value, Boolean> getComparator() { return this.compareFunc; }
+    public BiFunction<Value, Value, Boolean> getComparator() { return this.binop; }
 
 }

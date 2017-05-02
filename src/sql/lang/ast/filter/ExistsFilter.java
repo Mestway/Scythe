@@ -31,16 +31,9 @@ public class ExistsFilter implements Filter {
     @Override
     public boolean filter(Environment env) throws SQLEvalException {
         Table table = tableNode.eval(env);
-        if (table.getContent().isEmpty()) {
-            if (notExists == true) {
-                return true;
-            }
-            return false;
-        }
-        if (notExists == true) {
-            return false;
-        }
-        return true;
+        if (table.getContent().isEmpty())
+            return notExists;
+        return ! notExists;
     }
 
     @Override
@@ -68,9 +61,7 @@ public class ExistsFilter implements Filter {
     }
 
     @Override
-    public boolean containsExclusiveFilter(Filter f) {
-        return false;
-    }
+    public boolean containRedundantFilter(Filter f) { return false; }
 
     @Override
     public List<Hole> getAllHoles() {

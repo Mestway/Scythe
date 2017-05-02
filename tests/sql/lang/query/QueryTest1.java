@@ -4,7 +4,7 @@ import util.Pair;
 import org.junit.Test;
 import sql.lang.SQLQuery;
 import sql.lang.Table;
-import sql.lang.ast.filter.VVComparator;
+import sql.lang.ast.filter.BinopFilter;
 import sql.lang.ast.table.AggregationNode;
 import sql.lang.ast.table.NamedTable;
 import sql.lang.ast.table.RenameTableNode;
@@ -14,7 +14,6 @@ import sql.lang.ast.val.TableAsVal;
 import util.TableInstanceParser;
 
 import java.util.Arrays;
-import java.util.concurrent.SynchronousQueue;
 
 import static org.junit.Assert.assertTrue;
 
@@ -64,7 +63,7 @@ public class QueryTest1 {
                     new NamedVal("table1.rev"),
                     new NamedVal("table1.content")),
                 new NamedTable(inputTable),
-                new VVComparator(
+                new BinopFilter(
                     Arrays.asList(
                         new NamedVal("table1.rev"),
                         new TableAsVal(
@@ -74,22 +73,22 @@ public class QueryTest1 {
                                     "t22",
                                     Arrays.asList("id", "maxrev"),
                                     new AggregationNode(
-                                        new RenameTableNode("t2",new NamedTable(inputTable)),
+                                        new RenameTableNode("t2",new NamedTable(inputTable).getSchema(),new NamedTable(inputTable)),
                                         Arrays.asList("t2.id"),
                                         Arrays.asList(new Pair<>("t2.rev", AggregationNode.AggrMax))
                                     )
                                 ),
-                                new VVComparator(
+                                new BinopFilter(
                                     Arrays.asList(
                                         new NamedVal("table1.id"),
                                         new NamedVal("t22.id")
                                     ),
-                                    VVComparator.eq
+                                    BinopFilter.eq
                                 )
                             ), "maxrev"
                         )
                     ),
-                    VVComparator.eq
+                    BinopFilter.eq
                 )
             )
         );

@@ -20,7 +20,7 @@ public abstract class AbstractSummaryTable {
     public int primitiveBitVecFilterCount = 0;
     public int primitiveSynFilterCount = 0;
 
-    public boolean allfiltersEnumerated = false;
+    public boolean allFiltersEnumerated = false;
     public int totalBitVecFiltersCount = 0;
 
     // this determines that the method "combining filters" will only generate filters of length 2
@@ -144,6 +144,7 @@ public abstract class AbstractSummaryTable {
         }
         return false;
     }
+
     // checks whether sf contains at least one filter in the target.
     protected boolean fullyContainedARange(
             BVFilter sf, List<List<Set<Integer>>> target) {

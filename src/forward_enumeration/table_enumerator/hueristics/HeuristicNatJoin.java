@@ -5,7 +5,7 @@ import sql.lang.datatype.Value;
 import sql.lang.Table;
 import sql.lang.TableRow;
 import sql.lang.ast.Environment;
-import sql.lang.ast.filter.VVComparator;
+import sql.lang.ast.filter.BinopFilter;
 import sql.lang.ast.table.JoinNode;
 import sql.lang.ast.table.NamedTable;
 import sql.lang.ast.table.SelectNode;
@@ -83,12 +83,12 @@ public class HeuristicNatJoin {
                                     .map(m -> new NamedVal(m))
                                     .collect(Collectors.toList()),
                             joinNode,
-                            new VVComparator(
+                            new BinopFilter(
                                     Arrays.asList(
                                             new NamedVal(joinNode.getSchema().get(i)),
                                             new NamedVal(joinNode.getSchema().get(t1.getSchema().size() + j))
                                     ),
-                                    VVComparator.eq));
+                                    BinopFilter.eq));
 
                     resultTableNode.add(tn);
                 }
@@ -149,11 +149,11 @@ public class HeuristicNatJoin {
                         return new Pair<Boolean, TableNode>(true,new SelectNode(
                                 newSchema,
                                 renamedJoin,
-                                new VVComparator(
+                                new BinopFilter(
                                         Arrays.asList(
                                                 new NamedVal(renamedJoin.getSchema().get(i)),
                                                 new NamedVal(renamedJoin.getSchema().get(t1.getSchema().size() + j))),
-                                        VVComparator.eq
+                                        BinopFilter.eq
                                 )));
                     }
                 }

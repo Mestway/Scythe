@@ -31,15 +31,9 @@ public class IsNullFilter implements Filter {
     @Override
     public boolean filter(Environment env) throws SQLEvalException {
         Value v1 = arg.eval(env);
-        if (v1 instanceof NullVal) {
-            if (negSign)
-                return false;
-            else
-                return true;
-        }
-        if (negSign)
-            return true;
-        return false;
+        if (v1 instanceof NullVal)
+            return ! negSign;
+        return negSign;
     }
 
     @Override
@@ -49,22 +43,17 @@ public class IsNullFilter implements Filter {
 
     @Override
     public int getNestedQueryLevel() {
-        int lv = 0;
-        if (arg.getNestedQueryLevel() > lv)
-            lv = arg.getNestedQueryLevel();
-        return lv;
+        return Math.max(arg.getNestedQueryLevel(), 0);
     }
 
     @Override
     public String prettyPrint(int indentLv) {
-        String str = arg.prettyPrint(0) + " Is NULL";
-        if (negSign)
-            str = arg.prettyPrint(0) + " Is Not NULL";
+        String str = arg.prettyPrint(0) + " Is" + (negSign ? " Not " : " ") + "NULL";
         return IndentionManagement.addIndention(str, indentLv);
     }
 
     @Override
-    public boolean containsExclusiveFilter(Filter f) {
+    public boolean containRedundantFilter(Filter f) {
         return false;
     }
 

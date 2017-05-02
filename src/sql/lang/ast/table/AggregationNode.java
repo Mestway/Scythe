@@ -226,6 +226,11 @@ public class AggregationNode extends TableNode {
         return IndentionManagement.addIndention(result, indentLv);
     }
 
+    @Override
+    public TableNode simplifyAST() {
+        return new AggregationNode(tn.simplifyAST(), this.groupbyColumns, this.targets);
+    }
+
     // Given a table and a list of fields, see how many groups can be generated from grouping-by operator
     public static int numberOfGroups(Table table, List<String> fields) {
         int groupCount = 0;

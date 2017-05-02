@@ -4,7 +4,7 @@ import util.Pair;
 import org.junit.Test;
 import sql.lang.SQLQuery;
 import sql.lang.Table;
-import sql.lang.ast.filter.VVComparator;
+import sql.lang.ast.filter.BinopFilter;
 import sql.lang.ast.table.AggregationNode;
 import sql.lang.ast.table.NamedTable;
 import sql.lang.ast.table.RenameTableNode;
@@ -52,7 +52,7 @@ public class QueryTest3 {
                     new NamedVal("table1.City")
                 ),
                 new NamedTable(input),
-                new VVComparator(
+                new BinopFilter(
                     Arrays.asList(
                         new NamedVal("table1.Birthyear"),
                         new TableAsVal(
@@ -62,20 +62,21 @@ public class QueryTest3 {
                                     "tt",
                                     Arrays.asList("City", "maxBirth"),
                                     new AggregationNode(
-                                        new RenameTableNode("t2", new NamedTable(input)),
+                                        new RenameTableNode("t2", new NamedTable(input).getSchema(),
+                                                new NamedTable(input)),
                                         Arrays.asList("t2.City"),
                                         Arrays.asList(new Pair<>("t2.Birthyear", AggregationNode.AggrMin))
                                     )
                                 ),
-                                new VVComparator(
+                                new BinopFilter(
                                     Arrays.asList(new NamedVal("tt.City"), new NamedVal("table1.City")),
-                                    VVComparator.eq
+                                    BinopFilter.eq
                                 )
                             ),
                             "mmax"
                         )
                     ),
-                    VVComparator.eq
+                    BinopFilter.eq
                 )
             )
         );

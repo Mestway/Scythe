@@ -98,7 +98,6 @@ public class Synthesizer {
 
                 candidates.addAll(SynthesizerHelper.findTopK(synthesisResult,
                         maxCandidateKeptPerStage,config.getUserProvidedConstValues()));
-
                 if (containsDesirableCandidate(candidates, config.getUserProvidedConstValues())) break;
 
                 //##### Try decompose tables
@@ -227,6 +226,11 @@ public class Synthesizer {
         List<Table> inputs = exampleDS.inputs;
         Table output = exampleDS.output;
 
+        if (GlobalConfig.PRINT_LOG) {
+            System.out.println("[Output Example]");
+            System.out.println(exampleDS.output);
+        }
+
         List<TableNode> candidates = new ArrayList<>();
 
         if (GlobalConfig.GUESS_ADDITIONAL_CONSTANTS) {
@@ -247,9 +251,7 @@ public class Synthesizer {
             //##### Synthesis
             config.setMaxDepth(depth);
             candidates.addAll(enumerator.enumProgramWithIO(inputs, output, config));
-            if (depth > 0 && containsDesirableCandidate(candidates, config.getUserProvidedConstValues())) break;
-
-            List<Pair<Table, Table>> lp = Table.verticallyDecompose(output);
+            if (containsDesirableCandidate(candidates, config.getUserProvidedConstValues())) break;
 
             if (depth == 1) {
                 // try decompose tables
@@ -263,7 +265,7 @@ public class Synthesizer {
             }
 
             // backtrack on aggregation functions
-            //exampleDS.enumConfig.setAggrFunctions(new ArrayList<>());
+            // exampleDS.enumConfig.setAggrFunctions(new ArrayList<>());
 
             if (depth == 2) {
                 // try synthesizing queries with Exists-clauses
@@ -282,12 +284,9 @@ public class Synthesizer {
 
             timeUsed = System.currentTimeMillis() - timeStart;
             depth ++;
-
-            if (depth > 1 && containsDesirableCandidate(candidates, config.getUserProvidedConstValues())) break;
         }
 
-        candidates.sort((tn1, tn2) -> Double.compare(tn1.estimateTotalScore(config.getUserProvidedConstValues()),
-                tn2.estimateTotalScore(config.getUserProvidedConstValues())));
+        candidates.sort(Comparator.comparingDouble(tn2 -> tn2.estimateTotalScore(config.getUserProvidedConstValues())));
         int lastIndex = GlobalConfig.MAXIMUM_QUERY_KEPT > candidates.size() ? candidates.size() - 1
                 : GlobalConfig.MAXIMUM_QUERY_KEPT - 1;
         for (int i = lastIndex; i >= 0; i --) {
@@ -330,6 +329,8 @@ public class Synthesizer {
     public static boolean containsDesirableCandidate(List<TableNode> candidates, List<Value> constants) {
         if (! candidates.isEmpty()) {
             candidates.sort(Comparator.comparingDouble(tn -> tn.estimateTotalScore(constants)));
+            if (! GlobalConfig.IGNORE_SIMPLE_QUERIES)
+                return true;
             if (candidates.get(0).estimateAllFilterCost() <= GlobalConfig.DESIRABLE_CANDIDATE_QUERY_SCORE) {
                 // go to print the output example only if we have already found a pretty satisfying example.
                 return true;

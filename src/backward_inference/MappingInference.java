@@ -143,6 +143,7 @@ public class MappingInference {
         }
         return columnMapping;
     }
+
     // it represents how columns in the output table maps to columns in the input table.
     // A list represent a way of mapping, example: l = result[0] represent the first way
     // to map columns in output to columns in input, and l[i] = k means that column i in output
@@ -168,8 +169,6 @@ public class MappingInference {
         return rowMapping;
     }
 
-
-
     // a mapping instance will map each coordinate in output table to a coordinate in input table
     // the mapping instance is generated through the refined map
     // in the result table, each list in quick coord table should have length 1.
@@ -183,6 +182,17 @@ public class MappingInference {
         return resultCollector;
     }
 
+    /**
+     * Perform a dfs search in the mapping to obtain all consistent mapping instances
+     * @param i The current row number being searched
+     * @param j The current col number being searched
+     * @param maxI The bound for i
+     * @param maxJ the bound for j
+     * @param maxJ the bound for j
+     * @param currentMap the partial map for all previous search
+     * @param resultCollector a list used to collect search result
+     * @param candidatePool the map that is used for search
+     */
     private void dfsMappingSearch(
             int i, int j,
             int maxI, int maxJ,
@@ -211,6 +221,52 @@ public class MappingInference {
                         nextMap, resultCollector, candidatePool);
             }
         }
+    }
+
+
+    // a mapping instance will map each coordinate in output table to a coordinate in input table
+    // the mapping instance is generated through the refined map
+    // in the result table, each list in quick coord table should have length 1.
+    public Optional<CellToCellMap> searchOneMappingInstance() {
+        CellToCellMap instance = new CellToCellMap();
+        instance.initialize(maxR, maxC);
+        Optional<CellToCellMap> ctcMap = Optional.ofNullable(
+                dfsOneMappingInstance(0, 0, maxR, maxC, instance, this.map));
+        return ctcMap;
+    }
+
+    // very similar to the one before, but this only search for one mapping instance
+    private CellToCellMap dfsOneMappingInstance(
+            int i, int j,
+            int maxI, int maxJ,
+            CellToCellMap currentMap,
+            CellToCellSetMap candidatePool) {
+
+        // when dfs reaches its goal
+        if (i >= maxI || j >= maxJ) {
+            return currentMap;
+        }
+
+        for (CellIndex coord : candidatePool.getImage(i,j)) {
+            if (currentMap.consistencyCheck(new CellIndex(i,j), coord)) {
+                CellToCellMap nextMap = currentMap.deepCopy();
+                nextMap.addMap(new CellIndex(i,j), coord);
+                int nextI = i, nextJ = j + 1;
+                if (nextJ >= maxJ) {
+                    nextJ = nextJ % maxJ;
+                    nextI ++;
+                }
+                CellToCellMap ctcMap = dfsOneMappingInstance(
+                        nextI, nextJ,
+                        maxI, maxJ,
+                        nextMap, candidatePool);
+
+                if (ctcMap != null)
+                    return ctcMap;
+            }
+        }
+
+        return null;
     }
 
     /**

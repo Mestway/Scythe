@@ -23,48 +23,17 @@ public class RenameTableNode extends TableNode {
     List<String> newFieldNames;
     TableNode tableNode;
 
-    boolean renameTable = false;
-    boolean renameFields = false;
-
-    private RenameTableNode(String ntn, List<String> nfn, TableNode tn, boolean rt, boolean rf) {
-        this.newFieldNames = nfn;
-        this.newTableName = ntn;
-        this.renameFields = rf;
-        this.tableNode = tn;
-        this.renameTable = rt;
-    }
-
-    public RenameTableNode(List<String> nfn, TableNode tn) {
-        this.newFieldNames = nfn;
-        this.tableNode = tn;
-        this.renameFields = true;
-        this.newTableName = tn.getTableName();
-    }
-
     public RenameTableNode(String tableName, List<String> fieldsName, TableNode tn) {
         this.newTableName = tableName;
         this.newFieldNames = fieldsName;
         this.tableNode = tn;
-        renameTable = true;
-        renameFields = true;
-    }
-
-    public RenameTableNode(String newTableName, TableNode tn) {
-        this.newTableName = newTableName;
-        this.newFieldNames = tn.getSchema();
-        this.tableNode = tn;
-        renameTable = true;
     }
 
     @Override
     public Table eval(Environment env) throws SQLEvalException {
         Table table = tableNode.eval(env);
-        if (this.renameTable == true) {
-            table.updateName(this.newTableName);
-        }
-        if (this.renameFields == true) {
-            table.updateSchema(this.newFieldNames);
-        }
+        table.updateName(this.newTableName);
+        table.updateSchema(this.newFieldNames);
         return table;
     }
 
@@ -116,6 +85,17 @@ public class RenameTableNode extends TableNode {
     }
 
     @Override
+    public TableNode simplifyAST() {
+        TableNode simplifiedCore = this.tableNode.simplifyAST();
+        if (simplifiedCore instanceof RenameTableNode) {
+            return new RenameTableNode(this.newTableName, this.newFieldNames,
+                    ((RenameTableNode) simplifiedCore).getTableNode()).simplifyAST();
+        } else {
+            return new RenameTableNode(this.newTableName, this.newFieldNames, simplifiedCore);
+        }
+    }
+
+    @Override
     public List<Hole> getAllHoles() {
         return tableNode.getAllHoles();
     }
@@ -125,15 +105,13 @@ public class RenameTableNode extends TableNode {
         return new RenameTableNode(
                 this.newTableName,
                 this.newFieldNames,
-                this.tableNode.instantiate(env),
-                this.renameTable,
-                this.renameFields);
+                this.tableNode.instantiate(env));
     }
 
     @Override
     public TableNode substNamedVal(ValNodeSubstBinding vnsb) {
         return new RenameTableNode(newTableName, newFieldNames,
-                this.tableNode.substNamedVal(vnsb), this.renameTable, this.renameFields);
+                this.tableNode.substNamedVal(vnsb));
     }
 
     @Override
@@ -146,9 +124,7 @@ public class RenameTableNode extends TableNode {
         return new RenameTableNode(
                 newTableName,
                 newFieldNames,
-                tableNode.tableSubst(pairs),
-                renameTable,
-                renameFields);
+                tableNode.tableSubst(pairs));
     }
 
     @Override

@@ -36,7 +36,7 @@ public class EmptyFilter implements Filter {
     }
 
     @Override
-    public boolean containsExclusiveFilter(Filter f) {
+    public boolean containRedundantFilter(Filter f) {
         return false;
     }
 
@@ -59,4 +59,11 @@ public class EmptyFilter implements Filter {
     public Filter substNamedVal(ValNodeSubstBinding vnsb) {
         return this;
     }
+
+    @Override
+    public int hashCode() { return 1; }
+
+    @Override
+    public boolean equals(Object obj) { return obj instanceof EmptyFilter; }
+
 }

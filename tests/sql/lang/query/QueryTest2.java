@@ -6,7 +6,7 @@ import sql.lang.datatype.Value;
 import sql.lang.SQLQuery;
 import sql.lang.Table;
 import sql.lang.ast.filter.LogicAndFilter;
-import sql.lang.ast.filter.VVComparator;
+import sql.lang.ast.filter.BinopFilter;
 import sql.lang.ast.table.AggregationNode;
 import sql.lang.ast.table.NamedTable;
 import sql.lang.ast.table.RenameTableNode;
@@ -61,7 +61,7 @@ public class QueryTest2 {
                     new NamedVal("table1.temp")
                 ),
                 new NamedTable(input),
-                new VVComparator(
+                new BinopFilter(
                     Arrays.asList(
                         new NamedVal("table1.dtg"),
                         new TableAsVal(
@@ -72,25 +72,26 @@ public class QueryTest2 {
                                     Arrays.asList("id", "maxdtg"),
                                     new AggregationNode(
 
-                                        new RenameTableNode("agrTable", new NamedTable(input)),
+                                        new RenameTableNode("agrTable", new NamedTable(input).getSchema(),
+                                                new NamedTable(input)),
                                         Arrays.asList("agrTable.locId"),
                                         Arrays.asList(new Pair<>("agrTable.dtg",AggregationNode.AggrMax))
                                     )
                                 ),
                                 new LogicAndFilter(
-                                    new VVComparator(
+                                    new BinopFilter(
                                         Arrays.asList(
                                             new NamedVal("table1.locId"),
                                             new NamedVal("t2.id")
                                         ),
-                                        VVComparator.eq
+                                        BinopFilter.eq
                                     ),
-                                    new VVComparator(
+                                    new BinopFilter(
                                         Arrays.asList(
                                             new NamedVal("t2.maxdtg"),
                                             new ConstantVal(Value.parse("2009-02-25 09:50:00"))
                                         ),
-                                        VVComparator.ge
+                                        BinopFilter.ge
                                     )
                                 )
 
@@ -98,7 +99,7 @@ public class QueryTest2 {
                             "maxdtg"
                         )
                     ),
-                    VVComparator.eq
+                    BinopFilter.eq
                 )
             )
         );

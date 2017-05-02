@@ -77,7 +77,7 @@ public class FilterEnumerator {
 
                 // Prune: if two filters have same arguments but different comparator,
                 // then they are exclusive and will not be added as LogicAndFilter
-                if (filters.get(i).containsExclusiveFilter(filters.get(j)))
+                if (filters.get(i).containRedundantFilter(filters.get(j)))
                     continue;
 
                 Filter f = new LogicAndFilter(filters.get(i), filters.get(j));
@@ -106,12 +106,12 @@ public class FilterEnumerator {
 
                 if (l.getType(ec).equals(r.getType(ec))) {
                     if (l.getType(ec).equals(ValType.DateVal) || l.getType(ec).equals(ValType.NumberVal)) {
-                        for (BiFunction<Value, Value, Boolean> func : VVComparator.getAllFunctions()) {
-                            atomics.add(new VVComparator(Arrays.asList(l, r), func));
+                        for (BiFunction<Value, Value, Boolean> func : BinopFilter.getAllFunctions()) {
+                            atomics.add(new BinopFilter(Arrays.asList(l, r), func));
                         }
                     } else {
-                        atomics.add(new VVComparator(Arrays.asList(l, r), VVComparator.eq));
-                        atomics.add(new VVComparator(Arrays.asList(l, r), VVComparator.neq));
+                        atomics.add(new BinopFilter(Arrays.asList(l, r), BinopFilter.eq));
+                        atomics.add(new BinopFilter(Arrays.asList(l, r), BinopFilter.neq));
 
                     }
                 }

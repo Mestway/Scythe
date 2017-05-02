@@ -7,7 +7,7 @@ import sql.lang.SQLQuery;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.filter.LogicAndFilter;
-import sql.lang.ast.filter.VVComparator;
+import sql.lang.ast.filter.BinopFilter;
 import sql.lang.ast.table.*;
 import sql.lang.ast.val.AsNamedVal;
 import sql.lang.ast.val.ConstantVal;
@@ -57,8 +57,8 @@ public class SQLQueryTest {
                                 new NamedVal("input.player"),
                                 new NamedVal("input.resource")),
                         new NamedTable(testTable),
-                        new VVComparator(
-                                Arrays.asList(new NamedVal("input.id"), new NamedVal("input.broId")),VVComparator.lt)
+                        new BinopFilter(
+                                Arrays.asList(new NamedVal("input.id"), new NamedVal("input.broId")), BinopFilter.lt)
                 )
         );
 
@@ -89,7 +89,7 @@ public class SQLQueryTest {
                                 new NamedVal("input.datetime"),
                                 new NamedVal("input.player")),
                         new NamedTable(testTable),
-                        new VVComparator(Arrays.asList(new NamedVal("input.resource"), new ConstantVal(new NumberVal(300))),VVComparator.le)
+                        new BinopFilter(Arrays.asList(new NamedVal("input.resource"), new ConstantVal(new NumberVal(300))), BinopFilter.le)
                 )
         );
 
@@ -117,7 +117,7 @@ public class SQLQueryTest {
                                 new NamedVal("input.id"),
                                 new AsNamedVal(new ConstantVal(new NumberVal(30)), "nm")),
                         new NamedTable(testTable),
-                        new VVComparator(Arrays.asList(new NamedVal("input.resource"), new ConstantVal(new NumberVal(300))),VVComparator.le)
+                        new BinopFilter(Arrays.asList(new NamedVal("input.resource"), new ConstantVal(new NumberVal(300))), BinopFilter.le)
                 )
         );
 
@@ -178,17 +178,17 @@ public class SQLQueryTest {
                             new NamedTable(t1),
                             new NamedTable(t2))),
                     new LogicAndFilter(
-                            new VVComparator(
+                            new BinopFilter(
                                     Arrays.asList(
                                             new NamedVal("table1.home"),
                                             new NamedVal("table2.home"))
-                                    ,VVComparator.eq),
-                            new VVComparator(
+                                    , BinopFilter.eq),
+                            new BinopFilter(
                                     Arrays.asList(
                                             new NamedVal("table1.resource"),
                                             new NamedVal("table2.maxresource")
                                     ),
-                                    VVComparator.eq)
+                                    BinopFilter.eq)
                     )
             )
         );
@@ -240,24 +240,24 @@ public class SQLQueryTest {
                                 new NamedVal("table1.home"),
                                 new NamedVal("table1.resource")),
                         new NamedTable(t1),
-                        new VVComparator(
+                        new BinopFilter(
                                 Arrays.asList(
                                         new NamedVal("table1.resource"),
                                         new TableAsVal(
                                                 new SelectNode(
                                                         Arrays.asList(new NamedVal("table2.maxresource")),
                                                         new NamedTable(t2),
-                                                        new VVComparator(
+                                                        new BinopFilter(
                                                                 Arrays.asList(
                                                                         new NamedVal("table2.home"),
                                                                         new NamedVal("table1.home")
                                                                 ),
-                                                                VVComparator.eq
+                                                                BinopFilter.eq
                                                         )
                                                 ),
                                                 "max-resource")
                                 ),
-                                VVComparator.eq
+                                BinopFilter.eq
                         )
                 )
         );
@@ -322,25 +322,25 @@ public class SQLQueryTest {
                     new NamedVal("table1.home"),
                     new NamedVal("table1.resource")),
                 new NamedTable(t1),
-                new VVComparator(
+                new BinopFilter(
                     Arrays.asList(
                         new NamedVal("table1.resource"),
                         new TableAsVal(
                             new SelectNode(
                                 Arrays.asList(new NamedVal("agrResult.maxresource")),
                                 new NamedTable(t2),
-                                new VVComparator(
+                                new BinopFilter(
                                     Arrays.asList(
                                             new NamedVal("agrResult.home"),
                                             new NamedVal("table1.home")
                                     ),
-                                    VVComparator.eq
+                                    BinopFilter.eq
                                 )
                             ),
                             "max-resource"
                         )
                     ),
-                    VVComparator.eq
+                    BinopFilter.eq
                 )
             )
         );

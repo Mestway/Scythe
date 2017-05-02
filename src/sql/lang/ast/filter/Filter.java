@@ -22,10 +22,11 @@ public interface Filter {
     int getNestedQueryLevel();
 
     String prettyPrint(int indentLv);
-    //boolean equalsToFilter(Filter f);
 
-    // we also consider same as "exclusive"
-    boolean containsExclusiveFilter(Filter f);
+    // check whether a filter has redundant components given the presence of f, examples are:
+    // there exists a BinopFilter that is identical to f
+    // there exists a BinopFilter that has same value but contrary operator
+    boolean containRedundantFilter(Filter f);
     List<Hole> getAllHoles();
     List<Value> getAllConstatnts();
     Filter instantiate(InstantiateEnv env);

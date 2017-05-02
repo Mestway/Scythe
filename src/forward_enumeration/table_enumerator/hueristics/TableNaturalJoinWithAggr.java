@@ -4,7 +4,7 @@ import forward_enumeration.canonical_enum.components.EnumAggrTableNode;
 import forward_enumeration.context.EnumContext;
 import sql.lang.ast.filter.Filter;
 import sql.lang.ast.filter.LogicAndFilter;
-import sql.lang.ast.filter.VVComparator;
+import sql.lang.ast.filter.BinopFilter;
 import sql.lang.ast.table.*;
 import sql.lang.ast.val.NamedVal;
 import util.Pair;
@@ -43,11 +43,11 @@ public class TableNaturalJoinWithAggr {
             List<Filter> filters = new ArrayList<>();
             for (Pair<Integer, Integer> p : naturalJoinPairs) {
                 filters.add(
-                        new VVComparator(
+                        new BinopFilter(
                                 Arrays.asList(
                                         new NamedVal(jntb.getSchema().get(p.getKey())),
                                         new NamedVal(jntb.getSchema().get(p.getValue()))),
-                                VVComparator.eq));
+                                BinopFilter.eq));
             }
 
             List nodesToSelect = jntb.getSchema()
@@ -99,11 +99,11 @@ public class TableNaturalJoinWithAggr {
                 List<Filter> filters = new ArrayList<>();
                 for (Pair<Integer, Integer> p : naturalJoinPairs) {
                     filters.add(
-                        new VVComparator(
+                        new BinopFilter(
                             Arrays.asList(
                                 new NamedVal(jntb.getSchema().get(p.getKey())),
                                 new NamedVal(jntb.getSchema().get(p.getValue()))),
-                            VVComparator.eq));
+                            BinopFilter.eq));
                 }
 
                 List nodesToSelect = jntb.getSchema()

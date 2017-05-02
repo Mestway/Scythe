@@ -38,8 +38,6 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         // add a reference
         candidateCollector.allSummaryTables = summaryTables;
 
-        int paperSymmaryTableCount = 0;
-
         //##### Synthesize SPJ queries
         // build symbolic table for each input table, and store them in SymTables
         List<AbstractSummaryTable> inputSummary = EnumerationModules.enumFromInputTables(ec, true);
@@ -76,6 +74,12 @@ public class StagedEnumerator extends AbstractTableEnumerator {
                     System.out.println("[NaturalJoin]: " + 1 + " [SymTable]: " + summaryTables.size());
                 tryEvalToOutput(naturalJoinResult, ec, candidateCollector);
             }
+            return decodingToQueries(candidateCollector, ec);
+        }
+
+        // only try eval the queries at this depth
+        tryEvalToOutput(basicAndAggr, ec, candidateCollector);
+        if (candidateCollector.getAllCandidates().size() > 0) {
             return decodingToQueries(candidateCollector, ec);
         }
 
@@ -131,7 +135,7 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         if (!stFromLastStage.equals(inputSummary)) {
             tryEvalToOutput(stFromLastStage, ec, candidateCollector);
             if (candidateCollector.getAllCandidates().size() > 0) {
-                decodingToQueries(candidateCollector, ec);
+                return decodingToQueries(candidateCollector, ec);
             }
         }
         // Try enumerating joining two tables from left-join with aggregation
@@ -414,8 +418,6 @@ public class StagedEnumerator extends AbstractTableEnumerator {
             }
         }
 
-        List<TableNode> decodeResult = new ArrayList<>();
-
         // Extract the filters to be decoded for each AbstractSymbolicTable from qc
         Map<AbstractSummaryTable, Set<BVFilter>> filtersToDecode = new HashMap<>();
         for (Pair<AbstractSummaryTable, BVFilter> c : qc.getAllCandidates()) {
@@ -426,31 +428,62 @@ public class StagedEnumerator extends AbstractTableEnumerator {
         }
 
         // generate candidate symFilterTrees for each candidate
-        List<BVFilterCompTree> candidateTrees = new ArrayList<>();
+        // use a bucket to store queries generated from the skeletons
+        // each bucket contains all queries constructed from a candidate summary table
+        int candidateTreeCount = 0;
+        Map<AbstractSummaryTable, List<TableNode>> candidateBuckets = new HashMap<>();
+
         for (Map.Entry<AbstractSummaryTable, Set<BVFilter>> c : filtersToDecode.entrySet()) {
             Map<BVFilter, List<BVFilterCompTree>> cQuery = c.getKey().batchGenDecomposition(c.getValue());
+            candidateBuckets.put(c.getKey(), new ArrayList<>());
+
+            candidateTreeCount += cQuery.values().size();
+
+            List<BVFilterCompTree> bvCompTrees = new ArrayList<>();
             for (Map.Entry<BVFilter, List<BVFilterCompTree>> i : cQuery.entrySet()) {
-                candidateTrees.addAll(i.getValue());
+                bvCompTrees.addAll(i.getValue());
             }
+            List<TableNode> tempCandidateQueries = new ArrayList<>();
+            for (BVFilterCompTree bvt : bvCompTrees) {
+                tempCandidateQueries.addAll(bvt.translateToTopSQL(ec));
+            }
+            tempCandidateQueries.sort((x,y) -> (Double.compare(x.estimateTotalScore(ec.getUserProvidedConstValues()),
+                    y.estimateTotalScore(ec.getUserProvidedConstValues()))));
+
+            candidateBuckets.get(c.getKey())
+                    .addAll(tempCandidateQueries.subList(0, tempCandidateQueries.size() > 10 ? 10 :
+                                                            tempCandidateQueries.size()));
         }
 
         if (GlobalConfig.PRINT_LOG)
-            System.out.println("Candidate Tree Number: " + candidateTrees.size());
+            System.out.println("Candidate Tree Number: " + candidateTreeCount);
 
-        List<TableNode> treeDecodeResult = new ArrayList<>();
-        for (BVFilterCompTree t : candidateTrees) {
-            List<TableNode> temp = t.translateToTopSQL(ec);
-            temp.sort((x,y) -> (Double.compare(x.estimateTotalScore(ec.getUserProvidedConstValues()),
-                            y.estimateTotalScore(ec.getUserProvidedConstValues()))));
-            treeDecodeResult.addAll(temp.subList(0, temp.size() > 3 ? 3 : temp.size()));
+        // get the top result for each group
+        List<TableNode> topTreeDecodeResult = new ArrayList<>();
+        List<TableNode> remainingResults = new ArrayList<>();
+        for (Map.Entry<AbstractSummaryTable, List<TableNode>> entry : candidateBuckets.entrySet()) {
+            topTreeDecodeResult.add(entry.getValue().get(0));
+            //remainingResults.addAll(entry.getValue().subList(1, entry.getValue().size()));
         }
 
-        treeDecodeResult.sort((x,y) -> (
+        topTreeDecodeResult.sort((x,y) -> (
                 Double.compare(x.estimateTotalScore(ec.getUserProvidedConstValues()),
                                y.estimateTotalScore(ec.getUserProvidedConstValues()))));
-        treeDecodeResult = treeDecodeResult.subList(0, treeDecodeResult.size() > 30 ? 30 : treeDecodeResult.size());
+        remainingResults.sort((x,y) -> (
+                Double.compare(x.estimateTotalScore(ec.getUserProvidedConstValues()),
+                        y.estimateTotalScore(ec.getUserProvidedConstValues()))));
 
-        for (TableNode tn : treeDecodeResult) {
+        // add synthesized queries to the result set
+        if (topTreeDecodeResult.size() < 30) {
+            int remainingSlotCnt = 30 - topTreeDecodeResult.size();
+            topTreeDecodeResult.addAll(remainingResults.subList(0,
+                    remainingResults.size() > remainingSlotCnt ? remainingSlotCnt : remainingResults.size()));
+        } else {
+            topTreeDecodeResult = topTreeDecodeResult.subList(0, 30);
+        }
+
+        List<TableNode> decodeResult = new ArrayList<>();
+        for (TableNode tn : topTreeDecodeResult) {
             try {
                 Table t = tn.eval(new Environment());
                 List<Integer> projectionIndexes = Table.inferProjection(t, ec.getOutputTable());
@@ -507,8 +540,13 @@ public class StagedEnumerator extends AbstractTableEnumerator {
             // add the target to qc if the evaluation result can be projection to be output table
             //    1) size equal
             //    2) can generate a trace
+            MappingInference mi = MappingInference.buildMapping(t, ec.getOutputTable());
             if( t.getContent().size() == ec.getOutputTable().getContent().size()
-                    && ! MappingInference.buildMapping(t, ec.getOutputTable()).genColumnMappingInstances().isEmpty()) {
+                    && mi.searchOneMappingInstance().isPresent()) {
+                // Be super careful, the following condition is not sufficient
+                // ====>> ! mi.genColumnMappingInstances().isEmpty()
+                // We need to use the condition below
+                // ====>> mi.searchOneMappingInstance().isPresent()
                 candidateCollector.insertCandidate(new Pair<>(symTable, symFilter));
             }
         };

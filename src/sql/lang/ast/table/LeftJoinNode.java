@@ -132,6 +132,11 @@ public class LeftJoinNode extends TableNode {
     }
 
     @Override
+    public TableNode simplifyAST() {
+        return new LeftJoinNode(tn1.simplifyAST(), tn2.simplifyAST(), this.joinKeys);
+    }
+
+    @Override
     public String toString() {
         return this.prettyPrint(0, false);
     }

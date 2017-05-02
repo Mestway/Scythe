@@ -4,14 +4,12 @@ import util.Pair;
 import org.junit.Test;
 import sql.lang.SQLQuery;
 import sql.lang.Table;
-import sql.lang.ast.Environment;
-import sql.lang.ast.filter.VVComparator;
+import sql.lang.ast.filter.BinopFilter;
 import sql.lang.ast.table.*;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.TableAsVal;
 import util.TableInstanceParser;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertTrue;
@@ -48,7 +46,7 @@ public class QueryTest4 {
                     new NamedVal("table1.total")
                 ),
                 new NamedTable(input),
-                new VVComparator(
+                new BinopFilter(
                     Arrays.asList(
                         new NamedVal("table1.total"),
                         new TableAsVal(
@@ -60,23 +58,24 @@ public class QueryTest4 {
                                     new AggregationNode(
                                         new RenameTableNode(
                                             "t1",
+                                            new NamedTable(input).getSchema(),
                                             new NamedTable(input)
                                         ),
                                         Arrays.asList("t1.customer"),
                                         Arrays.asList(new Pair<>("t1.total", AggregationNode.AggrMax))
                                     )
                                 ),
-                                new VVComparator(
+                                new BinopFilter(
                                     Arrays.asList(
                                         new NamedVal("table1.customer"),
                                         new NamedVal("tt.customer")
                                     ),
-                                    VVComparator.eq
+                                    BinopFilter.eq
                                 )
                             ), "v"
                         )
                     ),
-                    VVComparator.eq
+                    BinopFilter.eq
                 )
             )
         );

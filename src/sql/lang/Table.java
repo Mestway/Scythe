@@ -1,5 +1,6 @@
 package sql.lang;
 
+import backward_inference.CellToCellMap;
 import backward_inference.MappingInference;
 import sql.lang.datatype.ValType;
 import sql.lang.datatype.Value;
@@ -429,9 +430,18 @@ public class Table {
     // Infer projection columns from src to table
     public static List<Integer> inferProjection(Table src, Table tgt) {
         MappingInference mi = MappingInference.buildMapping(src, tgt);
-        List<Integer> columns = mi.genColumnMappingInstances().stream()
-                .map(s -> s.stream().findFirst().get()).collect(Collectors.toList());
-        return columns;
+        Optional<CellToCellMap> ctcMap = mi.searchOneMappingInstance();
+        if (ctcMap.isPresent()) {
+            return ctcMap.get().getMap()
+                    .get(0).stream().map(ci -> ci.c()).collect(Collectors.toList());
+        } else {
+            System.out.println("[ERROR@Table438] Unable to find a projection from tgt to src.");
+            return null;
+        }
+
+        // WARNING: the one below is totally wrong
+        // See the counter example in MappingInferenceTest.java
+        // return mi.genColumnMappingInstances().stream().map(s -> s.stream().findFirst().get()).collect(Collectors.toList());
     }
 
     public static boolean schemaMatch(Table t1, Table t2) {

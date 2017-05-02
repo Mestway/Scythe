@@ -7,7 +7,7 @@ import global.GlobalConfig;
 import sql.lang.Table;
 import sql.lang.TableRow;
 import sql.lang.ast.Environment;
-import sql.lang.ast.filter.VVComparator;
+import sql.lang.ast.filter.BinopFilter;
 import sql.lang.ast.table.*;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
@@ -121,7 +121,7 @@ public class SynthesizerHelper {
                     List<ValNode> compareFields = new ArrayList<>();
                     compareFields.add(new NamedVal(jrt.getSchema().get(0)));
                     compareFields.add(new NamedVal(jrt.getSchema().get(2)));
-                    VVComparator filter = new VVComparator(compareFields, VVComparator.eq);
+                    BinopFilter filter = new BinopFilter(compareFields, BinopFilter.eq);
 
                     candidates.add(new SelectNode(selectFields, jrt, filter));
                 }

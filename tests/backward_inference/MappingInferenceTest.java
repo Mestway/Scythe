@@ -102,7 +102,6 @@ public class MappingInferenceTest {
 
     }
 
-    @Test
     public void testBuildMapping0() throws Exception {
         String inputSrc =
                 "| T1.User   |  T1.Phone   |  T1.Value  | T2.User | T2.MaxVal |" + "\r\n" +
@@ -209,16 +208,16 @@ public class MappingInferenceTest {
     public void testMapping() throws Exception {
         String inputSrc =
                 "| id   |  rev   |  content  |" + "\r\n" +
-                "|----------------------------------|" + "\r\n" +
-                "| 1    |  1     |  A        |" + "\r\n" +
-                "| 2    |  1     |  B        |" + "\r\n" +
-                "| 1    |  2     |  C        |" + "\r\n" +
-                "| 1    |  3     |  D        |";
+                        "|----------------------------------|" + "\r\n" +
+                        "| 1    |  1     |  A        |" + "\r\n" +
+                        "| 2    |  1     |  B        |" + "\r\n" +
+                        "| 1    |  2     |  C        |" + "\r\n" +
+                        "| 1    |  3     |  D        |";
         String outputSrc =
                 "| col1 | col2 | col3 |" + "\r\n" +
-                "|--------------------|" + "\r\n" +
-                "|  1   |  3   |  D   |" + "\r\n" +
-                "|  2   |  1   |  B   |";
+                        "|--------------------|" + "\r\n" +
+                        "|  1   |  3   |  D   |" + "\r\n" +
+                        "|  2   |  1   |  B   |";
 
         Table input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
         Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
@@ -266,5 +265,41 @@ public class MappingInferenceTest {
                 //System.out.println(entry.getKey() + " - " + entry.getValue());
             }
         }
+    }
+
+    @Test
+    public void testMapping3() throws Exception {
+        String inputSrc =
+                "| id   |  rev     | other |" + "\r\n" +
+                        "|-----------------|" + "\r\n" +
+                        "| 1    |  1  |  2  |" + "\r\n" +
+                        "| 2    |  1  |  2 |" + "\r\n" +
+                        "| 1    |  2  |  1  |" + "\r\n" +
+                        "| 2    |  2  |  1  |";
+
+        String outputSrc =
+                "| id   |  rev     |" + "\r\n" +
+                        "|---------------|" + "\r\n" +
+                        "| 1    |  1     |" + "\r\n" +
+                        "| 2    |  1     |" + "\r\n" +
+                        "| 1    |  2     |";
+
+        Table input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
+        Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
+
+        MappingInference mi = MappingInference.buildMapping(input, output);
+        System.out.println("[Refine Mapping Done]");
+        System.out.println(mi.toString());
+
+        List<CellToCellMap> instances = mi.genMappingInstances();
+        System.out.println("[Gen MappingInstance Done] size: " + instances.size());
+        for (CellToCellMap cim : instances) {
+            System.out.println("---");
+            System.out.println(cim.toString());
+        }
+
+        System.out.println(mi.searchOneMappingInstance());
+
+        System.out.println(mi.genColumnMappingInstances());
     }
 }

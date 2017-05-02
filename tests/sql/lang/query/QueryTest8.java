@@ -6,7 +6,7 @@ import sql.lang.datatype.StringVal;
 import sql.lang.SQLQuery;
 import sql.lang.Table;
 import sql.lang.ast.filter.LogicAndFilter;
-import sql.lang.ast.filter.VVComparator;
+import sql.lang.ast.filter.BinopFilter;
 import sql.lang.ast.table.*;
 import sql.lang.ast.val.ConstantVal;
 import sql.lang.ast.val.NamedVal;
@@ -56,12 +56,12 @@ public class QueryTest8 {
                         new NamedVal("table1.message")
                     ),
                     new NamedTable(input),
-                    new VVComparator(
+                    new BinopFilter(
                         Arrays.asList(
                             new NamedVal("table1.from_user"),
                             new ConstantVal(new StringVal("me"))
                         ),
-                        VVComparator.neq
+                        BinopFilter.neq
                     )
                 )
             );
@@ -96,19 +96,19 @@ public class QueryTest8 {
                         )
                     ),
                     new LogicAndFilter(
-                        new VVComparator(
+                        new BinopFilter(
                             Arrays.asList(
                                 new NamedVal("t1.conversation_id"),
                                 new NamedVal("t2.conversation_id")
                             ),
-                            VVComparator.eq
+                            BinopFilter.eq
                         ),
-                        new VVComparator(
+                        new BinopFilter(
                             Arrays.asList(
                                 new NamedVal("t1.timestamp"),
                                 new NamedVal("t2.max_timestamp")
                             ),
-                            VVComparator.eq
+                            BinopFilter.eq
                         )
                     )
                 )
@@ -144,19 +144,19 @@ public class QueryTest8 {
                         )
                     ),
                     new LogicAndFilter(
-                        new VVComparator(
+                        new BinopFilter(
                             Arrays.asList(
                                 new NamedVal("t3.conversation_id"),
                                 new NamedVal("t4.conversation_id")
                             ),
-                            VVComparator.eq
+                            BinopFilter.eq
                         ),
-                        new VVComparator(
+                        new BinopFilter(
                             Arrays.asList(
                                 new NamedVal("t3.message_id"),
                                 new NamedVal("t4.max_message_id")
                             ),
-                            VVComparator.eq
+                            BinopFilter.eq
                         )
                     )
                 )

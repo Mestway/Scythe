@@ -4,7 +4,6 @@ import forward_enumeration.context.EnumContext;
 import forward_enumeration.primitive.FilterEnumerator;
 import global.GlobalConfig;
 import global.Statistics;
-import backward_inference.CellToCellMap;
 import backward_inference.MappingInference;
 import sql.lang.Table;
 import sql.lang.ast.filter.EmptyFilter;
@@ -211,7 +210,7 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
         // System.out.println("#(BitVec)/#(CompoundFilter): " + instantiatedFilters.size() + " / " + tt + " = " + (((float)instantiatedFilters.size()) / tt));
         Statistics.sum_red_compound_to_bv += (tt / ((float)instantiatedFilters.size()));
 
-        this.allfiltersEnumerated = true;
+        this.allFiltersEnumerated = true;
         this.totalBitVecFiltersCount = instantiatedFilters.size();
         return instantiatedFilters;
     }

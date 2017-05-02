@@ -39,6 +39,20 @@ public class SelectNode extends TableNode {
         this.filter = filter;
     }
 
+    private boolean isSelectAll() {
+        boolean selectStar = false;
+        if (tableNode.getSchema().size() == columns.size()) {
+            selectStar = true;
+            for (int i = 0; i < tableNode.getSchema().size(); i ++) {
+                if (! tableNode.getSchema().get(i).equals(columns.get(i).prettyPrint(0))) {
+                    selectStar = false;
+                    break;
+                }
+            }
+        }
+        return selectStar;
+    }
+
     @Override
     public Table eval(Environment env) throws SQLEvalException {
 
@@ -145,18 +159,9 @@ public class SelectNode extends TableNode {
     public String prettyPrint(int indentLv, boolean asSubquery) {
 
         // determine if it is select all
-        boolean selectFieldsAllSame = false;
-        if (tableNode.getSchema().size() == columns.size()) {
-            selectFieldsAllSame = true;
-            for (int i = 0; i < tableNode.getSchema().size(); i ++) {
-                if (! tableNode.getSchema().get(i).equals(columns.get(i).prettyPrint(0))) {
-                    selectFieldsAllSame = false;
-                    break;
-                }
-            }
-        }
+        boolean selectFieldsAllSame = this.isSelectAll();
 
-        if (selectFieldsAllSame && (this.filter instanceof EmptyFilter)) {
+        if (selectFieldsAllSame && this.filter instanceof EmptyFilter && asSubquery) {
             return IndentionManagement.addIndention( tableNode.prettyPrint(0, true), indentLv);
         }
 
@@ -184,8 +189,8 @@ public class SelectNode extends TableNode {
 
         result += tableNode.prettyPrint(1, true);
 
-        result += "\r\n";
         if (! (this.filter instanceof EmptyFilter)) {
+            result += "\r\n";
             result += " Where ";
             result += filter.prettyPrint(1).trim();
         }
@@ -193,6 +198,14 @@ public class SelectNode extends TableNode {
         if (asSubquery)
             result = "(" + result + ")";
         return IndentionManagement.addIndention(result, indentLv);
+    }
+
+    @Override
+    public TableNode simplifyAST() {
+        // determine if it is select all
+        if (this.isSelectAll() && this.filter instanceof EmptyFilter)
+            return this.tableNode.simplifyAST();
+        return new SelectNode(this.columns, this.tableNode.simplifyAST(), this.filter);
     }
 
     @Override

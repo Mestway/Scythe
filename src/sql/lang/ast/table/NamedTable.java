@@ -51,7 +51,15 @@ public class NamedTable extends TableNode {
 
     @Override
     public String prettyPrint(int indentLv, boolean asSubquery) {
-        return IndentionManagement.addIndention(this.getTableName(), indentLv);
+        if (asSubquery)
+            return IndentionManagement.addIndention(this.getTableName(), indentLv);
+        else
+            return IndentionManagement.addIndention("Select * From " + this.getTableName(), indentLv);
+    }
+
+    @Override
+    public TableNode simplifyAST() {
+        return this;
     }
 
     @Override

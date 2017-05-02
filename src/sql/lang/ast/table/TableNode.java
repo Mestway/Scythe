@@ -40,20 +40,22 @@ public abstract class TableNode implements Node {
 
     public abstract String prettyPrint(int indentLv, boolean asSubquery);
     public String printQuery() {
-        String query = this.prettyPrint(0, false) + ";";
-        Set<String> generatedNames = RenameTNWrapper.findAllGeneratedNames(query)
+        String queryStr = this.simplifyAST().prettyPrint(0, false) + ";";
+        Set<String> generatedNames = RenameTNWrapper.findAllGeneratedNames(queryStr)
                 .stream().collect(Collectors.toSet());
 
         int i = 1;
         for (String s : generatedNames) {
-            while (query.contains("t" + i))
+            while (queryStr.contains("t" + i))
                 i ++;
-            query = query.replace(s, "t" + i);
+            queryStr = queryStr.replace(s, "t" + i);
             i ++;
         }
 
-        return query;
-    };
+        return queryStr;
+    }
+    // remove/rewrite queries with redundant components
+    public abstract TableNode simplifyAST();
 
     public abstract List<Hole> getAllHoles();
 

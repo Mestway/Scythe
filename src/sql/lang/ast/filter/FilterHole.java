@@ -37,9 +37,7 @@ public class FilterHole implements Filter, Hole {
     }
 
     @Override
-    public boolean containsExclusiveFilter(Filter f) {
-        return false;
-    }
+    public boolean containRedundantFilter(Filter f) { return false; }
 
     @Override
     public List<Hole> getAllHoles() {

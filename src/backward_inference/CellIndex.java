@@ -47,9 +47,7 @@ public class CellIndex {
     public String toString() {
         return "(" + r + ", " + c + ")";
     }
-
     public CellIndex copy() {
         return new CellIndex(this.r, this.c);
     }
-
 }

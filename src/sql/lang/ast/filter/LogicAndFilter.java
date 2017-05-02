@@ -51,8 +51,8 @@ public class LogicAndFilter implements Filter {
     }
 
     @Override
-    public boolean containsExclusiveFilter(Filter f) {
-        return f1.containsExclusiveFilter(f) && f2.containsExclusiveFilter(f);
+    public boolean containRedundantFilter(Filter f) {
+        return f1.containRedundantFilter(f) && f2.containRedundantFilter(f);
     }
 
     public static Filter connectByAnd(List<Filter> filters) {

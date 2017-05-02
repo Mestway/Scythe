@@ -1,7 +1,6 @@
 package sql.lang.ast.table;
 
-import com.sun.org.apache.bcel.internal.generic.Select;
-import sql.lang.ast.filter.VVComparator;
+import sql.lang.ast.filter.BinopFilter;
 import sql.lang.ast.val.NamedVal;
 import util.Pair;
 import org.junit.Test;
@@ -53,7 +52,7 @@ public class AggregationNodeTest {
                 Arrays.asList(new Pair<>("table1.resource", AggregationNode.AggrMax)));
 
         SelectNode sn = new SelectNode(t1.getQualifiedMetadata().stream().map(t -> new NamedVal(t)).collect(Collectors.toList()),
-                new NamedTable(t1), new VVComparator(Arrays.asList(new NamedVal("table1.id"), new NamedVal("table1.broId")), VVComparator.le));
+                new NamedTable(t1), new BinopFilter(Arrays.asList(new NamedVal("table1.id"), new NamedVal("table1.broId")), BinopFilter.le));
 
         try {
 
