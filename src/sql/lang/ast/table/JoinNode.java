@@ -75,6 +75,11 @@ public class JoinNode extends TableNode {
     }
 
     @Override
+    public int getASTNodeCnt() {
+        return 1 + this.tableNodes.stream().map(tn -> tn.getASTNodeCnt()).reduce(0, (x,y)->x + y);
+    }
+
+    @Override
     public String prettyPrint(int indentLv, boolean asSubquery) {
         String result = this.tableNodes.get(0).prettyPrint(1, true).trim();
         for (int i = 1; i < this.tableNodes.size(); i ++) {

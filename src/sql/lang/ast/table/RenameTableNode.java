@@ -1,6 +1,10 @@
 package sql.lang.ast.table;
 
 import forward_enumeration.primitive.parameterized.InstantiateEnv;
+import sql.lang.ast.filter.EmptyFilter;
+import sql.lang.ast.filter.Filter;
+import sql.lang.ast.val.NamedVal;
+import sql.lang.ast.val.ValNode;
 import sql.lang.datatype.Value;
 import util.Pair;
 import sql.lang.datatype.ValType;
@@ -11,7 +15,10 @@ import sql.lang.exception.SQLEvalException;
 import sql.lang.trans.ValNodeSubstBinding;
 import util.IndentionManagement;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -53,6 +60,11 @@ public class RenameTableNode extends TableNode {
     }
 
     @Override
+    public int getASTNodeCnt() {
+        return this.tableNode.getASTNodeCnt();
+    }
+
+    @Override
     public String prettyPrint(int indentLv, boolean asSubquery) {
 
         String selectString = "";
@@ -82,6 +94,50 @@ public class RenameTableNode extends TableNode {
         if (asSubquery)
             return IndentionManagement.addIndention(result, indentLv);
         return IndentionManagement.addIndention(result, indentLv);
+    }
+
+    public String ppWithPartialIndex(List<String> columnSubset, int indentLv, Filter predicate, boolean asSubquery) {
+
+        String selectString = "";
+
+        Map<String, String> schemaToBetterOnes = new HashMap<>();
+
+        ValNodeSubstBinding vnsb = new ValNodeSubstBinding();
+
+        for (int i = 0; i < tableNode.getSchema().size(); i ++) {
+
+            String oldSchemaEntry = tableNode.getSchema().get(i);
+            String newSchemaEntry = this.newFieldNames.get(i);
+
+            vnsb.addBinding(new Pair<>(new NamedVal(this.newTableName + "." + newSchemaEntry), new NamedVal(newSchemaEntry)));
+
+            String oldShortName = oldSchemaEntry.substring(oldSchemaEntry.lastIndexOf(".") + 1);
+
+            if (oldShortName.equals(newSchemaEntry))
+                schemaToBetterOnes.put(this.getSchema().get(i), oldSchemaEntry);
+            else {
+                schemaToBetterOnes.put(this.getSchema().get(i), oldSchemaEntry + " As " + newSchemaEntry);
+            }
+        }
+
+        boolean noEntryYet = true;
+        for (String s : columnSubset) {
+            if (! noEntryYet) selectString += ", ";
+            noEntryYet = false;
+            selectString += schemaToBetterOnes.get(s);
+        }
+
+
+        String result = "Select " + selectString + "\r\n" + "From "
+                    + tableNode.prettyPrint(1, false).trim();
+
+        if (! (predicate instanceof EmptyFilter)) {
+            result += "\r\n Where " + predicate.substNamedVal(vnsb).prettyPrint(0);
+        }
+
+        if (asSubquery)
+            return IndentionManagement.addIndention("(" + result + ")", indentLv);
+        else return IndentionManagement.addIndention(result , indentLv);
     }
 
     @Override

@@ -66,6 +66,11 @@ public class UnionNode extends TableNode {
     }
 
     @Override
+    public int getASTNodeCnt() {
+        return this.tableNodes.stream().map(tn -> tn.getASTNodeCnt()).reduce(0, (x,y)->(x+y)) + 1;
+    }
+
+    @Override
     public String prettyPrint(int indentLv, boolean asSubquery) {
         String result = "Select * From \r\n" + this.tableNodes.get(0).prettyPrint(1, true).trim();
         for (int i = 1; i < this.tableNodes.size(); i ++) {

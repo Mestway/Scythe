@@ -110,6 +110,11 @@ public class LeftJoinNode extends TableNode {
     }
 
     @Override
+    public int getASTNodeCnt() {
+        return 1 + this.tn1.getASTNodeCnt() + this.tn2.getASTNodeCnt() + this.joinKeys.size();
+    }
+
+    @Override
     public String prettyPrint(int indentLv, boolean asSubquery) {
         String result = this.tn1.prettyPrint(1, true).trim();
         result += " Left Outer Join \r\n" + this.tn2.prettyPrint(1, true);

@@ -50,6 +50,11 @@ public class NamedTable extends TableNode {
     }
 
     @Override
+    public int getASTNodeCnt() {
+        return 1;
+    }
+
+    @Override
     public String prettyPrint(int indentLv, boolean asSubquery) {
         if (asSubquery)
             return IndentionManagement.addIndention(this.getTableName(), indentLv);

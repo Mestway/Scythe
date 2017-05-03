@@ -192,6 +192,11 @@ public class AggregationNode extends TableNode {
     }
 
     @Override
+    public int getASTNodeCnt() {
+        return this.tn.getASTNodeCnt() + this.targets.size() + 1; //+ this.groupbyColumns.size()
+    }
+
+    @Override
     public String prettyPrint(int indentLv, boolean asSubquery) {
         String result = "Select\r\n" + IndentionManagement.basicIndent();
         for (String f : groupbyColumns) {

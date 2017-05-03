@@ -26,7 +26,7 @@ public abstract class TableNode implements Node {
 
     public abstract List<ValType> getSchemaType();
     public abstract int getNestedQueryLevel();
-    //boolean equalsToTableNode(TableNode tn);
+    public abstract int getASTNodeCnt();
 
     public List<Pair<String, ValType>> getSchemaWithType() {
         List<Pair<String, ValType>> result = new ArrayList<>();

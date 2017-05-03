@@ -81,9 +81,7 @@ public class SelectNode extends TableNode {
                 }
             } else {
                 for (int i = 0; i < table.getSchema().size(); i ++) {
-                    rowBinding.put(
-                            table.getName() + "." + table.getSchema().get(i),
-                            row.getValue(i));
+                    rowBinding.put(table.getName() + "." + table.getSchema().get(i), row.getValue(i));
                 }
             }
 
@@ -156,6 +154,11 @@ public class SelectNode extends TableNode {
     }
 
     @Override
+    public int getASTNodeCnt() {
+        return this.tableNode.getASTNodeCnt() + this.filter.getFilterLength() + 1;
+    }
+
+    @Override
     public String prettyPrint(int indentLv, boolean asSubquery) {
 
         // determine if it is select all
@@ -163,6 +166,12 @@ public class SelectNode extends TableNode {
 
         if (selectFieldsAllSame && this.filter instanceof EmptyFilter && asSubquery) {
             return IndentionManagement.addIndention( tableNode.prettyPrint(0, true), indentLv);
+        }
+
+        if (this.tableNode instanceof RenameTableNode) {
+            if (((RenameTableNode) this.tableNode).tableNode instanceof JoinNode) {
+                return ((RenameTableNode) this.tableNode).ppWithPartialIndex(this.getSchema(), indentLv, filter, asSubquery);
+            }
         }
 
         String result = "";
@@ -197,6 +206,7 @@ public class SelectNode extends TableNode {
 
         if (asSubquery)
             result = "(" + result + ")";
+
         return IndentionManagement.addIndention(result, indentLv);
     }
 

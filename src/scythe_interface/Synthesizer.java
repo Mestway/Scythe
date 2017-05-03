@@ -294,6 +294,10 @@ public class Synthesizer {
             try {
                 Table t = tn.eval(new Environment());
                 System.out.println("[No." + (i + 1) + "]===============================");
+                if (i == 1 || i == 0 || i == 2) {
+                    System.out.println("[ASTNodeCnt] " + tn.getASTNodeCnt());
+                    System.out.println("[ASCII Cnt] " + tn.printQuery().replaceAll("\\w+", " ").length());
+                }
                 System.out.println(tn.printQuery());
                 if (GlobalConfig.PRINT_LOG)
                     System.out.println(t);
