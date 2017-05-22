@@ -4,10 +4,10 @@ import forward_enumeration.context.EnumConfig;
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.primitive.parameterized.EnumParamTN;
 import global.GlobalConfig;
-import sql.lang.Table;
-import sql.lang.ast.table.NamedTableNode;
-import sql.lang.ast.table.TableNode;
-import sql.lang.ast.val.ValNode;
+import lang.table.Table;
+import lang.sql.ast.contable.NamedTableNode;
+import lang.sql.ast.contable.TableNode;
+import lang.sql.ast.valnode.ValNode;
 
 import java.util.ArrayList;
 import java.util.List;

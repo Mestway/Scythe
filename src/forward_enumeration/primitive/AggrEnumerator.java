@@ -1,14 +1,14 @@
 package forward_enumeration.primitive;
 
 import forward_enumeration.context.EnumContext;
-import sql.lang.Table;
-import sql.lang.ast.Environment;
-import sql.lang.ast.table.AggregationNode;
-import sql.lang.ast.table.RenameTableNode;
-import sql.lang.ast.table.TableNode;
-import sql.lang.val.ValType;
-import sql.lang.val.Value;
-import sql.lang.exception.SQLEvalException;
+import lang.table.Table;
+import lang.sql.ast.Environment;
+import lang.sql.ast.contable.AggregationNode;
+import lang.sql.ast.contable.RenameTableNode;
+import lang.sql.ast.contable.TableNode;
+import lang.sql.dataval.ValType;
+import lang.sql.dataval.Value;
+import lang.sql.exception.SQLEvalException;
 import util.CombinationGenerator;
 import util.Pair;
 import util.RenameWrapper;

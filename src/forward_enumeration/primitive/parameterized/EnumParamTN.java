@@ -1,10 +1,10 @@
 package forward_enumeration.primitive.parameterized;
 
 import forward_enumeration.context.EnumContext;
-import sql.lang.val.ValType;
-import sql.lang.ast.table.TableNode;
-import sql.lang.ast.val.ValHole;
-import sql.lang.ast.val.ValNode;
+import lang.sql.dataval.ValType;
+import lang.sql.ast.contable.TableNode;
+import lang.sql.ast.valnode.ValHole;
+import lang.sql.ast.valnode.ValNode;
 import util.RenameWrapper;
 
 import java.util.ArrayList;

@@ -5,10 +5,13 @@ import forward_enumeration.primitive.FilterEnumerator;
 import global.GlobalConfig;
 import global.Statistics;
 import backward_inference.MappingInference;
-import sql.lang.Table;
-import sql.lang.ast.predicate.EmptyPred;
-import sql.lang.ast.predicate.Predicate;
-import sql.lang.ast.table.*;
+import lang.table.Table;
+import lang.sql.ast.predicate.EmptyPred;
+import lang.sql.ast.predicate.Predicate;
+import lang.sql.ast.contable.JoinNode;
+import lang.sql.ast.contable.NamedTableNode;
+import lang.sql.ast.contable.RenameTableNode;
+import lang.sql.ast.contable.TableNode;
 import util.*;
 
 import java.util.*;

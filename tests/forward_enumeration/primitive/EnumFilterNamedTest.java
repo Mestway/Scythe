@@ -5,9 +5,9 @@ import scythe_interface.IOExample;
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.container.QueryContainer;
 import forward_enumeration.canonical_enum.components.EnumJoinTableNodes;
-import sql.lang.Table;
-import sql.lang.ast.table.NamedTableNode;
-import sql.lang.ast.table.TableNode;
+import lang.table.Table;
+import lang.sql.ast.contable.NamedTableNode;
+import lang.sql.ast.contable.TableNode;
 
 import java.util.ArrayList;
 import java.util.List;

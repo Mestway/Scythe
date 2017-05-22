@@ -2,13 +2,13 @@ package forward_enumeration.primitive.parameterized;
 
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.primitive.FilterEnumerator;
-import sql.lang.val.ValType;
-import sql.lang.ast.predicate.*;
-import sql.lang.ast.table.SelectNode;
-import sql.lang.ast.table.TableNode;
-import sql.lang.ast.val.NamedVal;
-import sql.lang.ast.val.ValHole;
-import sql.lang.ast.val.ValNode;
+import lang.sql.ast.predicate.Predicate;
+import lang.sql.dataval.ValType;
+import lang.sql.ast.contable.SelectNode;
+import lang.sql.ast.contable.TableNode;
+import lang.sql.ast.valnode.NamedVal;
+import lang.sql.ast.valnode.ValHole;
+import lang.sql.ast.valnode.ValNode;
 import util.CombinationGenerator;
 
 import java.util.*;

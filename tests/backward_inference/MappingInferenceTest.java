@@ -3,10 +3,10 @@ package backward_inference;
 import forward_enumeration.context.EnumConfig;
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.table_enumerator.hueristics.TableNaturalJoinWithAggr;
+import lang.sql.ast.contable.AggregationNode;
 import org.junit.Test;
-import sql.lang.Table;
-import sql.lang.ast.Environment;
-import sql.lang.ast.table.*;
+import lang.table.Table;
+import lang.sql.ast.Environment;
 import util.CombinationGenerator;
 import util.TableExampleParser;
 

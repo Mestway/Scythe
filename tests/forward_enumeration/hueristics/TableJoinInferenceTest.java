@@ -2,7 +2,7 @@ package forward_enumeration.hueristics;
 
 import forward_enumeration.table_enumerator.hueristics.HeuristicNatJoin;
 import org.junit.Test;
-import sql.lang.ast.table.TableNode;
+import lang.sql.ast.contable.TableNode;
 import util.DebugHelper;
 import util.TableExampleParser;
 

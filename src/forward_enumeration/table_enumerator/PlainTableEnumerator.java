@@ -5,7 +5,7 @@ import forward_enumeration.context.EnumContext;
 import forward_enumeration.canonical_enum.components.EnumJoinTableNodes;
 import forward_enumeration.primitive.parameterized.EnumSelectTableNode;
 import forward_enumeration.container.QueryContainer;
-import sql.lang.ast.table.TableNode;
+import lang.sql.ast.contable.TableNode;
 import util.RenameWrapper;
 
 import java.util.ArrayList;

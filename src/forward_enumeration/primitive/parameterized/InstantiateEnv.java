@@ -1,8 +1,8 @@
 package forward_enumeration.primitive.parameterized;
 
 import forward_enumeration.context.EnumContext;
-import sql.lang.ast.val.ValHole;
-import sql.lang.ast.val.ValNode;
+import lang.sql.ast.valnode.ValHole;
+import lang.sql.ast.valnode.ValNode;
 
 import java.util.ArrayList;
 import java.util.List;

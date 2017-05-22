@@ -1,6 +1,6 @@
 package forward_enumeration.canonical_enum.datastructure;
 
-import sql.lang.Table;
+import lang.table.Table;
 
 import java.util.*;
 import java.util.stream.Collectors;

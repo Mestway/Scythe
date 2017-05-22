@@ -1,17 +1,17 @@
 package forward_enumeration.table_enumerator.hueristics;
 
-import sql.lang.ast.val.ValNode;
-import sql.lang.val.Value;
-import sql.lang.Table;
-import sql.lang.TableRow;
-import sql.lang.ast.Environment;
-import sql.lang.ast.predicate.BinopPred;
-import sql.lang.ast.table.JoinNode;
-import sql.lang.ast.table.NamedTableNode;
-import sql.lang.ast.table.SelectNode;
-import sql.lang.ast.table.TableNode;
-import sql.lang.ast.val.NamedVal;
-import sql.lang.exception.SQLEvalException;
+import lang.sql.ast.valnode.ValNode;
+import lang.sql.dataval.Value;
+import lang.table.Table;
+import lang.table.TableRow;
+import lang.sql.ast.Environment;
+import lang.sql.ast.predicate.BinopPred;
+import lang.sql.ast.contable.JoinNode;
+import lang.sql.ast.contable.NamedTableNode;
+import lang.sql.ast.contable.SelectNode;
+import lang.sql.ast.contable.TableNode;
+import lang.sql.ast.valnode.NamedVal;
+import lang.sql.exception.SQLEvalException;
 import util.Pair;
 import util.RenameWrapper;
 
@@ -186,13 +186,10 @@ public class HeuristicNatJoin {
         for (TableRow tr1 : t1.getContent()) {
             for (TableRow tr2 : t2.getContent()) {
                 if (tr1.getValue(t1Key).equals(tr2.getValue(t2Key))) {
-                    tcs.add(TableRow.TableRowFromContent(
-                            newName,
-                            newMeta,
-                            connectRow(
-                                    tr1.getValues(),
-                                    tr2.getValues(),
-                                    t1Key, t2Key)));
+                    tcs.add(TableRow.TableRowFromContent(newMeta, connectRow(
+                            tr1.getValues(),
+                            tr2.getValues(),
+                            t1Key, t2Key)));
                 }
             }
         }

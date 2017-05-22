@@ -1,13 +1,12 @@
 package util;
 
-import sql.lang.Table;
-import sql.lang.ast.Environment;
-import sql.lang.ast.table.TableNode;
-import sql.lang.ast.val.ValNode;
-import sql.lang.exception.SQLEvalException;
+import lang.table.Table;
+import lang.sql.ast.Environment;
+import lang.sql.ast.contable.TableNode;
+import lang.sql.ast.valnode.ValNode;
+import lang.sql.exception.SQLEvalException;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by clwang on 1/7/16.

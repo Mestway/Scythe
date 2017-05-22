@@ -5,7 +5,7 @@ import forward_enumeration.table_enumerator.CanonicalTableEnumerator;
 import forward_enumeration.table_enumerator.PlainTableEnumerator;
 import org.junit.Test;
 import scythe_interface.Synthesizer;
-import sql.lang.ast.table.TableNode;
+import lang.sql.ast.contable.TableNode;
 
 import java.io.File;
 import java.time.Duration;

@@ -5,11 +5,13 @@ import forward_enumeration.table_enumerator.AbstractTableEnumerator;
 import forward_enumeration.table_enumerator.StagedEnumerator;
 import global.GlobalConfig;
 import global.Statistics;
-import sql.lang.Table;
-import sql.lang.ast.Environment;
-import sql.lang.ast.table.*;
-import sql.lang.val.*;
-import sql.lang.exception.SQLEvalException;
+import lang.table.Table;
+import lang.sql.ast.Environment;
+import lang.sql.ast.contable.AggregationNode;
+import lang.sql.ast.contable.TableNode;
+import lang.sql.dataval.NumberVal;
+import lang.sql.dataval.Value;
+import lang.sql.exception.SQLEvalException;
 
 import java.util.*;
 import java.util.function.Function;

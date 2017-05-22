@@ -3,11 +3,11 @@ package forward_enumeration.canonical_enum.components;
 import forward_enumeration.container.QueryContainer;
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.primitive.LeftJoinEnumerator;
-import sql.lang.Table;
-import sql.lang.ast.Environment;
-import sql.lang.ast.table.LeftJoinNode;
-import sql.lang.ast.table.TableNode;
-import sql.lang.exception.SQLEvalException;
+import lang.table.Table;
+import lang.sql.ast.Environment;
+import lang.sql.ast.contable.LeftJoinNode;
+import lang.sql.ast.contable.TableNode;
+import lang.sql.exception.SQLEvalException;
 
 import java.util.ArrayList;
 import java.util.List;

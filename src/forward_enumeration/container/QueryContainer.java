@@ -4,10 +4,10 @@ import forward_enumeration.canonical_enum.datastructure.TableLinks;
 import summarytable.AbstractSummaryTable;
 import summarytable.BVFilter;
 import util.Pair;
-import sql.lang.Table;
-import sql.lang.ast.Environment;
-import sql.lang.ast.table.NamedTableNode;
-import sql.lang.ast.table.TableNode;
+import lang.table.Table;
+import lang.sql.ast.Environment;
+import lang.sql.ast.contable.NamedTableNode;
+import lang.sql.ast.contable.TableNode;
 
 import java.util.*;
 import java.util.stream.Collectors;

@@ -2,11 +2,11 @@ package forward_enumeration.table_enumerator.hueristics;
 
 import forward_enumeration.canonical_enum.components.EnumAggrTableNode;
 import forward_enumeration.context.EnumContext;
-import sql.lang.ast.predicate.Predicate;
-import sql.lang.ast.predicate.LogicAndPred;
-import sql.lang.ast.predicate.BinopPred;
-import sql.lang.ast.table.*;
-import sql.lang.ast.val.NamedVal;
+import lang.sql.ast.predicate.Predicate;
+import lang.sql.ast.predicate.LogicAndPred;
+import lang.sql.ast.predicate.BinopPred;
+import lang.sql.ast.contable.*;
+import lang.sql.ast.valnode.NamedVal;
 import util.Pair;
 import util.RenameWrapper;
 

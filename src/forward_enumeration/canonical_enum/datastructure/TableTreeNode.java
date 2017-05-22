@@ -3,9 +3,9 @@ package forward_enumeration.canonical_enum.datastructure;
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.canonical_enum.components.OneStepQueryInference;
 import global.GlobalConfig;
-import sql.lang.Table;
-import sql.lang.ast.table.NamedTableNode;
-import sql.lang.ast.table.TableNode;
+import lang.table.Table;
+import lang.sql.ast.contable.NamedTableNode;
+import lang.sql.ast.contable.TableNode;
 import util.Pair;
 import util.RenameWrapper;
 

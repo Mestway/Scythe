@@ -6,8 +6,8 @@ import forward_enumeration.canonical_enum.components.EnumAggrTableNode;
 import forward_enumeration.canonical_enum.components.EnumFilterNamed;
 import forward_enumeration.canonical_enum.components.EnumJoinTableNodes;
 import forward_enumeration.canonical_enum.components.EnumProjection;
-import sql.lang.Table;
-import sql.lang.ast.table.TableNode;
+import lang.table.Table;
+import lang.sql.ast.contable.TableNode;
 import util.RenameWrapper;
 
 import java.io.IOException;

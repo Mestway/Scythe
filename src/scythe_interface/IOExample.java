@@ -1,7 +1,7 @@
 package scythe_interface;
 
 import forward_enumeration.context.EnumConfig;
-import sql.lang.Table;
+import lang.table.Table;
 import util.TableExampleParser;
 
 import java.io.IOException;

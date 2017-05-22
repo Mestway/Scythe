@@ -2,9 +2,9 @@ package forward_enumeration.table_enumerator;
 
 import forward_enumeration.context.EnumConfig;
 import org.junit.Test;
-import sql.lang.Table;
-import sql.lang.ast.table.AggregationNode;
-import sql.lang.ast.table.TableNode;
+import lang.table.Table;
+import lang.sql.ast.contable.AggregationNode;
+import lang.sql.ast.contable.TableNode;
 import util.TableExampleParser;
 
 import java.util.ArrayList;

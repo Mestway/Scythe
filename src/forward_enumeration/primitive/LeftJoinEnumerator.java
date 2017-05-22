@@ -2,13 +2,13 @@ package forward_enumeration.primitive;
 
 import forward_enumeration.context.EnumContext;
 import global.GlobalConfig;
-import sql.lang.Table;
-import sql.lang.ast.Environment;
-import sql.lang.ast.table.LeftJoinNode;
-import sql.lang.ast.table.TableNode;
-import sql.lang.val.ValType;
-import sql.lang.val.Value;
-import sql.lang.exception.SQLEvalException;
+import lang.table.Table;
+import lang.sql.ast.Environment;
+import lang.sql.ast.contable.LeftJoinNode;
+import lang.sql.ast.contable.TableNode;
+import lang.sql.dataval.ValType;
+import lang.sql.dataval.Value;
+import lang.sql.exception.SQLEvalException;
 import util.CombinationGenerator;
 import util.Pair;
 

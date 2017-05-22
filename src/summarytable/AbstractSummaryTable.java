@@ -2,9 +2,9 @@ package summarytable;
 
 import forward_enumeration.context.EnumContext;
 import backward_inference.MappingInference;
-import sql.lang.Table;
-import sql.lang.ast.predicate.EmptyPred;
-import sql.lang.ast.table.NamedTableNode;
+import lang.table.Table;
+import lang.sql.ast.predicate.EmptyPred;
+import lang.sql.ast.contable.NamedTableNode;
 import util.Pair;
 
 import java.util.*;

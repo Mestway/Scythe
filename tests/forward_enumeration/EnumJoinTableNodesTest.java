@@ -4,9 +4,9 @@ import forward_enumeration.context.EnumConfig;
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.canonical_enum.components.EnumJoinTableNodes;
 import org.junit.Test;
-import sql.lang.Table;
-import sql.lang.ast.table.AggregationNode;
-import sql.lang.ast.table.TableNode;
+import lang.table.Table;
+import lang.sql.ast.contable.AggregationNode;
+import lang.sql.ast.contable.TableNode;
 import util.DebugHelper;
 import util.TableExampleParser;
 

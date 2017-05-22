@@ -1,10 +1,12 @@
 package forward_enumeration.canonical_enum.components;
 
 import forward_enumeration.container.QueryContainer;
-import sql.lang.Table;
-import sql.lang.ast.Environment;
-import sql.lang.ast.table.*;
-import sql.lang.exception.SQLEvalException;
+import lang.table.Table;
+import lang.sql.ast.Environment;
+import lang.sql.ast.contable.RenameTableNode;
+import lang.sql.ast.contable.TableNode;
+import lang.sql.ast.contable.UnionNode;
+import lang.sql.exception.SQLEvalException;
 import util.RenameWrapper;
 
 import java.util.ArrayList;

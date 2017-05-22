@@ -1,6 +1,6 @@
 import org.junit.Test;
 import scythe_interface.IOExample;
-import sql.lang.Table;
+import lang.table.Table;
 
 import java.io.File;
 

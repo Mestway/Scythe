@@ -1,11 +1,11 @@
 package backward_inference;
 
-import sql.lang.val.Value;
-import sql.lang.Table;
-import sql.lang.TableRow;
-import sql.lang.ast.Environment;
-import sql.lang.ast.predicate.Predicate;
-import sql.lang.exception.SQLEvalException;
+import lang.sql.dataval.Value;
+import lang.table.Table;
+import lang.table.TableRow;
+import lang.sql.ast.Environment;
+import lang.sql.ast.predicate.Predicate;
+import lang.sql.exception.SQLEvalException;
 import util.CombinationGenerator;
 
 import java.util.*;

@@ -5,12 +5,12 @@ import forward_enumeration.context.EnumContext;
 import forward_enumeration.container.QueryContainer;
 import forward_enumeration.canonical_enum.datastructure.TableTreeNode;
 import global.GlobalConfig;
-import sql.lang.Table;
-import sql.lang.ast.Environment;
-import sql.lang.ast.table.JoinNode;
-import sql.lang.ast.table.NamedTableNode;
-import sql.lang.ast.table.TableNode;
-import sql.lang.exception.SQLEvalException;
+import lang.table.Table;
+import lang.sql.ast.Environment;
+import lang.sql.ast.contable.JoinNode;
+import lang.sql.ast.contable.NamedTableNode;
+import lang.sql.ast.contable.TableNode;
+import lang.sql.exception.SQLEvalException;
 
 import java.util.*;
 import java.util.stream.Collectors;

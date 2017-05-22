@@ -1,11 +1,10 @@
 package util;
 
-import sql.lang.Table;
+import lang.table.Table;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 /**
  * Created by clwang on 12/11/15.

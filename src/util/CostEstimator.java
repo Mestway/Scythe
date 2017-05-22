@@ -2,11 +2,11 @@ package util;
 
 import forward_enumeration.context.EnumContext;
 import global.GlobalConfig;
-import sql.lang.ast.predicate.*;
-import sql.lang.ast.table.TableNode;
-import sql.lang.ast.val.ConstantVal;
-import sql.lang.ast.val.NamedVal;
-import sql.lang.ast.val.ValNode;
+import lang.sql.ast.predicate.*;
+import lang.sql.ast.contable.TableNode;
+import lang.sql.ast.valnode.ConstantVal;
+import lang.sql.ast.valnode.NamedVal;
+import lang.sql.ast.valnode.ValNode;
 
 import java.util.List;
 import java.util.Map;

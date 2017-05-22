@@ -1,13 +1,13 @@
 package summarytable;
 
-import sql.lang.val.Value;
-import sql.lang.Table;
-import sql.lang.TableRow;
-import sql.lang.ast.Environment;
-import sql.lang.ast.predicate.Predicate;
+import lang.sql.dataval.Value;
+import lang.table.Table;
+import lang.table.TableRow;
+import lang.sql.ast.Environment;
+import lang.sql.ast.predicate.Predicate;
 
-import sql.lang.ast.table.TableNode;
-import sql.lang.exception.SQLEvalException;
+import lang.sql.ast.contable.TableNode;
+import lang.sql.exception.SQLEvalException;
 
 import java.util.*;
 import java.util.stream.Collectors;

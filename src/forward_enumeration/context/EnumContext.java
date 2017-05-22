@@ -1,13 +1,15 @@
 package forward_enumeration.context;
 
 import global.GlobalConfig;
-import sql.lang.ast.val.ConstantVal;
-import sql.lang.val.ValType;
-import sql.lang.val.Value;
-import sql.lang.Table;
-import sql.lang.ast.table.*;
-import sql.lang.ast.val.NamedVal;
-import sql.lang.ast.val.ValNode;
+import lang.sql.ast.contable.AggregationNode;
+import lang.sql.ast.contable.NamedTableNode;
+import lang.sql.ast.contable.TableNode;
+import lang.sql.ast.valnode.ConstantVal;
+import lang.sql.dataval.ValType;
+import lang.sql.dataval.Value;
+import lang.table.Table;
+import lang.sql.ast.valnode.NamedVal;
+import lang.sql.ast.valnode.ValNode;
 import util.DebugHelper;
 
 import java.util.*;

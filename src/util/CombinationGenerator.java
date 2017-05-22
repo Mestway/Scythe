@@ -3,6 +3,7 @@ package util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * Created by clwang on 1/7/16.
@@ -121,6 +122,34 @@ public class CombinationGenerator {
                 result.add(temp);
             }
         }
+        return result;
+    }
+
+
+    /**
+     * Given a n-dimension integer list, generate all lists following the property below:
+     * forall Result, i, Result[i] <= Bound[i]
+     * @param bound a list containing boundary of the list
+     * @return all lists with the above property
+     */
+    public static List<Vector<Integer>> genAllVectorLE(List<Integer> bound) {
+        List<Vector<Integer>> result = new ArrayList<>();
+
+        if (bound.size() == 0) {
+            result.add(new Vector<>());
+            return result;
+        }
+
+        List<Vector<Integer>> subListResult = genAllVectorLE(bound.subList(0, bound.size() - 1));
+        Integer lastVal = bound.get(bound.size() - 1);
+        for (int i = 0; i <= lastVal; i ++) {
+            for (Vector<Integer> vec : subListResult) {
+                Vector<Integer> newVec = (Vector<Integer>) vec.clone();
+                newVec.add(i);
+                result.add(newVec);
+            }
+        }
+
         return result;
     }
 
