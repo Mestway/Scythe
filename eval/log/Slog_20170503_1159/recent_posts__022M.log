@@ -1,0 +1,75 @@
+[[Synthesizing With Aggregation Functions]]
+[[Synthesis start]]
+	File: ../data/recent_posts/022M
+	Enumerator: StagedEnumerator
+[Output Example]
+@output
+c3(NumberVal) 
+74.0 
+
+[[Retry]] Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 12 [SymTable]: 14
+[NaturalJoin]: 1 [SymTable]: 15
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 12 [SymTable]: 14
+[JOIN] level 1 [SymTable]: 43
+[EnumJoinOnAggr] level 1 [SymTable]: 239
+Candidate Tree Number: 2
+[Enumeration Finished]
+[No.2]===============================
+[ASTNodeCnt] 18
+[ASCII Cnt] 199
+Select t2.max_c1
+From (Select
+        t3.c2, Max(t3.c1) As max_c1
+      From
+        input0 As t3
+      Group By
+        t3.c2) As t2 Join 
+    (Select
+        t4.c1, Max(t4.c2) As max_c2
+      From
+        input0 As t4
+      Group By
+        t4.c1) As t1
+ Where c2 = max_c2
+ And max_c1 > c1;
+@anonymous
+[T#-208#].max_c1(NumberVal) 
+74.0 
+
+[No.1]===============================
+[ASTNodeCnt] 18
+[ASCII Cnt] 199
+Select t1.max_c1
+From (Select
+        t4.c1, Max(t4.c2) As max_c2
+      From
+        input0 As t4
+      Group By
+        t4.c1) As t3 Join 
+    (Select
+        t2.c2, Max(t2.c1) As max_c1
+      From
+        input0 As t2
+      Group By
+        t2.c2) As t1
+ Where c1 < max_c1
+ And max_c2 = c2;
+@anonymous
+[T#-186#].max_c1(NumberVal) 
+74.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.677s

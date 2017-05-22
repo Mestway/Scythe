@@ -8,9 +8,8 @@ import global.Statistics;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.table.*;
-import sql.lang.datatype.*;
+import sql.lang.val.*;
 import sql.lang.exception.SQLEvalException;
-import util.Pair;
 
 import java.util.*;
 import java.util.function.Function;
@@ -27,7 +26,7 @@ public class Synthesizer {
     public static List<TableNode> Synthesize(String exampleFilePath, AbstractTableEnumerator enumerator) {
 
         // read file
-        ExampleDS exampleDS = ExampleDS.readFromFile(exampleFilePath);
+        IOExample exampleDS = IOExample.readFromFile(exampleFilePath);
         if (GlobalConfig.PRINT_LOG) {
             System.out.println("[[Synthesis start]]");
             System.out.println("\tFile: " + exampleFilePath);
@@ -211,7 +210,7 @@ public class Synthesizer {
     public static List<TableNode> SynthesizeWAggr(String exampleFilePath, AbstractTableEnumerator enumerator) {
 
         // read file
-        ExampleDS exampleDS = ExampleDS.readFromFile(exampleFilePath);
+        IOExample exampleDS = IOExample.readFromFile(exampleFilePath);
 
         if (GlobalConfig.PRINT_LOG) {
             System.out.println("[[Synthesis start]]");
@@ -294,10 +293,10 @@ public class Synthesizer {
             try {
                 Table t = tn.eval(new Environment());
                 System.out.println("[No." + (i + 1) + "]===============================");
-                if (i == 1 || i == 0 || i == 2) {
+                /*if (i == 1 || i == 0 || i == 2) {
                     System.out.println("[ASTNodeCnt] " + tn.getASTNodeCnt());
                     System.out.println("[ASCII Cnt] " + tn.printQuery().replaceAll("\\w+", " ").length());
-                }
+                }*/
                 System.out.println(tn.printQuery());
                 if (GlobalConfig.PRINT_LOG)
                     System.out.println(t);
@@ -326,7 +325,7 @@ public class Synthesizer {
     }
 
     /**
-     * Check whether any one of the candidate is a potentially correct candidate based on its filter score
+     * Check whether any one of the candidate is a potentially correct candidate based on its eval score
      * @param candidates the set of candidate queries to be checked
      * @return whether a desirable one is contained.
      */

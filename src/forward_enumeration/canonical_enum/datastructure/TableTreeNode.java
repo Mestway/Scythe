@@ -4,10 +4,10 @@ import forward_enumeration.context.EnumContext;
 import forward_enumeration.canonical_enum.components.OneStepQueryInference;
 import global.GlobalConfig;
 import sql.lang.Table;
-import sql.lang.ast.table.NamedTable;
+import sql.lang.ast.table.NamedTableNode;
 import sql.lang.ast.table.TableNode;
 import util.Pair;
-import util.RenameTNWrapper;
+import util.RenameWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ public class TableTreeNode {
     public TableTreeNode(Table node, List<TableTreeNode> children) {
         this.node = node;
         this.children = children;
-        this.childrenEncoding = children.stream().map(t -> new NamedTable(t.getTable())).collect(Collectors.toList());
+        this.childrenEncoding = children.stream().map(t -> new NamedTableNode(t.getTable())).collect(Collectors.toList());
     }
 
     public Table getTable() {
@@ -74,7 +74,7 @@ public class TableTreeNode {
 
         // this is a leaf node, the query is NamedTable(t)
         if (this.children.size() == 0) {
-            this.queries.add(new NamedTable(this.node));
+            this.queries.add(new NamedTableNode(this.node));
             return;
         }
 
@@ -125,7 +125,7 @@ public class TableTreeNode {
             for (List<TableNode> selection : horizontalSelections) {
                 List<Pair<TableNode, TableNode>> substPair = new ArrayList<>();
                 for (int i = 0; i < this.childrenEncoding.size(); i ++) {
-                    substPair.add(new Pair<>(childrenEncoding.get(i), RenameTNWrapper.tryRename(selection.get(i))));
+                    substPair.add(new Pair<>(childrenEncoding.get(i), RenameWrapper.tryRename(selection.get(i))));
                 }
                 result.add(q.tableSubst(substPair));
             }

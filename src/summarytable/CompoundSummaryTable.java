@@ -6,8 +6,8 @@ import global.GlobalConfig;
 import global.Statistics;
 import backward_inference.MappingInference;
 import sql.lang.Table;
-import sql.lang.ast.filter.EmptyFilter;
-import sql.lang.ast.filter.Filter;
+import sql.lang.ast.predicate.EmptyPred;
+import sql.lang.ast.predicate.Predicate;
 import sql.lang.ast.table.*;
 import util.*;
 
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  */
 public class CompoundSummaryTable extends AbstractSummaryTable {
 
-    public enum CompositionType { join, union }
+    public enum CompositionType { join, union };
 
     AbstractSummaryTable st1, st2;
     CompositionType compositionType;
@@ -28,8 +28,8 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
     // the set of filters that use both st1 elements and st2 elements,
     // original filters on st1 and st2 are not contained here
     Set<BVFilter> filtersLR = new HashSet<>();
-    // map bv filters to their concrete forms, the Double field represents the minimum cost of the filter
-    Map<BVFilter, Pair<Double, List<Filter>>> decodedLR = new HashMap<>();
+    // map bv filters to their concrete forms, the Double field represents the minimum cost of the eval
+    Map<BVFilter, Pair<Double, List<Predicate>>> decodedLR = new HashMap<>();
 
     private boolean primitiveFiltersEvaluated = false;
     // the representative table will not be available until primitives are evaluated
@@ -229,15 +229,15 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
         st1.encodePrimitiveFilters(ec);
         st2.encodePrimitiveFilters(ec);
 
-        // if the composition type is union, no LR filter exist
+        // if the composition type is union, no LR eval exist
         if (this.compositionType == CompositionType.union) {
-            // make sure that the empty filter is added
+            // make sure that the empty eval is added
 
-            List<Filter> filters = new ArrayList<>();
+            List<Predicate> filters = new ArrayList<>();
 
-            filters.add(new EmptyFilter());
+            filters.add(new EmptyPred());
             BVFilter bv = BVFilter.genEmptyFilter(this.getBaseTable().getContent().size());
-            decodedLR.put(bv, new Pair<>(0., Arrays.asList(new EmptyFilter())));
+            decodedLR.put(bv, new Pair<>(0., Arrays.asList(new EmptyPred())));
             filtersLR.add(bv);
 
             this.primitiveFiltersEvaluated = true;
@@ -249,24 +249,24 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
 
             JoinNode jn = new JoinNode(
                     Arrays.asList(
-                            new NamedTable(this.st1.getBaseTable()),
-                            new NamedTable(this.st2.getBaseTable())));
+                            new NamedTableNode(this.st1.getBaseTable()),
+                            new NamedTableNode(this.st2.getBaseTable())));
 
-            RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(jn);
+            RenameTableNode rt = (RenameTableNode) RenameWrapper.tryRename(jn);
             this.representativeTableNode = rt;
 
-            // the maximum filter length for filtersLR should be 1,
-            // we use a temp variable to store the original maximum filter length
+            // the maximum eval length for filtersLR should be 1,
+            // we use a temp variable to store the original maximum eval length
             int backUpMaxFilterLength = ec.getMaxFilterLength();
             ec.setMaxFilterLength(1);
-            List<Filter> filters = FilterEnumerator.enumCanonicalFilterJoinNode(rt, ec);
+            List<Predicate> filters = FilterEnumerator.enumCanonicalFilterJoinNode(rt, ec);
             ec.setMaxFilterLength(backUpMaxFilterLength);
 
-            // make sure that the empty filter is added
-            filters.add(new EmptyFilter());
-            decodedLR.put(BVFilter.genSymbolicFilterFromTableNode(rt, new EmptyFilter()), new Pair<>(0., new ArrayList<>()));
+            // make sure that the empty eval is added
+            filters.add(new EmptyPred());
+            decodedLR.put(BVFilter.genSymbolicFilterFromTableNode(rt, new EmptyPred()), new Pair<>(0., new ArrayList<>()));
 
-            for (Filter f : filters) {
+            for (Predicate f : filters) {
                 BVFilter symFilter = BVFilter.genSymbolicFilterFromTableNode(rt, f);
 
                 this.filtersLR.add(symFilter);
@@ -274,7 +274,7 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
                     decodedLR.put(symFilter, new Pair<>(99999., new ArrayList<>()));
                 }
 
-                Pair<Double, List<Filter>> entryRef = decodedLR.get(symFilter);
+                Pair<Double, List<Predicate>> entryRef = decodedLR.get(symFilter);
 
                 entryRef.getValue().add(f);
                 double cost = CostEstimator.estimateFilterCost(f,
@@ -304,7 +304,7 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
     }
 
 
-    // Promote a filter in left table to a filter for current baseTable
+    // Promote a eval in left table to a eval for current baseTable
     private BVFilter pullUpLeftFilter(BVFilter sf1) {
 
         if (this.compositionType.equals(CompositionType.join)) {
@@ -321,13 +321,13 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
             for (int j  = 0; j < this.st2.getBaseTable().getContent().size(); j ++) {
                 pulledFilter.add(j + st1.getBaseTable().getContent().size());
             }
-            // we don't need to change filter value but the row number of the filter is different now
+            // we don't need to change eval value but the row number of the eval is different now
             return new BVFilter(pulledFilter, this.getBaseTable().getContent().size());
         }
         return null;
     }
 
-    // Promote a filter in right table to a filter for current baseTable
+    // Promote a eval in right table to a eval for current baseTable
     private BVFilter pullUpRightFilter(BVFilter sf2) {
         if (this.compositionType.equals(CompositionType.join)) {
             Set<Integer> pulledFilter = new HashSet<>();
@@ -350,7 +350,7 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
         return null;
     }
 
-    public List<Filter> decodeLR(BVFilter sf) {
+    public List<Predicate> decodeLR(BVFilter sf) {
         return decodedLR.get(sf).getValue();
     }
 
@@ -407,7 +407,7 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
         }
 
         // Set<Triple<SymbolicFilter, SymbolicFilter, SymbolicFilter>> is the components that compose
-        // together will generate the symbolic filter that stored in the key, the tree elements in a triple are lrf, f1, f2,
+        // together will generate the symbolic eval that stored in the key, the tree elements in a triple are lrf, f1, f2,
         // respectively.
         // (since a key can have many different combination ways, we use a set to store it)
         Map<BVFilter, Set<Triple<BVFilter, BVFilter, BVFilter>>> resultToProcess = new HashMap<>();
@@ -458,7 +458,7 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
         Map<BVFilter, List<BVFilterCompTree>> st1Trees = st1.batchGenDecomposition(st1FiltersToDecode);
         Map<BVFilter, List<BVFilterCompTree>> st2Trees = st2.batchGenDecomposition(st2FiltersToDecode);
 
-        // The decoding result for each compound lr filter
+        // The decoding result for each compound lr eval
         List<BVFilter> usefulPrimitive = this.filtersLR.stream()
                 .filter(f -> fullyContainedAnElement(f, decomposedLR.keySet()))
                 .collect(Collectors.toList());
@@ -477,7 +477,7 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
             }
         }
 
-        BVFilter emptyFilter = BVFilter.genSymbolicFilter(this.getBaseTable(), new EmptyFilter());
+        BVFilter emptyFilter = BVFilter.genSymbolicFilter(this.getBaseTable(), new EmptyPred());
         if (decomposedLR.containsKey(emptyFilter)) {
             Set<BVFilter> s = new HashSet<>();
             s.add(emptyFilter);
@@ -549,8 +549,8 @@ public class CompoundSummaryTable extends AbstractSummaryTable {
     }
 
     @Override
-    public List<NamedTable> namedTableInvolved() {
-        List<NamedTable> result = new ArrayList<>();
+    public List<NamedTableNode> namedTableInvolved() {
+        List<NamedTableNode> result = new ArrayList<>();
         result.addAll(st1.namedTableInvolved());
         result.addAll(st2.namedTableInvolved());
         return result;

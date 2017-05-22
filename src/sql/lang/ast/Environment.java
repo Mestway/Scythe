@@ -1,6 +1,6 @@
 package sql.lang.ast;
 
-import sql.lang.datatype.Value;
+import sql.lang.val.Value;
 
 import java.util.HashMap;
 import java.util.Map;

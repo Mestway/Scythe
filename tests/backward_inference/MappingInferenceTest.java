@@ -7,9 +7,8 @@ import org.junit.Test;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.table.*;
-import sql.lang.datatype.Value;
 import util.CombinationGenerator;
-import util.TableInstanceParser;
+import util.TableExampleParser;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -41,9 +40,9 @@ public class MappingInferenceTest {
                         "|  1   |  3   |  D   |" + "\r\n" +
                         "|  1   |  2   | NULL[str] |";
 
-        Table input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
-        Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
-        Table output2 = TableInstanceParser.parseMarkDownTable("table22", outputSrc2);
+        Table input = TableExampleParser.parseMarkDownTable("table1", inputSrc);
+        Table output = TableExampleParser.parseMarkDownTable("table2", outputSrc);
+        Table output2 = TableExampleParser.parseMarkDownTable("table22", outputSrc2);
 
         System.out.println(output2.contentEquals(output));
 
@@ -73,8 +72,8 @@ public class MappingInferenceTest {
                         "|  Peter   |  456  |  3   |" + "\r\n" +
                         "|  Paul    |  456  |  7   |";
 
-        Table input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
-        Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
+        Table input = TableExampleParser.parseMarkDownTable("table1", inputSrc);
+        Table output = TableExampleParser.parseMarkDownTable("table2", outputSrc);
 
         //assert MappingInference.fastBuildMapping(input, output).equals(MappingInference.buildMapping(input, output));
 
@@ -95,8 +94,8 @@ public class MappingInferenceTest {
                         "| 5    | B    | B_data_2 | \r\n" +
                         "| 6    | C    | C_data_1 |";
 
-        input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
-        output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
+        input = TableExampleParser.parseMarkDownTable("table1", inputSrc);
+        output = TableExampleParser.parseMarkDownTable("table2", outputSrc);
 
         //assert MappingInference.fastBuildMapping(input, output).equals(MappingInference.buildMapping(input, output));
 
@@ -123,8 +122,8 @@ public class MappingInferenceTest {
                         "|  Peter   |  456  |  3   |" + "\r\n" +
                         "|  Paul    |  456  |  7   |";
 
-        Table input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
-        Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
+        Table input = TableExampleParser.parseMarkDownTable("table1", inputSrc);
+        Table output = TableExampleParser.parseMarkDownTable("table2", outputSrc);
 
         MappingInference mi = MappingInference.buildMapping(input, output);
         System.out.println("-----");
@@ -187,8 +186,8 @@ public class MappingInferenceTest {
             "|  1   |  3   |  D   |" + "\r\n" +
             "|  2   |  1   |  B   |";
 
-        Table input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
-        Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
+        Table input = TableExampleParser.parseMarkDownTable("table1", inputSrc);
+        Table output = TableExampleParser.parseMarkDownTable("table2", outputSrc);
 
         MappingInference mi = MappingInference.buildMapping(input, output);
         System.out.println("-----");
@@ -219,8 +218,8 @@ public class MappingInferenceTest {
                         "|  1   |  3   |  D   |" + "\r\n" +
                         "|  2   |  1   |  B   |";
 
-        Table input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
-        Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
+        Table input = TableExampleParser.parseMarkDownTable("table1", inputSrc);
+        Table output = TableExampleParser.parseMarkDownTable("table2", outputSrc);
 
         EnumConfig c = new EnumConfig(
                 2,
@@ -284,8 +283,8 @@ public class MappingInferenceTest {
                         "| 2    |  1     |" + "\r\n" +
                         "| 1    |  2     |";
 
-        Table input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
-        Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
+        Table input = TableExampleParser.parseMarkDownTable("table1", inputSrc);
+        Table output = TableExampleParser.parseMarkDownTable("table2", outputSrc);
 
         MappingInference mi = MappingInference.buildMapping(input, output);
         System.out.println("[Refine Mapping Done]");

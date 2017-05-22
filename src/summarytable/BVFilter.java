@@ -1,23 +1,21 @@
 package summarytable;
 
-import sql.lang.datatype.Value;
+import sql.lang.val.Value;
 import sql.lang.Table;
 import sql.lang.TableRow;
 import sql.lang.ast.Environment;
-import sql.lang.ast.filter.Filter;
+import sql.lang.ast.predicate.Predicate;
 
 import sql.lang.ast.table.TableNode;
 import sql.lang.exception.SQLEvalException;
 
 import java.util.*;
-import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 /**
  * Created by clwang on 3/26/16.
  * Bit-vector encoded filters for tables (filterRep),
- * Positive bits indicate rows are passed the filter condition.
- *
+ * Positive bits indicate rows are passed the eval condition.
  */
 public class BVFilter {
 
@@ -34,7 +32,7 @@ public class BVFilter {
         return this.filterRep;
     }
 
-    public static BVFilter genSymbolicFilterFromTableNode(TableNode tn, Filter f) {
+    public static BVFilter genSymbolicFilterFromTableNode(TableNode tn, Predicate f) {
         try {
             return genSymbolicFilter(tn.eval(new Environment()), f);
         } catch (SQLEvalException e) {
@@ -43,7 +41,7 @@ public class BVFilter {
         return null;
     }
 
-    public static BVFilter genSymbolicFilter(Table table, Filter filter) {
+    public static BVFilter genSymbolicFilter(Table table, Predicate filter) {
 
         Set<Integer> filteredRows = new HashSet<>();
 
@@ -65,9 +63,8 @@ public class BVFilter {
             Environment extEnv = new Environment().extend(rowBinding);
 
             try {
-                if (filter.filter(extEnv)) {
+                if (filter.eval(extEnv) == true)
                     filteredRows.add(r);
-                }
             } catch (SQLEvalException e) {
                 e.printStackTrace();
             }
@@ -169,7 +166,7 @@ public class BVFilter {
         return s + ": " + this.rowNumber +"]";
     }
 
-    //Determine whether the filter is built from an empty filter
+    //Determine whether the eval is built from an empty eval
     public boolean isEmptyFilter() {
         if (this.rowNumber == this.filterRep.size())
             return true;

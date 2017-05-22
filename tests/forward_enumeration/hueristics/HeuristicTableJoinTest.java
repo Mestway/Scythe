@@ -3,8 +3,8 @@ package forward_enumeration.hueristics;
 import forward_enumeration.table_enumerator.hueristics.HeuristicNatJoin;
 import org.junit.Test;
 import sql.lang.Table;
-import sql.lang.ast.table.NamedTable;
-import util.TableInstanceParser;
+import sql.lang.ast.table.NamedTableNode;
+import util.TableExampleParser;
 
 /**
  * Created by clwang on 2/20/16.
@@ -39,10 +39,10 @@ public class HeuristicTableJoinTest {
     @Test
     public void testEquiJoinTwo() throws Exception {
 
-        Table t1 = TableInstanceParser.parseMarkDownTable("table1", t1src);
-        Table t2 = TableInstanceParser.parseMarkDownTable("table2", t2src);
+        Table t1 = TableExampleParser.parseMarkDownTable("table1", t1src);
+        Table t2 = TableExampleParser.parseMarkDownTable("table2", t2src);
 
-        System.out.print(HeuristicNatJoin.heuristicEquiJoinTwo(new NamedTable(t1),
-                new NamedTable(t2)).getValue().prettyPrint(0, false));
+        System.out.print(HeuristicNatJoin.heuristicEquiJoinTwo(new NamedTableNode(t1),
+                new NamedTableNode(t2)).getValue().prettyPrint(0, false));
     }
 }

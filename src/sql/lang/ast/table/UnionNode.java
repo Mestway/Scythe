@@ -4,11 +4,11 @@ import forward_enumeration.primitive.parameterized.InstantiateEnv;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
-import sql.lang.datatype.ValType;
-import sql.lang.datatype.Value;
+import sql.lang.val.ValType;
+import sql.lang.val.Value;
 import sql.lang.exception.SQLEvalException;
-import sql.lang.trans.ValNodeSubstBinding;
-import util.IndentionManagement;
+import sql.lang.transformation.ValNodeSubstitution;
+import util.IndentationManager;
 import util.Pair;
 
 import java.util.ArrayList;
@@ -76,7 +76,7 @@ public class UnionNode extends TableNode {
         for (int i = 1; i < this.tableNodes.size(); i ++) {
             result += "\r\nUnion All \r\n " + "Select * From\r\n" + this.tableNodes.get(i).prettyPrint(1, true);
         }
-        return IndentionManagement.addIndention(result, indentLv);
+        return IndentationManager.addIndention(result, indentLv);
     }
 
     @Override
@@ -99,14 +99,14 @@ public class UnionNode extends TableNode {
     }
 
     @Override
-    public TableNode substNamedVal(ValNodeSubstBinding vnsb) {
+    public TableNode substNamedVal(ValNodeSubstitution vnsb) {
         return new UnionNode(
                 this.tableNodes.stream()
                         .map(t -> t.substNamedVal(vnsb)).collect(Collectors.toList()));    }
 
     @Override
-    public List<NamedTable> namedTableInvolved() {
-        List<NamedTable> result = new ArrayList<>();
+    public List<NamedTableNode> namedTableInvolved() {
+        List<NamedTableNode> result = new ArrayList<>();
         for (TableNode t : this.tableNodes) {
             result.addAll(t.namedTableInvolved());
         }

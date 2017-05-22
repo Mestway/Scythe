@@ -1,13 +1,13 @@
 package sql.lang.ast.table;
 
-import sql.lang.ast.filter.BinopFilter;
+import sql.lang.ast.predicate.BinopPred;
 import sql.lang.ast.val.NamedVal;
 import util.Pair;
 import org.junit.Test;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.exception.SQLEvalException;
-import util.TableInstanceParser;
+import util.TableExampleParser;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -28,11 +28,11 @@ public class AggregationNodeTest {
                     "| 7  | 5     | 13  | 24/12/2008 | borat   | 600      |" + "\r\n" +
                     "| 8  | 8     | 13  | 01/01/2009 | borat   | 700      |";
 
-    Table t1 = TableInstanceParser.parseMarkDownTable("table1", src);
+    Table t1 = TableExampleParser.parseMarkDownTable("table1", src);
 
     public void Test1() {
         AggregationNode agrNode = new AggregationNode(
-                new NamedTable(t1),
+                new NamedTableNode(t1),
                 Arrays.asList("table1.home"),
                 Arrays.asList(new Pair<>("table1.resource", AggregationNode.AggrMax))
         );
@@ -47,12 +47,12 @@ public class AggregationNodeTest {
     @Test
     public void Test2() {
         AggregationNode agrNode = new AggregationNode(
-                new NamedTable(t1),
+                new NamedTableNode(t1),
                 Arrays.asList("table1.home", "table1.player"),
                 Arrays.asList(new Pair<>("table1.resource", AggregationNode.AggrMax)));
 
         SelectNode sn = new SelectNode(t1.getQualifiedMetadata().stream().map(t -> new NamedVal(t)).collect(Collectors.toList()),
-                new NamedTable(t1), new BinopFilter(Arrays.asList(new NamedVal("table1.id"), new NamedVal("table1.broId")), BinopFilter.le));
+                new NamedTableNode(t1), new BinopPred(Arrays.asList(new NamedVal("table1.id"), new NamedVal("table1.broId")), BinopPred.le));
 
         try {
 

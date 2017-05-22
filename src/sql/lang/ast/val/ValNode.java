@@ -2,13 +2,13 @@ package sql.lang.ast.val;
 
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.primitive.parameterized.InstantiateEnv;
-import sql.lang.datatype.ValType;
-import sql.lang.datatype.Value;
+import sql.lang.val.ValType;
+import sql.lang.val.Value;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.ast.Node;
 import sql.lang.exception.SQLEvalException;
-import sql.lang.trans.ValNodeSubstBinding;
+import sql.lang.transformation.ValNodeSubstitution;
 
 import java.util.List;
 
@@ -30,5 +30,5 @@ public interface ValNode extends Node {
 
     List<Hole> getAllHoles();
     ValNode instantiate(InstantiateEnv env);
-    ValNode subst(ValNodeSubstBinding vnsb);
+    ValNode subst(ValNodeSubstitution vnsb);
 }

@@ -2,13 +2,13 @@ package forward_enumeration.table_enumerator.hueristics;
 
 import forward_enumeration.canonical_enum.components.EnumAggrTableNode;
 import forward_enumeration.context.EnumContext;
-import sql.lang.ast.filter.Filter;
-import sql.lang.ast.filter.LogicAndFilter;
-import sql.lang.ast.filter.BinopFilter;
+import sql.lang.ast.predicate.Predicate;
+import sql.lang.ast.predicate.LogicAndPred;
+import sql.lang.ast.predicate.BinopPred;
 import sql.lang.ast.table.*;
 import sql.lang.ast.val.NamedVal;
 import util.Pair;
-import util.RenameTNWrapper;
+import util.RenameWrapper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,16 +38,16 @@ public class TableNaturalJoinWithAggr {
                 naturalJoinPairs.add(new Pair<>(tb.getSchema().indexOf(s), tbLength + i));
             }
 
-            TableNode jntb = RenameTNWrapper.tryRename(new JoinNode(Arrays.asList(currentTb, agrt)));
+            TableNode jntb = RenameWrapper.tryRename(new JoinNode(Arrays.asList(currentTb, agrt)));
 
-            List<Filter> filters = new ArrayList<>();
+            List<Predicate> filters = new ArrayList<>();
             for (Pair<Integer, Integer> p : naturalJoinPairs) {
                 filters.add(
-                        new BinopFilter(
+                        new BinopPred(
                                 Arrays.asList(
                                         new NamedVal(jntb.getSchema().get(p.getKey())),
                                         new NamedVal(jntb.getSchema().get(p.getValue()))),
-                                BinopFilter.eq));
+                                BinopPred.eq));
             }
 
             List nodesToSelect = jntb.getSchema()
@@ -61,7 +61,7 @@ public class TableNaturalJoinWithAggr {
             TableNode tn = new SelectNode(
                     nodesToSelect,
                     jntb,
-                    LogicAndFilter.connectByAnd(filters)
+                    LogicAndPred.connectByAnd(filters)
             );
 
             currentTb = tn;
@@ -77,7 +77,7 @@ public class TableNaturalJoinWithAggr {
         List<TableNode> result = new ArrayList<>();
 
         List<TableNode> namedTables = ec.getTableNodes()
-                .stream().filter(t -> (t instanceof NamedTable)).collect(Collectors.toList());
+                .stream().filter(t -> (t instanceof NamedTableNode)).collect(Collectors.toList());
 
         // for each named table in the list
         for (TableNode tb : namedTables) {
@@ -94,16 +94,16 @@ public class TableNaturalJoinWithAggr {
                     naturalJoinPairs.add(new Pair<>(tb.getSchema().indexOf(s), tbLength + i));
                 }
 
-                TableNode jntb = RenameTNWrapper.tryRename(new JoinNode(Arrays.asList(tb, agrt)));
+                TableNode jntb = RenameWrapper.tryRename(new JoinNode(Arrays.asList(tb, agrt)));
 
-                List<Filter> filters = new ArrayList<>();
+                List<Predicate> filters = new ArrayList<>();
                 for (Pair<Integer, Integer> p : naturalJoinPairs) {
                     filters.add(
-                        new BinopFilter(
+                        new BinopPred(
                             Arrays.asList(
                                 new NamedVal(jntb.getSchema().get(p.getKey())),
                                 new NamedVal(jntb.getSchema().get(p.getValue()))),
-                            BinopFilter.eq));
+                            BinopPred.eq));
                 }
 
                 List nodesToSelect = jntb.getSchema()
@@ -117,7 +117,7 @@ public class TableNaturalJoinWithAggr {
                 TableNode tn = new SelectNode(
                         nodesToSelect,
                         jntb,
-                        LogicAndFilter.connectByAnd(filters)
+                        LogicAndPred.connectByAnd(filters)
                 );
                 result.add(tn);
             }

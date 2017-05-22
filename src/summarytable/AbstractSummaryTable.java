@@ -3,8 +3,8 @@ package summarytable;
 import forward_enumeration.context.EnumContext;
 import backward_inference.MappingInference;
 import sql.lang.Table;
-import sql.lang.ast.filter.EmptyFilter;
-import sql.lang.ast.table.NamedTable;
+import sql.lang.ast.predicate.EmptyPred;
+import sql.lang.ast.table.NamedTableNode;
 import util.Pair;
 
 import java.util.*;
@@ -34,10 +34,10 @@ public abstract class AbstractSummaryTable {
     abstract public int compoundFilterCount();
     abstract public List<Integer> getTableRightIndexBoundries();
     abstract public List<Table> getAllPrimitiveBaseTables();
-    // calculate the cost of a symbolic filter
+    // calculate the cost of a symbolic eval
     abstract public double estimatePrimitiveSymFilterCost(BVFilter sf);
 
-    abstract public List<NamedTable> namedTableInvolved();
+    abstract public List<NamedTableNode> namedTableInvolved();
 
     // Given a list of target symbolic filters to decompose, we will generate what are their decompositions
     // For each one, a tree will be generated and the tree represent how the symbolic is built from ground.
@@ -89,7 +89,7 @@ public abstract class AbstractSummaryTable {
                 t.getContent().add(table.getContent().get(i).duplicate());
             }
             if (t.getContent().size() > 0) {
-                // if sf is an empty filter, then the filtered table is just the original table
+                // if sf is an empty eval, then the filtered table is just the original table
                 if (! sf.isEmptyFilter())
                     t.updateName(Table.AssignNewName());
                 result.add(new Pair<>(t, sf));
@@ -113,8 +113,8 @@ public abstract class AbstractSummaryTable {
             }
         }
 
-        // this is used to make sure that the empty filter is added, even the input set is 0
-        filters.add(BVFilter.genSymbolicFilter(ast.getBaseTable(), new EmptyFilter()));
+        // this is used to make sure that the empty eval is added, even the input set is 0
+        filters.add(BVFilter.genSymbolicFilter(ast.getBaseTable(), new EmptyPred()));
         return filters;
     }
 
@@ -129,12 +129,12 @@ public abstract class AbstractSummaryTable {
                 filters.add(mergedFilter);
             }
         }
-        // this is used to make sure that the empty filter is added
-        filters.add(BVFilter.genSymbolicFilter(ast.getBaseTable(), new EmptyFilter()));
+        // this is used to make sure that the empty eval is added
+        filters.add(BVFilter.genSymbolicFilter(ast.getBaseTable(), new EmptyPred()));
         return filters;
     }
 
-    // checks whether sf contains at least one filter in the target.
+    // checks whether sf contains at least one eval in the target.
     protected boolean fullyContainedAnElement(
             BVFilter sf, Set<BVFilter> target) {
         for (BVFilter f : target) {
@@ -145,7 +145,7 @@ public abstract class AbstractSummaryTable {
         return false;
     }
 
-    // checks whether sf contains at least one filter in the target.
+    // checks whether sf contains at least one eval in the target.
     protected boolean fullyContainedARange(
             BVFilter sf, List<List<Set<Integer>>> target) {
         for (List<Set<Integer>> t : target) {

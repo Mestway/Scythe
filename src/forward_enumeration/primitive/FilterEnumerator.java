@@ -5,12 +5,12 @@ import forward_enumeration.primitive.parameterized.EnumParamTN;
 import forward_enumeration.primitive.parameterized.InstantiateEnv;
 import sql.lang.ast.table.AggregationNode;
 import sql.lang.ast.table.JoinNode;
-import sql.lang.ast.table.NamedTable;
+import sql.lang.ast.table.NamedTableNode;
 import sql.lang.ast.table.RenameTableNode;
 import sql.lang.ast.val.NamedVal;
-import sql.lang.datatype.ValType;
-import sql.lang.datatype.Value;
-import sql.lang.ast.filter.*;
+import sql.lang.val.ValType;
+import sql.lang.val.Value;
+import sql.lang.ast.predicate.*;
 import sql.lang.ast.val.ConstantVal;
 import sql.lang.ast.val.ValHole;
 import sql.lang.ast.val.ValNode;
@@ -27,34 +27,34 @@ import java.util.stream.Collectors;
 public class FilterEnumerator {
 
     /**
-     * Enumerate filter by specifying which values can appear on the LHS and which values can appear on RHS
+     * Enumerate eval by specifying which values can appear on the LHS and which values can appear on RHS
      * @param L The set of LHS values
      * @param R The set of RHS values
      * @param ec The enumeration context
      * @return filters enumerated within this context
      */
-    public static List<Filter> enumFiltersLR(List<ValNode> L,
-                                             List<ValNode> R,
-                                             EnumContext ec,
-                                             boolean allowExists) {
+    public static List<Predicate> enumFiltersLR(List<ValNode> L,
+                                                List<ValNode> R,
+                                                EnumContext ec,
+                                                boolean allowExists) {
         return enumFiltersLR(L,R,ec, allowExists, false);
     }
 
     // this is the version that allows disjuction
-    public static List<Filter> enumFiltersLR(List<ValNode> L,
-                                             List<ValNode> R,
-                                             EnumContext ec,
-                                             boolean allowExists,
-                                             boolean allowDisjunction) {
-        List<Filter> atomics = enumAtomicFiltersLR(L, R, ec, allowExists);
-        List<Filter> result = enumCompoundFilters(atomics, 1, ec.getMaxFilterLength(), allowDisjunction);
+    public static List<Predicate> enumFiltersLR(List<ValNode> L,
+                                                List<ValNode> R,
+                                                EnumContext ec,
+                                                boolean allowExists,
+                                                boolean allowDisjunction) {
+        List<Predicate> atomics = enumAtomicFiltersLR(L, R, ec, allowExists);
+        List<Predicate> result = enumCompoundFilters(atomics, 1, ec.getMaxFilterLength(), allowDisjunction);
         return result;
     }
 
-    private static List<Filter> enumCompoundFilters(List<Filter> filters,
-                                                    int filterLength,
-                                                    int maxFilterLength,
-                                                    boolean allowDisjunction) {
+    private static List<Predicate> enumCompoundFilters(List<Predicate> filters,
+                                                       int filterLength,
+                                                       int maxFilterLength,
+                                                       boolean allowDisjunction) {
 
         // do not allow holes with same id but different type exists
         filters = filters.stream().filter(f -> {
@@ -66,27 +66,27 @@ public class FilterEnumerator {
         if (filterLength == maxFilterLength)
             return filters;
 
-        List<Filter> result = new ArrayList<Filter>();
+        List<Predicate> result = new ArrayList<Predicate>();
         result.addAll(filters);
 
         for (int i = 0; i < filters.size(); i ++) {
             for (int j = i + 1; j < filters.size(); j ++) {
 
-                if (filters.get(i) instanceof ExistsFilter && filters.get(j) instanceof ExistsFilter)
+                if (filters.get(i) instanceof ExistsPred && filters.get(j) instanceof ExistsPred)
                     continue;
 
                 // Prune: if two filters have same arguments but different comparator,
                 // then they are exclusive and will not be added as LogicAndFilter
-                if (filters.get(i).containRedundantFilter(filters.get(j)))
+                if (filters.get(i).containRedundancy(filters.get(j)))
                     continue;
 
-                Filter f = new LogicAndFilter(filters.get(i), filters.get(j));
-                if (f.getFilterLength() == filterLength + 1)
+                Predicate f = new LogicAndPred(filters.get(i), filters.get(j));
+                if (f.getPredLength() == filterLength + 1)
                     result.add(f);
 
                 if (allowDisjunction) {
-                    f = new LogicOrFilter(filters.get(i), filters.get(j));
-                    if (f.getFilterLength() == filterLength + 1)
+                    f = new LogicOrPred(filters.get(i), filters.get(j));
+                    if (f.getPredLength() == filterLength + 1)
                         result.add(f);
                 }
             }
@@ -96,9 +96,9 @@ public class FilterEnumerator {
     }
 
     // TODO: optimize by ruling out same filters
-    private static List<Filter> enumAtomicFiltersLR(List<ValNode> L, List<ValNode> R, EnumContext ec, boolean allowExists) {
+    private static List<Predicate> enumAtomicFiltersLR(List<ValNode> L, List<ValNode> R, EnumContext ec, boolean allowExists) {
         // L contains all left values, and R contains all right values in a comparator
-        List<Filter> atomics = new ArrayList<>();
+        List<Predicate> atomics = new ArrayList<>();
         for (ValNode l : L) {
             for (ValNode r : R) {
                 if (l.equalsToValNode(r)) continue;
@@ -106,12 +106,12 @@ public class FilterEnumerator {
 
                 if (l.getType(ec).equals(r.getType(ec))) {
                     if (l.getType(ec).equals(ValType.DateVal) || l.getType(ec).equals(ValType.NumberVal)) {
-                        for (BiFunction<Value, Value, Boolean> func : BinopFilter.getAllFunctions()) {
-                            atomics.add(new BinopFilter(Arrays.asList(l, r), func));
+                        for (BiFunction<Value, Value, Boolean> func : BinopPred.getAllFunctions()) {
+                            atomics.add(new BinopPred(Arrays.asList(l, r), func));
                         }
                     } else {
-                        atomics.add(new BinopFilter(Arrays.asList(l, r), BinopFilter.eq));
-                        atomics.add(new BinopFilter(Arrays.asList(l, r), BinopFilter.neq));
+                        atomics.add(new BinopPred(Arrays.asList(l, r), BinopPred.eq));
+                        atomics.add(new BinopPred(Arrays.asList(l, r), BinopPred.neq));
 
                     }
                 }
@@ -132,13 +132,13 @@ public class FilterEnumerator {
                 atomics.addAll(
                         ec.getParameterizedTables().stream().map(tn -> tn.instantiate(ie))
                                 .filter(t -> t.getAllHoles().size() == 0)
-                                .map(tn -> new ExistsFilter(tn))
+                                .map(tn -> new ExistsPred(tn))
                                 .collect(Collectors.toList()));
                 // Also enumerate not exists
                 atomics.addAll(
                         ec.getParameterizedTables().stream().map(tn -> tn.instantiate(ie))
                                 .filter(t -> t.getAllHoles().size() == 0)
-                                .map(tn -> new ExistsFilter(tn, true))
+                                .map(tn -> new ExistsPred(tn, true))
                                 .collect(Collectors.toList()));
             }
         }
@@ -153,24 +153,24 @@ public class FilterEnumerator {
         for (ValNode vn : allValues) {
             if (vn instanceof ValHole)
                 continue;
-            atomics.add(new IsNullFilter(vn, true));
-            atomics.add(new IsNullFilter(vn, false));
+            atomics.add(new IsNullPred(vn, true));
+            atomics.add(new IsNullPred(vn, false));
         }
 
-        atomics.add(new EmptyFilter());
+        atomics.add(new EmptyPred());
 
         return atomics;
     }
 
     /***************************************************************************
-     * Three special filter enumeration functions:
+     * Three special eval enumeration functions:
      *    Given a tableNode of some type and then enumerate canonical filters for the node (based on the type)
      *    -- Given an renamed tablenode, enumerate canonical filters of these nodes
-     *   (this enumerator will automatically figure out which filter to be enumerated based on table type)
+     *   (this enumerator will automatically figure out which eval to be enumerated based on table type)
      *************************************************************************** */
 
     // Generated filters are used for filtering the renamed table rt
-    public static List<Filter> enumCanonicalFilterNamedTable(NamedTable tn, EnumContext ec) {
+    public static List<Predicate> enumCanonicalFilterNamedTable(NamedTableNode tn, EnumContext ec) {
         // the selection args are complete
         List<ValNode> vals = tn.getSchema().stream()
                 .map(s -> new NamedVal(s))
@@ -190,7 +190,7 @@ public class FilterEnumerator {
     }
 
     // Generated filters are used for filtering the renamed table rt
-    public static List<Filter> enumCanonicalFilterJoinNode(RenameTableNode rt, EnumContext ec) {
+    public static List<Predicate> enumCanonicalFilterJoinNode(RenameTableNode rt, EnumContext ec) {
 
         if (! (rt.getTableNode() instanceof JoinNode))
             System.out.println("[ERROR EnumCanonicalFilters 44] " + rt.getTableNode().getClass());
@@ -210,7 +210,7 @@ public class FilterEnumerator {
         }
         ec = EnumContext.extendValueBinding(ec, typeMap);
 
-        List<Filter> filters = new ArrayList<>();
+        List<Predicate> filters = new ArrayList<>();
 
         for (int i = 0; i < tableBoundaryIndex.size() - 1; i ++) {
             List<ValNode> L = new ArrayList<>();
@@ -231,7 +231,7 @@ public class FilterEnumerator {
     }
 
     // Generated filters are used for filtering the renamed table rt
-    public static List<Filter> enumCanonicalFilterAggrNode(RenameTableNode rt, EnumContext ec) {
+    public static List<Predicate> enumCanonicalFilterAggrNode(RenameTableNode rt, EnumContext ec) {
 
         if (! (rt.getTableNode() instanceof AggregationNode))
             System.out.println("[ERROR@EnumCanonicalFilters 44] " + rt.getTableNode().getClass());

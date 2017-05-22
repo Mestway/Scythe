@@ -1,10 +1,9 @@
 package sql.lang;
 
-import sql.lang.datatype.NullVal;
-import sql.lang.datatype.ValType;
+import sql.lang.val.NullVal;
+import sql.lang.val.ValType;
 import util.Pair;
-import sql.lang.datatype.Value;
-import util.DebugHelper;
+import sql.lang.val.Value;
 
 import java.util.*;
 import java.util.stream.Collectors;

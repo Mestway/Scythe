@@ -8,7 +8,7 @@ import sql.lang.Table;
 import sql.lang.ast.table.AggregationNode;
 import sql.lang.ast.table.TableNode;
 import util.DebugHelper;
-import util.TableInstanceParser;
+import util.TableExampleParser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,7 +42,7 @@ public class NaturalTableExtensionTest {
                 "| 703     |  Name7 |" + "\r\n" +
                 "| 703     |  Name8 |";
 
-        Table input = TableInstanceParser.parseMarkDownTable("table1", tableSrc2);
+        Table input = TableExampleParser.parseMarkDownTable("table1", tableSrc2);
 
         EnumConfig c = new EnumConfig(3, new ArrayList<>(),
                 Arrays.asList(AggregationNode.AggrCount), 1, Arrays.asList(input));

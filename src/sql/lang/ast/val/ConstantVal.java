@@ -2,13 +2,13 @@ package sql.lang.ast.val;
 
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.primitive.parameterized.InstantiateEnv;
-import sql.lang.datatype.ValType;
-import sql.lang.datatype.Value;
+import sql.lang.val.ValType;
+import sql.lang.val.Value;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
-import sql.lang.trans.ValNodeSubstBinding;
-import util.IndentionManagement;
+import sql.lang.transformation.ValNodeSubstitution;
+import util.IndentationManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,7 @@ public class ConstantVal implements ValNode {
         String formatVal = val.toString();
         if (val.getValType().equals(ValType.StringVal))
             formatVal = "'" + formatVal + "'";
-        return IndentionManagement.addIndention(formatVal, lv);
+        return IndentationManager.addIndention(formatVal, lv);
     }
 
     @Override
@@ -77,7 +77,7 @@ public class ConstantVal implements ValNode {
     }
 
     @Override
-    public ValNode subst(ValNodeSubstBinding vnsb) {
+    public ValNode subst(ValNodeSubstitution vnsb) {
         return this;
     }
 }

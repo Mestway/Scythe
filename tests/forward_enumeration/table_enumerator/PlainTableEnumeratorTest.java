@@ -5,7 +5,7 @@ import org.junit.Test;
 import sql.lang.Table;
 import sql.lang.ast.table.AggregationNode;
 import sql.lang.ast.table.TableNode;
-import util.TableInstanceParser;
+import util.TableExampleParser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,8 +29,8 @@ public class PlainTableEnumeratorTest {
                     "|         1 | Joe      | 5            |\r\n " +
                     "|         2 | Sally    | 3            |";
 
-    Table input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
-    Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
+    Table input = TableExampleParser.parseMarkDownTable("table1", inputSrc);
+    Table output = TableExampleParser.parseMarkDownTable("table2", outputSrc);
 
     EnumConfig c = new EnumConfig(
             1,

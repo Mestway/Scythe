@@ -1,22 +1,15 @@
 package forward_enumeration.canonical_enum.components;
 
 import forward_enumeration.container.QueryContainer;
-import forward_enumeration.context.EnumContext;
-import forward_enumeration.primitive.FilterEnumerator;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
-import sql.lang.ast.filter.Filter;
 import sql.lang.ast.table.*;
-import sql.lang.ast.val.NamedVal;
-import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
-import util.RenameTNWrapper;
+import util.RenameWrapper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.BiFunction;
-import java.util.stream.Collectors;
 
 /**
  * Created by clwang on 10/22/16.
@@ -46,7 +39,7 @@ public class EnumUnion {
                 if (! Table.schemaMatch(t1, t2))
                     continue;
 
-                RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(jn);
+                RenameTableNode rt = (RenameTableNode) RenameWrapper.tryRename(jn);
                 result.add(rt);
             }
         }
@@ -79,7 +72,7 @@ public class EnumUnion {
                     continue;
 
 
-                RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(jn);
+                RenameTableNode rt = (RenameTableNode) RenameWrapper.tryRename(jn);
                 // add the query without join
                 qc.insertQuery(rt);
 

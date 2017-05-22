@@ -6,12 +6,12 @@ import sql.lang.ast.Environment;
 import sql.lang.ast.table.AggregationNode;
 import sql.lang.ast.table.RenameTableNode;
 import sql.lang.ast.table.TableNode;
-import sql.lang.datatype.ValType;
-import sql.lang.datatype.Value;
+import sql.lang.val.ValType;
+import sql.lang.val.Value;
 import sql.lang.exception.SQLEvalException;
 import util.CombinationGenerator;
 import util.Pair;
-import util.RenameTNWrapper;
+import util.RenameWrapper;
 
 import java.util.*;
 import java.util.function.Function;
@@ -73,7 +73,7 @@ public class AggrEnumerator {
 
             // Part I: add the group by query without aggregation into the group by fields
             if (! groupByFields.isEmpty()) {
-                RenameTableNode query = (RenameTableNode) RenameTNWrapper
+                RenameTableNode query = (RenameTableNode) RenameWrapper
                         .tryRename(new AggregationNode(tn,
                                 groupByFields, new ArrayList<Pair<String, Function<List<Value>, Value>>>()));
 
@@ -112,15 +112,15 @@ public class AggrEnumerator {
             if (! simplify) {
                 // allow comparison between different rows, since only one table is added to the result
                 // the table with allowing multiple table
-                aggrNodes.add((RenameTableNode) RenameTNWrapper.tryRename(new AggregationNode(tn, groupByFields, targetFuncList)));
+                aggrNodes.add((RenameTableNode) RenameWrapper.tryRename(new AggregationNode(tn, groupByFields, targetFuncList)));
             } else {
                 // each aggregation function will create only one field
                 for (Pair<String, Function<List<Value>, Value>> p : targetFuncList) {
                     // we perform a renaming to ensure consistency for other parts
-                    RenameTableNode rt = (RenameTableNode) RenameTNWrapper
+                    RenameTableNode rt = (RenameTableNode) RenameWrapper
                             .tryRename(new AggregationNode(tn, groupByFields, Arrays.asList(p)));
 
-                    // add the aggregation query without filter in to the result
+                    // add the aggregation query without eval in to the result
                     aggrNodes.add(rt);
                 }
             }

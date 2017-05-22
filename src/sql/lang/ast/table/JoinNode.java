@@ -1,15 +1,15 @@
 package sql.lang.ast.table;
 
 import forward_enumeration.primitive.parameterized.InstantiateEnv;
-import sql.lang.datatype.Value;
+import sql.lang.val.Value;
 import util.Pair;
-import sql.lang.datatype.ValType;
+import sql.lang.val.ValType;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
-import sql.lang.trans.ValNodeSubstBinding;
-import util.IndentionManagement;
+import sql.lang.transformation.ValNodeSubstitution;
+import util.IndentationManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +88,7 @@ public class JoinNode extends TableNode {
         if (asSubquery) {
             result = "(" + result + ")";
         }
-        return IndentionManagement.addIndention(result, indentLv);
+        return IndentationManager.addIndention(result, indentLv);
     }
 
     @Override
@@ -111,14 +111,14 @@ public class JoinNode extends TableNode {
     }
 
     @Override
-    public TableNode substNamedVal(ValNodeSubstBinding vnsb) {
+    public TableNode substNamedVal(ValNodeSubstitution vnsb) {
         return new JoinNode(
                 this.tableNodes.stream()
                         .map(t -> t.substNamedVal(vnsb)).collect(Collectors.toList()));    }
 
     @Override
-    public List<NamedTable> namedTableInvolved() {
-        List<NamedTable> result = new ArrayList<>();
+    public List<NamedTableNode> namedTableInvolved() {
+        List<NamedTableNode> result = new ArrayList<>();
         for (TableNode t : this.tableNodes) {
             result.addAll(t.namedTableInvolved());
         }
@@ -167,8 +167,8 @@ public class JoinNode extends TableNode {
     public List<Table> getNamedTableInJoin() {
         List<Table> result = new ArrayList<>();
         for (TableNode tn : this.tableNodes) {
-            if (tn instanceof NamedTable)
-                result.add(((NamedTable) tn).getTable());
+            if (tn instanceof NamedTableNode)
+                result.add(((NamedTableNode) tn).getTable());
             if (tn instanceof JoinNode) {
                 result.addAll(((JoinNode) tn).getNamedTableInJoin());
             }

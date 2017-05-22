@@ -2,8 +2,8 @@ package sql.lang;
 
 import backward_inference.CellToCellMap;
 import backward_inference.MappingInference;
-import sql.lang.datatype.ValType;
-import sql.lang.datatype.Value;
+import sql.lang.val.ValType;
+import sql.lang.val.Value;
 import sql.lang.exception.SQLEvalException;
 import util.CombinationGenerator;
 import util.Pair;

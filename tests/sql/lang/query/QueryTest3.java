@@ -4,14 +4,14 @@ import util.Pair;
 import org.junit.Test;
 import sql.lang.SQLQuery;
 import sql.lang.Table;
-import sql.lang.ast.filter.BinopFilter;
+import sql.lang.ast.predicate.BinopPred;
 import sql.lang.ast.table.AggregationNode;
-import sql.lang.ast.table.NamedTable;
+import sql.lang.ast.table.NamedTableNode;
 import sql.lang.ast.table.RenameTableNode;
 import sql.lang.ast.table.SelectNode;
 import sql.lang.ast.val.NamedVal;
-import sql.lang.ast.val.TableAsVal;
-import util.TableInstanceParser;
+import sql.lang.ast.val.TableNodeAsVal;
+import util.TableExampleParser;
 
 import java.util.Arrays;
 
@@ -39,8 +39,8 @@ public class QueryTest3 {
             "| Mac Taylor    | New York    |" +
             "| Sarah Connor  | Los Angeles |";
 
-    Table input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
-    Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
+    Table input = TableExampleParser.parseMarkDownTable("table1", inputSrc);
+    Table output = TableExampleParser.parseMarkDownTable("table2", outputSrc);
 
     @Test
     public void test() {
@@ -51,32 +51,32 @@ public class QueryTest3 {
                     new NamedVal("table1.Name"),
                     new NamedVal("table1.City")
                 ),
-                new NamedTable(input),
-                new BinopFilter(
+                new NamedTableNode(input),
+                new BinopPred(
                     Arrays.asList(
                         new NamedVal("table1.Birthyear"),
-                        new TableAsVal(
+                        new TableNodeAsVal(
                             new SelectNode(
                                 Arrays.asList(new NamedVal("tt.maxBirth")),
                                 new RenameTableNode(
                                     "tt",
                                     Arrays.asList("City", "maxBirth"),
                                     new AggregationNode(
-                                        new RenameTableNode("t2", new NamedTable(input).getSchema(),
-                                                new NamedTable(input)),
+                                        new RenameTableNode("t2", new NamedTableNode(input).getSchema(),
+                                                new NamedTableNode(input)),
                                         Arrays.asList("t2.City"),
                                         Arrays.asList(new Pair<>("t2.Birthyear", AggregationNode.AggrMin))
                                     )
                                 ),
-                                new BinopFilter(
+                                new BinopPred(
                                     Arrays.asList(new NamedVal("tt.City"), new NamedVal("table1.City")),
-                                    BinopFilter.eq
+                                    BinopPred.eq
                                 )
                             ),
                             "mmax"
                         )
                     ),
-                    BinopFilter.eq
+                    BinopPred.eq
                 )
             )
         );

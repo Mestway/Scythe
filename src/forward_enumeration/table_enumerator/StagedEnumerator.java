@@ -9,13 +9,13 @@ import backward_inference.MappingInference;
 import global.Statistics;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
-import sql.lang.ast.filter.EmptyFilter;
+import sql.lang.ast.predicate.EmptyPred;
 import sql.lang.ast.table.*;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.exception.SQLEvalException;
 import summarytable.*;
 import util.Pair;
-import util.RenameTNWrapper;
+import util.RenameWrapper;
 
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -231,7 +231,7 @@ public class StagedEnumerator extends AbstractTableEnumerator {
 
         public static List<AbstractSummaryTable> enumFromInputTables(EnumContext ec, boolean allowDisj) {
             return ec.getInputs()
-                    .stream().map(t -> new PrimitiveSummaryTable(t, new NamedTable(t), allowDisj))
+                    .stream().map(t -> new PrimitiveSummaryTable(t, new NamedTableNode(t), allowDisj))
                     .collect(Collectors.toList());
         }
 
@@ -247,7 +247,7 @@ public class StagedEnumerator extends AbstractTableEnumerator {
                 for (Pair<Table, BVFilter> p : instantiated) {
                     // enumerating aggregation queries,
                     // the core of each query is built atop a filtering clause on an input table
-                    ec.setTableNodes(Arrays.asList(new NamedTable(p.getKey())));
+                    ec.setTableNodes(Arrays.asList(new NamedTableNode(p.getKey())));
                     List<TableNode> ans = AggrEnumerator.enumAggrFromEC(ec, GlobalConfig.SIMPLIFY_AGGR_FIELD);
                     for (TableNode an : ans) {
                         try {
@@ -312,7 +312,7 @@ public class StagedEnumerator extends AbstractTableEnumerator {
                 List<AbstractSummaryTable> rightStList,
                 EnumContext ec) {
 
-            // we don't filter left table since it will be filtered
+            // we don't eval left table since it will be filtered
             //      when inferring filtering on the primitive summary table
             List<Pair<Table, Pair<AbstractSummaryTable, BVFilter>>> leftTablePairs = leftStList.stream()
                     .map(st -> new Pair<>(st.getBaseTable(),
@@ -331,9 +331,9 @@ public class StagedEnumerator extends AbstractTableEnumerator {
 
                     List<TableNode> tns =
                             LeftJoinEnumerator
-                                .enumLeftJoin(new NamedTable(p1.getKey()), new NamedTable(p2.getKey()))
+                                .enumLeftJoin(new NamedTableNode(p1.getKey()), new NamedTableNode(p2.getKey()))
                                 .stream()
-                                .map(RenameTNWrapper::tryRename).collect(Collectors.toList());
+                                .map(RenameWrapper::tryRename).collect(Collectors.toList());
 
                     List<Pair<AbstractSummaryTable, BVFilter>> subTree = new ArrayList<>();
                     subTree.add(p1.getValue());
@@ -504,7 +504,7 @@ public class StagedEnumerator extends AbstractTableEnumerator {
                                     .stream()
                                     .map(x -> new NamedVal(tn.getSchema().get(x))).collect(Collectors.toList()),
                             tn,
-                            new EmptyFilter());
+                            new EmptyPred());
                 }
 
                 decodeResult.add(stn);

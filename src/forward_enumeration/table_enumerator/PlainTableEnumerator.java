@@ -6,7 +6,7 @@ import forward_enumeration.canonical_enum.components.EnumJoinTableNodes;
 import forward_enumeration.primitive.parameterized.EnumSelectTableNode;
 import forward_enumeration.container.QueryContainer;
 import sql.lang.ast.table.TableNode;
-import util.RenameTNWrapper;
+import util.RenameWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,14 +24,14 @@ public class PlainTableEnumerator extends AbstractTableEnumerator {
         QueryContainer qc = QueryContainer.initWithInputTables(ec.getInputs(), QueryContainer.ContainerType.None);
         List<TableNode> agrTables = EnumAggrTableNode.enumAggrNodeWFilter(ec);
         qc.insertQueries(agrTables.stream()
-                        .map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
+                        .map(tn -> RenameWrapper.tryRename(tn)).collect(Collectors.toList()));
 
         for (int i = 0; i < depth; i ++) {
             ec.setTableNodes(qc.getRepresentativeTableNodes());
             List<TableNode> tableNodes = EnumJoinTableNodes.enumJoinWithoutFilter(ec).stream()
                     .map(jn -> (TableNode) jn).collect(Collectors.toList());
             qc.insertQueries(tableNodes.stream()
-                        .map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
+                        .map(tn -> RenameWrapper.tryRename(tn)).collect(Collectors.toList()));
             tableNodes = EnumSelectTableNode.enumSelectNode(ec);
             qc.insertQueries(tableNodes);
             result.addAll(tableNodes);

@@ -6,7 +6,7 @@ import summarytable.BVFilter;
 import util.Pair;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
-import sql.lang.ast.table.NamedTable;
+import sql.lang.ast.table.NamedTableNode;
 import sql.lang.ast.table.TableNode;
 
 import java.util.*;
@@ -37,7 +37,7 @@ public class QueryContainer {
     public static QueryContainer initWithInputTables(List<Table> input, ContainerType containerType) {
         QueryContainer qc = new QueryContainer();
         qc.containerType = containerType;
-        qc.insertQueries(input.stream().map(t -> new NamedTable(t)).collect(Collectors.toList()));
+        qc.insertQueries(input.stream().map(t -> new NamedTableNode(t)).collect(Collectors.toList()));
         return qc;
     }
 
@@ -65,7 +65,7 @@ public class QueryContainer {
     }
 
     public List<TableNode> getRepresentativeTableNodes() {
-        return this.mirror.entrySet().stream().map(p -> new NamedTable(p.getValue())).collect(Collectors.toList());
+        return this.mirror.entrySet().stream().map(p -> new NamedTableNode(p.getValue())).collect(Collectors.toList());
     }
 
     public Table getRepresentative(Table t) {

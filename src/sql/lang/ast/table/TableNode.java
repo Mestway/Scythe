@@ -1,16 +1,16 @@
 package sql.lang.ast.table;
 
 import forward_enumeration.primitive.parameterized.InstantiateEnv;
-import sql.lang.datatype.Value;
+import sql.lang.val.Value;
 import util.Pair;
-import sql.lang.datatype.ValType;
+import sql.lang.val.ValType;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.ast.Node;
 import sql.lang.exception.SQLEvalException;
-import sql.lang.trans.ValNodeSubstBinding;
-import util.RenameTNWrapper;
+import sql.lang.transformation.ValNodeSubstitution;
+import util.RenameWrapper;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -41,7 +41,7 @@ public abstract class TableNode implements Node {
     public abstract String prettyPrint(int indentLv, boolean asSubquery);
     public String printQuery() {
         String queryStr = this.simplifyAST().prettyPrint(0, false) + ";";
-        Set<String> generatedNames = RenameTNWrapper.findAllGeneratedNames(queryStr)
+        Set<String> generatedNames = RenameWrapper.findAllGeneratedNames(queryStr)
                 .stream().collect(Collectors.toSet());
 
         int i = 1;
@@ -60,8 +60,8 @@ public abstract class TableNode implements Node {
     public abstract List<Hole> getAllHoles();
 
     public abstract TableNode instantiate(InstantiateEnv env);
-    public abstract TableNode substNamedVal(ValNodeSubstBinding vnsb);
-    public abstract List<NamedTable> namedTableInvolved();
+    public abstract TableNode substNamedVal(ValNodeSubstitution vnsb);
+    public abstract List<NamedTableNode> namedTableInvolved();
 
     // substitute a named table based on the cores
     public abstract TableNode tableSubst(List<Pair<TableNode,TableNode>> pairs);

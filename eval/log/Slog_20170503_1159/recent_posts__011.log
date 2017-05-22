@@ -1,0 +1,34 @@
+[[Synthesizing With Aggregation Functions]]
+[[Synthesis start]]
+	File: ../data/recent_posts/011
+	Enumerator: StagedEnumerator
+[Output Example]
+@output
+ID(NumberVal) | ManufacturerModel(StringVal) 
+123.0 | Dell, Latitude E5450 
+456.0 | HP, ProBook 450 G3 
+
+[[Retry]] Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 12 [SymTable]: 13
+Candidate Tree Number: 1
+[Enumeration Finished]
+[No.1]===============================
+[ASTNodeCnt] 7
+[ASCII Cnt] 61
+(Select
+    t2.ID, Concat(t2.Value) As concat_Value
+  From
+    input As t2
+  Group By
+    t2.ID) As t1;
+@anonymous
+[T#-15#].ID(NumberVal) | [T#-15#].concat_Value(StringVal) 
+123.0 | Dell, Latitude E5450 
+456.0 | HP, ProBook 450 G3 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.073s

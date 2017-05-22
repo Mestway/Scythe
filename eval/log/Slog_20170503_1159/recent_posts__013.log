@@ -1,0 +1,125 @@
+[[Synthesizing With Aggregation Functions]]
+[[Synthesis start]]
+	File: ../data/recent_posts/013
+	Enumerator: StagedEnumerator
+[Output Example]
+@output
+ID(NumberVal) | Name(StringVal) | RootName(StringVal) | RootId(NumberVal) 
+1.0 | Company1 | Company3 | 3.0 
+3.0 | Company3 | Company2 | 2.0 
+
+[[Retry]] Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 1 [SymTable]: 3
+[NaturalJoin]: 1 [SymTable]: 4
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 1 [SymTable]: 3
+[JOIN] level 1 [SymTable]: 10
+[EnumJoinOnAggr] level 1 [SymTable]: 19
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+  [Try decomposition] 
+@output
+ID(NumberVal) | Name(StringVal) | RootName(StringVal) | RootId(NumberVal) 
+1.0 | Company1 | Company3 | 3.0 
+
+@output
+ID(NumberVal) | Name(StringVal) | RootName(StringVal) | RootId(NumberVal) 
+3.0 | Company3 | Company2 | 2.0 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 1 [SymTable]: 3
+[NaturalJoin]: 1 [SymTable]: 4
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 1 [SymTable]: 3
+[JOIN] level 1 [SymTable]: 10
+[EnumJoinOnAggr] level 1 [SymTable]: 19
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+  [Try decomposition] 
+@output
+ID(NumberVal) | Name(StringVal) | RootName(StringVal) | RootId(NumberVal) 
+3.0 | Company3 | Company2 | 2.0 
+
+@output
+ID(NumberVal) | Name(StringVal) | RootName(StringVal) | RootId(NumberVal) 
+1.0 | Company1 | Company3 | 3.0 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 1 [SymTable]: 3
+[NaturalJoin]: 1 [SymTable]: 4
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 1 [SymTable]: 3
+[JOIN] level 1 [SymTable]: 10
+[EnumJoinOnAggr] level 1 [SymTable]: 19
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 1 [SymTable]: 3
+[NaturalJoin]: 1 [SymTable]: 4
+Candidate Tree Number: 1
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 2
+[Aggregation]: 1 [SymTable]: 3
+[NaturalJoin]: 1 [SymTable]: 4
+Candidate Tree Number: 1
+[Enumeration Finished]
+[No.1]===============================
+[ASTNodeCnt] 23
+[ASCII Cnt] 217
+Select t3.ID, t3.Name, t4.Company_group, t4.ID As ID2
+From (Select input.ID, input.Name
+      From input Join 
+          input0 As t1
+       Where ID = ID1
+       And Name <> Company_group) As t3 Join 
+    (Select t2.ID As ID1, t2.Company_group, input.ID
+      From input Join 
+          input0 As t2
+       Where ID <> ID1
+       And Name = Company_group) As t4
+ Where ID = ID1;
+@anonymous
+[T#-47#].ID(NumberVal) | [T#-47#].Name(StringVal) | [T#-47#].Company_group(StringVal) | [T#-47#].ID2(NumberVal) 
+1.0 | Company1 | Company3 | 3.0 
+3.0 | Company3 | Company2 | 2.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.206s

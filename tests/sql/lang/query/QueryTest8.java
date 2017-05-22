@@ -2,15 +2,15 @@ package sql.lang.query;
 
 import util.Pair;
 import org.junit.Test;
-import sql.lang.datatype.StringVal;
+import sql.lang.val.StringVal;
 import sql.lang.SQLQuery;
 import sql.lang.Table;
-import sql.lang.ast.filter.LogicAndFilter;
-import sql.lang.ast.filter.BinopFilter;
+import sql.lang.ast.predicate.LogicAndPred;
+import sql.lang.ast.predicate.BinopPred;
 import sql.lang.ast.table.*;
 import sql.lang.ast.val.ConstantVal;
 import sql.lang.ast.val.NamedVal;
-import util.TableInstanceParser;
+import util.TableExampleParser;
 
 import java.util.Arrays;
 
@@ -37,8 +37,8 @@ public class QueryTest8 {
         "| 6  | 1743 | yyy | 999   | message |" + "\r\n" +
         "| 7  | 14   | bbb | 899   | message |";
 
-    Table input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
-    Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
+    Table input = TableExampleParser.parseMarkDownTable("table1", inputSrc);
+    Table output = TableExampleParser.parseMarkDownTable("table2", outputSrc);
 
     @Test
     public void test() {
@@ -55,13 +55,13 @@ public class QueryTest8 {
                         new NamedVal("table1.timestamp"),
                         new NamedVal("table1.message")
                     ),
-                    new NamedTable(input),
-                    new BinopFilter(
+                    new NamedTableNode(input),
+                    new BinopPred(
                         Arrays.asList(
                             new NamedVal("table1.from_user"),
                             new ConstantVal(new StringVal("me"))
                         ),
-                        BinopFilter.neq
+                        BinopPred.neq
                     )
                 )
             );
@@ -95,20 +95,20 @@ public class QueryTest8 {
                             t1
                         )
                     ),
-                    new LogicAndFilter(
-                        new BinopFilter(
+                    new LogicAndPred(
+                        new BinopPred(
                             Arrays.asList(
                                 new NamedVal("t1.conversation_id"),
                                 new NamedVal("t2.conversation_id")
                             ),
-                            BinopFilter.eq
+                            BinopPred.eq
                         ),
-                        new BinopFilter(
+                        new BinopPred(
                             Arrays.asList(
                                 new NamedVal("t1.timestamp"),
                                 new NamedVal("t2.max_timestamp")
                             ),
-                            BinopFilter.eq
+                            BinopPred.eq
                         )
                     )
                 )
@@ -143,20 +143,20 @@ public class QueryTest8 {
                             t3
                         )
                     ),
-                    new LogicAndFilter(
-                        new BinopFilter(
+                    new LogicAndPred(
+                        new BinopPred(
                             Arrays.asList(
                                 new NamedVal("t3.conversation_id"),
                                 new NamedVal("t4.conversation_id")
                             ),
-                            BinopFilter.eq
+                            BinopPred.eq
                         ),
-                        new BinopFilter(
+                        new BinopPred(
                             Arrays.asList(
                                 new NamedVal("t3.message_id"),
                                 new NamedVal("t4.max_message_id")
                             ),
-                            BinopFilter.eq
+                            BinopPred.eq
                         )
                     )
                 )

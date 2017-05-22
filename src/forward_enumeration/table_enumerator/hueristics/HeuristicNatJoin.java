@@ -1,19 +1,19 @@
 package forward_enumeration.table_enumerator.hueristics;
 
 import sql.lang.ast.val.ValNode;
-import sql.lang.datatype.Value;
+import sql.lang.val.Value;
 import sql.lang.Table;
 import sql.lang.TableRow;
 import sql.lang.ast.Environment;
-import sql.lang.ast.filter.BinopFilter;
+import sql.lang.ast.predicate.BinopPred;
 import sql.lang.ast.table.JoinNode;
-import sql.lang.ast.table.NamedTable;
+import sql.lang.ast.table.NamedTableNode;
 import sql.lang.ast.table.SelectNode;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.exception.SQLEvalException;
 import util.Pair;
-import util.RenameTNWrapper;
+import util.RenameWrapper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,11 +32,11 @@ public class HeuristicNatJoin {
             return new ArrayList<>();
 
         List<TableNode> currentJoinedTable = new ArrayList<>();
-        currentJoinedTable.add(new NamedTable(tables.get(0)));
+        currentJoinedTable.add(new NamedTableNode(tables.get(0)));
         for (int i = 1; i < tables.size(); i ++) {
             List<TableNode> nextJoinTables = new ArrayList<>();
             for (TableNode tn : currentJoinedTable) {
-                List<TableNode> temp = tryNaturalJoinTable(tn, new NamedTable(tables.get(i)));
+                List<TableNode> temp = tryNaturalJoinTable(tn, new NamedTableNode(tables.get(i)));
                 nextJoinTables.addAll(temp);
             }
             currentJoinedTable = nextJoinTables;
@@ -83,12 +83,12 @@ public class HeuristicNatJoin {
                                     .map(m -> new NamedVal(m))
                                     .collect(Collectors.toList()),
                             joinNode,
-                            new BinopFilter(
+                            new BinopPred(
                                     Arrays.asList(
                                             new NamedVal(joinNode.getSchema().get(i)),
                                             new NamedVal(joinNode.getSchema().get(t1.getSchema().size() + j))
                                     ),
-                                    BinopFilter.eq));
+                                    BinopPred.eq));
 
                     resultTableNode.add(tn);
                 }
@@ -137,7 +137,7 @@ public class HeuristicNatJoin {
                         }
                     }
                     if ((score * 10) / ((vals1.size() + vals2.size()) /2) > 2) {
-                        TableNode renamedJoin = RenameTNWrapper
+                        TableNode renamedJoin = RenameWrapper
                                 .tryRename(new JoinNode(Arrays.asList(tn1, tn2)));
 
                         List<ValNode> newSchema = new ArrayList<>();
@@ -149,17 +149,17 @@ public class HeuristicNatJoin {
                         return new Pair<Boolean, TableNode>(true,new SelectNode(
                                 newSchema,
                                 renamedJoin,
-                                new BinopFilter(
+                                new BinopPred(
                                         Arrays.asList(
                                                 new NamedVal(renamedJoin.getSchema().get(i)),
                                                 new NamedVal(renamedJoin.getSchema().get(t1.getSchema().size() + j))),
-                                        BinopFilter.eq
+                                        BinopPred.eq
                                 )));
                     }
                 }
             }
         }
-        return new Pair<>(false, RenameTNWrapper.tryRename(new JoinNode(Arrays.asList(tn1, tn2))));
+        return new Pair<>(false, RenameWrapper.tryRename(new JoinNode(Arrays.asList(tn1, tn2))));
     }
 
     private static boolean columnNameSimilar(String cn1, String cn2) {

@@ -4,19 +4,18 @@ import forward_enumeration.context.EnumContext;
 import forward_enumeration.primitive.FilterEnumerator;
 import global.GlobalConfig;
 import global.Statistics;
-import backward_inference.CellToCellMap;
 import backward_inference.MappingInference;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
-import sql.lang.ast.filter.EmptyFilter;
-import sql.lang.ast.filter.Filter;
+import sql.lang.ast.predicate.EmptyPred;
+import sql.lang.ast.predicate.Predicate;
 import sql.lang.ast.table.*;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.exception.SQLEvalException;
-import sql.lang.trans.ValNodeSubstBinding;
+import sql.lang.transformation.ValNodeSubstitution;
 import util.CostEstimator;
 import util.Pair;
-import util.RenameTNWrapper;
+import util.RenameWrapper;
 
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -42,8 +41,8 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
     private List<Pair<AbstractSummaryTable, BVFilter>> baseTableSrcChildren = new ArrayList<>();
 
     private Set<BVFilter> primitiveBVFilters = new HashSet<>();
-    // mapping each symbolic filter to its cost and concrete form
-    private Map<BVFilter, Pair<Double, List<Filter>>> decodedPrimitives = new HashMap<>();
+    // mapping each symbolic eval to its cost and concrete form
+    private Map<BVFilter, Pair<Double, List<Predicate>>> decodedPrimitives = new HashMap<>();
 
     // after primitiveFiltersEvaluated is done, the list will be ready to be used.
     private List<BVFilter> primitives = new ArrayList<>();
@@ -81,8 +80,8 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
     @Override
     public Table getBaseTable() { return this.baseTable; }
     public Class getBaseTableSrcNatureClass() {
-        if (this.baseTableSrc instanceof NamedTable) {
-            return NamedTable.class;
+        if (this.baseTableSrc instanceof NamedTableNode) {
+            return NamedTableNode.class;
         } else {
             return ((RenameTableNode) baseTableSrc).getTableNode().getClass();
         }
@@ -94,7 +93,7 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
 
     public void setSymbolicFilters(Set<BVFilter> filters) {
         this.primitiveBVFilters = filters;
-        this.primitiveBVFilters.add(BVFilter.genSymbolicFilter(this.baseTable, new EmptyFilter()));
+        this.primitiveBVFilters.add(BVFilter.genSymbolicFilter(this.baseTable, new EmptyPred()));
     }
 
     @Override
@@ -152,7 +151,7 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
             }
         }
 
-        BVFilter emptyFilter = BVFilter.genSymbolicFilter(this.getBaseTable(), new EmptyFilter());
+        BVFilter emptyFilter = BVFilter.genSymbolicFilter(this.getBaseTable(), new EmptyPred());
 
         if (rowMappingRangeInstances
                 .stream()
@@ -166,7 +165,7 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
         Statistics.back_filter_bogus_cases ++;
     }
 
-    // give the maximum filter length,
+    // give the maximum eval length,
     // instantiate all possible tables that can be generated from filtering the current table.
     // Currently the max-length is fixed as 2
     @Override
@@ -187,27 +186,27 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
         return result;
     }
 
-    public List<Filter> decodePrimitiveFilter(BVFilter sf, TableNode tn) {
+    public List<Predicate> decodePrimitiveFilter(BVFilter sf, TableNode tn) {
         // the table can either be a named table or a renamed table from an aggregation table.
 
         try {
             if (sf.getFilterRep().size() == tn.eval(new Environment()).getContent().size())
-                return Arrays.asList(new EmptyFilter());
+                return Arrays.asList(new EmptyPred());
         } catch (SQLEvalException e) {
             e.printStackTrace();
         }
 
-        ValNodeSubstBinding vnsb = new ValNodeSubstBinding();
+        ValNodeSubstitution vnsb = new ValNodeSubstitution();
         for (int i = 0; i < this.baseTableSrc.getSchema().size(); i++) {
             vnsb.addBinding(new Pair<>(new NamedVal(this.baseTableSrc.getSchema().get(i)), new NamedVal(tn.getSchema().get(i))));
         }
-        List<Filter> result = decodedPrimitives.get(sf).getValue();
+        List<Predicate> result = decodedPrimitives.get(sf).getValue();
 
         Statistics.sumPrimitiveFilterCount += result.size();
         Statistics.cntPrimitiveFilterCount ++;
         Statistics.maxPrimitiveFilterCount = Statistics.maxPrimitiveFilterCount > result.size() ?  Statistics.maxPrimitiveFilterCount : result.size();
 
-        List<Filter> postProcessed = new ArrayList<>();
+        List<Predicate> postProcessed = new ArrayList<>();
         // TODO: if we want to limit the number, use the commented one
         //        for (int i = 0; i < 5; i ++) {
         for (int i = 0; i < result.size(); i ++) {
@@ -228,11 +227,11 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
 
         if (this.primitiveFiltersEvaluated) return;
 
-        // only simple filter will be encoded into bit-vectors
+        // only simple eval will be encoded into bit-vectors
         int backUpMaxFilterLength = ec.getMaxFilterLength();
         ec.setMaxFilterLength(1);
 
-        List<Filter> filters;
+        List<Predicate> filters;
 
         if (this.baseTableSrc instanceof RenameTableNode
                 && ((RenameTableNode) this.baseTableSrc).getTableNode() instanceof AggregationNode) {
@@ -240,26 +239,26 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
             filters = FilterEnumerator.enumCanonicalFilterAggrNode((RenameTableNode) this.baseTableSrc, ec);
         } else {
             // this is for left-join nodes and named tables
-            filters = FilterEnumerator.enumCanonicalFilterNamedTable(new NamedTable(this.baseTable), ec);
+            filters = FilterEnumerator.enumCanonicalFilterNamedTable(new NamedTableNode(this.baseTable), ec);
         }
         ec.setMaxFilterLength(backUpMaxFilterLength);
 
-        // the empty filter is added here to make it complete.
-        filters.add(new EmptyFilter());
+        // the empty eval is added here to make it complete.
+        filters.add(new EmptyPred());
 
         // add possible decoding result for each symbolic table
-        decodedPrimitives.put(BVFilter.genSymbolicFilter(baseTable, new EmptyFilter()), new Pair<>(0., new ArrayList<>()));
+        decodedPrimitives.put(BVFilter.genSymbolicFilter(baseTable, new EmptyPred()), new Pair<>(0., new ArrayList<>()));
 
         Set<BVFilter> symfilters = new HashSet<>();
-        for (Filter f : filters) {
+        for (Predicate f : filters) {
             BVFilter symFilter = BVFilter.genSymbolicFilter(baseTable, f);
             symfilters.add(symFilter);
             if (! decodedPrimitives.containsKey(symFilter)) {
                 decodedPrimitives.put(symFilter, new Pair<>(99999., new ArrayList<>()));
             }
 
-            // retrieve the entry of the filter and update it
-            Pair<Double, List<Filter>> entryRef = decodedPrimitives.get(symFilter);
+            // retrieve the entry of the eval and update it
+            Pair<Double, List<Predicate>> entryRef = decodedPrimitives.get(symFilter);
 
             entryRef.getValue().add(f);
             double cost = CostEstimator.estimateFilterCost(f,
@@ -271,10 +270,10 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
             }
         }
 
-        for (Map.Entry<BVFilter, Pair<Double, List<Filter>>> e : decodedPrimitives.entrySet()) {
-            e.getValue().getValue().sort(new Comparator<Filter>() {
+        for (Map.Entry<BVFilter, Pair<Double, List<Predicate>>> e : decodedPrimitives.entrySet()) {
+            e.getValue().getValue().sort(new Comparator<Predicate>() {
                 @Override
-                public int compare(Filter o1, Filter o2) {
+                public int compare(Predicate o1, Predicate o2) {
                     double cost1 = CostEstimator.estimateFilterCost(o1,
                             TableNode.nameToOriginMap(baseTableSrc.getSchema(), baseTableSrc.originalColumnName()));
                     double cost2 = CostEstimator.estimateFilterCost(o2,
@@ -372,7 +371,7 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
             }
         }
 
-        BVFilter emptyFilter = BVFilter.genSymbolicFilter(this.baseTable, new EmptyFilter());
+        BVFilter emptyFilter = BVFilter.genSymbolicFilter(this.baseTable, new EmptyPred());
         if (targets.contains(emptyFilter)) {
             Set<BVFilter> s = new HashSet<>();
             s.add(emptyFilter);
@@ -413,7 +412,7 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
 
     public List<TableNode> genTableSrc(EnumContext ec) {
 
-        if (this.baseTableSrc instanceof NamedTable) {
+        if (this.baseTableSrc instanceof NamedTableNode) {
             // In this case, the table is a table from input example
             return Arrays.asList(this.baseTableSrc);
         } else if (this.baseTableSrc instanceof RenameTableNode
@@ -433,7 +432,7 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
 
             List<TableNode> tableSrcs = new ArrayList<>();
             for(TableNode core : cores) {
-                tableSrcs.add(RenameTNWrapper.tryRename(((AggregationNode)((RenameTableNode)baseTableSrc).getTableNode()).substCoreTable(core)));
+                tableSrcs.add(RenameWrapper.tryRename(((AggregationNode)((RenameTableNode)baseTableSrc).getTableNode()).substCoreTable(core)));
             }
 
             return tableSrcs;
@@ -462,7 +461,7 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
 
             for (TableNode lCore : leftCores) {
                 for (TableNode rCore : rightCores) {
-                    TableNode rt = RenameTNWrapper.tryRename(
+                    TableNode rt = RenameWrapper.tryRename(
                             ((LeftJoinNode) ((RenameTableNode) this.baseTableSrc).getTableNode())
                                     .substCoreTable(lCore, rCore));
                     tableSrcs.add(rt);
@@ -482,7 +481,7 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
     }
 
     @Override
-    public List<NamedTable> namedTableInvolved() {
+    public List<NamedTableNode> namedTableInvolved() {
         return this.baseTableSrc.namedTableInvolved();
     }
 

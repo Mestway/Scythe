@@ -3,10 +3,9 @@ package forward_enumeration.context;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import sql.lang.Table;
-import sql.lang.datatype.Value;
+import sql.lang.val.Value;
 import sql.lang.ast.table.AggregationNode;
 import sql.lang.ast.val.ConstantVal;
-import sql.lang.ast.val.ValNode;
 
 import java.util.ArrayList;
 import java.util.Collection;

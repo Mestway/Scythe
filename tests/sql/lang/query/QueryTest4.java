@@ -4,11 +4,11 @@ import util.Pair;
 import org.junit.Test;
 import sql.lang.SQLQuery;
 import sql.lang.Table;
-import sql.lang.ast.filter.BinopFilter;
+import sql.lang.ast.predicate.BinopPred;
 import sql.lang.ast.table.*;
 import sql.lang.ast.val.NamedVal;
-import sql.lang.ast.val.TableAsVal;
-import util.TableInstanceParser;
+import sql.lang.ast.val.TableNodeAsVal;
+import util.TableExampleParser;
 
 import java.util.Arrays;
 
@@ -33,8 +33,8 @@ public class QueryTest4 {
             "|         1 | Joe      | 5            |\r\n " +
             "|         2 | Sally    | 3            |";
 
-    Table input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
-    Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
+    Table input = TableExampleParser.parseMarkDownTable("table1", inputSrc);
+    Table output = TableExampleParser.parseMarkDownTable("table2", outputSrc);
 
     @Test
     public void test() {
@@ -45,11 +45,11 @@ public class QueryTest4 {
                     new NamedVal("table1.customer"),
                     new NamedVal("table1.total")
                 ),
-                new NamedTable(input),
-                new BinopFilter(
+                new NamedTableNode(input),
+                new BinopPred(
                     Arrays.asList(
                         new NamedVal("table1.total"),
-                        new TableAsVal(
+                        new TableNodeAsVal(
                             new SelectNode(
                                 Arrays.asList(new NamedVal("tt.total")),
                                 new RenameTableNode(
@@ -58,24 +58,24 @@ public class QueryTest4 {
                                     new AggregationNode(
                                         new RenameTableNode(
                                             "t1",
-                                            new NamedTable(input).getSchema(),
-                                            new NamedTable(input)
+                                            new NamedTableNode(input).getSchema(),
+                                            new NamedTableNode(input)
                                         ),
                                         Arrays.asList("t1.customer"),
                                         Arrays.asList(new Pair<>("t1.total", AggregationNode.AggrMax))
                                     )
                                 ),
-                                new BinopFilter(
+                                new BinopPred(
                                     Arrays.asList(
                                         new NamedVal("table1.customer"),
                                         new NamedVal("tt.customer")
                                     ),
-                                    BinopFilter.eq
+                                    BinopPred.eq
                                 )
                             ), "v"
                         )
                     ),
-                    BinopFilter.eq
+                    BinopPred.eq
                 )
             )
         );

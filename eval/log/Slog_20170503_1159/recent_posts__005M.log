@@ -1,0 +1,181 @@
+[[Synthesizing With Aggregation Functions]]
+[[Synthesis start]]
+	File: ../data/recent_posts/005M
+	Enumerator: StagedEnumerator
+[Output Example]
+@output
+g_event_id(NumberVal) | prim_cid(NumberVal) | event_id(NumberVal) | event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[[Retry]] Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 11 [SymTable]: 12
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 11 [SymTable]: 12
+[JOIN] level 1 [SymTable]: 25
+[EnumJoinOnAggr] level 1 [SymTable]: 169
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 11 [SymTable]: 12
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 11 [SymTable]: 12
+[JOIN] level 1 [SymTable]: 25
+[EnumJoinOnAggr] level 1 [SymTable]: 169
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Depth: 2
+@output
+g_event_id(NumberVal) | prim_cid(NumberVal) | event_id(NumberVal) | event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 11 [SymTable]: 12
+[JOIN] level 1 [SymTable]: 25
+[JOIN] level 2 [SymTable]: 37
+stored cnt / visited compound cnt 134 / 1000(4160) = 0.134
+stored cnt / visited compound cnt 134 / 1000(4160) = 0.134
+Candidate Tree Number: 122
+[Enumeration Finished]
+[No.5]===============================
+Select t2.g_event_id, t2.prim_cid1, t2.event_id, t2.event_time
+From (Select t3.prim_cid, t5.g_event_id, t5.prim_cid As prim_cid1, t5.event_id, t5.event_time
+    From (Select
+            t4.prim_cid, From
+            (Select *
+               From
+                input
+               Where input.event_id <= 17.0) As t4
+          Group By
+            t4.prim_cid) As t3 Join 
+        (Select *
+           From
+            input
+           Where input.event_id = 17.0) As t5
+     Where prim_cid > prim_cid1) Join 
+    (Select *
+       From
+        input
+       Where input.event_id = 17.0) As t1
+ Where prim_cid1 > prim_cid2;
+@anonymous
+[T#-4783#].g_event_id(NumberVal) | [T#-4783#].prim_cid1(NumberVal) | [T#-4783#].event_id(NumberVal) | [T#-4783#].event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[No.4]===============================
+Select t2.g_event_id, t2.prim_cid, t2.event_id1, t2.event_time
+From (Select t3.event_id, t5.g_event_id, t5.prim_cid, t5.event_id As event_id1, t5.event_time
+    From (Select
+            t4.event_id, From
+            input As t4
+          Group By
+            t4.event_id) As t3 Join 
+        (Select *
+           From
+            input
+           Where input.event_id = 17.0) As t5
+     Where event_id < event_id1) Join 
+    input As t1
+ Where prim_cid = prim_cid1
+ And event_id > event_id2;
+@anonymous
+[T#-163#].g_event_id(NumberVal) | [T#-163#].prim_cid(NumberVal) | [T#-163#].event_id1(NumberVal) | [T#-163#].event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[No.3]===============================
+[ASTNodeCnt] 19
+[ASCII Cnt] 315
+Select t2.g_event_id As g_event_id2, t2.prim_cid As prim_cid2, t1.event_id, t2.event_time As event_time2
+From (Select input.g_event_id, input.prim_cid, input.event_id, input.event_time, t3.g_event_id As g_event_id1, t3.prim_cid As prim_cid1, t3.event_id As event_id1, t3.event_time As event_time1
+    From ((Select *
+         From
+          input
+         Where input.event_id = 17.0) Join 
+        (Select *
+           From
+            input
+           Where input.event_id = 17.0) As t3)) As t1 Join 
+    (Select *
+       From
+        input
+       Where input.event_id = 17.0) As t2
+ Where g_event_id > g_event_id2
+ And g_event_id1 < g_event_id2;
+@anonymous
+[T#-463#].g_event_id2(NumberVal) | [T#-463#].prim_cid2(NumberVal) | [T#-463#].event_id(NumberVal) | [T#-463#].event_time2(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[No.2]===============================
+[ASTNodeCnt] 21
+[ASCII Cnt] 326
+Select t2.g_event_id, t2.prim_cid, t2.event_id1, t2.event_time
+From (Select t3.event_id, t5.g_event_id, t5.prim_cid, t5.event_id As event_id1, t5.event_time
+    From ((Select
+            t4.event_id, From
+            (Select *
+               From
+                input
+               Where input.event_id < 17.0) As t4
+          Group By
+            t4.event_id) As t3 Join 
+        (Select *
+           From
+            input
+           Where input.event_id = 17.0) As t5)) As t2 Join 
+    input As t1
+ Where prim_cid = prim_cid1
+ And event_id > event_id2;
+@anonymous
+[T#-4383#].g_event_id(NumberVal) | [T#-4383#].prim_cid(NumberVal) | [T#-4383#].event_id1(NumberVal) | [T#-4383#].event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[No.1]===============================
+[ASTNodeCnt] 22
+[ASCII Cnt] 300
+Select t3.g_event_id, t3.prim_cid1, t3.event_id, t3.event_time
+From (Select t1.prim_cid, t5.g_event_id, t5.prim_cid As prim_cid1, t5.event_id, t5.event_time
+    From (Select
+            t4.prim_cid, From
+            input As t4
+          Group By
+            t4.prim_cid) As t1 Join 
+        (Select *
+           From
+            input
+           Where input.event_id = 17.0) As t5
+     Where prim_cid > prim_cid1) Join 
+    (Select *
+       From
+        input
+       Where input.event_id = 17.0) As t2
+ Where prim_cid1 > prim_cid2;
+@anonymous
+[T#-3343#].g_event_id(NumberVal) | [T#-3343#].prim_cid1(NumberVal) | [T#-3343#].event_id(NumberVal) | [T#-3343#].event_time(DateVal) 
+5.0 | 222.0 | 17.0 | Fri Oct 21 16:01:02 PDT 2016 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 322.501s

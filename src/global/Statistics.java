@@ -61,10 +61,10 @@ public class Statistics {
 
 
     public static void printAllStatistics() {
-        System.out.println("[avg reduction rate: syn filter / bit vector] " + sum_red_syn_to_bv / red_syn_to_bv_case_cnt);
-        System.out.println("[avg reduction rate: compound filter / bit vector] " + sum_red_compound_to_bv / compound_case_cnt);
-        System.out.println("[avg compound filter count] " + sum_compound_filter_cnt / compound_case_cnt);
-        System.out.println("[max compound filter count] " + max_compound_filter_cnt);
+        System.out.println("[avg reduction rate: syn eval / bit vector] " + sum_red_syn_to_bv / red_syn_to_bv_case_cnt);
+        System.out.println("[avg reduction rate: compound eval / bit vector] " + sum_red_compound_to_bv / compound_case_cnt);
+        System.out.println("[avg compound eval count] " + sum_compound_filter_cnt / compound_case_cnt);
+        System.out.println("[max compound eval count] " + max_compound_filter_cnt);
 
         System.out.println("[avg PrimitiveFilterCount] " + sumPrimitiveFilterCount / cntPrimitiveFilterCount);
         System.out.println("[max PrimitiveFilterCount] " + maxPrimitiveFilterCount);
@@ -80,16 +80,16 @@ public class Statistics {
             return;
 
         System.out.println();
-        System.out.println("[avg last stage compound filter count] "
+        System.out.println("[avg last stage compound eval count] "
                 + sum_last_stage_compound_filter_cnt / last_stage_compound_case_cnt);
-        System.out.println("[avg visited filter count] "
+        System.out.println("[avg visited eval count] "
                 + sum_last_stage_visited_filter_cnt / last_stage_compound_case_cnt);
-        System.out.println("[avg back inferred filter count] "
+        System.out.println("[avg back inferred eval count] "
                 + sum_back_infer_filter_size / last_stage_compound_case_cnt);
-        System.out.println("[max back inferred filter count] "
+        System.out.println("[max back inferred eval count] "
                 + max_back_infer_filter_size);
         System.out.println("[avg reduction visited compound filters rate (as using back inference)] "
                 + sum_last_stage_red_visited_compound / last_stage_compound_case_cnt );
-        System.out.println("[avg back inferred filter bogus rate] " + sum_back_filter_bogus_rate / back_filter_bogus_cases);
+        System.out.println("[avg back inferred eval bogus rate] " + sum_back_filter_bogus_rate / back_filter_bogus_cases);
     }
 }

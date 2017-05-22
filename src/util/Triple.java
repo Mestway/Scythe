@@ -9,15 +9,12 @@ public class Triple<U,V, W> {
     public Triple(U u, V v, W w) {
         triple = new Pair(u, new Pair(v, w));
     }
-
     public U first() {
         return triple.getKey();
     }
-
     public V second() {
         return triple.getValue().getKey();
     }
-
     public W third() {
         return triple.getValue().getValue();
     }

@@ -1,17 +1,16 @@
 package sql.lang.ast.table;
 
 import forward_enumeration.primitive.parameterized.InstantiateEnv;
-import sql.lang.ast.val.NamedVal;
 import util.Pair;
-import sql.lang.datatype.*;
+import sql.lang.val.*;
 import sql.lang.Table;
 import sql.lang.TableRow;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
-import sql.lang.trans.ValNodeSubstBinding;
-import util.IndentionManagement;
-import util.RenameTNWrapper;
+import sql.lang.transformation.ValNodeSubstitution;
+import util.IndentationManager;
+import util.RenameWrapper;
 
 import java.sql.Time;
 import java.util.*;
@@ -198,7 +197,7 @@ public class AggregationNode extends TableNode {
 
     @Override
     public String prettyPrint(int indentLv, boolean asSubquery) {
-        String result = "Select\r\n" + IndentionManagement.basicIndent();
+        String result = "Select\r\n" + IndentationManager.basicIndent();
         for (String f : groupbyColumns) {
             result += f + ", ";
         }
@@ -220,7 +219,7 @@ public class AggregationNode extends TableNode {
             boolean flag = true;
             for (String f : groupbyColumns) {
                 if (flag == true) {
-                    result += IndentionManagement.basicIndent() + f;
+                    result += IndentationManager.basicIndent() + f;
                     flag = false;
                 }
                 else result += ", " + f;
@@ -228,7 +227,7 @@ public class AggregationNode extends TableNode {
         }
         if (asSubquery)
             result = "(" + result + ")";
-        return IndentionManagement.addIndention(result, indentLv);
+        return IndentationManager.addIndention(result, indentLv);
     }
 
     @Override
@@ -532,12 +531,12 @@ public class AggregationNode extends TableNode {
     }
 
     @Override
-    public TableNode substNamedVal(ValNodeSubstBinding vnsb) {
+    public TableNode substNamedVal(ValNodeSubstitution vnsb) {
         return new AggregationNode(tn.substNamedVal(vnsb), this.groupbyColumns, this.targets);
     }
 
     @Override
-    public List<NamedTable> namedTableInvolved() {
+    public List<NamedTableNode> namedTableInvolved() {
         return tn.namedTableInvolved();
     }
 
@@ -575,7 +574,7 @@ public class AggregationNode extends TableNode {
 
     public TableNode substCoreTable(TableNode newCore) {
 
-        TableNode rt = RenameTNWrapper.tryRename(newCore);
+        TableNode rt = RenameWrapper.tryRename(newCore);
 
         // rename the filters so that the filters refer to the elements in the new table.
         List<Pair<String, String>> stringNameBinding = new ArrayList<>();

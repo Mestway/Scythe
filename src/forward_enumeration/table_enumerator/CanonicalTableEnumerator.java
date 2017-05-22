@@ -6,13 +6,9 @@ import forward_enumeration.canonical_enum.components.EnumAggrTableNode;
 import forward_enumeration.canonical_enum.components.EnumFilterNamed;
 import forward_enumeration.canonical_enum.components.EnumJoinTableNodes;
 import forward_enumeration.canonical_enum.components.EnumProjection;
-import sql.lang.Table;
-import sql.lang.ast.table.NamedTable;
 import sql.lang.ast.table.TableNode;
-import util.RenameTNWrapper;
+import util.RenameWrapper;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,19 +36,19 @@ public class CanonicalTableEnumerator extends AbstractTableEnumerator {
 
         ec.setTableNodes(qc.getRepresentativeTableNodes());
         List<TableNode> tns = EnumFilterNamed.enumFilterNamed(ec, true)
-                .stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList());
+                .stream().map(tn -> RenameWrapper.tryRename(tn)).collect(Collectors.toList());
         qc.insertQueries(tns);
 
         ec.setTableNodes(qc.getRepresentativeTableNodes());
         tns = EnumAggrTableNode.enumAggrNodeWFilter(ec)
-                .stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList());
+                .stream().map(tn -> RenameWrapper.tryRename(tn)).collect(Collectors.toList());
         qc.insertQueries(tns);
 
         for (int i = 1; i <= depth; i ++) {
             ec.setTableNodes(qc.getRepresentativeTableNodes());
             tns = EnumJoinTableNodes.enumJoinWithFilter(ec);
             System.out.println("There are " + tns.size() + " tables in the enumeration of this level(" + i + ")");
-            qc.insertQueries(tns.stream().map(tn -> RenameTNWrapper.tryRename(tn)).collect(Collectors.toList()));
+            qc.insertQueries(tns.stream().map(tn -> RenameWrapper.tryRename(tn)).collect(Collectors.toList()));
         }
 
         return qc;

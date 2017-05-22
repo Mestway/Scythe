@@ -1,0 +1,47 @@
+
+//http://stackoverflow.com/questions/44009575/sql-sum-distinct-and-top-4
+
+#input
+
+
+|ID|NAME|
+|-------|
+|1 |John|
+|2 |Joe |
+|3 |Paul|
+
+
+#input
+
+
+|ID  |Score |
+|-----------|
+|1   | 25   |
+|1   | 34   |
+|2   | 54   |
+|1   | 23   |
+|3   | 43   |
+|2   | 14   |
+|1   | 23   |
+|3   | 43   |
+|3   | 14   |
+|3   | 43   |
+|2   | 14   |
+|1   | 23   |
+|3   | 43   |
+|3   | 14   |
+
+#output
+
+| c1 | c2 |
+|---------|
+|Paul| 86 |
+|Joe | 68 |
+|John| 57 |
+
+
+#constraint
+{
+	"constants": ["2"],
+	"aggregation_functions": ["max", "sum"]
+}

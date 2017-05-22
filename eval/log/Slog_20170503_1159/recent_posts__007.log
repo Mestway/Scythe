@@ -1,0 +1,143 @@
+[[Synthesizing With Aggregation Functions]]
+[[Synthesis start]]
+	File: ../data/recent_posts/007
+	Enumerator: StagedEnumerator
+[Output Example]
+@output
+Employee(StringVal) | FromDate(DateVal) | ToDate(DateVal) | Code(NumberVal) 
+Employee | Sun May 01 00:00:00 PDT 2016 | Thu Jun 30 00:00:00 PDT 2016 | 2.0 
+Employee | Tue Mar 01 00:00:00 PST 2016 | Sat Apr 30 00:00:00 PDT 2016 | 3.0 
+Employee | Fri Jan 01 00:00:00 PST 2016 | Sun Jul 31 00:00:00 PDT 2016 | 4.0 
+
+[[Retry]] Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 25 [SymTable]: 26
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 25 [SymTable]: 26
+[JOIN] level 1 [SymTable]: 53
+[EnumJoinOnAggr] level 1 [SymTable]: 729
+Candidate Tree Number: 6
+[Enumeration Finished]
+[No.5]===============================
+Select t2.Employee, t2.min_FromDate, t4.max_ToDate, t2.Code As Code1
+From (Select
+        t3.Code, Max(t3.ToDate) As max_ToDate
+      From
+        input As t3
+      Group By
+        t3.Code) As t4 Join 
+    (Select
+        t1.Employee, t1.Code, Min(t1.FromDate) As min_FromDate
+      From
+        input As t1
+      Group By
+        t1.Employee, t1.Code) As t2
+ Where Code = Code1;
+@anonymous
+[T#-332#].Employee(StringVal) | [T#-332#].min_FromDate(DateVal) | [T#-332#].max_ToDate(DateVal) | [T#-332#].Code1(NumberVal) 
+Employee | Fri Jan 01 00:00:00 PST 2016 | Sun Jul 31 00:00:00 PDT 2016 | 4.0 
+Employee | Sun May 01 00:00:00 PDT 2016 | Thu Jun 30 00:00:00 PDT 2016 | 2.0 
+Employee | Tue Mar 01 00:00:00 PST 2016 | Sat Apr 30 00:00:00 PDT 2016 | 3.0 
+
+[No.4]===============================
+Select t3.Employee, t3.min_FromDate, t4.max_ToDate, t4.Code As Code1
+From (Select
+        t2.Employee, t2.Code, Min(t2.FromDate) As min_FromDate
+      From
+        input As t2
+      Group By
+        t2.Employee, t2.Code) As t3 Join 
+    (Select
+        t1.Code, Max(t1.ToDate) As max_ToDate
+      From
+        input As t1
+      Group By
+        t1.Code) As t4
+ Where Code = Code1;
+@anonymous
+[T#-277#].Employee(StringVal) | [T#-277#].min_FromDate(DateVal) | [T#-277#].max_ToDate(DateVal) | [T#-277#].Code1(NumberVal) 
+Employee | Fri Jan 01 00:00:00 PST 2016 | Sun Jul 31 00:00:00 PDT 2016 | 4.0 
+Employee | Sun May 01 00:00:00 PDT 2016 | Thu Jun 30 00:00:00 PDT 2016 | 2.0 
+Employee | Tue Mar 01 00:00:00 PST 2016 | Sat Apr 30 00:00:00 PDT 2016 | 3.0 
+
+[No.3]===============================
+[ASTNodeCnt] 18
+[ASCII Cnt] 218
+Select t2.Employee, t3.min_FromDate, t2.max_ToDate, t2.Code As Code1
+From (Select
+        t4.Code, Min(t4.FromDate) As min_FromDate
+      From
+        input As t4
+      Group By
+        t4.Code) As t3 Join 
+    (Select
+        t1.Employee, t1.Code, Max(t1.ToDate) As max_ToDate
+      From
+        input As t1
+      Group By
+        t1.Employee, t1.Code) As t2
+ Where Code = Code1;
+@anonymous
+[T#-222#].Employee(StringVal) | [T#-222#].min_FromDate(DateVal) | [T#-222#].max_ToDate(DateVal) | [T#-222#].Code1(NumberVal) 
+Employee | Fri Jan 01 00:00:00 PST 2016 | Sun Jul 31 00:00:00 PDT 2016 | 4.0 
+Employee | Sun May 01 00:00:00 PDT 2016 | Thu Jun 30 00:00:00 PDT 2016 | 2.0 
+Employee | Tue Mar 01 00:00:00 PST 2016 | Sat Apr 30 00:00:00 PDT 2016 | 3.0 
+
+[No.2]===============================
+[ASTNodeCnt] 18
+[ASCII Cnt] 232
+Select t4.Employee As Employee1, t4.min_FromDate, t3.max_ToDate, t4.Code As Code1
+From (Select
+        t2.Employee, t2.Code, Max(t2.ToDate) As max_ToDate
+      From
+        input As t2
+      Group By
+        t2.Employee, t2.Code) As t3 Join 
+    (Select
+        t1.Employee, t1.Code, Min(t1.FromDate) As min_FromDate
+      From
+        input As t1
+      Group By
+        t1.Employee, t1.Code) As t4
+ Where Code = Code1;
+@anonymous
+[T#-145#].Employee1(StringVal) | [T#-145#].min_FromDate(DateVal) | [T#-145#].max_ToDate(DateVal) | [T#-145#].Code1(NumberVal) 
+Employee | Fri Jan 01 00:00:00 PST 2016 | Sun Jul 31 00:00:00 PDT 2016 | 4.0 
+Employee | Sun May 01 00:00:00 PDT 2016 | Thu Jun 30 00:00:00 PDT 2016 | 2.0 
+Employee | Tue Mar 01 00:00:00 PST 2016 | Sat Apr 30 00:00:00 PDT 2016 | 3.0 
+
+[No.1]===============================
+[ASTNodeCnt] 18
+[ASCII Cnt] 218
+Select t3.Employee, t2.min_FromDate, t3.max_ToDate, t2.Code As Code1
+From (Select
+        t4.Employee, t4.Code, Max(t4.ToDate) As max_ToDate
+      From
+        input As t4
+      Group By
+        t4.Employee, t4.Code) As t3 Join 
+    (Select
+        t1.Code, Min(t1.FromDate) As min_FromDate
+      From
+        input As t1
+      Group By
+        t1.Code) As t2
+ Where Code = Code1;
+@anonymous
+[T#-112#].Employee(StringVal) | [T#-112#].min_FromDate(DateVal) | [T#-112#].max_ToDate(DateVal) | [T#-112#].Code1(NumberVal) 
+Employee | Fri Jan 01 00:00:00 PST 2016 | Sun Jul 31 00:00:00 PDT 2016 | 4.0 
+Employee | Sun May 01 00:00:00 PDT 2016 | Thu Jun 30 00:00:00 PDT 2016 | 2.0 
+Employee | Tue Mar 01 00:00:00 PST 2016 | Sat Apr 30 00:00:00 PDT 2016 | 3.0 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.462s

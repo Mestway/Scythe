@@ -22,7 +22,7 @@ public class OneStepQueryInference {
         if (inputTableNodes.size() == 1) {
 
             // if input table nodes contains only one table,
-            // then it can either be obtained from select(filter), aggregation or projection
+            // then it can either be obtained from select(eval), aggregation or projection
 
             List<TableNode> tns = new ArrayList<>();
             ec.setTableNodes(inputTableNodes);

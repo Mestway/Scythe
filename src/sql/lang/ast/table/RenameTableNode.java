@@ -1,24 +1,22 @@
 package sql.lang.ast.table;
 
 import forward_enumeration.primitive.parameterized.InstantiateEnv;
-import sql.lang.ast.filter.EmptyFilter;
-import sql.lang.ast.filter.Filter;
+import sql.lang.ast.predicate.EmptyPred;
+import sql.lang.ast.predicate.Predicate;
 import sql.lang.ast.val.NamedVal;
-import sql.lang.ast.val.ValNode;
-import sql.lang.datatype.Value;
+import sql.lang.val.Value;
 import util.Pair;
-import sql.lang.datatype.ValType;
+import sql.lang.val.ValType;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
-import sql.lang.trans.ValNodeSubstBinding;
-import util.IndentionManagement;
+import sql.lang.transformation.ValNodeSubstitution;
+import util.IndentationManager;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -67,6 +65,9 @@ public class RenameTableNode extends TableNode {
     @Override
     public String prettyPrint(int indentLv, boolean asSubquery) {
 
+        if (! asSubquery)
+            return tableNode.prettyPrint(0, asSubquery);
+
         String selectString = "";
         boolean allOldName = true;
         for (int i = 0; i < tableNode.getSchema().size(); i ++) {
@@ -92,17 +93,17 @@ public class RenameTableNode extends TableNode {
         }
 
         if (asSubquery)
-            return IndentionManagement.addIndention(result, indentLv);
-        return IndentionManagement.addIndention(result, indentLv);
+            return IndentationManager.addIndention(result, indentLv);
+        return IndentationManager.addIndention(result, indentLv);
     }
 
-    public String ppWithPartialIndex(List<String> columnSubset, int indentLv, Filter predicate, boolean asSubquery) {
+    public String ppWithPartialIndex(List<String> columnSubset, int indentLv, Predicate predicate, boolean asSubquery) {
 
         String selectString = "";
 
         Map<String, String> schemaToBetterOnes = new HashMap<>();
 
-        ValNodeSubstBinding vnsb = new ValNodeSubstBinding();
+        ValNodeSubstitution vnsb = new ValNodeSubstitution();
 
         for (int i = 0; i < tableNode.getSchema().size(); i ++) {
 
@@ -131,13 +132,13 @@ public class RenameTableNode extends TableNode {
         String result = "Select " + selectString + "\r\n" + "From "
                     + tableNode.prettyPrint(1, false).trim();
 
-        if (! (predicate instanceof EmptyFilter)) {
+        if (! (predicate instanceof EmptyPred)) {
             result += "\r\n Where " + predicate.substNamedVal(vnsb).prettyPrint(0);
         }
 
         if (asSubquery)
-            return IndentionManagement.addIndention("(" + result + ")", indentLv);
-        else return IndentionManagement.addIndention(result , indentLv);
+            return IndentationManager.addIndention("(" + result + ")", indentLv);
+        else return IndentationManager.addIndention(result , indentLv);
     }
 
     @Override
@@ -165,13 +166,13 @@ public class RenameTableNode extends TableNode {
     }
 
     @Override
-    public TableNode substNamedVal(ValNodeSubstBinding vnsb) {
+    public TableNode substNamedVal(ValNodeSubstitution vnsb) {
         return new RenameTableNode(newTableName, newFieldNames,
                 this.tableNode.substNamedVal(vnsb));
     }
 
     @Override
-    public List<NamedTable> namedTableInvolved() {
+    public List<NamedTableNode> namedTableInvolved() {
         return tableNode.namedTableInvolved();
     }
 

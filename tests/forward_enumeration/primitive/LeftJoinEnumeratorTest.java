@@ -1,22 +1,18 @@
 package forward_enumeration.primitive;
 
-import forward_enumeration.canonical_enum.components.EnumFilterNamed;
 import forward_enumeration.context.EnumConfig;
 import forward_enumeration.context.EnumContext;
 import org.junit.Test;
 import sql.lang.Table;
-import sql.lang.ast.table.AggregationNode;
 import sql.lang.ast.table.LeftJoinNode;
-import sql.lang.ast.table.NamedTable;
+import sql.lang.ast.table.NamedTableNode;
 import sql.lang.ast.table.TableNode;
 import util.DebugHelper;
 import util.Pair;
-import util.TableInstanceParser;
+import util.TableExampleParser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by clwang on 10/7/16.
@@ -41,8 +37,8 @@ public class LeftJoinEnumeratorTest {
                     "| 1  | a     |" + "\r\n" +
                     "| 5  | c     |";
 
-    Table t1 = TableInstanceParser.parseMarkDownTable("t1", src);
-    Table t2 = TableInstanceParser.parseMarkDownTable("t2", src2);
+    Table t1 = TableExampleParser.parseMarkDownTable("t1", src);
+    Table t2 = TableExampleParser.parseMarkDownTable("t2", src2);
 
     @Test
     public void testEnumLeftJoin() throws Exception {
@@ -81,9 +77,9 @@ public class LeftJoinEnumeratorTest {
             "| url3 | 22 | 2016-08-08 |" +"\r\n" +
             "| url3 | 12 | 2016-08-09 |";
 
-    Table t3 = TableInstanceParser.parseMarkDownTable("t3", t3Src);
-    Table t4 = TableInstanceParser.parseMarkDownTable("t4", t4Src);
-    Table t5 = TableInstanceParser.parseMarkDownTable("t5", t5Src);
+    Table t3 = TableExampleParser.parseMarkDownTable("t3", t3Src);
+    Table t4 = TableExampleParser.parseMarkDownTable("t4", t4Src);
+    Table t5 = TableExampleParser.parseMarkDownTable("t5", t5Src);
 
     @Test
     public void testEnumLeftJoin2() throws Exception {
@@ -96,8 +92,8 @@ public class LeftJoinEnumeratorTest {
         EnumContext ec = new EnumContext(Arrays.asList(t3, t4, t5), c);
         //DebugHelper.printTableNodes(LeftJoinEnumerator.enumLeftJoinFromEC(ec).stream().map(t -> ((TableNode) t)).collect(Collectors.toList()));
 
-        TableNode lj1 = new LeftJoinNode(new NamedTable(t3), new NamedTable(t4), Arrays.asList(new Pair<String, String>("t3.id", "t4.id")));
-        TableNode lj2 = new LeftJoinNode(new NamedTable(t3), new NamedTable(t4), Arrays.asList(new Pair<String, String>("t3.id", "t4.id"), new Pair<String, String>("t3.data_date", "t4.data_date")));
+        TableNode lj1 = new LeftJoinNode(new NamedTableNode(t3), new NamedTableNode(t4), Arrays.asList(new Pair<String, String>("t3.id", "t4.id")));
+        TableNode lj2 = new LeftJoinNode(new NamedTableNode(t3), new NamedTableNode(t4), Arrays.asList(new Pair<String, String>("t3.id", "t4.id"), new Pair<String, String>("t3.data_date", "t4.data_date")));
 
         DebugHelper.printTableNodes(Arrays.asList(lj1, lj2));
 

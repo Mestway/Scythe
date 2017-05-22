@@ -4,7 +4,7 @@ import org.junit.Test;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
 import sql.lang.exception.SQLEvalException;
-import util.TableInstanceParser;
+import util.TableExampleParser;
 
 import java.util.Arrays;
 
@@ -31,8 +31,8 @@ public class JoinNodeTest {
             "|------------|" + "\r\n" +
             "| 1  | a     |" + "\r\n" +
             "| 5  | c     |";
-    Table t1 = TableInstanceParser.parseMarkDownTable("table1", src);
-    Table t2 = TableInstanceParser.parseMarkDownTable("table2", src2);
+    Table t1 = TableExampleParser.parseMarkDownTable("table1", src);
+    Table t2 = TableExampleParser.parseMarkDownTable("table2", src2);
 
     String resultSrc =
             "|table1.id | table1.broId | table1.home | table1.datetime | table1.player | table1.resource | table2.id | table2.tid|" + "\r\n" +
@@ -54,14 +54,14 @@ public class JoinNodeTest {
             "|8.0 | 8.0 | 13.0 | 01/01/2009 | borat | 700.0 | 1.0 | a|" + "\r\n" +
             "|8.0 | 8.0 | 13.0 | 01/01/2009 | borat | 700.0 | 5.0 | c |";
 
-    Table resultTable = TableInstanceParser.parseMarkDownTable("anonymous", resultSrc);
+    Table resultTable = TableExampleParser.parseMarkDownTable("anonymous", resultSrc);
 
     @Test
     public void joinTest1() {
         TableNode tn = new JoinNode(
                 Arrays.asList
-                        (new NamedTable(t1),
-                                new NamedTable(t2))
+                        (new NamedTableNode(t1),
+                                new NamedTableNode(t2))
         );
         try {
             assertTrue(resultTable.contentEquals(tn.eval(new Environment())));

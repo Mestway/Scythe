@@ -5,18 +5,16 @@ import sql.lang.Table;
 import sql.lang.TableRow;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
-import sql.lang.datatype.ValType;
-import sql.lang.datatype.Value;
+import sql.lang.val.ValType;
+import sql.lang.val.Value;
 import sql.lang.exception.SQLEvalException;
-import sql.lang.trans.ValNodeSubstBinding;
-import util.IndentionManagement;
+import sql.lang.transformation.ValNodeSubstitution;
+import util.IndentationManager;
 import util.Pair;
-import util.RenameTNWrapper;
+import util.RenameWrapper;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -120,7 +118,7 @@ public class LeftJoinNode extends TableNode {
         result += " Left Outer Join \r\n" + this.tn2.prettyPrint(1, true);
 
         if (joinKeys.isEmpty())
-            return IndentionManagement.addIndention(result, indentLv);
+            return IndentationManager.addIndention(result, indentLv);
 
         result += " On";
 
@@ -133,7 +131,7 @@ public class LeftJoinNode extends TableNode {
             result += "\r\n\t And" + joinConditions.get(i);
         }
 
-        return IndentionManagement.addIndention(result, indentLv);
+        return IndentationManager.addIndention(result, indentLv);
     }
 
     @Override
@@ -163,7 +161,7 @@ public class LeftJoinNode extends TableNode {
     }
 
     @Override
-    public TableNode substNamedVal(ValNodeSubstBinding vnsb) {
+    public TableNode substNamedVal(ValNodeSubstitution vnsb) {
         return new LeftJoinNode(
                 this.tn1.substNamedVal(vnsb),
                 this.tn2.substNamedVal(vnsb),
@@ -172,8 +170,8 @@ public class LeftJoinNode extends TableNode {
 
     public TableNode substCoreTable(TableNode leftCore, TableNode rightCore) {
 
-        TableNode lrt = RenameTNWrapper.tryRename(leftCore);
-        TableNode rrt = RenameTNWrapper.tryRename(rightCore);
+        TableNode lrt = RenameWrapper.tryRename(leftCore);
+        TableNode rrt = RenameWrapper.tryRename(rightCore);
 
         // rename the filters so that the filters refer to the elements in the new table.
         List<Pair<String, String>> stringNameBinding = new ArrayList<>();
@@ -209,8 +207,8 @@ public class LeftJoinNode extends TableNode {
     }
 
     @Override
-    public List<NamedTable> namedTableInvolved() {
-        List<NamedTable> result = new ArrayList<>();
+    public List<NamedTableNode> namedTableInvolved() {
+        List<NamedTableNode> result = new ArrayList<>();
         result.addAll(tn1.namedTableInvolved());
         result.addAll(tn2.namedTableInvolved());
         return result;

@@ -5,7 +5,7 @@ import forward_enumeration.context.EnumContext;
 import forward_enumeration.primitive.parameterized.EnumParamTN;
 import global.GlobalConfig;
 import sql.lang.Table;
-import sql.lang.ast.table.NamedTable;
+import sql.lang.ast.table.NamedTableNode;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.ValNode;
 
@@ -29,7 +29,7 @@ public abstract class AbstractTableEnumerator {
         // parameterized tables are obtained from
         List<TableNode> parameterizedTables = EnumParamTN
                 .enumParameterizedTableNodes(
-                        c.getExistsCores().stream().map(t -> new NamedTable(t)).collect(Collectors.toList()),
+                        c.getExistsCores().stream().map(t -> new NamedTableNode(t)).collect(Collectors.toList()),
                         vns,
                         c.getNumberOfParam());
 

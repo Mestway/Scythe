@@ -4,7 +4,7 @@ import forward_enumeration.table_enumerator.hueristics.HeuristicNatJoin;
 import org.junit.Test;
 import sql.lang.ast.table.TableNode;
 import util.DebugHelper;
-import util.TableInstanceParser;
+import util.TableExampleParser;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,8 +32,8 @@ public class TableJoinInferenceTest {
     @Test
     public void testNaturalJoinAll() throws Exception {
         List<TableNode> tryJoinResult = HeuristicNatJoin.naturalJoinAll(
-                Arrays.asList(TableInstanceParser.parseMarkDownTable("t1", t1),
-                        TableInstanceParser.parseMarkDownTable("t2",t2)));
+                Arrays.asList(TableExampleParser.parseMarkDownTable("t1", t1),
+                        TableExampleParser.parseMarkDownTable("t2",t2)));
 
         DebugHelper.printTableNodes(tryJoinResult);
     }

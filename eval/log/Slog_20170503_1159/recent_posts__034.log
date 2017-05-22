@@ -1,0 +1,108 @@
+[[Synthesizing With Aggregation Functions]]
+[[Synthesis start]]
+	File: ../data/recent_posts/034
+	Enumerator: StagedEnumerator
+[Output Example]
+@output
+c(StringVal) | c(DateVal) | c(DateVal) 
+T6C25AW#ABC | Mon Oct 31 00:00:00 PDT 2016 | Fri Sep 30 00:00:00 PDT 2016 
+
+[[Retry]] Depth: 0
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 10 [SymTable]: 11
+Candidate Tree Number: 0
+[Enumeration Finished] Does not find a query in the search space.
+[Enumeration Finished]
+[[Retry]] Depth: 1
+[Initialize Enumeration]
+  Parameterized Table Number: 0
+[Enumeration Start]
+[Basic]: 0 [SymTableForInputs]: Intermediate: 1
+[Aggregation]: 10 [SymTable]: 11
+[JOIN] level 1 [SymTable]: 23
+Candidate Tree Number: 8
+[Enumeration Finished]
+[No.5]===============================
+Select t3.MATERIAL, t3.max_DISCO_DATE, t2.DATE_UPDATE
+From (Select
+        t1.MATERIAL, Max(t1.DISCO_DATE) As max_DISCO_DATE
+      From
+        (Select *
+           From
+            input
+           Where input.DISCO_DATE Is Not NULL) As t1
+      Group By
+        t1.MATERIAL) As t3 Join 
+    input As t2
+ Where max_DISCO_DATE = DISCO_DATE;
+@anonymous
+[T#-201#].MATERIAL(StringVal) | [T#-201#].max_DISCO_DATE(DateVal) | [T#-201#].DATE_UPDATE(DateVal) 
+T6C25AW#ABC | Mon Oct 31 00:00:00 PDT 2016 | Fri Sep 30 00:00:00 PDT 2016 
+
+[No.4]===============================
+Select t3.MATERIAL, t3.DISCO_DATE, t2.max_DATE_UPDATE
+From (Select
+        Max(t1.DATE_UPDATE) As max_DATE_UPDATE
+      From
+        (Select *
+           From
+            input
+           Where input.DISCO_DATE Is Not NULL) As t1) As t2 Join 
+    input As t3
+ Where max_DATE_UPDATE = DATE_UPDATE;
+@anonymous
+[T#-136#].MATERIAL(StringVal) | [T#-136#].DISCO_DATE(DateVal) | [T#-136#].max_DATE_UPDATE(DateVal) 
+T6C25AW#ABC | Mon Oct 31 00:00:00 PDT 2016 | Fri Sep 30 00:00:00 PDT 2016 
+
+[No.3]===============================
+[ASTNodeCnt] 15
+[ASCII Cnt] 152
+Select t3.MATERIAL, t2.max_DISCO_DATE, t3.DATE_UPDATE
+From (Select
+        Max(t1.DISCO_DATE) As max_DISCO_DATE
+      From
+        (Select *
+           From
+            input
+           Where input.DISCO_DATE Is Not NULL) As t1) As t2 Join 
+    input As t3
+ Where max_DISCO_DATE = DISCO_DATE;
+@anonymous
+[T#-101#].MATERIAL(StringVal) | [T#-101#].max_DISCO_DATE(DateVal) | [T#-101#].DATE_UPDATE(DateVal) 
+T6C25AW#ABC | Mon Oct 31 00:00:00 PDT 2016 | Fri Sep 30 00:00:00 PDT 2016 
+
+[No.2]===============================
+[ASTNodeCnt] 14
+[ASCII Cnt] 95
+Select t3.MATERIAL, t3.DISCO_DATE, t2.max_DATE_UPDATE
+From (Select
+        Max(t1.DATE_UPDATE) As max_DATE_UPDATE
+      From
+        input As t1) As t2 Join 
+    input As t3
+ Where max_DATE_UPDATE = DATE_UPDATE;
+@anonymous
+[T#-277#].MATERIAL(StringVal) | [T#-277#].DISCO_DATE(DateVal) | [T#-277#].max_DATE_UPDATE(DateVal) 
+T6C25AW#ABC | Mon Oct 31 00:00:00 PDT 2016 | Fri Sep 30 00:00:00 PDT 2016 
+
+[No.1]===============================
+[ASTNodeCnt] 14
+[ASCII Cnt] 124
+Select t3.MATERIAL, t2.DISCO_DATE, t3.max_DATE_UPDATE
+From (Select
+        t1.MATERIAL, Max(t1.DATE_UPDATE) As max_DATE_UPDATE
+      From
+        input As t1
+      Group By
+        t1.MATERIAL) As t3 Join 
+    input As t2
+ Where max_DATE_UPDATE = DATE_UPDATE;
+@anonymous
+[T#-42#].MATERIAL(StringVal) | [T#-42#].DISCO_DATE(DateVal) | [T#-42#].max_DATE_UPDATE(DateVal) 
+T6C25AW#ABC | Mon Oct 31 00:00:00 PDT 2016 | Fri Sep 30 00:00:00 PDT 2016 
+
+[[Synthesis Status]] Succeeded
+[[Synthesis Time]] 0.337s

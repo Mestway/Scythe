@@ -1,6 +1,6 @@
 package main;
 
-import scythe_interface.ExampleDS;
+import scythe_interface.IOExample;
 import org.junit.Test;
 
 import java.io.File;
@@ -18,7 +18,7 @@ public class ExampleDSTest {
         if (directoryListing != null) {
             for (File child : directoryListing) {
                 System.out.println("=== " + child.getName());
-                System.out.println(ExampleDS.readFromFile(child.getPath()));
+                System.out.println(IOExample.readFromFile(child.getPath()));
             }
         } else {
             // Handle the case where dir is not really a directory.

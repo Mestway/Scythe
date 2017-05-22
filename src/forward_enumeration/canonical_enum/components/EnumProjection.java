@@ -1,12 +1,11 @@
 package forward_enumeration.canonical_enum.components;
 
-import forward_enumeration.context.EnumContext;
 import forward_enumeration.container.QueryContainer;
 import backward_inference.CellToCellMap;
 import backward_inference.MappingInference;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
-import sql.lang.ast.filter.EmptyFilter;
+import sql.lang.ast.predicate.EmptyPred;
 import sql.lang.ast.table.SelectNode;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.NamedVal;
@@ -55,7 +54,7 @@ public class EnumProjection {
             }
 
             for (List<ValNode> lvn : lvns) {
-                SelectNode sn = new SelectNode(lvn, tn, new EmptyFilter());
+                SelectNode sn = new SelectNode(lvn, tn, new EmptyPred());
                 try {
                     Table tsn = sn.eval(new Environment());
                     if (tsn.contentStrictEquals(outputTable)) {
@@ -106,7 +105,7 @@ public class EnumProjection {
             }
 
             for (List<ValNode> lvn : lvns) {
-                SelectNode sn = new SelectNode(lvn, tn, new EmptyFilter());
+                SelectNode sn = new SelectNode(lvn, tn, new EmptyPred());
                 try {
                     Table tsn = sn.eval(new Environment());
                     if (tsn.contentStrictEquals(outputTable)) {

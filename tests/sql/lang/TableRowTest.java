@@ -2,7 +2,7 @@ package sql.lang;
 
 import org.junit.Assert;
 import org.junit.Test;
-import sql.lang.datatype.Value;
+import sql.lang.val.Value;
 
 import java.util.Arrays;
 import java.util.List;

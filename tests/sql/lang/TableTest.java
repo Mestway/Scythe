@@ -1,12 +1,9 @@
 package sql.lang;
 
-import org.junit.Assert;
 import org.junit.Test;
-import sql.lang.datatype.Value;
-import util.TableInstanceParser;
+import util.TableExampleParser;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by clwang on 10/6/16.
@@ -35,8 +32,8 @@ public class TableTest {
                     "| 200   |   2009-02-25 10:00:00   | 20  |" + "\r\n" +
                     "| 300   |   2009-02-25 10:00:00   | 24  |";
 
-    Table t1 = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
-    Table t2 = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
+    Table t1 = TableExampleParser.parseMarkDownTable("table1", inputSrc);
+    Table t2 = TableExampleParser.parseMarkDownTable("table2", outputSrc);
 
     public void testExcept() throws Exception {
         System.out.println(Table.except(t1, t2));

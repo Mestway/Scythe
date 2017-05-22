@@ -2,7 +2,7 @@ package util;
 
 import forward_enumeration.context.EnumContext;
 import global.GlobalConfig;
-import sql.lang.ast.filter.*;
+import sql.lang.ast.predicate.*;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.ConstantVal;
 import sql.lang.ast.val.NamedVal;
@@ -16,20 +16,20 @@ import java.util.Map;
  */
 public class CostEstimator {
 
-    // if we add a filter with the cost GlobalConfig.DESIRABLE_CANDIDATE_QUERY_SCORE,
+    // if we add a eval with the cost GlobalConfig.DESIRABLE_CANDIDATE_QUERY_SCORE,
     // we are then trying to deny such queries
 
-    public static double estimateFilterCost(Filter f, Map<String, String> originNameMap) {
-        if (f instanceof EmptyFilter) {
+    public static double estimateFilterCost(Predicate f, Map<String, String> originNameMap) {
+        if (f instanceof EmptyPred) {
             return 0;
-        } if (f instanceof IsNullFilter) {
+        } if (f instanceof IsNullPred) {
             return 0.5;
-        } else if (f instanceof ExistsFilter) {
-            double cost = 0.5 + 4. * (((ExistsFilter) f).getTableNode().estimateAllFilterCost() / 5);
+        } else if (f instanceof ExistsPred) {
+            double cost = 0.5 + 4. * (((ExistsPred) f).getTableNode().estimateAllFilterCost() / 5);
             return cost;
-        } else if (f instanceof BinopFilter) {
+        } else if (f instanceof BinopPred) {
             float score = 0;
-            List<ValNode> args = ((BinopFilter) f).getArgs();
+            List<ValNode> args = ((BinopPred) f).getArgs();
 
             if (args.get(0) instanceof ConstantVal || args.get(1) instanceof ConstantVal) {
                 score += 0.2;
@@ -60,8 +60,8 @@ public class CostEstimator {
 
                 if (name0.contains("MAX-") || name1.contains("MAX-")
                         || name0.contains("MIN-") || name1.contains("MIN-")) {
-                    if (! ((BinopFilter) f).getComparator().equals(BinopFilter.eq)
-                            && !((BinopFilter) f).getComparator().equals(BinopFilter.neq)) {
+                    if (! ((BinopPred) f).getComparator().equals(BinopPred.eq)
+                            && !((BinopPred) f).getComparator().equals(BinopPred.neq)) {
                         if (originName0.equals(originName1))
                             score += GlobalConfig.DESIRABLE_CANDIDATE_QUERY_SCORE;
                         else
@@ -78,23 +78,23 @@ public class CostEstimator {
                 }
             }
 
-            if (((BinopFilter) f).getComparator().equals(BinopFilter.eq)) {
+            if (((BinopPred) f).getComparator().equals(BinopPred.eq)) {
                 score += 0;
-            } else if (((BinopFilter) f).getComparator().equals(BinopFilter.neq)) {
+            } else if (((BinopPred) f).getComparator().equals(BinopPred.neq)) {
                 score += 1.5;
             } else {
                 score += 1;
             }
 
             return score;
-        } else if (f instanceof LogicAndFilter) {
-            return estimateConjFilterList(((LogicAndFilter) f).getAllFilters(), originNameMap);
+        } else if (f instanceof LogicAndPred) {
+            return estimateConjFilterList(((LogicAndPred) f).getAllFilters(), originNameMap);
         } else {
             return 3;
         }
     }
 
-    public static double estimateConjFilterList(List<Filter> filters, Map<String, String> originNameMap) {
+    public static double estimateConjFilterList(List<Predicate> filters, Map<String, String> originNameMap) {
         double basicScore = filters.stream()
                 .map(f -> CostEstimator.estimateFilterCost(f, originNameMap)).reduce(0., (x, y) -> x + y);
 
@@ -108,12 +108,12 @@ public class CostEstimator {
         return rate * basicScore;
     }
 
-    private static double compatibilityRate(Filter f1, Filter f2) {
-        if (f1 instanceof ExistsFilter && f2 instanceof ExistsFilter) {
+    private static double compatibilityRate(Predicate f1, Predicate f2) {
+        if (f1 instanceof ExistsPred && f2 instanceof ExistsPred) {
             return 3;
-        } else if (f1 instanceof BinopFilter && f2 instanceof BinopFilter) {
-            List<ValNode> f1Args = ((BinopFilter) f1).getArgs();
-            List<ValNode> f2Args = ((BinopFilter) f2).getArgs();
+        } else if (f1 instanceof BinopPred && f2 instanceof BinopPred) {
+            List<ValNode> f1Args = ((BinopPred) f1).getArgs();
+            List<ValNode> f2Args = ((BinopPred) f2).getArgs();
             boolean allEqual = true;
             for (int i = 0; i < f1Args.size(); i ++) {
                 if (! f1Args.get(i).getName().equals(f2Args.get(i).getName()))
@@ -130,7 +130,7 @@ public class CostEstimator {
         return 0;
     }
 
-    public static double estimateExistsFilterCost(ExistsFilter efilter) {
+    public static double estimateExistsFilterCost(ExistsPred efilter) {
         return efilter.getTableNode().estimateAllFilterCost();
     }
 

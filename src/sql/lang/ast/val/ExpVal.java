@@ -2,14 +2,14 @@ package sql.lang.ast.val;
 
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.primitive.parameterized.InstantiateEnv;
-import sql.lang.datatype.NumberVal;
-import sql.lang.datatype.ValType;
-import sql.lang.datatype.Value;
+import sql.lang.val.NumberVal;
+import sql.lang.val.ValType;
+import sql.lang.val.Value;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.exception.SQLEvalException;
-import sql.lang.trans.ValNodeSubstBinding;
-import util.IndentionManagement;
+import sql.lang.transformation.ValNodeSubstitution;
+import util.IndentationManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +64,7 @@ public class ExpVal implements ValNode {
 
     @Override
     public String prettyPrint(int lv) {
-        return IndentionManagement.addIndention("(" + operands.get(0) + FuncName(this.operator) + operands.get(1) + ")", lv);
+        return IndentationManager.addIndention("(" + operands.get(0) + FuncName(this.operator) + operands.get(1) + ")", lv);
     }
 
     @Override
@@ -111,7 +111,7 @@ public class ExpVal implements ValNode {
     }
 
     @Override
-    public ValNode subst(ValNodeSubstBinding vnsb) {
+    public ValNode subst(ValNodeSubstitution vnsb) {
         return new ExpVal(
                 this.operator,
                 this.operands.stream().map(o -> o.subst(vnsb)).collect(Collectors.toList()),

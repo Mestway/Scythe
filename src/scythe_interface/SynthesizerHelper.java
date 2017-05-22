@@ -7,16 +7,16 @@ import global.GlobalConfig;
 import sql.lang.Table;
 import sql.lang.TableRow;
 import sql.lang.ast.Environment;
-import sql.lang.ast.filter.BinopFilter;
+import sql.lang.ast.predicate.BinopPred;
 import sql.lang.ast.table.*;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
-import sql.lang.datatype.NumberVal;
-import sql.lang.datatype.StringVal;
-import sql.lang.datatype.Value;
+import sql.lang.val.NumberVal;
+import sql.lang.val.StringVal;
+import sql.lang.val.Value;
 import sql.lang.exception.SQLEvalException;
 import util.Pair;
-import util.RenameTNWrapper;
+import util.RenameWrapper;
 
 import java.util.*;
 import java.util.function.Function;
@@ -102,11 +102,11 @@ public class SynthesizerHelper {
                 for (TableNode tn2 : right) {
 
                     if (tn1 instanceof SelectNode)
-                        tn1 = RenameTNWrapper.tryRename(tn1);
+                        tn1 = RenameWrapper.tryRename(tn1);
                     if (tn2 instanceof SelectNode)
-                        tn2 = RenameTNWrapper.tryRename(tn2);
+                        tn2 = RenameWrapper.tryRename(tn2);
 
-                    RenameTableNode jrt = (RenameTableNode) RenameTNWrapper.tryRename(
+                    RenameTableNode jrt = (RenameTableNode) RenameWrapper.tryRename(
                             new JoinNode(Arrays.asList(tn1,
                                     tn2)));
 
@@ -121,7 +121,7 @@ public class SynthesizerHelper {
                     List<ValNode> compareFields = new ArrayList<>();
                     compareFields.add(new NamedVal(jrt.getSchema().get(0)));
                     compareFields.add(new NamedVal(jrt.getSchema().get(2)));
-                    BinopFilter filter = new BinopFilter(compareFields, BinopFilter.eq);
+                    BinopPred filter = new BinopPred(compareFields, BinopPred.eq);
 
                     candidates.add(new SelectNode(selectFields, jrt, filter));
                 }
@@ -148,7 +148,7 @@ public class SynthesizerHelper {
 
             //This is typically common for max-count / min-count,
             // so we would add some extra constants for the ease of synthesis
-            for (TableNode tn : input.stream().map(t -> new NamedTable(t)).collect(Collectors.toSet())) {
+            for (TableNode tn : input.stream().map(t -> new NamedTableNode(t)).collect(Collectors.toSet())) {
                 List<RenameTableNode> countResult = AggrEnumerator
                         .enumerateAggregation(Arrays.asList(AggregationNode.AggrCount), tn, true);
                 for (TableNode ttn : countResult) {

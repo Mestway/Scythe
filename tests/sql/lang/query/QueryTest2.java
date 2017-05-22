@@ -2,19 +2,19 @@ package sql.lang.query;
 
 import util.Pair;
 import org.junit.Test;
-import sql.lang.datatype.Value;
+import sql.lang.val.Value;
 import sql.lang.SQLQuery;
 import sql.lang.Table;
-import sql.lang.ast.filter.LogicAndFilter;
-import sql.lang.ast.filter.BinopFilter;
+import sql.lang.ast.predicate.LogicAndPred;
+import sql.lang.ast.predicate.BinopPred;
 import sql.lang.ast.table.AggregationNode;
-import sql.lang.ast.table.NamedTable;
+import sql.lang.ast.table.NamedTableNode;
 import sql.lang.ast.table.RenameTableNode;
 import sql.lang.ast.table.SelectNode;
 import sql.lang.ast.val.ConstantVal;
 import sql.lang.ast.val.NamedVal;
-import sql.lang.ast.val.TableAsVal;
-import util.TableInstanceParser;
+import sql.lang.ast.val.TableNodeAsVal;
+import util.TableExampleParser;
 
 import java.util.Arrays;
 
@@ -47,8 +47,8 @@ public class QueryTest2 {
         "| 200   |   2009-02-25 10:00:00   | 20  |" + "\r\n" +
         "| 300   |   2009-02-25 10:00:00   | 24  |";
 
-    Table input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
-    Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
+    Table input = TableExampleParser.parseMarkDownTable("table1", inputSrc);
+    Table output = TableExampleParser.parseMarkDownTable("table2", outputSrc);
 
     @Test
     public void test() {
@@ -60,11 +60,11 @@ public class QueryTest2 {
                     new NamedVal("table1.dtg"),
                     new NamedVal("table1.temp")
                 ),
-                new NamedTable(input),
-                new BinopFilter(
+                new NamedTableNode(input),
+                new BinopPred(
                     Arrays.asList(
                         new NamedVal("table1.dtg"),
-                        new TableAsVal(
+                        new TableNodeAsVal(
                             new SelectNode(
                                 Arrays.asList(new NamedVal("t2.maxdtg")),
                                 new RenameTableNode(
@@ -72,26 +72,26 @@ public class QueryTest2 {
                                     Arrays.asList("id", "maxdtg"),
                                     new AggregationNode(
 
-                                        new RenameTableNode("agrTable", new NamedTable(input).getSchema(),
-                                                new NamedTable(input)),
+                                        new RenameTableNode("agrTable", new NamedTableNode(input).getSchema(),
+                                                new NamedTableNode(input)),
                                         Arrays.asList("agrTable.locId"),
                                         Arrays.asList(new Pair<>("agrTable.dtg",AggregationNode.AggrMax))
                                     )
                                 ),
-                                new LogicAndFilter(
-                                    new BinopFilter(
+                                new LogicAndPred(
+                                    new BinopPred(
                                         Arrays.asList(
                                             new NamedVal("table1.locId"),
                                             new NamedVal("t2.id")
                                         ),
-                                        BinopFilter.eq
+                                        BinopPred.eq
                                     ),
-                                    new BinopFilter(
+                                    new BinopPred(
                                         Arrays.asList(
                                             new NamedVal("t2.maxdtg"),
                                             new ConstantVal(Value.parse("2009-02-25 09:50:00"))
                                         ),
-                                        BinopFilter.ge
+                                        BinopPred.ge
                                     )
                                 )
 
@@ -99,7 +99,7 @@ public class QueryTest2 {
                             "maxdtg"
                         )
                     ),
-                    BinopFilter.eq
+                    BinopPred.eq
                 )
             )
         );

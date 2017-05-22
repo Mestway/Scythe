@@ -2,8 +2,8 @@ package forward_enumeration.primitive.parameterized;
 
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.primitive.FilterEnumerator;
-import sql.lang.datatype.ValType;
-import sql.lang.ast.filter.*;
+import sql.lang.val.ValType;
+import sql.lang.ast.predicate.*;
 import sql.lang.ast.table.SelectNode;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.NamedVal;
@@ -47,10 +47,10 @@ public class EnumSelectTableNode {
             // enum filters
             EnumContext ec2 = EnumContext.extendValueBinding(ec, typeMap);
 
-            List<Filter> filters = FilterEnumerator.enumFiltersLR(ec2.getValNodes(), ec2.getValNodes(), ec2, true);
+            List<Predicate> filters = FilterEnumerator.enumFiltersLR(ec2.getValNodes(), ec2.getValNodes(), ec2, true);
 
             for (List<ValNode> vn : lvn) {
-                for (Filter f : filters) {
+                for (Predicate f : filters) {
                     TableNode sn = new SelectNode(vn, tn, f);
                     result.add(sn);
                 }

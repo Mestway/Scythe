@@ -3,14 +3,14 @@ package forward_enumeration.primitive.parameterized;
 import forward_enumeration.context.EnumConfig;
 import forward_enumeration.context.EnumContext;
 import org.junit.Test;
-import sql.lang.datatype.NumberVal;
+import sql.lang.val.NumberVal;
 import sql.lang.Table;
 import sql.lang.ast.table.AggregationNode;
-import sql.lang.ast.table.NamedTable;
+import sql.lang.ast.table.NamedTableNode;
 import sql.lang.ast.table.TableNode;
 import sql.lang.ast.val.ConstantVal;
 import util.DebugHelper;
-import util.TableInstanceParser;
+import util.TableExampleParser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,13 +35,13 @@ public class EnumParamTNTest {
             "|  1   |  3   |  D   |" + "\r\n" +
             "|  2   |  1   |  B   |";
 
-    Table input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
-    Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
+    Table input = TableExampleParser.parseMarkDownTable("table1", inputSrc);
+    Table output = TableExampleParser.parseMarkDownTable("table2", outputSrc);
     EnumConfig c = new EnumConfig(1, new ArrayList<>(), Arrays.asList(AggregationNode.AggrMax, AggregationNode.AggrMin),2,Arrays.asList(input));
 
     @Test
     public void test() {
-        List<TableNode> tns = EnumParamTN.enumParameterizedTableNodes(Arrays.asList(new NamedTable(input)), new ArrayList<>(), 2);
+        List<TableNode> tns = EnumParamTN.enumParameterizedTableNodes(Arrays.asList(new NamedTableNode(input)), new ArrayList<>(), 2);
 
         EnumContext ec = new EnumContext();
         ec.setParameterizedTables(tns);

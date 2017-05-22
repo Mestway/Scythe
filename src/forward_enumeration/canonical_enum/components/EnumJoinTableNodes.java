@@ -5,13 +5,13 @@ import forward_enumeration.container.QueryContainer;
 import forward_enumeration.primitive.FilterEnumerator;
 import sql.lang.Table;
 import sql.lang.ast.Environment;
-import sql.lang.ast.filter.Filter;
+import sql.lang.ast.predicate.Predicate;
 import sql.lang.ast.table.*;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
 import sql.lang.exception.SQLEvalException;
 import util.CombinationGenerator;
-import util.RenameTNWrapper;
+import util.RenameWrapper;
 
 import java.util.*;
 import java.util.function.BiFunction;
@@ -31,17 +31,17 @@ public class EnumJoinTableNodes {
             for (TableNode tj : right) {
 
                 if (ti.getTableName() == tj.getTableName()) {
-                    tj = RenameTNWrapper.tryRename(tj);
+                    tj = RenameWrapper.tryRename(tj);
                 }
 
                 List<TableNode> tns = Arrays.asList(ti, tj);
                 JoinNode jn = new JoinNode(tns);
-                RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(jn);
+                RenameTableNode rt = (RenameTableNode) RenameWrapper.tryRename(jn);
 
                 result.add(rt);
 
-                List<Filter> filters = FilterEnumerator.enumCanonicalFilterJoinNode(rt, ec);
-                for (Filter f : filters) {
+                List<Predicate> filters = FilterEnumerator.enumCanonicalFilterJoinNode(rt, ec);
+                for (Predicate f : filters) {
                     // the selection args are complete
                     List<ValNode> vals = rt.getSchema().stream()
                             .map(s -> new NamedVal(s))
@@ -87,7 +87,7 @@ public class EnumJoinTableNodes {
 
                 JoinNode jn = new JoinNode(tns);
 
-                RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(jn);
+                RenameTableNode rt = (RenameTableNode) RenameWrapper.tryRename(jn);
                 // add the query without join
                 qc.insertQuery(rt);
                 try {
@@ -100,8 +100,8 @@ public class EnumJoinTableNodes {
                     e.printStackTrace();
                 }
 
-                List<Filter> filters = FilterEnumerator.enumCanonicalFilterJoinNode(rt, ec);
-                for (Filter f : filters) {
+                List<Predicate> filters = FilterEnumerator.enumCanonicalFilterJoinNode(rt, ec);
+                for (Predicate f : filters) {
 
                     // the selection args are complete
                     List<ValNode> vals = rt.getSchema().stream()
@@ -118,7 +118,7 @@ public class EnumJoinTableNodes {
                             continue;
                         }
 
-                        qc.insertQuery(RenameTNWrapper.tryRename(resultTn));
+                        qc.insertQuery(RenameWrapper.tryRename(resultTn));
 
                         qc.getTableLinks().insertEdge(
                                 qc.getRepresentative(tns0),
@@ -158,17 +158,17 @@ public class EnumJoinTableNodes {
             if (withFilter == false) {
                 result.add(jn);
             }else {
-                RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(jn);
+                RenameTableNode rt = (RenameTableNode) RenameWrapper.tryRename(jn);
                 // add the query without join
                 result.add(rt);
 
-                List<Filter> filters = FilterEnumerator.enumCanonicalFilterJoinNode(rt, ec);
-                for (Filter f : filters) {
+                List<Predicate> filters = FilterEnumerator.enumCanonicalFilterJoinNode(rt, ec);
+                for (Predicate f : filters) {
                     // the selection args are complete
                     List<ValNode> vals = rt.getSchema().stream()
                             .map(s -> new NamedVal(s))
                             .collect(Collectors.toList());
-                    result.add(RenameTNWrapper.tryRename(new SelectNode(vals, rt, f)));
+                    result.add(RenameWrapper.tryRename(new SelectNode(vals, rt, f)));
                 }
             }
         }

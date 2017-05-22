@@ -5,13 +5,13 @@ import forward_enumeration.container.QueryContainer;
 import forward_enumeration.primitive.FilterEnumerator;
 import global.GlobalConfig;
 import sql.lang.Table;
-import sql.lang.ast.filter.Filter;
+import sql.lang.ast.predicate.Predicate;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
 import sql.lang.ast.Environment;
 import sql.lang.ast.table.*;
 import sql.lang.exception.SQLEvalException;
-import util.RenameTNWrapper;
+import util.RenameWrapper;
 import forward_enumeration.primitive.AggrEnumerator;
 
 import java.util.*;
@@ -62,12 +62,12 @@ public class EnumAggrTableNode {
 
                 // filters for aggregation fields are listed here
                 List<TableNode> result = new ArrayList<>();
-                List<Filter> filters = FilterEnumerator.enumCanonicalFilterAggrNode(rt, ec);
-                for (Filter f : filters) {
+                List<Predicate> filters = FilterEnumerator.enumCanonicalFilterAggrNode(rt, ec);
+                for (Predicate f : filters) {
                     List<ValNode> vals = rt.getSchema().stream()
                             .map(s -> new NamedVal(s))
                             .collect(Collectors.toList());
-                    TableNode filtered = RenameTNWrapper.tryRename(new SelectNode(vals, rt, f));
+                    TableNode filtered = RenameWrapper.tryRename(new SelectNode(vals, rt, f));
                     result.add(filtered);
                 }
 
@@ -116,12 +116,12 @@ public class EnumAggrTableNode {
 
             for (RenameTableNode rt : aggrNodes) {
                 // filters for aggregation fields are listed here
-                List<Filter> filters = FilterEnumerator.enumCanonicalFilterAggrNode(rt, ec);
-                for (Filter f : filters) {
+                List<Predicate> filters = FilterEnumerator.enumCanonicalFilterAggrNode(rt, ec);
+                for (Predicate f : filters) {
                     List<ValNode> vals = rt.getSchema().stream()
                             .map(s -> new NamedVal(s))
                             .collect(Collectors.toList());
-                    TableNode filtered = RenameTNWrapper.tryRename(new SelectNode(vals, rt, f));
+                    TableNode filtered = RenameWrapper.tryRename(new SelectNode(vals, rt, f));
 
                     result.add(filtered);
                 }

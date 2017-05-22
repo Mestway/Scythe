@@ -1,9 +1,8 @@
 import org.junit.Test;
-import scythe_interface.ExampleDS;
+import scythe_interface.IOExample;
 import sql.lang.Table;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * Created by clwang on 11/4/16.
@@ -30,10 +29,10 @@ public class StatsCollector {
 
                 if (child.toString().contains("R")) continue;
 
-                ExampleDS ds = null;
+                IOExample ds = null;
 
                 if (child.isDirectory()) continue;
-                ds = ExampleDS.readFromFile(child.getPath());
+                ds = IOExample.readFromFile(child.getPath());
 
                 if (ds != null) {
                     if (ds.inputs == null || ds.output == null || ds.enumConfig == null) continue;

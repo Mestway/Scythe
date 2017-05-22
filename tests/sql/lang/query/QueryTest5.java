@@ -4,14 +4,14 @@ import util.Pair;
 import org.junit.Test;
 import sql.lang.SQLQuery;
 import sql.lang.Table;
-import sql.lang.ast.filter.BinopFilter;
+import sql.lang.ast.predicate.BinopPred;
 import sql.lang.ast.table.AggregationNode;
-import sql.lang.ast.table.NamedTable;
+import sql.lang.ast.table.NamedTableNode;
 import sql.lang.ast.table.RenameTableNode;
 import sql.lang.ast.table.SelectNode;
 import sql.lang.ast.val.NamedVal;
-import sql.lang.ast.val.TableAsVal;
-import util.TableInstanceParser;
+import sql.lang.ast.val.TableNodeAsVal;
+import util.TableExampleParser;
 
 import java.util.Arrays;
 
@@ -40,8 +40,8 @@ public class QueryTest5 {
             "| 5    | B    | B_data_2 | \r\n" +
             "| 6    | C    | C_data_1 |";
 
-    Table input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
-    Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
+    Table input = TableExampleParser.parseMarkDownTable("table1", inputSrc);
+    Table output = TableExampleParser.parseMarkDownTable("table2", outputSrc);
 
     @Test
     public void test() {
@@ -54,11 +54,11 @@ public class QueryTest5 {
                                 new NamedVal("table1.Name"),
                                 new NamedVal("table1.Other_Columns")
                         ),
-                        new NamedTable(input),
-                        new BinopFilter(
+                        new NamedTableNode(input),
+                        new BinopPred(
                                 Arrays.asList(
                                         new NamedVal("table1.Id"),
-                                        new TableAsVal(
+                                        new TableNodeAsVal(
                                                 new SelectNode(
                                                         Arrays.asList(new NamedVal("tt.MinID")),
                                                         new RenameTableNode(
@@ -67,24 +67,24 @@ public class QueryTest5 {
                                                                 new AggregationNode(
                                                                         new RenameTableNode(
                                                                                 "t1",
-                                                                                new NamedTable(input).getSchema(),
-                                                                                new NamedTable(input)
+                                                                                new NamedTableNode(input).getSchema(),
+                                                                                new NamedTableNode(input)
                                                                         ),
                                                                         Arrays.asList("t1.Name"),
                                                                         Arrays.asList(new Pair<>("t1.Id", AggregationNode.AggrMax))
                                                                 )
                                                         ),
-                                                        new BinopFilter(
+                                                        new BinopPred(
                                                                 Arrays.asList(
                                                                         new NamedVal("table1.Name"),
                                                                         new NamedVal("tt.Name")
                                                                 ),
-                                                                BinopFilter.eq
+                                                                BinopPred.eq
                                                         )
                                                 ), "v"
                                         )
                                 ),
-                                BinopFilter.eq
+                                BinopPred.eq
                         )
                 )
         );

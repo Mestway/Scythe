@@ -4,14 +4,14 @@ import util.Pair;
 import org.junit.Test;
 import sql.lang.SQLQuery;
 import sql.lang.Table;
-import sql.lang.ast.filter.BinopFilter;
+import sql.lang.ast.predicate.BinopPred;
 import sql.lang.ast.table.AggregationNode;
-import sql.lang.ast.table.NamedTable;
+import sql.lang.ast.table.NamedTableNode;
 import sql.lang.ast.table.RenameTableNode;
 import sql.lang.ast.table.SelectNode;
 import sql.lang.ast.val.NamedVal;
-import sql.lang.ast.val.TableAsVal;
-import util.TableInstanceParser;
+import sql.lang.ast.val.TableNodeAsVal;
+import util.TableExampleParser;
 
 import java.util.Arrays;
 
@@ -37,8 +37,8 @@ public class QueryTest1 {
         "|  1   |  3   |  D   |" + "\r\n" +
         "|  2   |  1   |  B   |";
 
-    Table inputTable = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
-    Table t2 = TableInstanceParser.parseMarkDownTable("output", outputSrc);
+    Table inputTable = TableExampleParser.parseMarkDownTable("table1", inputSrc);
+    Table t2 = TableExampleParser.parseMarkDownTable("output", outputSrc);
 
     @Test
     public void test() {
@@ -62,33 +62,33 @@ public class QueryTest1 {
                     new NamedVal("table1.id"),
                     new NamedVal("table1.rev"),
                     new NamedVal("table1.content")),
-                new NamedTable(inputTable),
-                new BinopFilter(
+                new NamedTableNode(inputTable),
+                new BinopPred(
                     Arrays.asList(
                         new NamedVal("table1.rev"),
-                        new TableAsVal(
+                        new TableNodeAsVal(
                             new SelectNode(
                                 Arrays.asList(new NamedVal("t22.maxrev")),
                                 new RenameTableNode(
                                     "t22",
                                     Arrays.asList("id", "maxrev"),
                                     new AggregationNode(
-                                        new RenameTableNode("t2",new NamedTable(inputTable).getSchema(),new NamedTable(inputTable)),
+                                        new RenameTableNode("t2",new NamedTableNode(inputTable).getSchema(),new NamedTableNode(inputTable)),
                                         Arrays.asList("t2.id"),
                                         Arrays.asList(new Pair<>("t2.rev", AggregationNode.AggrMax))
                                     )
                                 ),
-                                new BinopFilter(
+                                new BinopPred(
                                     Arrays.asList(
                                         new NamedVal("table1.id"),
                                         new NamedVal("t22.id")
                                     ),
-                                    BinopFilter.eq
+                                    BinopPred.eq
                                 )
                             ), "maxrev"
                         )
                     ),
-                    BinopFilter.eq
+                    BinopPred.eq
                 )
             )
         );

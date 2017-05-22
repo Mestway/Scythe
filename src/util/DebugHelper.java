@@ -14,9 +14,6 @@ import java.util.Objects;
  */
 public class DebugHelper {
 
-
-    public static boolean debugFlag = false;
-
     public static void printTableNodes(List<TableNode> tns) {
         for (TableNode tn  : tns) {
             try {

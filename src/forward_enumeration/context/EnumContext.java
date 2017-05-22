@@ -2,8 +2,8 @@ package forward_enumeration.context;
 
 import global.GlobalConfig;
 import sql.lang.ast.val.ConstantVal;
-import sql.lang.datatype.ValType;
-import sql.lang.datatype.Value;
+import sql.lang.val.ValType;
+import sql.lang.val.Value;
 import sql.lang.Table;
 import sql.lang.ast.table.*;
 import sql.lang.ast.val.NamedVal;
@@ -45,7 +45,7 @@ public class EnumContext {
     // initializing an EnumContext using tables and EnumConfig
     public EnumContext(List<Table> tbs, EnumConfig c) {
         this.inputs = tbs;
-        this.tableNodes = tbs.stream().map(t -> new NamedTable(t)).collect(Collectors.toList());
+        this.tableNodes = tbs.stream().map(t -> new NamedTableNode(t)).collect(Collectors.toList());
         this.valNodes = c.constValNodes().stream().map(cvn -> (ValNode)cvn).collect(Collectors.toList());
         this.aggrfunctions = c.getAggrFuns();
     }
@@ -63,7 +63,7 @@ public class EnumContext {
             return new ArrayList<>();
     }
 
-    // set and get the number of maximum filter length
+    // set and get the number of maximum eval length
     public void setMaxFilterLength(int maxLength) { this.maxFilterLength = maxLength; }
     public int getMaxFilterLength() { return this.maxFilterLength; }
 
@@ -143,10 +143,10 @@ public class EnumContext {
     }
 
     public boolean isInputTableNode(TableNode tn) {
-        if (! (tn instanceof NamedTable))
+        if (! (tn instanceof NamedTableNode))
             return false;
         else {
-            Table bj = ((NamedTable) tn).getTable();
+            Table bj = ((NamedTableNode) tn).getTable();
             for (Table t : this.getInputs())
                 if (bj.containsContent(t)) {
                     return true;

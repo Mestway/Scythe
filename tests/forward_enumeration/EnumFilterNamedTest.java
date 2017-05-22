@@ -8,7 +8,7 @@ import sql.lang.Table;
 import sql.lang.ast.table.AggregationNode;
 import sql.lang.ast.table.TableNode;
 import util.DebugHelper;
-import util.TableInstanceParser;
+import util.TableExampleParser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,8 +33,8 @@ public class EnumFilterNamedTest {
                     "|  1   |  3   |  D   |" + "\r\n" +
                     "|  2   |  1   |  B   |";
 
-    Table input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
-    Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
+    Table input = TableExampleParser.parseMarkDownTable("table1", inputSrc);
+    Table output = TableExampleParser.parseMarkDownTable("table2", outputSrc);
     EnumConfig c = new EnumConfig(
             2,
             new ArrayList<>(),

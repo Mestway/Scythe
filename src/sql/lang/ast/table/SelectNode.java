@@ -2,21 +2,21 @@ package sql.lang.ast.table;
 
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.primitive.parameterized.InstantiateEnv;
-import sql.lang.ast.filter.EmptyFilter;
+import sql.lang.ast.predicate.EmptyPred;
 import util.CostEstimator;
 import util.Pair;
-import sql.lang.datatype.ValType;
-import sql.lang.datatype.Value;
+import sql.lang.val.ValType;
+import sql.lang.val.Value;
 import sql.lang.Table;
 import sql.lang.TableRow;
 import sql.lang.ast.Environment;
 import sql.lang.ast.Hole;
 import sql.lang.ast.val.NamedVal;
 import sql.lang.ast.val.ValNode;
-import sql.lang.ast.filter.Filter;
+import sql.lang.ast.predicate.Predicate;
 import sql.lang.exception.SQLEvalException;
-import sql.lang.trans.ValNodeSubstBinding;
-import util.IndentionManagement;
+import sql.lang.transformation.ValNodeSubstitution;
+import util.IndentationManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,9 +31,9 @@ public class SelectNode extends TableNode {
 
     List<ValNode> columns;
     TableNode tableNode;
-    Filter filter;
+    Predicate filter;
 
-    public SelectNode(List<ValNode> columns, TableNode node, Filter filter) {
+    public SelectNode(List<ValNode> columns, TableNode node, Predicate filter) {
         this.columns = columns;
         this.tableNode = node;
         this.filter = filter;
@@ -87,7 +87,7 @@ public class SelectNode extends TableNode {
 
             Environment extEnv = env.extend(rowBinding);
 
-            if (filter.filter(extEnv)) {
+            if (filter.eval(extEnv)) {
 
                 List<Value> rowContent = new ArrayList<Value>();
                 for (ValNode vn : this.columns) {
@@ -155,7 +155,7 @@ public class SelectNode extends TableNode {
 
     @Override
     public int getASTNodeCnt() {
-        return this.tableNode.getASTNodeCnt() + this.filter.getFilterLength() + 1;
+        return this.tableNode.getASTNodeCnt() + this.filter.getPredLength() + 1;
     }
 
     @Override
@@ -164,15 +164,15 @@ public class SelectNode extends TableNode {
         // determine if it is select all
         boolean selectFieldsAllSame = this.isSelectAll();
 
-        if (selectFieldsAllSame && this.filter instanceof EmptyFilter && asSubquery) {
-            return IndentionManagement.addIndention( tableNode.prettyPrint(0, true), indentLv);
+        if (selectFieldsAllSame && this.filter instanceof EmptyPred && asSubquery) {
+            return IndentationManager.addIndention( tableNode.prettyPrint(0, true), indentLv);
         }
 
-        if (this.tableNode instanceof RenameTableNode) {
+        /*if (this.tableNode instanceof RenameTableNode) {
             if (((RenameTableNode) this.tableNode).tableNode instanceof JoinNode) {
-                return ((RenameTableNode) this.tableNode).ppWithPartialIndex(this.getSchema(), indentLv, filter, asSubquery);
+                return ((RenameTableNode) this.tableNode).ppWithPartialIndex(this.getSchema(), indentLv, eval, asSubquery);
             }
-        }
+        }*/
 
         String result = "";
 
@@ -198,7 +198,7 @@ public class SelectNode extends TableNode {
 
         result += tableNode.prettyPrint(1, true);
 
-        if (! (this.filter instanceof EmptyFilter)) {
+        if (! (this.filter instanceof EmptyPred)) {
             result += "\r\n";
             result += " Where ";
             result += filter.prettyPrint(1).trim();
@@ -207,13 +207,13 @@ public class SelectNode extends TableNode {
         if (asSubquery)
             result = "(" + result + ")";
 
-        return IndentionManagement.addIndention(result, indentLv);
+        return IndentationManager.addIndention(result, indentLv);
     }
 
     @Override
     public TableNode simplifyAST() {
         // determine if it is select all
-        if (this.isSelectAll() && this.filter instanceof EmptyFilter)
+        if (this.isSelectAll() && this.filter instanceof EmptyPred)
             return this.tableNode.simplifyAST();
         return new SelectNode(this.columns, this.tableNode.simplifyAST(), this.filter);
     }
@@ -237,7 +237,7 @@ public class SelectNode extends TableNode {
     }
 
     @Override
-    public TableNode substNamedVal(ValNodeSubstBinding vnsb) {
+    public TableNode substNamedVal(ValNodeSubstitution vnsb) {
         return new SelectNode(
                 this.columns.stream().map(c -> c.subst(vnsb)).collect(Collectors.toList()),
                 tableNode.substNamedVal(vnsb),
@@ -245,9 +245,9 @@ public class SelectNode extends TableNode {
     }
 
     @Override
-    public List<NamedTable> namedTableInvolved() {
+    public List<NamedTableNode> namedTableInvolved() {
         List<TableNode> result = new ArrayList<>();
-        // TODO: add filter stuff in future
+        // TODO: add eval stuff in future
         return tableNode.namedTableInvolved();
     }
 
@@ -259,7 +259,7 @@ public class SelectNode extends TableNode {
         List<String> currentSchema = tableNode.getSchema();
         List<String> newSchema = core.getSchema();
 
-        ValNodeSubstBinding vnsb = new ValNodeSubstBinding();
+        ValNodeSubstitution vnsb = new ValNodeSubstitution();
         for (int i = 0; i < currentSchema.size(); i++) {
             vnsb.addBinding(
                     new Pair<>(
@@ -280,7 +280,7 @@ public class SelectNode extends TableNode {
     public List<String> originalColumnName() {
         List<Integer> indices = new ArrayList<>();
         for (ValNode c : this.columns) {
-            if (! (c instanceof  NamedVal))
+            if (! (c instanceof NamedVal))
                 indices.add(-1);
             else {
                 boolean added = false;
@@ -310,7 +310,7 @@ public class SelectNode extends TableNode {
     }
 
     public TableNode getTableNode() { return this.tableNode; }
-    public Filter getFilter() { return this.filter; }
+    public Predicate getFilter() { return this.filter; }
     public List<ValNode> getColumns() { return this.columns; }
 
     @Override
@@ -334,7 +334,7 @@ public class SelectNode extends TableNode {
     public List<Value> getAllConstants() {
         List<Value> list = new ArrayList<>();
         list.addAll(tableNode.getAllConstants());
-        list.addAll(filter.getAllConstatnts());
+        list.addAll(filter.getAllConstants());
         return list;
     }
 

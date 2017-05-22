@@ -3,17 +3,18 @@ package summarytable;
 import forward_enumeration.context.EnumContext;
 import global.Statistics;
 import sql.lang.Table;
-import sql.lang.ast.filter.EmptyFilter;
-import sql.lang.ast.filter.Filter;
-import sql.lang.ast.filter.LogicAndFilter;
-import sql.lang.ast.filter.LogicOrFilter;
+import sql.lang.ast.predicate.EmptyPred;
+import sql.lang.ast.predicate.Predicate;
+import sql.lang.ast.predicate.LogicAndPred;
+import sql.lang.ast.predicate.LogicOrPred;
 import sql.lang.ast.table.*;
 import sql.lang.ast.val.NamedVal;
-import sql.lang.trans.ValNodeSubstBinding;
+import sql.lang.ast.val.ValNode;
+import sql.lang.transformation.ValNodeSubstitution;
 import util.CombinationGenerator;
 import util.CostEstimator;
 import util.Pair;
-import util.RenameTNWrapper;
+import util.RenameWrapper;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -28,8 +29,8 @@ public class BVFilterCompTree {
     AbstractSummaryTable symTable;
 
     // all primitive filters at this level used to generate the outer most level
-    // each symbolic filter here is a primitive filter at the level of symTable,
-    // i.e. for SymbolicCompoundTable, it is a LR filter
+    // each symbolic eval here is a primitive eval at the level of symTable,
+    // i.e. for SymbolicCompoundTable, it is a LR eval
     //      for SymbolicTable, it is a primitive select predicate
     Set<BVFilter> primitiveFilters;
 
@@ -70,7 +71,8 @@ public class BVFilterCompTree {
             indent += "\t";
 
         String s = "";
-        s += indent + symTable.getBaseTable().getSchema().stream().reduce("", (x,y)->(x+", "+y)).substring(2) + "\n";
+        s += indent + symTable.getBaseTable().getSchema().stream()
+                .reduce("", (x,y)->(x+", "+y)).substring(2) + "\n";
         String filterString = "{";
         for (BVFilter sf : this.primitiveFilters)
             filterString += sf.toString() + ", ";
@@ -102,14 +104,14 @@ public class BVFilterCompTree {
             for (TableNode tn : topTNs) {
 
                 //TableNode tn = cores.get(0);
-                List<List<Filter>> unRotated = new ArrayList<>();
+                List<List<Predicate>> unRotated = new ArrayList<>();
                 for (BVFilter sf : this.primitiveFilters) {
-                    List<Filter> decoded = ((PrimitiveSummaryTable) symTable)
+                    List<Predicate> decoded = ((PrimitiveSummaryTable) symTable)
                             .decodePrimitiveFilter(sf, tn);
 
-                    decoded.sort(new Comparator<Filter>() {
+                    decoded.sort(new Comparator<Predicate>() {
                         @Override
-                        public int compare(Filter o1, Filter o2) {
+                        public int compare(Predicate o1, Predicate o2) {
                             double score1 = CostEstimator.estimateFilterCost(o1,
                                     TableNode.nameToOriginMap(tn.getSchema(), tn.originalColumnName()));
                             double score2 = CostEstimator.estimateFilterCost(o2,
@@ -121,7 +123,7 @@ public class BVFilterCompTree {
                     unRotated.add(decoded.subList(0,decoded.size() > 5? 5 : decoded.size()));
                 }
 
-                List<List<Filter>> rotated = CombinationGenerator.rotateList(unRotated);
+                List<List<Predicate>> rotated = CombinationGenerator.rotateList(unRotated);
 
                 // sort all combinations and choose the best one
                 /*rotated.sort(new Comparator<List<Filter>>() {
@@ -142,10 +144,10 @@ public class BVFilterCompTree {
                             tn, LogicAndFilter.connectByAnd(rotated.get(r))));
                 }*/
 
-                 List<Filter> candidateConjFilter = null;
+                 List<Predicate> candidateConjFilter = null;
                 double minCost = 999;
 
-                for (List<Filter> filters : rotated) {
+                for (List<Predicate> filters : rotated) {
 
                     double score = CostEstimator.estimateConjFilterList(filters,
                             TableNode.nameToOriginMap(tn.getSchema(), tn.originalColumnName()));
@@ -156,12 +158,12 @@ public class BVFilterCompTree {
                     }
                 }
 
-                if (this.disjComposition == false)
-                    result.add(new SelectNode(tn.getSchema().stream().map(s -> new NamedVal(s)).collect(Collectors.toList()),
-                            tn, LogicAndFilter.connectByAnd(candidateConjFilter)));
-                else
-                    result.add(new SelectNode(tn.getSchema().stream().map(s -> new NamedVal(s)).collect(Collectors.toList()),
-                            tn, LogicOrFilter.connectByOr(candidateConjFilter)));
+                List<ValNode> newSchema = tn.getSchema().stream().map(s -> new NamedVal(s)).collect(Collectors.toList());
+                if (this.disjComposition == false) {
+                    result.add(new SelectNode(newSchema, tn, LogicAndPred.connectByAnd(candidateConjFilter)));
+                } else {
+                    result.add(new SelectNode(newSchema, tn, LogicOrPred.connectByOr(candidateConjFilter)));
+                }
             }
             return result;
 
@@ -182,11 +184,11 @@ public class BVFilterCompTree {
             if (((CompoundSummaryTable) symTable).compositionType.equals(CompoundSummaryTable.CompositionType.union)) {
                 for (List<TableNode> subQueries : rotated) {
                     UnionNode un = new UnionNode(subQueries);
-                    RenameTableNode coreTableNode = (RenameTableNode) RenameTNWrapper.tryRename(un);
+                    RenameTableNode coreTableNode = (RenameTableNode) RenameWrapper.tryRename(un);
 
                     result.add(new SelectNode(
                             coreTableNode.getSchema().stream().map(s -> new NamedVal(s)).collect(Collectors.toList()),
-                            coreTableNode, new EmptyFilter()));
+                            coreTableNode, new EmptyPred()));
                 }
                 return result;
 
@@ -199,7 +201,7 @@ public class BVFilterCompTree {
                     List<TableNode> renamedSubQueries = new ArrayList<>();
                     for (TableNode tn : subQueries) {
                         if (usedTableNames.contains(tn.getTableName())) {
-                            TableNode rt = RenameTNWrapper.tryRename(tn);
+                            TableNode rt = RenameWrapper.tryRename(tn);
                             usedTableNames.add(rt.getTableName());
                             renamedSubQueries.add(rt);
                         } else {
@@ -209,19 +211,19 @@ public class BVFilterCompTree {
                     }
 
                     JoinNode jn = new JoinNode(renamedSubQueries);
-                    RenameTableNode coreTableNode = (RenameTableNode) RenameTNWrapper.tryRename(jn);
+                    RenameTableNode coreTableNode = (RenameTableNode) RenameWrapper.tryRename(jn);
 
-                    // Then we concrete the LR filter on this table
+                    // Then we concrete the LR eval on this table
 
                     Table st1Table = ((CompoundSummaryTable) symTable).st1.getBaseTable();
                     Table st2Table = ((CompoundSummaryTable) symTable).st2.getBaseTable();
-                    JoinNode fakeJN = new JoinNode(Arrays.asList(new NamedTable(st1Table), new NamedTable(st2Table)));
-                    RenameTableNode rt = (RenameTableNode) RenameTNWrapper.tryRename(fakeJN);
+                    JoinNode fakeJN = new JoinNode(Arrays.asList(new NamedTableNode(st1Table), new NamedTableNode(st2Table)));
+                    RenameTableNode rt = (RenameTableNode) RenameWrapper.tryRename(fakeJN);
 
-                    List<Filter> filters = new ArrayList<>();
+                    List<Predicate> filters = new ArrayList<>();
 
                     for (BVFilter sf : this.primitiveFilters) {
-                        double minCost = 999; Filter candidate = null;
+                        double minCost = 999; Predicate candidate = null;
 
                         Statistics.sumLRFilterCount += ((CompoundSummaryTable) symTable).decodeLR(sf).size();
                         Statistics.cntLRFilterCount ++;
@@ -229,7 +231,7 @@ public class BVFilterCompTree {
                                 > ((CompoundSummaryTable) symTable).decodeLR(sf).size() ?
                                 Statistics.maxLRFilterCount : ((CompoundSummaryTable) symTable).decodeLR(sf).size();
 
-                        for (Filter f : ((CompoundSummaryTable) symTable).decodeLR(sf)) {
+                        for (Predicate f : ((CompoundSummaryTable) symTable).decodeLR(sf)) {
                             double cost = CostEstimator.estimateFilterCost(f,
                                     TableNode.nameToOriginMap(rt.getSchema(), rt.originalColumnName()));
                             if (cost < minCost) {
@@ -240,30 +242,31 @@ public class BVFilterCompTree {
                             // TODO: This one does not limit the number since it adds all filters into the result set
                             //filters.add(f);
                         }
-                        // TODO: if we want to limit the number, use the commented one
+                        // TODO: if we want to limit the number, use this one
                         filters.add(candidate);
                     }
 
-                    // Since the filters are built upon fakeRT, we cannot directly use these filters to construct the desired output,
-                    // and we will first need to rename the columns in each filter to construct a real filter
+                    // Since the filters are built upon fakeRT,
+                    // we cannot directly use these filters to construct the desired output,
+                    // and we will first need to rename the columns in each eval to construct a real eval
 
                     // rename the filters so that the filters refer to the elements in the new table.
-                    ValNodeSubstBinding vsb = new ValNodeSubstBinding();
+                    ValNodeSubstitution vsb = new ValNodeSubstitution();
                     for (int i = 0; i < coreTableNode.getSchema().size(); i ++) {
                         vsb.addBinding(new Pair<>(
                                 new NamedVal(((CompoundSummaryTable) symTable).representativeTableNode.getSchema().get(i)),
                                 new NamedVal(coreTableNode.getSchema().get(i))));
                     }
 
-                    List<Filter> renamedFilters = new ArrayList<>();
-                    for (Filter f : filters) {
+                    List<Predicate> renamedFilters = new ArrayList<>();
+                    for (Predicate f : filters) {
                         renamedFilters.add(f.substNamedVal(vsb));
                     }
 
                     result.add(new SelectNode(
                             coreTableNode.getSchema().stream().map(s -> new NamedVal(s)).collect(Collectors.toList()),
                             coreTableNode,
-                            LogicAndFilter.connectByAnd(renamedFilters)));
+                            LogicAndPred.connectByAnd(renamedFilters)));
                 }
                 return result;
             }

@@ -1,16 +1,16 @@
 package sql.lang.query;
 
 import org.junit.Test;
-import sql.lang.datatype.Value;
+import sql.lang.val.Value;
 import sql.lang.SQLQuery;
 import sql.lang.Table;
-import sql.lang.ast.filter.LogicAndFilter;
-import sql.lang.ast.filter.BinopFilter;
-import sql.lang.ast.table.NamedTable;
+import sql.lang.ast.predicate.LogicAndPred;
+import sql.lang.ast.predicate.BinopPred;
+import sql.lang.ast.table.NamedTableNode;
 import sql.lang.ast.table.SelectNode;
 import sql.lang.ast.val.ConstantVal;
 import sql.lang.ast.val.NamedVal;
-import util.TableInstanceParser;
+import util.TableExampleParser;
 
 import java.util.Arrays;
 
@@ -35,8 +35,8 @@ public class QueryTest7 {
             "|------|" + "\r\n" +
             "| B233 |";
 
-    Table input = TableInstanceParser.parseMarkDownTable("table1", inputSrc);
-    Table output = TableInstanceParser.parseMarkDownTable("table2", outputSrc);
+    Table input = TableExampleParser.parseMarkDownTable("table1", inputSrc);
+    Table output = TableExampleParser.parseMarkDownTable("table2", outputSrc);
 
     @Test
     public void test() {
@@ -45,21 +45,21 @@ public class QueryTest7 {
                 Arrays.asList(
                     new NamedVal("table1.yrq")
                 ),
-                new NamedTable(input),
-                new LogicAndFilter(
-                    new BinopFilter(
+                new NamedTableNode(input),
+                new LogicAndPred(
+                    new BinopPred(
                         Arrays.asList(
                             new NamedVal("table1.start_date"),
                             new ConstantVal(Value.parse("2013-02-01"))
                         ),
-                        BinopFilter.le
+                        BinopPred.le
                     ),
-                    new BinopFilter(
+                    new BinopPred(
                         Arrays.asList(
                             new NamedVal("table1.end_date"),
                             new ConstantVal(Value.parse("2013-02-15"))
                         ),
-                        BinopFilter.ge
+                        BinopPred.ge
                     )
                 )
 

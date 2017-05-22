@@ -1,12 +1,12 @@
 package forward_enumeration.primitive;
 
 import org.junit.Test;
-import scythe_interface.ExampleDS;
+import scythe_interface.IOExample;
 import forward_enumeration.context.EnumContext;
 import forward_enumeration.container.QueryContainer;
 import forward_enumeration.canonical_enum.components.EnumJoinTableNodes;
 import sql.lang.Table;
-import sql.lang.ast.table.NamedTable;
+import sql.lang.ast.table.NamedTableNode;
 import sql.lang.ast.table.TableNode;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class EnumFilterNamedTest {
 
     @Test
     public void test() {
-        ExampleDS exampleDS = ExampleDS.readFromFile("data//StackOverflow//001R");
+        IOExample exampleDS = IOExample.readFromFile("data//StackOverflow//001R");
 
         QueryContainer qc = QueryContainer.initWithInputTables(exampleDS.inputs, QueryContainer.ContainerType.None);
         EnumContext ec = new EnumContext(exampleDS.inputs, exampleDS.enumConfig);
@@ -27,7 +27,7 @@ public class EnumFilterNamedTest {
         ec.setOutputTable(exampleDS.output);
 
         List<TableNode> tns = new ArrayList<>();
-        tns.add(new NamedTable(exampleDS.inputs.get(0)));
+        tns.add(new NamedTableNode(exampleDS.inputs.get(0)));
 
         ec.setTableNodes(tns);
         EnumJoinTableNodes.generalEmitEnumJoin(tns, tns, ec, qc);
