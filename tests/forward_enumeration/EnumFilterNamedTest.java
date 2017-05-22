@@ -2,7 +2,7 @@ package forward_enumeration;
 
 import forward_enumeration.context.EnumConfig;
 import forward_enumeration.context.EnumContext;
-import forward_enumeration.canonical_enum.components.EnumFilterNamed;
+import forward_enumeration.baselines.components.EnumFilterNamed;
 import org.junit.Test;
 import lang.table.Table;
 import lang.sql.ast.contable.AggregationNode;

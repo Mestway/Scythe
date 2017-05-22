@@ -1,6 +1,6 @@
 package lang.sql.ast.abstable;
 
-import forward_enumeration.primitive.parameterized.InstantiateEnv;
+import forward_enumeration.enum_components.parameterized.InstantiateEnv;
 import lang.sql.ast.Environment;
 import lang.sql.ast.Hole;
 import lang.sql.ast.contable.AggregationNode;

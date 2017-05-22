@@ -1,8 +1,8 @@
 package main;
 
-import forward_enumeration.table_enumerator.AbstractTableEnumerator;
-import forward_enumeration.table_enumerator.CanonicalTableEnumerator;
-import forward_enumeration.table_enumerator.PlainTableEnumerator;
+import forward_enumeration.AbstractTableEnumerator;
+import forward_enumeration.baselines.CanonicalTableEnumerator;
+import forward_enumeration.baselines.PlainTableEnumerator;
 import org.junit.Test;
 import scythe_interface.Synthesizer;
 import lang.sql.ast.contable.TableNode;

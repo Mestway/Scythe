@@ -1,6 +1,6 @@
 package lang.sql.ast.predicate;
 
-import forward_enumeration.primitive.parameterized.InstantiateEnv;
+import forward_enumeration.enum_components.parameterized.InstantiateEnv;
 import lang.sql.ast.contable.TableNode;
 import lang.sql.dataval.Value;
 import lang.table.Table;

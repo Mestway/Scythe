@@ -1,7 +1,7 @@
 package summarytable;
 
 import forward_enumeration.context.EnumContext;
-import forward_enumeration.primitive.FilterEnumerator;
+import forward_enumeration.enum_components.FilterEnumerator;
 import global.GlobalConfig;
 import global.Statistics;
 import backward_inference.MappingInference;

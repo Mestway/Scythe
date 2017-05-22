@@ -2,7 +2,7 @@ package forward_enumeration.hueristics;
 
 import forward_enumeration.context.EnumConfig;
 import forward_enumeration.context.EnumContext;
-import forward_enumeration.table_enumerator.hueristics.TableNaturalJoinWithAggr;
+import util.TableNaturalJoinWithAggr;
 import org.junit.Test;
 import lang.table.Table;
 import lang.sql.ast.contable.AggregationNode;

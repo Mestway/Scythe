@@ -45,9 +45,9 @@ public class EnumContext {
 
     public EnumContext() {}
     // initializing an EnumContext using tables and EnumConfig
-    public EnumContext(List<Table> tbs, EnumConfig c) {
-        this.inputs = tbs;
-        this.tableNodes = tbs.stream().map(t -> new NamedTableNode(t)).collect(Collectors.toList());
+    public EnumContext(List<Table> inputTables, EnumConfig c) {
+        this.inputs = inputTables;
+        this.tableNodes = inputTables.stream().map(t -> new NamedTableNode(t)).collect(Collectors.toList());
         this.valNodes = c.constValNodes().stream().map(cvn -> (ValNode)cvn).collect(Collectors.toList());
         this.aggrfunctions = c.getAggrFuns();
     }

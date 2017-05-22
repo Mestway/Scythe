@@ -1,6 +1,6 @@
 package lang.sql.ast.abstable;
 
-import forward_enumeration.primitive.parameterized.InstantiateEnv;
+import forward_enumeration.enum_components.parameterized.InstantiateEnv;
 import lang.sql.ast.Environment;
 import lang.sql.ast.Hole;
 
@@ -13,7 +13,6 @@ import util.IndentationManager;
 import util.Pair;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**

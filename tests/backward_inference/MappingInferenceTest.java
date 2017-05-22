@@ -2,7 +2,7 @@ package backward_inference;
 
 import forward_enumeration.context.EnumConfig;
 import forward_enumeration.context.EnumContext;
-import forward_enumeration.table_enumerator.hueristics.TableNaturalJoinWithAggr;
+import util.TableNaturalJoinWithAggr;
 import lang.sql.ast.contable.AggregationNode;
 import org.junit.Test;
 import lang.table.Table;

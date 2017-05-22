@@ -1,7 +1,8 @@
 package scythe_interface;
 
-import forward_enumeration.table_enumerator.*;
-import global.Statistics;
+import forward_enumeration.AbstractTableEnumerator;
+import forward_enumeration.baselines.CanonicalTableEnumeratorOnTheFly;
+import forward_enumeration.staged_enumerator.StagedEnumerator;
 
 public class Main {
 

@@ -1,8 +1,8 @@
 package scythe_interface;
 
 import forward_enumeration.context.EnumConfig;
-import forward_enumeration.table_enumerator.AbstractTableEnumerator;
-import forward_enumeration.table_enumerator.StagedEnumerator;
+import forward_enumeration.AbstractTableEnumerator;
+import forward_enumeration.staged_enumerator.StagedEnumerator;
 import global.GlobalConfig;
 import global.Statistics;
 import lang.table.Table;

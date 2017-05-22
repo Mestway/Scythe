@@ -1,6 +1,6 @@
 package forward_enumeration.hueristics;
 
-import forward_enumeration.table_enumerator.hueristics.HeuristicNatJoin;
+import util.HeuristicNatJoin;
 import org.junit.Test;
 import lang.table.Table;
 import lang.sql.ast.contable.NamedTableNode;

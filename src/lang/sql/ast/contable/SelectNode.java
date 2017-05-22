@@ -1,7 +1,7 @@
 package lang.sql.ast.contable;
 
 import forward_enumeration.context.EnumContext;
-import forward_enumeration.primitive.parameterized.InstantiateEnv;
+import forward_enumeration.enum_components.parameterized.InstantiateEnv;
 import lang.table.Table;
 import lang.table.TableRow;
 import lang.sql.ast.Hole;
