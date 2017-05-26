@@ -431,8 +431,7 @@ public class Table {
         MappingInference mi = MappingInference.buildMapping(src, tgt);
         Optional<CellToCellMap> ctcMap = mi.searchOneMappingInstance();
         if (ctcMap.isPresent()) {
-            return ctcMap.get().getMap()
-                    .get(0).stream().map(ci -> ci.c()).collect(Collectors.toList());
+            return ctcMap.get().getColumnMapping();
         } else {
             System.out.println("[ERROR@Table438] Unable to find a projection from tgt to src.");
             return null;

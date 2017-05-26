@@ -8,15 +8,12 @@ public class CellIndex {
     private int r; // r represents the row index
     private int c; // c represents the column index
 
-    public static CellIndex initDummyCellIndex() {
+    public static CellIndex dummyCellIndex() {
         return new CellIndex(-1, -1);
     }
 
     public boolean isDummy() {
-        if (r == -1 && c == -1)
-            return true;
-        else
-            return false;
+        return (r == -1 && c == -1);
     }
 
     public CellIndex(int row, int column) {
@@ -35,10 +32,7 @@ public class CellIndex {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof CellIndex) {
-            if (((CellIndex) obj).c == this.c
-                    && ((CellIndex) obj).r == this.r) {
-                return true;
-            }
+            return ((CellIndex) obj).c == this.c && ((CellIndex) obj).r == this.r;
         }
         return false;
     }

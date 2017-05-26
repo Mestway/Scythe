@@ -47,8 +47,9 @@ public class EnumProjection {
             List<List<ValNode>> lvns =  new ArrayList<>();
             for (CellToCellMap m : maps) {
                 List<ValNode> selectNodes = new ArrayList<>();
-                for (int j = 0; j < m.getMap().get(0).size(); j ++) {
-                    selectNodes.add(new NamedVal(tn.getSchema().get(m.getMap().get(0).get(j).c())));
+                List<Integer> columnMapping = m.getColumnMapping();
+                for (int j = 0; j < columnMapping.size(); j ++) {
+                    selectNodes.add(new NamedVal(tn.getSchema().get(columnMapping.get(j))));
                 }
                 lvns.add(selectNodes);
             }
@@ -95,8 +96,9 @@ public class EnumProjection {
             List<List<ValNode>> lvns =  new ArrayList<>();
             for (CellToCellMap m : maps) {
                 List<ValNode> selectNodes = new ArrayList<>();
-                for (int j = 0; j < m.getMap().get(0).size(); j ++)
-                    selectNodes.add(new NamedVal(tn.getSchema().get(m.getMap().get(0).get(j).c())));
+                List<Integer> columnMapping = m.getColumnMapping();
+                for (int j = 0; j < columnMapping.size(); j ++)
+                    selectNodes.add(new NamedVal(tn.getSchema().get(columnMapping.get(j))));
                 lvns.add(selectNodes);
             }
 

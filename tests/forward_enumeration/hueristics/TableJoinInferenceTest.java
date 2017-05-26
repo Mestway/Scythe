@@ -1,10 +1,10 @@
 package forward_enumeration.hueristics;
 
-import util.HeuristicNatJoin;
 import org.junit.Test;
 import lang.sql.ast.contable.TableNode;
 import util.DebugHelper;
 import util.TableExampleParser;
+import util.hueristics.HeuristicNatJoin;
 
 import java.util.Arrays;
 import java.util.List;

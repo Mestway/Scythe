@@ -1,34 +1,37 @@
 package backward_inference;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by clwang on 2/17/16.
  * This is the data structure that maps a cell to a set of cells (cells are represented using their indexes)
  */
-public class CellToCellSetMap extends CellMapping<Set<CellIndex>>{
+public class CellToExpSetMap extends CellMapping<Set<CellIndexExp>>{
 
     // initialize the map
-    CellToCellSetMap(int maxR, int maxC) {
+    CellToExpSetMap(int maxR, int maxC) {
         super(maxR, maxC, () -> new HashSet<>());
     }
 
     // add the mapping pair u -> v into the quick map
-    public void addPair(CellIndex u, CellIndex v) {
+    public void addPair(CellIndex u, CellIndexExp v) {
         this.map.get(u.r()).get(u.c()).add(v);
     }
 
     // remove the mapping pair u -> v from the map
-    // TODO: note that this operation is super slow
-    public void removePair(CellIndex u, CellIndex v) {
+    // TODO: this operation is super slow
+    public void removePair(CellIndex u, CellIndexExp v) {
         this.map.get(u.r()).get(u.c()).remove(v);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (! (obj instanceof CellToCellSetMap))
+        if (! (obj instanceof CellToExpSetMap))
             return false;
-        CellToCellSetMap target = (CellToCellSetMap) obj;
+        CellToExpSetMap target = (CellToExpSetMap) obj;
         if (! (this.maxR == target.maxR && this.maxC == target.maxC))
             return false;
         for (int i = 0; i < this.maxR; i ++) {
@@ -41,19 +44,19 @@ public class CellToCellSetMap extends CellMapping<Set<CellIndex>>{
     }
 
     @Override
-    boolean consistencyCheck(CellIndex src, Set<CellIndex> dst) {
+    boolean consistencyCheck(CellIndex src, Set<CellIndexExp> dst) {
         return true;
     }
 
     @Override
-    public CellToCellSetMap copy() {
-        CellToCellSetMap ccsm = new CellToCellSetMap(maxR, maxC);
+    public CellToExpSetMap copy() {
+        CellToExpSetMap ccsm = new CellToExpSetMap(maxR, maxC);
         ccsm.map = new ArrayList<>();
-        for (List<Set<CellIndex>> l : this.map) {
-            List<Set<CellIndex>> tmp = new ArrayList();
-            for (Set<CellIndex> ci : l) {
-                Set<CellIndex> s = new HashSet<>();
-                for(CellIndex c : ci)
+        for (List<Set<CellIndexExp>> l : this.map) {
+            List<Set<CellIndexExp>> tmp = new ArrayList();
+            for (Set<CellIndexExp> ci : l) {
+                Set<CellIndexExp> s = new HashSet<>();
+                for(CellIndexExp c : ci)
                     s.add(c.copy());
                 tmp.add(s);
             }

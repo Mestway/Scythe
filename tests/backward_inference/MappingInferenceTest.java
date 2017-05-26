@@ -2,13 +2,13 @@ package backward_inference;
 
 import forward_enumeration.context.EnumConfig;
 import forward_enumeration.context.EnumContext;
-import util.TableNaturalJoinWithAggr;
 import lang.sql.ast.contable.AggregationNode;
 import org.junit.Test;
 import lang.table.Table;
 import lang.sql.ast.Environment;
 import util.CombinationGenerator;
 import util.TableExampleParser;
+import util.hueristics.TableNaturalJoinWithAggr;
 
 import java.util.*;
 import java.util.stream.Collectors;

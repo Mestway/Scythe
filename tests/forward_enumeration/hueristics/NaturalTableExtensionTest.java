@@ -2,13 +2,13 @@ package forward_enumeration.hueristics;
 
 import forward_enumeration.context.EnumConfig;
 import forward_enumeration.context.EnumContext;
-import util.TableNaturalJoinWithAggr;
 import org.junit.Test;
 import lang.table.Table;
 import lang.sql.ast.contable.AggregationNode;
 import lang.sql.ast.contable.TableNode;
 import util.DebugHelper;
 import util.TableExampleParser;
+import util.hueristics.TableNaturalJoinWithAggr;
 
 import java.util.ArrayList;
 import java.util.Arrays;

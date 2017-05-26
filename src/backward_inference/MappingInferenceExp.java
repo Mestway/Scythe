@@ -1,33 +1,38 @@
 package backward_inference;
 
-import lang.sql.dataval.Value;
-import lang.table.Table;
-import lang.table.TableRow;
+import javafx.scene.control.Cell;
 import lang.sql.ast.Environment;
 import lang.sql.ast.predicate.Predicate;
+import lang.sql.dataval.NullVal;
+import lang.sql.dataval.Value;
 import lang.sql.exception.SQLEvalException;
+import lang.table.Table;
+import lang.table.TableRow;
 import util.CombinationGenerator;
+import util.DebugHelper;
+import util.Pair;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * A class used to inference possible mappings from input to output table.
  * Created by clwang on 2/17/16.
  */
-public class MappingInference {
+public class MappingInferenceExp {
 
     // program convention in this class: i loops over rows and j loops over columns.
 
     int maxR, maxC;
     // the mapping between variables
-    CellToCellSetMap map;
+    CellToExpSetMap map;
 
-    private MappingInference() {}
+    private MappingInferenceExp() {}
 
-    public static MappingInference buildMapping(Table in, Table out) {
+    public static MappingInferenceExp buildMapping(Table in, Table out) {
 
-        MappingInference mi = new MappingInference();
+        MappingInferenceExp mi = new MappingInferenceExp();
 
         if (in.getContent().size() == 0 || out.getContent().size() == 0) {
             System.err.println("[Error@MappingInference22]In/Out table is empty.");
@@ -35,38 +40,93 @@ public class MappingInference {
 
         mi.maxR = out.getContent().size();
         mi.maxC = out.getContent().get(0).getValues().size();
-        mi.map = new CellToCellSetMap(mi.maxR, mi.maxC);
 
-        Map<Value, Set<CellIndex>> inverseInputTable = inverseTable(in);
+        int maxExpSize = 1;
+        boolean mappingExist = false;
+        while (!mappingExist && maxExpSize <= 2) {
+            mi.map = new CellToExpSetMap(mi.maxR, mi.maxC);
 
-        for (int i = 0; i < out.getContent().size(); i ++) {
-            for (int j = 0; j < out.getContent().get(i).getValues().size(); j ++) {
-                Value v = out.getContent().get(i).getValue(j);
+            Map<Value, Set<CellIndexExp>> inverseInputTable = inverseTableToExp(in, maxExpSize);
 
-                if (inverseInputTable.containsKey(v)) {
-                    for (CellIndex ci : inverseInputTable.get(v)) {
-                        mi.map.addPair(new CellIndex(i,j), ci);
+            for (int i = 0; i < out.getContent().size(); i ++) {
+                for (int j = 0; j < out.getContent().get(i).getValues().size(); j ++) {
+                    Value v = out.getContent().get(i).getValue(j);
+                    if (inverseInputTable.containsKey(v)) {
+                        for (CellIndexExp ci : inverseInputTable.get(v)) {
+                            mi.map.addPair(new CellIndex(i,j), ci);
+                        }
                     }
                 }
             }
+
+            mi.refineMapping();
+
+            if (mi.everyCellHasImage())
+                return mi;
+
+            maxExpSize ++;
         }
 
-        mi.refineMapping();
         return mi;
     }
 
     // generate a map that maps values to cell indexes, where values of these cells have the same value as the key
-    private static Map<Value, Set<CellIndex>> inverseTable(Table t) {
-        Map<Value, Set<CellIndex>> inverseTableMap = new HashMap<>();
+    private static Map<Value, Set<CellIndexExp>> inverseTableToExp(Table t, int maxExpSize) {
+        Map<Value, Set<CellIndexExp>> inverseTableMap = new HashMap<>();
+
+        if (t.getContent().size() == 0) return inverseTableMap;
+
+        List<Integer> columnIndexList = new ArrayList<>();
+        for (int j = 0; j < t.getContent().get(0).getValues().size(); j ++) {
+            columnIndexList.add(j);
+        }
+
+        // be careful here, we need to add all because a mapping typically requires expressions of multiple sizes
+        List<List<Integer>> colCombs = new ArrayList<>();
+        for (int k = 1; k <= maxExpSize; k ++)
+            colCombs.addAll(CombinationGenerator.genMultPermutation(columnIndexList, k));
+
+        Set<Integer> columnsWNullValues = new HashSet<>();
+        for (int r = 0; r < t.getContent().size(); r ++) {
+            for (int c = 0; c < t.getContent().get(r).getValues().size(); c ++) {
+                if (t.getContent().get(r).getValue(c) instanceof NullVal) {
+                    columnsWNullValues.add(c);
+                }
+            }
+        }
         for (int i = 0; i < t.getContent().size(); i ++) {
-            for (int j = 0; j < t.getContent().get(i).getValues().size(); j ++) {
+            for (List<Integer> l : colCombs) {
+                for (CellIndexExp.Operator op : CellIndexExp.Operator.values()) {
+                    if (op.commutative) {
+                        boolean isSorted = true;
+                        for (int k = 1; k < l.size(); k ++) {
+                            if (! (l.get(k-1) <= l.get(k))) {
+                                isSorted = false;
+                                break;
+                            }
+                        }
+                        if (! isSorted) continue;
+                    }
 
-                Value cellVal = t.getContent().get(i).getValue(j);
+                    int rowId = i;
+                    // obtain concrete values as function parameter
+                    List<Value> parameters = l.stream().map(j -> t.getContent().get(rowId).getValue(j)).collect(Collectors.toList());
+                    List<CellIndex> paramIndices = l.stream().map(j -> new CellIndex(rowId, j)).collect(Collectors.toList());
 
-                if (! inverseTableMap.containsKey(cellVal))
-                    inverseTableMap.put(cellVal, new HashSet<>());
+                    if (! op.typeCheck(parameters))
+                        continue;
 
-                inverseTableMap.get(cellVal).add(new CellIndex(i, j));
+                    // special case for IF_NULL
+                    if (op == CellIndexExp.Operator.IF_NULL
+                            && (!columnsWNullValues.contains(l.get(0)) || l.get(0) == l.get(1)))
+                        continue;
+
+                    Value newVal = op.apply(parameters);
+                    if (! inverseTableMap.containsKey(newVal))
+                        inverseTableMap.put(newVal, new HashSet<>());
+
+                    inverseTableMap.get(newVal).add(new CellIndexExp(op, paramIndices));
+                }
             }
         }
         return inverseTableMap;
@@ -85,14 +145,16 @@ public class MappingInference {
             for (int i = 0; i < map.maxR(); i ++) {
                 for (int j = 0; j < map.maxC(); j ++) {
                     CellIndex src = new CellIndex(i, j);
-                    List<CellIndex> toRemove = new ArrayList<>();
-                    for (CellIndex coord : map.getImage(src)) {
+
+                    List<CellIndexExp> toRemove = new ArrayList<>();
+
+                    for (CellIndexExp coord : map.getImage(src)) {
                         if (!consistencyCheck(src, coord)) {
                             toRemove.add(coord);
                             stable = false;
                         }
                     }
-                    for (CellIndex rm : toRemove) {
+                    for (CellIndexExp rm : toRemove) {
                         map.removePair(src, rm);
                     }
                 }
@@ -105,26 +167,25 @@ public class MappingInference {
        forall u in [0,...,outputR], exists u', s.t. (u',c') in Img((u,c))
        if the condition above is satisfied, we will not touch the code,
        otherwise we will remove the entry from the image. */
-    private boolean consistencyCheck(CellIndex src, CellIndex dst) {
+    private boolean consistencyCheck(CellIndex src, CellIndexExp dst) {
         int r = src.r(), c = src.c();
-        int rPrim = dst.r(), cPrim = dst.c();
-
         // corresponding to check 1
         for (int v = 0; v < map.maxC(); v ++) {
             boolean exists = false;
-            for (CellIndex coord : map.getImage(new CellIndex(r, v))) {
-                if (coord.r() == rPrim)
+            CellIndex checkingSrc = new CellIndex(r, v);
+            for (CellIndexExp indexExp : map.getImage(checkingSrc)) {
+                if (CellIndexExp.pairWiseConsistency(new Pair<>(checkingSrc, indexExp), new Pair<>(src, dst)))
                     exists = true;
             }
             if (exists == false)
                 return false;
         }
-
         // corresponding to check 2
         for (int u = 0; u < map.maxR(); u ++) {
             boolean exists = false;
-            for (CellIndex coord : map.getImage(new CellIndex(u, c))) {
-                if (coord.c() == cPrim)
+            CellIndex checkingSrc = new CellIndex(u, c);
+            for (CellIndexExp indexExp : map.getImage(checkingSrc)) {
+                if (CellIndexExp.pairWiseConsistency(new Pair<>(checkingSrc, indexExp), new Pair<>(src, dst)))
                     exists = true;
             }
             if (!exists) return false;
@@ -136,10 +197,14 @@ public class MappingInference {
     //      The column inference result can be obtained even if we only apply the inference on the first row
     // the result is a list of set:
     //      result.get(c) represents the image sef ot c in the mapping
-    public List<Set<Integer>> genColumnMappingInstances() {
-        List<Set<Integer>> columnMapping = new ArrayList<>();
+    // (each element in the mapping is a pair consisting of operator and operands column index)
+    public List<Set<Pair<CellIndexExp.Operator, List<Integer>>>> genColumnMappingInstances() {
+        List<Set<Pair<CellIndexExp.Operator, List<Integer>>>> columnMapping = new ArrayList<>();
         for (int c = 0; c < maxC; c ++) {
-            columnMapping.add(map.getImage(0, c).stream().map(x -> x.c()).collect(Collectors.toSet()));
+            columnMapping.add(map.getImage(0, c)
+                    .stream()
+                    .map(x -> x.getColExp())
+                    .collect(Collectors.toSet()));
         }
         return columnMapping;
     }
@@ -148,9 +213,10 @@ public class MappingInference {
     // A list represent a way of mapping, example: l = result[0] represent the first way
     // to map columns in output to columns in input, and l[i] = k means that column i in output
     // maps to column k in the input table.
-    public List<List<Integer>> genConcreteColMappings() {
-        List<Set<Integer>> columnMapping = this.genColumnMappingInstances();
-        List<List<Integer>> listRepColMapping = new ArrayList<>();
+    // TODO: may be wrong
+    public List<List<Pair<CellIndexExp.Operator, List<Integer>>>> genConcreteColMappings() {
+        List<Set<Pair<CellIndexExp.Operator, List<Integer>>>> columnMapping = this.genColumnMappingInstances();
+        List<List<Pair<CellIndexExp.Operator, List<Integer>>>> listRepColMapping = new ArrayList<>();
         for (int i = 0; i < columnMapping.size(); i ++) {
             listRepColMapping.add(columnMapping.get(i).stream().collect(Collectors.toList()));
         }
@@ -164,7 +230,7 @@ public class MappingInference {
     public List<Set<Integer>> genRowMappingInstances() {
         List<Set<Integer>> rowMapping = new ArrayList<>();
         for (int r = 0; r < maxR; r ++) {
-            rowMapping.add(map.getImage(r, 0).stream().map(x -> x.r()).collect(Collectors.toSet()));
+            rowMapping.add(map.getImage(r, 0).stream().map(x -> x.getRowIndex()).collect(Collectors.toSet()));
         }
         return rowMapping;
     }
@@ -172,9 +238,9 @@ public class MappingInference {
     // a mapping instance will map each coordinate in output table to a coordinate in input table
     // the mapping instance is generated through the refined map
     // in the result table, each list in quick coord table should have length 1.
-    public List<CellToCellMap> genMappingInstances() {
-        CellToCellMap instance = new CellToCellMap(maxR, maxC);
-        List<CellToCellMap> resultCollector = new ArrayList<>();
+    public List<CellToExpMap> genMappingInstances() {
+        CellToExpMap instance = new CellToExpMap(maxR, maxC);
+        List<CellToExpMap> resultCollector = new ArrayList<>();
         dfsMappingSearch(0, 0, maxR, maxC, instance, resultCollector, this.map);
 
         //System.out.println("[MappingInfernce] mapping size " + resultCollector.size());
@@ -195,9 +261,9 @@ public class MappingInference {
     private void dfsMappingSearch(
             int i, int j,
             int maxI, int maxJ,
-            CellToCellMap currentMap,
-            List<CellToCellMap> resultCollector,
-            CellToCellSetMap candidatePool) {
+            CellToExpMap currentMap,
+            List<CellToExpMap> resultCollector,
+            CellToExpSetMap candidatePool) {
 
         // when dfs reaches its goal
         if (i >= maxI || j >= maxJ) {
@@ -205,9 +271,9 @@ public class MappingInference {
             return;
         }
 
-        for (CellIndex coord : candidatePool.getImage(i,j)) {
+        for (CellIndexExp coord : candidatePool.getImage(i,j)) {
             if (currentMap.consistencyCheck(new CellIndex(i,j), coord)) {
-                CellToCellMap nextMap = currentMap.copy();
+                CellToExpMap nextMap = currentMap.copy();
                 nextMap.insert(new CellIndex(i,j), coord);
                 int nextI = i, nextJ = j + 1;
                 if (nextJ >= maxJ) {
@@ -226,35 +292,35 @@ public class MappingInference {
     // a mapping instance will map each coordinate in output table to a coordinate in input table
     // the mapping instance is generated through the refined map
     // in the result table, each list in quick coord table should have length 1.
-    public Optional<CellToCellMap> searchOneMappingInstance() {
-        CellToCellMap instance = new CellToCellMap(maxR, maxC);
-        Optional<CellToCellMap> ctcMap = Optional.ofNullable(
+    public Optional<CellToExpMap> searchOneMappingInstance() {
+        CellToExpMap instance = new CellToExpMap(maxR, maxC);
+        Optional<CellToExpMap> ctcMap = Optional.ofNullable(
                 dfsOneMappingInstance(0, 0, maxR, maxC, instance, this.map));
         return ctcMap;
     }
 
     // very similar to the one before, but this only search for one mapping instance
-    private CellToCellMap dfsOneMappingInstance(
+    private CellToExpMap dfsOneMappingInstance(
             int i, int j,
             int maxI, int maxJ,
-            CellToCellMap currentMap,
-            CellToCellSetMap candidatePool) {
+            CellToExpMap currentMap,
+            CellToExpSetMap candidatePool) {
 
         // when dfs reaches its goal
         if (i >= maxI || j >= maxJ) {
             return currentMap;
         }
 
-        for (CellIndex coord : candidatePool.getImage(i,j)) {
+        for (CellIndexExp coord : candidatePool.getImage(i,j)) {
             if (currentMap.consistencyCheck(new CellIndex(i,j), coord)) {
-                CellToCellMap nextMap = currentMap.copy();
+                CellToExpMap nextMap = currentMap.copy();
                 nextMap.insert(new CellIndex(i,j), coord);
                 int nextI = i, nextJ = j + 1;
                 if (nextJ >= maxJ) {
                     nextJ = nextJ % maxJ;
                     nextI ++;
                 }
-                CellToCellMap ctcMap = dfsOneMappingInstance(
+                CellToExpMap ctcMap = dfsOneMappingInstance(
                         nextI, nextJ,
                         maxI, maxJ,
                         nextMap, candidatePool);
@@ -275,24 +341,29 @@ public class MappingInference {
      *          e.g. [1 3 5] is asking to find mappings such that [0-1) [1-3) [3-5) have columns inside
      * @return
      */
-    public List<CellToCellMap> genMappingInstancesWColumnBarrier(List<Integer> columnRightBoundaries) {
+    public List<CellToExpMap> genMappingInstancesWColumnBarrier(List<Integer> columnRightBoundaries) {
 
-        List<Set<Integer>> columnMapping = this.genColumnMappingInstances();
-        List<List<Integer>> listRepColMapping = new ArrayList<>();
+        List<Set<Pair<CellIndexExp.Operator, List<Integer>>>> columnMapping = this.genColumnMappingInstances();
+        List<List<Pair<CellIndexExp.Operator, List<Integer>>>> listRepColMapping = new ArrayList<>();
         for (int i = 0; i < columnMapping.size(); i ++) {
             listRepColMapping.add(columnMapping.get(i).stream().collect(Collectors.toList()));
         }
 
-        List<List<Integer>> targetsToSearch = CombinationGenerator.rotateList(listRepColMapping);
+        List<List<Pair<CellIndexExp.Operator, List<Integer>>>> targetsToSearch = CombinationGenerator.rotateList(listRepColMapping);
 
-        List<CellToCellMap> resultCollector = new ArrayList<>();
-        for (List<Integer> target : targetsToSearch) {
+        List<CellToExpMap> resultCollector = new ArrayList<>();
+        for (List<Pair<CellIndexExp.Operator, List<Integer>>> target : targetsToSearch) {
 
             List<Boolean> inRange = columnRightBoundaries.stream().map(x -> false).collect(Collectors.toList());
 
-            for (Integer t : target) {
+            for (Pair<CellIndexExp.Operator, List<Integer>> t : target) {
                 for (int k = 0; k < columnRightBoundaries.size(); k ++) {
-                    if (t < columnRightBoundaries.get(k)) {
+
+                    // check whether the mapping is in range
+                    int rightBoundary = columnRightBoundaries.get(k);
+                    boolean mappingInRange = t.getValue().stream().map(x -> x < rightBoundary).reduce(true, Boolean::logicalAnd);
+
+                    if (mappingInRange) {
                         inRange.set(k, true);
                         break;
                     }
@@ -308,7 +379,7 @@ public class MappingInference {
             //if (target.size() > 1 && ! flag)
             if (! flag) continue;
 
-            CellToCellMap instance = new CellToCellMap(maxR, maxC);
+            CellToExpMap instance = new CellToExpMap(maxR, maxC);
             dfsMappingSearchWithFixedColumns(0, 0, maxR, maxC, instance, resultCollector, this.map, target);
         }
         return resultCollector;
@@ -318,10 +389,10 @@ public class MappingInference {
     private void dfsMappingSearchWithFixedColumns(
             int i, int j,
             int maxI, int maxJ,
-            CellToCellMap currentMap,
-            List<CellToCellMap> resultCollector,
-            CellToCellSetMap candidatePool,
-            List<Integer> columnRestriction) {
+            CellToExpMap currentMap,
+            List<CellToExpMap> resultCollector,
+            CellToExpSetMap candidatePool,
+            List<Pair<CellIndexExp.Operator, List<Integer>>> columnRestriction) {
 
         // when dfs reaches its goal
         if (i >= maxI || j >= maxJ) {
@@ -329,13 +400,22 @@ public class MappingInference {
             return;
         }
 
-        for (CellIndex coord : candidatePool.getImage(i,j)) {
-            if (coord.c() != columnRestriction.get(j))
+        for (CellIndexExp indexExp : candidatePool.getImage(i,j)) {
+
+            Pair<CellIndexExp.Operator, List<Integer>> colExp = indexExp.getColExp();
+
+            boolean permitted = colExp.getKey() == columnRestriction.get(j).getKey()
+                    && columnRestriction.get(j).getValue().size() == colExp.getValue().size()
+                    && IntStream.range(0, indexExp.operands.size())
+                    .mapToObj(k -> colExp.getValue().get(k) == columnRestriction.get(j).getValue().get(k))
+                    .reduce(true, Boolean::logicalAnd);
+
+            if (! permitted)
                 continue;
 
-            if (currentMap.consistencyCheck(new CellIndex(i,j), coord)) {
-                CellToCellMap nextMap = currentMap.copy();
-                nextMap.insert(new CellIndex(i,j), coord);
+            if (currentMap.consistencyCheck(new CellIndex(i,j), indexExp)) {
+                CellToExpMap nextMap = currentMap.copy();
+                nextMap.insert(new CellIndex(i,j), indexExp);
                 int nextI = i, nextJ = j + 1;
                 if (nextJ >= maxJ) {
                     nextJ = nextJ % maxJ;
@@ -354,16 +434,16 @@ public class MappingInference {
     // e.g. if result[0] = {1,2,3}, then it means that the
     // row 0 of the output table can either be from 1,2,3 of the original table.
     public List<Set<Integer>> genRowMappingRange(List<Integer> fixedColumn) {
-        CellToCellSetMap newMap = new CellToCellSetMap(maxR, maxC);
+        CellToExpSetMap newMap = new CellToExpSetMap(maxR, maxC);
         for (int i = 0; i < maxR; i ++) {
             for (int j = 0; j < maxC; j ++) {
-                for (CellIndex ci : map.getImage(i,j)) {
-                    if (fixedColumn.contains(ci.c()))
+                for (CellIndexExp ci : map.getImage(i,j)) {
+                    if (fixedColumn.containsAll(ci.getColExp().getValue()))
                         newMap.addPair(new CellIndex(i,j), ci);
                 }
             }
         }
-        MappingInference tempMi = new MappingInference();
+        MappingInferenceExp tempMi = new MappingInferenceExp();
         tempMi.maxC  = this.maxC;
         tempMi.maxR = this.maxR;
         tempMi.map = newMap;
@@ -507,31 +587,33 @@ public class MappingInference {
     @Override
     public String toString() {
         String s = "";
-
         for (CellIndex key : map.keys()) {
             String listString = map.getImage(key).stream()
                     .map(u -> u.toString())
                     .reduce("", (x, y)-> x.toString() + ","+ y.toString()).trim();
+            if (! listString.isEmpty())
+                listString = listString.substring(1);
+            else
+                listString = "[]";
             s += key.toString()
-                    + " -> " + " ["
-                    + (listString.equals("") ? "" : listString.substring(listString.indexOf("("))) + "]\n";
+                    + " -> "
+                    + (listString.equals("") ? "" : listString) + ";\n";
         }
-
         return s;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof MappingInference) {
-            return this.maxC == ((MappingInference) obj).maxC
-                    && this.maxR == ((MappingInference) obj).maxR
-                    && this.map.equals(((MappingInference) obj).map);
+        if (obj instanceof MappingInferenceExp) {
+            return this.maxC == ((MappingInferenceExp) obj).maxC
+                    && this.maxR == ((MappingInferenceExp) obj).maxR
+                    && this.map.equals(((MappingInferenceExp) obj).map);
         }
         return false;
     }
 
-    public MappingInference deepCopy() {
-        MappingInference mi = new MappingInference();
+    public MappingInferenceExp deepCopy() {
+        MappingInferenceExp mi = new MappingInferenceExp();
         mi.maxC = this.maxC;
         mi.maxR = this.maxR;
         mi.map = this.map.copy();
@@ -546,24 +628,24 @@ public class MappingInference {
         return true;
     }
 
-    public static void printColumnMapping(List<Set<Integer>> columnMapping) {
+    public static void printColumnMapping(List<Set<Pair<CellIndexExp.Operator, List<Integer>>>> columnMapping) {
         String s = "";
         for (int k = 0; k < columnMapping.size(); k ++) {
-            Set<Integer> imgSet = columnMapping.get(k);
+            Set<Pair<CellIndexExp.Operator, List<Integer>>> imgSet = columnMapping.get(k);
             String eString = "";
             eString = k + " -> ";
-            String img = "[";
+            String imgStr = "[";
             boolean isFirst = true;
-            for (int i : imgSet) {
+            for (Pair<CellIndexExp.Operator, List<Integer>> img : imgSet) {
                 if (isFirst) {
-                    img += i;
+                    imgStr += img.getKey() + "_" + img.getValue().stream().map(x -> x.toString()).reduce(String::concat);
                     isFirst = false;
                 } else {
-                    img += ", " + i;
+                    imgStr += ", " + img.getKey() + "_" + img.getValue().stream().map(x -> x.toString()).reduce(String::concat);
                 }
             }
-            img += "]";
-            eString += img;
+            imgStr += "]";
+            eString += imgStr;
             s += eString + "\n";
         }
         System.out.println(s);

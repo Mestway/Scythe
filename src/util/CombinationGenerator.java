@@ -83,6 +83,13 @@ public class CombinationGenerator {
         return lists;
     }
 
+    /**
+     * Generate permutations of a list with the allowance of one element appear multiple times
+     * @param lst the list to generate permutation
+     * @param n the size of permutation
+     * @param <T> Type of the list
+     * @return A list containing all permutations of the given element within length n
+     */
     public static <T> List<List<T>> genMultPermutation(List<T> lst, int n) {
         if (n == 0) {
             List<List<T>> result = new ArrayList<>();
