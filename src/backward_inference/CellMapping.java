@@ -87,5 +87,4 @@ public abstract class CellMapping<T> {
      * @return a fresh mapping copied from the current one
      */
     abstract CellMapping<T> copy();
-
 }

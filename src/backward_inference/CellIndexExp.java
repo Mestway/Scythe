@@ -36,7 +36,8 @@ public class CellIndexExp {
             ID.typeCheck = l -> l.size() == 1;
 
             ADD.f = l -> new NumberVal(l.stream().map(x -> ((NumberVal) x).getVal()).reduce(0., Double::sum));
-            ADD.typeCheck = l -> l.size() >= 2 && l.stream().map(x -> x instanceof NumberVal).reduce(true, Boolean::logicalAnd);
+            ADD.typeCheck = l -> l.size() >= 2
+                    && l.stream().map(x -> x instanceof NumberVal).reduce(true, Boolean::logicalAnd);
 
             SUB.f = l -> new NumberVal(((NumberVal) l.get(0)).getVal() - ((NumberVal) l.get(1)).getVal());
             SUB.typeCheck = l -> l.size() == 2 && l.get(0) instanceof NumberVal && l.get(1) instanceof NumberVal;

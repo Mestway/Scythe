@@ -70,7 +70,13 @@ public class MappingInferenceExp {
         return mi;
     }
 
-    // generate a map that maps values to cell indexes, where values of these cells have the same value as the key
+    /**
+     *  gGenerate a map that maps values to cell indexes expressions
+     *  values of these expressions have the same evaluation result
+     * @param t the table to be destructed
+     * @param maxExpSize the maximum expression size
+     * @return a mapping containing all such mappings
+     */
     private static Map<Value, Set<CellIndexExp>> inverseTableToExp(Table t, int maxExpSize) {
         Map<Value, Set<CellIndexExp>> inverseTableMap = new HashMap<>();
 
@@ -468,120 +474,6 @@ public class MappingInferenceExp {
             columnMap.put(j, cim.getImage(0, j).c());
         }
         return columnMap;
-    }
-
-    public static List<BitSet> bulkBitEncodingFilter(Table table, List<Predicate> filters) {
-
-        List<BitSet> encodingList = new ArrayList<>();
-
-        Map<Predicate, Integer> filterIndex = new HashMap<>();
-        for (int i = 0; i < filters.size(); i ++) {
-            encodingList.add(new BitSet(table.getContent().size()));
-            filterIndex.put(filters.get(i), i);
-        }
-
-        for (int i = 0; i < table.getContent().size(); i ++)
-            table.getContent().get(i).index = i;
-
-        table.getContent().parallelStream().forEach(tr -> {
-            Map<String, Value> rowBinding = new HashMap<String, Value>();
-            // extend the evaluation environment for this column
-            if (! table.getName().equals("anonymous")) {
-                for (int k = 0; k < table.getSchema().size(); k ++) {
-                    rowBinding.put(
-                            table.getName() + "." + table.getSchema().get(k),
-                            tr.getValue(k));
-                }
-            } else {
-                for (int k = 0; k < table.getSchema().size(); k ++) {
-                    rowBinding.put(table.getSchema().get(k), tr.getValue(k));
-                }
-            }
-
-            Environment env = new Environment().extend(rowBinding);
-            filters.parallelStream().forEach(f -> {
-                try {
-                    if (f.eval(env))
-                        encodingList.get(filterIndex.get(f)).set(tr.index);
-                } catch (SQLEvalException e) {
-                    e.printStackTrace();
-                }
-            });
-        });
-        return encodingList;
-    }
-
-    public static BitSet bitEncodingFilter(Table table, Predicate f) {
-        BitSet encoding = new BitSet(table.getContent().size());
-
-        for (int i = 0; i < table.getContent().size(); i ++) {
-            TableRow tr = table.getContent().get(i);
-
-            Map<String, Value> rowBinding = new HashMap<String, Value>();
-            // extend the evaluation environment for this column
-            if (table.getName().equals("anonymous") == false) {
-                for (int k = 0; k < table.getSchema().size(); k ++) {
-                    rowBinding.put(table.getName() + "." + table.getSchema().get(k), tr.getValue(k));
-                }
-            } else {
-                for (int k = 0; k < table.getSchema().size(); k ++) {
-                    rowBinding.put(table.getSchema().get(k), tr.getValue(k));
-                }
-            }
-
-            Environment env = new Environment().extend(rowBinding);
-            try {
-                if (f.eval(env)) {
-                    encoding.set(i);
-                }
-            } catch (SQLEvalException e) {
-                e.printStackTrace();
-            }
-        }
-        return encoding;
-    }
-
-    public static Map<BitSet, List<Predicate>> filterMemoization(Table table, List<Predicate> filters) {
-        Map<BitSet, List<Predicate>> bitFilterMap= new HashMap<>();
-        System.out.println("I'm Here");
-        System.out.println("Filter Size: " + filters.size());
-
-        // Encoding method 1: foreach eval, do encoding and add them to the map
-        filters.parallelStream().forEach(f -> {
-            BitSet encoding = bitEncodingFilter(table, f);
-            if (!bitFilterMap.containsKey(encoding)) {
-                List<Predicate> list = new ArrayList<>();
-                list.add(f);
-                bitFilterMap.put(encoding, list);
-            } else {
-                bitFilterMap.get(encoding).add(f);
-            }
-        });
-
-        // Encoding method 2: for each row, encoding all filters
-        /*
-        List<BitSet> encodings = bulkBitEncodingFilter(table, filters);
-        //List<BitSet> encodings = filters.stream().parallel().map(f -> bitEncodingFilter(table, f)).collect(Collectors.toList());
-        for (int i = 0; i < filters.size(); i ++) {
-            Filter f = filters.get(i);
-            BitSet encoding = encodings.get(i); //
-             //BitSet encoding= bitEncodingFilter(table, f);
-            if (!bitFilterMap.containsKey(encoding)) {
-                List<Filter> list = new ArrayList<>();
-                list.add(f);
-                bitFilterMap.put(encoding, list);
-            } else {
-                bitFilterMap.get(encoding).add(f);
-            }
-        }
-        */
-
-        System.out.println("Value Size: " + bitFilterMap.entrySet().size());
-        for (Map.Entry<BitSet, List<Predicate>> k : bitFilterMap.entrySet()) {
-            System.out.println("#" + k.getValue().size() + " : " + k.getKey().toString());
-        }
-
-        return bitFilterMap;
     }
 
     @Override
