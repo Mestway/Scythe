@@ -116,6 +116,8 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
         int noneBogusFilterCount = 0;
         int targetFilterSize =  primitives.size() *  primitives.size() / 2 + 1;
 
+        System.out.println("[Visited Predicates (PrimitiveTable)] " + targetFilterSize);
+
         // this is the traditional way, invoking the mergeAndLink function to get it.
         for (int i = 0; i < primitives.size(); i ++) {
             // we can prune this if we don't allow disjunctive filters
@@ -303,8 +305,11 @@ public class PrimitiveSummaryTable extends AbstractSummaryTable {
             Set<BVFilter> conj = AbstractSummaryTable.genConjunctiveFilters(this, this.primitiveBVFilters.stream().collect(Collectors.toList()));
             Set<BVFilter> disj = AbstractSummaryTable.genDisjunctiveFilters(this, this.primitiveBVFilters.stream().collect(Collectors.toList()));
             conj.addAll(disj);
-            System.out.println("[Syn Filter Size]" + (filters.size() * filters.size() * 2 + filters.size()));
-            System.out.println("[Filter Reduction Rate] " + ((double) (filters.size() * filters.size() * 2 + filters.size())) / conj.size());
+            //System.out.println("[Syn Filter Size]" + (filters.size() * filters.size() * 2 + filters.size()));
+            System.out.println("[Filter Reduction Rate] "
+                    + " Origin: " + (filters.size() * filters.size() * 2 + filters.size())
+                    + " Now: " + conj.size()
+                    + " Rate: " + ((double) (filters.size() * filters.size() * 2 + filters.size())) / conj.size());
         }
     }
 

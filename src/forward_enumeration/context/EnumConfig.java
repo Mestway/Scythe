@@ -6,7 +6,6 @@ import sql.lang.Table;
 import sql.lang.datatype.Value;
 import sql.lang.ast.table.AggregationNode;
 import sql.lang.ast.val.ConstantVal;
-import sql.lang.ast.val.ValNode;
 
 import java.util.ArrayList;
 import java.util.Collection;

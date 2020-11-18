@@ -1,7 +1,6 @@
 package sql.lang.ast.table;
 
 import forward_enumeration.primitive.parameterized.InstantiateEnv;
-import sql.lang.ast.val.NamedVal;
 import util.Pair;
 import sql.lang.datatype.*;
 import sql.lang.Table;

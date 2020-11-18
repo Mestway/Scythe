@@ -25,9 +25,9 @@ public final class GlobalConfig {
 
     public static final Integer DESIRABLE_CANDIDATE_QUERY_SCORE = 10;
 
-    public static final boolean STAT_MODE = false;
+    public static final boolean STAT_MODE = true;
 
-    public static final boolean PRINT_LOG = false;
+    public static final boolean PRINT_LOG = true;
 
     public static final boolean GUESS_ADDITIONAL_CONSTANTS = false;
 
